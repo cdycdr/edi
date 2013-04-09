@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8D6363BB-DDEE-48A9-9D33-4BC412434428}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EdiViews</RootNamespace>
+    <AssemblyName>EdiViews</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\02_Libs\00_bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MsgBox">
+      <HintPath>..\02_Libs\00_bin\MsgBox.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About\AboutDlg.xaml.cs">
+      <DependentUpon>AboutDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="About\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="About\AboutViewModel.cs" />
+    <Compile Include="Behaviour\HideToolbarOverflowButton.cs" />
+    <Compile Include="Behaviour\KeyboardFocus.cs" />
+    <Compile Include="Behaviour\OffLineIndicator.cs" />
+    <Compile Include="Config\AppConfigView.xaml.cs">
+      <DependentUpon>AppConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Behaviour\DialogCloser.cs" />
+    <Compile Include="Behaviour\DropFileCommand.cs" />
+    <Compile Include="Behaviour\FocusExtension.cs" />
+    <Compile Include="Behaviour\MergeStyleBehaviour.cs" />
+    <Compile Include="Behaviour\RemoveIcon.cs" />
+    <Compile Include="Behaviour\TextBoxHelper.cs" />
+    <Compile Include="Config\ConfigDlg.xaml.cs">
+      <DependentUpon>ConfigDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Config\ViewModel\ConfigViewModel.cs" />
+    <Compile Include="Config\ViewModel\EdiThemesViewModel.cs" />
+    <Compile Include="Config\ViewModel\HlThemeConfig.cs" />
+    <Compile Include="Config\ViewModel\HlThemeKey.cs" />
+    <Compile Include="Config\ViewModel\ViewPosSzViewModel.cs" />
+    <Compile Include="Converter\BooleanToTypeModeStringConverter.cs" />
+    <Compile Include="Converter\EnumToBooleanConverter.cs" />
+    <Compile Include="Converter\HlThemeKeyToBooleanConverter.cs" />
+    <Compile Include="Converter\MessageType\CountToVisibilityHiddenConverter.cs" />
+    <Compile Include="Converter\MessageType\MsgTypeToResourceConverter.cs" />
+    <Compile Include="Converter\NullToVisibilityConverter.cs" />
+    <Compile Include="Converter\ZeroToVisibilityConverter.cs" />
+    <Compile Include="FindReplace\Converter\BoolToInt.cs" />
+    <Compile Include="FindReplace\Converter\InverseBooleanConverter.cs" />
+    <Compile Include="FindReplace\Converter\SearchScopeToInt.cs" />
+    <Compile Include="FindReplace\FindReplaceDialog.xaml.cs">
+      <DependentUpon>FindReplaceDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FindReplace\FindReplaceView.xaml.cs">
+      <DependentUpon>FindReplaceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FindReplace\SearchScope.cs" />
+    <Compile Include="FindReplace\ViewModel\FindReplaceViewModel.cs" />
+    <Compile Include="FindReplace\ViewModel\IEditor.cs" />
+    <Compile Include="GotoLine\GotoLineDlg.xaml.cs">
+      <DependentUpon>GotoLineDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GotoLine\GotoLineView.xaml.cs">
+      <DependentUpon>GotoLineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GotoLine\GotoLineViewModel.cs" />
+    <Compile Include="Msg.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\Base\DialogViewModelBase.cs" />
+    <Compile Include="ViewModel\Base\FileBaseViewModel.cs" />
+    <Compile Include="ViewModel\Base\PaneViewModel.cs" />
+    <Compile Include="ViewModel\Base\ToolViewModel.cs" />
+    <Compile Include="ViewModel\Base\ViewModelBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
+      <Project>{6c55b776-26d4-4db3-a6ab-87e783b2f3d1}</Project>
+      <Name>ICSharpCode.AvalonEdit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleControls\SimpleControls.csproj">
+      <Project>{0E69BE38-78C0-4662-A0E1-56C5913B5C3A}</Project>
+      <Name>SimpleControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Themes\Themes.csproj">
+      <Project>{957a91e6-91dd-4c13-b1d1-f06d66ec6d55}</Project>
+      <Name>Themes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Util\Util.csproj">
+      <Project>{d96f59c4-a727-47d9-84ad-508b04df2714}</Project>
+      <Name>Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="About\AboutDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="About\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Config\AppConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Config\ConfigDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FindReplace\FindReplaceDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FindReplace\FindReplaceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GotoLine\GotoLineDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GotoLine\GotoLineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ExpressionLight2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ExpressionDark2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ExpressionDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\Documents\Edi\" />
+    <Folder Include="ViewModel\Documents\StartPage\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

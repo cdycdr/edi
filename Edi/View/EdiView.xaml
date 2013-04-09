@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="Edi.View.EdiView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+             xmlns:ae="clr-namespace:ICSharpCode.AvalonEdit.Edi;assembly=ICSharpCode.AvalonEdit"
+             xmlns:vm="clr-namespace:Edi.ViewModel"
+
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=vm:EdiViewModel, IsDesignTimeCreatable=True}"
+             >
+  <Grid>
+    <!-- Known problem: Options must be bound or the control will show a gray bar otherwise -->
+    <ae:EdiTextEditor Document="{Binding Document}"
+                      Options="{Binding TextOptions}"
+                      SyntaxHighlighting="{Binding HighlightingDefinition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       
+                      EditorCaretOffset="{Binding TextEditorCaretOffset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      EditorSelectionLength="{Binding TextEditorSelectionLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      EditorSelectionStart="{Binding TextEditorSelectionStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      EditorIsRectangleSelection="{Binding TextEditorIsRectangularSelection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      EditorScrollOffsetX="{Binding TextEditorScrollOffsetX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      EditorScrollOffsetY="{Binding TextEditorScrollOffsetY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      EditorCurrentLineBackground="{DynamicResource EditorCurrentLineBackgroundColor}"
+
+                      FontSize="{Binding Path=SizeUnitLabel.ScreenPoints}"
+                      FontFamily="Consolas"
+
+                      WordWrap="{Binding Path=WordWrap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ShowLineNumbers="{Binding Path=ShowLineNumbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+
+                      IsModified="{Binding Path=IsDirty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsReadOnly="{Binding IsReadOnly}"
+
+                      TextBoxController="{Binding TxtControl}"
+                      Line="{Binding Line, Mode=OneWayToSource}"
+                      Column="{Binding Column, Mode=OneWayToSource}"
+      >
+      <ae:EdiTextEditor.ContextMenu>
+        <ContextMenu>
+          <MenuItem Command="Cut" Header="Cut">
+            <MenuItem.Icon>
+              <Image Source="{StaticResource Image_Cut}" Height="16"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Command="Copy" Header="Copy">
+            <MenuItem.Icon>
+              <Image Source="{StaticResource Image_Copy}" Height="16"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Command="Paste" Header="Paste">
+            <MenuItem.Icon>
+              <Image Source="{StaticResource Image_Paste}" Height="16"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Command="Delete" Header="Delete">
+            <MenuItem.Icon>
+              <Image Source="{StaticResource Image_Delete}" Height="16"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <Separator />
+          <MenuItem Command="SelectAll" Header="Select All"
+                    ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+          <Separator />
+          <MenuItem Command="Undo" Header="Undo">
+            <MenuItem.Icon>
+              <Image Source="{StaticResource Image_Undo}" Height="16"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Command="Redo" Header="Redo">
+            <MenuItem.Icon>
+              <Image Source="{StaticResource Image_Redo}" Height="16"/>
+            </MenuItem.Icon>
+          </MenuItem>
+        </ContextMenu>
+      </ae:EdiTextEditor.ContextMenu>
+    </ae:EdiTextEditor>
+  </Grid>
+</UserControl>
