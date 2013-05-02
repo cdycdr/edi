@@ -12,6 +12,9 @@
   using EdiViews.ViewModel.Base;
   using MsgBox;
   using MsgBox.Commands;
+  using Util.Command;
+  using EdiViews.StartPage;
+  using EdiViews.Documents.StartPage;
 
   /// <summary>
   /// Base enumeration to determine the kind of command option

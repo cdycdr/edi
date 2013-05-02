@@ -1,4 +1,4 @@
-﻿namespace Edi
+﻿namespace Util.Command
 {
   using System.Windows.Input;
 

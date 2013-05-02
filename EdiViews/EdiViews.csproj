@@ -50,7 +50,13 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnitComboLib">
+      <HintPath>..\02_Libs\00_bin\UnitComboLib.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="YalvLib">
+      <HintPath>..\02_Libs\00_bin\YalvLib\YalvLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About\AboutDlg.xaml.cs">
@@ -87,6 +93,10 @@
     <Compile Include="Converter\MessageType\MsgTypeToResourceConverter.cs" />
     <Compile Include="Converter\NullToVisibilityConverter.cs" />
     <Compile Include="Converter\ZeroToVisibilityConverter.cs" />
+    <Compile Include="FileStats\FileStatsView.xaml.cs">
+      <DependentUpon>FileStatsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileStats\FileStatsViewModel.cs" />
     <Compile Include="FindReplace\Converter\BoolToInt.cs" />
     <Compile Include="FindReplace\Converter\InverseBooleanConverter.cs" />
     <Compile Include="FindReplace\Converter\SearchScopeToInt.cs" />
@@ -106,13 +116,31 @@
       <DependentUpon>GotoLineView.xaml</DependentUpon>
     </Compile>
     <Compile Include="GotoLine\GotoLineViewModel.cs" />
+    <Compile Include="Log4Net\Log4NetMessageToolViewModel.cs" />
+    <Compile Include="Log4Net\Log4NetMessageView.xaml.cs">
+      <DependentUpon>Log4NetMessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Log4Net\Log4NetToolView.xaml.cs">
+      <DependentUpon>Log4NetToolView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Log4Net\Log4NetToolViewModel.cs" />
+    <Compile Include="ViewModel\Documents\Log4Net\Log4NetViewModel.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecentFiles\RecentFilesView.xaml.cs">
+      <DependentUpon>RecentFilesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RecentFiles\RecentFilesViewModel.cs" />
+    <Compile Include="StartPage\StartPageView.xaml.cs">
+      <DependentUpon>StartPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Documents\StartPage\StartPageViewModel.cs" />
     <Compile Include="ViewModel\Base\DialogViewModelBase.cs" />
     <Compile Include="ViewModel\Base\FileBaseViewModel.cs" />
     <Compile Include="ViewModel\Base\PaneViewModel.cs" />
     <Compile Include="ViewModel\Base\ToolViewModel.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
+    <Compile Include="ViewModel\Base\DocumentChangedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
@@ -149,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="FileStats\FileStatsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FindReplace\FindReplaceDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -162,6 +194,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GotoLine\GotoLineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Log4Net\Log4NetMessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Log4Net\Log4NetToolView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecentFiles\RecentFilesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StartPage\StartPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,7 +232,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\Documents\Edi\" />
-    <Folder Include="ViewModel\Documents\StartPage\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

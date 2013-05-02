@@ -90,22 +90,17 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AppCommand.cs" />
     <Compile Include="AvalonEdit\HighLighting_Extension\HighlightingExtension.cs" />
     <Compile Include="Converter\ActiveDocumentConverter.cs" />
     <Compile Include="Converter\ActiveDocumentToVisibilityConverter.cs" />
-    <Compile Include="ViewModel\Log4NetMessageToolViewModel.cs" />
-    <Compile Include="ViewModel\Log4NetViewModel.cs" />
-    <Compile Include="ViewModel\StartPageViewModel.cs" />
-    <Compile Include="ViewModel\Log4NetToolViewModel.cs" />
-    <Compile Include="View\StartPage.xaml.cs">
-      <DependentUpon>StartPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\FileStatsViewModel.cs" />
+    <Compile Include="ViewModel\EdiViewModel.cs" />
     <Compile Include="ViewModel\Workspace_Editor.cs" />
     <Compile Include="ViewModel\Workspace_Theming.cs" />
-    <Compile Include="View\RecentFilesView.xaml.cs">
-      <DependentUpon>RecentFilesView.xaml</DependentUpon>
+    <Compile Include="View\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainToolbar.xaml.cs">
+      <DependentUpon>MainToolbar.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pane\LayoutInitializer.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -126,22 +121,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ViewModel\EdiViewModel.cs" />
-    <Compile Include="ViewModel\RecentFilesViewModel.cs" />
-    <Compile Include="ViewModel\TextBoxControl\TextBoxController.cs" />
     <Compile Include="ViewModel\Workspace_Command.cs" />
     <Compile Include="ViewModel\Workspace_Config.cs" />
     <Compile Include="View\EdiView.xaml.cs">
       <DependentUpon>EdiView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Workspace.cs" />
+    <Compile Include="View\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewSelector.cs" />
-    <Compile Include="View\Log4NetMessageView.xaml.cs">
-      <DependentUpon>Log4NetMessageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Log4NetToolView.xaml.cs">
-      <DependentUpon>Log4NetToolView.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -286,23 +275,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\StartPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\RecentFilesView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\EdiView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Log4NetMessageView.xaml">
+    <Page Include="View\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Log4NetToolView.xaml">
+    <Page Include="View\MainToolbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatusBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

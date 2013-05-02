@@ -1,4 +1,4 @@
-﻿namespace Edi.ViewModel
+﻿namespace EdiViews.Documents.Log4Net
 {
   using System;
   using System.Globalization;
@@ -127,7 +127,7 @@
         return false;
       }
 
-      set
+      protected set
       {
         throw new NotSupportedException("Log4Net documents cannot be saved therfore setting dirty cannot be useful.");
       }
@@ -156,11 +156,6 @@
     override public bool CanClose()
     {
       return true;
-    }
-
-    private void OnClose()
-    {
-      Workspace.This.Close(this);
     }
     #endregion
     #endregion DocumentCommands
@@ -194,7 +189,12 @@
     }
     #endregion
 
-    internal static Log4NetViewModel LoadFile(string filePath)
+    /// <summary>
+    /// Load a log4net file and return the corresponding viewmodel representation for it.
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    public static Log4NetViewModel LoadFile(string filePath)
     {
       bool IsFilePathReal = false;
 

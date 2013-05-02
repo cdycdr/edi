@@ -12,6 +12,13 @@
  - Query user whether files should be searched/browsed
  - or add lost & and found view that offers a hyperlink that performs a file open on the last known location
 
+* Refactored:
+  Views for more modularity into EdiViews
+  Split MainWindow.xaml into several parts
+  Adjusted YalvLib ExpressionDark theme
+  Updated Log4Net Viewer library to include recent bug fixes (known problem: Colors are not adjusted when changing themes on the fly)
+  Changed log4net viewer extension to log4j
+
 * Version 1.0.3
   Refactored Edi TextEditor control into a loockless control EdiTextEditor that inherites from AvalonEdit
 

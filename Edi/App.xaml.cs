@@ -7,10 +7,13 @@ namespace Edi
   using System.Threading;
   using System.Windows;
   using System.Windows.Threading;
-
   using AvalonDock.Layout.Serialization;
-  using EdiViews.Config.ViewModel;
   using Edi.ViewModel;
+  using EdiViews.Config.ViewModel;
+  using EdiViews.Documents.StartPage;
+  using EdiViews.FileStats;
+  using EdiViews.Log4Net;
+  using EdiViews.ViewModel;
   using log4net;
   using log4net.Config;
   using MsgBox;
@@ -437,13 +440,13 @@ namespace Edi
             args.Content = Workspace.This.FileStats;
           else
             if (args.Model.ContentId == RecentFilesViewModel.ToolContentId)
-              args.Content = Workspace.This.RecentFiles;
+              args.Content = (object)Workspace.This.RecentFiles;
             else
             if (args.Model.ContentId == Log4NetToolViewModel.ToolContentId)
-              args.Content = Workspace.This.Log4NetTool; // Re-create log4net tool window binding
+              args.Content = (object)Workspace.This.Log4NetTool; // Re-create log4net tool window binding
             else
             if (args.Model.ContentId == Log4NetMessageToolViewModel.ToolContentId)
-              args.Content = Workspace.This.Log4NetMessageTool; // Re-create log4net message tool window binding
+              args.Content = (object)Workspace.This.Log4NetMessageTool; // Re-create log4net message tool window binding
             else
             {
               if (Workspace.This.Config.ReloadOpenFilesOnAppStart == true)

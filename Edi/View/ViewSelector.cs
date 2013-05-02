@@ -3,7 +3,7 @@
   using System;
   using System.Windows;
 
-  class ViewSelector
+  internal class ViewSelector
   {
     /// <summary>
     /// Return a new view object for a matching type of ViewModel object

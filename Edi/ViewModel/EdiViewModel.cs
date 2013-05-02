@@ -7,8 +7,8 @@
   using System.Text;
   using System.Windows.Input;
 
-  using Edi.ViewModel.TextBoxControl;
   using ICSharpCode.AvalonEdit.Document;
+  using ICSharpCode.AvalonEdit.Edi.TextBoxControl;
   using ICSharpCode.AvalonEdit.Highlighting;
   using ICSharpCode.AvalonEdit.Utils;
   using MsgBox;
@@ -28,6 +28,7 @@
     private object lockThis = new object();
     #endregion Fields
 
+    #region constructor
     /// <summary>
     /// Standard constructor. See also static <seealso cref="LoadFile"/> method
     /// for construction from file saved on disk.
@@ -50,7 +51,9 @@
       this.TextEditorSelectionStart = 0;
       this.TextEditorSelectionLength = 0;
     }
+    #endregion constructor
 
+    #region properties
     #region FilePath
     private string mFilePath = null;
 
@@ -199,8 +202,12 @@
     /// </summary>
     override public bool IsDirty
     {
-      get { return _isDirty; }
-      set
+      get
+      {
+        return _isDirty;
+      }
+      
+      protected set
       {
         if (_isDirty != value)
         {
@@ -333,7 +340,7 @@
     }
 
     private ICSharpCode.AvalonEdit.TextEditorOptions mTextOptions            
-            = new ICSharpCode.AvalonEdit.TextEditorOptions(){ IndentationSize=2, ConvertTabsToSpaces=true};
+            = new ICSharpCode.AvalonEdit.TextEditorOptions(){  IndentationSize=2, ConvertTabsToSpaces=true};
     public ICSharpCode.AvalonEdit.TextEditorOptions TextOptions
     {
       get
@@ -508,65 +515,7 @@
     {
       return true;
     }
-
-    public void OnClose()
-    {
-      Workspace.This.Close(this);
-    }
     #endregion
-
-    #region OpenContainingFolder
-    RelayCommand<object> _openContainingFolderCommand = null;
-    public ICommand OpenContainingFolderCommand
-    {
-      get
-      {
-        if (_openContainingFolderCommand == null)
-          _openContainingFolderCommand = new RelayCommand<object>((p) => this.OnOpenContainingFolderCommand(),
-                                                                  (p) => this.CanOpenContainingFolderCommand());
-
-        return _openContainingFolderCommand;
-      }
-    }
-
-    public bool CanOpenContainingFolderCommand()
-    {
-      return true;
-    }
-
-    private void OnOpenContainingFolderCommand()
-    {
-      try
-      {
-        if (System.IO.File.Exists(this.FilePath) == true)
-        {
-          // combine the arguments together it doesn't matter if there is a space after ','
-          string argument = @"/select, " + this.FilePath;
-
-          System.Diagnostics.Process.Start("explorer.exe", argument);
-        }
-        else
-        {
-          string parentDir = System.IO.Directory.GetParent(this.FilePath).FullName;
-
-          if (System.IO.Directory.Exists(parentDir) == false)
-            MsgBox.Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "The directory '{0}' does not exist or cannot be accessed.", parentDir),
-                                "Error finding file", MsgBoxButtons.OK, MsgBoxImage.Error);
-          else
-          {
-            string argument = @"/select, " + parentDir;
-
-            System.Diagnostics.Process.Start("EXPLORER.EXE", argument);
-          }
-        }
-      }
-      catch (System.Exception ex)
-      {
-        MsgBox.Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (this.FilePath == null ? string.Empty : this.FilePath)),
-                            "Error finding file:", MsgBoxButtons.OK, MsgBoxImage.Error);
-      }
-    }
-    #endregion OpenContainingFolder
 
     #region Encoding
     private Encoding mFileEncoding = Encoding.UTF8;
@@ -587,36 +536,6 @@
       }
     }
     #endregion Encoding
-
-    #region CopyFullPathtoClipboard
-    RelayCommand<object> _copyFullPathtoClipboard = null;
-    public ICommand CopyFullPathtoClipboard
-    {
-      get
-      {
-        if (_copyFullPathtoClipboard == null)
-          _copyFullPathtoClipboard = new RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand(), (p) => this.CanCopyFullPathtoClipboardCommand());
-
-        return _copyFullPathtoClipboard;
-      }
-    }
-
-    public bool CanCopyFullPathtoClipboardCommand()
-    {
-      return true;
-    }
-
-    private void OnCopyFullPathtoClipboardCommand()
-    {
-      try
-      {
-        System.Windows.Clipboard.SetText(this.FilePath);
-      }
-      catch
-      {
-      }
-    }
-    #endregion CopyFullPathtoClipboard
 
     #region ScaleView
     public UnitViewModel SizeUnitLabel { get; set; }
@@ -913,7 +832,9 @@
         this.TxtControl.EndChange();
     }
     #endregion IEditorInterface
+    #endregion properties
 
+    #region methods
     /// <summary>
     /// Get the path of the file or empty string if file does not exists on disk.
     /// </summary>
@@ -936,5 +857,6 @@
     {
       this.HighlightingDefinition = null;
     }
+    #endregion methods
   }
 }

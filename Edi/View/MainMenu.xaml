@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="Edi.View.MainMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="500"
+             
+            xmlns:EdiViewsConv="clr-namespace:EdiViews.Converter;assembly=EdiViews"
+            xmlns:cmd="clr-namespace:Util.Command;assembly=Util"
+            xmlns:behav="clr-namespace:EdiViews.Behaviour;assembly=EdiViews"
+             >
+  <Grid>
+    <Menu Grid.Row="0">
+      <MenuItem Header="_File">
+        <MenuItem Header="New" Command="New"/>
+        <MenuItem Header="Open" Command="Open"/>
+        <Separator/>
+        <MenuItem Header="Save" Command="Save" ToolTipService.ShowOnDisabled="True" />
+        <MenuItem Header="Save As..." Command="SaveAs"/>
+        <MenuItem ItemsSource="{Binding RecentFiles.MruList.ListOfMRUEntries}" Grid.Row="0" Header="Recent Files"
+                  Visibility="{Binding Path=RecentFiles.MruList.ListOfMRUEntries, Mode=OneWay, Converter={EdiViewsConv:ZeroToVisibilityConverter}}">
+          <MenuItem.ItemContainerStyle>
+            <Style TargetType="MenuItem">
+              <Setter Property="Header" Value="{Binding DisplayPathFileName, Mode=OneWay}" />
+              <Setter Property="Command" Value="cmd:AppCommand.LoadFile" />
+              <Setter Property="CommandParameter" Value="{Binding PathFileName, Mode=OneWay}" />
+            </Style>
+          </MenuItem.ItemContainerStyle>
+        </MenuItem>
+        <Separator/>
+        <MenuItem Header="Close" Command="cmd:AppCommand.CloseFile"
+                                 CommandParameter="{Binding ActiveDocument}"/>
+        <Separator/>
+        <MenuItem Header="Exit" Command="cmd:AppCommand.Exit" />
+      </MenuItem>
+      <MenuItem Header="_Edit">
+        <MenuItem Header="_Undo" Command="Undo">
+          <MenuItem.Icon>
+            <Image Source="{StaticResource Image_Undo}" Height="16" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="_Redo" Command="Redo">
+          <MenuItem.Icon>
+            <Image Source="{StaticResource Image_Redo}" Height="16" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <Separator />
+        <MenuItem Header="Cut" Command="Cut"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
+          <MenuItem.Icon>
+            <Image Source="{StaticResource Image_Cut}" Height="16" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Copy" Command="Copy"
+          ToolTip="Copy">
+          <MenuItem.Icon>
+            <Image Source="{StaticResource Image_Copy}" Height="16" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Paste" Command="Paste"
+          ToolTip="Paste">
+          <MenuItem.Icon>
+            <Image Source="{StaticResource Image_Paste}" Height="16"/>
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Delete" Command="Delete"
+          ToolTip="Delete" ToolTipService.ShowOnDisabled="True">
+          <MenuItem.Icon>
+            <Image Source="{StaticResource Image_Delete}" Height="16"/>
+          </MenuItem.Icon>
+        </MenuItem>
+        <Separator />
+        <MenuItem Command="SelectAll" Header="Select All"
+                  ToolTip="Select All"  ToolTipService.ShowOnDisabled="True"/>
+        <Separator/>
+        <MenuItem Header="Go to line..." Command="cmd:AppCommand.GotoLine"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
+          <MenuItem.Icon>
+            <Image Source="{StaticResource Image_EditFind}" Width="16" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Find" Command="cmd:AppCommand.FindText"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+
+        <MenuItem Header="Replace..." Command="cmd:AppCommand.ReplaceText"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+      </MenuItem>
+      <MenuItem Header="_View">
+        <MenuItem Header="_Themes" ItemsSource="{Binding Skins.Themes}">
+          <MenuItem.Resources>
+            <RadioButton x:Key="rb" x:Shared="false" HorizontalAlignment="Right"  VerticalAlignment="Center"
+                         GroupName="MenuGroup"
+                         IsHitTestVisible="False"
+                         Margin="3,0,0,0" IsChecked="{Binding IsChecked, Mode=OneWay}">
+              <RadioButton.Template>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                  <!-- Data="M 0,5.1 L 1.7,5.2 L 3.4,7.1 L 8,0.4 L 9.2,0 L 3.3,10.8 Z" -->
+                  <Grid>
+                    <Path x:Name="uncheck" Visibility="Collapsed" Margin="7,0,0,0" VerticalAlignment="Center"
+                        Fill="Transparent">
+                      <Path.Data>
+                        <PathGeometry>
+                          <PathGeometry.Figures>
+                            <PathFigureCollection>
+                              <PathFigure IsClosed="True" StartPoint="0,0">
+                                <PathFigure.Segments>
+                                  <PathSegmentCollection>
+                                    <LineSegment Point="16,0" />
+                                    <LineSegment Point="16,16" />
+                                    <LineSegment Point="0,16" />
+                                  </PathSegmentCollection>
+                                </PathFigure.Segments>
+                              </PathFigure>
+                            </PathFigureCollection>
+                          </PathGeometry.Figures>
+                        </PathGeometry>
+                      </Path.Data>
+                    </Path>
+                    <Path x:Name="check" Visibility="Collapsed" Margin="7,0,0,0" VerticalAlignment="Center"
+                        Fill="{TemplateBinding MenuItem.Foreground}">
+                      <Path.Data>
+                        <PathGeometry>
+                          <PathGeometry.Figures>
+                            <PathFigureCollection>
+                              <PathFigure IsClosed="True" StartPoint="2.5,8">
+                                <PathFigure.Segments>
+                                  <PathSegmentCollection>
+                                    <LineSegment Point="5,13.5" />
+                                    <LineSegment Point="7,13.5" />
+                                    <LineSegment Point="12.5,2.5" />
+                                    <LineSegment Point="5.5,11.5" />
+                                  </PathSegmentCollection>
+                                </PathFigure.Segments>
+                              </PathFigure>
+                            </PathFigureCollection>
+                          </PathGeometry.Figures>
+                        </PathGeometry>
+                      </Path.Data>
+                    </Path>
+                  </Grid>
+                  <ControlTemplate.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                      <Setter TargetName="check" Property="Visibility" Value="Visible" />
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="False">
+                      <Setter TargetName="uncheck" Property="Visibility" Value="Visible" />
+                    </Trigger>
+                  </ControlTemplate.Triggers>
+                </ControlTemplate>
+              </RadioButton.Template>
+            </RadioButton>
+          </MenuItem.Resources>
+          <MenuItem.ItemContainerStyle>
+            <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+              <Setter Property="Header" Value="{Binding Text}" />
+              <Setter Property="Icon" Value="{DynamicResource rb}" />
+              <Setter Property="Command" Value="cmd:AppCommand.ViewTheme" />
+              <Setter Property="CommandParameter" Value="{Binding ThemeID}" />
+              <Setter Property="Margin" Value="3,3,3,0" />
+
+              <!-- http://social.msdn.microsoft.com/Forums/en-US/wpf/thread/63696841-0358-4f7a-abe1-e6062518e3d6 -->
+              <Setter Property="behav:MergeStyleBehaviour.AutoMergeStyle" Value="True"/>
+            </Style>
+          </MenuItem.ItemContainerStyle>
+        </MenuItem>
+
+        <MenuItem Header="Start Page" Command="cmd:AppCommand.ShowStartPage" />
+      </MenuItem>
+
+      <!-- XXXXXXXXXXXXXXXXXXXX -->
+      <MenuItem Header="_Tools">
+        <MenuItem Header="RecentFiles" IsChecked="{Binding RecentFiles.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+        <MenuItem Header="Properties" IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+        <Separator />
+        <MenuItem Header="Log4Net Tool Window" IsChecked="{Binding Log4NetTool.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+        <MenuItem Header="Log4Net Message Tool Window" IsChecked="{Binding Log4NetMessageTool.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+      </MenuItem>
+
+      <MenuItem Header="_Help">
+        <MenuItem Header="About" Command="cmd:AppCommand.About" />
+      </MenuItem>
+    </Menu>
+  </Grid>
+</UserControl>

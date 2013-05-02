@@ -2,7 +2,10 @@
 {
   using System.Windows;
   using System.Windows.Controls;
+
   using Edi.ViewModel;
+  using EdiViews.Documents.Log4Net;
+  using EdiViews.Documents.StartPage;
   using EdiViews.ViewModel.Base;
 
   /// <summary>
@@ -31,6 +34,7 @@
       set;
     }
 
+/** This can all be covered by the ToolStyle
     public Style Log4NetToolViewStyle
     {
       get;
@@ -47,12 +51,10 @@
     {
       get; set;
     }
+***/
 
     public override System.Windows.Style SelectStyle(object item, System.Windows.DependencyObject container)
     {
-      if (item is ToolViewModel)
-        return this.ToolStyle;
-
       if (item is EdiViewModel)
         return this.FileStyle;
 
@@ -62,6 +64,7 @@
       if (item is Log4NetViewModel)
         return this.Log4NetStyle;
 
+/*** This can all be covered by the ToolStyle
       if (item is Log4NetToolViewModel)
         return this.Log4NetToolViewStyle;
 
@@ -70,6 +73,9 @@
         
       if (item is RecentFilesViewModel)
         return this.FileStyle;
+***/
+      if (item is ToolViewModel)
+        return this.ToolStyle;
 
       return base.SelectStyle(item, container);
     }

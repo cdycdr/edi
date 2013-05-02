@@ -5,6 +5,9 @@ namespace ICSharpCode.AvalonEdit.Edi.Intellisense
   using ICSharpCode.AvalonEdit;
   using ICSharpCode.AvalonEdit.CodeCompletion;
 
+  /// <summary>
+  /// Class that manages the auto complet window
+  /// </summary>
   public class CompletionWindowResolver : ICompletionWindowResolver
 	{
 		private readonly string _text;
@@ -15,6 +18,13 @@ namespace ICSharpCode.AvalonEdit.Edi.Intellisense
 
 		private readonly List<ICompletionDataProvider> _dataProviders = new List<ICompletionDataProvider>();
 
+    /// <summary>
+    /// Class constructor
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="position"></param>
+    /// <param name="input"></param>
+    /// <param name="textEditor"></param>
 		public CompletionWindowResolver(string text, int position, string input, TextEditor textEditor)
 		{
 			_text = text;

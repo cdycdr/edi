@@ -1,9 +1,6 @@
 ﻿namespace Edi.View.Pane
 {
-  using System;
-  using System.Collections.Generic;
   using System.Linq;
-  using System.Text;
   using AvalonDock.Layout;
 
   class LayoutInitializer : ILayoutUpdateStrategy

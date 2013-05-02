@@ -17,11 +17,11 @@
               <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="250" />
                 <RowDefinition />
               </Grid.RowDefinitions>
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="127.5" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
 
@@ -31,13 +31,13 @@
               <hyp:WebHyperlink Grid.Column="1" Margin="33,0,11,23" VerticalAlignment="Bottom" NavigateUri="{Binding AppUrl,Mode=OneTime}" Text="{Binding AppUrlDisplayString,Mode=OneTime}" />
 
               <TabControl Grid.Row="2" Grid.ColumnSpan="2"
-                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TabItem Header="Version Info">
-                  <Grid>
+                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                <TabItem Header="Version Info" Name="InfoTab">
+                  <Grid Margin="3">
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto" />
                       <RowDefinition Height="Auto" />
-                      <RowDefinition Height="Auto" />
+                      <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -52,14 +52,14 @@
                     <Label Grid.Column="1" Grid.Row="1" Content="{Binding AssemblyCopyright, Mode=OneTime}" Margin="3" />
 
                     <Label Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Modules" Margin="3" />
-                    <ListBox Grid.Column="1" Grid.Row="2" MaxHeight="200" Margin="3"
-                       ItemsSource="{Binding Modules,Mode=OneTime}"
-                       DisplayMemberPath="Value" />
+                    <ListBox Grid.Column="1" Grid.Row="2" Margin="3"
+                             ItemsSource="{Binding Modules,Mode=OneTime}"
+                             DisplayMemberPath="Value" />
                   </Grid>
                 </TabItem>
               
                 <TabItem Header="Contributors">
-                  <Grid>
+                  <Grid Margin="3">
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto" />
                       <RowDefinition Height="Auto" />

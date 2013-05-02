@@ -44,6 +44,8 @@
 
     <ResourceDictionary Source="/Themes;component/ExpressionDark/EdiControls/UnitCombobox.xaml" />
 
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/EdiControls/YalvLib/YalvLib.xaml" />
+
     <!-- ResourceDictionary Source="/AvalonDock.Themes.VS2010;component/Theme.xaml" / -->
   </ResourceDictionary.MergedDictionaries>
 

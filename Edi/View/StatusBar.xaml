@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="Edi.View.StatusBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="500"
+             
+             xmlns:conv="clr-namespace:Edi.Converter"
+             xmlns:EdiViewsConv="clr-namespace:EdiViews.Converter;assembly=EdiViews"
+             >
+  <UserControl.Resources>
+    <EdiViewsConv:BooleanToTypeModeStringConverter x:Key="DisplayTypeModeConverter" />
+  </UserControl.Resources>
+    <Grid>
+    <StatusBar HorizontalAlignment="Stretch">
+      <StatusBarItem HorizontalAlignment="Stretch">
+        <TextBlock Text="Ready."
+                   Grid.Column="0" Margin="0,0,3,0" HorizontalAlignment="Stretch"/>
+      </StatusBarItem>
+
+      <StatusBarItem HorizontalAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center">
+        <Grid Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+              Visibility="{Binding Path=ActiveDocument, Mode=OneWay, Converter={conv:ActiveDocumentToVisibilityConverter}}">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+
+          <Grid Grid.Column="0" Margin="3,0" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="X:"
+                       Margin="3,0" Grid.Column="0"/>
+            <TextBlock Text="{Binding ActiveEdiDocument.Line, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                       Margin="3,0" Grid.Column="1" MinWidth="10" HorizontalAlignment="Left" />
+          </Grid>
+
+          <Grid Grid.Column="1" Margin="3,0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Y:"
+                       Margin="3,0" Grid.Column="0"/>
+            <TextBlock Text="{Binding ActiveEdiDocument.Column, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                       ToolTip="Column of the cursor in the current editor file"
+                       Foreground="{DynamicResource StatusBarForegroundColor}"
+                       Margin="3,0" Grid.Column="1" MinWidth="10" HorizontalAlignment="Left" />
+          </Grid>
+
+          <TextBlock Text="{Binding TextOptions.IsInsertMode, Converter={StaticResource DisplayTypeModeConverter}, Mode=OneWay}"
+                     ToolTip="Line of the cursor in the current editor file"
+                     DataContext="{Binding ActiveEdiDocument}" Margin="3, 0" Grid.Column="2"/>
+
+          <TextBlock Text="{Binding FileEncoding.EncodingName, Mode=OneWay}"
+                     ToolTip="Text Encoding"
+                     DataContext="{Binding ActiveEdiDocument}" Margin="3, 0" Grid.Column="3"/>
+        </Grid>
+      </StatusBarItem>
+    </StatusBar>
+  </Grid>
+</UserControl>

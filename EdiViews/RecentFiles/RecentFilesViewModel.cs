@@ -1,4 +1,4 @@
-﻿namespace Edi.ViewModel
+﻿namespace EdiViews.ViewModel
 {
   using System;
   using System.IO;
@@ -6,15 +6,24 @@
   using SimpleControls.MRU.Model;
   using SimpleControls.MRU.ViewModel;
 
-  internal class RecentFilesViewModel : EdiViews.ViewModel.Base.ToolViewModel
+  public class RecentFilesViewModel : EdiViews.ViewModel.Base.ToolViewModel
   {
     public const string ToolContentId = "RecentFilesTool";
+
+    private MRUListVM mMruList = null;
 
     public RecentFilesViewModel()
       : base("Recent Files")
     {
       ////Workspace.This.ActiveDocumentChanged += new EventHandler(OnActiveDocumentChanged);
       ContentId = ToolContentId;
+    }
+
+
+    public RecentFilesViewModel(MRUListVM MruList)
+      : this()
+    {
+      this.mMruList = MruList;
     }
 
     public override Uri IconSource
@@ -48,9 +57,9 @@
     {
       get
       {
-        return Workspace.This.Config.MruList;
+        return this.mMruList;
       }
-
+/***
       private set
       {
         if (Workspace.This.Config.MruList != value)
@@ -59,6 +68,7 @@
           this.NotifyPropertyChanged(() => this.MruList);
         }
       }
+ ***/
     }
 
     public void AddNewEntryIntoMRU(string filePath)

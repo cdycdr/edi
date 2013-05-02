@@ -2,8 +2,14 @@
 {
   using System.Windows;
   using System.Windows.Controls;
+
   using AvalonDock.Layout;
   using Edi.ViewModel;
+  using EdiViews.Documents.Log4Net;
+  using EdiViews.Documents.StartPage;
+  using EdiViews.FileStats;
+  using EdiViews.Log4Net;
+  using EdiViews.ViewModel;
 
   /// <summary>
   /// Select a corresponding <seealso cref="DataTemplate"/> to a given type of viewmodel.

@@ -8,24 +8,29 @@
   using System.Windows;
   using System.Windows.Input;
   using System.Windows.Threading;
-
   using AvalonDock.Layout.Serialization;
   using Edi.View;
+  using Edi.ViewModel.Base;
   using EdiViews.About;
+  using EdiViews.Documents.StartPage;
+  using EdiViews.FileStats;
+  using EdiViews.Log4Net;
+  using EdiViews.ViewModel;
   using EdiViews.ViewModel.Base;
   using Microsoft.Win32;
   using MsgBox;
   using SimpleControls.MRU.ViewModel;
+  using EdiViews.Documents.Log4Net;
 
   partial class Workspace : EdiViews.ViewModel.Base.ViewModelBase
   {
     #region fields
-    public const string Log4netFileExtension = "log4net";
+    public const string Log4netFileExtension = "log4j";
 
     public const string FileFilter =  "All Files (*.*)|*.*" +
                                      "|Structured Query Language (*.sql) |*.sql" +
                                      "|Text Files (*.txt)|*.txt" +
-                                     "|log4net XML output (*.log4net)|*.log4net";
+                                     "|log4net XML output (*.log4j,*.log,*.txt,*.xml)|*.log4j;*.log;*.txt;*.xml";
 
     public const string LayoutFileName = "Layout.config";
 
@@ -86,7 +91,7 @@
           {
             if (ActiveDocumentChanged != null)
             {
-              ActiveDocumentChanged(this, EventArgs.Empty);
+              ActiveDocumentChanged(this, new DocumentChangedEventArgs(this.mActiveDocument)); //this.ActiveDocument
 
               if (value != null && this.mShutDownInProgress == false)
               {
@@ -99,7 +104,7 @@
       }
     }
 
-    public event EventHandler ActiveDocumentChanged;
+    public event DocumentChangedEventHandler ActiveDocumentChanged;
 
     /// <summary>
     /// This is a type safe ActiveDocument property that is used to bind
@@ -162,7 +167,7 @@
       get
       {
         if (mTools == null)
-          mTools = new ToolViewModel[] { this.RecentFiles,
+          mTools = new ToolViewModel[] { (EdiViews.ViewModel.Base.ToolViewModel)this.RecentFiles,
                                          this.FileStats,
                                          this.Log4NetTool, Log4NetMessageTool
                                         };
@@ -180,7 +185,10 @@
       get
       {
         if (this.mFileStats == null)
+        {
           this.mFileStats = new FileStatsViewModel();
+          Workspace.This.ActiveDocumentChanged += new DocumentChangedEventHandler(this.mFileStats.OnActiveDocumentChanged);
+        }
 
         return this.mFileStats;
       }
@@ -195,7 +203,7 @@
       get
       {
         if (this.mRecentFiles == null)
-          this.mRecentFiles = new RecentFilesViewModel();
+          this.mRecentFiles = new RecentFilesViewModel(this.Config.MruList);
 
         return this.mRecentFiles;
       }
@@ -210,7 +218,10 @@
       get
       {
         if (this.mLog4NetTool == null)
+        {
           this.mLog4NetTool = new Log4NetToolViewModel();
+          Workspace.This.ActiveDocumentChanged += new DocumentChangedEventHandler(this.mLog4NetTool.OnActiveDocumentChanged);
+        }
 
         return mLog4NetTool;
       }
@@ -221,7 +232,10 @@
       get
       {
         if (this.mLog4NetMessageTool == null)
+        {
           this.mLog4NetMessageTool = new Log4NetMessageToolViewModel();
+          Workspace.This.ActiveDocumentChanged += new DocumentChangedEventHandler(this.mLog4NetMessageTool.OnActiveDocumentChanged);
+        }
 
         return this.mLog4NetMessageTool;
       }
@@ -307,6 +321,8 @@
 
         return null;
       }
+
+      fileViewModel.CloseDocument += new EventHandler(this.ProcessCloseDocumentEvent);
 
       this.mFiles.Add(fileViewModel);
 
@@ -904,7 +920,10 @@
           return null;
         else
         {
-          StartPageViewModel s = new StartPageViewModel();
+          StartPageViewModel s = new StartPageViewModel(this.Config.MruList);
+
+          s.CloseDocument += new EventHandler(ProcessCloseDocumentEvent);
+
           this.mFiles.Add(s);
 
           return s;
@@ -914,6 +933,21 @@
       return l[0];
     }
 
+    /// <summary>
+    /// Close document via dedicated event handler
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ProcessCloseDocumentEvent(object sender, EventArgs e)
+    {
+      FileBaseViewModel f = sender as FileBaseViewModel;
+
+      if (f != null)
+      {
+        f.CloseDocument -= this.ProcessCloseDocumentEvent;
+        this.Close(f);
+      }
+    }
     #endregion methods
   }
 }

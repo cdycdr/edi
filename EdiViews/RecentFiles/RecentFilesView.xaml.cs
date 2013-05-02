@@ -1,4 +1,4 @@
-﻿namespace Edi.View
+﻿namespace EdiViews.RecentFilesView
 {
   using System.Windows.Controls;
 

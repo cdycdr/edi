@@ -1,8 +1,8 @@
-﻿<UserControl x:Class="Edi.View.Log4NetMessageView"
+﻿<UserControl x:Class="EdiViews.Log4Net.Log4NetMessageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
-             xmlns:behav="clr-namespace:EdiViews.Behaviour;assembly=EdiViews"
+             xmlns:behav="clr-namespace:EdiViews.Behaviour"
              xmlns:cult="clr-namespace:YalvLib.ViewModel;assembly=YALVLib"
              xmlns:Properties="clr-namespace:YalvLib.Strings;assembly=YALVLib"
 

@@ -1,26 +1,29 @@
-﻿namespace Edi.ViewModel
+﻿namespace EdiViews.Log4Net
 {
   using System;
+  using Edi.ViewModel;
+  using Edi.ViewModel.Base;
+  using EdiViews.Documents.Log4Net;
 
   /// <summary>
-  /// This viewmodel manages the functions of the Log4Net Message Tool Window    
-  /// which contains controls that display details on the Message and Throwable log4net fields.
+  /// This viewmodel manages the functions of the Log4Net Tool Window which contains
+  /// filter function to adjust the display of log4net information.
   /// </summary>
-  internal class Log4NetMessageToolViewModel : EdiViews.ViewModel.Base.ToolViewModel
+  public class Log4NetToolViewModel : EdiViews.ViewModel.Base.ToolViewModel
   {
     #region fields
-    public const string ToolContentId = "Log4NetMessageTool";
+    public const string ToolContentId = "Log4NetTool";
     private Log4NetViewModel mLog4NetVM = null;
     #endregion fields
 
     #region constructor
-    public Log4NetMessageToolViewModel()
-      : base("Log4Net Messages")
+    public Log4NetToolViewModel()
+      : base("Log4Net")
     {
       // Check if active document is a log4net document to display data for...
       this.OnActiveDocumentChanged(null, null);
 
-      Workspace.This.ActiveDocumentChanged += new EventHandler(OnActiveDocumentChanged);
+      ////Workspace.This.ActiveDocumentChanged += new EventHandler(OnActiveDocumentChanged);
       this.ContentId = ToolContentId;
     }
     #endregion constructor
@@ -41,7 +44,7 @@
         return this.mLog4NetVM;
       }
 
-      set
+      protected set
       {
         if (this.mLog4NetVM != value)
         {
@@ -69,16 +72,19 @@
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    void OnActiveDocumentChanged(object sender, EventArgs e)
+    public void OnActiveDocumentChanged(object sender, DocumentChangedEventArgs e)
     {
-      if (Workspace.This.ActiveDocument != null)
+      if (e != null)
       {
-        Log4NetViewModel log4NetVM = Workspace.This.ActiveDocument as Log4NetViewModel;
+        if (e.ActiveDocument != null)
+        {
+          Log4NetViewModel log4NetVM = e.ActiveDocument as Log4NetViewModel;
 
-        if (log4NetVM != null)
-          this.Log4NetVM = log4NetVM;  // There is an active Log4Net document -> display corresponding content
-        else
-          this.Log4NetVM = null;
+          if (log4NetVM != null)
+            this.Log4NetVM = log4NetVM;  // There is an active Log4Net document -> display corresponding content
+          else
+            this.Log4NetVM = null;
+        }
       }
       else // There is no active document hence we do not have corresponding content to display
       {

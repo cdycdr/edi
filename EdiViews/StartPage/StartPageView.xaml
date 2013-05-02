@@ -1,21 +1,23 @@
-﻿<UserControl x:Class="Edi.View.StartPage"
+﻿<UserControl x:Class="EdiViews.StartPage.StartPageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              
-             xmlns:cmd="clr-namespace:Edi"
-             xmlns:view="clr-namespace:Edi.View"
+             xmlns:cmd="clr-namespace:Util.Command;assembly=Util"
              xmlns:hyperl="clr-namespace:SimpleControls.Hyperlink;assembly=SimpleControls"
-             xmlns:behav="clr-namespace:EdiViews.Behaviour;assembly=EdiViews"
-             
+
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             
+             xmlns:behav="clr-namespace:EdiViews.Behaviour"
+             xmlns:view="clr-namespace:EdiViews.RecentFilesView"
+
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600" Background="{DynamicResource PinableListViewBackground}"
 
              Focusable="True"
              KeyboardNavigation.IsTabStop="True"
-             Name="StartPageView"
-             behav:KeyboardFocus.On="{Binding ElementName=StartPageView}"
+             Name="StartPageViewObject"
+             behav:KeyboardFocus.On="{Binding ElementName=StartPageViewObject}"
              ><!-- The KeyboardFocus attached property is necessary to support CTRL+TAB in AvalonDock -->
   <UserControl.Resources>
     <BitmapImage UriSource="pack://application:,,,/Themes;component/Images/App/StartPage/Edi100.png" x:Key="Logo" />

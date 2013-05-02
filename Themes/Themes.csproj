@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
@@ -49,6 +50,9 @@
       <HintPath>..\02_Libs\00_bin\UnitComboLib.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="YalvLib">
+      <HintPath>..\02_Libs\00_bin\YalvLib\YalvLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\MergeStyleBehaviour.cs" />
@@ -314,6 +318,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ExpressionDark2\Controls\TreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark2\YalvLib\GridStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark2\YalvLib\YalvLib.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\EdiControls\YalvLib\GridStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\EdiControls\YalvLib\YalvLib.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

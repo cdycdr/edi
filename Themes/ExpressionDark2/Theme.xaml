@@ -41,6 +41,8 @@
     <ResourceDictionary Source="/Themes;component/ExpressionDark2/EdiControls/PinableListView.xaml" />
     <ResourceDictionary Source="/Themes;component/ExpressionDark2/EdiControls/UnitCombobox.xaml" />
 
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/EdiControls/YalvLib/YalvLib.xaml" />
+
     <!-- ResourceDictionary Source="/AvalonDock.Themes.Expression;component/DarkTheme.xaml" / -->
   </ResourceDictionary.MergedDictionaries>
 
