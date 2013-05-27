@@ -1,6 +1,5 @@
 ﻿namespace EdiViews.ViewModel.Base
 {
-  using EdiViews.WeakEvents;
   using MsgBox;
   using SimpleControls.Command;
   using System;
