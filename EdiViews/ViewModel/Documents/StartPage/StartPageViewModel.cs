@@ -59,22 +59,22 @@
     #endregion
 
     #region OpenContainingFolder
-    RelayCommand<object> _openContainingFolderCommand = null;
-    public ICommand OpenContainingFolderCommand
+    private RelayCommand<object> _openContainingFolderCommand = null;
+
+    /// <summary>
+    /// Get open containing folder command which will open
+    /// the folder containing the executable in windows explorer
+    /// and select the file.
+    /// </summary>
+    public new ICommand OpenContainingFolderCommand
     {
       get
       {
         if (_openContainingFolderCommand == null)
-          _openContainingFolderCommand = new RelayCommand<object>((p) => this.OnOpenContainingFolderCommand(),
-                                                                  (p) => this.CanOpenContainingFolderCommand());
+          _openContainingFolderCommand = new RelayCommand<object>((p) => this.OnOpenContainingFolderCommand());
 
         return _openContainingFolderCommand;
       }
-    }
-
-    public bool CanOpenContainingFolderCommand()
-    {
-      return true;
     }
 
     private void OnOpenContainingFolderCommand()
@@ -88,28 +88,28 @@
       }
       catch (System.Exception ex)
       {
-        MsgBox.Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (this.FilePath == null ? string.Empty : this.FilePath)),
+        MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (this.FilePath == null ? string.Empty : this.FilePath)),
                             "Error finding file:", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
     #endregion OpenContainingFolder
 
     #region CopyFullPathtoClipboard
-    RelayCommand<object> _copyFullPathtoClipboard = null;
-    public ICommand CopyFullPathtoClipboard
+    private RelayCommand<object> _copyFullPathtoClipboard = null;
+
+    /// <summary>
+    /// Get CopyFullPathtoClipboard command which will copy
+    /// the path of the executable into the windows clipboard.
+    /// </summary>
+    public new ICommand CopyFullPathtoClipboard
     {
       get
       {
         if (_copyFullPathtoClipboard == null)
-          _copyFullPathtoClipboard = new SimpleControls.Command.RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand(), (p) => this.CanCopyFullPathtoClipboardCommand());
+          _copyFullPathtoClipboard = new SimpleControls.Command.RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand());
 
         return _copyFullPathtoClipboard;
       }
-    }
-
-    public bool CanCopyFullPathtoClipboardCommand()
-    {
-      return true;
     }
 
     private void OnCopyFullPathtoClipboardCommand()
@@ -156,6 +156,20 @@
       }
     }
 
+    /// <summary>
+    /// Get whether edited data can be saved or not.
+    /// This type of document does not have a save
+    /// data implementation if this property returns false.
+    /// (this is document specific and should always be overriden by descendents)
+    /// </summary>
+    override public bool CanSaveData
+    {
+      get
+      {
+        return false;
+      }
+    }
+
     override public string FilePath
     {
       get
@@ -168,13 +182,23 @@
         throw new NotSupportedException();
       }
     }
+
+    public override string FileName
+    {
+      get { return string.Empty; }
+    }
     #endregion properties
 
     #region methods
     override public bool CanSave() { return false; }
 
     override public bool CanSaveAs() { return false; }
-    override public bool OnSaveAs() { return false; }
+
+    override public bool SaveFile(string filePath)
+    {
+      throw new NotImplementedException();
+    }
+
     override public string GetFilePath()
     {
       throw new NotSupportedException("Start Page does not have a valid file path.");

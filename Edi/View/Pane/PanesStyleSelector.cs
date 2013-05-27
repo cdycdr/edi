@@ -7,6 +7,7 @@
   using EdiViews.Documents.Log4Net;
   using EdiViews.Documents.StartPage;
   using EdiViews.ViewModel.Base;
+  using EdiViews.ViewModel.Documents;
 
   /// <summary>
   /// Select a corresponding style for a given viewmodel.
@@ -34,28 +35,11 @@
       set;
     }
 
-/** This can all be covered by the ToolStyle
-    public Style Log4NetToolViewStyle
-    {
-      get;
-      set;
-    }
-
-    public Style Log4NetMessageToolViewStyle
-    {
-      get;
-      set;
-    }
-
-    public Style RecentFilesStyle
-    {
-      get; set;
-    }
-***/
-
     public override System.Windows.Style SelectStyle(object item, System.Windows.DependencyObject container)
     {
-      if (item is EdiViewModel)
+      // Lets use the file style for text and UML modeling since both editors
+      // have similar capabilities (Load, Save, Edit, Undo, and so forth)
+      if (item is EdiViewModel || item is MiniUumViewModel)
         return this.FileStyle;
 
       if (item is StartPageViewModel)
@@ -64,16 +48,6 @@
       if (item is Log4NetViewModel)
         return this.Log4NetStyle;
 
-/*** This can all be covered by the ToolStyle
-      if (item is Log4NetToolViewModel)
-        return this.Log4NetToolViewStyle;
-
-      if (item is Log4NetMessageToolViewModel)
-        return this.Log4NetMessageToolViewStyle;
-        
-      if (item is RecentFilesViewModel)
-        return this.FileStyle;
-***/
       if (item is ToolViewModel)
         return this.ToolStyle;
 

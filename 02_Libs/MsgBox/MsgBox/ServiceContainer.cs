@@ -9,6 +9,9 @@
   public class ServiceContainer
   {
     #region Fields
+    /// <summary>
+    /// Service container instance of this service container implementation.
+    /// </summary>
     public static readonly ServiceContainer Instance = new ServiceContainer();
 
     private readonly Dictionary<Type, object> mServiceMap;
@@ -24,6 +27,11 @@
     #endregion constructor
 
     #region methods
+    /// <summary>
+    /// Add a service into this service container.
+    /// </summary>
+    /// <typeparam name="TServiceContract"></typeparam>
+    /// <param name="implementation"></param>
     public void AddService<TServiceContract>(TServiceContract implementation)
         where TServiceContract : class
     {
@@ -33,6 +41,11 @@
       }
     }
 
+    /// <summary>
+    /// Get a service that was previoulsy added into the service container.
+    /// </summary>
+    /// <typeparam name="TServiceContract"></typeparam>
+    /// <returns></returns>
     public TServiceContract GetService<TServiceContract>()
         where TServiceContract : class
     {

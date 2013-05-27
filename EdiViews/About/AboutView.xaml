@@ -66,6 +66,7 @@
                       <RowDefinition Height="Auto" />
                       <RowDefinition Height="Auto" />
                       <RowDefinition Height="Auto" />
+                      <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -95,6 +96,11 @@
                            Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3" />
                     <hyp:WebHyperlink Grid.Column="2" Grid.Row="4" Margin="3"
                                       HorizontalAlignment="Left" VerticalAlignment="Center" NavigateUri="https://dotnetnotepad.codeplex.com/" Text=".Net Notepad" />
+
+                    <Label Content="MiniUml:"
+                           Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3" />
+                    <hyp:WebHyperlink Grid.Column="2" Grid.Row="5" Margin="3"
+                                      HorizontalAlignment="Left" VerticalAlignment="Center" NavigateUri="https://miniuml.codeplex.com/" Text="Unified Modeling language (Uml)" />
 
                   </Grid>
                 </TabItem>

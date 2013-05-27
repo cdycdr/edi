@@ -255,9 +255,9 @@
       }
       catch (Exception exp)
       {
-        Msg.Box.Show(this.AppName + " encountered an error when pinning an entry:" + Environment.NewLine
-                      + Environment.NewLine
-                      + exp.ToString(), "Error when pinning an MRU entry", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(this.AppName + " encountered an error when pinning an entry:" + Environment.NewLine
+                  + Environment.NewLine
+                  + exp.ToString(), "Error when pinning an MRU entry", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
 
       return  false;
@@ -310,7 +310,7 @@
       }
       catch (Exception exp)
       {
-        Msg.Box.Show(exp.ToString(), "An error has occurred", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(exp.ToString(), "An error has occurred", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
       ////finally
       ////{
@@ -335,9 +335,9 @@
       }
       catch (Exception exp)
       {
-        Msg.Box.Show(this.AppName + " encountered an error when removing an entry:" + Environment.NewLine
-                      + Environment.NewLine
-                      + exp.ToString(), "Error when pinning an MRU entry", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(this.AppName + " encountered an error when removing an entry:" + Environment.NewLine
+                 + Environment.NewLine
+                 + exp.ToString(), "Error when pinning an MRU entry", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
 
       return false;
@@ -360,9 +360,9 @@
       }
       catch (Exception exp)
       {
-        Msg.Box.Show(this.AppName + " encountered an error when removing an entry:" + Environment.NewLine
-                      + Environment.NewLine
-                      + exp.ToString(), "Error when pinning an MRU entry", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(this.AppName + " encountered an error when removing an entry:" + Environment.NewLine
+                  + Environment.NewLine
+                  + exp.ToString(), "Error when pinning an MRU entry", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
 
       return false;
@@ -380,9 +380,9 @@
       }
       catch (Exception exp)
       {
-        Msg.Box.Show(this.AppName + " encountered an error when removing an entry:" + Environment.NewLine
-                      + Environment.NewLine
-                      + exp.ToString(), "Error when pinning an MRU entry", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(this.AppName + " encountered an error when removing an entry:" + Environment.NewLine
+                  + Environment.NewLine
+                  + exp.ToString(), "Error when pinning an MRU entry", MsgBoxButtons.OK, MsgBoxImage.Error);
 
         return null;
       }

@@ -24,7 +24,7 @@
 
       try
       {
-        MsgBoxBase.GetService<IMsgBoxService>().Show(
+        Msg.Show(
             e.Exception, "An unexpected Error occured",
             MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
             "http://www.codeproject.com/script/Articles/MemberArticles.aspx?amid=7799028",

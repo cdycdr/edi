@@ -2,6 +2,7 @@ namespace UnitComboLib
 {
   using System.Windows;
   using System.Windows.Controls;
+  using System.Windows.Controls.Primitives;
 
   /// <summary>
   /// This class implements a lookless combobox control with

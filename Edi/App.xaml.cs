@@ -7,6 +7,7 @@ namespace Edi
   using System.Threading;
   using System.Windows;
   using System.Windows.Threading;
+
   using AvalonDock.Layout.Serialization;
   using Edi.ViewModel;
   using EdiViews.Config.ViewModel;
@@ -352,6 +353,8 @@ namespace Edi
 
       try
       {
+        MiniUmlPluginLoader.LoadPlugins(App.AssemblyEntryLocation + @"\MiniUML.Plugins\", Workspace.This);
+        
         Application.Current.MainWindow = this.mMainWin = new MainWindow();
         this.ShutdownMode = System.Windows.ShutdownMode.OnLastWindowClose;
 
@@ -536,7 +539,7 @@ namespace Edi
       catch (Exception exp)
       {
         logger.Error(exp);
-        Msg.Box.Show(exp.ToString(), "Error in shut-down process", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(exp.ToString(), "Error in shut-down process", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
 
@@ -560,9 +563,9 @@ namespace Edi
 
         logger.Error(message);
 
-        Msg.Box.Show(e.Exception, "Unhandled Error",
-                      MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                      App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        Msg.Show(e.Exception, "Unhandled Error",
+                  MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                  App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
 
         e.Handled = true;
       }

@@ -10,7 +10,6 @@
   xmlns:pinlvw="clr-namespace:SimpleControls.MRU.View"
   xmlns:hyperl="clr-namespace:SimpleControls.Hyperlink"
   >
-
   <!-- Define color of watermark in WatermarkTextBox name space -->
   <SolidColorBrush x:Key="brushWatermarkForeground" Color="#AA000033" />
   <SolidColorBrush x:Key="brushWatermarkBackground" Color="Transparent" />

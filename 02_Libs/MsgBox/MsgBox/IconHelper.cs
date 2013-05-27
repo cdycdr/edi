@@ -19,6 +19,10 @@
     private const int SwpFRAMECHANGED = 0x0020;
     private const uint WmSETICON = 0x0080;
 
+    /// <summary>
+    /// Call this function from a dialog view to remove a displayed icon from the dialog title bar.
+    /// </summary>
+    /// <param name="window"></param>
     public static void RemoveIcon(Window window)
     {
       // Get this window's handle

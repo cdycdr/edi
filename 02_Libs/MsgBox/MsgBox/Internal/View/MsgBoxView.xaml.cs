@@ -7,6 +7,9 @@
   /// </summary>
   public partial class MsgBoxView : UserControl
   {
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public MsgBoxView()
     {
       this.InitializeComponent();

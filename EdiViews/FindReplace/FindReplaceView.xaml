@@ -61,7 +61,7 @@
                              AcceptsReturn="{Binding AcceptsReturn}"
                              behav:FocusExtension.IsFocused="{Binding IsTextToFindFocused}"
                              />
-                    <Button Content="Find Next"
+                    <Button Content="Find _Next" MinHeight="27" MinWidth="85"
                             Command="{Binding FindCommand}"
                             Margin="3" IsDefault="True" HorizontalAlignment="Right" Width="65" />
                   </StackPanel>
@@ -82,14 +82,18 @@
                            Margin="3" Name="PART_txtReplace" AcceptsReturn="{Binding AcceptsReturn}" />
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                      <Button Content="Find Next"
+                      <Button Content="Find _Next"
                               Command="{Binding FindCommand}"
-                              IsDefault="True" Margin="3" HorizontalAlignment="Right" Width="65" />
-                      <Button Content="Replace"
+                              IsDefault="True" Margin="3" HorizontalAlignment="Right"
+                              MinHeight="27" MinWidth="85" />
+                      
+                      <Button Content="_Replace"
                               Command="{Binding ReplaceCommand}"
                               Margin="3" HorizontalAlignment="Right" Width="65" />
+
                       <Button Command="{Binding ReplaceAllCommand}"
-                              Content="Replace All" Margin="3" HorizontalAlignment="Right" Width="65" />
+                              Content="Replace _All" Margin="3"
+                              HorizontalAlignment="Right" MinHeight="27" MinWidth="85" />
                     </StackPanel>
                   </StackPanel>
                 </TabItem>

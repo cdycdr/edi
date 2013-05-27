@@ -16,11 +16,21 @@
                                             typeof(SetKeyboardFocusWhenIsDefault),
                                             new UIPropertyMetadata(false, OnSetFocusChanged));
 
+    /// <summary>
+    /// Get portion of dependency property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static bool GetSetFocus(DependencyObject obj)
     {
       return (bool)obj.GetValue(SetFocusProperty);
     }
 
+    /// <summary>
+    /// Set portion of dependency property
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="value"></param>
     public static void SetSetFocus(DependencyObject obj, bool value)
     {
       obj.SetValue(SetFocusProperty, value);

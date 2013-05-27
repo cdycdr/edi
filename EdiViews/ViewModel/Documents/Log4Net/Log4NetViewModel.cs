@@ -79,7 +79,7 @@
     {
       get
       {
-        return this.FileName + (IsDirty == true ? "*" : string.Empty);
+        return this.FileName + (this.IsDirty == true ? "*" : string.Empty);
       }
     }
     #endregion
@@ -92,7 +92,7 @@
     /// Note the absense of the dirty mark '*'. Use the Title property if you want to display the file
     /// name with or without dirty mark when the user has edited content.
     /// </summary>
-    public string FileName
+    public override string FileName
     {
       get
       {
@@ -109,7 +109,7 @@
       get
       {
         // This icon is visible in AvalonDock's Document Navigator window
-        return new Uri("pack://application:,,,/Edi;component/Images/document.png", UriKind.RelativeOrAbsolute);
+        return new Uri("pack://application:,,,/EdiViews;component/Images/Documents/Log4net.png", UriKind.RelativeOrAbsolute);
       }
     }
     #endregion FileName
@@ -133,10 +133,28 @@
       }
     }
 
+    /// <summary>
+    /// Get whether edited data can be saved or not.
+    /// This type of document does not have a save
+    /// data implementation if this property returns false.
+    /// (this is document specific and should always be overriden by descendents)
+    /// </summary>
+    override public bool CanSaveData
+    {
+      get
+      {
+        return false;
+      }
+    }
+
     override public bool CanSave() { return false; }
 
     override public bool CanSaveAs() { return false; }
-    override public bool OnSaveAs() { return false; }
+
+    override public bool SaveFile(string filePath)
+    {
+      throw new NotImplementedException();
+    }
 
     #region CloseCommand
     RelayCommand<object> _closeCommand = null;
@@ -239,7 +257,7 @@
           }
           catch (Exception ex)
           {
-            MsgBox.Msg.Box.Show(ex.Message, "An error has occurred", MsgBoxButtons.OK);
+            MsgBox.Msg.Show(ex.Message, "An error has occurred", MsgBoxButtons.OK);
 
             return false;
           }
@@ -249,7 +267,7 @@
       }
       catch (Exception exp)
       {
-        MsgBox.Msg.Box.Show(exp.Message, "An error has occurred", MsgBoxButtons.OK);
+        MsgBox.Msg.Show(exp.Message, "An error has occurred", MsgBoxButtons.OK);
 
         return false;
       }

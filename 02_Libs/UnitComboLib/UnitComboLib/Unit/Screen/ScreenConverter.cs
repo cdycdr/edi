@@ -2,6 +2,9 @@
 {
   using System;
   
+  /// <summary>
+  /// Classs to convert font size values into a percentage value and back.
+  /// </summary>
   public class ScreenConverter : Converter
   {
     /// <summary>

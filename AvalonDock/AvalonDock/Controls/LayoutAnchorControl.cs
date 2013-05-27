@@ -187,8 +187,7 @@ namespace AvalonDock.Controls
 
         public override string ToString()
         {
-          return (string.Format("PersisId: {0} Side: {1}", (this.PersistId == null ? "(null)" : this.PersistId.ToString()),
-                                                           (this.Side == null ? "(null)" : this.Side.ToString())));
+          return (string.Format("Side: {0}", this.Side.ToString()));
         }
     }
 }

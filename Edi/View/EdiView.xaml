@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
              xmlns:ae="clr-namespace:ICSharpCode.AvalonEdit.Edi;assembly=ICSharpCode.AvalonEdit"
-             xmlns:vm="clr-namespace:Edi.ViewModel"
+             xmlns:vm="clr-namespace:EdiViews.ViewModel.Documents;assembly=EdiViews"
 
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="300"
@@ -26,7 +26,7 @@
                       EditorScrollOffsetY="{Binding TextEditorScrollOffsetY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       EditorCurrentLineBackground="{DynamicResource EditorCurrentLineBackgroundColor}"
 
-                      FontSize="{Binding Path=SizeUnitLabel.ScreenPoints}"
+                      FontSize="{Binding Path=SizeUnitLabel.ScreenPoints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       FontFamily="Consolas"
 
                       WordWrap="{Binding Path=WordWrap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

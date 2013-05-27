@@ -124,7 +124,7 @@
       }
       catch (System.Exception ex)
       {
-        Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "{0}.", ex.Message), "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}.", ex.Message), "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
 
@@ -166,7 +166,7 @@
       }
       catch (System.Exception ex)
       {
-        Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "{0}.", ex.Message), "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}.", ex.Message), "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
     #endregion

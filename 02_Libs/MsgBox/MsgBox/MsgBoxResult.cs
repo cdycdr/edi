@@ -1,5 +1,9 @@
 ﻿namespace MsgBox
 {
+  /// <summary>
+  /// This enumeration describes the possible results from displaying a message. A result is directly
+  /// equivalent to a GUI element (OK, Cancel, Yes, No button) that a user clicked to close the message view.
+  /// </summary>
   public enum MsgBoxResult
   {
     /// <summary>
@@ -25,7 +29,7 @@
     /// <summary>
     /// The result value of the message box is OK.
     /// </summary>
-    Ok = 2,
+    OK = 2,
 
     /// <summary>
     /// The result value of the message box is Cancel.

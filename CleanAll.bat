@@ -14,6 +14,13 @@ ECHO Edi
 ECHO EdiViews
 ECHO Themes
 ECHO ICSharpCode.AvalonEdit
+ECHO.
+ECHO MiniUML.Diagnostics
+ECHO MiniUML.Framework
+ECHO MiniUML.Model
+ECHO MiniUML.View
+ECHO MiniUML.Plugins.UmlClassDiagram
+ECHO.
 ECHO SimpleControls
 ECHO Util
 ECHO.
@@ -47,6 +54,8 @@ RMDIR /S /Q AvalonDock\AvalonDock.Theme.ExpressionDark\obj
 RMDIR /S /Q AvalonDock\AvalonDock.Themes.Metro\bin
 RMDIR /S /Q AvalonDock\AvalonDock.Themes.Metro\obj
 
+ECHO Deleting BIN and OBJ Folders in EDI folder
+ECHO.
 RMDIR /S /Q Edi\bin
 RMDIR /S /Q Edi\obj
 
@@ -58,6 +67,26 @@ RMDIR /S /Q Themes\obj
 
 RMDIR /S /Q ICSharpCode.AvalonEdit\bin
 RMDIR /S /Q ICSharpCode.AvalonEdit\obj
+
+ECHO Deleting BIN and OBJ Folders in MiniUML folder
+ECHO.
+RMDIR /S /Q .\MiniUML\MiniUML.Diagnostics\bin
+RMDIR /S /Q .\MiniUML\MiniUML.Diagnostics\obj
+
+RMDIR /S /Q .\MiniUML\MiniUML.Framework\bin
+RMDIR /S /Q .\MiniUML\MiniUML.Framework\obj
+
+RMDIR /S /Q .\MiniUML\MiniUML.Model\bin
+RMDIR /S /Q .\MiniUML\MiniUML.Model\obj
+
+RMDIR /S /Q .\MiniUML\MiniUML.View\bin
+RMDIR /S /Q .\MiniUML\MiniUML.View\obj
+
+RMDIR /S /Q .\MiniUML\Plugins\src\MiniUML.Plugins.UmlClassDiagram\bin
+RMDIR /S /Q .\MiniUML\Plugins\src\MiniUML.Plugins.UmlClassDiagram\obj
+
+ECHO Deleting BIN and OBJ Folders in utilities
+ECHO.
 
 RMDIR /S /Q SimpleControls\bin
 RMDIR /S /Q SimpleControls\obj

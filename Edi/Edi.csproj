@@ -11,7 +11,8 @@
     <RootNamespace>Edi</RootNamespace>
     <AssemblyName>Edi</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -25,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -34,6 +36,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -55,6 +59,7 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
     <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>EdiLogo.ico</ApplicationIcon>
@@ -76,9 +81,6 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="UnitComboLib">
-      <HintPath>..\02_Libs\00_bin\UnitComboLib.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -93,7 +95,8 @@
     <Compile Include="AvalonEdit\HighLighting_Extension\HighlightingExtension.cs" />
     <Compile Include="Converter\ActiveDocumentConverter.cs" />
     <Compile Include="Converter\ActiveDocumentToVisibilityConverter.cs" />
-    <Compile Include="ViewModel\EdiViewModel.cs" />
+    <Compile Include="PluginLoader.cs" />
+    <Compile Include="ViewModel\Base\ViewModelBase.cs" />
     <Compile Include="ViewModel\Workspace_Editor.cs" />
     <Compile Include="ViewModel\Workspace_Theming.cs" />
     <Compile Include="View\MainMenu.xaml.cs">
@@ -130,7 +133,6 @@
     <Compile Include="View\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewSelector.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -259,9 +261,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\document.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\property-blue.png" />
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +324,18 @@
       <Project>{6C55B776-26D4-4DB3-A6AB-87E783B2F3D1}</Project>
       <Name>ICSharpCode.AvalonEdit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MiniUML\MiniUML.Framework\MiniUML.Framework.csproj">
+      <Project>{99941efe-69b0-4618-b130-6d6fc1b43eb3}</Project>
+      <Name>MiniUML.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MiniUML\MiniUML.Model\MiniUML.Model.csproj">
+      <Project>{4654f58a-400c-4d47-9dc9-9fca153554d3}</Project>
+      <Name>MiniUML.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MiniUML\MiniUML.View\MiniUML.View.csproj">
+      <Project>{aad6b1d6-f529-40f8-9786-dc8e2fdf0ad6}</Project>
+      <Name>MiniUML.View</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimpleControls\SimpleControls.csproj">
       <Project>{0E69BE38-78C0-4662-A0E1-56C5913B5C3A}</Project>
       <Name>SimpleControls</Name>
@@ -359,7 +370,11 @@
   <ItemGroup>
     <Resource Include="EdiLogo.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="MiniUML.Plugins\MiniUML.Plugins.UmlClassDiagram.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

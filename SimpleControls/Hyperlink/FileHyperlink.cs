@@ -137,8 +137,8 @@
       }
       catch (System.Exception ex)
       {
-        Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (whLink.NavigateUri == null ? string.Empty : whLink.NavigateUri.ToString())),
-                     "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (whLink.NavigateUri == null ? string.Empty : whLink.NavigateUri.ToString())),
+                 "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
 
@@ -192,8 +192,8 @@
       }
       catch (System.Exception ex)
       {
-        Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (this.NavigateUri == null ? string.Empty : this.NavigateUri.ToString())),
-                        "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (this.NavigateUri == null ? string.Empty : this.NavigateUri.ToString())),
+                 "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
 
@@ -224,8 +224,8 @@
           string sParentDir = System.IO.Directory.GetParent(sFileName).FullName;
 
           if (System.IO.Directory.Exists(sParentDir) == false)
-            Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "The directory '{0}' does not exist or cannot be accessed.", sParentDir),
-                         "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
+            Msg.Show(string.Format(CultureInfo.CurrentCulture, "The directory '{0}' does not exist or cannot be accessed.", sParentDir),
+                     "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
           else
           {
             // combine the arguments together it doesn't matter if there is a space after ','
@@ -239,8 +239,8 @@
       }
       catch (System.Exception ex)
       {
-        Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (sFileName == null ? string.Empty : sFileName)),
-                        "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (sFileName == null ? string.Empty : sFileName)),
+                    "Error finding requested resource", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
 
       return true;

@@ -1,10 +1,12 @@
 ﻿namespace EdiViews.ViewModel.Base
 {
-  using System.Windows.Input;
-  using System;
+  using EdiViews.WeakEvents;
   using MsgBox;
-  using System.Globalization;
   using SimpleControls.Command;
+  using System;
+  using System.Globalization;
+  using System.Windows;
+  using System.Windows.Input;
 
   /// <summary>
   /// Base class that shares common properties, methods, and intefaces
@@ -17,13 +19,16 @@
     private bool mIsFilePathReal = false;
     #endregion Fields
 
+    #region events
     /// <summary>
     /// This event is fired when a document tells the framework that is wants to be closed.
     /// The framework can then close it and clean-up whatever is left to clean-up.
     /// </summary>
     virtual public event EventHandler CloseDocument;
+    #endregion events
 
     #region properties
+    #region IsFilePathReal
     /// <summary>
     /// Get/set whether a given file path is a real existing path or not.
     /// 
@@ -42,10 +47,39 @@
         this.mIsFilePathReal = value;
       }
     }
+    #endregion IsFilePathReal
 
+    #region FilePath
     abstract public string FilePath{ get; protected set; }
+    #endregion FilePath
 
+    #region FileName
+    /// <summary>
+    /// FileName is the string that is displayed whenever the application refers to this file, as in:
+    /// string.Format(CultureInfo.CurrentCulture, "Would you like to save the '{0}' file", FileName)
+    /// 
+    /// Note the absense of the dirty mark '*'. Use the Title property if you want to display the file
+    /// name with or without dirty mark when the user has edited content.
+    /// </summary>
+    abstract public string FileName { get; }
+    #endregion FileName
+
+    #region IsDirty
+    /// <summary>
+    /// Get whether the current information was edit and needs to be saved or not.
+    /// </summary>
     abstract public bool IsDirty{ get; protected set; }
+    #endregion IsDirty
+
+    #region CanSaveData
+    /// <summary>
+    /// Get whether edited data can be saved or not.
+    /// A type of document does not have a save
+    /// data implementation if this property returns false.
+    /// (this is document specific and should always be overriden by descendents)
+    /// </summary>
+    abstract public bool CanSaveData{ get; }
+    #endregion CanSaveData
 
     #region CloseCommand
     /// <summary>
@@ -58,22 +92,22 @@
     #endregion
 
     #region OpenContainingFolder
-    RelayCommand<object> _openContainingFolderCommand = null;
+    private RelayCommand<object> _openContainingFolderCommand = null;
+
+    /// <summary>
+    /// Get open containing folder command which will open
+    /// the folder indicated by the path in windows explorer
+    /// and select the file (if path points to one).
+    /// </summary>
     public ICommand OpenContainingFolderCommand
     {
       get
       {
         if (_openContainingFolderCommand == null)
-          _openContainingFolderCommand = new RelayCommand<object>((p) => this.OnOpenContainingFolderCommand(),
-                                                                  (p) => this.CanOpenContainingFolderCommand());
+          _openContainingFolderCommand = new RelayCommand<object>((p) => this.OnOpenContainingFolderCommand());
 
         return _openContainingFolderCommand;
       }
-    }
-
-    public bool CanOpenContainingFolderCommand()
-    {
-      return true;
     }
 
     private void OnOpenContainingFolderCommand()
@@ -92,8 +126,8 @@
           string parentDir = System.IO.Directory.GetParent(this.FilePath).FullName;
 
           if (System.IO.Directory.Exists(parentDir) == false)
-            MsgBox.Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "The directory '{0}' does not exist or cannot be accessed.", parentDir),
-                                "Error finding file", MsgBoxButtons.OK, MsgBoxImage.Error);
+            MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "The directory '{0}' does not exist or cannot be accessed.", parentDir),
+                            "Error finding file", MsgBoxButtons.OK, MsgBoxImage.Error);
           else
           {
             string argument = @"/select, " + parentDir;
@@ -104,28 +138,28 @@
       }
       catch (System.Exception ex)
       {
-        MsgBox.Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (this.FilePath == null ? string.Empty : this.FilePath)),
-                            "Error finding file:", MsgBoxButtons.OK, MsgBoxImage.Error);
+        MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (this.FilePath == null ? string.Empty : this.FilePath)),
+                        "Error finding file:", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
     #endregion OpenContainingFolder
 
     #region CopyFullPathtoClipboard
-    RelayCommand<object> _copyFullPathtoClipboard = null;
+    private RelayCommand<object> _copyFullPathtoClipboard = null;
+
+    /// <summary>
+    /// Get CopyFullPathtoClipboard command which will copy
+    /// the path of the executable into the windows clipboard.
+    /// </summary>
     public ICommand CopyFullPathtoClipboard
     {
       get
       {
         if (_copyFullPathtoClipboard == null)
-          _copyFullPathtoClipboard = new SimpleControls.Command.RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand(), (p) => this.CanCopyFullPathtoClipboardCommand());
+          _copyFullPathtoClipboard = new SimpleControls.Command.RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand());
 
         return _copyFullPathtoClipboard;
       }
-    }
-
-    public bool CanCopyFullPathtoClipboardCommand()
-    {
-      return true;
     }
 
     private void OnCopyFullPathtoClipboardCommand()
@@ -149,7 +183,7 @@
     abstract public bool CanClose();
 
     /// <summary>
-    /// Indicate whether document can be saved.
+    /// Indicate whether document can be saved in the currennt state.
     /// </summary>
     /// <returns></returns>
     abstract public bool CanSave();
@@ -164,7 +198,7 @@
     /// Save this document as.
     /// </summary>
     /// <returns></returns>
-    abstract public bool OnSaveAs();
+    abstract public bool SaveFile(string filePath);
 
     /// <summary>
     /// Return the path of the file representation (if any).

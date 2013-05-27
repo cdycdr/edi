@@ -4,23 +4,41 @@
         <name>UnitComboLib</name>
     </assembly>
     <members>
-        <member name="T:UnitComboLib.UnitCombobox">
+        <member name="T:UnitComboLib.Behaviour.ContextMenuBehaviour">
             <summary>
-            This class implements a lookless combobox control with
-            a unit drop-down selection that can be used to pre-select
-            a list of useful combobox entries.
+            This class can be used to populate a context-menu
+            when a user clicks on a <seealso cref="T:System.Windows.FrameworkElement"/>.
             </summary>
         </member>
-        <member name="M:UnitComboLib.UnitCombobox.#cctor">
+        <member name="M:UnitComboLib.Behaviour.ContextMenuBehaviour.GetMenuList(System.Windows.DependencyObject)">
             <summary>
-            Static class constructor to register look-less <seealso cref="T:UnitComboLib.UnitCombobox"/> class
-            control with the dependency property system.
+            Implements the get portion of the <seealso cref="T:System.Windows.Controls.ContextMenu"/> dependency property.
             </summary>
+            <param name="obj"></param>
+            <returns></returns>
         </member>
-        <member name="M:UnitComboLib.UnitCombobox.#ctor">
+        <member name="M:UnitComboLib.Behaviour.ContextMenuBehaviour.SetMenuList(System.Windows.DependencyObject,System.Windows.Controls.ContextMenu)">
             <summary>
-            Standard public class constructor.
+            IMplements the set portion of the <seealso cref="T:System.Windows.Controls.ContextMenu"/> dependency property.
             </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:UnitComboLib.Behaviour.ContextMenuBehaviour.OnMenuListChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This method is fired when the <seealso cref="T:System.Windows.Controls.ContextMenu"/> dependency property is set or reset.
+            </summary>
+            <param name="d"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:UnitComboLib.Behaviour.ContextMenuBehaviour.element_MouseLeftButtonUp(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            This method is fired when the user clicks on the attached <seealso cref="T:System.Windows.FrameworkElement"/>.
+            Its goal is to either open the corresponding <seealso cref="T:System.Windows.Controls.ContextMenu"/> via the <seealso cref="T:System.Windows.Controls.ContextMenu"/> dependency property
+            or attempt to open the standard context menu of the attached <seealso cref="T:System.Windows.FrameworkElement"/> if the dependency property is not set.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
         <member name="T:UnitComboLib.Command.RelayCommand`1">
             <summary>
@@ -109,6 +127,198 @@
         <member name="E:UnitComboLib.Command.RelayCommand.CanExecuteChanged">
             <summary>
             Eventhandler to re-evaluate whether this command can execute or not
+            </summary>
+        </member>
+        <member name="T:UnitComboLib.UnitCombobox">
+            <summary>
+            This class implements a lookless combobox control with
+            a unit drop-down selection that can be used to pre-select
+            a list of useful combobox entries.
+            </summary>
+        </member>
+        <member name="M:UnitComboLib.UnitCombobox.#cctor">
+            <summary>
+            Static class constructor to register look-less <seealso cref="T:UnitComboLib.UnitCombobox"/> class
+            control with the dependency property system.
+            </summary>
+        </member>
+        <member name="M:UnitComboLib.UnitCombobox.#ctor">
+            <summary>
+            Standard public class constructor.
+            </summary>
+        </member>
+        <member name="T:UnitComboLib.Unit.Itemkey">
+            <summary>
+            Enumeration keys for each unit
+            </summary>
+        </member>
+        <member name="F:UnitComboLib.Unit.Itemkey.ScreenFontPoints">
+            <summary>
+            Units of computer font screen dimensions
+            </summary>
+        </member>
+        <member name="F:UnitComboLib.Unit.Itemkey.ScreenPercent">
+            <summary>
+            A percentage of the <seealso cref="F:UnitComboLib.Unit.Itemkey.ScreenFontPoints"/> with 12 being equivalent to 100%.
+            </summary>
+        </member>
+        <member name="T:UnitComboLib.Unit.Converter">
+            <summary>
+            Abstract converter class definition to convert values from one unit to the other.
+            </summary>
+        </member>
+        <member name="M:UnitComboLib.Unit.Converter.Convert(UnitComboLib.Unit.Itemkey,System.Double,UnitComboLib.Unit.Itemkey)">
+            <summary>
+            Converter method to convert a value from one unit to the other.
+            </summary>
+            <param name="inputUnit">Unit of <paramref name="inputValue"/></param>
+            <param name="inputValue">Amount of value to convert</param>
+            <param name="outputUnit">Expected Unit of value to be converted to.</param>
+            <returns>Converted value.</returns>
+        </member>
+        <member name="T:UnitComboLib.Unit.Screen.ScreenConverter">
+            <summary>
+            Classs to convert font size values into a percentage value and back.
+            </summary>
+        </member>
+        <member name="F:UnitComboLib.Unit.Screen.ScreenConverter.OneHundretPercentFont">
+            <summary>
+            A font size of 12 is equivalent to 100% (percent) display size.
+            </summary>
+        </member>
+        <member name="F:UnitComboLib.Unit.Screen.ScreenConverter.OneHundretPercent">
+            <summary>
+            This is the standard value to scale against when using percent instead of fontsize.
+            </summary>
+        </member>
+        <member name="M:UnitComboLib.Unit.Screen.ScreenConverter.Convert(UnitComboLib.Unit.Itemkey,System.Double,UnitComboLib.Unit.Itemkey)">
+            <summary>
+            Convert between different units of screen resolutions.
+            </summary>
+            <param name="inputUnit"></param>
+            <param name="inputValue"></param>
+            <param name="outputUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="T:UnitComboLib.Unit.Screen.ScreenFontPoints">
+            <summary>
+            Class to convert from font sizes to other unit based values.
+            </summary>
+        </member>
+        <member name="M:UnitComboLib.Unit.Screen.ScreenFontPoints.#ctor(System.Double)">
+            <summary>
+            Class constructor
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:UnitComboLib.Unit.Screen.ScreenFontPoints.ToUnit(System.Double,UnitComboLib.Unit.Itemkey)">
+            <summary>
+            Convert a font size to other values.
+            </summary>
+            <param name="inputValue"></param>
+            <param name="targetUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnitComboLib.Unit.Screen.ScreenFontPoints.ToUnit(UnitComboLib.Unit.Itemkey)">
+            <summary>
+            Convert a font size to other values.
+            </summary>
+            <param name="targetUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="T:UnitComboLib.Unit.Screen.ScreenPercent">
+            <summary>
+            Class to convert from percentage values into other units.
+            </summary>
+        </member>
+        <member name="M:UnitComboLib.Unit.Screen.ScreenPercent.#ctor(System.Double)">
+            <summary>
+            Class constructor.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:UnitComboLib.Unit.Screen.ScreenPercent.ToUnit(System.Double,UnitComboLib.Unit.Itemkey)">
+            <summary>
+            Convert percentage unit based value into another unit based value.
+            </summary>
+            <param name="inputValue"></param>
+            <param name="targetUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnitComboLib.Unit.Screen.ScreenPercent.ToUnit(UnitComboLib.Unit.Itemkey)">
+            <summary>
+            Convert percentage unit based value into another unit based value.
+            </summary>
+            <param name="targetUnit"></param>
+            <returns></returns>
+        </member>
+        <member name="T:UnitComboLib.ViewModel.BaseViewModel">
+            <summary>
+            Base class for viewmodel classes being used to communicate
+            between model and view via <seealso cref="T:System.ComponentModel.INotifyPropertyChanged"/> interface.
+            </summary>
+        </member>
+        <member name="M:UnitComboLib.ViewModel.BaseViewModel.NotifyPropertyChanged``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Method to invoke when a property has changed its value. Call convention:
+            
+            this.NotifyPropertyChanged(() => this.MyProperty);
+            </summary>
+            <typeparam name="TProperty"></typeparam>
+            <param name="property"></param>
+        </member>
+        <member name="E:UnitComboLib.ViewModel.BaseViewModel.PropertyChanged">
+            <summary>
+            Event that is fired when a property in the viewmodel changes.
+            </summary>
+        </member>
+        <member name="T:UnitComboLib.ViewModel.ListItem">
+            <summary>
+            One item in the list of unit definition items
+            </summary>
+        </member>
+        <member name="M:UnitComboLib.ViewModel.ListItem.#ctor(UnitComboLib.Unit.Itemkey,System.String,System.String,System.Collections.ObjectModel.ObservableCollection{System.String})">
+            <summary>
+            Class constructor.
+            </summary>
+            <param name="key"></param>
+            <param name="displayNameLong"></param>
+            <param name="displayNameShort"></param>
+            <param name="defaultValues"></param>
+        </member>
+        <member name="M:UnitComboLib.ViewModel.ListItem.#ctor">
+            <summary>
+            Hidden class constructor.
+            </summary>
+        </member>
+        <member name="P:UnitComboLib.ViewModel.ListItem.Key">
+            <summary>
+            Get unit of the values stored in this object (<seealso cref="P:UnitComboLib.ViewModel.ListItem.DefaultValues"/>).
+            </summary>
+        </member>
+        <member name="P:UnitComboLib.ViewModel.ListItem.DisplayNameLong">
+            <summary>
+            Display a long descriptive string of the unit stored in this object.
+            </summary>
+        </member>
+        <member name="P:UnitComboLib.ViewModel.ListItem.DisplayNameShort">
+            <summary>
+            Display a short string of the unit stored in this object.
+            </summary>
+        </member>
+        <member name="P:UnitComboLib.ViewModel.ListItem.DisplayNameLongWithShort">
+            <summary>
+            Display a combination of long and short string of the unit stored in this object.
+            </summary>
+        </member>
+        <member name="P:UnitComboLib.ViewModel.ListItem.DefaultValues">
+            <summary>
+            Get a list of useful default values for the unit stored in this item.
+            </summary>
+        </member>
+        <member name="T:UnitComboLib.ViewModel.UnitViewModel">
+            <summary>
+            Viewmodel class to manage unit conversion based on default values and typed values.
             </summary>
         </member>
         <member name="F:UnitComboLib.ViewModel.UnitViewModel.MinFontSizeValue">
@@ -241,91 +451,6 @@
             Get command to be executed when the user has selected a unit
             (eg. 'Km' is currently used but user selected 'm' to be used next)
             </summary>
-        </member>
-        <member name="T:UnitComboLib.ViewModel.ListItem">
-            <summary>
-            One item in the list of unit definition items
-            </summary>
-        </member>
-        <member name="P:UnitComboLib.ViewModel.ListItem.DisplayNameLong">
-            <summary>
-            Display a long descriptive string of the unit stored in this object.
-            </summary>
-        </member>
-        <member name="P:UnitComboLib.ViewModel.ListItem.DisplayNameShort">
-            <summary>
-            Display a short string of the unit stored in this object.
-            </summary>
-        </member>
-        <member name="P:UnitComboLib.ViewModel.ListItem.DisplayNameLongWithShort">
-            <summary>
-            Display a combination of long and short string of the unit stored in this object.
-            </summary>
-        </member>
-        <member name="P:UnitComboLib.ViewModel.ListItem.DefaultValues">
-            <summary>
-            Get a list of useful default values for the unit stored in this item.
-            </summary>
-        </member>
-        <member name="T:UnitComboLib.Unit.Itemkey">
-            <summary>
-            Enumeration keys for each unit
-            </summary>
-        </member>
-        <member name="T:UnitComboLib.Behaviour.ContextMenuBehaviour">
-            <summary>
-            This class can be used to populate a context-menu
-            when a user clicks on a <seealso cref="T:System.Windows.FrameworkElement"/>.
-            </summary>
-        </member>
-        <member name="M:UnitComboLib.Behaviour.ContextMenuBehaviour.GetMenuList(System.Windows.DependencyObject)">
-            <summary>
-            Implements the get portion of the <seealso cref="T:System.Windows.Controls.ContextMenu"/> dependency property.
-            </summary>
-            <param name="obj"></param>
-            <returns></returns>
-        </member>
-        <member name="M:UnitComboLib.Behaviour.ContextMenuBehaviour.SetMenuList(System.Windows.DependencyObject,System.Windows.Controls.ContextMenu)">
-            <summary>
-            IMplements the set portion of the <seealso cref="T:System.Windows.Controls.ContextMenu"/> dependency property.
-            </summary>
-            <param name="obj"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:UnitComboLib.Behaviour.ContextMenuBehaviour.OnMenuListChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
-            <summary>
-            This method is fired when the <seealso cref="T:System.Windows.Controls.ContextMenu"/> dependency property is set or reset.
-            </summary>
-            <param name="d"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:UnitComboLib.Behaviour.ContextMenuBehaviour.element_MouseLeftButtonUp(System.Object,System.Windows.Input.MouseButtonEventArgs)">
-            <summary>
-            This method is fired when the user clicks on the attached <seealso cref="T:System.Windows.FrameworkElement"/>.
-            Its goal is to either open the corresponding <seealso cref="T:System.Windows.Controls.ContextMenu"/> via the <seealso cref="T:System.Windows.Controls.ContextMenu"/> dependency property
-            or attempt to open the standard context menu of the attached <seealso cref="T:System.Windows.FrameworkElement"/> if the dependency property is not set.
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="F:UnitComboLib.Unit.Screen.ScreenConverter.OneHundretPercentFont">
-            <summary>
-            A font size of 12 is equivalent to 100% (percent) display size.
-            </summary>
-        </member>
-        <member name="F:UnitComboLib.Unit.Screen.ScreenConverter.OneHundretPercent">
-            <summary>
-            This is the standard value to scale against when using percent instead of fontsize.
-            </summary>
-        </member>
-        <member name="M:UnitComboLib.Unit.Screen.ScreenConverter.Convert(UnitComboLib.Unit.Itemkey,System.Double,UnitComboLib.Unit.Itemkey)">
-            <summary>
-            Convert between different units of screen resolutions.
-            </summary>
-            <param name="inputUnit"></param>
-            <param name="inputValue"></param>
-            <param name="outputUnit"></param>
-            <returns></returns>
         </member>
     </members>
 </doc>

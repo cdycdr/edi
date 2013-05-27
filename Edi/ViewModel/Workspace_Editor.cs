@@ -7,12 +7,13 @@
   using System.Windows;
   using System.Windows.Threading;
 
-  using Edi.View;
+  using EdiViews;
   using EdiViews.FindReplace.ViewModel;
+  using EdiViews.ViewModel.Documents;
   using ICSharpCode.AvalonEdit.Document;
   using MsgBox;
 
-  partial class Workspace
+  public partial class Workspace
   {
     private FindReplaceViewModel mFindReplaceVM = null;
     public FindReplaceViewModel FindReplaceVM
@@ -162,7 +163,7 @@
       {
         if (f.SearchIn == EdiViews.FindReplace.SearchScope.CurrentDocument)
         {
-          MsgBox.Msg.Box.Show("There are no more search results to display.");
+          MsgBox.Msg.Show("There are no more search results to display.");
 
           return false;
         }
@@ -196,7 +197,7 @@
           }
           else
           {
-            MsgBox.Msg.Box.Show("No further occurence found.", "Search");
+            MsgBox.Msg.Show("No further occurence found.", "Search");
           }
         } while (f.CurrentEditor != OldEditor);
       }
@@ -270,7 +271,7 @@
         }
         catch (Exception exc)
         {
-          MsgBox.Msg.Box.Show(exc, "An unexpected error occured.", MsgBoxButtons.OK, MsgBoxImage.Error);
+          MsgBox.Msg.Show(exc, "An unexpected error occured.", MsgBoxButtons.OK, MsgBoxImage.Error);
         }
         finally
         {
@@ -333,7 +334,7 @@
         }
         catch (Exception exc)
         {
-          MsgBox.Msg.Box.Show(exc, "An unexpected error occured.", MsgBoxButtons.OK, MsgBoxImage.Error);
+          MsgBox.Msg.Show(exc, "An unexpected error occured.", MsgBoxButtons.OK, MsgBoxImage.Error);
         }
         finally
         {

@@ -588,7 +588,7 @@
         if (this.mOKCommand == null)
           this.mOKCommand = new RelayCommand(() =>
           {
-            this.Result = MsgBoxResult.Ok;
+            this.Result = MsgBoxResult.OK;
             this.DialogCloseResult = true;
           });
 
@@ -762,6 +762,7 @@
     /// Determine a default button (such as OK or Yes) to be executed when the user hits the ENTER key.
     /// </summary>
     /// <param name="buttonOption"></param>
+    /// <param name="defaultButton"></param>
     private MsgBoxResult SetupDefaultButton(MsgBoxButtons buttonOption,
                                             MsgBoxResult defaultButton)
     {
@@ -781,7 +782,7 @@
           case MsgBoxButtons.OK:
           case MsgBoxButtons.OKCancel:
           case MsgBoxButtons.OKClose:
-            ret = MsgBoxResult.Ok;
+            ret = MsgBoxResult.OK;
             break;
 
           case MsgBoxButtons.YesNo:

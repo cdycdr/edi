@@ -4,28 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-             
+                          
             xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit.Highlighting;assembly=ICSharpCode.AvalonEdit"
             xmlns:cmd="clr-namespace:Util.Command;assembly=Util"
             xmlns:behav="clr-namespace:EdiViews.Behaviour;assembly=EdiViews"
 
             xmlns:conv="clr-namespace:Edi.Converter"
             xmlns:vm="clr-namespace:Edi.ViewModel"
-             >
+             >  <!--d:DesignHeight="300" d:DesignWidth="300"-->
   <Grid>
     <ToolBarTray Grid.Row="1" SnapsToDevicePixels="True" >
       <ToolBar  VerticalAlignment="Stretch" ToolBarTray.IsLocked="True"
                 SnapsToDevicePixels="True"
                 behav:HideToolbarOverflowButton.HideGrip="True">
+
         <Button Command="New" SnapsToDevicePixels="True"
-                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
+              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
           <Image Source="{StaticResource Image_New}" Height="32" SnapsToDevicePixels="True" />
         </Button>
+
         <Button Command="Open" SnapsToDevicePixels="True"
-                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
+              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
           <Image Source="{StaticResource Image_Open}" Height="32" SnapsToDevicePixels="True" />
         </Button>
+
+        <Button Command="Save" SnapsToDevicePixels="True"
+              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
+          <Image Source="{StaticResource Image_Save}" Height="32" SnapsToDevicePixels="True" />
+        </Button>
+
         <Button Command="Save" SnapsToDevicePixels="True"
               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
           <Image Source="{StaticResource Image_Save}" Height="32" SnapsToDevicePixels="True" />

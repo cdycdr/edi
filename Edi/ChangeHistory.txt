@@ -3,6 +3,7 @@
 
 - ToDo
   Write currently configured highlighting theme as HTML output into a new file tab (configured with HTML Highlighting)
+  YalvLib supports customizable column display (via context menu on columns -> make this configurable in program settings)
 
 - ToDo Improve Startup performance by:
   - loading everything but default fallback theme (Aero) on demand
@@ -11,6 +12,39 @@
 - ToDo
  - Query user whether files should be searched/browsed
  - or add lost & and found view that offers a hyperlink that performs a file open on the last known location
+
+* Adjusted Msg Box service to cover almost all calling conventions from System.MessageBox.Show
+  (This should be a piece of cake in terms of usage now)
+
+* Implemented first version of mousewheel-zoom in texteditor
+  See § 3.3.1.0 
+  -> The zoom with the mouse wheel is reflected in the zoom combobox (small extension in UnitComboBox).
+
+Known issues:
+  The zoom does not work after changing the theme
+
+* Implemented first version of MiniUML Viewer (http://MiniUML.codeplex.com/)
+
+  - Implemented AbstractDocumentViewModel class and IMiniUMLDocument interface
+    to re-structure dependencies between MiniUml and surrounding application
+    
+  - Added local MiniUML styles in MiniUML.Plugins.UmlClassDiagram to make UML document ignorant of theming
+    (ExpressionDark would render UML documents with theming problems otherwise)
+
+  - Added UML elements into MiniUML.Plugins.UmlClassDiagram
+  - Moved default image for select command (Command.Select.png) into MiniUML.Plugins.UmlClassDiagram
+
+  -> ToDo: Lots of bugs to fix
+     done -> CTRL+ALT TAB support - Away from UML document and To UML document
+          -> Dirty flag when editing UML document
+          -> File Close on dirty UML document raises message
+          -> Save All includes dirty UML documents
+          -> Exit application dirty UML document raises message
+
+     Todos -> Copy/Cut/Paste is now implemented as WPF Application command
+              but works only if the mouse selects a UML textbox control part that can have a focus (???)
+           -> Undo/Redo commands are not implemented as WPF Application command
+           -> Export/Print function is not integrated into EDI
 
 * Refactored:
   Views for more modularity into EdiViews

@@ -28,7 +28,6 @@
         }
       }
     }
-
     #endregion
 
     public virtual Uri IconSource

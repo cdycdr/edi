@@ -22,7 +22,8 @@
     <CodeAnalysisRules>-Microsoft.Design#CA1020;-Microsoft.Design#CA1033;-Microsoft.Performance#CA1805;-Microsoft.Performance#CA1810</CodeAnalysisRules>
     <DocumentationFile>bin\ICSharpCode.AvalonEdit.xml</DocumentationFile>
     <NoWarn>1607</NoWarn>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,10 +49,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>bin\Release\ICSharpCode.AvalonEdit.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>bin\Debug\ICSharpCode.AvalonEdit.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -65,6 +68,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRules>-Microsoft.Design#CA1020;-Microsoft.Design#CA1033;-Microsoft.Performance#CA1805;-Microsoft.Performance#CA1810</CodeAnalysisRules>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -77,6 +81,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRules>-Microsoft.Design#CA1020;-Microsoft.Design#CA1033;-Microsoft.Performance#CA1805;-Microsoft.Performance#CA1810</CodeAnalysisRules>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>

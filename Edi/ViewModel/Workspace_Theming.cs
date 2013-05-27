@@ -13,8 +13,9 @@
   using MsgBox;
   using ICSharpCode.AvalonEdit.Highlighting.Themes;
   using System.Windows.Media;
+  using EdiViews.ViewModel.Documents;
 
-  partial class Workspace
+  public partial class Workspace
   {
     #region Themes
     /// <summary>
@@ -272,9 +273,9 @@
 
           if (System.IO.File.Exists(ThemesPathFileName) == false)
           {
-            MsgBox.Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "Cannot find Path to: '{0}'\n\n" +
-                              "Please make sure this module is accesible.", themesModul), "Error",
-                              MsgBoxButtons.OK, MsgBoxImage.Error);
+            MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "Cannot find Path to: '{0}'\n\n" +
+                          "Please make sure this module is accesible.", themesModul), "Error",
+                          MsgBoxButtons.OK, MsgBoxImage.Error);
 
             return false;
           }
@@ -292,14 +293,14 @@
             }
             catch (Exception Exp)
             {
-              MsgBox.Msg.Box.Show(Exp, string.Format(CultureInfo.CurrentCulture, "'{0}'", Uris[i]), MsgBoxButtons.OK, MsgBoxImage.Error);
+              MsgBox.Msg.Show(Exp, string.Format(CultureInfo.CurrentCulture, "'{0}'", Uris[i]), MsgBoxButtons.OK, MsgBoxImage.Error);
             }
           }
         }
       }
       catch (Exception exp)
       {
-        MsgBox.Msg.Box.Show(exp, "Error", MsgBoxButtons.OK, MsgBoxImage.Error);
+        MsgBox.Msg.Show(exp, "Error", MsgBoxButtons.OK, MsgBoxImage.Error);
 
         return false;
       }

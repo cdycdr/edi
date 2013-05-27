@@ -12,6 +12,8 @@
     <ResourceDictionary Source="/Themes;component/Icons.xaml" />
     <ResourceDictionary Source="/Themes;component/Generic/Brushes.xaml" />
 
+    <ResourceDictionary Source="/MiniUML.View;component/SharedResources.xaml"/>
+
     <!-- ResourceDictionary Source="/AvalonDock.Themes.Aero;component/Theme.xaml" / -->
   </ResourceDictionary.MergedDictionaries>
 

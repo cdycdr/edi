@@ -1,15 +1,14 @@
 ﻿namespace Edi.View.Pane
 {
-  using System.Windows;
-  using System.Windows.Controls;
-
   using AvalonDock.Layout;
-  using Edi.ViewModel;
   using EdiViews.Documents.Log4Net;
   using EdiViews.Documents.StartPage;
   using EdiViews.FileStats;
   using EdiViews.Log4Net;
   using EdiViews.ViewModel;
+  using EdiViews.ViewModel.Documents;
+  using System.Windows;
+  using System.Windows.Controls;
 
   /// <summary>
   /// Select a corresponding <seealso cref="DataTemplate"/> to a given type of viewmodel.
@@ -18,10 +17,15 @@
   {
     public PanesTemplateSelector()
     {
-
     }
 
     public DataTemplate FileViewTemplate
+    {
+      get;
+      set;
+    }
+
+    public DataTemplate MiniUMLViewTemplate
     {
       get;
       set;
@@ -73,6 +77,9 @@
 
       if (item is EdiViewModel)
         return this.FileViewTemplate;
+
+      if (item is MiniUumViewModel)
+        return this.MiniUMLViewTemplate;
 
       if (item is StartPageViewModel)
         return this.StartPageViewTemplate;

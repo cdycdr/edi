@@ -346,7 +346,7 @@ Local fixes are marked with Dirkster comments.
           syntax highlighting for the current file.
 
 
-§ 3.2.1.20 The attempts to detect a file encoding and shows the encoding currently used
+§ 3.2.1.20 The editor attempts to detect a file encoding and shows the encoding currently used
            (see bottom right corner of main window).
 
            TODO:
@@ -362,6 +362,9 @@ Local fixes are marked with Dirkster comments.
 
           are underlined and theme colored as hyperlink. The hyperlink is evaluated and executed
           when user (CTRL+)MouseClicks it. Errors (eg.: on dead-links) are not displayed in Edi.
+
+§ 3.3.1.0 The editor supports zooming of text view via CTRL+MouseWheel and Zoom Combobox control
+          in lower left corner of editor window.
 
 3.4 Application Framework
 

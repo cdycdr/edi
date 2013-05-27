@@ -93,17 +93,17 @@
               {
               }
 
-              MsgBox.Msg.Box.Show(ex, string.Format(CultureInfo.InvariantCulture, "Error registering highlighting: '{0}'", filename),
-                                   MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Alert, MsgBox.MsgBoxResult.NoDefaultButton,
-                                   App.IssueTrackerLink, App.IssueTrackerTitle, App.IssueTrackerText, null, true);
+              MsgBox.Msg.Show(ex, string.Format(CultureInfo.InvariantCulture, "Error registering highlighting: '{0}'", filename),
+                               MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Alert, MsgBox.MsgBoxResult.NoDefaultButton,
+                               App.IssueTrackerLink, App.IssueTrackerTitle, App.IssueTrackerText, null, true);
             }
           }
         }
       }
       catch (Exception ex)
       {
-        MsgBox.Msg.Box.Show(ex, "Unexpected error", MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Alert, MsgBox.MsgBoxResult.NoDefaultButton,
-                             App.IssueTrackerLink, App.IssueTrackerTitle, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(ex, "Unexpected error", MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Alert, MsgBox.MsgBoxResult.NoDefaultButton,
+                         App.IssueTrackerLink, App.IssueTrackerTitle, App.IssueTrackerText, null, true);
       }
     }
 

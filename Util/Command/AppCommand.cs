@@ -83,23 +83,6 @@
       AppCommand.showStartPage = new RoutedUICommand("Show Start Page", "StartPage", typeof(AppCommand), inputs);
 
       #region Text Edit Commands
-/***  inputs = new InputGestureCollection();
-      inputs.Add(new KeyGesture(Key.C, ModifierKeys.Control, "Ctrl+C"));
-      AppCommand.copyItem = new RoutedUICommand("Copy", "Copy", typeof(AppCommand), inputs);      
-
-      inputs = new InputGestureCollection();
-      inputs.Add(new KeyGesture(Key.X, ModifierKeys.Control, "Ctrl+X"));
-      AppCommand.cutItem = new RoutedUICommand("Cut", "Cut", typeof(AppCommand), inputs);
-
-      inputs = new InputGestureCollection();
-      inputs.Add(new KeyGesture(Key.V, ModifierKeys.Control, "Ctrl+V"));
-      AppCommand.pasteItem = new RoutedUICommand("Paste", "Paste", typeof(AppCommand), inputs);
-
-      inputs = new InputGestureCollection();
-      ////inputs.Add(new KeyGesture(Key.X, ModifierKeys.Control, "Ctrl+X"));
-      AppCommand.deleteItem = new RoutedUICommand("Delete", "Delete", typeof(AppCommand), inputs);
-***/
-
       inputs = new InputGestureCollection();                                     // Goto Line n in the current document
       //inputs.Add(new KeyGesture(Key.A, ModifierKeys.Control, "Ctrl + A"));
       AppCommand.disableHighlighting = new RoutedUICommand("Switch off syntax highlighting for current file", "DisableHighlighting", typeof(AppCommand), inputs);

@@ -329,7 +329,11 @@ namespace ICSharpCode.AvalonEdit
 			((TextEditor)d).OnSyntaxHighlightingChanged(e.NewValue as IHighlightingDefinition);
 		}
 		
-    // Dirkster99 made this protected virtual to enable descendents to override this
+    /// <summary>
+    /// Method is executed when the syntax highlighting defined through dp has changed.
+    /// Dirkster99 made this protected virtual to enable descendents to override this
+    /// </summary>
+    /// <param name="newValue"></param>
 		protected virtual void OnSyntaxHighlightingChanged(IHighlightingDefinition newValue)
 		{
 			if (colorizer != null) {

@@ -9,15 +9,23 @@
             xmlns:EdiViewsConv="clr-namespace:EdiViews.Converter;assembly=EdiViews"
             xmlns:cmd="clr-namespace:Util.Command;assembly=Util"
             xmlns:behav="clr-namespace:EdiViews.Behaviour;assembly=EdiViews"
+            xmlns:vm="clr-namespace:Edi.ViewModel"
              >
   <Grid>
     <Menu Grid.Row="0">
       <MenuItem Header="_File">
-        <MenuItem Header="New" Command="New"/>
-        <MenuItem Header="Open" Command="Open"/>
+        <MenuItem Header="New" Command="New">
+          <MenuItem Header="New Text"    Command="New" CommandParameter="{x:Static vm:TypeOfDocument.EdiTextEditor}"  />
+          <MenuItem Header="New UML" Command="New" CommandParameter="{x:Static vm:TypeOfDocument.UMLEditor}"  />
+        </MenuItem>
+        <MenuItem Header="Open" Command="Open">
+          <MenuItem Header="Open Log4net" Command="Open" CommandParameter="{x:Static vm:TypeOfDocument.Log4NetView}" />
+          <MenuItem Header="Open Text"    Command="Open" CommandParameter="{x:Static vm:TypeOfDocument.EdiTextEditor}"  />
+          <MenuItem Header="Open UML" Command="Open" CommandParameter="{x:Static vm:TypeOfDocument.UMLEditor}"  />
+        </MenuItem>
         <Separator/>
-        <MenuItem Header="Save" Command="Save" ToolTipService.ShowOnDisabled="True" />
-        <MenuItem Header="Save As..." Command="SaveAs"/>
+        <MenuItem Header="Save"       Command="Save" ToolTipService.ShowOnDisabled="True" />
+        <MenuItem Header="Save As..." Command="SaveAs" ToolTipService.ShowOnDisabled="True" />
         <MenuItem ItemsSource="{Binding RecentFiles.MruList.ListOfMRUEntries}" Grid.Row="0" Header="Recent Files"
                   Visibility="{Binding Path=RecentFiles.MruList.ListOfMRUEntries, Mode=OneWay, Converter={EdiViewsConv:ZeroToVisibilityConverter}}">
           <MenuItem.ItemContainerStyle>

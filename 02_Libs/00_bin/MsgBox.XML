@@ -4,10 +4,118 @@
         <name>MsgBox</name>
     </assembly>
     <members>
-        <member name="T:MsgBox.ServiceContainer">
+        <member name="T:MsgBox.Commands.RelayCommand`1">
             <summary>
+            A command whose sole purpose is to 
+            relay its functionality to other
+            objects by invoking delegates. The
+            default return value for the CanExecute
+            method is 'true'.
+            
+            Source: http://www.codeproject.com/Articles/31837/Creating-an-Internationalized-Wizard-in-WPF
+            </summary>
+        </member>
+        <member name="M:MsgBox.Commands.RelayCommand`1.#ctor(System.Action{`0})">
+            <summary>
+            Class constructor
+            </summary>
+            <param name="execute"></param>
+        </member>
+        <member name="M:MsgBox.Commands.RelayCommand`1.#ctor(System.Action{`0},System.Predicate{`0})">
+            <summary>
+            Creates a new command.
+            </summary>
+            <param name="execute">The execution logic.</param>
+            <param name="canExecute">The execution status logic.</param>
+        </member>
+        <member name="M:MsgBox.Commands.RelayCommand`1.CanExecute(System.Object)">
+            <summary>
+            Determine whether this pre-requisites to execute this command are given or not.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Commands.RelayCommand`1.Execute(System.Object)">
+            <summary>
+            Execute the command method managed in this class.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="E:MsgBox.Commands.RelayCommand`1.CanExecuteChanged">
+            <summary>
+            Eventhandler to re-evaluate whether this command can execute or not
+            </summary>
+        </member>
+        <member name="T:MsgBox.Commands.RelayCommand">
+            <summary>
+            A command whose sole purpose is to 
+            relay its functionality to other
+            objects by invoking delegates. The
+            default return value for the CanExecute
+            method is 'true'.
+            </summary>
+        </member>
+        <member name="M:MsgBox.Commands.RelayCommand.#ctor(System.Action)">
+            <summary>
+            Creates a new command that can always execute.
+            </summary>
+            <param name="execute">The execution logic.</param>
+        </member>
+        <member name="M:MsgBox.Commands.RelayCommand.#ctor(MsgBox.Commands.RelayCommand)">
+            <summary>
+            Copy constructor
+            </summary>
+            <param name="inputRC"></param>
+        </member>
+        <member name="M:MsgBox.Commands.RelayCommand.#ctor(System.Action,System.Func{System.Boolean})">
+            <summary>
+            Creates a new command.
+            </summary>
+            <param name="execute">The execution logic.</param>
+            <param name="canExecute">The execution status logic.</param>
+        </member>
+        <member name="M:MsgBox.Commands.RelayCommand.CanExecute(System.Object)">
+            <summary>
+            Execute the attached CanExecute methode delegate (or always return true)
+            to determine whether the command managed in this object can execute or not.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Commands.RelayCommand.Execute(System.Object)">
+            <summary>
+            Return the attached delegate method.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="E:MsgBox.Commands.RelayCommand.CanExecuteChanged">
+            <summary>
+            Eventhandler to re-evaluate whether this command can execute or not
+            </summary>
+        </member>
+        <member name="T:MsgBox.Internal.MessageBoxService">
+            <summary>
+            A service that shows message boxes.
+            
             Source: http://www.codeproject.com/Articles/70223/Using-a-Service-Locator-to-Work-with-MessageBoxes
             </summary>
+        </member>
+        <member name="M:MsgBox.Internal.MessageBoxService.MsgBox#IMsgBoxService#Show(System.String,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Show a messagebox with details (such as a stacktrace or other information that can be kept in an expander).
+            </summary>
+            <param name="details"></param>
+            <param name="buttonOption"></param>
+            <param name="image"></param>
+            <param name="btnDefault"></param>
+            <param name="caption"></param>
+            <param name="helpLink"></param>
+            <param name="helpLinkLabel"></param>
+            <param name="helpLinkTitle"></param>
+            <param name="messageBoxText"></param>
+            <param name="navigateHelplinkMethod"></param>
+            <param name="showCopyMessage"></param>
+            <returns></returns>
         </member>
         <member name="T:MsgBox.Internal.ViewModel.DialogCloser">
              <summary>
@@ -43,11 +151,60 @@
              Source: http://stackoverflow.com/questions/501886/wpf-mvvm-newbie-how-should-the-viewmodel-close-the-form
              </summary>
         </member>
+        <member name="M:MsgBox.Internal.ViewModel.DialogCloser.SetDialogResult(System.Windows.Window,System.Nullable{System.Boolean})">
+            <summary>
+            Set portion of the dependency property
+            </summary>
+            <param name="target"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:MsgBox.Internal.ViewModel.EnumMatchToBooleanConverter">
+            <summary>
+            This class can be used to databind a (group of) radio button control(s)
+            with an enumeration in a ViewModel.
+            
+            Source: http://www.wpftutorial.net/RadioButton.html
+            </summary>
+        </member>
+        <member name="M:MsgBox.Internal.ViewModel.EnumMatchToBooleanConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Enum to Boolean Converter method
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Internal.ViewModel.EnumMatchToBooleanConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Boolean to Enum Converter method
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
         <member name="T:MsgBox.Internal.ViewModel.SetKeyboardFocusWhenIsDefault">
             <summary>
             This attached property can be used to set the keyboard focus on a button that has
             IsDefault="True". Keyboard focus is required to support keyboard navigation with cursor keys.
             </summary>
+        </member>
+        <member name="M:MsgBox.Internal.ViewModel.SetKeyboardFocusWhenIsDefault.GetSetFocus(System.Windows.DependencyObject)">
+            <summary>
+            Get portion of dependency property
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Internal.ViewModel.SetKeyboardFocusWhenIsDefault.SetSetFocus(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Set portion of dependency property
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
         </member>
         <member name="M:MsgBox.Internal.ViewModel.SetKeyboardFocusWhenIsDefault.OnSetFocusChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
@@ -70,17 +227,261 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="T:MsgBox.Internal.ViewModel.MsgBoxViewModel">
+        <member name="T:MsgBox.MsgBoxView">
             <summary>
-            Source:
-            http://blogsprajeesh.blogspot.de/2009/12/wpf-messagebox-custom-control-updated.html
-            http://prajeeshprathap.codeplex.com/sourcecontrol/list/patches?ProjectName=prajeeshprathap
-            
-            A viewmodel that drives an advanced message box dialog window through its life cycle.
-            This message box supports:
-            - Custom images
-            - Help Link Navigation for advanced research in online resources (by the user)
-            - (Expander) section with more textual/technical details
+            Interaction logic for MsgBoxView.xaml
+            </summary>
+            <summary>
+            MsgBoxView
+            </summary>
+        </member>
+        <member name="M:MsgBox.MsgBoxView.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:MsgBox.MsgBoxView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:MsgBox.Msg">
+            <summary>
+            Provide a WPF message box implementation that can be fully styled, templated, and themed.
+            </summary>
+        </member>
+        <member name="M:MsgBox.Msg.GetService``1">
+            <summary>
+            Retrieves a service object identified by <typeparamref name="TServiceContract"/>.
+            </summary>
+            <typeparam name="TServiceContract">The type identifier of the service.</typeparam>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String)">
+            <summary>
+            Displays a message box that has a message and that returns a result.
+            </summary>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String)">
+            <summary>
+            Displays a message box that has a message and that returns a result.
+            </summary>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.Windows.Window,System.String)">
+            <summary>
+            Displays a message box that has a message and that returns a result.
+            </summary>
+            <param name="owner">A System.Windows.Window that represents the owner window of the message box.</param>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String,MsgBox.MsgBoxButtons)">
+            <summary>
+            Displays a message box that has a message, title bar caption, and button; and that returns a result.
+            </summary>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <param name="button">A Msg.MessageBoxButton value that specifies which button or buttons to display.</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.Windows.Window,System.String,System.String)">
+            <summary>
+            Displays a message box in front of the specified window.
+            The message box displays a message and title bar caption; and it returns a result.
+            </summary>
+            <param name="owner">A System.Windows.Window that represents the owner window of the message box.</param>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage)">
+            <summary>
+            Displays a message box that has a message, title bar caption, button, and icon; and that returns a result.
+            </summary>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <param name="button">A Msg.MessageBoxButton value that specifies which button or buttons to display.</param>
+            <param name="icon">A Msg.MsgBoxImage value that specifies the icon to display.</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.Windows.Window,System.String,System.String,MsgBox.MsgBoxButtons)">
+            <summary>
+            Displays a message box in front of the specified window. The message box displays a message,
+            title bar caption, and button; and it also returns a result.
+            </summary>
+            <param name="owner">A System.Windows.Window that represents the owner window of the message box.</param>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <param name="button">A Msg.MsgBoxButtons value that specifies which button or buttons to display.</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult)">
+            <summary>
+            Displays a message box that has a message, title bar caption, button, and icon;
+            and that accepts a default message box result and returns a result.
+            </summary>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <param name="button">A Msg.MessageBoxButton value that specifies which button or buttons to display.</param>
+            <param name="icon">A Msg.MessageBoxImage value that specifies the icon to display.</param>
+            <param name="defaultResult">A MsgBox.MsgBoxResult value that specifies the default result of the message box.</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.Windows.Window,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage)">
+            <summary>
+            Displays a message box in front of the specified window. The message box displays
+            a message, title bar caption, button, and icon; and it also returns a result.
+            </summary>
+            <param name="owner">A System.Windows.Window that represents the owner window of the message box.</param>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <param name="button">A Msg.MessageBoxButton value that specifies which button or buttons to display.</param>
+            <param name="icon">A Msg.MessageBoxImage value that specifies the icon to display.</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.Windows.Window,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult)">
+            <summary>
+            Displays a message box in front of the specified window. The message box displays a message,
+            title bar caption, button, and icon; and accepts a default message box result and returns a result.
+            </summary>
+            <param name="owner">A System.Windows.Window that represents the owner window of the message box.</param>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <param name="button">A Msg.MessageBoxButton value that specifies which button or buttons to display.</param>
+            <param name="icon">A Msg.MessageBoxImage value that specifies the icon to display.</param>
+            <param name="defaultResult">A MsgBox.MsgBoxResult value that specifies the default result of the message box.</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box that has a message, title bar caption, button, and icon;
+            and that accepts a default message box result and returns a result.
+            </summary>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <param name="button">A Msg.MessageBoxButton value that specifies which button or buttons to display.</param>
+            <param name="icon">A Msg.MessageBoxImage value that specifies the icon to display.</param>
+            <param name="defaultResult">A MsgBox.MsgBoxResult value that specifies the default result of the message box.</param>
+            <param name="helpLink">Determines the address to browsed to when displaying a help link. This parameter can be a URI or string object.</param>
+            <param name="helpLinkTitle">Determines the text for displaying a help link.
+            By default the text is the toString() content of the <paramref name="helpLink"/>
+            but it can also be a different text set here.</param>
+            <param name="helpLinkLabel">Text label of the displayed hyperlink (if any)</param>
+            <param name="navigateHelplinkMethod">Method to execute when the user clicked the hyperlink</param>
+            <param name="showCopyMessage">Show a UI element (e.g. button) that lets the user copy the displayed message into the Windows clipboard</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box that has a message, title bar caption, button, and icon;
+            and that accepts a default message box result and returns a result.
+            </summary>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <param name="details">Displays a details section (e.g. expander) where a long message, such as, a stacktrace can be displayed within a scrollviewer.</param>
+            <param name="button">A Msg.MessageBoxButton value that specifies which button or buttons to display.</param>
+            <param name="icon">A Msg.MessageBoxImage value that specifies the icon to display.</param>
+            <param name="defaultResult">A MsgBox.MsgBoxResult value that specifies the default result of the message box.</param>
+            <param name="helpLink">Determines the address to browsed to when displaying a help link. This parameter can be a URI or string object.</param>
+            <param name="helpLinkTitle">Determines the text for displaying a help link.
+            By default the text is the toString() content of the <paramref name="helpLink"/>
+            but it can also be a different text set here.</param>
+            <param name="helpLinkLabel">Text label of the displayed hyperlink (if any)</param>
+            <param name="navigateHelplinkMethod">Method to execute when the user clicked the hyperlink</param>
+            <param name="showCopyMessage">Show a UI element (e.g. button) that lets the user copy the displayed message into the Windows clipboard</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.Exception,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box that has a message, title bar caption, button, and icon;
+            and that accepts a default message box result and returns a result.
+            </summary>
+            <param name="ex">Exception object (details: stacktrace and messages are displayed in details section)</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <param name="button">A Msg.MessageBoxButton value that specifies which button or buttons to display.</param>
+            <param name="icon">A Msg.MessageBoxImage value that specifies the icon to display.</param>
+            <param name="defaultResult">A MsgBox.MsgBoxResult value that specifies the default result of the message box.</param>
+            <param name="helpLink">Determines the address to browsed to when displaying a help link. This parameter can be a URI or string object.</param>
+            <param name="helpLinkTitle">Determines the text for displaying a help link.
+            By default the text is the toString() content of the <paramref name="helpLink"/>
+            but it can also be a different text set here.</param>
+            <param name="helpLinkLabel">Text label of the displayed hyperlink (if any)</param>
+            <param name="navigateHelplinkMethod">Method to execute when the user clicked the hyperlink</param>
+            <param name="showCopyMessage">Show a UI element (e.g. button) that lets the user copy the displayed message into the Windows clipboard</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box that has a message, title bar caption, button, and icon;
+            and that accepts a default message box result and returns a result.
+            </summary>
+            <param name="messageBoxText">A System.String that specifies the text to display.</param>
+            <param name="btnDefault">A MsgBox.MsgBoxResult value that specifies the default result of the message box.</param>
+            <param name="helpLink">Determines the address to browsed to when displaying a help link. This parameter can be a URI or string object.</param>
+            <param name="helpLinkTitle">Determines the text for displaying a help link.
+            By default the text is the toString() content of the <paramref name="helpLink"/>
+            but it can also be a different text set here.</param>
+            <param name="helpLinkLabel">Text label of the displayed hyperlink (if any)</param>
+            <param name="navigateHelplinkMethod">Method to execute when the user clicked the hyperlink</param>
+            <param name="showCopyMessage">Show a UI element (e.g. button) that lets the user copy the displayed message into the Windows clipboard</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.Exception,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box that has a message, title bar caption, button, and icon;
+            and that accepts a default message box result and returns a result.
+            </summary>
+            <param name="ex">Exception object (details: stacktrace and messages are displayed in details section)</param>
+            <param name="messageBoxText">A System.String that specifies the details to display.</param>
+            <param name="caption">A System.String that specifies the title bar caption to display.</param>
+            <param name="button">A Msg.MessageBoxButton value that specifies which button or buttons to display.</param>
+            <param name="icon">A Msg.MessageBoxImage value that specifies the icon to display.</param>
+            <param name="defaultResult">A MsgBox.MsgBoxResult value that specifies the default result of the message box.</param>
+            <param name="helpLink">Determines the address to browsed to when displaying a help link. This parameter can be a URI or string object.</param>
+            <param name="helpLinkTitle">Determines the text for displaying a help link.
+            By default the text is the toString() content of the <paramref name="helpLink"/>
+            but it can also be a different text set here.</param>
+            <param name="helpLinkLabel">Text label of the displayed hyperlink (if any)</param>
+            <param name="navigateHelplinkMethod">Method to execute when the user clicked the hyperlink</param>
+            <param name="showCopyMessage">Show a UI element (e.g. button) that lets the user copy the displayed message into the Windows clipboard</param>
+            <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
+        </member>
+        <member name="T:MsgBox.ServiceContainer">
+            <summary>
+            Source: http://www.codeproject.com/Articles/70223/Using-a-Service-Locator-to-Work-with-MessageBoxes
+            </summary>
+        </member>
+        <member name="F:MsgBox.ServiceContainer.Instance">
+            <summary>
+            Service container instance of this service container implementation.
+            </summary>
+        </member>
+        <member name="M:MsgBox.ServiceContainer.AddService``1(``0)">
+            <summary>
+            Add a service into this service container.
+            </summary>
+            <typeparam name="TServiceContract"></typeparam>
+            <param name="implementation"></param>
+        </member>
+        <member name="M:MsgBox.ServiceContainer.GetService``1">
+            <summary>
+            Get a service that was previoulsy added into the service container.
+            </summary>
+            <typeparam name="TServiceContract"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:MsgBox.ServiceInjector">
+            <summary>
+            Loads service objects into a common ServiceContainer
+            </summary>
+        </member>
+        <member name="M:MsgBox.ServiceInjector.InjectServices">
+            <summary>
+            Loads service objects into the ServiceContainer on startup.
             </summary>
         </member>
         <member name="T:MsgBox.Internal.ViewModel.Base.BaseViewModel">
@@ -128,6 +529,31 @@
             Standard event handler of the <seealso cref="T:System.ComponentModel.INotifyPropertyChanged"/> interface
             </summary>
         </member>
+        <member name="T:MsgBox.IconHelper">
+            <summary>
+            Remove an icon from a window's title bar:
+            Source: http://wpftutorial.net/RemoveIcon.html
+            </summary>
+        </member>
+        <member name="M:MsgBox.IconHelper.RemoveIcon(System.Windows.Window)">
+            <summary>
+            Call this function from a dialog view to remove a displayed icon from the dialog title bar.
+            </summary>
+            <param name="window"></param>
+        </member>
+        <member name="T:MsgBox.Internal.ViewModel.MsgBoxViewModel">
+            <summary>
+            Source:
+            http://blogsprajeesh.blogspot.de/2009/12/wpf-messagebox-custom-control-updated.html
+            http://prajeeshprathap.codeplex.com/sourcecontrol/list/patches?ProjectName=prajeeshprathap
+            
+            A viewmodel that drives an advanced message box dialog window through its life cycle.
+            This message box supports:
+            - Custom images
+            - Help Link Navigation for advanced research in online resources (by the user)
+            - (Expander) section with more textual/technical details
+            </summary>
+        </member>
         <member name="M:MsgBox.Internal.ViewModel.MsgBoxViewModel.#ctor(System.String,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
             <summary>
             Class constructor
@@ -171,6 +597,7 @@
             Determine a default button (such as OK or Yes) to be executed when the user hits the ENTER key.
             </summary>
             <param name="buttonOption"></param>
+            <param name="defaultButton"></param>
         </member>
         <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.Title">
             <summary>
@@ -296,103 +723,6 @@
             as parameter into the clipboard
             </summary>
         </member>
-        <member name="T:MsgBox.MsgBoxView">
-            <summary>
-            Interaction logic for MsgBoxView.xaml
-            </summary>
-            <summary>
-            MsgBoxView
-            </summary>
-        </member>
-        <member name="M:MsgBox.MsgBoxView.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:MsgBox.Internal.ViewModel.EnumMatchToBooleanConverter">
-            <summary>
-            This class can be used to databind a (group of) radio button control(s)
-            with an enumeration in a ViewModel.
-            
-            Source: http://www.wpftutorial.net/RadioButton.html
-            </summary>
-        </member>
-        <member name="M:MsgBox.Internal.ViewModel.EnumMatchToBooleanConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            Enum to Boolean Converter method
-            </summary>
-            <param name="value"></param>
-            <param name="targetType"></param>
-            <param name="parameter"></param>
-            <param name="culture"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MsgBox.Internal.ViewModel.EnumMatchToBooleanConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            Boolean to Enum Converter method
-            </summary>
-            <param name="value"></param>
-            <param name="targetType"></param>
-            <param name="parameter"></param>
-            <param name="culture"></param>
-            <returns></returns>
-        </member>
-        <member name="F:MsgBox.MsgBoxResult.None">
-            <summary>
-            This is mostly technically needed for properties that implement
-            automatic magic, such as, setting a useful default button. This
-            magic occurs only if this default parameter is set in the
-            constructor/interface - otherwise the button set by the caller
-            is used.
-            </summary>
-        </member>
-        <member name="F:MsgBox.MsgBoxResult.NoDefaultButton">
-            <summary>
-            This can be used to tell the messagebox sub-system explicitly to not
-            set any default button (which is rather un-uasual but possible if
-            the user needs to determine somthing that has a real 50:50 chance
-            of being ansered).
-            
-            This Enum member can only be set in the defaultbutton parameter of the
-            constructor but will never appear as actual result of a messagebox display.
-            </summary>
-        </member>
-        <member name="F:MsgBox.MsgBoxResult.Ok">
-            <summary>
-            The result value of the message box is OK.
-            </summary>
-        </member>
-        <member name="F:MsgBox.MsgBoxResult.Cancel">
-            <summary>
-            The result value of the message box is Cancel.
-            </summary>
-        </member>
-        <member name="F:MsgBox.MsgBoxResult.Yes">
-            <summary>
-            The result value of the message box is Yes.
-            </summary>
-        </member>
-        <member name="F:MsgBox.MsgBoxResult.No">
-            <summary>
-            The result value of the message box is No.
-            </summary>
-        </member>
-        <member name="F:MsgBox.MsgBoxResult.Close">
-            <summary>
-            The result value of the message box is Close.
-            </summary>
-        </member>
-        <member name="M:MsgBox.ServiceInjector.InjectServices">
-            <summary>
-            Loads service objects into the ServiceContainer on startup.
-            </summary>
-        </member>
-        <member name="T:MsgBox.IconHelper">
-            <summary>
-            Remove an icon from a window's title bar:
-            Source: http://wpftutorial.net/RemoveIcon.html
-            </summary>
-        </member>
         <member name="T:MsgBox.Internal.View.MsgBox">
             <summary>
             Interaction logic for WPFMessageBox.xaml
@@ -417,124 +747,159 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:MsgBox.MsgBoxButtons">
+            <summary>
+            This enumeration describes the possible GUI elements (OK, Cancel, Yes, No button)
+            that are displayed with the message. Displaying these GUI elements gives the user
+            a chance to review a message and interact with the system based on the displayed content.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxButtons.YesNo">
+            <summary>
+            Display Yes and No GUI elements
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxButtons.YesNoCancel">
+            <summary>
+            Display Yes, No, and No GUI elements
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxButtons.OKCancel">
+            <summary>
+            Display OK and Cancel GUI elements
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxButtons.OKClose">
+            <summary>
+            Display OK and Close GUI elements
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxButtons.OK">
+            <summary>
+            Display OK GUI element
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxButtons.Close">
+            <summary>
+            Display Close GUI element
+            </summary>
+        </member>
         <member name="T:MsgBox.MsgBoxImage">
             <summary>
             Type of images that can be displayed in a message box
             (indexes need to increment in the shown order because they
-            into a static array: <seealso cref="!:MessageBoxViewModel.MsgBoxImageResourcesUris"/>
+            into a static array: MsgBoxViewModel.MsgBoxImageResourcesUris.
             </summary>
         </member>
-        <member name="T:MsgBox.Internal.MessageBoxService">
+        <member name="F:MsgBox.MsgBoxImage.Information">
             <summary>
-            A service that shows message boxes.
+            Display a standard image to indicate an imformal message
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.Question">
+            <summary>
+            Display a standard image to indicate a message that contains a question
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.Error">
+            <summary>
+            Display a standard image to indicate a message that contains an error
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.OK">
+            <summary>
+            Display a standard image to indicate a message that contains nice to know information
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.Alert">
+            <summary>
+            Display a standard image to indicate a message that contains information about a fatal problem.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.Default">
+            <summary>
+            Display a standard image to indicate a message that is not classified.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.Warning">
+            <summary>
+            Display a standard image to indicate a message that contains a warning.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.Default_OffLight">
+            <summary>
+            Display a standard image with a light turned off.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.Default_RedLight">
+            <summary>
+            Display a standard image with a red light turned on.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.Information_Orange">
+            <summary>
+            Display a standard image with a orange light turned on.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.Information_Red">
+            <summary>
+            Display a standard image indicating an important information.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxImage.Process_Stop">
+            <summary>
+            Display a standard image indicating the end of a process run or program exit.
+            </summary>
+        </member>
+        <member name="T:MsgBox.MsgBoxResult">
+            <summary>
+            This enumeration describes the possible results from displaying a message. A result is directly
+            equivalent to a GUI element (OK, Cancel, Yes, No button) that a user clicked to close the message view.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxResult.None">
+            <summary>
+            This is mostly technically needed for properties that implement
+            automatic magic, such as, setting a useful default button. This
+            magic occurs only if this default parameter is set in the
+            constructor/interface - otherwise the button set by the caller
+            is used.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxResult.NoDefaultButton">
+            <summary>
+            This can be used to tell the messagebox sub-system explicitly to not
+            set any default button (which is rather un-uasual but possible if
+            the user needs to determine somthing that has a real 50:50 chance
+            of being ansered).
             
-            Source: http://www.codeproject.com/Articles/70223/Using-a-Service-Locator-to-Work-with-MessageBoxes
+            This Enum member can only be set in the defaultbutton parameter of the
+            constructor but will never appear as actual result of a messagebox display.
             </summary>
         </member>
-        <member name="M:MsgBox.Internal.MessageBoxService.MsgBox#IMsgBoxService#Show(System.String,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+        <member name="F:MsgBox.MsgBoxResult.OK">
             <summary>
-            Show a messagebox with details (such as a stacktrace or other information that can be kept in an expander).
-            </summary>
-            <param name="title"></param>
-            <param name="message"></param>
-            <param name="details"></param>
-            <param name="buttonOption"></param>
-            <param name="image"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MsgBox.Msg.GetService``1">
-            <summary>
-            Retrieves a service object identified by <typeparamref name="TServiceContract"/>.
-            </summary>
-            <typeparam name="TServiceContract">The type identifier of the service.</typeparam>
-        </member>
-        <member name="T:MsgBox.Commands.RelayCommand`1">
-            <summary>
-            A command whose sole purpose is to 
-            relay its functionality to other
-            objects by invoking delegates. The
-            default return value for the CanExecute
-            method is 'true'.
-            
-            Source: http://www.codeproject.com/Articles/31837/Creating-an-Internationalized-Wizard-in-WPF
+            The result value of the message box is OK.
             </summary>
         </member>
-        <member name="M:MsgBox.Commands.RelayCommand`1.#ctor(System.Action{`0})">
+        <member name="F:MsgBox.MsgBoxResult.Cancel">
             <summary>
-            Class constructor
-            </summary>
-            <param name="execute"></param>
-        </member>
-        <member name="M:MsgBox.Commands.RelayCommand`1.#ctor(System.Action{`0},System.Predicate{`0})">
-            <summary>
-            Creates a new command.
-            </summary>
-            <param name="execute">The execution logic.</param>
-            <param name="canExecute">The execution status logic.</param>
-        </member>
-        <member name="M:MsgBox.Commands.RelayCommand`1.CanExecute(System.Object)">
-            <summary>
-            Determine whether this pre-requisites to execute this command are given or not.
-            </summary>
-            <param name="parameter"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MsgBox.Commands.RelayCommand`1.Execute(System.Object)">
-            <summary>
-            Execute the command method managed in this class.
-            </summary>
-            <param name="parameter"></param>
-        </member>
-        <member name="E:MsgBox.Commands.RelayCommand`1.CanExecuteChanged">
-            <summary>
-            Eventhandler to re-evaluate whether this command can execute or not
+            The result value of the message box is Cancel.
             </summary>
         </member>
-        <member name="T:MsgBox.Commands.RelayCommand">
+        <member name="F:MsgBox.MsgBoxResult.Yes">
             <summary>
-            A command whose sole purpose is to 
-            relay its functionality to other
-            objects by invoking delegates. The
-            default return value for the CanExecute
-            method is 'true'.
+            The result value of the message box is Yes.
             </summary>
         </member>
-        <member name="M:MsgBox.Commands.RelayCommand.#ctor(System.Action)">
+        <member name="F:MsgBox.MsgBoxResult.No">
             <summary>
-            Creates a new command that can always execute.
+            The result value of the message box is No.
             </summary>
-            <param name="execute">The execution logic.</param>
         </member>
-        <member name="M:MsgBox.Commands.RelayCommand.#ctor(MsgBox.Commands.RelayCommand)">
+        <member name="F:MsgBox.MsgBoxResult.Close">
             <summary>
-            Copy constructor
-            </summary>
-            <param name="inputRC"></param>
-        </member>
-        <member name="M:MsgBox.Commands.RelayCommand.#ctor(System.Action,System.Func{System.Boolean})">
-            <summary>
-            Creates a new command.
-            </summary>
-            <param name="execute">The execution logic.</param>
-            <param name="canExecute">The execution status logic.</param>
-        </member>
-        <member name="M:MsgBox.Commands.RelayCommand.CanExecute(System.Object)">
-            <summary>
-            Execute the attached CanExecute methode delegate (or always return true)
-            to determine whether the command managed in this object can execute or not.
-            </summary>
-            <param name="parameter"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MsgBox.Commands.RelayCommand.Execute(System.Object)">
-            <summary>
-            Return the attached delegate method.
-            </summary>
-            <param name="parameter"></param>
-        </member>
-        <member name="E:MsgBox.Commands.RelayCommand.CanExecuteChanged">
-            <summary>
-            Eventhandler to re-evaluate whether this command can execute or not
+            The result value of the message box is Close.
             </summary>
         </member>
     </members>

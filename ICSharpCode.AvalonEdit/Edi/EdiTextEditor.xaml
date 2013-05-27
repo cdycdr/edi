@@ -25,7 +25,7 @@
               <Setter Property="FlowDirection" Value="LeftToRight" />
               <Setter Property="SelectionBorder">
                 <Setter.Value>
-                  <Pen Brush="{DynamicResource EditorSelectionBorder}" Thickness="5"/>
+                  <Pen Brush="{DynamicResource EditorSelectionBorder}" Thickness="2"/>
                 </Setter.Value>
               </Setter>
               <Setter Property="SelectionForeground" Value="{DynamicResource EditorSelectionForeground}"/>

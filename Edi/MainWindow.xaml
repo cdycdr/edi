@@ -19,6 +19,8 @@
         xmlns:EdiViewsLog4Net="clr-namespace:EdiViews.Log4Net;assembly=EdiViews"
         xmlns:EdiViewsFileStats="clr-namespace:EdiViews.FileStats;assembly=EdiViews"
 
+        xmlns:MiniUMLViews="clr-namespace:MiniUML.View.Views;assembly=MiniUML.View"
+
         xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit.Highlighting;assembly=ICSharpCode.AvalonEdit"
 
         xmlns:yalvView="clr-namespace:YalvLib.View;assembly=YalvLib"
@@ -150,6 +152,24 @@
               <view:EdiView /><!-- TextEditor -->
             </DataTemplate>
           </pane:PanesTemplateSelector.FileViewTemplate>
+          <pane:PanesTemplateSelector.MiniUMLViewTemplate>
+            <DataTemplate>
+              <Grid Focusable="True"
+                    KeyboardNavigation.IsTabStop="True"
+                    Name="MiniUmlView"
+                    behav:KeyboardFocus.On="{Binding ElementName=MiniUmlView}"
+                    >
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <MiniUMLViews:RibbonView DataContext="{Binding vm_RibbonViewModel}" Grid.Row="0"/>
+                <MiniUMLViews:DocumentView DataContext="{Binding DocumentMiniUML}" Grid.Row="1" />
+              </Grid>
+            </DataTemplate>
+          </pane:PanesTemplateSelector.MiniUMLViewTemplate>
+
           <pane:PanesTemplateSelector.FileStatsViewTemplate>
             <DataTemplate>
               <EdiViewsFileStats:FileStatsView />
@@ -174,7 +194,7 @@
               <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
             </Style>
           </pane:PanesStyleSelector.StartPageStyle>
-          <pane:PanesStyleSelector.FileStyle><!-- TextEditor File Style -->
+          <pane:PanesStyleSelector.FileStyle><!-- TextEditor MiniUML File Style -->
             <Style TargetType="{x:Type avalonDock:LayoutItem}">
               <Setter Property="Title" Value="{Binding Model.Title}"/>
               <Setter Property="ToolTip" Value="{Binding Model.FilePath}"/>

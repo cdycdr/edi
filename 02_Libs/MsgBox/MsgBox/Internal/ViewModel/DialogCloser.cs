@@ -36,13 +36,18 @@
   /// </summary>
   public static class DialogCloser
   {
-    public static readonly DependencyProperty DialogResultProperty =
+    private static readonly DependencyProperty DialogResultProperty =
         DependencyProperty.RegisterAttached(
             "DialogResult",
             typeof(bool?),
             typeof(DialogCloser),
             new PropertyMetadata(DialogResultChanged));
 
+    /// <summary>
+    /// Set portion of the dependency property
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="value"></param>
     public static void SetDialogResult(Window target, bool? value)
     {
       target.SetValue(DialogResultProperty, value);

@@ -8,26 +8,36 @@
   using System.Windows;
   using System.Windows.Input;
   using System.Windows.Threading;
+
   using AvalonDock.Layout.Serialization;
-  using Edi.View;
   using Edi.ViewModel.Base;
+  using EdiViews;
   using EdiViews.About;
+  using EdiViews.Documents.Log4Net;
   using EdiViews.Documents.StartPage;
   using EdiViews.FileStats;
   using EdiViews.Log4Net;
   using EdiViews.ViewModel;
   using EdiViews.ViewModel.Base;
+  using EdiViews.ViewModel.Documents;
   using Microsoft.Win32;
   using MsgBox;
   using SimpleControls.MRU.ViewModel;
-  using EdiViews.Documents.Log4Net;
+  using MiniUML.Model.ViewModels;
 
-  partial class Workspace : EdiViews.ViewModel.Base.ViewModelBase
+  public partial class Workspace : Edi.ViewModel.Base.ViewModelBase, IMiniUMLDocument
   {
     #region fields
     public const string Log4netFileExtension = "log4j";
+    public const string Log4netFileFilter = "log4net XML output (*.log4j,*.xml)|*.log4j;*.xml|All Files (*.*)|*.*";
 
-    public const string FileFilter =  "All Files (*.*)|*.*" +
+    public const string MiniUMLFileExtension = "uml";
+    public const string UMLFileFilter = "Unified Modeling Language (*.uml,*.xml)|*.uml;*.xml|All Files (*.*)|*.*";
+
+    public const string EdiTextEditorFileFilter =  "All Files (*.*)|*.*" +
+                                     "|Text Files (*.txt)|*.txt" +
+                                     "|C# Files (*.cs)|*.cs" +
+                                     "|HTML Files (*.htm,*.html,*.css,*.js)|*.htm;*.html;*.css;*.js" +
                                      "|Structured Query Language (*.sql) |*.sql" +
                                      "|Text Files (*.txt)|*.txt" +
                                      "|log4net XML output (*.log4j,*.log,*.txt,*.xml)|*.log4j;*.log;*.txt;*.xml";
@@ -83,6 +93,7 @@
 
           this.NotifyPropertyChanged(() => this.ActiveDocument);
           this.NotifyPropertyChanged(() => this.ActiveEdiDocument);
+          this.NotifyPropertyChanged(() => this.vm_DocumentViewModel);
 
           // Ensure that no pending calls are in the dispatcher queue
           // This makes sure that we are blocked until bindings are re-established
@@ -120,6 +131,28 @@
       }
     }
 
+    /// <summary>
+    /// This is a type safe ActiveDocument property that is used to bind
+    /// to an ActiveDocument of type <seealso cref="MiniUML.Model.ViewModels.DocumentViewModel"/>.
+    /// This property returns null (thus avoiding binding errors) if the
+    /// ActiveDocument is not of <seealso cref="MiniUML.Model.ViewModels.DocumentViewModel"/> type.
+    /// 
+    /// This particular property is also required to load MiniUML Plugins.
+    /// </summary>
+    public MiniUML.Model.ViewModels.AbstractDocumentViewModel vm_DocumentViewModel
+    {
+      get
+      {
+        MiniUumViewModel vm = this.mActiveDocument as MiniUumViewModel;
+
+        if (vm != null)
+        {
+          return vm.DocumentMiniUML as MiniUML.Model.ViewModels.AbstractDocumentViewModel;
+        }
+
+        return null;
+      }
+    }
     #endregion
 
     /// <summary>
@@ -280,7 +313,9 @@
     /// <param name="filePath">file to open</param>
     /// <param name="AddIntoMRU">indicate whether file is to be added into MRU or not</param>
     /// <returns></returns>
-    public FileBaseViewModel Open(string filePath, bool AddIntoMRU = true)
+    public FileBaseViewModel Open(string filePath,
+                                  bool AddIntoMRU = true,
+                                  TypeOfDocument t = TypeOfDocument.EdiTextEditor)
     {
       logger.InfoFormat("TRACE EdiViewModel.Open param: '{0}', AddIntoMRU {1}", filePath, AddIntoMRU);
 
@@ -296,24 +331,31 @@
 
       string fileExtension = System.IO.Path.GetExtension(filePath);
 
-      if (fileExtension == string.Format(".{0}", Workspace.Log4netFileExtension))
+      if ((fileExtension == string.Format(".{0}", Workspace.Log4netFileExtension) && t == TypeOfDocument.EdiTextEditor) ||  t == TypeOfDocument.Log4NetView)
       {
         // try to load a standard log4net XML file from the file system
         fileViewModel = Log4NetViewModel.LoadFile(filePath);
       }
       else
       {
-        // try to load a standard text file from the file system
-        fileViewModel = EdiViewModel.LoadFile(filePath);
+        if ((fileExtension == string.Format(".{0}", Workspace.MiniUMLFileExtension) && t == TypeOfDocument.EdiTextEditor) || t == TypeOfDocument.UMLEditor)
+	      {
+          fileViewModel = MiniUumViewModel.LoadFile(filePath);
+	      }
+        else
+        {
+          // try to load a standard text file from the file system
+          fileViewModel = EdiViewModel.LoadFile(filePath);
+        }
       }
 
       if (fileViewModel == null)
       {
         if (this.Config.MruList.FindMRUEntry(filePath) != null)
         {
-          if (MsgBox.Msg.Box.Show(string.Format(CultureInfo.CurrentCulture,
-                                  "The file:\n\n'{0}'\n\ndoes not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?", filePath),
-                                  "Error Loading file", MsgBoxButtons.YesNo) == MsgBoxResult.Yes)
+          if (MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture,
+                              "The file:\n\n'{0}'\n\ndoes not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?", filePath),
+                              "Error Loading file", MsgBoxButtons.YesNo) == MsgBoxResult.Yes)
           {
             this.Config.MruList.RemoveEntry(filePath);
           }
@@ -323,21 +365,21 @@
       }
 
       fileViewModel.CloseDocument += new EventHandler(this.ProcessCloseDocumentEvent);
-
       this.mFiles.Add(fileViewModel);
 
       // reset viewmodel options in accordance to current program settings
       EdiViewModel ediVM = fileViewModel as EdiViewModel;
 
       if (ediVM != null)
-        this.SetActiveDocumentOnNewFileOrOpenFile(ref ediVM);
+        this.SetActiveDocumentOnNewFileOrOpenFile(ediVM);
       else
       {
         if (fileViewModel is Log4NetViewModel)
+          this.SetActiveLog4NetDocument(fileViewModel as Log4NetViewModel);
+        else
         {
-          Log4NetViewModel log4netVM = fileViewModel as Log4NetViewModel;
-
-          this.SetActiveLog4NetDocument(ref log4netVM);
+          if (fileViewModel is FileBaseViewModel)
+            this.SetActiveFileBaseDocument(fileViewModel as FileBaseViewModel);
         }
       }
 
@@ -348,31 +390,71 @@
     }
 
     #region NewCommand
-    private void OnNew()
+    private void OnNew(TypeOfDocument t = TypeOfDocument.EdiTextEditor)
     {
       try
       {
-        var vm = new EdiViewModel();
+        switch (t)
+        {
+          case TypeOfDocument.EdiTextEditor:
+          {
+            var vm = new EdiViewModel();
 
-        this.mFiles.Add(vm);
-        SetActiveDocumentOnNewFileOrOpenFile(ref vm);
+            vm.CloseDocument += new EventHandler(this.ProcessCloseDocumentEvent);
+            this.mFiles.Add(vm);
+            this.SetActiveDocumentOnNewFileOrOpenFile(vm);
+          }
+          break;
+
+          case TypeOfDocument.UMLEditor:
+          {
+            var vm = new MiniUumViewModel();
+
+            vm.CloseDocument += new EventHandler(this.ProcessCloseDocumentEvent);
+            this.mFiles.Add(vm);
+            this.SetActiveFileBaseDocument(vm);
+          }
+          break;
+
+          case TypeOfDocument.Log4NetView:
+          default:
+            throw new NotImplementedException(t.ToString());
+        }
       }
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
     #endregion NewCommand
 
     #region OpenCommand
-    private void OnOpen()
+    private void OnOpen(TypeOfDocument t = TypeOfDocument.EdiTextEditor)
     {
       try
       {
         var dlg = new OpenFileDialog();
-        dlg.Filter = Workspace.FileFilter;
+
+        switch (t)
+        {
+          case TypeOfDocument.EdiTextEditor:
+            dlg.Filter = Workspace.EdiTextEditorFileFilter;
+            break;
+
+          case TypeOfDocument.Log4NetView:
+            dlg.Filter = Workspace.Log4netFileFilter;
+            break;
+
+          case TypeOfDocument.UMLEditor:
+            dlg.Filter = Workspace.UMLFileFilter;
+            break;
+
+          default:
+            throw new NotImplementedException(t.ToString());
+        }
+
         dlg.Multiselect = true;
         dlg.InitialDirectory = this.GetDefaultPath();
 
@@ -380,15 +462,15 @@
         {
           foreach(string fileName in dlg.FileNames)
           {
-            this.Open(fileName);
+            this.Open(fileName, true, t);
           }
         }
       }
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, App.IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, App.IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
     #endregion OnOpen
@@ -407,8 +489,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
     #endregion Application_Exit_Command
@@ -426,8 +508,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
     #endregion Application_About_Command
@@ -450,8 +532,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
 
@@ -472,8 +554,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
 
@@ -494,8 +576,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
     #endregion Recent File List Pin Unpin Commands
@@ -543,23 +625,37 @@
         this.mShutDownInProgress = false;
 
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
     #endregion // RequestClose [event]
 
-    private void SetActiveLog4NetDocument(ref Log4NetViewModel vm)
+    private void SetActiveLog4NetDocument(Log4NetViewModel vm)
     {
       try
       {
-        ActiveDocument = vm;
+        this.ActiveDocument = vm;
       }
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+      }
+    }
+
+    private void SetActiveFileBaseDocument(FileBaseViewModel vm)
+    {
+      try
+      {
+        this.ActiveDocument = vm;
+      }
+      catch (Exception exp)
+      {
+        logger.Error(exp.Message, exp);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
 
@@ -568,20 +664,20 @@
     /// whenever a new file is internally created (on File Open or New File)
     /// </summary>
     /// <param name="vm"></param>
-    private void SetActiveDocumentOnNewFileOrOpenFile(ref EdiViewModel vm)
+    private void SetActiveDocumentOnNewFileOrOpenFile(EdiViewModel vm)
     {
       try
       {
         // Set scale factor in default size of text font
         vm.InitScaleView(this.Config.DocumentZoomUnit, this.Config.DocumentZoomView);
 
-        ActiveDocument = vm;
+        this.ActiveDocument = vm;
       }
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
 
@@ -635,24 +731,60 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
 
       return sPath;
     }
 
+    /// <summary>
+    /// Attempt to save data in file when
+    /// File>Save As... or File>Save command
+    /// is executed.
+    /// </summary>
+    /// <param name="doc"></param>
+    /// <param name="saveAsFlag"></param>
+    /// <returns></returns>
     internal bool OnSave(FileBaseViewModel doc, bool saveAsFlag = false)
     {
-      EdiViewModel fileToSave = doc as EdiViewModel;
+      if (doc == null)
+        return false;
 
-      if (fileToSave != null && doc != null)
-        return this.OnSaveTextFile(fileToSave, saveAsFlag);
+      if (doc.CanSaveData == true)
+        return this.OnSaveDocumentFile(doc, saveAsFlag, Workspace.GetDefaultFileFilter(doc));
 
       throw new NotSupportedException((doc != null ? doc.ToString() : "Unknown document type"));
     }
 
-    internal bool OnSaveTextFile(EdiViewModel fileToSave, bool saveAsFlag = false)
+    /// <summary>
+    /// Returns the default file extension filter strings
+    /// that can be used for each corresponding document
+    /// type (viewmodel), or an empty string if no document
+    /// type (viewmodel) was matched.
+    /// </summary>
+    /// <param name="f"></param>
+    /// <returns></returns>
+    internal static string GetDefaultFileFilter(FileBaseViewModel f)
+    {
+      if (f == null)
+        return string.Empty;
+
+      if (f is EdiViewModel)
+        return Workspace.EdiTextEditorFileFilter;
+
+      if (f is MiniUumViewModel)
+        return Workspace.UMLFileFilter;
+
+      if (f is Log4NetViewModel)
+        return Workspace.Log4netFileExtension;
+
+      return string.Empty;
+    }
+
+    internal bool OnSaveDocumentFile(FileBaseViewModel fileToSave,
+                                     bool saveAsFlag = false,
+                                     string FileExtensionFilter = "")
     {
       string filePath = (fileToSave == null ? string.Empty : fileToSave.FilePath);
 
@@ -675,6 +807,9 @@
           }
 
           dlg.InitialDirectory = this.GetDefaultPath();
+
+          if (string.IsNullOrEmpty(FileExtensionFilter) == false)
+            dlg.Filter = FileExtensionFilter;
 
           if (dlg.ShowDialog().GetValueOrDefault() == true)     // SaveAs file if user OK'ed it so
           {
@@ -703,21 +838,22 @@
           sMsg = string.Format(CultureInfo.CurrentCulture, "'{0}'\n" +
                               "has occurred while saving a file", Exp.Message);
 
-        MsgBox.Msg.Box.Show(sMsg, "An unexpected problem has occurred while saving the file", MsgBoxButtons.OK);
+        MsgBox.Msg.Show(sMsg, "An unexpected problem has occurred while saving the file", MsgBoxButtons.OK);
       }
 
       return false;
     }
 
-    internal bool OnCloseSaveDirtyFile(EdiViewModel fileToClose)
+    internal bool OnCloseSaveDirtyFile(FileBaseViewModel fileToClose)
     {
-      if (fileToClose.IsDirty)
+      if (fileToClose.IsDirty == true &&
+          fileToClose.CanSaveData == true)
       {
-        var res = MsgBox.Msg.Box.Show(string.Format(CultureInfo.CurrentCulture, "Save changes for file '{0}'?",
-                                    fileToClose.FileName), this.ApplicationTitle,
-                                    MsgBoxButtons.YesNoCancel,
-                                    MsgBoxImage.Question,
-                                    MsgBoxResult.Yes);
+        var res = MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "Save changes for file '{0}'?",
+                                  fileToClose.FileName), this.ApplicationTitle,
+                                  MsgBoxButtons.YesNoCancel,
+                                  MsgBoxImage.Question,
+                                  MsgBoxResult.Yes);
 
         if (res == MsgBoxResult.Cancel)
           return false;
@@ -734,7 +870,7 @@
     /// <summary>
     /// Close the currently active file and set the file with the lowest index as active document.
     /// 
-    /// TODO: The last active document that was active before the document being closed should activated.
+    /// TODO: The last active document that was active before the document being closed should be activated next.
     /// </summary>
     /// <param name="fileToClose"></param>
     /// <returns></returns>
@@ -743,28 +879,29 @@
       try
       {
         {
-          EdiViewModel textFileToClose = doc as EdiViewModel;
-          if (textFileToClose != null)
-          {
-            if (this.OnCloseSaveDirtyFile(textFileToClose) == false)
-              return false;
+          if (this.OnCloseSaveDirtyFile(doc) == false)
+            return false;
 
-            mFiles.Remove(textFileToClose);
+          mFiles.Remove(doc);
 
-            if (this.Documents.Count == 0)
-              this.ActiveDocument = null;
-            else
-              this.ActiveDocument = this.mFiles[0];
+          if (this.Documents.Count == 0)
+            this.ActiveDocument = null;
+          else
+            this.ActiveDocument = this.mFiles[0];
 
-            return true;
-          }
+          return true;
         }
 
         {
-          // This could be a start page or a log4net file or any other read-only document
-          FileBaseViewModel s = doc as FileBaseViewModel;
-          if (s != null)
+          // This could be a StartPage, Log4Net, or UML file or any other (read-only) document type
+          if (doc != null)
           {
+            if (doc.IsDirty == true)
+            {
+              if (this.OnCloseSaveDirtyFile(doc) == false)
+                return false;
+            }
+
             mFiles.Remove(doc);
 
             if (this.Documents.Count == 0)
@@ -779,8 +916,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
 
       // Throw an exception if this method does not know how the input document type is to be closed
@@ -821,22 +958,11 @@
 
       try
       {
-        try
-        {
-          App.CreateAppDataFolder();
-          this.SerializeLayout(sender);            // Store the current layout for later retrieval
-        }
-        catch
-        {
-        }
-
         if (this.mFiles != null)               // Close all open files and make sure there are no unsaved edits
         {                                     // If there are any: Ask user if edits should be saved
-          List<EdiViewModel> l = this.Documents;
-
-          for (int i = 0; i < l.Count; i++)
+          for (int i = 0; i < this.Files.Count; i++)
           {
-            EdiViewModel f = l[i];
+            FileBaseViewModel f = this.Files[i];
 
             if (this.OnCloseSaveDirtyFile(f) == false)
             {
@@ -845,12 +971,23 @@
             }
           }
         }
+
+        // Do layout serialization after saving/closing files
+        // since changes implemented by shut-down process are otherwise lost
+        try
+        {
+          App.CreateAppDataFolder();
+          this.SerializeLayout(sender);            // Store the current layout for later retrieval
+        }
+        catch
+        {
+        }
       }
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
 
       return true;
@@ -896,8 +1033,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Box.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                            App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
 
       return false;

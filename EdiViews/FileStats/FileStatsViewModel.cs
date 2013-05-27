@@ -14,16 +14,6 @@
     #region fields
     public const string ToolContentId = "FileStatsTool";
     private string mFilePathName;
-
-    /// <summary>
-    /// The number of lines in the file.
-    /// </summary>
-    private int lineCount = 0;
-
-    /// <summary>
-    /// The word count in the file.
-    /// </summary>
-    private int wordCount = 0;
     #endregion fields
 
     #region constructor

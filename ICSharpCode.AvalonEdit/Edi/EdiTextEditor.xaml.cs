@@ -9,6 +9,7 @@
   using ICSharpCode.AvalonEdit.Editing;
   using ICSharpCode.AvalonEdit.Rendering;
   using ICSharpCode.AvalonEdit.Utils;
+using System.Windows.Input;
 
   /// <summary>
   /// </summary>
@@ -62,8 +63,8 @@
 
     #region methods
     /// <summary>
-    /// Standard <seealso cref="Control"/> method to be executed when the
-    /// framwork applies the XAML definition of the lookless control.
+    /// Standard <seealso cref="System.Windows.Controls.Control"/> method to be executed when the
+    /// framework applies the XAML definition of the lookless control.
     /// </summary>
 		public override void OnApplyTemplate()
     {
@@ -119,26 +120,35 @@
       this.ScrollToHorizontalOffset(this.EditorScrollOffsetX);
       this.ScrollToVerticalOffset(this.EditorScrollOffsetY);
 
-      if (this.EditorIsRectangleSelection == true)
+      try
       {
-        this.CaretOffset = this.EditorCaretOffset;
+        if (this.EditorIsRectangleSelection == true)
+        {
+          this.CaretOffset = this.EditorCaretOffset;
 
-        this.SelectionStart = this.EditorSelectionStart;
-        this.SelectionLength = this.EditorSelectionLength;
+          this.SelectionStart = this.EditorSelectionStart;
+          this.SelectionLength = this.EditorSelectionLength;
 
-        // See OnMouseCaretBoxSelection in Editing\CaretNavigationCommandHandler.cs
-        // Convert normal selection to rectangle selection
-        this.TextArea.Selection = new ICSharpCode.AvalonEdit.Editing.RectangleSelection(this.TextArea,
-                                                                                        this.TextArea.Selection.StartPosition,
-                                                                                        this.TextArea.Selection.EndPosition);
+          // See OnMouseCaretBoxSelection in Editing\CaretNavigationCommandHandler.cs
+          // Convert normal selection to rectangle selection
+          this.TextArea.Selection = new ICSharpCode.AvalonEdit.Editing.RectangleSelection(this.TextArea,
+                                                                                          this.TextArea.Selection.StartPosition,
+                                                                                          this.TextArea.Selection.EndPosition);
+        }
+        else
+        {
+          this.CaretOffset = this.EditorCaretOffset;
+
+          // http://www.codeproject.com/Articles/42490/Using-AvalonEdit-WPF-Text-Editor?msg=4388281#xx4388281xx
+          this.Select(this.EditorSelectionStart, this.EditorSelectionLength);
+        }
       }
-      else
+      catch
       {
-        this.CaretOffset = this.EditorCaretOffset;
-
-        // http://www.codeproject.com/Articles/42490/Using-AvalonEdit-WPF-Text-Editor?msg=4388281#xx4388281xx
-        this.Select(this.EditorSelectionStart, this.EditorSelectionLength);
       }
+
+      // Attach mouse wheel CTRL-key zoom support
+      this.PreviewMouseWheel += new System.Windows.Input.MouseWheelEventHandler(textEditor_PreviewMouseWheel);
     }
 
     /// <summary>
@@ -167,6 +177,10 @@
       // http://stackoverflow.com/questions/11863273/avalonedit-how-to-get-the-top-visible-line
       this.EditorScrollOffsetX = this.TextArea.TextView.ScrollOffset.X;
       this.EditorScrollOffsetY = this.TextArea.TextView.ScrollOffset.Y;
+
+      // Detach mouse wheel CTRL-key zoom support
+      // This does not work when doing mouse zoom and CTRL-TAB between two documents and trying to do mouse zoom???
+      ////this.PreviewMouseWheel -= textEditor_PreviewMouseWheel;
     }
 
     /// <summary>
@@ -181,6 +195,32 @@
 
         this.TextArea.TextView.BackgroundRenderers.Add(
                 new HighlightCurrentLineBackgroundRenderer(this, newValue.Clone()));
+      }
+    }
+
+    /// <summary>
+    /// This method is triggered on a MouseWheel preview event to check if the user
+    /// is also holding down the CTRL Key and adjust the current font size if so.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void textEditor_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+    {
+      if (Keyboard.Modifiers == ModifierKeys.Control)
+      {
+        double fontSize = this.FontSize + e.Delta / 25.0;
+
+        if (fontSize < 6)
+          this.FontSize = 6;
+        else
+        {
+          if (fontSize > 200)
+            this.FontSize = 200;
+          else
+            this.FontSize = fontSize;
+        }
+
+        e.Handled = true;
       }
     }
     #endregion methods

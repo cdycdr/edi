@@ -33,7 +33,7 @@
     {
       get
       {
-        return new Uri("pack://application:,,,/Themes;component/Images/App/PinableListView/NoPin16.png", UriKind.RelativeOrAbsolute);
+        return new Uri("pack://application:,,,/EdiViews;component/Images/Documents/Log4net.png", UriKind.RelativeOrAbsolute);
       }
     }
 

@@ -19,7 +19,6 @@
       ContentId = ToolContentId;
     }
 
-
     public RecentFilesViewModel(MRUListVM MruList)
       : this()
     {

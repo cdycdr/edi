@@ -25,7 +25,7 @@
         DependencyProperty.Register("Column", typeof(int), typeof(EdiTextEditor), new UIPropertyMetadata(1));
 
 
-    public static readonly DependencyProperty LineProperty =
+    private static readonly DependencyProperty LineProperty =
         DependencyProperty.Register("Line", typeof(int), typeof(EdiTextEditor), new UIPropertyMetadata(1));
     #endregion CaretPosition
 
@@ -94,6 +94,9 @@
     #endregion EditorCurrentLineBackground
 
     #region CaretPosition
+    /// <summary>
+    /// Get/set the current column of the editor caret.
+    /// </summary>
     public int Column
     {
       get
@@ -107,6 +110,9 @@
       }
     }
 
+    /// <summary>
+    /// Get/set the current line of the editor caret.
+    /// </summary>
     public int Line
     {
       get
@@ -203,6 +209,9 @@
     }
 
     #region EditorScrollOffsetXY
+    /// <summary>
+    /// Get/set dependency property to scroll editor by an offset in X direction.
+    /// </summary>
     public double EditorScrollOffsetX
     {
       get
@@ -216,6 +225,9 @@
       }
     }
 
+    /// <summary>
+    /// Get/set dependency property to scroll editor by an offset in Y direction.
+    /// </summary>
     public double EditorScrollOffsetY
     {
       get
@@ -235,8 +247,8 @@
     #region methods
     /// <summary>
     /// The dependency property for has changed.
-    /// Chnage the <seealso cref="SolidColorBrush"/> to be used for highlighting the current editor line
-    /// in the particular <seealso cref="EdiView"/> control.
+    /// Change the <seealso cref="SolidColorBrush"/> to be used for highlighting the current editor line
+    /// in the particular <seealso cref="EdiTextEditor"/> control.
     /// </summary>
     /// <param name="d"></param>
     /// <param name="e"></param>

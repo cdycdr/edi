@@ -8,6 +8,9 @@
   using UnitComboLib.Unit;
   using System.ComponentModel;
 
+  /// <summary>
+  /// Viewmodel class to manage unit conversion based on default values and typed values.
+  /// </summary>
   public class UnitViewModel : BaseViewModel, IDataErrorInfo
   {
     #region fields
@@ -89,6 +92,23 @@
 
         // Fallback to default if all else fails
         return (int)Unit.Screen.ScreenConverter.OneHundretPercentFont;
+      }
+
+      set
+      {
+        if (this.SelectedItem != null)
+        {
+          if (this.SelectedItem.Key == Itemkey.ScreenFontPoints)
+          {
+            if (value != this.Value)
+              this.Value = value;
+          }
+          else
+          {
+            if (value != (int)this.mUnitConverter.Convert(this.SelectedItem.Key, this.mValue, Itemkey.ScreenFontPoints))
+              this.Value = (int)this.mUnitConverter.Convert(Itemkey.ScreenFontPoints, value, this.SelectedItem.Key);
+          }
+        }
       }
     }
 
@@ -234,6 +254,7 @@
         if (this.mValue != value)
         {
           this.mValue = value;
+          this.mstrValue = string.Format("{0:0}", this.mValue);
 
           this.NotifyPropertyChanged(() => this.Value);
           this.NotifyPropertyChanged(() => this.StringValue);

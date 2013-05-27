@@ -4,7 +4,7 @@
   using EdiViews.Config.ViewModel;
   using MsgBox;
 
-  internal partial class Workspace
+  public partial class Workspace
   {
     #region fields
     private ConfigViewModel _config = null;
@@ -47,7 +47,7 @@
       }
       catch (Exception exp)
       {
-        MsgBox.Msg.Box.Show(exp, "Unhandled Exception", MsgBoxButtons.OK, MsgBoxImage.Error);
+        MsgBox.Msg.Show(exp, "Unhandled Exception", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
 

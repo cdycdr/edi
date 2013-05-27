@@ -43,6 +43,8 @@
 
     <ResourceDictionary Source="/Themes;component/ExpressionDark/EdiControls/YalvLib/YalvLib.xaml" />
 
+    <ResourceDictionary Source="/MiniUML.View;component/SharedResources.xaml"/>
+
     <!-- ResourceDictionary Source="/AvalonDock.Themes.Expression;component/DarkTheme.xaml" / -->
   </ResourceDictionary.MergedDictionaries>
 

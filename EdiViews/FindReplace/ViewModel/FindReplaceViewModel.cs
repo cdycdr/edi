@@ -452,8 +452,8 @@
       IEditor CE = GetCurrentEditor();
       if (CE == null) return;
 
-      if (!AskBefore || MsgBox.Msg.Box.Show("Do you really want to replace all occurences of '" + TextToFind + "' with '" + ReplacementText + "'?",
-          "Replace all", MsgBoxButtons.YesNoCancel, MsgBoxImage.Alert) == MsgBoxResult.Yes)
+      if (!AskBefore || MsgBox.Msg.Show("Do you really want to replace all occurences of '" + TextToFind + "' with '" + ReplacementText + "'?",
+                                        "Replace all", MsgBoxButtons.YesNoCancel, MsgBoxImage.Alert) == MsgBoxResult.Yes)
       {
         object InitialEditor = CurrentEditor;
         // loop through all editors, until we are back at the starting editor                

@@ -12,6 +12,8 @@
     <ResourceDictionary Source="/Themes;component/VS2010/EdiAvalonEdit.xaml" />
     <ResourceDictionary Source="/Themes;component/VS2010/StatusBar.xaml" />
 
+    <ResourceDictionary Source="/MiniUML.View;component/SharedResources.xaml"/>
+
     <!-- ResourceDictionary Source="/AvalonDock.Themes.VS2010;component/Theme.xaml" / -->
   </ResourceDictionary.MergedDictionaries>
 

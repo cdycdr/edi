@@ -145,13 +145,13 @@
     {
       // Construct the message box viewmodel
       ViewModel.MsgBoxViewModel viewModel = new ViewModel.MsgBoxViewModel(messageBoxText,
-                                                                                  caption,
-                                                                                  details,
-                                                                                  buttonOption,
-                                                                                  image,
-                                                                                  btnDefault,
-                                                                                  helpLink, helpLinkTitle, navigateHelplinkMethod,
-                                                                                  enableCopyFunction);
+                                                                          caption,
+                                                                          details,
+                                                                          buttonOption,
+                                                                          image,
+                                                                          btnDefault,
+                                                                          helpLink, helpLinkTitle, navigateHelplinkMethod,
+                                                                          enableCopyFunction);
 
      viewModel.HyperlinkLabel = helpLabel;
 
@@ -166,7 +166,26 @@
     }
 
     public static MsgBoxResult Show(Exception exp, string caption,
-                                    MsgBoxButtons buttonOption, MsgBoxImage image,
+                                    MsgBoxButtons buttonOption,
+                                    MsgBoxImage image,
+                                    MsgBoxResult btnDefault = MsgBoxResult.None,
+                                    object helpLink = null,
+                                    string helpLinkTitle = "",
+                                    string helpLabel = "",
+                                    Func<object, bool> navigateHelplinkMethod = null,
+                                    bool enableCopyFunction = false)
+    {
+      return Show(exp, "", caption, buttonOption, image,
+                                    btnDefault,
+                                    helpLink, helpLinkTitle, helpLabel,
+                                    navigateHelplinkMethod,
+                                    enableCopyFunction);
+    }
+
+    public static MsgBoxResult Show(Exception exp,
+                                    string textMessage = "", string caption = "",
+                                    MsgBoxButtons buttonOption = MsgBoxButtons.OK,
+                                    MsgBoxImage image = MsgBoxImage.Error,
                                     MsgBoxResult btnDefault = MsgBoxResult.None,
                                     object helpLink = null,
                                     string helpLinkTitle = "",
@@ -179,6 +198,7 @@
 
       try
       {
+        // Write Message tree of inner exception into textual representation
         messageBoxText = exp.Message;
 
         Exception innerEx = exp.InnerException;
@@ -193,6 +213,16 @@
           messageBoxText += "\n" + spaces + "+->" + innerEx.Message;
         }
 
+        // Label message tree with meaning ful info: "Error while reading file X."
+        if (textMessage != null)
+        {
+          if (textMessage.Length > 0)
+          {
+            messageBoxText = string.Format("{0}\n\n{1}", textMessage, messageBoxText); 
+          }
+        }
+
+        // Write complete stack trace info into details section
         sMess = exp.ToString();
       }
       catch
@@ -220,6 +250,38 @@
       catch
       {
       }
+
+      return viewModel.Result;
+    }
+
+    public static MsgBoxResult Show(Window owner,
+                                    string messageBoxText, string caption = "", 
+                                    MsgBoxButtons buttonOption = MsgBoxButtons.OK,
+                                    MsgBoxImage image = MsgBoxImage.Error,
+                                    MsgBoxResult btnDefault = MsgBoxResult.None,
+                                    object helpLink = null,
+                                    string helpLinkTitle = "",
+                                    string helpLabel = "",
+                                    Func<object, bool> navigateHelplinkMethod = null,
+                                    bool enableCopyFunction = false)
+    {
+      // Construct the message box viewmodel
+      ViewModel.MsgBoxViewModel viewModel = new ViewModel.MsgBoxViewModel(messageBoxText,
+                                                                          caption,
+                                                                          string.Empty, // details
+                                                                          buttonOption,
+                                                                          image,
+                                                                          btnDefault,
+                                                                          helpLink, helpLinkTitle, navigateHelplinkMethod,
+                                                                          enableCopyFunction);
+
+      viewModel.HyperlinkLabel = helpLabel;
+
+      MsgBox.mMessageBox = new MsgBox() { Owner = owner }; // Construct the message box view and add the viewmodel for to it
+
+      MsgBox.mMessageBox.DataContext = viewModel;
+
+      MsgBox.mMessageBox.ShowDialog();
 
       return viewModel.Result;
     }

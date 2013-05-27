@@ -9,6 +9,13 @@
   public class ListItem
   {
     #region constructor
+    /// <summary>
+    /// Class constructor.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="displayNameLong"></param>
+    /// <param name="displayNameShort"></param>
+    /// <param name="defaultValues"></param>
     public ListItem(Itemkey key,
                     string displayNameLong,
                     string displayNameShort,
@@ -21,12 +28,18 @@
       this.DefaultValues = defaultValues;
     }
 
+    /// <summary>
+    /// Hidden class constructor.
+    /// </summary>
     protected ListItem()
     {
     }
     #endregion constructor
 
     #region properties
+    /// <summary>
+    /// Get unit of the values stored in this object (<seealso cref="DefaultValues"/>).
+    /// </summary>
     public Itemkey Key { get; private set; }
 
     /// <summary>
