@@ -1,6 +1,7 @@
 ﻿namespace UnitCombobox.ViewModel
 {
   using System.Collections.ObjectModel;
+  using UnitComboLib.Local;
   using UnitComboLib.Unit;
   using UnitComboLib.Unit.Screen;
   using UnitComboLib.ViewModel;
@@ -29,8 +30,8 @@
       var percentDefaults = new ObservableCollection<string>() { "25", "50", "75", "100", "125", "150", "175", "200", "300", "400", "500" };
       var pointsDefaults = new ObservableCollection<string>() { "3", "6", "8", "9", "10", "12", "14", "16", "18", "20", "24", "26", "32", "48", "60" };
 
-      unitList.Add(new ListItem(Itemkey.ScreenPercent, "percent", "%", percentDefaults));
-      unitList.Add(new ListItem(Itemkey.ScreenFontPoints, "points", "pt", pointsDefaults));
+      unitList.Add(new ListItem(Itemkey.ScreenPercent, UnitComboLib.Local.Strings.Percent_String, UnitComboLib.Local.Strings.Percent_String_Short, percentDefaults));
+      unitList.Add(new ListItem(Itemkey.ScreenFontPoints, UnitComboLib.Local.Strings.Point_String, UnitComboLib.Local.Strings.Point_String_Short, pointsDefaults));
 
       return unitList;
     }

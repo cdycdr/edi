@@ -7,6 +7,7 @@
   using UnitComboLib.Command;
   using UnitComboLib.Unit;
   using System.ComponentModel;
+  using UnitComboLib.Local;
 
   /// <summary>
   /// Viewmodel class to manage unit conversion based on default values and typed values.
@@ -173,7 +174,7 @@
         if (propertyName == "StringValue")
         {
           if (string.IsNullOrEmpty(this.mstrValue))
-            return SetToolTip("String does not contain an integer value.");
+            return SetToolTip(Strings.Integer_Contain_ErrorMessage);
 
           double dValue;
           if (double.TryParse(this.mstrValue, out dValue) == true)
@@ -189,7 +190,7 @@
               return SetToolTip(message);
           }
           else
-            return SetToolTip("String cannot be converted into an integer value.");
+            return SetToolTip(Strings.Integer_Conversion_ErrorMessage);
         }
 
         return SetToolTip(null);
@@ -375,7 +376,7 @@
     /// <returns></returns>
     private string FontSizeErrorTip()
     {
-      return string.Format("Enter a font in the range of {0} - {1} pt",
+      return string.Format(Strings.Enter_Font_Size_InRange_Message,
                                     string.Format("{0:0}", MinFontSizeValue),
                                     string.Format("{0:0}", MaxFontSizeValue));
     }
@@ -386,7 +387,7 @@
     /// <returns></returns>
     private string PercentSizeErrorTip()
     {
-      return string.Format("Enter a percent value in the range of {0} - {1} %",
+      return string.Format(Strings.Enter_Percent_Size_InRange_Message,
                             string.Format("{0:0}", MinPercentageSizeValue),
                             string.Format("{0:0}", MaxPercentageSizeValue));
     }
@@ -399,7 +400,7 @@
     /// <returns></returns>
     private string SetToolTip(string strError)
     {
-      string standardTip = string.Format("Enter a value between {0} - {1}% or {2} - {3}pt",
+      string standardTip = string.Format(Strings.Enter_Percent_Font_Size_InRange_Message,
                                           string.Format("{0:0}", MinPercentageSizeValue),
                                           string.Format("{0:0}", MaxPercentageSizeValue),
                                           string.Format("{0:0}", MinFontSizeValue),
