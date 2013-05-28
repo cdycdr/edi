@@ -1,13 +1,10 @@
 ﻿namespace MsgBoxSamples
 {
-  using System;
-  using System.Collections.Generic;
-  using System.Configuration;
-  using System.Data;
-  using System.Linq;
+  using MsgBox;
+  using System.Globalization;
+  using System.Threading;
   using System.Windows;
   using System.Windows.Threading;
-  using MsgBox;
 
   /// <summary>
   /// Interaction logic for App.xaml
@@ -16,6 +13,11 @@
   {
     public App()
     {
+      ////Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+      ////Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+
+      Thread.CurrentThread.CurrentCulture = new CultureInfo("de-DE");
+      Thread.CurrentThread.CurrentUICulture = new CultureInfo("de-DE");
     }
 
     private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

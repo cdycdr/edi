@@ -17,7 +17,7 @@
                                       Func<object, bool> navigateHelplinkMethod,
                                       bool showCopyMessage)
     {
-      return View.MsgBox.Show(messageBoxText, btnDefault,
+      return View.MsgBoxDialog.Show(messageBoxText, btnDefault,
                                   helpLink, helpLinkTitle, helpLinkLabel, navigateHelplinkMethod, showCopyMessage);
     }
 
@@ -29,7 +29,7 @@
                                       Func<object, bool> navigateHelplinkMethod,
                                       bool showCopyMessage)
     {
-      return View.MsgBox.Show(messageBoxText, caption, btnDefault,
+      return View.MsgBoxDialog.Show(messageBoxText, caption, btnDefault,
                                   helpLink, helpLinkTitle, helpLinkLabel, navigateHelplinkMethod, showCopyMessage);
     }
 
@@ -42,7 +42,7 @@
                                       Func<object, bool> navigateHelplinkMethod,
                                       bool showCopyMessage)
     {
-      return View.MsgBox.Show(messageBoxText, caption, buttonOption, btnDefault,
+      return View.MsgBoxDialog.Show(messageBoxText, caption, buttonOption, btnDefault,
                                   helpLink, helpLinkTitle, helpLinkLabel, navigateHelplinkMethod, showCopyMessage);
     }
 
@@ -56,7 +56,7 @@
                                       Func<object, bool> navigateHelplinkMethod,
                                       bool showCopyMessage)
     {
-      return View.MsgBox.Show(messageBoxText, caption, buttonOption, image, btnDefault,
+      return View.MsgBoxDialog.Show(messageBoxText, caption, buttonOption, image, btnDefault,
                                   helpLink, helpLinkTitle, helpLinkLabel, navigateHelplinkMethod, showCopyMessage);
     }
 
@@ -86,7 +86,7 @@
                                       Func<object, bool> navigateHelplinkMethod,
                                       bool showCopyMessage)
     {
-      return View.MsgBox.Show(messageBoxText, caption, details,
+      return View.MsgBoxDialog.Show(messageBoxText, caption, details,
                               buttonOption, image, btnDefault,
                               helpLink, helpLinkTitle,  helpLinkLabel, navigateHelplinkMethod,
                               showCopyMessage);
@@ -101,7 +101,7 @@
                                       Func<object, bool> navigateHelplinkMethod,
                                       bool showCopyMessage)
     {
-      return View.MsgBox.Show(exp, caption, 
+      return View.MsgBoxDialog.Show(exp, caption, 
                               buttonOption, image, btnDefault,
                               helpLink, helpLinkTitle, helpLabel, navigateHelplinkMethod,
                               showCopyMessage);
@@ -116,7 +116,7 @@
                                       Func<object, bool> navigateHelplinkMethod,
                                       bool showCopyMessage)
     {
-      return View.MsgBox.Show(exp, messageText, caption,
+      return View.MsgBoxDialog.Show(exp, messageText, caption,
                               buttonOption, image, btnDefault,
                               helpLink, helpLinkTitle, helpLabel, navigateHelplinkMethod,
                               showCopyMessage);
@@ -133,7 +133,7 @@
                                     Func<object, bool> navigateHelplinkMethod ,
                                     bool showCopyMessage)
     {
-      return View.MsgBox.Show(owner, messageBoxText, caption,
+      return View.MsgBoxDialog.Show(owner, messageBoxText, caption,
                               buttonOption, image, btnDefault,
                               helpLink, helpLinkTitle, helpLinkLabel, navigateHelplinkMethod,
                               showCopyMessage);

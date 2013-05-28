@@ -11,6 +11,8 @@
              d:DesignHeight="200" d:DesignWidth="600" Focusable="True"
 
              xmlns:xc="clr-namespace:MsgBox.Internal.ViewModel"
+
+             xmlns:localiz="clr-namespace:MsgBox.Local"
              >
   <UserControl.Resources>
     <vm:EnumMatchToBooleanConverter x:Key="enumConverter" />
@@ -53,7 +55,7 @@
                    Visibility="{Binding DisplayHelpLink, Converter={StaticResource BoolToVisConverter}}">
           <Hyperlink NavigateUri="{Binding Path=HelpLink, Mode=OneWay}" IsEnabled="True"
                      Command="{Binding Path=NavigateToUri}"
-                     CommandParameter="{Binding Path=HelpLink, Mode=OneWay}" ToolTip="Click to view details on this topic">
+                     CommandParameter="{Binding Path=HelpLink, Mode=OneWay}" ToolTip="{x:Static localiz:Strings.ToolTip_MoreDetails}">
 
             <TextBlock Text="{Binding Path=HelpLinkTitle, Mode=OneWay}"
                        TextWrapping="Wrap"
@@ -63,7 +65,7 @@
 
     </Grid>
 
-    <Expander Header="More Details" Grid.Row="2" Grid.ColumnSpan="2"
+    <Expander Header="{x:Static localiz:Strings.MsgBox_Expander_Header_Title}" Grid.Row="2" Grid.ColumnSpan="2"
               Visibility="{Binding ShowDetails, Converter={StaticResource BoolToVisConverter}}"
               Margin="9,9, 9, 9">
 
@@ -99,7 +101,7 @@
 
       <Button Grid.Column="0" Grid.Row="3"
               ToolTip="Copy information to clipboard"
-              Content="Copy"
+              Content="{x:Static localiz:Strings.Copy_Button_Label}"
               Margin="6" MinHeight="24" MinWidth="80"
               Command="{Binding CopyText}"
               CommandParameter="{Binding Path=AllToString, Mode=OneWay}"
@@ -109,73 +111,78 @@
 
       <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2">
 
-        <Button Content="_Yes" Visibility="{Binding YesNoVisibility, Converter={StaticResource BoolToVisConverter}}"
-              Command="{Binding YesCommand}"
-              IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
-                          Converter={StaticResource enumConverter},
-                          ConverterParameter=Yes}"
-              Margin="6" MinHeight="24" MinWidth="80"
-              KeyboardNavigation.IsTabStop="True"
-              KeyboardNavigation.TabIndex="4"
-              xc:SetKeyboardFocusWhenIsDefault.SetFocus="True"
-              Grid.Column="2"
+        <Button Content="{x:Static localiz:Strings.Yes_Button_Label}"
+                Visibility="{Binding YesNoVisibility, Converter={StaticResource BoolToVisConverter}}"
+                Command="{Binding YesCommand}"
+                IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
+                            Converter={StaticResource enumConverter},
+                            ConverterParameter=Yes}"
+                Margin="6" MinHeight="24" MinWidth="80"
+                KeyboardNavigation.IsTabStop="True"
+                KeyboardNavigation.TabIndex="4"
+                xc:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                Grid.Column="2"
                />
 
-      <Button Content="_No" Visibility="{Binding YesNoVisibility, Converter={StaticResource BoolToVisConverter}}"
-              Command="{Binding NoCommand}"
-              IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
-                          Converter={StaticResource enumConverter},
-                          ConverterParameter=No}"
-              IsCancel="{Binding Path=IsCancelButton, Mode=OneTime, 
-                          Converter={StaticResource enumConverter},
-                          ConverterParameter=No}"
-              Margin="6" MinHeight="24" MinWidth="80"
-              KeyboardNavigation.IsTabStop="True"
-              KeyboardNavigation.TabIndex="3"
-              xc:SetKeyboardFocusWhenIsDefault.SetFocus="True"
-              Grid.Column="3"
+        <Button Content="{x:Static localiz:Strings.No_Button_Label}"
+                Visibility="{Binding YesNoVisibility, Converter={StaticResource BoolToVisConverter}}"
+                Command="{Binding NoCommand}"
+                IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
+                            Converter={StaticResource enumConverter},
+                            ConverterParameter=No}"
+                IsCancel="{Binding Path=IsCancelButton, Mode=OneTime, 
+                            Converter={StaticResource enumConverter},
+                            ConverterParameter=No}"
+                Margin="6" MinHeight="24" MinWidth="80"
+                KeyboardNavigation.IsTabStop="True"
+                KeyboardNavigation.TabIndex="3"
+                xc:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                Grid.Column="3"
               />
 
-        <Button Content="_Cancel" Visibility="{Binding CancelVisibility, Converter={StaticResource BoolToVisConverter}}"
-              Command="{Binding CancelCommand}"
-              IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
-                          Converter={StaticResource enumConverter},
-                          ConverterParameter=Cancel}"
-              IsCancel="{Binding Path=IsCancelButton, Mode=OneTime, 
-                          Converter={StaticResource enumConverter},
-                          ConverterParameter=Cancel}"
-              Margin="6" MinHeight="24" MinWidth="80"
-              KeyboardNavigation.IsTabStop="True"
-              KeyboardNavigation.TabIndex="2"
-              xc:SetKeyboardFocusWhenIsDefault.SetFocus="True"
-              Grid.Column="4"
+        <Button Content="{x:Static localiz:Strings.Cancel_Button_Label}"
+                Visibility="{Binding CancelVisibility, Converter={StaticResource BoolToVisConverter}}"
+                Command="{Binding CancelCommand}"
+                IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
+                            Converter={StaticResource enumConverter},
+                            ConverterParameter=Cancel}"
+                IsCancel="{Binding Path=IsCancelButton, Mode=OneTime, 
+                            Converter={StaticResource enumConverter},
+                            ConverterParameter=Cancel}"
+                Margin="6" MinHeight="24" MinWidth="80"
+                KeyboardNavigation.IsTabStop="True"
+                KeyboardNavigation.TabIndex="2"
+                xc:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                Grid.Column="4"
               />
 
-        <Button Content="O_K" Visibility="{Binding OkVisibility, Converter={StaticResource BoolToVisConverter}}"
-              Command="{Binding OkCommand}"
-              IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
-                          Converter={StaticResource enumConverter},
-                          ConverterParameter=OK}"
-              Margin="6" MinHeight="24" MinWidth="80"
-              KeyboardNavigation.IsTabStop="True"
-              KeyboardNavigation.TabIndex="1"
-              xc:SetKeyboardFocusWhenIsDefault.SetFocus="True"
-              Grid.Column="5"
+        <Button Content="{x:Static localiz:Strings.OK_Button_Label}"
+                Visibility="{Binding OkVisibility, Converter={StaticResource BoolToVisConverter}}"
+                Command="{Binding OkCommand}"
+                IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
+                            Converter={StaticResource enumConverter},
+                            ConverterParameter=OK}"
+                Margin="6" MinHeight="24" MinWidth="80"
+                KeyboardNavigation.IsTabStop="True"
+                KeyboardNavigation.TabIndex="1"
+                xc:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                Grid.Column="5"
               />
 
-        <Button Content="_Close" Visibility="{Binding CloseVisibility, Converter={StaticResource BoolToVisConverter}}"
-              Command="{Binding CloseCommand}"
-              IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
-                          Converter={StaticResource enumConverter},
-                          ConverterParameter=Close}"
-              IsCancel="{Binding Path=IsCancelButton, Mode=OneTime, 
-                          Converter={StaticResource enumConverter},
-                          ConverterParameter=Close}"
-              Margin="6" MinHeight="24" MinWidth="80"
-              KeyboardNavigation.IsTabStop="True"
-              KeyboardNavigation.TabIndex="0"
-              xc:SetKeyboardFocusWhenIsDefault.SetFocus="True"
-              Grid.Column="6"
+        <Button Content="{x:Static localiz:Strings.Close__Button_Label}"
+                Visibility="{Binding CloseVisibility, Converter={StaticResource BoolToVisConverter}}"
+                Command="{Binding CloseCommand}"
+                IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
+                            Converter={StaticResource enumConverter},
+                            ConverterParameter=Close}"
+                IsCancel="{Binding Path=IsCancelButton, Mode=OneTime, 
+                            Converter={StaticResource enumConverter},
+                            ConverterParameter=Close}"
+                Margin="6" MinHeight="24" MinWidth="80"
+                KeyboardNavigation.IsTabStop="True"
+                KeyboardNavigation.TabIndex="0"
+                xc:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                Grid.Column="6"
               />
       </StackPanel>
     </Grid>
