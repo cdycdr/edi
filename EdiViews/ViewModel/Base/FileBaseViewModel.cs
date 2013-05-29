@@ -67,7 +67,7 @@
     /// <summary>
     /// Get whether the current information was edit and needs to be saved or not.
     /// </summary>
-    abstract public bool IsDirty{ get; protected set; }
+    abstract public bool IsDirty{ get; set; }
     #endregion IsDirty
 
     #region CanSaveData

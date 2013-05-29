@@ -97,7 +97,7 @@
     {
       get
       {
-        return this.FileName + (IsDirty == true ? "*" : string.Empty);
+        return this.FileName + (this.IsDirty == true ? "*" : string.Empty);
       }
     }
     #endregion
@@ -209,7 +209,7 @@
         return _isDirty;
       }
       
-      protected set
+      set
       {
         if (_isDirty != value)
         {

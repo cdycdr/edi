@@ -150,7 +150,7 @@
         return false;
       }
 
-      protected set
+      set
       {
         throw new NotSupportedException("Start page cannot be saved therfore setting dirty cannot be useful.");
       }

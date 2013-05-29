@@ -450,6 +450,67 @@
             <param name="showCopyMessage">Show a UI element (e.g. button) that lets the user copy the displayed message into the Windows clipboard</param>
             <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
         </member>
+        <member name="T:MsgBox.Local.Strings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.Cancel_Button_Label">
+            <summary>
+              Looks up a localized string similar to _Cancel.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.Close__Button_Label">
+            <summary>
+              Looks up a localized string similar to _Close.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.Copy_Button_Label">
+            <summary>
+              Looks up a localized string similar to Copy.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.MsgBox_Expander_Header_Title">
+            <summary>
+              Looks up a localized string similar to More Details.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.No_Button_Label">
+            <summary>
+              Looks up a localized string similar to _No.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.OK_Button_Label">
+            <summary>
+              Looks up a localized string similar to O_K.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.ToolTip_MoreDetails">
+            <summary>
+              Looks up a localized string similar to Click to view details on this topic.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.Unknown_Error_Message">
+            <summary>
+              Looks up a localized string similar to An unknown error occured..
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.Yes_Button_Label">
+            <summary>
+              Looks up a localized string similar to _Yes.
+            </summary>
+        </member>
         <member name="T:MsgBox.ServiceContainer">
             <summary>
             Source: http://www.codeproject.com/Articles/70223/Using-a-Service-Locator-to-Work-with-MessageBoxes
@@ -723,26 +784,26 @@
             as parameter into the clipboard
             </summary>
         </member>
-        <member name="T:MsgBox.Internal.View.MsgBox">
+        <member name="T:MsgBox.Internal.View.MsgBoxDialog">
             <summary>
             Interaction logic for WPFMessageBox.xaml
             
             Source: http://www.codeproject.com/Articles/70223/Using-a-Service-Locator-to-Work-with-MessageBoxes
             </summary>
         </member>
-        <member name="M:MsgBox.Internal.View.MsgBox.OnSourceInitialized(System.EventArgs)">
+        <member name="M:MsgBox.Internal.View.MsgBoxDialog.OnSourceInitialized(System.EventArgs)">
             <summary>
             Remove the icon from the window chrome to give this window a message box like appearrance.
             </summary>
             <param name="e"></param>
         </member>
-        <member name="M:MsgBox.Internal.View.MsgBox.GetOwnerWindow">
+        <member name="M:MsgBox.Internal.View.MsgBoxDialog.GetOwnerWindow">
             <summary>
             Attempt to find the owner window for a message box
             </summary>
             <returns>Owner Window</returns>
         </member>
-        <member name="M:MsgBox.Internal.View.MsgBox.InitializeComponent">
+        <member name="M:MsgBox.Internal.View.MsgBoxDialog.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

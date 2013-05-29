@@ -219,7 +219,7 @@
         return mIsDirty;
       }
       
-      protected set
+      set
       {
         if (mIsDirty != value)
         {

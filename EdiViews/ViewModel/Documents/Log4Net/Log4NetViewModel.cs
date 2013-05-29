@@ -127,7 +127,7 @@
         return false;
       }
 
-      protected set
+      set
       {
         throw new NotSupportedException("Log4Net documents cannot be saved therfore setting dirty cannot be useful.");
       }
