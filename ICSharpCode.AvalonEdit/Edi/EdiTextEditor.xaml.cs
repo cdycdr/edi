@@ -5,25 +5,33 @@
   using System.Windows;
   using System.Windows.Media;
   using System.Windows.Threading;
+  using System.Windows.Input;
+  using System.Collections.Generic;
 
   using ICSharpCode.AvalonEdit.Editing;
   using ICSharpCode.AvalonEdit.Rendering;
   using ICSharpCode.AvalonEdit.Utils;
-using System.Windows.Input;
 
   /// <summary>
   /// </summary>
   public partial class EdiTextEditor : TextEditor
   {
+    #region fields
+    static readonly List<CommandBinding> CmdBindings = new List<CommandBinding>();
+    ////static readonly List<InputBinding> InputBindings = new List<InputBinding>();
+    #endregion fields
+
     #region constructor
     /// <summary>
-    /// Static class constructor to register style key for usage in XAML
+    /// Static class constructor to register style key and commands
     /// </summary>
     static EdiTextEditor()
     {
       DefaultStyleKeyProperty.OverrideMetadata(typeof(EdiTextEditor), new FrameworkPropertyMetadata(typeof(EdiTextEditor)));
-      FocusableProperty.OverrideMetadata(typeof(EdiTextEditor),
-                                         new FrameworkPropertyMetadata(Boxes.True));
+      FocusableProperty.OverrideMetadata(typeof(EdiTextEditor), new FrameworkPropertyMetadata(Boxes.True));
+
+      CmdBindings.Add(new CommandBinding(EdiTextEditorCommands.FoldsCollapseAll, EdiTextEditor.FoldsCollapseAll, EdiTextEditor.FoldsColapseExpandCanExecute));
+      CmdBindings.Add(new CommandBinding(EdiTextEditorCommands.FoldsExpandAll, EdiTextEditor.FoldsExpandAll, EdiTextEditor.FoldsColapseExpandCanExecute));
     }
 
     /// <summary>
@@ -46,6 +54,9 @@ using System.Windows.Input;
                                                            "200 %",
                                                            "300 %",
                                                            "400 %"};
+
+      // Copy static collection of commands to collection of commands of this instance
+      this.CommandBindings.AddRange(EdiTextEditor.CmdBindings);      
     }
     #endregion constructor
 
@@ -107,7 +118,7 @@ using System.Windows.Input;
 
       this.mFoldingUpdateTimer = new DispatcherTimer();
       mFoldingUpdateTimer.Interval = TimeSpan.FromSeconds(2);
-      mFoldingUpdateTimer.Tick += foldingUpdateTimer_Tick;
+      mFoldingUpdateTimer.Tick += this.foldingUpdateTimer_Tick;
       mFoldingUpdateTimer.Start();
 
       // Connect CompletionWindow Listners

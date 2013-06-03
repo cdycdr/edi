@@ -125,6 +125,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EdiTextEditorCommands.cs" />
     <Compile Include="Edi\EdiTextEditor_CompletionWindow.cs" />
     <Compile Include="Edi\EdiTextEditor_Dp.cs" />
     <Compile Include="Edi\EdiTextEditor_Folding.cs" />

@@ -8,6 +8,7 @@
   using ICSharpCode.AvalonEdit.Highlighting;
   using ICSharpCode.AvalonEdit.Edi.Folding;
   using System.Windows.Threading;
+  using System.Windows.Input;
 
   /// <summary>
   /// This part of the AvalonEdit extension contains the code
@@ -102,7 +103,7 @@
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    void foldingUpdateTimer_Tick(object sender, EventArgs e)
+    private void foldingUpdateTimer_Tick(object sender, EventArgs e)
     {
       if (this.IsVisible == true)
       {
@@ -112,7 +113,7 @@
           {
             if (mFoldingManager == null)
             {
-              mFoldingManager = FoldingManager.Install(this.TextArea);
+              this.mFoldingManager = FoldingManager.Install(this.TextArea);
 
               mInstallFoldingManager = false;
             }
@@ -127,6 +128,105 @@
         }
       }
     }
+
+    #region Fold Unfold Command
+    /// <summary>
+    /// Determines whether a folding command can be executed or not and sets correspondind
+    /// <paramref name="e"/>.CanExecute property value.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private static void FoldsColapseExpandCanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+      e.CanExecute = false;
+      e.Handled = true;
+
+      EdiTextEditor edi = sender as EdiTextEditor;
+
+      if (edi == null)
+        return;
+
+      if (edi.mFoldingManager == null)
+        return;
+
+      if (edi.mFoldingManager.AllFoldings == null)
+        return;
+
+      e.CanExecute = true;
+    }
+
+    /// <summary>
+    /// Executes the collapse all folds command (which folds all text foldings but the first).
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private static void FoldsCollapseAll(object sender, ExecutedRoutedEventArgs e)
+    {
+      EdiTextEditor edi = sender as EdiTextEditor;
+
+      if (edi == null)
+        return;
+
+      edi.CollapseAllTextfoldings();
+    }
+
+    /// <summary>
+    /// Executes the collapse all folds command (which folds all text foldings but the first).
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private static void FoldsExpandAll(object sender, ExecutedRoutedEventArgs e)
+    {
+      EdiTextEditor edi = sender as EdiTextEditor;
+
+      if (edi == null)
+        return;
+
+      edi.ExpandAllTextFoldings();
+    }
+
+    /// <summary>
+    /// Goes through all foldings in the displayed text and folds them
+    /// so that users can explore the text in a top down manner.
+    /// </summary>
+    private void CollapseAllTextfoldings()
+    {
+      if (this.mFoldingManager == null)
+        return;
+
+      if (this.mFoldingManager.AllFoldings == null)
+        return;
+
+      foreach (var loFolding in this.mFoldingManager.AllFoldings)
+      {
+        loFolding.IsFolded = true;
+      }
+
+      // Unfold the first fold (if any) to give a useful overview on content
+      FoldingSection foldSection = this.mFoldingManager.GetNextFolding(0);
+
+      if (foldSection != null)
+        foldSection.IsFolded = false;
+    }
+
+    /// <summary>
+    /// Goes through all foldings in the displayed text and unfolds them
+    /// so that users can see all text items (without having to play with folding).
+    /// </summary>
+    private void ExpandAllTextFoldings()
+    {
+      if (this.mFoldingManager == null)
+        return;
+
+      if (this.mFoldingManager.AllFoldings == null)
+        return;
+
+      foreach (var loFolding in this.mFoldingManager.AllFoldings)
+      {
+        loFolding.IsFolded = false;
+      }
+    }
+    #endregion Fold Unfold Command
     #endregion
   }
 }
