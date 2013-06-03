@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-namespace Util.Msg
+﻿namespace Util.Msg
 {
+  using System.Collections.Generic;
+
   /// <summary>
   /// This class hosts a collection of (error) message objects
   /// to enable summary reports.

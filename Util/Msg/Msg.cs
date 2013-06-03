@@ -1,5 +1,7 @@
 ﻿namespace Util.Msg
 {
+  using Util.Local;
+
   /// <summary>
   /// This class is used to display categorized (Information, Error etc.) messages to the user.
   /// </summary>
@@ -23,7 +25,7 @@
     public Msg(string strMsg, MsgCategory type = MsgCategory.Error)
       : this()
     {
-      this.Message = ((strMsg == null ? string.Empty : strMsg).Length == 0 ? "<Unknown Internal Problem>" : strMsg);
+      this.Message = ((strMsg == null ? string.Empty : strMsg).Length == 0 ? Strings.STR_Category_Unknown_Internal_Error : strMsg);
       this.CategoryOfMsg = type;
     }
 
@@ -94,16 +96,20 @@
         switch (this.CategoryOfMsg)
         {
           case MsgCategory.Information:
-            return "Information";
+            return Strings.STR_Category_Information;
+          
           case MsgCategory.Error:
-            return "Error";
+            return Strings.STR_Category_Error;
+
           case MsgCategory.Warning:
-            return "Warning";
+            return Strings.STR_Category_Warning;
+
           case MsgCategory.InternalError:
-            return "Internal Error";
+            return Strings.STR_Category_InternalError;
+
           case MsgCategory.Unknown:
           default:
-            return "Unknown Error";
+            return Strings.STR_Category_UnknownError;
         }
       }
     }

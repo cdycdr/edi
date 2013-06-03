@@ -1,6 +1,7 @@
 ﻿namespace Util.Command
 {
   using System.Windows.Input;
+  using Util.Local;
 
   public class AppCommand
   {
@@ -42,70 +43,69 @@
       // Initialize the exit command
       inputs = new InputGestureCollection();
       inputs.Add(new KeyGesture(Key.F4, ModifierKeys.Alt, "Alt+F4"));
-      AppCommand.exit = new RoutedUICommand("Exit", "Exit", typeof(AppCommand), inputs);
+      AppCommand.exit = new RoutedUICommand(Strings.CMD_App_Exit_Describtion, "Exit", typeof(AppCommand), inputs);
 
       inputs = new InputGestureCollection();
-      AppCommand.about = new RoutedUICommand("About", "About", typeof(AppCommand), inputs);
+      AppCommand.about = new RoutedUICommand(Strings.CMD_APP_About_Description, "About", typeof(AppCommand), inputs);
 
       // Execute file open command (without user interaction)
       inputs = new InputGestureCollection();
-      AppCommand.loadFile = new RoutedUICommand("Open ...", "LoadFile", typeof(AppCommand), inputs);
+      AppCommand.loadFile = new RoutedUICommand(Strings.CMD_APP_Open_Description, "LoadFile", typeof(AppCommand), inputs);
 
       inputs = new InputGestureCollection();
-      AppCommand.saveAll = new RoutedUICommand("Save All ...", "SaveAll", typeof(AppCommand), inputs);
+      AppCommand.saveAll = new RoutedUICommand(Strings.CMD_APP_SaveAll_Description, "SaveAll", typeof(AppCommand), inputs);
 
       // Initialize pin command (to set or unset a pin in MRU and re-sort list accordingly)
       inputs = new InputGestureCollection();
-      AppCommand.pinUnpin = new RoutedUICommand("Pin or Unpin", "Pin", typeof(AppCommand), inputs);
+      AppCommand.pinUnpin = new RoutedUICommand(Strings.CMD_MRU_Pin_Description, "Pin", typeof(AppCommand), inputs);
 
       // Execute add recent files list etnry pin command (to add another MRU entry into the list)
       inputs = new InputGestureCollection();
-      AppCommand.addMruEntry = new RoutedUICommand("Add Entry", "AddEntry", typeof(AppCommand), inputs);
+      AppCommand.addMruEntry = new RoutedUICommand(Strings.CMD_MRU_AddEntry_Description, "AddEntry", typeof(AppCommand), inputs);
 
       // Execute remove pin command (remove a pin from a recent files list entry)
       inputs = new InputGestureCollection();
-      AppCommand.removeMruEntry = new RoutedUICommand("Remove Entry", "RemoveEntry", typeof(AppCommand), inputs);
+      AppCommand.removeMruEntry = new RoutedUICommand(Strings.CMD_MRU_RemoveEntry_Description, "RemoveEntry", typeof(AppCommand), inputs);
 
       inputs = new InputGestureCollection();
       inputs.Add(new KeyGesture(Key.F4, ModifierKeys.Control, "Ctrl+F4"));
       inputs.Add(new KeyGesture(Key.W, ModifierKeys.Control, "Ctrl+W"));
-      AppCommand.closeFile = new RoutedUICommand("Close", "Close", typeof(AppCommand), inputs);
+      AppCommand.closeFile = new RoutedUICommand(Strings.CMD_APP_CloseDoc_Description, "Close", typeof(AppCommand), inputs);
 
       // Initialize the viewTheme command
       inputs = new InputGestureCollection();
-      AppCommand.viewTheme = new RoutedUICommand("View Theme", "ViewTheme", typeof(AppCommand), inputs);
+      AppCommand.viewTheme = new RoutedUICommand(Strings.CMD_APP_ViewTheme_Description, "ViewTheme", typeof(AppCommand), inputs);
 
       // Execute browse Internt URL (without user interaction)
       inputs = new InputGestureCollection();
-      AppCommand.browseURL = new RoutedUICommand("Open URL ...", "OpenURL", typeof(AppCommand), inputs);
+      AppCommand.browseURL = new RoutedUICommand(Strings.CMD_APP_OpenURL_Description, "OpenURL", typeof(AppCommand), inputs);
 
       inputs = new InputGestureCollection();
-      AppCommand.showStartPage = new RoutedUICommand("Show Start Page", "StartPage", typeof(AppCommand), inputs);
+      AppCommand.showStartPage = new RoutedUICommand(Strings.CMD_APP_ShowStartPage_Description, "StartPage", typeof(AppCommand), inputs);
 
       #region Text Edit Commands
-      inputs = new InputGestureCollection();                                     // Goto Line n in the current document
-      //inputs.Add(new KeyGesture(Key.A, ModifierKeys.Control, "Ctrl + A"));
-      AppCommand.disableHighlighting = new RoutedUICommand("Switch off syntax highlighting for current file", "DisableHighlighting", typeof(AppCommand), inputs);
+      inputs = new InputGestureCollection();
+      AppCommand.disableHighlighting = new RoutedUICommand(Strings.CMD_TXT_DisableHighlighting_Description, "DisableHighlighting", typeof(AppCommand), inputs);
 
       inputs = new InputGestureCollection();                                     // Goto Line n in the current document
-      inputs.Add(new KeyGesture(Key.G, ModifierKeys.Control, "Ctrl + G"));
-      AppCommand.gotoLine = new RoutedUICommand("Go to a specific line in a document", "GotoLine", typeof(AppCommand), inputs);
+      inputs.Add(new KeyGesture(Key.G, ModifierKeys.Control, "Ctrl+G"));
+      AppCommand.gotoLine = new RoutedUICommand(Strings.CMD_TXT_GotoLine_Description, "GotoLine", typeof(AppCommand), inputs);
 
-      inputs = new InputGestureCollection();                                     // Goto Line n in the current document
-      inputs.Add(new KeyGesture(Key.F, ModifierKeys.Control, "Ctrl + F"));
-      AppCommand.findText = new RoutedUICommand("Find specific text in a document", "FindText", typeof(AppCommand), inputs);
+      inputs = new InputGestureCollection();
+      inputs.Add(new KeyGesture(Key.F, ModifierKeys.Control, "Ctrl+F"));
+      AppCommand.findText = new RoutedUICommand(Strings.CMD_TXT_FindNext_Description, "FindText", typeof(AppCommand), inputs);
 
-      inputs = new InputGestureCollection();                                     // Goto Line n in the current document
+      inputs = new InputGestureCollection();
       inputs.Add(new KeyGesture(Key.F3, ModifierKeys.None, "F3"));
-      AppCommand.findNextText = new RoutedUICommand("Find next occurrance of specific text in a document", "FindNextText", typeof(AppCommand), inputs);
+      AppCommand.findNextText = new RoutedUICommand(Strings.CMD_TXT_FindNextText_Description, "FindNextText", typeof(AppCommand), inputs);
 
-      inputs = new InputGestureCollection();                                     // Goto Line n in the current document
+      inputs = new InputGestureCollection();
       inputs.Add(new KeyGesture(Key.F3, ModifierKeys.Shift, "Shift+F3"));
-      AppCommand.findPreviousText = new RoutedUICommand("Find previous occurrance of specific text in a document", "FindNextText", typeof(AppCommand), inputs);
+      AppCommand.findPreviousText = new RoutedUICommand(Strings.CMD_TXT_FindPreviousText_Description, "FindPreviousText", typeof(AppCommand), inputs);
 
-      inputs = new InputGestureCollection();                                     // Goto Line n in the current document
-      inputs.Add(new KeyGesture(Key.H, ModifierKeys.Control, "Ctrl + H"));
-      AppCommand.replaceText = new RoutedUICommand("Find and replace a specific text in a document", "FindReplaceText", typeof(AppCommand), inputs);
+      inputs = new InputGestureCollection();
+      inputs.Add(new KeyGesture(Key.H, ModifierKeys.Control, "Ctrl+H"));
+      AppCommand.replaceText = new RoutedUICommand(Strings.CMD_TXT_FindReplaceText_Description, "FindReplaceText", typeof(AppCommand), inputs);
       #endregion Text Edit Commands
     }
     #endregion Static Constructor
