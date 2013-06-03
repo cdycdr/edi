@@ -13,17 +13,20 @@
  - Query user whether files should be searched/browsed
  - or add lost & and found view that offers a hyperlink that performs a file open on the last known location
 
+* Enabled AvalonEdit text editing commands (see contextmenu) and
+  added function for folding and expanding text for viewing text with folds (XML, XHTML, CSharp, VisualBasic etc)
+
 * Adjusted Msg Box service to cover almost all calling conventions from System.MessageBox.Show
   (This should be a piece of cake in terms of usage now)
 
-* Implemented first version of mousewheel-zoom in texteditor
-  See § 3.3.1.0 
+* Implemented first version of mousewheel-zoom in texteditor (which also works with zoom gesture)
+  See § 3.3.3.0 
   -> The zoom with the mouse wheel is reflected in the zoom combobox (small extension in UnitComboBox).
 
 Known issues:
   The zoom does not work after changing the theme
 
-* Implemented first version of MiniUML Viewer (http://MiniUML.codeplex.com/)
+* Implemented first version of MiniUML editor (http://MiniUML.codeplex.com/)
 
   - Implemented AbstractDocumentViewModel class and IMiniUMLDocument interface
     to re-structure dependencies between MiniUml and surrounding application

@@ -7,6 +7,8 @@
                           
             xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit.Highlighting;assembly=ICSharpCode.AvalonEdit"
             xmlns:cmd="clr-namespace:Util.Command;assembly=Util"
+            xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
+
             xmlns:behav="clr-namespace:EdiViews.Behaviour;assembly=EdiViews"
 
             xmlns:conv="clr-namespace:Edi.Converter"
@@ -19,124 +21,124 @@
                 behav:HideToolbarOverflowButton.HideGrip="True">
 
         <Button Command="New" SnapsToDevicePixels="True"
-              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
+                ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_New_Text_TT}"
+                ToolTipService.ShowOnDisabled="True">
           <Image Source="{StaticResource Image_New}" Height="32" SnapsToDevicePixels="True" />
         </Button>
 
         <Button Command="Open" SnapsToDevicePixels="True"
-              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
+                ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Open_Text_TT}"
+                ToolTipService.ShowOnDisabled="True">
           <Image Source="{StaticResource Image_Open}" Height="32" SnapsToDevicePixels="True" />
         </Button>
 
         <Button Command="Save" SnapsToDevicePixels="True"
-              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
+                ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Save_TT}"
+                ToolTipService.ShowOnDisabled="True">
           <Image Source="{StaticResource Image_Save}" Height="32" SnapsToDevicePixels="True" />
         </Button>
 
-        <Button Command="Save" SnapsToDevicePixels="True"
-              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
+        <Button Command="SaveAs" SnapsToDevicePixels="True"
+                ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs_TT}"
+                ToolTipService.ShowOnDisabled="True">
           <Image Source="{StaticResource Image_Save}" Height="32" SnapsToDevicePixels="True" />
         </Button>
 
         <Button Command="cmd:AppCommand.SaveAll" SnapsToDevicePixels="True"
-              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
+                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
           <Image Source="{StaticResource Image_SaveAll}" Height="32" SnapsToDevicePixels="True" />
         </Button>
 
-        <Separator Margin="3" SnapsToDevicePixels="True" />
+        <Separator Margin="9,3" SnapsToDevicePixels="True" />
 
-        <!-- TextArea Edit Commands work via
-       (1) 'Command="Copy"'
-           'Command="Cut"'
-           'Command="Paste"'
-           'Command="Delete"'
-
-            that is via ApplicationCommands.Cut (WPF standard fucntionality since AvalonEdit registers its Edit commands there).
-
-       (2) Or they can be executed via custom commands defined in Workspace_Commands:
-            
-            Command="cmd:AppCommand.CutItem"
-            CommandParameter="{Binding ElementName=dockManager}"
-
-            Command="cmd:AppCommand.CopyItem"
-            CommandParameter="{Binding ElementName=dockManager}"
-
-            Command="cmd:AppCommand.PasteItem"
-            CommandParameter="{Binding ElementName=dockManager}"
-
-            Command="cmd:AppCommand.DeleteItem"
-            CommandParameter="{Binding ElementName=dockManager}"
-
-            In any case, the commandbinding does not succeed when the document is not docked
-            (see comment in Workspace_Commands.PerformTextAreaEdit for more details)
-      -->
         <Button Command="Copy" SnapsToDevicePixels="True"
-                ToolTip="Copy">
+                ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Copy_TT}"
+                ToolTipService.ShowOnDisabled="True">
           <Image Source="{StaticResource Image_Copy}" Height="32" SnapsToDevicePixels="True" />
         </Button>
         <Button Command="Cut" SnapsToDevicePixels="True"
-                ToolTip="Cut">
+                ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Cut_TT}"
+                ToolTipService.ShowOnDisabled="True">
           <Image Source="{StaticResource Image_Cut}" Height="32" SnapsToDevicePixels="True" />
         </Button>
         <Button Command="Paste" SnapsToDevicePixels="True"
-                ToolTip="Paste">
+                ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Paste_TT}"
+                ToolTipService.ShowOnDisabled="True">
           <Image Source="{StaticResource Image_Paste}" Height="32" SnapsToDevicePixels="True" />
         </Button>
         <Button Command="Delete" SnapsToDevicePixels="True"
-                ToolTip="Delete">
+                ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Delete_TT}"
+                ToolTipService.ShowOnDisabled="True">
           <Image Source="{StaticResource Image_Delete}" Height="32"/>
         </Button>
 
-        <Separator Margin="3"/>
+        <Separator Margin="9,3"/>
 
         <Button Command="Undo" SnapsToDevicePixels="True"
-                ToolTip="Undo">
+                ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Undo_TT}"
+                ToolTipService.ShowOnDisabled="True">
           <Image Source="{StaticResource Image_Undo}" Height="32"/>
         </Button>
         <Button Command="Redo" SnapsToDevicePixels="True"
-                ToolTip="Redo">
+                ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Redo_TT}"
+                ToolTipService.ShowOnDisabled="True">
           <Image Source="{StaticResource Image_Redo}" Height="32"/>
         </Button>
-        <Separator/>
+
+        <Separator Margin="9,3"/>
+
         <ToggleButton IsChecked="{Binding ActiveEdiDocument.WordWrap, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       CommandParameter="{x:Static vm:ToggleEditorOption.WordWrap}"
                       Command="{Binding ToggleEditorOptionCommand}"
-                      ToolTip="Word Wrap">
+                      ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_WordWrap_TT}"
+                      ToolTipService.ShowOnDisabled="True"
+                      >
           <Image Source="{StaticResource Image_WordWrap}" Height="32"/>
         </ToggleButton>
         <ToggleButton IsChecked="{Binding ActiveEdiDocument.ShowLineNumbers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  CommandParameter="{x:Static vm:ToggleEditorOption.ShowLineNumber}"
-                  Command="{Binding ToggleEditorOptionCommand}"
-                  ToolTip="Show Line Numbers">
+                      CommandParameter="{x:Static vm:ToggleEditorOption.ShowLineNumber}"
+                      Command="{Binding ToggleEditorOptionCommand}"
+                      ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_ShowLineNumbers_TT}"
+                      ToolTipService.ShowOnDisabled="True"
+                      >
           <Image Source="{StaticResource Image_ShowLineNumbers}" Height="32"/>
         </ToggleButton>
         <ToggleButton IsChecked="{Binding ActiveEdiDocument.ShowEndOfLine, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       Command="{Binding ToggleEditorOptionCommand}"
                       CommandParameter="{x:Static vm:ToggleEditorOption.ShowEndOfLine}"
-                      ToolTip="Show End of Line">
+                      ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_ShowEndOfLine_TT}"
+                      ToolTipService.ShowOnDisabled="True"
+                      >
           <Image Source="{StaticResource Image_EndOfLine}" Height="32"/>
         </ToggleButton>
         <ToggleButton IsChecked="{Binding ActiveEdiDocument.ShowSpaces, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       Command="{Binding ToggleEditorOptionCommand}"
                       CommandParameter="{x:Static vm:ToggleEditorOption.ShowSpaces}"
-                      ToolTip="Show Space Characters">
+                      ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_ShowSpaces_TT}"
+                      ToolTipService.ShowOnDisabled="True"
+                      >
           <Image Source="{StaticResource Image_Space}" Height="32"/>
         </ToggleButton>
         <ToggleButton IsChecked="{Binding ActiveEdiDocument.ShowTabs, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       Command="{Binding ToggleEditorOptionCommand}"
                       CommandParameter="{x:Static vm:ToggleEditorOption.ShowTabs}"
-                      ToolTip="Show Tab Characters">
+                      ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_ShowTabs_TT}"
+                      ToolTipService.ShowOnDisabled="True"
+                      >
           <Image Source="{StaticResource Image_Tabs}" Height="32"/>
         </ToggleButton>
 
         <Separator Visibility="{Binding Path=ActiveDocument, Mode=OneWay, Converter={conv:ActiveDocumentToVisibilityConverter}}"
-                   Margin="3" />
+                   Margin="9,3" />
+
         <!-- Select Highlighting pattern combobox is visible only if there is an active document (otherwise there ain't much to highlight) -->
         <ComboBox SelectedItem="{Binding ActiveEdiDocument.HighlightingDefinition}"
 				          ItemsSource="{Binding Source={x:Static avalonEdit:HighlightingManager.Instance}, Path=HighlightingDefinitionsSortedByName}"
                   Visibility="{Binding Path=ActiveDocument, Mode=OneWay, Converter={conv:ActiveDocumentToVisibilityConverter}}"
-                  MinWidth="100" Margin="3,0"
-                  ToolTip="Text Highlighting"
+                  MinWidth="100"
+                  Margin="3,0"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_HighlightingDefinition_TT}"
+                  ToolTipService.ShowOnDisabled="True"
         />
         <Button Command="cmd:AppCommand.DisableHighlighting" SnapsToDevicePixels="True"
                 Margin="3,0"

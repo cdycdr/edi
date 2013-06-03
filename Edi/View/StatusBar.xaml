@@ -6,6 +6,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="500"
              
+            xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
+
              xmlns:conv="clr-namespace:Edi.Converter"
              xmlns:EdiViewsConv="clr-namespace:EdiViews.Converter;assembly=EdiViews"
              >
@@ -15,7 +17,7 @@
     <Grid>
     <StatusBar HorizontalAlignment="Stretch">
       <StatusBarItem HorizontalAlignment="Stretch">
-        <TextBlock Text="Ready."
+        <TextBlock Text="{x:Static cmdLabel:Strings.STR_StatusBar_Ready}"
                    Grid.Column="0" Margin="0,0,3,0" HorizontalAlignment="Stretch"/>
       </StatusBarItem>
 
@@ -34,9 +36,11 @@
               <ColumnDefinition Width="Auto" />
               <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="X:"
+            <TextBlock Text="{x:Static cmdLabel:Strings.STR_StatusBar_X_Coord_Label}"
+                       ToolTip="{x:Static cmdLabel:Strings.STR_StatusBar_X_Coord_Label_TT}"
                        Margin="3,0" Grid.Column="0"/>
             <TextBlock Text="{Binding ActiveEdiDocument.Line, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                       ToolTip="{x:Static cmdLabel:Strings.STR_StatusBar_X_Coord_Label_TT}"
                        Margin="3,0" Grid.Column="1" MinWidth="10" HorizontalAlignment="Left" />
           </Grid>
 
@@ -45,20 +49,21 @@
               <ColumnDefinition Width="Auto" />
               <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Y:"
+            <TextBlock Text="{x:Static cmdLabel:Strings.STR_StatusBar_Y_Coord_Label}"
+                       ToolTip="{x:Static cmdLabel:Strings.STR_StatusBar_Y_Coord_Label_TT}"
                        Margin="3,0" Grid.Column="0"/>
             <TextBlock Text="{Binding ActiveEdiDocument.Column, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                       ToolTip="Column of the cursor in the current editor file"
+                       ToolTip="{x:Static cmdLabel:Strings.STR_StatusBar_Y_Coord_Label_TT}"
                        Foreground="{DynamicResource StatusBarForegroundColor}"
                        Margin="3,0" Grid.Column="1" MinWidth="10" HorizontalAlignment="Left" />
           </Grid>
 
           <TextBlock Text="{Binding TextOptions.IsInsertMode, Converter={StaticResource DisplayTypeModeConverter}, Mode=OneWay}"
-                     ToolTip="Line of the cursor in the current editor file"
+                     ToolTip="{x:Static cmdLabel:Strings.STR_Insert_Overtype_Mode_TT}"
                      DataContext="{Binding ActiveEdiDocument}" Margin="3, 0" Grid.Column="2"/>
 
           <TextBlock Text="{Binding FileEncoding.EncodingName, Mode=OneWay}"
-                     ToolTip="Text Encoding"
+                     ToolTip="{x:Static cmdLabel:Strings.STR_StatusBar_Textencoding_TT}"
                      DataContext="{Binding ActiveEdiDocument}" Margin="3, 0" Grid.Column="3"/>
         </Grid>
       </StatusBarItem>

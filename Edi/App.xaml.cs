@@ -39,12 +39,9 @@ namespace Edi
 
     private Window mMainWin;
 
-    public const string IssueTrackerTitle = "Unhandled Error";
-    public const string IssueTrackerText = "Please click on the link below to check if this is a known problem.\n\n" +
-                                           "Please report this problem if it is not known, yet.\n\n" +
-                                           "The problem report should contain the error message below (you can use the copy button)\n" +
-                                           "and a statement about the function/workflow you were using. Attach screenshots or sample files if applicable.";
-    public const string IssueTrackerLink = "https://edi.codeplex.com/workitem/list/basic";
+    public static readonly string IssueTrackerTitle = Util.Local.Strings.STR_MSG_IssueTrackerTitle;
+    public static readonly string IssueTrackerText = Util.Local.Strings.STR_MSG_IssueTrackerText;
+    public const string IssueTrackerLink  = "https://edi.codeplex.com/workitem/list/basic";
     #endregion fields
 
     #region constructor
@@ -261,7 +258,7 @@ namespace Edi
         try
         {
           logger.Error(string.Format(CultureInfo.InvariantCulture,
-                       "The {0} application received request to shutdown: {1}.\n\nPlease save your data and re-start manually.",
+                       "The {0} application received request to shutdown: {1}.",
                        Application.ResourceAssembly.GetName(), e.ReasonSessionEnding.ToString()));
         }
         catch
@@ -332,6 +329,8 @@ namespace Edi
 
         Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
         Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+        //Thread.CurrentThread.CurrentCulture = new CultureInfo("de-DE");
+        //Thread.CurrentThread.CurrentUICulture = new CultureInfo("de-DE");
       }
       catch
       {
@@ -528,8 +527,6 @@ namespace Edi
     {
       try
       {
-        Console.WriteLine("  >>> Shuting down application.");
-
         // Persist window position, width and height from this session
         appVM.Config.MainWindowPosSz = new ViewPosSzViewModel(win);
 
@@ -539,7 +536,7 @@ namespace Edi
       catch (Exception exp)
       {
         logger.Error(exp);
-        Msg.Show(exp.ToString(), "Error in shut-down process", MsgBoxButtons.OK, MsgBoxImage.Error);
+        Msg.Show(exp.ToString(), Util.Local.Strings.STR_MSG_UnknownError_InShutDownProcess, MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
 
@@ -559,11 +556,11 @@ namespace Edi
           message = string.Format(CultureInfo.CurrentCulture, "{0}\n\n{1}", e.Exception.Message, e.Exception.ToString());
         }
         else
-          message = "An unknown error occurred.";
+          message = Util.Local.Strings.STR_Msg_UnknownError;
 
         logger.Error(message);
 
-        Msg.Show(e.Exception, "Unhandled Error",
+        Msg.Show(e.Exception, Util.Local.Strings.STR_MSG_UnknownError_Caption,
                   MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                   App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
 
@@ -571,7 +568,7 @@ namespace Edi
       }
       catch (Exception exp)
       {
-        logger.Error("An error occured while dispatching unhandled exception", exp);
+        logger.Error(Util.Local.Strings.STR_MSG_UnknownError_InErrorDispatcher, exp);
       }
     }
     #endregion methods

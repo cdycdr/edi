@@ -8,6 +8,9 @@
              xmlns:ae="clr-namespace:ICSharpCode.AvalonEdit.Edi;assembly=ICSharpCode.AvalonEdit"
              xmlns:vm="clr-namespace:EdiViews.ViewModel.Documents;assembly=EdiViews"
 
+             xmlns:aedit_cmd="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
+             xmlns:edi_cmd="clr-namespace:ICSharpCode.AvalonEdit.Edi;assembly=ICSharpCode.AvalonEdit"
+
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance Type=vm:EdiViewModel, IsDesignTimeCreatable=True}"
@@ -75,6 +78,67 @@
               <Image Source="{StaticResource Image_Redo}" Height="16"/>
             </MenuItem.Icon>
           </MenuItem>
+          <Separator />
+          <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.DeleteLine}"
+                    Header="Delete Line"
+                    />
+
+          <MenuItem Header="White Spaces">
+            <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.RemoveLeadingWhitespace}"
+                    Header="Remove Leading White Space"
+                    />
+
+            <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.RemoveTrailingWhitespace}"
+                    Header="Remove Trailing White Space"
+                    />
+
+            <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.ConvertTabsToSpaces}"
+                    Header="Convert Tabs to Spaces"
+                    />
+
+            <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.ConvertSpacesToTabs}"
+                    Header="Convert Spaces to Tabs"
+                    />
+
+
+            <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.ConvertLeadingTabsToSpaces}"
+                    Header="Convert Leading Tabs to Spaces"
+                    />
+
+            <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.ConvertLeadingSpacesToTabs}"
+                    Header="Convert Leading Spaces to Tabs"
+                    />
+          </MenuItem>
+
+          <MenuItem Header="Text Case">
+            <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.ConvertToUppercase}"
+                    Header="Convert text to upper case"
+                    />
+
+            <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.ConvertToLowercase}"
+                    Header="Convert text to lower case"
+                    />
+
+            <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.ConvertToTitleCase}"
+                    Header="Convert to Title Case"
+                    />
+
+            <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.InvertCase}"
+                    Header="Invert Case"
+                    />
+          </MenuItem>
+
+          <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.IndentSelection}"
+                    Header="Apply Indention Strategy"
+                    />
+
+          <MenuItem Command="{x:Static edi_cmd:EdiTextEditorCommands.FoldsCollapseAll}"
+                    Header="Collapse all text foldings"
+                    />
+
+          <MenuItem Command="{x:Static edi_cmd:EdiTextEditorCommands.FoldsExpandAll}"
+                    Header="Expand all text foldings"
+                    />
         </ContextMenu>
       </ae:EdiTextEditor.ContextMenu>
     </ae:EdiTextEditor>

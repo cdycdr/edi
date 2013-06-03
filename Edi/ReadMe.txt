@@ -363,8 +363,10 @@ Local fixes are marked with Dirkster comments.
           are underlined and theme colored as hyperlink. The hyperlink is evaluated and executed
           when user (CTRL+)MouseClicks it. Errors (eg.: on dead-links) are not displayed in Edi.
 
-§ 3.3.1.0 The editor supports zooming of text view via CTRL+MouseWheel and Zoom Combobox control
-          in lower left corner of editor window.
+§ 3.3.3.0 The text editor supports zooming of text view via
+          - CTRL + MouseWheel,
+          - Zoom Gesture, and
+          - Zoom Combobox control (in lower left corner of editor control).
 
 3.4 Application Framework
 
