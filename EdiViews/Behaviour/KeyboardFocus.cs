@@ -36,7 +36,14 @@
     private static void OnSetCallback(DependencyObject dependencyObject,
                                       DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
     {
+      if (dependencyObject == null)
+        return;
+
       var frameworkElement = (FrameworkElement)dependencyObject;
+
+      if (frameworkElement == null)
+        return;
+
       var target = GetOn(frameworkElement);
 
       if (target == null)
