@@ -7,6 +7,8 @@
   using System.Windows.Controls;
   using System.Windows.Media;
   using System.Windows.Shapes;
+  using System.Xml.Linq;
+
   using MiniUML.Framework;
   using MiniUML.View.Controls;
   using MiniUML.View.Utilities;
@@ -83,6 +85,19 @@
 
     #endregion
 
+    #region constructor
+    public GenericUmlAssociation()
+    {
+      this.InitializeComponent();
+      ((ShapeIdToControlConverter)Resources["ShapeIdToControlConverter"]).ReferenceControl = this;
+
+      if (this.ContextMenu == null)
+        this.ContextMenu = new ContextMenu();
+
+      this.createContextMenu();
+    }
+    #endregion constructor
+
     #region INotifyPropertyChanged implementation
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -96,12 +111,6 @@
     }
 
     #endregion
-
-    public GenericUmlAssociation()
-    {
-      InitializeComponent();
-      ((ShapeIdToControlConverter)Resources["ShapeIdToControlConverter"]).ReferenceControl = this;
-    }
 
     #region ISnapTarget Members
 
@@ -117,8 +126,6 @@
       if (SnapTargetUpdate != null) SnapTargetUpdate(this, e);
     }
 
-    #endregion
-
     private void snapTargetUpdate(ISnapTarget source, SnapTargetUpdateEventArgs e)
     {
       NotifySnapTargetUpdate(e);
@@ -128,31 +135,78 @@
     {
       get { return new ShapeIdToControlConverter() { ReferenceControl = this }; }
     }
+
+    #endregion
+
+    #region ContextMenu Methods
+    private void createContextMenu()
+    {
+      AddMenuItem("Delete", "Delete");
+      AddZOrderMenuItems();
+    }
+
+    protected void AddZOrderMenuItems()
+    {
+      if (this.ContextMenu != null)
+        this.ContextMenu.Items.Add(new Separator());
+
+      this.AddMenuItem("BringToFront", "BringToFront");
+      this.AddMenuItem("SendToBack", "SendToBack");
+    }
+
+    protected void AddMenuItem(string text, string id)
+    {
+      MenuItem menuItem = new MenuItem() { Header = text, Tag = id };
+      menuItem.Click += menuItem_Click;
+
+      if (this.ContextMenu != null)
+        this.ContextMenu.Items.Add(menuItem);
+    }
+
+    protected void menuItem_Click(object sender, RoutedEventArgs e)
+    {
+      MenuItem menuItem = sender as MenuItem;
+      XElement element = DataContext as XElement;
+      XElement root = element.Parent;
+
+      switch ((string)menuItem.Tag)
+      {
+        case "Delete":
+          element.Remove();
+          break;
+
+        case "BringToFront":
+          element.Remove();
+          root.Add(element);
+          //TODO: Add workaround for databinding bug.
+          break;
+
+        case "SendToBack":
+          element.Remove();
+          root.AddFirst(element);
+          //TODO: Add workaround for databinding bug.
+          break;
+      }
+
+      ListBox listBox = this.Template.FindName("_listBox", this) as ListBox;
+      if (listBox != null) listBox.Focus();
+    }
+    #endregion ContextMenu Methods
   }
 
   /************************************************************************/
 
   public class ThreePieceLine : UserControl, INotifyPropertyChanged, ISnapTarget
   {
-    private Polyline line;
-    private Polyline lineb;
+    #region fields
+    private Polyline mLine;
+    private Polyline mLineb;
 
-    public ThreePieceLine()
-    {
-      line = new Polyline();
+    private double mFromAngleInDegrees;
+    private double mToAngleInDegrees;
+    #endregion fields
 
-      lineb = new Polyline()
-      {
-        StrokeThickness = 7,
-        Stroke = new SolidColorBrush(new Color() { A = 192, R = 255, G = 255, B = 255 })
-      };
-
-      Canvas canvas = new Canvas();
-      canvas.Children.Add(lineb);
-      canvas.Children.Add(line);
-      this.Content = canvas;
-    }
-
+    #region dependency properties
     public static readonly DependencyProperty FromXProperty = DependencyProperty.Register(
         "FromX", typeof(Double), typeof(ThreePieceLine),
         new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(propChanged))
@@ -218,58 +272,81 @@
       get { return (Orientation)GetValue(ToOrientationProperty); }
       set { SetValue(ToOrientationProperty, value); }
     }
+    #endregion dependency properties
 
+    #region constructor
+    public ThreePieceLine()
+    {
+      this.mLine = new Polyline();
+
+      this.mLineb = new Polyline()
+      {
+        StrokeThickness = 7,
+        Stroke = new SolidColorBrush(new Color() { A = 192, R = 255, G = 255, B = 255 })
+      };
+
+      Canvas canvas = new Canvas();
+      canvas.Children.Add(mLineb);
+      canvas.Children.Add(mLine);
+      this.Content = canvas;
+    }
+    #endregion constructor
+
+    #region properties
+    /// <summary>
+    /// Get angle of the line joining the origin, in degrees.
+    /// </summary>
+    public double FromAngleInDegrees { get { return mFromAngleInDegrees; } }
+
+    /// <summary>
+    /// Get angle of the line joining the destination, in degrees.
+    /// </summary>
+    public double ToAngleInDegrees { get { return mToAngleInDegrees; } }
+    #endregion properties
+
+    #region methods
     private static void propChanged(DependencyObject o, DependencyPropertyChangedEventArgs a)
     {
       ((ThreePieceLine)o).rerouteLine();
     }
-
-    private double fromAngleInDegrees;
-    private double toAngleInDegrees;
-
-    // The angle of the line joining the origin, in degrees.
-    public double FromAngleInDegrees { get { return fromAngleInDegrees; } }
-
-    // The angle of the line joining the destination, in degrees.
-    public double ToAngleInDegrees { get { return toAngleInDegrees; } }
 
     private void rerouteLine()
     {
       Point from = new Point(FromX, FromY);
       Point to = new Point(ToX, ToY);
 
-      line.Points = lineb.Points;
-      line.Points.Clear();
-      line.Points.Add(from);
+      mLine.Points = mLineb.Points;
+      mLine.Points.Clear();
+      mLine.Points.Add(from);
 
       if (FromOrientation != ToOrientation)
       {
         // Fine, we'll just do a two-piece line, then.
         if (FromOrientation == Orientation.Horizontal)
-          line.Points.Add(new Point(to.X, from.Y));
-        else line.Points.Add(new Point(from.X, to.Y));
+          mLine.Points.Add(new Point(to.X, from.Y));
+        else mLine.Points.Add(new Point(from.X, to.Y));
       }
       else if (FromOrientation /* == ToOrientation */ == Orientation.Horizontal)
       {
         double mid = from.X + (to.X - from.X) / 2;
 
-        line.Points.Add(new Point(mid, from.Y));
-        line.Points.Add(new Point(mid, to.Y));
+        mLine.Points.Add(new Point(mid, from.Y));
+        mLine.Points.Add(new Point(mid, to.Y));
       }
       else /* FromOrientation == ToOrientation == Orientation.Vertical */
       {
         double mid = from.Y + (to.Y - from.Y) / 2;
 
-        line.Points.Add(new Point(from.X, mid));
-        line.Points.Add(new Point(to.X, mid));
+        mLine.Points.Add(new Point(from.X, mid));
+        mLine.Points.Add(new Point(to.X, mid));
       }
 
-      line.Points.Add(to);
+      mLine.Points.Add(to);
 
-      Vector firstSegment = from - line.Points[1];
-      Vector lastSegment = to - line.Points[line.Points.Count() - 2];
-      fromAngleInDegrees = FrameworkUtilities.RadiansToDegrees(firstSegment.GetAngularCoordinate());
-      toAngleInDegrees = FrameworkUtilities.RadiansToDegrees(lastSegment.GetAngularCoordinate());
+      Vector firstSegment = from - mLine.Points[1];
+      Vector lastSegment = to - mLine.Points[mLine.Points.Count() - 2];
+      mFromAngleInDegrees = FrameworkUtilities.RadiansToDegrees(firstSegment.GetAngularCoordinate());
+      mToAngleInDegrees = FrameworkUtilities.RadiansToDegrees(lastSegment.GetAngularCoordinate());
       if (PropertyChanged != null)
       {
         PropertyChanged(this, new PropertyChangedEventArgs("FromAngleInDegrees"));
@@ -284,7 +361,7 @@
     {
       snapAngle = 0;
 
-      PointCollection points = line.Points;
+      PointCollection points = mLine.Points;
       if (points.Count < 2) return;
 
       Point bestSnapPoint = new Point(Double.NaN, Double.NaN);
@@ -315,5 +392,6 @@
     public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
+    #endregion methods
   }
 }
