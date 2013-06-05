@@ -1,4 +1,4 @@
-﻿namespace Edi.ViewModel
+namespace Edi.ViewModel
 {
   using System;
   using System.Collections.Generic;
@@ -29,18 +29,18 @@
   {
     #region fields
     public const string Log4netFileExtension = "log4j";
-    public const string Log4netFileFilter = "log4net XML output (*.log4j,*.xml)|*.log4j;*.xml|All Files (*.*)|*.*";
+    public static readonly string Log4netFileFilter = Util.Local.Strings.STR_FileType_FileFilter_Log4j;
 
     public const string MiniUMLFileExtension = "uml";
-    public const string UMLFileFilter = "Unified Modeling Language (*.uml,*.xml)|*.uml;*.xml|All Files (*.*)|*.*";
+    public static readonly string UMLFileFilter = Util.Local.Strings.STR_FileType_FileFilter_UML;
 
-    public const string EdiTextEditorFileFilter =  "All Files (*.*)|*.*" +
-                                     "|Text Files (*.txt)|*.txt" +
-                                     "|C# Files (*.cs)|*.cs" +
-                                     "|HTML Files (*.htm,*.html,*.css,*.js)|*.htm;*.html;*.css;*.js" +
-                                     "|Structured Query Language (*.sql) |*.sql" +
-                                     "|Text Files (*.txt)|*.txt" +
-                                     "|log4net XML output (*.log4j,*.log,*.txt,*.xml)|*.log4j;*.log;*.txt;*.xml";
+    public static readonly string EdiTextEditorFileFilter =
+                                     Util.Local.Strings.STR_FileType_FileFilter_AllFiles +
+                                     "|" + Util.Local.Strings.STR_FileType_FileFilter_TextFiles +
+                                     "|" + Util.Local.Strings.STR_FileType_FileFilter_CSharp +
+                                     "|" + Util.Local.Strings.STR_FileType_FileFilter_HTML +
+                                     "|" + Util.Local.Strings.STR_FileType_FileFilter_SQL +
+                                     "|" + Util.Local.Strings.STR_FileType_FileFilter_Log4NetPlusText;
 
     public const string LayoutFileName = "Layout.config";
 
@@ -424,7 +424,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
@@ -489,7 +490,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
@@ -508,7 +510,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
@@ -532,7 +535,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
@@ -554,7 +558,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
@@ -576,7 +581,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
@@ -625,7 +631,8 @@
         this.mShutDownInProgress = false;
 
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
@@ -640,7 +647,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
@@ -654,7 +662,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
@@ -676,7 +685,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
     }
@@ -731,7 +741,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
 
@@ -754,7 +765,7 @@
       if (doc.CanSaveData == true)
         return this.OnSaveDocumentFile(doc, saveAsFlag, Workspace.GetDefaultFileFilter(doc));
 
-      throw new NotSupportedException((doc != null ? doc.ToString() : "Unknown document type"));
+      throw new NotSupportedException((doc != null ? doc.ToString() : Util.Local.Strings.STR_MSG_UnknownDocumentType));
     }
 
     /// <summary>
@@ -829,16 +840,14 @@
       }
       catch (Exception Exp)
       {
-        string sMsg = "An unexpected problem has occurred while saving the file";
+        string sMsg = Util.Local.Strings.STR_MSG_ErrorSavingFile;
 
         if (filePath.Length > 0)
-          sMsg = string.Format(CultureInfo.CurrentCulture, "'{0}'\n" +
-                              "has occurred while saving the file\n:'{1}'", Exp.Message, filePath);
+          sMsg = string.Format(CultureInfo.CurrentCulture, Util.Local.Strings.STR_MSG_ErrorWhileSavingFileX, Exp.Message, filePath);
         else
-          sMsg = string.Format(CultureInfo.CurrentCulture, "'{0}'\n" +
-                              "has occurred while saving a file", Exp.Message);
+          sMsg = string.Format(CultureInfo.CurrentCulture, Util.Local.Strings.STR_MSG_ErrorWhileSavingAFile, Exp.Message);
 
-        MsgBox.Msg.Show(sMsg, "An unexpected problem has occurred while saving the file", MsgBoxButtons.OK);
+        MsgBox.Msg.Show(sMsg, Util.Local.Strings.STR_MSG_ErrorSavingFile, MsgBoxButtons.OK);
       }
 
       return false;
@@ -849,11 +858,8 @@
       if (fileToClose.IsDirty == true &&
           fileToClose.CanSaveData == true)
       {
-        var res = MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "Save changes for file '{0}'?",
-                                  fileToClose.FileName), this.ApplicationTitle,
-                                  MsgBoxButtons.YesNoCancel,
-                                  MsgBoxImage.Question,
-                                  MsgBoxResult.Yes);
+        var res = MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, Util.Local.Strings.STR_MSG_SaveChangesForFile, fileToClose.FileName),
+                                  this.ApplicationTitle, MsgBoxButtons.YesNoCancel, MsgBoxImage.Question, MsgBoxResult.Yes);
 
         if (res == MsgBoxResult.Cancel)
           return false;
@@ -916,7 +922,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
 
@@ -986,7 +993,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
 
@@ -1033,7 +1041,8 @@
       catch (Exception exp)
       {
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                         App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
       }
 

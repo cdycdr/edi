@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -439,5 +439,155 @@ and a statement about the function/workflow you were using. Attach screenshots o
   </data>
   <data name="STR_AppCommand_OpenContainingFolder_TT" xml:space="preserve">
     <value>Open the folder that contains this document in Windows Explorer</value>
+  </data>
+  <data name="STR_MSG_ErrorLoadingPlugin" xml:space="preserve">
+    <value>An error occured while initializing a plugin found in assembly '{0}'.</value>
+  </data>
+  <data name="STR_MSG_ErrorRegisteringHighlighting" xml:space="preserve">
+    <value>Error registering highlighting: '{0}'</value>
+  </data>
+  <data name="STR_MSG_ErrorSavingFile" xml:space="preserve">
+    <value>An unexpected problem has occurred while saving the file.</value>
+  </data>
+  <data name="STR_MSG_ErrorWhileLoadingPlugin" xml:space="preserve">
+    <value>An error occured while loading plugin assembly '{0}'.</value>
+  </data>
+  <data name="STR_MSG_ErrorWhileSavingAFile" xml:space="preserve">
+    <value>Error '{0}'\nhas occurred while saving a file.</value>
+  </data>
+  <data name="STR_MSG_ErrorWhileSavingFileX" xml:space="preserve">
+    <value>Error '{0}'\nhas occurred while saving the file\n:'{1}'</value>
+  </data>
+  <data name="STR_MSG_PluginNotLoaded" xml:space="preserve">
+    <value>Plugin not loaded.</value>
+  </data>
+  <data name="STR_MSG_SaveChangesForFile" xml:space="preserve">
+    <value>Save changes for file '{0}'?</value>
+  </data>
+  <data name="STR_MSG_Unexpected_Error" xml:space="preserve">
+    <value>Unexpected Error</value>
+  </data>
+  <data name="STR_MSG_UnknownDocumentType" xml:space="preserve">
+    <value>Unknown document type</value>
+  </data>
+  <data name="STR_CmdName_DeleteLine" xml:space="preserve">
+    <value>Delete Line</value>
+  </data>
+  <data name="STR_CmdName_DeleteLine_TT" xml:space="preserve">
+    <value>Deletes the current line of text</value>
+  </data>
+  <data name="STR_Cmd_CollapseTextFoldings" xml:space="preserve">
+    <value>Collapse text foldings</value>
+  </data>
+  <data name="STR_Cmd_ConvertLeadingSpaces" xml:space="preserve">
+    <value>Convert Leading Spaces to Tabs</value>
+  </data>
+  <data name="STR_Cmd_ConvertLeadingTabsToSpaces" xml:space="preserve">
+    <value>Convert Leading Tabs to Spaces</value>
+  </data>
+  <data name="STR_CMD_ConvertSpacesToTabs" xml:space="preserve">
+    <value>Convert Spaces to Tabs</value>
+  </data>
+  <data name="STR_CMD_ConvertTabsToSpaces" xml:space="preserve">
+    <value>Convert Tabs to Spaces</value>
+  </data>
+  <data name="STR_Cmd_ConvertTextToUpperCase" xml:space="preserve">
+    <value>Convert text to upper case</value>
+  </data>
+  <data name="STR_Cmd_ExpandTextFoldings" xml:space="preserve">
+    <value>Expand text foldings</value>
+  </data>
+  <data name="STR_CMD_RemoveLeadingWhiteSpace" xml:space="preserve">
+    <value>Remove Leading White Spaces</value>
+  </data>
+  <data name="STR_CMD_RemoveTrailingWhiteSpace" xml:space="preserve">
+    <value>Remove Trailing White Space</value>
+  </data>
+  <data name="STR_Cmd__ApplyTextIndentationStrategy" xml:space="preserve">
+    <value>Apply Indention Strategy</value>
+  </data>
+  <data name="STR_Cmd__ConvertTextToLowerCase" xml:space="preserve">
+    <value>Convert text to lower case</value>
+  </data>
+  <data name="STR_Cmd__ConvertTextToTitleCase" xml:space="preserve">
+    <value>Convert to Title Case</value>
+  </data>
+  <data name="STR_Cmd__InvertTextCase" xml:space="preserve">
+    <value>Invert Case</value>
+  </data>
+  <data name="STR_Label_TextCase" xml:space="preserve">
+    <value>Text Case</value>
+  </data>
+  <data name="STR_Label_WhiteSpaces" xml:space="preserve">
+    <value>White Spaces</value>
+  </data>
+  <data name="STR_FileType_FileFilter_Log4j" xml:space="preserve">
+    <value>"log4net XML output (*.log4j,*.xml)|*.log4j;*.xml|All Files (*.*)|*.*"</value>
+    <comment>FileFilter</comment>
+  </data>
+  <data name="STR_FileType_FileFilter_UML" xml:space="preserve">
+    <value>Unified Modeling Language (*.uml,*.xml)|*.uml;*.xml|All Files (*.*)|*.*"</value>
+    <comment>FileFilter</comment>
+  </data>
+  <data name="STR_FileType_FileFilter_AllFiles" xml:space="preserve">
+    <value>All Files (*.*)|*.*</value>
+  </data>
+  <data name="STR_FileType_FileFilter_TextFiles" xml:space="preserve">
+    <value>Text Files (*.txt)|*.txt</value>
+    <comment>FileFilter</comment>
+  </data>
+  <data name="STR_FileType_FileFilter_CSharp" xml:space="preserve">
+    <value>C# Files (*.cs)|*.cs</value>
+  </data>
+  <data name="STR_FileType_FileFilter_HTML" xml:space="preserve">
+    <value>HTML Files (*.htm,*.html,*.css,*.js)|*.htm;*.html;*.css;*.js</value>
+    <comment>FileFilter</comment>
+  </data>
+  <data name="STR_FileType_FileFilter_SQL" xml:space="preserve">
+    <value>Structured Query Language (*.sql) |*.sql</value>
+    <comment>FileFilter</comment>
+  </data>
+  <data name="STR_FileType_FileFilter_Log4NetPlusText" xml:space="preserve">
+    <value>log4net XML output (*.log4j,*.log,*.txt,*.xml)|*.log4j;*.log;*.txt;*.xml</value>
+    <comment>FileFilter</comment>
+  </data>
+  <data name="STR_MSG_FIND_NO_MORE_ITEMS_FOUND" xml:space="preserve">
+    <value>There are no more search results to display.</value>
+  </data>
+  <data name="STR_MSG_FIND_NO_MORE_ITEMS_FOUND2" xml:space="preserve">
+    <value>"No further occurence found.</value>
+  </data>
+  <data name="STR_MSG_FIND_Caption" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="STR_MSG_FIND_UNEXPECTED_ERROR" xml:space="preserve">
+    <value>An unexpected error occured.</value>
+  </data>
+  <data name="STR_THEMING_MSG_CANNOT_FIND_PATH" xml:space="preserve">
+    <value>Cannot find Path to: '{0}'\n\nPlease make sure this module is accesible.</value>
+  </data>
+  <data name="STR_THEMING_CAPTION" xml:space="preserve">
+    <value>Theming Error</value>
+  </data>
+  <data name="STR_MSG_DIRCREATED_NO_PLuginLoaded" xml:space="preserve">
+    <value>Plugin directory created; no plugins loaded.</value>
+  </data>
+  <data name="STR_MSG_DIRCREATED_NO_PLuginLoaded_Caption" xml:space="preserve">
+    <value>The plugin directory was not found.</value>
+  </data>
+  <data name="STR_MSG_ACCESS_PLuginDir" xml:space="preserve">
+    <value>An error occured while accessing the plugin directory.</value>
+  </data>
+  <data name="STR_MSG_ACCESS_PLuginDir_Caption" xml:space="preserve">
+    <value>Error while loading UML plug-in</value>
+  </data>
+  <data name="STR_MSG_UML_PLugin_NOTALL_Loaded" xml:space="preserve">
+    <value>Not all MiniUml plugins loaded OK.</value>
+  </data>
+  <data name="STR_MSG_UML_PLugin_NOTALL_Loaded_Caption" xml:space="preserve">
+    <value>Error loading UML plug-ins</value>
+  </data>
+  <data name="STR_MSG_UML_PLugin_Duplicate" xml:space="preserve">
+    <value>A plugin with the specified name has already been loaded.</value>
   </data>
 </root>

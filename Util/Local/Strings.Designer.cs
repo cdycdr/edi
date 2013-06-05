@@ -304,6 +304,123 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply Indention Strategy.
+        /// </summary>
+        public static string STR_Cmd__ApplyTextIndentationStrategy {
+            get {
+                return ResourceManager.GetString("STR_Cmd__ApplyTextIndentationStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert text to lower case.
+        /// </summary>
+        public static string STR_Cmd__ConvertTextToLowerCase {
+            get {
+                return ResourceManager.GetString("STR_Cmd__ConvertTextToLowerCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert to Title Case.
+        /// </summary>
+        public static string STR_Cmd__ConvertTextToTitleCase {
+            get {
+                return ResourceManager.GetString("STR_Cmd__ConvertTextToTitleCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invert Case.
+        /// </summary>
+        public static string STR_Cmd__InvertTextCase {
+            get {
+                return ResourceManager.GetString("STR_Cmd__InvertTextCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collapse text foldings.
+        /// </summary>
+        public static string STR_Cmd_CollapseTextFoldings {
+            get {
+                return ResourceManager.GetString("STR_Cmd_CollapseTextFoldings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert Leading Spaces to Tabs.
+        /// </summary>
+        public static string STR_Cmd_ConvertLeadingSpaces {
+            get {
+                return ResourceManager.GetString("STR_Cmd_ConvertLeadingSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert Leading Tabs to Spaces.
+        /// </summary>
+        public static string STR_Cmd_ConvertLeadingTabsToSpaces {
+            get {
+                return ResourceManager.GetString("STR_Cmd_ConvertLeadingTabsToSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert Spaces to Tabs.
+        /// </summary>
+        public static string STR_CMD_ConvertSpacesToTabs {
+            get {
+                return ResourceManager.GetString("STR_CMD_ConvertSpacesToTabs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert Tabs to Spaces.
+        /// </summary>
+        public static string STR_CMD_ConvertTabsToSpaces {
+            get {
+                return ResourceManager.GetString("STR_CMD_ConvertTabsToSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert text to upper case.
+        /// </summary>
+        public static string STR_Cmd_ConvertTextToUpperCase {
+            get {
+                return ResourceManager.GetString("STR_Cmd_ConvertTextToUpperCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand text foldings.
+        /// </summary>
+        public static string STR_Cmd_ExpandTextFoldings {
+            get {
+                return ResourceManager.GetString("STR_Cmd_ExpandTextFoldings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Leading White Spaces.
+        /// </summary>
+        public static string STR_CMD_RemoveLeadingWhiteSpace {
+            get {
+                return ResourceManager.GetString("STR_CMD_RemoveLeadingWhiteSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Trailing White Space.
+        /// </summary>
+        public static string STR_CMD_RemoveTrailingWhiteSpace {
+            get {
+                return ResourceManager.GetString("STR_CMD_RemoveTrailingWhiteSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string STR_CmdName_Close {
@@ -363,6 +480,24 @@ namespace Util.Local {
         public static string STR_CmdName_Delete_TT {
             get {
                 return ResourceManager.GetString("STR_CmdName_Delete_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Line.
+        /// </summary>
+        public static string STR_CmdName_DeleteLine {
+            get {
+                return ResourceManager.GetString("STR_CmdName_DeleteLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deletes the current line of text.
+        /// </summary>
+        public static string STR_CmdName_DeleteLine_TT {
+            get {
+                return ResourceManager.GetString("STR_CmdName_DeleteLine_TT", resourceCulture);
             }
         }
         
@@ -736,11 +871,227 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Files (*.*)|*.*.
+        /// </summary>
+        public static string STR_FileType_FileFilter_AllFiles {
+            get {
+                return ResourceManager.GetString("STR_FileType_FileFilter_AllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C# Files (*.cs)|*.cs.
+        /// </summary>
+        public static string STR_FileType_FileFilter_CSharp {
+            get {
+                return ResourceManager.GetString("STR_FileType_FileFilter_CSharp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HTML Files (*.htm,*.html,*.css,*.js)|*.htm;*.html;*.css;*.js.
+        /// </summary>
+        public static string STR_FileType_FileFilter_HTML {
+            get {
+                return ResourceManager.GetString("STR_FileType_FileFilter_HTML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;log4net XML output (*.log4j,*.xml)|*.log4j;*.xml|All Files (*.*)|*.*&quot;.
+        /// </summary>
+        public static string STR_FileType_FileFilter_Log4j {
+            get {
+                return ResourceManager.GetString("STR_FileType_FileFilter_Log4j", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to log4net XML output (*.log4j,*.log,*.txt,*.xml)|*.log4j;*.log;*.txt;*.xml.
+        /// </summary>
+        public static string STR_FileType_FileFilter_Log4NetPlusText {
+            get {
+                return ResourceManager.GetString("STR_FileType_FileFilter_Log4NetPlusText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Structured Query Language (*.sql) |*.sql.
+        /// </summary>
+        public static string STR_FileType_FileFilter_SQL {
+            get {
+                return ResourceManager.GetString("STR_FileType_FileFilter_SQL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Files (*.txt)|*.txt.
+        /// </summary>
+        public static string STR_FileType_FileFilter_TextFiles {
+            get {
+                return ResourceManager.GetString("STR_FileType_FileFilter_TextFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unified Modeling Language (*.uml,*.xml)|*.uml;*.xml|All Files (*.*)|*.*&quot;.
+        /// </summary>
+        public static string STR_FileType_FileFilter_UML {
+            get {
+                return ResourceManager.GetString("STR_FileType_FileFilter_UML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert or overtype text mode (switch on/of with insert key).
         /// </summary>
         public static string STR_Insert_Overtype_Mode_TT {
             get {
                 return ResourceManager.GetString("STR_Insert_Overtype_Mode_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Case.
+        /// </summary>
+        public static string STR_Label_TextCase {
+            get {
+                return ResourceManager.GetString("STR_Label_TextCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to White Spaces.
+        /// </summary>
+        public static string STR_Label_WhiteSpaces {
+            get {
+                return ResourceManager.GetString("STR_Label_WhiteSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while accessing the plugin directory..
+        /// </summary>
+        public static string STR_MSG_ACCESS_PLuginDir {
+            get {
+                return ResourceManager.GetString("STR_MSG_ACCESS_PLuginDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while loading UML plug-in.
+        /// </summary>
+        public static string STR_MSG_ACCESS_PLuginDir_Caption {
+            get {
+                return ResourceManager.GetString("STR_MSG_ACCESS_PLuginDir_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin directory created; no plugins loaded..
+        /// </summary>
+        public static string STR_MSG_DIRCREATED_NO_PLuginLoaded {
+            get {
+                return ResourceManager.GetString("STR_MSG_DIRCREATED_NO_PLuginLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The plugin directory was not found..
+        /// </summary>
+        public static string STR_MSG_DIRCREATED_NO_PLuginLoaded_Caption {
+            get {
+                return ResourceManager.GetString("STR_MSG_DIRCREATED_NO_PLuginLoaded_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while initializing a plugin found in assembly &apos;{0}&apos;..
+        /// </summary>
+        public static string STR_MSG_ErrorLoadingPlugin {
+            get {
+                return ResourceManager.GetString("STR_MSG_ErrorLoadingPlugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error registering highlighting: &apos;{0}&apos;.
+        /// </summary>
+        public static string STR_MSG_ErrorRegisteringHighlighting {
+            get {
+                return ResourceManager.GetString("STR_MSG_ErrorRegisteringHighlighting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected problem has occurred while saving the file..
+        /// </summary>
+        public static string STR_MSG_ErrorSavingFile {
+            get {
+                return ResourceManager.GetString("STR_MSG_ErrorSavingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while loading plugin assembly &apos;{0}&apos;..
+        /// </summary>
+        public static string STR_MSG_ErrorWhileLoadingPlugin {
+            get {
+                return ResourceManager.GetString("STR_MSG_ErrorWhileLoadingPlugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error &apos;{0}&apos;\nhas occurred while saving a file..
+        /// </summary>
+        public static string STR_MSG_ErrorWhileSavingAFile {
+            get {
+                return ResourceManager.GetString("STR_MSG_ErrorWhileSavingAFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error &apos;{0}&apos;\nhas occurred while saving the file\n:&apos;{1}&apos;.
+        /// </summary>
+        public static string STR_MSG_ErrorWhileSavingFileX {
+            get {
+                return ResourceManager.GetString("STR_MSG_ErrorWhileSavingFileX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string STR_MSG_FIND_Caption {
+            get {
+                return ResourceManager.GetString("STR_MSG_FIND_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no more search results to display..
+        /// </summary>
+        public static string STR_MSG_FIND_NO_MORE_ITEMS_FOUND {
+            get {
+                return ResourceManager.GetString("STR_MSG_FIND_NO_MORE_ITEMS_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;No further occurence found..
+        /// </summary>
+        public static string STR_MSG_FIND_NO_MORE_ITEMS_FOUND2 {
+            get {
+                return ResourceManager.GetString("STR_MSG_FIND_NO_MORE_ITEMS_FOUND2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occured..
+        /// </summary>
+        public static string STR_MSG_FIND_UNEXPECTED_ERROR {
+            get {
+                return ResourceManager.GetString("STR_MSG_FIND_UNEXPECTED_ERROR", resourceCulture);
             }
         }
         
@@ -764,6 +1115,69 @@ namespace Util.Local {
         public static string STR_MSG_IssueTrackerTitle {
             get {
                 return ResourceManager.GetString("STR_MSG_IssueTrackerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin not loaded..
+        /// </summary>
+        public static string STR_MSG_PluginNotLoaded {
+            get {
+                return ResourceManager.GetString("STR_MSG_PluginNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes for file &apos;{0}&apos;?.
+        /// </summary>
+        public static string STR_MSG_SaveChangesForFile {
+            get {
+                return ResourceManager.GetString("STR_MSG_SaveChangesForFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A plugin with the specified name has already been loaded..
+        /// </summary>
+        public static string STR_MSG_UML_PLugin_Duplicate {
+            get {
+                return ResourceManager.GetString("STR_MSG_UML_PLugin_Duplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not all MiniUml plugins loaded OK..
+        /// </summary>
+        public static string STR_MSG_UML_PLugin_NOTALL_Loaded {
+            get {
+                return ResourceManager.GetString("STR_MSG_UML_PLugin_NOTALL_Loaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading UML plug-ins.
+        /// </summary>
+        public static string STR_MSG_UML_PLugin_NOTALL_Loaded_Caption {
+            get {
+                return ResourceManager.GetString("STR_MSG_UML_PLugin_NOTALL_Loaded_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected Error.
+        /// </summary>
+        public static string STR_MSG_Unexpected_Error {
+            get {
+                return ResourceManager.GetString("STR_MSG_Unexpected_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown document type.
+        /// </summary>
+        public static string STR_MSG_UnknownDocumentType {
+            get {
+                return ResourceManager.GetString("STR_MSG_UnknownDocumentType", resourceCulture);
             }
         }
         
@@ -854,6 +1268,24 @@ namespace Util.Local {
         public static string STR_StatusBar_Y_Coord_Label_TT {
             get {
                 return ResourceManager.GetString("STR_StatusBar_Y_Coord_Label_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theming Error.
+        /// </summary>
+        public static string STR_THEMING_CAPTION {
+            get {
+                return ResourceManager.GetString("STR_THEMING_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find Path to: &apos;{0}&apos;\n\nPlease make sure this module is accesible..
+        /// </summary>
+        public static string STR_THEMING_MSG_CANNOT_FIND_PATH {
+            get {
+                return ResourceManager.GetString("STR_THEMING_MSG_CANNOT_FIND_PATH", resourceCulture);
             }
         }
         

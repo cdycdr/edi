@@ -1,4 +1,4 @@
-﻿namespace Edi.ViewModel
+namespace Edi.ViewModel
 {
   using System;
   using System.Collections.Generic;
@@ -163,7 +163,7 @@
       {
         if (f.SearchIn == EdiViews.FindReplace.SearchScope.CurrentDocument)
         {
-          MsgBox.Msg.Show("There are no more search results to display.");
+          MsgBox.Msg.Show(Util.Local.Strings.STR_MSG_FIND_NO_MORE_ITEMS_FOUND);
 
           return false;
         }
@@ -197,7 +197,8 @@
           }
           else
           {
-            MsgBox.Msg.Show("No further occurence found.", "Search");
+            MsgBox.Msg.Show(Util.Local.Strings.STR_MSG_FIND_NO_MORE_ITEMS_FOUND2,
+                            Util.Local.Strings.STR_MSG_FIND_Caption);
           }
         } while (f.CurrentEditor != OldEditor);
       }
@@ -271,7 +272,8 @@
         }
         catch (Exception exc)
         {
-          MsgBox.Msg.Show(exc, "An unexpected error occured.", MsgBoxButtons.OK, MsgBoxImage.Error);
+          MsgBox.Msg.Show(exc, Util.Local.Strings.STR_MSG_FIND_UNEXPECTED_ERROR,
+                          MsgBoxButtons.OK, MsgBoxImage.Error);
         }
         finally
         {
@@ -334,7 +336,8 @@
         }
         catch (Exception exc)
         {
-          MsgBox.Msg.Show(exc, "An unexpected error occured.", MsgBoxButtons.OK, MsgBoxImage.Error);
+          MsgBox.Msg.Show(exc, Util.Local.Strings.STR_MSG_FIND_UNEXPECTED_ERROR,
+                          MsgBoxButtons.OK, MsgBoxImage.Error);
         }
         finally
         {

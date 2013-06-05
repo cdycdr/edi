@@ -1,4 +1,4 @@
-﻿namespace Edi.ViewModel
+namespace Edi.ViewModel
 {
   using System;
   using System.Collections.Generic;
@@ -273,9 +273,10 @@
 
           if (System.IO.File.Exists(ThemesPathFileName) == false)
           {
-            MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "Cannot find Path to: '{0}'\n\n" +
-                          "Please make sure this module is accesible.", themesModul), "Error",
-                          MsgBoxButtons.OK, MsgBoxImage.Error);
+            MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture,
+                                          Util.Local.Strings.STR_THEMING_MSG_CANNOT_FIND_PATH, themesModul),
+                                          Util.Local.Strings.STR_THEMING_CAPTION,
+                                          MsgBoxButtons.OK, MsgBoxImage.Error);
 
             return false;
           }
@@ -300,7 +301,8 @@
       }
       catch (Exception exp)
       {
-        MsgBox.Msg.Show(exp, "Error", MsgBoxButtons.OK, MsgBoxImage.Error);
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_THEMING_CAPTION,
+                        MsgBoxButtons.OK, MsgBoxImage.Error);
 
         return false;
       }

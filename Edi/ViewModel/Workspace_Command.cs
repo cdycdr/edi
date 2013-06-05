@@ -250,7 +250,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, "Unhandled Error", MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                          MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
                           App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
         }
       },
@@ -337,7 +338,7 @@
             }
             catch (Exception exp)
             {
-              MsgBox.Msg.Show(exp.ToString(), "An error occurred", MsgBoxButtons.OK);
+              MsgBox.Msg.Show(exp.ToString(), Util.Local.Strings.STR_MSG_UnknownError_Caption, MsgBoxButtons.OK);
             }
             finally
             {

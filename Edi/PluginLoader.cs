@@ -1,4 +1,4 @@
-﻿namespace Edi
+namespace Edi
 {
   using System;
   using System.IO;
@@ -33,17 +33,16 @@
             // Plugin directory not was not found; create it.
             Directory.CreateDirectory(pluginDirectory);
 
-            MsgBox.Msg.Show(ex,
-                "Plugin directory created; no plugins loaded.",
-                "The plugin directory was not found.");
+            MsgBox.Msg.Show(ex, Util.Local.Strings.STR_MSG_DIRCREATED_NO_PLuginLoaded,
+                                Util.Local.Strings.STR_MSG_DIRCREATED_NO_PLuginLoaded_Caption);
 
             return;
           }
         }
         catch (Exception ex)
         {
-          MsgBox.Msg.Show(ex,
-              "A error occured while accessing the plugin directory.", "Error while loading UML plug-in");
+          MsgBox.Msg.Show(ex, Util.Local.Strings.STR_MSG_ACCESS_PLuginDir_Caption,
+                              Util.Local.Strings.STR_MSG_ACCESS_PLuginDir_Caption);
 
           return;
         }
@@ -53,7 +52,9 @@
           loadPluginAssembly(assemblyFile, windowViewModel);
 
         if (PluginManager.PluginModels.Count != assemblyFiles.Length)
-          MsgBox.Msg.Show("Not all MiniUml plugins loaded OK.", "", MsgBoxButtons.OK, MsgBoxImage.Error);
+          MsgBox.Msg.Show(Util.Local.Strings.STR_MSG_UML_PLugin_NOTALL_Loaded,
+                          Util.Local.Strings.STR_MSG_UML_PLugin_NOTALL_Loaded_Caption,
+                          MsgBoxButtons.OK, MsgBoxImage.Error);
       }
 
       private static void loadPluginAssembly(string assemblyFile, IMiniUMLDocument windowViewModel)
@@ -80,7 +81,7 @@
                 foreach (PluginModel p in PluginManager.PluginModels)
                 {
                   if (p.Name == pluginModel.Name)
-                    throw new Exception("A plugin with the specified name has already been loaded.");
+                    throw new Exception(Util.Local.Strings.STR_MSG_UML_PLugin_Duplicate);
                 }
 
                 // Get the shared resources from the plugin.
@@ -96,7 +97,8 @@
               }
               catch (Exception ex)
               {
-                MsgBox.Msg.Show(ex, "An error occured while initializing a plugin found in assembly " + assemblyFile + ".", MsgBoxButtons.OK, MsgBoxImage.Error);
+                MsgBox.Msg.Show(ex, string.Format(Util.Local.Strings.STR_MSG_ErrorLoadingPlugin, assemblyFile),
+                                MsgBoxButtons.OK, MsgBoxImage.Error);
 
                 ////ExceptionManager.Register(ex,
                 ////    "Plugin not loaded.",
@@ -107,9 +109,8 @@
         }
         catch (Exception ex)
         {
-          MsgBox.Msg.Show(ex,
-              "Plugins from the assembly was not loaded.",
-              "An error occured while loading plugin assembly " + assemblyFile + ".");
+          MsgBox.Msg.Show(ex, Util.Local.Strings.STR_MSG_PluginNotLoaded,
+                          string.Format(Util.Local.Strings.STR_MSG_ErrorWhileLoadingPlugin, assemblyFile));
 
           return;
         }

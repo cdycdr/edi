@@ -13,6 +13,9 @@
  - Query user whether files should be searched/browsed
  - or add lost & and found view that offers a hyperlink that performs a file open on the last known location
 
+* Added More localization and *.resx files are now recognized XML files (with corresponding highlighting)
+  -> Localized alpha version of EDI now supports English and German by setting the culture in App.Application_Startup(...)
+ 
 * Enabled AvalonEdit text editing commands (see contextmenu) and
   added function for folding and expanding text for viewing text with folds (XML, XHTML, CSharp, VisualBasic etc)
 
