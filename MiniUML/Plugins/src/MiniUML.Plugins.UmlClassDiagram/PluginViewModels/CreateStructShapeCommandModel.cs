@@ -20,8 +20,8 @@
       public CreateStructShapeCommandModel(PluginViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Struct";
-        this.Description = "Create a new Struct shape";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_Struct;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_Struct_description;
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.CreateStructShape.png", UriKind.Relative));
       }
 

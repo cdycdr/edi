@@ -1,4 +1,4 @@
-﻿namespace MiniUML.Plugins.UmlClassDiagram
+namespace MiniUML.Plugins.UmlClassDiagram
 {
   using System;
   using System.Windows;
@@ -19,8 +19,8 @@
       public CreateAbstractClassShapeCommandModel(PluginViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Abstract Class";
-        this.Description = "Create a new Abstract Class shape";
+        this.Name        = MiniUML.Framework.Local.Strings.STR_CMD_AbstractClass_DESCRIPTION;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_AbstractClass_DESCRIPTION;
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.CreateAbstractClassShape.png", UriKind.Relative));
       }
 

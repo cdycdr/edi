@@ -1,4 +1,4 @@
-﻿namespace EdiViews.Converter
+namespace EdiViews.Converter
 {
   using System.Windows.Data;
   using System.Globalization;
@@ -9,8 +9,8 @@
   [ValueConversion(typeof(bool), typeof(string))]
   public class BooleanToTypeModeStringConverter : IValueConverter
   {
-    public const string TypeOver     = "OVR";
-    public const string TypeToInsert = "INS";
+    public readonly static string TypeOver     = Util.Local.Strings.STR_EDIT_MODE_TYPEOVER;
+    public readonly static string TypeToInsert = Util.Local.Strings.STR_EDIT_MODE_INSERT;
 
     /// <summary>
     /// Enum to Boolean Converter method
@@ -23,7 +23,7 @@
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
       if ((value is bool) == false)
-        throw new ArgumentException("Invalid argument/return type. Expected argument: bool (return type: string)");
+        throw new ArgumentException("Invalid argument/return type. Expected argument: bool (return type: string).");
 
       if (value == null)
         return BooleanToTypeModeStringConverter.TypeToInsert;

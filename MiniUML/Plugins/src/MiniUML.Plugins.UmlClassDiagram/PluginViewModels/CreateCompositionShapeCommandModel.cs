@@ -20,8 +20,9 @@
       public CreateCompositionShapeCommandModel(PluginViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Composition";
-        this.Description = "Create a new composition";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_Composition;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_Composition_description;
+
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.CreateCompositionShape.png", UriKind.Relative));
       }
 

@@ -1,4 +1,4 @@
-﻿namespace MiniUML.Plugins.UmlClassDiagram.Resources.Shapes
+namespace MiniUML.Plugins.UmlClassDiagram.Resources.Shapes
 {
   using System;
   using System.ComponentModel;
@@ -141,7 +141,7 @@
     #region ContextMenu Methods
     private void createContextMenu()
     {
-      AddMenuItem("Delete", "Delete");
+      AddMenuItem(MiniUML.Framework.Local.Strings.STR_MENUITEM_DELETE, "Delete");
       AddZOrderMenuItems();
     }
 
@@ -150,8 +150,8 @@
       if (this.ContextMenu != null)
         this.ContextMenu.Items.Add(new Separator());
 
-      this.AddMenuItem("BringToFront", "BringToFront");
-      this.AddMenuItem("SendToBack", "SendToBack");
+      this.AddMenuItem(MiniUML.Framework.Local.Strings.STR_MENUITEM_BringToFront, "BringToFront");
+      this.AddMenuItem(MiniUML.Framework.Local.Strings.STR_MENUITEM_SendToBack, "SendToBack");
     }
 
     protected void AddMenuItem(string text, string id)

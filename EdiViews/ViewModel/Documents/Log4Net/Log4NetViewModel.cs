@@ -1,4 +1,4 @@
-﻿namespace EdiViews.Documents.Log4Net
+namespace EdiViews.Documents.Log4Net
 {
   using System;
   using System.Globalization;
@@ -12,9 +12,9 @@
   public class Log4NetViewModel : EdiViews.ViewModel.Base.FileBaseViewModel
   {
     #region fields
-    private static int iNewFileCounter = 1;
-    private string defaultFileType = "log4net";
-    private string defaultFileName = "Untitled";
+    private static int iNewFileCounter             = 1;
+    private string defaultFileType                 = "log4j";
+    private readonly static string defaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
 
     private YalvLib.ViewModel.YalvViewModel mYalvVM = null;
     #endregion fields
@@ -22,12 +22,12 @@
     #region constructor
     public Log4NetViewModel()
     {
-      this.Title = "Start Page";
-      this.ScreenTip = "A log4net document can be used to view the XML output from a log4net logger session.";
+      this.ScreenTip = Util.Local.Strings.STR_LOG4NET_DOCUMENTTAB_TT;
       this.ContentId = string.Empty;
-      this.IsReadOnlyReason = "Log4net logger output cannot be edit in EDI. This is a read-only viewer document.";
+      this.IsReadOnlyReason = Util.Local.Strings.STR_LOG4NET_READONY_REASON;
 
-      this.FilePath = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}", this.defaultFileName,
+      this.FilePath = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}",
+                                    Log4NetViewModel.defaultFileName,
                                     Log4NetViewModel.iNewFileCounter++,
                                     this.defaultFileType);
 
@@ -52,7 +52,8 @@
       get
       {
         if (this.mFilePath == null || this.mFilePath == String.Empty)
-          return string.Format(CultureInfo.CurrentCulture, "New.{1}", this.defaultFileType);
+          return string.Format(CultureInfo.CurrentCulture, "{0}.{1}",
+                               Log4NetViewModel.defaultFileName, this.defaultFileType);
 
         return this.mFilePath;
       }
@@ -98,7 +99,9 @@
       {
         // This option should never happen - its an emergency break for those cases that never occur
         if (FilePath == null || FilePath == String.Empty)
-          return string.Format(CultureInfo.InvariantCulture, "{0}.{1}", this.defaultFileName, this.defaultFileType);
+          return string.Format(CultureInfo.InvariantCulture, "{0}.{1}",
+                               Log4NetViewModel.defaultFileName,
+                               this.defaultFileType);
 
         return System.IO.Path.GetFileName(FilePath);
       }
@@ -257,7 +260,7 @@
           }
           catch (Exception ex)
           {
-            MsgBox.Msg.Show(ex.Message, "An error has occurred", MsgBoxButtons.OK);
+            MsgBox.Msg.Show(ex.Message, Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, MsgBoxButtons.OK);
 
             return false;
           }
@@ -267,7 +270,7 @@
       }
       catch (Exception exp)
       {
-        MsgBox.Msg.Show(exp.Message, "An error has occurred", MsgBoxButtons.OK);
+        MsgBox.Msg.Show(exp.Message, Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, MsgBoxButtons.OK);
 
         return false;
       }

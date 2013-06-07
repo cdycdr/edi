@@ -19,8 +19,8 @@
       public CreateCommentShapeCommandModel(PluginViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Comment";
-        this.Description = "Create a new Comment shape";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_Comment;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_Comment_description;
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.CreateCommentShape.png", UriKind.Relative));
       }
 

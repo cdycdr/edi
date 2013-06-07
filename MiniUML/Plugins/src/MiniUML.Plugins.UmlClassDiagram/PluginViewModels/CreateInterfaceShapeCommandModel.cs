@@ -20,8 +20,9 @@
       public CreateInterfaceShapeCommandModel(PluginViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Interface";
-        this.Description = "Create a new Interface shape";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_Interface;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_Interface_description;
+
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.CreateInterfaceShape.png", UriKind.Relative));
       }
 

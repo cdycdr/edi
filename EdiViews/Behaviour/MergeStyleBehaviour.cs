@@ -1,4 +1,4 @@
-﻿namespace EdiViews.Behaviour
+namespace EdiViews.Behaviour
 {
   using System;
   using System.Windows;
@@ -171,7 +171,7 @@
         Control control = d as Control;
         if (control == null)
         {
-          throw new NotSupportedException("AutoMergeStyle can only used in Control");
+          throw new NotSupportedException("AutoMergeStyle can only be used in a Control.");
         }
 
         if ((bool)e.NewValue)
@@ -215,7 +215,7 @@
         control = d as Control;
         if (control == null)
         {
-          throw new NotSupportedException("BaseOnStyle can only be used in Control");
+          throw new NotSupportedException("BaseOnStyle can only be used in a Control.");
         }
 
         Style baseOnStyle = e.NewValue as Style;

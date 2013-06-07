@@ -1,4 +1,4 @@
-﻿namespace EdiViews.ViewModel.Documents
+namespace EdiViews.ViewModel.Documents
 {
   using System;
   using System.Collections.ObjectModel;
@@ -21,9 +21,9 @@
     private MiniUML.Model.ViewModels.RibbonViewModel mRibbonViewModel;
     private MiniUML.Model.ViewModels.DocumentViewModel mDocumentMiniUML;
 
-    private static int iNewFileCounter = 1;
-    private string defaultFileType = "uml";
-    private string defaultFileName = "Untitled";
+    private static int iNewFileCounter             = 1;
+    private string defaultFileType                 = "uml";
+    private readonly static string defaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
 
     private object lockThis = new object();
     #endregion Fields
@@ -35,7 +35,8 @@
     /// </summary>
     public MiniUumViewModel()
     {
-      this.FilePath = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}", this.defaultFileName,
+      this.FilePath = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}",
+                                    MiniUumViewModel.defaultFileName,
                                     MiniUumViewModel.iNewFileCounter++,
                                     this.defaultFileType);
 
@@ -105,7 +106,8 @@
       get
       {
         if (this.mFilePath == null || this.mFilePath == String.Empty)
-          return string.Format(CultureInfo.CurrentCulture, "New.{1}", this.defaultFileType);
+          return string.Format(CultureInfo.CurrentCulture, "{0}.{1}",
+                               MiniUumViewModel.defaultFileName, this.defaultFileType);
 
         return this.mFilePath;
       }
@@ -151,7 +153,8 @@
       {
         // This option should never happen - its an emergency break for those cases that never occur
         if (FilePath == null || FilePath == String.Empty)
-          return string.Format(CultureInfo.InvariantCulture, "{0}.{1}", this.defaultFileName, this.defaultFileType);
+          return string.Format(CultureInfo.InvariantCulture, "{0}.{1}",
+                               MiniUumViewModel.defaultFileName, this.defaultFileType);
 
         return System.IO.Path.GetFileName(FilePath);
       }

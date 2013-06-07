@@ -13,6 +13,9 @@
  - Query user whether files should be searched/browsed
  - or add lost & and found view that offers a hyperlink that performs a file open on the last known location
 
+* Finished Localization in German and English
+  Localized MiniUML and SimpleControls and Added .StyleCop as recognized XML File Style
+
 * Added More localization and *.resx files are now recognized XML files (with corresponding highlighting)
   -> Localized alpha version of EDI now supports English and German by setting the culture in App.Application_Startup(...)
  

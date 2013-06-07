@@ -178,7 +178,7 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find next occurrance of specific text in a document.
+        ///   Looks up a localized string similar to Find next occurrence of specific text in a document.
         /// </summary>
         public static string CMD_TXT_FindNextText_Description {
             get {
@@ -187,7 +187,7 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find previous occurrance of specific text in a document.
+        ///   Looks up a localized string similar to Find previous occurrence of specific text in a document.
         /// </summary>
         public static string CMD_TXT_FindPreviousText_Description {
             get {
@@ -210,6 +210,78 @@ namespace Util.Local {
         public static string CMD_TXT_GotoLine_Description {
             get {
                 return ResourceManager.GetString("CMD_TXT_GotoLine_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code Completion:.
+        /// </summary>
+        public static string STR_ABOUT_CODE_COMPLETION {
+            get {
+                return ResourceManager.GetString("STR_ABOUT_CODE_COMPLETION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Docking Layout System:.
+        /// </summary>
+        public static string STR_ABOUT_DOCKING_LAYOUT {
+            get {
+                return ResourceManager.GetString("STR_ABOUT_DOCKING_LAYOUT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log4Net Viewer:.
+        /// </summary>
+        public static string STR_ABOUT_Log4NetViewer {
+            get {
+                return ResourceManager.GetString("STR_ABOUT_Log4NetViewer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A Text and UML Editor..
+        /// </summary>
+        public static string STR_ABOUT_MSG {
+            get {
+                return ResourceManager.GetString("STR_ABOUT_MSG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _OK.
+        /// </summary>
+        public static string STR_ABOUT_OK_BUTTON {
+            get {
+                return ResourceManager.GetString("STR_ABOUT_OK_BUTTON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Editor:.
+        /// </summary>
+        public static string STR_ABOUT_TextEditor {
+            get {
+                return ResourceManager.GetString("STR_ABOUT_TextEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string STR_ABOUT_Version {
+            get {
+                return ResourceManager.GetString("STR_ABOUT_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The directory &apos;{0}&apos; does not exist or cannot be accessed..
+        /// </summary>
+        public static string STR_ACCESS_DIRECTORY_ERROR {
+            get {
+                return ResourceManager.GetString("STR_ACCESS_DIRECTORY_ERROR", resourceCulture);
             }
         }
         
@@ -304,7 +376,7 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply Indention Strategy.
+        ///   Looks up a localized string similar to Apply Indentation Strategy.
         /// </summary>
         public static string STR_Cmd__ApplyTextIndentationStrategy {
             get {
@@ -871,6 +943,116 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your input is not sufficient. Correct the following problems or click Cancel..
+        /// </summary>
+        public static string STR_DIALOG_INPUT_PROBLEM_CAPTION {
+            get {
+                return ResourceManager.GetString("STR_DIALOG_INPUT_PROBLEM_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INS.
+        /// </summary>
+        public static string STR_EDIT_MODE_INSERT {
+            get {
+                return ResourceManager.GetString("STR_EDIT_MODE_INSERT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OVR.
+        /// </summary>
+        public static string STR_EDIT_MODE_TYPEOVER {
+            get {
+                return ResourceManager.GetString("STR_EDIT_MODE_TYPEOVER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Untitled.
+        /// </summary>
+        public static string STR_FILE_DEFAULTNAME {
+            get {
+                return ResourceManager.GetString("STR_FILE_DEFAULTNAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error finding file.
+        /// </summary>
+        public static string STR_FILE_FINDING_CAPTION {
+            get {
+                return ResourceManager.GetString("STR_FILE_FINDING_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occurred.
+        /// </summary>
+        public static string STR_FILE_OPEN_ERROR_MSG_CAPTION {
+            get {
+                return ResourceManager.GetString("STR_FILE_OPEN_ERROR_MSG_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This file cannot be edit because you do not have write access.
+        ///Change the file access permissions or save the file in a different location if you want to edit it..
+        /// </summary>
+        public static string STR_FILE_READONLY_REASON_NO_WRITE_PERMISSION {
+            get {
+                return ResourceManager.GetString("STR_FILE_READONLY_REASON_NO_WRITE_PERMISSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This file cannot be edit because another process is currently writing to it.
+        ///End the other process and re-open the file or save the file in a different location if you want to edit it..
+        /// </summary>
+        public static string STR_FILE_READONLY_REASON_USED_BY_OTHER_PROCESS {
+            get {
+                return ResourceManager.GetString("STR_FILE_READONLY_REASON_USED_BY_OTHER_PROCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Name.
+        /// </summary>
+        public static string STR_FILESTATES_FileName {
+            get {
+                return ResourceManager.GetString("STR_FILESTATES_FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Path.
+        /// </summary>
+        public static string STR_FILESTATES_FilePath {
+            get {
+                return ResourceManager.GetString("STR_FILESTATES_FilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Size.
+        /// </summary>
+        public static string STR_FILESTATES_FileSize {
+            get {
+                return ResourceManager.GetString("STR_FILESTATES_FileSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date and time of last modification..
+        /// </summary>
+        public static string STR_FILESTATES_LASTMODIFICATION {
+            get {
+                return ResourceManager.GetString("STR_FILESTATES_LASTMODIFICATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Files (*.*)|*.*.
         /// </summary>
         public static string STR_FileType_FileFilter_AllFiles {
@@ -943,6 +1125,177 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to replace all occurrences of &apos;{0}&apos; with &apos;{1}&apos;?.
+        /// </summary>
+        public static string STR_FINDREPLACE_ASK_REALLY_REPLACEEVERYTHING {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_ASK_REALLY_REPLACEEVERYTHING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Case Sensitive.
+        /// </summary>
+        public static string STR_FINDREPLACE_CaseSensitive {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_CaseSensitive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Document.
+        /// </summary>
+        public static string STR_FINDREPLACE_CURRENTDOC {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_CURRENTDOC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text to Find:.
+        /// </summary>
+        public static string STR_FINDREPLACE_FINDLABEL {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_FINDLABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find _Next.
+        /// </summary>
+        public static string STR_FINDREPLACE_FINDNEXT {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_FINDNEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match whole Word.
+        /// </summary>
+        public static string STR_FINDREPLACE_MatchWholeWord {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_MatchWholeWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Open Documents.
+        /// </summary>
+        public static string STR_FINDREPLACE_OPENDOCS {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_OPENDOCS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        public static string STR_FINDREPLACE_Options {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regular Expression.
+        /// </summary>
+        public static string STR_FINDREPLACE_RegularExpression {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_RegularExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Replace.
+        /// </summary>
+        public static string STR_FINDREPLACE_Replace {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_Replace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace _All.
+        /// </summary>
+        public static string STR_FINDREPLACE_ReplaceAll {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_ReplaceAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace all.
+        /// </summary>
+        public static string STR_FINDREPLACE_ReplaceAll_Caption {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_ReplaceAll_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace with:.
+        /// </summary>
+        public static string STR_FINDREPLACE_ReplaceWith {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_ReplaceWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search up.
+        /// </summary>
+        public static string STR_FINDREPLACE_SearchBackWard {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_SearchBackWard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search in:.
+        /// </summary>
+        public static string STR_FINDREPLACE_SearchInLABEL {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_SearchInLABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wildcards.
+        /// </summary>
+        public static string STR_FINDREPLACE_Wildcards {
+            get {
+                return ResourceManager.GetString("STR_FINDREPLACE_Wildcards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Cancel.
+        /// </summary>
+        public static string STR_GOTOLINE_CANCEL_BUTTON {
+            get {
+                return ResourceManager.GetString("STR_GOTOLINE_CANCEL_BUTTON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line.
+        /// </summary>
+        public static string STR_GOTOLINE_LINE_RANGE_LABEL {
+            get {
+                return ResourceManager.GetString("STR_GOTOLINE_LINE_RANGE_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _OK.
+        /// </summary>
+        public static string STR_GOTOLINE_OK_BUTTON {
+            get {
+                return ResourceManager.GetString("STR_GOTOLINE_OK_BUTTON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert or overtype text mode (switch on/of with insert key).
         /// </summary>
         public static string STR_Insert_Overtype_Mode_TT {
@@ -970,7 +1323,196 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured while accessing the plugin directory..
+        ///   Looks up a localized string similar to Delta t:.
+        /// </summary>
+        public static string STR_LOG4NET_DELTATIME {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_DELTATIME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A log4net document can be used to view the XML output from a log4net logger session..
+        /// </summary>
+        public static string STR_LOG4NET_DOCUMENTTAB_TT {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_DOCUMENTTAB_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a log item Id to scroll the document view to its item..
+        /// </summary>
+        public static string STR_LOG4NET_ENTERLOGID_TT {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_ENTERLOGID_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ALL.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_ALL {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_ALL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DEBUG.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_DEBUG {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_DEBUG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_DEBUG_TT {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_DEBUG_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ERROR.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_ERROR {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_ERROR_TT {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_ERROR_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FATAL.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_FATAL {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_FATAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fatal Error.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_FATAL_TT {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_FATAL_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INFO.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_INFO {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_INFO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_INFO_TT {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_INFO_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type a filter criteria and activate the filter to customize the display..
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_TOOLTIP {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_TOOLTIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WARN.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_WARN {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_WARN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string STR_LOG4NET_FILTER_WARN_TT {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTER_WARN_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sum of actually displayed items (after applying filters)..
+        /// </summary>
+        public static string STR_LOG4NET_FILTERRESULT_TT {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_FILTERRESULT_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A Log4net document cannot be edit. This is a read-only viewer document..
+        /// </summary>
+        public static string STR_LOG4NET_READONY_REASON {
+            get {
+                return ResourceManager.GetString("STR_LOG4NET_READONY_REASON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Path to Clipboard.
+        /// </summary>
+        public static string STR_MRU_MENUITEM_COPYURL {
+            get {
+                return ResourceManager.GetString("STR_MRU_MENUITEM_COPYURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open in containing Folder.
+        /// </summary>
+        public static string STR_MRU_MENUITEM_OpenInContainingFolder {
+            get {
+                return ResourceManager.GetString("STR_MRU_MENUITEM_OpenInContainingFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open with Windows Application....
+        /// </summary>
+        public static string STR_MRU_MENUITEM_OpenWithWindowsApp {
+            get {
+                return ResourceManager.GetString("STR_MRU_MENUITEM_OpenWithWindowsApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string STR_MRU_MENUITEM_Remove {
+            get {
+                return ResourceManager.GetString("STR_MRU_MENUITEM_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while accessing the plugin directory..
         /// </summary>
         public static string STR_MSG_ACCESS_PLuginDir {
             get {
@@ -1006,7 +1548,7 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured while initializing a plugin found in assembly &apos;{0}&apos;..
+        ///   Looks up a localized string similar to An error occurred while initializing a plugin found in assembly &apos;{0}&apos;..
         /// </summary>
         public static string STR_MSG_ErrorLoadingPlugin {
             get {
@@ -1033,7 +1575,7 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured while loading plugin assembly &apos;{0}&apos;..
+        ///   Looks up a localized string similar to An error occurred while loading plugin assembly &apos;{0}&apos;..
         /// </summary>
         public static string STR_MSG_ErrorWhileLoadingPlugin {
             get {
@@ -1078,7 +1620,7 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;No further occurence found..
+        ///   Looks up a localized string similar to No further occurrence found..
         /// </summary>
         public static string STR_MSG_FIND_NO_MORE_ITEMS_FOUND2 {
             get {
@@ -1087,7 +1629,7 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occured..
+        ///   Looks up a localized string similar to An unexpected error occurred..
         /// </summary>
         public static string STR_MSG_FIND_UNEXPECTED_ERROR {
             get {
@@ -1200,7 +1742,7 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured while dispatching unhandled exception.
+        ///   Looks up a localized string similar to An error occurred while dispatching unhandled exception.
         /// </summary>
         public static string STR_MSG_UnknownError_InErrorDispatcher {
             get {
@@ -1218,6 +1760,78 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to percent.
+        /// </summary>
+        public static string STR_SCALE_VIEW_PERCENT {
+            get {
+                return ResourceManager.GetString("STR_SCALE_VIEW_PERCENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %.
+        /// </summary>
+        public static string STR_SCALE_VIEW_PERCENT_SHORT {
+            get {
+                return ResourceManager.GetString("STR_SCALE_VIEW_PERCENT_SHORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to font size.
+        /// </summary>
+        public static string STR_SCALE_VIEW_POINT {
+            get {
+                return ResourceManager.GetString("STR_SCALE_VIEW_POINT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pt.
+        /// </summary>
+        public static string STR_SCALE_VIEW_POINT_SHORT {
+            get {
+                return ResourceManager.GetString("STR_SCALE_VIEW_POINT_SHORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open file....
+        /// </summary>
+        public static string STR_STARTPAGE_FILEOPEN_TT {
+            get {
+                return ResourceManager.GetString("STR_STARTPAGE_FILEOPEN_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Page.
+        /// </summary>
+        public static string STR_STARTPAGE_TITLE {
+            get {
+                return ResourceManager.GetString("STR_STARTPAGE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visit the Internet home page of this application.
+        /// </summary>
+        public static string STR_STARTPAGE_VISITPROJECTHOMEPAGE_TT {
+            get {
+                return ResourceManager.GetString("STR_STARTPAGE_VISITPROJECTHOMEPAGE_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to Edi. Review this page to get started with this editor application..
+        /// </summary>
+        public static string STR_STARTPAGE_WELCOME_TT {
+            get {
+                return ResourceManager.GetString("STR_STARTPAGE_WELCOME_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ready..
         /// </summary>
         public static string STR_StatusBar_Ready {
@@ -1227,7 +1841,7 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Endcoding of the text in the current document.
+        ///   Looks up a localized string similar to Encoding of the text in the current document.
         /// </summary>
         public static string STR_StatusBar_Textencoding_TT {
             get {
@@ -1281,7 +1895,7 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot find Path to: &apos;{0}&apos;\n\nPlease make sure this module is accesible..
+        ///   Looks up a localized string similar to Cannot find Path to: &apos;{0}&apos;\n\nPlease make sure this module is accessible..
         /// </summary>
         public static string STR_THEMING_MSG_CANNOT_FIND_PATH {
             get {

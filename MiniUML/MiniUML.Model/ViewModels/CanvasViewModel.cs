@@ -1,4 +1,4 @@
-﻿namespace MiniUML.Model.ViewModels
+namespace MiniUML.Model.ViewModels
 {
   using System;
   using System.Collections.Generic;
@@ -36,41 +36,6 @@
       // Create the commands in this view model.
       this._commandUtilities.InitializeCommands(this);
     }
-
-    /***	
-          CommandBindings.Add(new CommandBinding(ApplicationCommands.Delete, OnDelete(ApplicationCommands.NotACommand), CanDelete));
-          AddBinding(EditingCommands.Delete, ModifierKeys.None, Key.Delete, OnDelete(EditingCommands.SelectRightByCharacter));
-
-          AddBinding(EditingCommands.DeleteNextWord, ModifierKeys.Control, Key.Delete, OnDelete(EditingCommands.SelectRightByWord));
-          AddBinding(EditingCommands.Backspace, ModifierKeys.None, Key.Back, OnDelete(EditingCommands.SelectLeftByCharacter));
-          InputBindings.Add(TextAreaDefaultInputHandler.CreateFrozenKeyBinding(EditingCommands.Backspace, ModifierKeys.Shift, Key.Back)); // make Shift-Backspace do the same as plain backspace
-          AddBinding(EditingCommands.DeletePreviousWord, ModifierKeys.Control, Key.Back, OnDelete(EditingCommands.SelectLeftByWord));
-          AddBinding(EditingCommands.EnterParagraphBreak, ModifierKeys.None, Key.Enter, OnEnter);
-          AddBinding(EditingCommands.EnterLineBreak, ModifierKeys.Shift, Key.Enter, OnEnter);
-          AddBinding(EditingCommands.TabForward, ModifierKeys.None, Key.Tab, OnTab);
-          AddBinding(EditingCommands.TabBackward, ModifierKeys.Shift, Key.Tab, OnShiftTab);
-			
-          CommandBindings.Add(new CommandBinding(ApplicationCommands.Copy, OnCopy, CanCutOrCopy));
-          CommandBindings.Add(new CommandBinding(ApplicationCommands.Cut, OnCut, CanCutOrCopy));
-          CommandBindings.Add(new CommandBinding(ApplicationCommands.Paste, OnPaste, CanPaste));
-			
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.DeleteLine, OnDeleteLine));
-			
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.RemoveLeadingWhitespace, OnRemoveLeadingWhitespace));
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.RemoveTrailingWhitespace, OnRemoveTrailingWhitespace));
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.ConvertToUppercase, OnConvertToUpperCase));
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.ConvertToLowercase, OnConvertToLowerCase));
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.ConvertToTitleCase, OnConvertToTitleCase));
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.InvertCase, OnInvertCase));
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.ConvertTabsToSpaces, OnConvertTabsToSpaces));
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.ConvertSpacesToTabs, OnConvertSpacesToTabs));
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.ConvertLeadingTabsToSpaces, OnConvertLeadingTabsToSpaces));
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.ConvertLeadingSpacesToTabs, OnConvertLeadingSpacesToTabs));
-          CommandBindings.Add(new CommandBinding(AvalonEditCommands.IndentSelection, OnIndentSelection));
-			
-          TextAreaDefaultInputHandler.WorkaroundWPFMemoryLeak(InputBindings);
-     ***/
-
     #endregion constructor
 
     #region Mouse handling (CanvasViewMouseHandler)
@@ -205,7 +170,9 @@
         : base(ApplicationCommands.Delete)
       {
         _viewModel = viewModel;
-        this.Description = "Delete the selected shapes.";
+        this.Name        = MiniUML.Framework.Local.Strings.STR_CMD_Delete;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_Delete_description;
+
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.Delete"];
       }
 
@@ -242,7 +209,7 @@
         : base(ApplicationCommands.Cut)
       {
         _viewModel = viewModel;
-        this.Description = "Cut the selected shapes to the clipboard.";
+        this.Description = MiniUML.Framework.Local.Strings.STR_CUT_Description;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.Cut"];
       }
 
@@ -284,7 +251,7 @@
         : base(ApplicationCommands.Copy)
       {
         _viewModel = viewModel;
-        this.Description = "Copy the selected shapes to the clipboard.";
+        this.Description = MiniUML.Framework.Local.Strings.STR_COPY_Description;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.Copy"];
       }
 
@@ -315,7 +282,7 @@
         : base(ApplicationCommands.Paste)
       {
         _viewModel = viewModel;
-        this.Description = "Paste the contents of the clipboard into the document.";
+        this.Description = MiniUML.Framework.Local.Strings.STR_PASTE_Description;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.Paste"];
       }
 
@@ -349,7 +316,9 @@
         }
         catch
         {
-          Msg.Show("The clipboard does not contain any shapes!", "Unexpected Error", MsgBoxButtons.OK, MsgBoxImage.Warning);
+          Msg.Show(MiniUML.Framework.Local.Strings.STR_MSG_NoShapeInClipboard,
+                   MiniUML.Framework.Local.Strings.STR_UnexpectedErrorCaption,
+                   MsgBoxButtons.OK, MsgBoxImage.Warning);
         }
       }
 
@@ -365,8 +334,8 @@
         : base(ApplicationCommands.Stop)
       {
         _viewModel = viewModel;
-        this.Name = "Select";
-        this.Description = "Switch to select mode.";
+        this.Name        = MiniUML.Framework.Local.Strings.STR_Select;
+        this.Description = MiniUML.Framework.Local.Strings.STR_Select_Description;
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.Select.png", UriKind.Relative));
       }
 

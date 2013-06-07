@@ -1,14 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Xml.Linq;
 namespace MiniUML.View.Views
 {
+  using System;
+  using System.Collections.Generic;
+  using System.IO;
+  using System.Windows;
+  using System.Windows.Controls;
+  using System.Windows.Controls.Primitives;
+  using System.Windows.Input;
+  using System.Windows.Media;
+  using System.Xml.Linq;
+
   using MiniUML.Framework;
   using MiniUML.Model.ViewModels;
   using MiniUML.View.Controls;
@@ -65,7 +66,7 @@ namespace MiniUML.View.Views
       {
         //Check if the datamodel is ready
         if (!(_CanvasViewModel._DocumentViewModel.dm_DocumentDataModel.State == DataModel.ModelState.Ready ||
-           _CanvasViewModel._DocumentViewModel.dm_DocumentDataModel.State == DataModel.ModelState.Invalid))
+              _CanvasViewModel._DocumentViewModel.dm_DocumentDataModel.State == DataModel.ModelState.Invalid))
           return;
 
         Application.Current.MainWindow.Activate();
@@ -78,9 +79,8 @@ namespace MiniUML.View.Views
         }
         catch (Exception ex)
         {
-          Msg.Show(ex,
-              "Operation aborted." + "An error occured while opening the file " + fileName + ".",
-              MsgBoxButtons.OK);
+          Msg.Show(ex, string.Format(MiniUML.Framework.Local.Strings.STR_OpenFILE_MSG, fileName),
+                                     MiniUML.Framework.Local.Strings.STR_OpenFILE_MSG_CAPTION, MsgBoxButtons.OK);
         }
         return;
       }
@@ -132,8 +132,8 @@ namespace MiniUML.View.Views
     #region Select / move functionality
 
     public static readonly DependencyProperty CustomDragProperty
-        = DependencyProperty.RegisterAttached("CustomDrag", typeof(bool), typeof(CanvasView),
-        new FrameworkPropertyMetadata(false));
+      = DependencyProperty.RegisterAttached("CustomDrag", typeof(bool), typeof(CanvasView),
+                                            new FrameworkPropertyMetadata(false));
 
     public static void SetCustomDrag(UIElement element, bool value)
     {
@@ -255,7 +255,7 @@ namespace MiniUML.View.Views
       foreach (XElement shape in _itemsControl.Items)
       {
         _itemsControl.ItemContainerGenerator.ContainerFromItem(shape).SetValue(
-            Selector.IsSelectedProperty, _CanvasViewModel.prop_SelectedShapes.Contains(shape));
+          Selector.IsSelectedProperty, _CanvasViewModel.prop_SelectedShapes.Contains(shape));
       }
     }
 
@@ -463,9 +463,9 @@ namespace MiniUML.View.Views
     {
       if (_CanvasViewModel != null)
         if (_CanvasViewModel.cmd_Copy != null)
-        {
-          _CanvasViewModel.cmd_Copy.OnExecute(sender, e);
-        }
+      {
+        _CanvasViewModel.cmd_Copy.OnExecute(sender, e);
+      }
 
       e.Handled = true;
     }
@@ -490,9 +490,9 @@ namespace MiniUML.View.Views
     {
       if (_CanvasViewModel != null)
         if (_CanvasViewModel.cmd_Cut != null)
-        {
-          _CanvasViewModel.cmd_Cut.OnExecute(sender, e);
-        }
+      {
+        _CanvasViewModel.cmd_Cut.OnExecute(sender, e);
+      }
 
       e.Handled = true;
     }
@@ -517,9 +517,9 @@ namespace MiniUML.View.Views
     {
       if (_CanvasViewModel != null)
         if (_CanvasViewModel.cmd_Paste != null)
-        {
-          _CanvasViewModel.cmd_Paste.OnExecute(sender, e);
-        }
+      {
+        _CanvasViewModel.cmd_Paste.OnExecute(sender, e);
+      }
 
       e.Handled = true;
     }
@@ -544,9 +544,9 @@ namespace MiniUML.View.Views
     {
       if (_CanvasViewModel != null)
         if (_CanvasViewModel.cmd_Delete != null)
-        {
-          _CanvasViewModel.cmd_Delete.OnExecute(sender, e);
-        }
+      {
+        _CanvasViewModel.cmd_Delete.OnExecute(sender, e);
+      }
 
       e.Handled = true;
     }

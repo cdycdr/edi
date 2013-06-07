@@ -1,4 +1,4 @@
-﻿namespace EdiViews.FindReplace.ViewModel
+namespace EdiViews.FindReplace.ViewModel
 {
   using System.Collections.Generic;
   using System.Text.RegularExpressions;
@@ -14,9 +14,28 @@
 
   public class FindReplaceViewModel : EdiViews.ViewModel.Base.ViewModelBase
   {
+    #region fields
     private RelayCommand<object> mFindCommand;
     private RelayCommand<object> mReplaceCommand;
     private RelayCommand<object> mReplaceAllCommand;
+
+    private DialogViewModelBase mOpenCloseView;
+    private string mTextToFind = string.Empty;
+    private string mReplacementText = string.Empty;
+    private bool mSearchUp = false;
+    private bool mUseWildcards = false;
+    private bool mCaseSensitive = false;
+    private bool mUseRegEx = false;
+    private bool mWholeWord = false;
+    private bool mAcceptsReturn = false;
+    private bool mAllowReplace = true;
+
+    private bool mShowAsFind = true;
+    private bool mIsTextToFindFocused = true;
+    private bool mIsTextToFindInReplaceFocused = true;
+    private EdiViews.FindReplace.SearchScope mSearchIn = EdiViews.FindReplace.SearchScope.CurrentDocument;
+    private bool mShowSearchIn = true;
+    #endregion fields
 
     #region constructor
     public FindReplaceViewModel()
@@ -30,7 +49,6 @@
     /// Get property to expose elements necessary to evaluate user input
     /// when the user completes his input (eg.: clicks OK in a dialog).
     /// </summary>
-    private DialogViewModelBase mOpenCloseView;
     public DialogViewModelBase OpenCloseView
     {
       get
@@ -49,7 +67,6 @@
       }
     }
 
-    private string mTextToFind = string.Empty;
     public string TextToFind
     {
       get
@@ -68,7 +85,6 @@
       }
     }
 
-    private string mReplacementText = string.Empty;
     public string ReplacementText
     {
       get
@@ -87,7 +103,6 @@
       }
     }
 
-    private bool mSearchUp = false;
     public bool SearchUp
     {
       get
@@ -106,7 +121,6 @@
       }
     }
 
-    private bool mUseWildcards = false;
     public bool UseWildcards
     {
       get
@@ -125,7 +139,6 @@
       }
     }
 
-    private bool mCaseSensitive = false;
     public bool CaseSensitive
     {
       get
@@ -144,7 +157,6 @@
       }
     }
 
-    private bool mUseRegEx = false;
     public bool UseRegEx
     {
       get
@@ -163,7 +175,6 @@
       }
     }
 
-    private bool mWholeWord = false;
     public bool WholeWord
     {
       get
@@ -182,7 +193,6 @@
       }
     }
 
-    private bool mAcceptsReturn = false;
     public bool AcceptsReturn
     {
       get
@@ -201,7 +211,6 @@
       }
     }
 
-    private bool mAllowReplace = true;
     public bool AllowReplace
     {
       get
@@ -220,7 +229,6 @@
       }
     }
 
-    private bool mShowAsFind = true;
     /// <summary>
     /// Get/set property to determine whether dialog should show Find UI (true)
     /// or whether it should show Find/Replace UI elements (false).
@@ -254,7 +262,6 @@
       }
     }
 
-    private bool mIsTextToFindFocused = true;
     /// <summary>
     /// </summary>
     public bool IsTextToFindFocused
@@ -275,7 +282,6 @@
       }
     }
 
-    private bool mIsTextToFindInReplaceFocused = true;
     /// <summary>
     /// </summary>
     public bool IsTextToFindInReplaceFocused
@@ -296,7 +302,6 @@
       }
     }
 
-    private EdiViews.FindReplace.SearchScope mSearchIn = EdiViews.FindReplace.SearchScope.CurrentDocument;
     public EdiViews.FindReplace.SearchScope SearchIn
     {
       get
@@ -322,7 +327,6 @@
     /// 1> Only in the current document
     /// 2> In all open documents
     /// </summary>
-    private bool mShowSearchIn = true;
     public bool ShowSearchIn
     {
       get
@@ -452,8 +456,9 @@
       IEditor CE = GetCurrentEditor();
       if (CE == null) return;
 
-      if (!AskBefore || MsgBox.Msg.Show("Do you really want to replace all occurences of '" + TextToFind + "' with '" + ReplacementText + "'?",
-                                        "Replace all", MsgBoxButtons.YesNoCancel, MsgBoxImage.Alert) == MsgBoxResult.Yes)
+      if (!AskBefore || MsgBox.Msg.Show(string.Format(Util.Local.Strings.STR_FINDREPLACE_ASK_REALLY_REPLACEEVERYTHING,TextToFind, ReplacementText),
+                                        Util.Local.Strings.STR_FINDREPLACE_ReplaceAll_Caption,
+                                        MsgBoxButtons.YesNoCancel, MsgBoxImage.Alert) == MsgBoxResult.Yes)
       {
         object InitialEditor = CurrentEditor;
         // loop through all editors, until we are back at the starting editor                

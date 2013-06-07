@@ -20,8 +20,8 @@
       public CreateAssociationShapeCommandModel(PluginViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Association";
-        this.Description = "Create a new association";
+        this.Name        = MiniUML.Framework.Local.Strings.STR_CMD_Association;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_Association_description;
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.CreateAssociationShape.png", UriKind.Relative));
       }
 

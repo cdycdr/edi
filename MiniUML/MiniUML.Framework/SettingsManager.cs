@@ -1,7 +1,7 @@
-﻿using System;
-using System.Configuration;
-namespace MiniUML.Framework
+﻿namespace MiniUML.Framework
 {
+  using System;
+  using System.Configuration;
   using MsgBox;
 
   public static class SettingsManager

@@ -1,4 +1,4 @@
-﻿namespace MiniUML.Model.ViewModels
+namespace MiniUML.Model.ViewModels
 {
   using System;
   using System.Collections.Generic;
@@ -64,9 +64,10 @@
     {
       if (!dm_DocumentDataModel.HasUnsavedData) return true;
 
-      MessageBoxResult result = MessageBox.Show(Application.Current.MainWindow, "Do you want to save changes to " + prop_DocumentFileName + "?",
-          (string)Application.Current.Resources["ApplicationName"],
-          MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
+      MessageBoxResult result = MessageBox.Show(Application.Current.MainWindow,
+                                                string.Format(MiniUML.Framework.Local.Strings.STR_QUERY_SAVE_CHANGES, prop_DocumentFileName),
+                                                MiniUML.Framework.Local.Strings.STR_QUERY_SAVE_CHANGES_CAPTION,
+                                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
 
       switch (result)
       {
@@ -100,7 +101,7 @@
         if (!string.IsNullOrEmpty(_filePath))
           _fileName = System.IO.Path.GetFileName(_filePath);
         else
-          _fileName = "Untitled";
+          _fileName = MiniUML.Framework.Local.Strings.STR_Default_FileName;
 
         base.SendPropertyChanged("prop_DocumentFilePath", "prop_DocumentFileName");
       }
@@ -121,7 +122,7 @@
       }
     }
 
-    private string _fileName = "Untitled";
+    private string _fileName = MiniUML.Framework.Local.Strings.STR_Default_FileName;
     private string _filePath = null;
     private FrameworkElement _designSurface;
     private readonly DocumentDataModel _dataModel;
@@ -253,7 +254,8 @@
         : base(ApplicationCommands.New)
       {
         _viewModel = viewModel;
-        this.Description = "Create new document.";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_CreateNew;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_CreateNewDocument;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.New"];
       }
 
@@ -325,7 +327,7 @@
         : base(ApplicationCommands.Open)
       {
         _viewModel = viewModel;
-        this.Description = "Open an existing document.";
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_OpenDocument;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.Open"];
       }
 
@@ -345,7 +347,7 @@
         // Create and configure OpenFileDialog.
         FileDialog dlg = new OpenFileDialog()
         {
-          Filter = "XML Files (*.xml)|*.xml|All files (*.*)|*.*",
+          Filter = MiniUML.Framework.Local.Strings.STR_FILETYPE_FILTER,
           DefaultExt = "xml",
           AddExtension = true,
           ValidateNames = true,
@@ -362,9 +364,8 @@
         }
         catch (Exception ex)
         {
-          Msg.Show(ex,
-              "Operation aborted.",
-              "An error occured while opening the file " + dlg.FileName + ".");
+          Msg.Show(ex, string.Format(MiniUML.Framework.Local.Strings.STR_OpenFILE_MSG, dlg.FileName),
+                       MiniUML.Framework.Local.Strings.STR_OpenFILE_MSG_CAPTION);
         }
       }
 
@@ -388,9 +389,8 @@
       }
       catch (Exception ex)
       {
-        Msg.Show(ex,
-            "Operation aborted.",
-            "An error occured while saving to the file " + filePath + ".");
+        Msg.Show(ex, string.Format(MiniUML.Framework.Local.Strings.STR_SaveFILE_MSG, filePath),
+                     MiniUML.Framework.Local.Strings.STR_SaveFILE_MSG_CAPTION);
       }
 
       return false;
@@ -405,7 +405,7 @@
         : base(ApplicationCommands.Save)
       {
         _viewModel = viewModel;
-        this.Description = "Save the current document.";
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_SAVE_DOCUMENT;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.Save"];
       }
 
@@ -440,9 +440,8 @@
         }
         catch (Exception ex)
         {
-          Msg.Show(ex,
-              "Operation aborted.",
-              "An error occured while saving to the file " + file + ".");
+          Msg.Show(ex, string.Format(MiniUML.Framework.Local.Strings.STR_SaveFILE_MSG, file),
+                       MiniUML.Framework.Local.Strings.STR_SaveFILE_MSG_CAPTION);
         }
 
         return false;
@@ -460,7 +459,7 @@
         : base(ApplicationCommands.SaveAs)
       {
         _viewModel = viewModel;
-        this.Description = "Save the current document to a new file.";
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_SAVEAS_DOCUMENT;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.SaveAs"];
       }
 
@@ -480,7 +479,7 @@
         // Create and configure SaveFileDialog.
         FileDialog dlg = new SaveFileDialog()
         {
-          Filter = "XML Files (*.xml)|*.xml",
+          Filter = MiniUML.Framework.Local.Strings.STR_FILETYPE_FILTER_SAVE,
           AddExtension = true,
           ValidateNames = true
         };
@@ -498,9 +497,8 @@
         }
         catch (Exception ex)
         {
-          Msg.Show(ex,
-              "Operation aborted.",
-              "An error occured while saving to the file " + dlg.FileName + ".");
+          Msg.Show(ex, string.Format(MiniUML.Framework.Local.Strings.STR_SaveFILE_MSG, dlg.FileName),
+                       MiniUML.Framework.Local.Strings.STR_SaveFILE_MSG_CAPTION);
         }
 
         return false;
@@ -517,8 +515,8 @@
       public ExportCommandModel(DocumentViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Export";
-        this.Description = "Save the current document to a new file.";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_Export_Command;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_Export_Command_DESCR;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.Export"];
       }
 
@@ -535,10 +533,7 @@
         {
           ValidateNames = true,
           AddExtension = true,
-          Filter = "PNG Image Files (*.png)|*.png|" +
-                   "JPEG Image Files (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-                   "Windows Bitmap Image Files (*.bmp)|*.bmp|" +
-                   "XPS Document Files (*.xps)|*.xps"
+          Filter = MiniUML.Framework.Local.Strings.STR_FILETYPE_FILTER_EXPORT
         };
 
         // Show dialog; return if canceled.
@@ -557,9 +552,8 @@
         }
         catch (Exception ex)
         {
-          Msg.Show(ex,
-              "Save operation aborted.",
-              "An error occured while saving the document to " + dlg.FileName + ".");
+          Msg.Show(ex, string.Format(MiniUML.Framework.Local.Strings.STR_SaveFILE_MSG, dlg.FileName),
+                       MiniUML.Framework.Local.Strings.STR_SaveFILE_MSG_CAPTION);
         }
       }
 
@@ -657,7 +651,7 @@
         : base(ApplicationCommands.Print)
       {
         _viewModel = viewModel;
-        this.Description = "Print the current document.";
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_PRINT_DESCRIPTION;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.Print"];
       }
 
@@ -712,7 +706,7 @@
         : base(ApplicationCommands.Undo)
       {
         _viewModel = viewModel;
-        this.Description = "Undo";
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_UNDO_DESCRIPTION;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.Undo"];
       }
 
@@ -742,7 +736,7 @@
         : base(ApplicationCommands.Redo)
       {
         _viewModel = viewModel;
-        this.Description = "Redo";
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_REDO_DESCRIPTION;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.Redo"];
       }
 
@@ -772,8 +766,8 @@
         : base()
       {
         _viewModel = viewModel;
-        this.Name = "Change";
-        this.Description = "Change the color theme of the application.";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_CHANGETheme;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_ChangeTheme_DESCRIPTION;
         this.Image = (BitmapImage)Application.Current.Resources["Style.Images.Commands.SelectTheme"];
       }
 
@@ -788,7 +782,7 @@
         // Create and configure OpenFileDialog.
         FileDialog dlg = new OpenFileDialog()
         {
-          Filter = "Plugin Files (MiniUML.Themes.*.dll)|MiniUML.Themes.*.dll",
+          Filter = MiniUML.Framework.Local.Strings.STR_FILETYPE_FILTER_PLUGINS,
           DefaultExt = "dll",
           AddExtension = true,
           ValidateNames = true,

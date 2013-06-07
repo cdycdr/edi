@@ -1,4 +1,4 @@
-﻿namespace MiniUML.Plugins.UmlClassDiagram
+namespace MiniUML.Plugins.UmlClassDiagram
 {
   using MiniUML.Model.ViewModels;
   using System.Windows;
@@ -20,7 +20,7 @@
     #region properties
     public override string Name
     {
-      get { return "UML Class Diagram"; }
+      get { return MiniUML.Framework.Local.Strings.STR_UML_CLASS_DIAGRAM_TT; }
     }
 
     public override FrameworkElement View

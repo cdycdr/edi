@@ -1,4 +1,4 @@
-﻿namespace EdiViews.ViewModel.Base
+namespace EdiViews.ViewModel.Base
 {
   using System;
   using System.Collections.Generic;
@@ -205,7 +205,7 @@
     /// </summary>
     public void InitializeDialogState()
     {
-      this.ProblemCaption = "Your input is not sufficient. Correct the following problems or click Cancel:";
+      this.ProblemCaption = Util.Local.Strings.STR_DIALOG_INPUT_PROBLEM_CAPTION;
 
       this.EvaluateInputData = null;
 

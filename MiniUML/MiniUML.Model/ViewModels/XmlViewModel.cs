@@ -62,8 +62,8 @@ namespace MiniUML.Model.ViewModels
             public UpdateDesignerCommandModel(XmlViewModel viewModel)
             {
                 _viewModel = viewModel;
-                this.Name = "Update Designer";
-                this.Description = "Update the design surface to reflect changes made to the underlying XML document.";
+                this.Name        = MiniUML.Framework.Local.Strings.STR_CMD_UPDATE;
+                this.Description = MiniUML.Framework.Local.Strings.STR_CMD_UPDATE_DESCRIPTION;
             }
 
             public override void OnQueryEnabled(object sender, CanExecuteRoutedEventArgs e)

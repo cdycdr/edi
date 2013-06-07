@@ -1,15 +1,15 @@
-﻿using System.Windows.Controls;
-
 namespace MiniUML.View.Views
 {
-    /// <summary>
-    /// Interaction logic for RibbonView.xaml
-    /// </summary>
-    public partial class RibbonView : UserControl
+  using System.Windows.Controls;
+
+  /// <summary>
+  /// Interaction logic for RibbonView.xaml
+  /// </summary>
+  public partial class RibbonView : UserControl
+  {
+    public RibbonView()
     {
-        public RibbonView()
-        {
-            InitializeComponent();
-        }
+      this.InitializeComponent();
     }
+  }
 }

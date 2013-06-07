@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CMD_APP_About_Description" xml:space="preserve">
+  <data name="texts" xml:space="preserve">
     <value>Informationen über EDI anzeigen</value>
   </data>
   <data name="CMD_APP_CloseDoc_Description" xml:space="preserve">
-    <value>Dokument schliessen</value>
+    <value>Dokument schließen</value>
   </data>
   <data name="CMD_App_Exit_Describtion" xml:space="preserve">
     <value>Anwendung beenden</value>
@@ -157,7 +157,7 @@
     <value>Nächste Textstelle suchen</value>
   </data>
   <data name="CMD_TXT_FindNext_Description" xml:space="preserve">
-    <value>Text in document suchen</value>
+    <value>Text in Dokument suchen</value>
   </data>
   <data name="CMD_TXT_FindPreviousText_Description" xml:space="preserve">
     <value>Vorherige Textstelle suchen</value>
@@ -201,13 +201,13 @@
     <comment>Sub-Menu Label</comment>
   </data>
   <data name="STR_CmdName_Close" xml:space="preserve">
-    <value>Schliessen</value>
+    <value>Schließen</value>
   </data>
   <data name="STR_CmdName_Copy" xml:space="preserve">
     <value>Kopieren</value>
   </data>
   <data name="STR_CmdName_Copy_TT" xml:space="preserve">
-    <value>Selectierten Element koperien</value>
+    <value>Selektierte Elemente kopieren</value>
   </data>
   <data name="STR_CmdName_Cut" xml:space="preserve">
     <value>Ausschneiden</value>
@@ -270,7 +270,7 @@
     <comment>Application Command Label</comment>
   </data>
   <data name="STR_CmdName_Open_Log4Net_TT" xml:space="preserve">
-    <value>Log4Net Datei öffen</value>
+    <value>Log4Net Datei öffnen</value>
   </data>
   <data name="STR_CmdName_Open_Text" xml:space="preserve">
     <value>Text Dokument</value>
@@ -348,7 +348,7 @@
     <comment>Sub-Menu Label</comment>
   </data>
   <data name="STR_CmdName_View_Start_Page" xml:space="preserve">
-    <value>Start Seite</value>
+    <value>Startseite</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_HighlightingDefinition_TT" xml:space="preserve">
     <value>Art der Syntaxhervorhebung auswählen</value>
@@ -390,7 +390,7 @@
     <value>Bereit.</value>
   </data>
   <data name="STR_StatusBar_Textencoding_TT" xml:space="preserve">
-    <value>Codierung des texts im aktuellen Dokument</value>
+    <value>Codierung des Texts im aktuellen Dokument</value>
   </data>
   <data name="STR_StatusBar_X_Coord_Label" xml:space="preserve">
     <value>X:</value>
@@ -405,7 +405,7 @@
     <value>Aktuelle Zeile des Cursors im aktuellen Dokument</value>
   </data>
   <data name="STR_MSG_IssueTrackerText" xml:space="preserve">
-    <value>Bitte klicken Sie auf den unteren Link um festzustellen ob der aufgetrettene Fehler schon bekannt. 
+    <value>Bitte klicken Sie auf den unteren Link um festzustellen ob der aufgetretene Fehler schon bekannt. 
 
 Bitte berichten Sie den Fehler wenn es noch keinen Eintrag dazu gibt.
 
@@ -417,13 +417,13 @@ Bitte fügen Sie Screenshots hinzu wenn das hilfreich ist.</value>
     <value>Ausnahmefehler</value>
   </data>
   <data name="STR_Msg_UnknownError" xml:space="preserve">
-    <value>Ein unbekannter Fehler is aufgetretten.</value>
+    <value>Ein unbekannter Fehler ist aufgetreten.</value>
   </data>
   <data name="STR_MSG_UnknownError_Caption" xml:space="preserve">
-    <value>Unkekannter Fehler</value>
+    <value>Unbekannter Fehler</value>
   </data>
   <data name="STR_MSG_UnknownError_InErrorDispatcher" xml:space="preserve">
-    <value>Ein Fehler is bei der Behandlung eines unbekannten Fehlers aufgetretten.</value>
+    <value>Ein Fehler ist bei der Behandlung eines unbekannten Fehlers aufgetreten.</value>
   </data>
   <data name="STR_MSG_UnknownError_InShutDownProcess" xml:space="preserve">
     <value>Fehler in der Prozedur zu Beendigung des Programms.</value>
@@ -441,22 +441,22 @@ Bitte fügen Sie Screenshots hinzu wenn das hilfreich ist.</value>
     <value>Öffnet den Order der dieses Dokument enthält in Windows Explorer</value>
   </data>
   <data name="STR_MSG_ErrorLoadingPlugin" xml:space="preserve">
-    <value>Ein Fehler ist während der initialisierung eines Plugins aufgetretten '{0}'.</value>
+    <value>Ein Fehler ist während der Initialisierung eines Plugins aufgetreten '{0}'.</value>
   </data>
   <data name="STR_MSG_ErrorRegisteringHighlighting" xml:space="preserve">
     <value>Fehler bei der Registrierung der Syntaxhervorhebung: '{0}'</value>
   </data>
   <data name="STR_MSG_ErrorSavingFile" xml:space="preserve">
-    <value>Ein Ausnahmefehler ist beim speichern des Dokuments aufgetretten.</value>
+    <value>Ein Ausnahmefehler ist beim speichern des Dokuments aufgetreten.</value>
   </data>
   <data name="STR_MSG_ErrorWhileLoadingPlugin" xml:space="preserve">
-    <value>Ein Fehler ist beim laden eines Plugins aufgetretten '{0}'.</value>
+    <value>Ein Fehler ist beim laden eines Plugins '{0} aufgetreten'.</value>
   </data>
   <data name="STR_MSG_ErrorWhileSavingAFile" xml:space="preserve">
-    <value>Der Fehler '{0}'\n ist beim speichern einer Datei aufgetretten.</value>
+    <value>Der Fehler '{0}'\n ist beim speichern einer Datei aufgetreten.</value>
   </data>
   <data name="STR_MSG_ErrorWhileSavingFileX" xml:space="preserve">
-    <value>Der Fehler:'{0}'\n ist beim speichern der Datei\n:'{1}' aufgetretten</value>
+    <value>Der Fehler:'{0}'\n ist beim speichern der Datei\n:'{1}' aufgetreten</value>
   </data>
   <data name="STR_MSG_PluginNotLoaded" xml:space="preserve">
     <value>Ein Plugin konnte nicht geladen werden.</value>
@@ -477,7 +477,7 @@ Bitte fügen Sie Screenshots hinzu wenn das hilfreich ist.</value>
     <value>Löscht die aktuelle Textzeile</value>
   </data>
   <data name="STR_Cmd_CollapseTextFoldings" xml:space="preserve">
-    <value>Textfalten kolabieren</value>
+    <value>Textfalten kollabieren</value>
   </data>
   <data name="STR_Cmd_ConvertLeadingSpaces" xml:space="preserve">
     <value>Einleitende Leerzeichen in Tabs konvertieren</value>
@@ -504,7 +504,7 @@ Bitte fügen Sie Screenshots hinzu wenn das hilfreich ist.</value>
     <value>Ausleitende White Spaces löschen</value>
   </data>
   <data name="STR_Cmd__ApplyTextIndentationStrategy" xml:space="preserve">
-    <value>Strategy zur Texteinrückung anwenden</value>
+    <value>Texteinrückung anwenden</value>
   </data>
   <data name="STR_Cmd__ConvertTextToLowerCase" xml:space="preserve">
     <value>Text in Kleinschreibung konvertieren</value>
@@ -530,7 +530,7 @@ Bitte fügen Sie Screenshots hinzu wenn das hilfreich ist.</value>
     <comment>FileFilter</comment>
   </data>
   <data name="STR_FileType_FileFilter_AllFiles" xml:space="preserve">
-    <value>Alle Deteien (*.*)|*.*</value>
+    <value>Alle Dateien (*.*)|*.*</value>
     <comment>FileFilter</comment>
   </data>
   <data name="STR_FileType_FileFilter_TextFiles" xml:space="preserve">
@@ -550,7 +550,7 @@ Bitte fügen Sie Screenshots hinzu wenn das hilfreich ist.</value>
     <comment>FileFilter</comment>
   </data>
   <data name="STR_FileType_FileFilter_Log4NetPlusText" xml:space="preserve">
-    <value>log4net XML und TextFormat (*.log4j,*.log,*.txt,*.xml)|*.log4j;*.log;*.txt;*.xml</value>
+    <value>log4net XML und Textformat (*.log4j,*.log,*.txt,*.xml)|*.log4j;*.log;*.txt;*.xml</value>
     <comment>FileFilter</comment>
   </data>
   <data name="STR_MSG_FIND_NO_MORE_ITEMS_FOUND" xml:space="preserve">
@@ -563,7 +563,7 @@ Bitte fügen Sie Screenshots hinzu wenn das hilfreich ist.</value>
     <value>Suchen</value>
   </data>
   <data name="STR_MSG_FIND_UNEXPECTED_ERROR" xml:space="preserve">
-    <value>Ein Ausnahmefehler ist aufgetretten.</value>
+    <value>Ein Ausnahmefehler ist aufgetreten.</value>
   </data>
   <data name="STR_THEMING_MSG_CANNOT_FIND_PATH" xml:space="preserve">
     <value>Der Pfad zu der Datei: '{0}' kann nicht gefunden werden.\n\nBitte stellen sie sicher das der Zugriff möglich ist.</value>
@@ -578,7 +578,7 @@ Bitte fügen Sie Screenshots hinzu wenn das hilfreich ist.</value>
     <value>Das Plugin Verzeichnis wurde nicht gefunden.</value>
   </data>
   <data name="STR_MSG_ACCESS_PLuginDir" xml:space="preserve">
-    <value>Ein Fehler ist beim Zugriff auf das Plugin Verzeichnis aufgetretten.</value>
+    <value>Ein Fehler ist beim Zugriff auf das Plugin Verzeichnis aufgetreten.</value>
   </data>
   <data name="STR_MSG_ACCESS_PLuginDir_Caption" xml:space="preserve">
     <value>Fehler beim Laden eines UML Plug-ins</value>
@@ -591,5 +591,217 @@ Bitte fügen Sie Screenshots hinzu wenn das hilfreich ist.</value>
   </data>
   <data name="STR_MSG_UML_PLugin_Duplicate" xml:space="preserve">
     <value>Ein Plug-in mit dem gleichen Namen wurde bereits geladen.</value>
+  </data>
+  <data name="STR_ABOUT_MSG" xml:space="preserve">
+    <value>Ein Text und UML Editor.</value>
+  </data>
+  <data name="STR_ABOUT_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="STR_ABOUT_DOCKING_LAYOUT" xml:space="preserve">
+    <value>Docking Layout System:</value>
+  </data>
+  <data name="STR_ABOUT_TextEditor" xml:space="preserve">
+    <value>Text Editor:</value>
+  </data>
+  <data name="STR_ABOUT_Log4NetViewer" xml:space="preserve">
+    <value>Log4Net Viewer:</value>
+  </data>
+  <data name="STR_ABOUT_CODE_COMPLETION" xml:space="preserve">
+    <value>Code Komplettierung:</value>
+  </data>
+  <data name="STR_ABOUT_OK_BUTTON" xml:space="preserve">
+    <value>_OK</value>
+  </data>
+  <data name="STR_EDIT_MODE_INSERT" xml:space="preserve">
+    <value>Einfg</value>
+  </data>
+  <data name="STR_EDIT_MODE_TYPEOVER" xml:space="preserve">
+    <value>Übers</value>
+  </data>
+  <data name="STR_FILESTATES_FileName" xml:space="preserve">
+    <value>Dateiname</value>
+    <comment>File Statistics Tool Window</comment>
+  </data>
+  <data name="STR_FILESTATES_FilePath" xml:space="preserve">
+    <value>Pfad</value>
+    <comment>File Statistics Tool Window</comment>
+  </data>
+  <data name="STR_FILESTATES_FileSize" xml:space="preserve">
+    <value>Dateigröße</value>
+    <comment>File Statistics Tool Window</comment>
+  </data>
+  <data name="STR_FILESTATES_LASTMODIFICATION" xml:space="preserve">
+    <value>Datum und Uhrzeit der letzten Änderung.</value>
+    <comment>File Statistics Tool Window</comment>
+  </data>
+  <data name="STR_FINDREPLACE_FINDLABEL" xml:space="preserve">
+    <value>Suchen nach:</value>
+  </data>
+  <data name="STR_FINDREPLACE_SearchInLABEL" xml:space="preserve">
+    <value>Suche in:</value>
+  </data>
+  <data name="STR_FINDREPLACE_CURRENTDOC" xml:space="preserve">
+    <value>Aktuelles Dokument</value>
+  </data>
+  <data name="STR_FINDREPLACE_OPENDOCS" xml:space="preserve">
+    <value>Alle Offenen Dokumente</value>
+  </data>
+  <data name="STR_FINDREPLACE_Options" xml:space="preserve">
+    <value>Optionen</value>
+  </data>
+  <data name="STR_FINDREPLACE_CaseSensitive" xml:space="preserve">
+    <value>Groß-/Kleinschreibung</value>
+  </data>
+  <data name="STR_FINDREPLACE_SearchBackWard" xml:space="preserve">
+    <value>Rückwärts suchen</value>
+  </data>
+  <data name="STR_FINDREPLACE_MatchWholeWord" xml:space="preserve">
+    <value>Ganzes Wort vergleichen</value>
+  </data>
+  <data name="STR_FINDREPLACE_RegularExpression" xml:space="preserve">
+    <value>Regulärer Ausdruck</value>
+  </data>
+  <data name="STR_FINDREPLACE_Wildcards" xml:space="preserve">
+    <value>Platzhalter</value>
+  </data>
+  <data name="STR_FINDREPLACE_ReplaceWith" xml:space="preserve">
+    <value>Ersetzen durch:</value>
+  </data>
+  <data name="STR_FINDREPLACE_FINDNEXT" xml:space="preserve">
+    <value>_Weitersuchen</value>
+  </data>
+  <data name="STR_FINDREPLACE_Replace" xml:space="preserve">
+    <value>_Ersetzen</value>
+  </data>
+  <data name="STR_FINDREPLACE_ReplaceAll" xml:space="preserve">
+    <value>_Alles Ersetzen</value>
+  </data>
+  <data name="STR_FINDREPLACE_ASK_REALLY_REPLACEEVERYTHING" xml:space="preserve">
+    <value>Wollen Sie wirklich alle Vorkommnisse von '{0}' mit '{1}' ersetzen?</value>
+  </data>
+  <data name="STR_FINDREPLACE_ReplaceAll_Caption" xml:space="preserve">
+    <value>Alles Ersetzen</value>
+  </data>
+  <data name="STR_GOTOLINE_OK_BUTTON" xml:space="preserve">
+    <value>_OK</value>
+  </data>
+  <data name="STR_GOTOLINE_CANCEL_BUTTON" xml:space="preserve">
+    <value>_Abbrechen</value>
+  </data>
+  <data name="STR_GOTOLINE_LINE_RANGE_LABEL" xml:space="preserve">
+    <value>Zeile</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_TOOLTIP" xml:space="preserve">
+    <value>Passen Sie die Anzeige an indem Sie ein Filterkriterium eingeben und den Filter dann aktivieren.</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_ALL" xml:space="preserve">
+    <value>ALLE</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_DEBUG" xml:space="preserve">
+    <value>DEBUG</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_INFO" xml:space="preserve">
+    <value>INFO</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_WARN" xml:space="preserve">
+    <value>WARN</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_ERROR" xml:space="preserve">
+    <value>SCHWER</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_FATAL" xml:space="preserve">
+    <value>AUSNAHME</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_DEBUG_TT" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_INFO_TT" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_WARN_TT" xml:space="preserve">
+    <value>Warnung</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_ERROR_TT" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_FATAL_TT" xml:space="preserve">
+    <value>Schwerwiegender Fehler</value>
+  </data>
+  <data name="STR_LOG4NET_DELTATIME" xml:space="preserve">
+    <value>Delta t:</value>
+  </data>
+  <data name="STR_LOG4NET_FILTERRESULT_TT" xml:space="preserve">
+    <value>Summe der tatsächlich angezeigten Element (nach Anwendung der Filter).</value>
+  </data>
+  <data name="STR_LOG4NET_ENTERLOGID_TT" xml:space="preserve">
+    <value>Geben Sie eine log Element Id ein um das Element im Dokument zur Anzeige zu bringen.</value>
+  </data>
+  <data name="STR_LOG4NET_DOCUMENTTAB_TT" xml:space="preserve">
+    <value>Ein log4net Dokument zeigt das Ergebnis einer XML log4net logger Sitzung an.</value>
+  </data>
+  <data name="STR_LOG4NET_READONY_REASON" xml:space="preserve">
+    <value>Ein Log4net Dokument kann nicht editiert werden. Diese Anzeige ist nur im Lesemodus verfügbar.</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_COPYURL" xml:space="preserve">
+    <value>Pfad in Windows Zwischenablage kopieren</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_OpenWithWindowsApp" xml:space="preserve">
+    <value>Mit Windows Anwendung öffnen...</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_OpenInContainingFolder" xml:space="preserve">
+    <value>Übergeordnetes Verzeichnis in Windows Explorer öffnen...</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_Remove" xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
+  <data name="STR_STARTPAGE_TITLE" xml:space="preserve">
+    <value>Startseite</value>
+  </data>
+  <data name="STR_STARTPAGE_WELCOME_TT" xml:space="preserve">
+    <value>Willkommen bei EDI. Benutzen Sie diese Seite um einen schnellen Einstieg in die Anwendung zu finden.</value>
+  </data>
+  <data name="STR_STARTPAGE_VISITPROJECTHOMEPAGE_TT" xml:space="preserve">
+    <value>Besuchen Sie die Internet Seite dieser Anwendung</value>
+  </data>
+  <data name="STR_STARTPAGE_FILEOPEN_TT" xml:space="preserve">
+    <value>Datei öffnen...</value>
+  </data>
+  <data name="STR_DIALOG_INPUT_PROBLEM_CAPTION" xml:space="preserve">
+    <value>Die Eingabe kann nicht verarbeitet werden. Korregieren Sie das Problem oder klicken Sie Cancel.</value>
+  </data>
+  <data name="STR_ACCESS_DIRECTORY_ERROR" xml:space="preserve">
+    <value>Das Verzeichnis '{0}' existiert nicht oder liegt nicht im Zugriff.</value>
+  </data>
+  <data name="STR_FILE_FINDING_CAPTION" xml:space="preserve">
+    <value>Fehler beim auffinden einer Datei</value>
+  </data>
+  <data name="STR_FILE_DEFAULTNAME" xml:space="preserve">
+    <value>Unbenannt</value>
+  </data>
+  <data name="STR_FILE_READONLY_REASON_NO_WRITE_PERMISSION" xml:space="preserve">
+    <value>Diese Datei kann nicht editiert werden weil Sie keine Schreibzugriffsrechte haben.
+Ändern Sie die Zugriffsrechte auf diese Datei oder speichern Sie die Datei an einem anderen Ort.</value>
+  </data>
+  <data name="STR_FILE_READONLY_REASON_USED_BY_OTHER_PROCESS" xml:space="preserve">
+    <value>Diese Datei kann nicht editiert werden weil Sie durch einen anderen Prozess blockiert wird.
+Beenden Sie den anderen Prozess und laden Sie die Datei nochmal oder speichern Sie die Datei an einem anderen Ort.</value>
+  </data>
+  <data name="STR_FILE_OPEN_ERROR_MSG_CAPTION" xml:space="preserve">
+    <value>Ein Fehler ist aufgetreten</value>
+  </data>
+  <data name="STR_SCALE_VIEW_PERCENT" xml:space="preserve">
+    <value>prozent</value>
+  </data>
+  <data name="STR_SCALE_VIEW_PERCENT_SHORT" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="STR_SCALE_VIEW_POINT" xml:space="preserve">
+    <value>Schriftgrad</value>
+    <comment>describes the unit 'point'</comment>
+  </data>
+  <data name="STR_SCALE_VIEW_POINT_SHORT" xml:space="preserve">
+    <value>pt</value>
+    <comment>Is the short notation for the unit 'point'</comment>
   </data>
 </root>

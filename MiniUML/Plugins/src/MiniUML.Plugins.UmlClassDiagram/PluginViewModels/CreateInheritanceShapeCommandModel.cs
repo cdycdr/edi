@@ -20,8 +20,8 @@
       public CreateInheritanceShapeCommandModel(PluginViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Inheritance association";
-        this.Description = "Create a new inheritance association";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_InheritanceAssociation;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_InheritanceAssociation_description;
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.CreateInheritanceShape.png", UriKind.Relative));
       }
 

@@ -1,4 +1,4 @@
-﻿<Window x:Class="Edi.MainWindow"
+<Window x:Class="Edi.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
@@ -61,6 +61,8 @@
                                DocumentsSource="{Binding Files}"
                                ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}"
                                Grid.Row="2"
+                               SnapsToDevicePixels="True"
+
                                AllowDrop="True"
                                behav:DropFileCommand.DropCommand="cmd:AppCommand.LoadFile">
       <avalonDock:DockingManager.DocumentHeaderTemplate>

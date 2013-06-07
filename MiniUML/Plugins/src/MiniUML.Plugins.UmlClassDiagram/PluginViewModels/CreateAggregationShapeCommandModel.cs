@@ -20,8 +20,8 @@
       public CreateAggregationShapeCommandModel(PluginViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Aggregation";
-        this.Description = "Create a new aggregation";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_Aggregation;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_Aggregation_description;
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.CreateAggregationShape.png", UriKind.Relative));
       }
 

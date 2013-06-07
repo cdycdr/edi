@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
@@ -37,7 +37,8 @@ namespace MiniUML.View.Windows
 
         if (pageWidth < 0 || pageHeight < 0)
         {
-          MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "Page dimensions (Height: {0}, Width: {1}) cannot be negative.", pageWidth, pageHeight), "Warning",
+          MsgBox.Msg.Show(string.Format(MiniUML.Framework.Local.Strings.STR_MSG_PAGE_HEIGHT_WIDTH_NEGATIVE, pageWidth, pageHeight),
+                          MiniUML.Framework.Local.Strings.STR_MSG_Warning_Caption,
                           MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Warning);
 
           return false;
@@ -45,7 +46,8 @@ namespace MiniUML.View.Windows
 
         if (pageMarginTop < 0 || pageMarginRight < 0 || pageMarginLeft < 0 || pageMarginBottom < 0)
         {
-          MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "Page margins cannot be negative."), "Warning",
+          MsgBox.Msg.Show(string.Format(MiniUML.Framework.Local.Strings.STR_MSG_PAGE_MARGINS_NEGATIVE),
+                          MiniUML.Framework.Local.Strings.STR_MSG_Warning_Caption,
                           MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Warning);
 
           return false;
@@ -53,7 +55,8 @@ namespace MiniUML.View.Windows
 
         if (pageMarginTop + pageMarginBottom > pageHeight || pageMarginLeft + pageMarginRight > pageWidth)
         {
-          MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "Page margins are larger than page size."), "Warning",
+          MsgBox.Msg.Show(string.Format(MiniUML.Framework.Local.Strings.STR_MSG_PAGE_MARGIN_LARGER_THAN_PAGESIZE),
+                          MiniUML.Framework.Local.Strings.STR_MSG_Warning_Caption,
                           MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Warning);
 
           return false;
@@ -65,12 +68,14 @@ namespace MiniUML.View.Windows
       }
       catch (FormatException)
       {
-        MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "One or more page definition fields are not valid."), "Warning",
+        MsgBox.Msg.Show(string.Format(MiniUML.Framework.Local.Strings.STR_MSG_PAGE_DEFINITION_FIELD_INVALID),
+                        MiniUML.Framework.Local.Strings.STR_MSG_Warning_Caption,
                         MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Warning);
       }
       catch (OverflowException)
       {
-        MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "One or more page definition fields are not valid."), "Warning",
+        MsgBox.Msg.Show(string.Format(MiniUML.Framework.Local.Strings.STR_MSG_PAGE_DEFINITION_FIELD_INVALID),
+                        MiniUML.Framework.Local.Strings.STR_MSG_Warning_Caption,
                         MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Warning);
       }
       return false;

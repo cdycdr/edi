@@ -20,8 +20,8 @@
       public CreateClassShapeCommandModel(PluginViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Class";
-        this.Description = "Create a new Class shape";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_Class;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_Class_description;
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.CreateClassShape.png", UriKind.Relative));
       }
 

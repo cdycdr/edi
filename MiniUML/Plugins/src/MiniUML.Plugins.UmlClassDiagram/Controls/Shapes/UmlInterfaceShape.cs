@@ -1,23 +1,25 @@
-﻿using System.Windows.Controls;
-
 namespace MiniUML.Plugins.UmlClassDiagram.Resources.Shapes
 {
-    public class UmlInterfaceShape : GenericUmlContainerShape
+  using System.Windows.Controls;
+
+  public class UmlInterfaceShape : GenericUmlContainerShape
+  {
+    public UmlInterfaceShape()
     {
-        public UmlInterfaceShape()
-        {
-            createContextMenu();
-        }
-
-        private void createContextMenu()
-        {
-            AddMenuItem("Add _Method", "AddMethod");
-            AddMenuItem("Add _Property", "AddProperty");
-            AddMenuItem("Add _Event", "AddEvent");
-            ContextMenu.Items.Add(new Separator());
-            AddMenuItem("Delete", "Delete");
-            AddZOrderMenuItems();
-        }
-
+      createContextMenu();
     }
+
+    private void createContextMenu()
+    {
+      AddMenuItem(MiniUML.Framework.Local.Strings.STR_MENUITEM_ADD_METHOD, "AddMethod");
+      AddMenuItem(MiniUML.Framework.Local.Strings.STR_MENUITEM_ADD_PROPERTY, "AddProperty");
+      AddMenuItem(MiniUML.Framework.Local.Strings.STR_MENUITEM_ADD_EVENT, "AddEvent");
+
+      ContextMenu.Items.Add(new Separator());
+      
+      AddMenuItem(MiniUML.Framework.Local.Strings.STR_MENUITEM_DELETE, "Delete");
+
+      AddZOrderMenuItems();
+    }
+  }
 }

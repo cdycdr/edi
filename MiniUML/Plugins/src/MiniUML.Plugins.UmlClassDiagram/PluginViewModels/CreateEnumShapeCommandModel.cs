@@ -19,8 +19,8 @@
       public CreateEnumShapeCommandModel(PluginViewModel viewModel)
       {
         _viewModel = viewModel;
-        this.Name = "Enum";
-        this.Description = "Create a new Enum shape";
+        this.Name = MiniUML.Framework.Local.Strings.STR_CMD_Enum;
+        this.Description = MiniUML.Framework.Local.Strings.STR_CMD_Enum_description;
         this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.CreateEnumShape.png", UriKind.Relative));
       }
 

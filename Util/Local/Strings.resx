@@ -154,13 +154,13 @@
     <value>Switch off syntax highlighting for current file</value>
   </data>
   <data name="CMD_TXT_FindNextText_Description" xml:space="preserve">
-    <value>Find next occurrance of specific text in a document</value>
+    <value>Find next occurrence of specific text in a document</value>
   </data>
   <data name="CMD_TXT_FindNext_Description" xml:space="preserve">
     <value>Find specific text in a document</value>
   </data>
   <data name="CMD_TXT_FindPreviousText_Description" xml:space="preserve">
-    <value>Find previous occurrance of specific text in a document</value>
+    <value>Find previous occurrence of specific text in a document</value>
   </data>
   <data name="CMD_TXT_FindReplaceText_Description" xml:space="preserve">
     <value>Find and replace a specific text in a document</value>
@@ -390,7 +390,7 @@
     <value>Ready.</value>
   </data>
   <data name="STR_StatusBar_Textencoding_TT" xml:space="preserve">
-    <value>Endcoding of the text in the current document</value>
+    <value>Encoding of the text in the current document</value>
   </data>
   <data name="STR_StatusBar_X_Coord_Label" xml:space="preserve">
     <value>X:</value>
@@ -423,7 +423,7 @@ and a statement about the function/workflow you were using. Attach screenshots o
     <value>Unhandled Error</value>
   </data>
   <data name="STR_MSG_UnknownError_InErrorDispatcher" xml:space="preserve">
-    <value>An error occured while dispatching unhandled exception</value>
+    <value>An error occurred while dispatching unhandled exception</value>
   </data>
   <data name="STR_MSG_UnknownError_InShutDownProcess" xml:space="preserve">
     <value>Error in shut-down process.</value>
@@ -441,7 +441,7 @@ and a statement about the function/workflow you were using. Attach screenshots o
     <value>Open the folder that contains this document in Windows Explorer</value>
   </data>
   <data name="STR_MSG_ErrorLoadingPlugin" xml:space="preserve">
-    <value>An error occured while initializing a plugin found in assembly '{0}'.</value>
+    <value>An error occurred while initializing a plugin found in assembly '{0}'.</value>
   </data>
   <data name="STR_MSG_ErrorRegisteringHighlighting" xml:space="preserve">
     <value>Error registering highlighting: '{0}'</value>
@@ -450,7 +450,7 @@ and a statement about the function/workflow you were using. Attach screenshots o
     <value>An unexpected problem has occurred while saving the file.</value>
   </data>
   <data name="STR_MSG_ErrorWhileLoadingPlugin" xml:space="preserve">
-    <value>An error occured while loading plugin assembly '{0}'.</value>
+    <value>An error occurred while loading plugin assembly '{0}'.</value>
   </data>
   <data name="STR_MSG_ErrorWhileSavingAFile" xml:space="preserve">
     <value>Error '{0}'\nhas occurred while saving a file.</value>
@@ -504,7 +504,7 @@ and a statement about the function/workflow you were using. Attach screenshots o
     <value>Remove Trailing White Space</value>
   </data>
   <data name="STR_Cmd__ApplyTextIndentationStrategy" xml:space="preserve">
-    <value>Apply Indention Strategy</value>
+    <value>Apply Indentation Strategy</value>
   </data>
   <data name="STR_Cmd__ConvertTextToLowerCase" xml:space="preserve">
     <value>Convert text to lower case</value>
@@ -555,16 +555,16 @@ and a statement about the function/workflow you were using. Attach screenshots o
     <value>There are no more search results to display.</value>
   </data>
   <data name="STR_MSG_FIND_NO_MORE_ITEMS_FOUND2" xml:space="preserve">
-    <value>"No further occurence found.</value>
+    <value>No further occurrence found.</value>
   </data>
   <data name="STR_MSG_FIND_Caption" xml:space="preserve">
     <value>Search</value>
   </data>
   <data name="STR_MSG_FIND_UNEXPECTED_ERROR" xml:space="preserve">
-    <value>An unexpected error occured.</value>
+    <value>An unexpected error occurred.</value>
   </data>
   <data name="STR_THEMING_MSG_CANNOT_FIND_PATH" xml:space="preserve">
-    <value>Cannot find Path to: '{0}'\n\nPlease make sure this module is accesible.</value>
+    <value>Cannot find Path to: '{0}'\n\nPlease make sure this module is accessible.</value>
   </data>
   <data name="STR_THEMING_CAPTION" xml:space="preserve">
     <value>Theming Error</value>
@@ -576,7 +576,7 @@ and a statement about the function/workflow you were using. Attach screenshots o
     <value>The plugin directory was not found.</value>
   </data>
   <data name="STR_MSG_ACCESS_PLuginDir" xml:space="preserve">
-    <value>An error occured while accessing the plugin directory.</value>
+    <value>An error occurred while accessing the plugin directory.</value>
   </data>
   <data name="STR_MSG_ACCESS_PLuginDir_Caption" xml:space="preserve">
     <value>Error while loading UML plug-in</value>
@@ -589,5 +589,217 @@ and a statement about the function/workflow you were using. Attach screenshots o
   </data>
   <data name="STR_MSG_UML_PLugin_Duplicate" xml:space="preserve">
     <value>A plugin with the specified name has already been loaded.</value>
+  </data>
+  <data name="STR_ABOUT_MSG" xml:space="preserve">
+    <value>A Text and UML Editor.</value>
+  </data>
+  <data name="STR_ABOUT_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="STR_ABOUT_DOCKING_LAYOUT" xml:space="preserve">
+    <value>Docking Layout System:</value>
+  </data>
+  <data name="STR_ABOUT_TextEditor" xml:space="preserve">
+    <value>Text Editor:</value>
+  </data>
+  <data name="STR_ABOUT_Log4NetViewer" xml:space="preserve">
+    <value>Log4Net Viewer:</value>
+  </data>
+  <data name="STR_ABOUT_CODE_COMPLETION" xml:space="preserve">
+    <value>Code Completion:</value>
+  </data>
+  <data name="STR_ABOUT_OK_BUTTON" xml:space="preserve">
+    <value>_OK</value>
+  </data>
+  <data name="STR_EDIT_MODE_INSERT" xml:space="preserve">
+    <value>INS</value>
+  </data>
+  <data name="STR_EDIT_MODE_TYPEOVER" xml:space="preserve">
+    <value>OVR</value>
+  </data>
+  <data name="STR_FILESTATES_FileName" xml:space="preserve">
+    <value>File Name</value>
+    <comment>File Statistics Tool Window</comment>
+  </data>
+  <data name="STR_FILESTATES_FilePath" xml:space="preserve">
+    <value>File Path</value>
+    <comment>File Statistics Tool Window</comment>
+  </data>
+  <data name="STR_FILESTATES_FileSize" xml:space="preserve">
+    <value>File Size</value>
+    <comment>File Statistics Tool Window</comment>
+  </data>
+  <data name="STR_FILESTATES_LASTMODIFICATION" xml:space="preserve">
+    <value>Date and time of last modification.</value>
+    <comment>File Statistics Tool Window</comment>
+  </data>
+  <data name="STR_FINDREPLACE_FINDLABEL" xml:space="preserve">
+    <value>Text to Find:</value>
+  </data>
+  <data name="STR_FINDREPLACE_SearchInLABEL" xml:space="preserve">
+    <value>Search in:</value>
+  </data>
+  <data name="STR_FINDREPLACE_CURRENTDOC" xml:space="preserve">
+    <value>Current Document</value>
+  </data>
+  <data name="STR_FINDREPLACE_OPENDOCS" xml:space="preserve">
+    <value>All Open Documents</value>
+  </data>
+  <data name="STR_FINDREPLACE_Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="STR_FINDREPLACE_CaseSensitive" xml:space="preserve">
+    <value>Case Sensitive</value>
+  </data>
+  <data name="STR_FINDREPLACE_SearchBackWard" xml:space="preserve">
+    <value>Search up</value>
+  </data>
+  <data name="STR_FINDREPLACE_MatchWholeWord" xml:space="preserve">
+    <value>Match whole Word</value>
+  </data>
+  <data name="STR_FINDREPLACE_RegularExpression" xml:space="preserve">
+    <value>Regular Expression</value>
+  </data>
+  <data name="STR_FINDREPLACE_Wildcards" xml:space="preserve">
+    <value>Wildcards</value>
+  </data>
+  <data name="STR_FINDREPLACE_ReplaceWith" xml:space="preserve">
+    <value>Replace with:</value>
+  </data>
+  <data name="STR_FINDREPLACE_FINDNEXT" xml:space="preserve">
+    <value>Find _Next</value>
+  </data>
+  <data name="STR_FINDREPLACE_Replace" xml:space="preserve">
+    <value>_Replace</value>
+  </data>
+  <data name="STR_FINDREPLACE_ReplaceAll" xml:space="preserve">
+    <value>Replace _All</value>
+  </data>
+  <data name="STR_FINDREPLACE_ASK_REALLY_REPLACEEVERYTHING" xml:space="preserve">
+    <value>Do you really want to replace all occurrences of '{0}' with '{1}'?</value>
+  </data>
+  <data name="STR_FINDREPLACE_ReplaceAll_Caption" xml:space="preserve">
+    <value>Replace all</value>
+  </data>
+  <data name="STR_GOTOLINE_OK_BUTTON" xml:space="preserve">
+    <value>_OK</value>
+  </data>
+  <data name="STR_GOTOLINE_CANCEL_BUTTON" xml:space="preserve">
+    <value>_Cancel</value>
+  </data>
+  <data name="STR_GOTOLINE_LINE_RANGE_LABEL" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_TOOLTIP" xml:space="preserve">
+    <value>Type a filter criteria and activate the filter to customize the display.</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_ALL" xml:space="preserve">
+    <value>ALL</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_DEBUG" xml:space="preserve">
+    <value>DEBUG</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_INFO" xml:space="preserve">
+    <value>INFO</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_WARN" xml:space="preserve">
+    <value>WARN</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_ERROR" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_FATAL" xml:space="preserve">
+    <value>FATAL</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_DEBUG_TT" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_INFO_TT" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_WARN_TT" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_ERROR_TT" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_FATAL_TT" xml:space="preserve">
+    <value>Fatal Error</value>
+  </data>
+  <data name="STR_LOG4NET_DELTATIME" xml:space="preserve">
+    <value>Delta t:</value>
+  </data>
+  <data name="STR_LOG4NET_FILTERRESULT_TT" xml:space="preserve">
+    <value>Sum of actually displayed items (after applying filters).</value>
+  </data>
+  <data name="STR_LOG4NET_ENTERLOGID_TT" xml:space="preserve">
+    <value>Enter a log item Id to scroll the document view to its item.</value>
+  </data>
+  <data name="STR_LOG4NET_DOCUMENTTAB_TT" xml:space="preserve">
+    <value>A log4net document can be used to view the XML output from a log4net logger session.</value>
+  </data>
+  <data name="STR_LOG4NET_READONY_REASON" xml:space="preserve">
+    <value>A Log4net document cannot be edit. This is a read-only viewer document.</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_COPYURL" xml:space="preserve">
+    <value>Copy Path to Clipboard</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_OpenWithWindowsApp" xml:space="preserve">
+    <value>Open with Windows Application...</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_OpenInContainingFolder" xml:space="preserve">
+    <value>Open in containing Folder</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="STR_STARTPAGE_TITLE" xml:space="preserve">
+    <value>Start Page</value>
+  </data>
+  <data name="STR_STARTPAGE_WELCOME_TT" xml:space="preserve">
+    <value>Welcome to Edi. Review this page to get started with this editor application.</value>
+  </data>
+  <data name="STR_STARTPAGE_VISITPROJECTHOMEPAGE_TT" xml:space="preserve">
+    <value>Visit the Internet home page of this application</value>
+  </data>
+  <data name="STR_STARTPAGE_FILEOPEN_TT" xml:space="preserve">
+    <value>Open file...</value>
+  </data>
+  <data name="STR_DIALOG_INPUT_PROBLEM_CAPTION" xml:space="preserve">
+    <value>Your input is not sufficient. Correct the following problems or click Cancel.</value>
+  </data>
+  <data name="STR_ACCESS_DIRECTORY_ERROR" xml:space="preserve">
+    <value>The directory '{0}' does not exist or cannot be accessed.</value>
+  </data>
+  <data name="STR_FILE_FINDING_CAPTION" xml:space="preserve">
+    <value>Error finding file</value>
+  </data>
+  <data name="STR_FILE_DEFAULTNAME" xml:space="preserve">
+    <value>Untitled</value>
+  </data>
+  <data name="STR_FILE_READONLY_REASON_NO_WRITE_PERMISSION" xml:space="preserve">
+    <value>This file cannot be edit because you do not have write access.
+Change the file access permissions or save the file in a different location if you want to edit it.</value>
+  </data>
+  <data name="STR_FILE_READONLY_REASON_USED_BY_OTHER_PROCESS" xml:space="preserve">
+    <value>This file cannot be edit because another process is currently writing to it.
+End the other process and re-open the file or save the file in a different location if you want to edit it.</value>
+  </data>
+  <data name="STR_FILE_OPEN_ERROR_MSG_CAPTION" xml:space="preserve">
+    <value>An error has occurred</value>
+  </data>
+  <data name="STR_SCALE_VIEW_PERCENT" xml:space="preserve">
+    <value>percent</value>
+  </data>
+  <data name="STR_SCALE_VIEW_PERCENT_SHORT" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="STR_SCALE_VIEW_POINT" xml:space="preserve">
+    <value>font size</value>
+    <comment>describes the unit 'point'</comment>
+  </data>
+  <data name="STR_SCALE_VIEW_POINT_SHORT" xml:space="preserve">
+    <value>pt</value>
+    <comment>Is the short notation for the unit 'point'</comment>
   </data>
 </root>

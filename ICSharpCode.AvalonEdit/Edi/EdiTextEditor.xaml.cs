@@ -43,7 +43,7 @@
     {
       // This is default list of viewing scales that is bound by the default XAML skin in EdiTextEditor.xaml
       // Consumers can use other lists by binding to their viewmodel when re-styling the control in the
-      // applications resource dictionary
+      // applications resource dictionary (therefore, this list is not localized)
       this.ScaleList = new ObservableCollection<string>(){ "20 %",
                                                            "50 %",
                                                            "75 %",

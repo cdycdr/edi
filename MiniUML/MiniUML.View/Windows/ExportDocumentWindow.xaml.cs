@@ -1,4 +1,4 @@
-﻿namespace MiniUML.View.Windows
+namespace MiniUML.View.Windows
 {
   using System;
   using System.Globalization;
@@ -31,7 +31,9 @@
 
         if (resolution <= 0)
         {
-          Msg.Show("Invalid resolution.", "Warning", MsgBoxButtons.OK, MsgBoxImage.Warning);
+          Msg.Show(MiniUML.Framework.Local.Strings.STR_MSG_INVALID_RESOLUTION,
+                   MiniUML.Framework.Local.Strings.STR_MSG_Warning_Caption,
+                   MsgBoxButtons.OK, MsgBoxImage.Warning);
           return;
         }
 
@@ -43,7 +45,9 @@
       }
       catch (SystemException)
       {
-        Msg.Show("One or more page definition fields are not valid.", "Warning", MsgBoxButtons.OK, MsgBoxImage.Warning);
+        Msg.Show(MiniUML.Framework.Local.Strings.STR_MSG_PAGE_DEFINITION_FIELD_INVALID,
+                 MiniUML.Framework.Local.Strings.STR_MSG_Warning_Caption,
+                 MsgBoxButtons.OK, MsgBoxImage.Warning);
       }
     }
   }

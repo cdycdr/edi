@@ -46,7 +46,7 @@
     #region Constructor
     public MRUListVM()
     {
-      this.mMaxMruEntryCount = 15;
+      this.mMaxMruEntryCount = 45;
       this.mPinEntryAtHeadOfList = MRUSortMethod.PinnedEntriesFirst;
     }
 

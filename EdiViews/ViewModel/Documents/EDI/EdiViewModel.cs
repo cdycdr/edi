@@ -1,4 +1,4 @@
-﻿namespace EdiViews.ViewModel.Documents
+namespace EdiViews.ViewModel.Documents
 {
   using System;
   using System.Collections.ObjectModel;
@@ -25,7 +25,7 @@
     private IHighlightingDefinition mHighlightingDefinition;
     private static int iNewFileCounter = 1;
     private string defaultFileType = "txt";
-    private string defaultFileName = "Untitled";
+    private readonly static string defaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
 
     private object lockThis = new object();
     #endregion Fields
@@ -41,9 +41,8 @@
 
       this.TxtControl = new TextBoxController();
       
-      this.FilePath = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}", this.defaultFileName,
-                                    EdiViewModel.iNewFileCounter++,
-                                    this.defaultFileType);
+      this.FilePath = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}",
+                                    EdiViewModel.defaultFileName, EdiViewModel.iNewFileCounter++, this.defaultFileType);
 
       this.IsDirty = false;
       this.mHighlightingDefinition = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(this.mFilePath));;
@@ -68,7 +67,7 @@
       get
       {
         if (this.mFilePath == null || this.mFilePath == String.Empty)
-          return string.Format(CultureInfo.CurrentCulture, "New.{1}", this.defaultFileType);
+          return string.Format(CultureInfo.CurrentCulture, "{0}.{1}", EdiViewModel.defaultFileName, this.defaultFileType);
 
         return this.mFilePath;
       }
@@ -116,7 +115,7 @@
       {
         // This option should never happen - its an emergency break for those cases that never occur
         if (FilePath == null || FilePath == String.Empty)
-          return string.Format(CultureInfo.InvariantCulture, "{0}.{1}", this.defaultFileName, this.defaultFileType);
+          return string.Format(CultureInfo.InvariantCulture, "{0}.{1}", EdiViewModel.defaultFileName, this.defaultFileType);
 
         return System.IO.Path.GetFileName(FilePath);
       }
@@ -213,7 +212,6 @@
       {
         if (_isDirty != value)
         {
-          Console.WriteLine("Setting IsDirty from " + _isDirty.ToString() + " to " + value.ToString());
           _isDirty = value;
 
           this.NotifyPropertyChanged(() => this.IsDirty);
@@ -420,8 +418,7 @@
           if ((System.IO.File.GetAttributes(filePath) & FileAttributes.ReadOnly) != 0)
           {
             this.IsReadOnly = true;
-            this.IsReadOnlyReason = "This file cannot be edit because you do not have write access.\n" +
-                                    "Change the file access permissions or save the file in a different location if you want to edit it.";
+            this.IsReadOnlyReason = Util.Local.Strings.STR_FILE_READONLY_REASON_NO_WRITE_PERMISSION;
           }
 
           try
@@ -440,8 +437,7 @@
             try
             {
               this.IsReadOnly = true;  // Open file in readonly mode
-              this.IsReadOnlyReason = "This file cannot be edit because another process is currently writting to it.\n" +
-                                      "Change the file access permissions or save the file in a different location if you want to edit it.";
+              this.IsReadOnlyReason = Util.Local.Strings.STR_FILE_READONLY_REASON_USED_BY_OTHER_PROCESS;
 
               using (FileStream fs = new FileStream(this.mFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
               {
@@ -454,7 +450,7 @@
             }
             catch (Exception ex)
             {
-              MsgBox.Msg.Show(ex.Message, "An error has occurred", MsgBoxButtons.OK);
+              MsgBox.Msg.Show(ex.Message, Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, MsgBoxButtons.OK);
 
               return false;
             }
@@ -465,7 +461,7 @@
       }
       catch (Exception exp)
       {
-        MsgBox.Msg.Show(exp.Message, "An error has occurred", MsgBoxButtons.OK);
+        MsgBox.Msg.Show(exp.Message, Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, MsgBoxButtons.OK);
 
         return false;
       }
@@ -885,8 +881,8 @@
       var percentDefaults = new ObservableCollection<string>() { "25", "50", "75", "100", "125", "150", "175", "200", "300", "400", "500" };
       var pointsDefaults = new ObservableCollection<string>() { "3", "6", "8", "9", "10", "12", "14", "16", "18", "20", "24", "26", "32", "48", "60" };
 
-      unitList.Add(new ListItem(Itemkey.ScreenPercent, "percent", "%", percentDefaults));
-      unitList.Add(new ListItem(Itemkey.ScreenFontPoints, "points", "pt", pointsDefaults));
+      unitList.Add(new ListItem(Itemkey.ScreenPercent,    Util.Local.Strings.STR_SCALE_VIEW_PERCENT, Util.Local.Strings.STR_SCALE_VIEW_PERCENT_SHORT, percentDefaults));
+      unitList.Add(new ListItem(Itemkey.ScreenFontPoints, Util.Local.Strings.STR_SCALE_VIEW_POINT,   Util.Local.Strings.STR_SCALE_VIEW_POINT_SHORT, pointsDefaults));
 
       return unitList;
     }

@@ -1,4 +1,4 @@
-﻿namespace EdiViews.ViewModel.Base
+namespace EdiViews.ViewModel.Base
 {
   using MsgBox;
   using SimpleControls.Command;
@@ -125,8 +125,9 @@
           string parentDir = System.IO.Directory.GetParent(this.FilePath).FullName;
 
           if (System.IO.Directory.Exists(parentDir) == false)
-            MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "The directory '{0}' does not exist or cannot be accessed.", parentDir),
-                            "Error finding file", MsgBoxButtons.OK, MsgBoxImage.Error);
+            MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, Util.Local.Strings.STR_ACCESS_DIRECTORY_ERROR, parentDir),
+                            Util.Local.Strings.STR_FILE_FINDING_CAPTION,
+                            MsgBoxButtons.OK, MsgBoxImage.Error);
           else
           {
             string argument = @"/select, " + parentDir;
@@ -138,7 +139,8 @@
       catch (System.Exception ex)
       {
         MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (this.FilePath == null ? string.Empty : this.FilePath)),
-                        "Error finding file:", MsgBoxButtons.OK, MsgBoxImage.Error);
+                        Util.Local.Strings.STR_FILE_FINDING_CAPTION,
+                        MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
     #endregion OpenContainingFolder

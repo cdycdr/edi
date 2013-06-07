@@ -1,4 +1,4 @@
-﻿namespace EdiViews.About
+namespace EdiViews.About
 {
   using System.Reflection;
   using EdiViews.ViewModel.Base;
@@ -6,6 +6,10 @@
 
   public class AboutViewModel : DialogViewModelBase
   {
+    #region fields
+    private DialogViewModelBase mOpenCloseView;
+    #endregion fields
+
     #region constructor
     public AboutViewModel()
     {
@@ -17,7 +21,6 @@
     /// Get property to expose elements necessary to evaluate user input
     /// when the user completes his input (eg.: clicks OK in a dialog).
     /// </summary>
-    private DialogViewModelBase mOpenCloseView;
     public DialogViewModelBase OpenCloseView
     {
       get
@@ -36,6 +39,9 @@
       }
     }
 
+    /// <summary>
+    /// Get title of application for display in About view.
+    /// </summary>
     public string AppTitle
     {
       get
@@ -48,7 +54,7 @@
     {
       get
       {
-        return "A Text Editor";
+        return Util.Local.Strings.STR_ABOUT_MSG;
       }
     }
 
@@ -72,6 +78,9 @@
         }
     }
 
+    /// <summary>
+    /// Get URL of application for reference of source and display in About view.
+    /// </summary>
     public string AppUrl
     {
       get
@@ -80,6 +89,9 @@
       }
     }
 
+    /// <summary>
+    /// Get URL string to display for reference of source and display in About view.
+    /// </summary>
     public string AppUrlDisplayString
     {
       get
@@ -88,6 +100,9 @@
       }
     }
 
+    /// <summary>
+    /// Get application version for display in About view.
+    /// </summary>
     public string AppVersion
     {
       get
@@ -96,6 +111,9 @@
       }
     }
 
+    /// <summary>
+    /// Get version of runtime for display in About view.
+    /// </summary>
     public string RunTimeVersion
     {
       get
@@ -104,6 +122,9 @@
       }
     }
 
+    /// <summary>
+    /// Get list of modules (referenced from EntryAssembly) and their version for display in About view.
+    /// </summary>
     public SortedList<string, string> Modules
     {
       get
@@ -112,7 +133,9 @@
 
         foreach (AssemblyName assembly in Assembly.GetEntryAssembly().GetReferencedAssemblies())
         {
-          l.Add(assembly.Name, assembly.Name + ", Version=" + assembly.Version);
+          l.Add(assembly.Name, string.Format("{0}, {1}={2}", assembly.Name,
+                                                             Util.Local.Strings.STR_ABOUT_Version,
+                                                             assembly.Version));
         }
 
         return l;

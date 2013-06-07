@@ -1,9 +1,10 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:local="clr-namespace:EdiViews.GotoLine"
           
           xmlns:behav="clr-namespace:EdiViews.Behaviour"
           xmlns:conv="clr-namespace:EdiViews.Converter.MessageType"
+          xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
           >
 	<Style TargetType="{x:Type local:GotoLineView}">
 		<Setter Property="Template">
@@ -25,7 +26,7 @@
 
               <StackPanel Grid.Row="0" Margin="0,9">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                  <Label Content="Line" Margin="0"/>
+                  <Label Content="{x:Static cmdLabel:Strings.STR_GOTOLINE_LINE_RANGE_LABEL}" Margin="0"/>
                   <Label Content=" " Margin="0"/>
                   <Label Content="{Binding MinMaxRange}" Margin="0" />
                   <Label Content=":" Margin="0"/>

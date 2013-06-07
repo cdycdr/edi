@@ -1,9 +1,11 @@
-﻿<UserControl x:Class="MiniUML.View.Views.XmlView"
+<UserControl x:Class="MiniUML.View.Views.XmlView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:framework="clr-namespace:MiniUML.Framework;assembly=MiniUML.Framework"
              xmlns:utilities="clr-namespace:MiniUML.View.Utilities"
-             xmlns:controls="clr-namespace:MiniUML.View.Controls">
+             xmlns:controls="clr-namespace:MiniUML.View.Controls"
+             xmlns:cmdLabel="clr-namespace:MiniUML.Framework.Local;assembly=MiniUML.Framework"
+             >
 
     <StackPanel Background="{DynamicResource Style.Brushes.RibbonView.PanelBackground}">
 
@@ -16,8 +18,13 @@
                   Collapsed="expander_Collapsed">
 
             <Expander.Header>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <TextBlock Text="XML Editor" VerticalAlignment="Center" Margin="2"/>
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch">
+                    <TextBlock Text="{x:Static cmdLabel:Strings.STR_TITLE_XML_Editor}"
+                               VerticalAlignment="Center"
+                               Margin="2" />
+
                     <Border MouseDown="updateDesignerButtonContainer_MouseDown">
                         <controls:CommandButton x:Name="_updateDesignerButton"
                                                 Margin="15,2,2,0" Width="100" FontSize="9"

@@ -1,4 +1,4 @@
-﻿namespace EdiViews.Documents.StartPage
+namespace EdiViews.Documents.StartPage
 {
   using System;
   using System.Windows.Input;
@@ -23,9 +23,9 @@
     /// </summary>
     public StartPageViewModel()
     {
-      this.Title = "Start Page";
-      this.StartPageTip = "Welcome to Edi. Review this page to get started with this editor application.";
-      this.ContentId = StartPageViewModel.StartPageContentId;
+      this.Title        = Util.Local.Strings.STR_STARTPAGE_TITLE;
+      this.StartPageTip = Util.Local.Strings.STR_STARTPAGE_WELCOME_TT;
+      this.ContentId    = StartPageViewModel.StartPageContentId;
     }
 
     /// <summary>
@@ -89,7 +89,8 @@
       catch (System.Exception ex)
       {
         MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (this.FilePath == null ? string.Empty : this.FilePath)),
-                            "Error finding file:", MsgBoxButtons.OK, MsgBoxImage.Error);
+                        Util.Local.Strings.STR_FILE_FINDING_CAPTION,
+                        MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
     #endregion OpenContainingFolder

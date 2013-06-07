@@ -1,4 +1,4 @@
-﻿namespace MiniUML.Plugins.UmlClassDiagram.Resources.Shapes
+namespace MiniUML.Plugins.UmlClassDiagram.Resources.Shapes
 {
   using System;
   using System.Windows;
@@ -30,8 +30,8 @@
     protected void AddZOrderMenuItems()
     {
       ContextMenu.Items.Add(new Separator());
-      AddMenuItem("BringToFront", "BringToFront");
-      AddMenuItem("SendToBack", "SendToBack");
+      AddMenuItem(MiniUML.Framework.Local.Strings.STR_MENUITEM_BringToFront, "BringToFront");
+      AddMenuItem(MiniUML.Framework.Local.Strings.STR_MENUITEM_SendToBack, "SendToBack");
     }
 
     protected void menuItem_Click(object sender, RoutedEventArgs e)

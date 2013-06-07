@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Windows;
-using System.Xml.Linq;
-namespace MiniUML.Model.DataModels
+﻿namespace MiniUML.Model.DataModels
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Globalization;
+  using System.Linq;
+  using System.Windows;
+  using System.Xml.Linq;
   using MiniUML.Framework;
   using MsgBox;
 
@@ -33,16 +33,21 @@ namespace MiniUML.Model.DataModels
       VerifyState(ModelState.Ready, ModelState.Invalid);
 
       setDocumentRoot(new XElement(RootElementName,
-          new XAttribute("PageWidth", pageSize.Width),
-          new XAttribute("PageHeight", pageSize.Height),
-          new XAttribute("PageMargins", pageMargins.ToString())));
+                      new XAttribute("PageWidth", pageSize.Width),
+                      new XAttribute("PageHeight", pageSize.Height),
+                      new XAttribute("PageMargins", pageMargins.ToString())));
+
       clearUndoRedo();
       _maxId = 0;
       _hasUnsavedData = false;
 
       base.State = ModelState.Ready;
 
-      base.SendPropertyChanged("DocumentRoot", "ObservableDocumentRoot", "HasUndoData", "HasRedoData", "HasUnsavedData");
+      base.SendPropertyChanged("DocumentRoot",
+                               "ObservableDocumentRoot",
+                               "HasUndoData",
+                               "HasRedoData",
+                               "HasUnsavedData");
     }
 
     /// <summary>

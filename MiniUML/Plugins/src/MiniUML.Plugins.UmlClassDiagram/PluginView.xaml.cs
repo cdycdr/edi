@@ -1,15 +1,15 @@
-﻿using System.Windows.Controls;
-
 namespace MiniUML.Plugins.UmlClassDiagram
 {
-    /// <summary>
-    /// Interaction logic for PluginView.xaml
-    /// </summary>
-    public partial class PluginView : UserControl
+  using System.Windows.Controls;
+
+  /// <summary>
+  /// Interaction logic for PluginView.xaml
+  /// </summary>
+  public partial class PluginView : UserControl
+  {
+    public PluginView()
     {
-        public PluginView()
-        {
-            InitializeComponent();
-        }
+      this.InitializeComponent();
     }
+  }
 }
