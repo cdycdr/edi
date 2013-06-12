@@ -280,6 +280,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		SingleCharacterElementGenerator singleCharacterElementGenerator;
 		LinkElementGenerator linkElementGenerator;
 		MailLinkElementGenerator mailLinkElementGenerator;
+    FileLinkElementGenerator fileLinkElementGenerator;
 		
 		void UpdateBuiltinElementGeneratorsFromOptions()
 		{
@@ -293,7 +294,8 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			AddRemoveDefaultElementGeneratorOnDemand(ref singleCharacterElementGenerator, options.ShowBoxForControlCharacters || options.ShowSpaces || options.ShowTabs);
 			AddRemoveDefaultElementGeneratorOnDemand(ref linkElementGenerator, options.EnableHyperlinks);
 			AddRemoveDefaultElementGeneratorOnDemand(ref mailLinkElementGenerator, options.EnableEmailHyperlinks);
-		}
+      AddRemoveDefaultElementGeneratorOnDemand(ref fileLinkElementGenerator, options.EnableFileHyperlinks);
+    }
 		
 		void AddRemoveDefaultElementGeneratorOnDemand<T>(ref T generator, bool demand)
 			where T : VisualLineElementGenerator, IBuiltinElementGenerator, new()

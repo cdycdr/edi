@@ -354,6 +354,17 @@ Local fixes are marked with Dirkster comments.
            > The user can set the encoding when editing a file in order to save it with a different encoding.
 
 § 3.3.0.0 The editor supports highlighting of links and (CTRL+)MouseClick execution. Strings, such as:
+
+          "\\YDrive"
+          "\\YDrive\MyFile.log"
+          "\\YDrive\MyFile sdf\345345~1.log"
+          "C:\"
+          "C:\MyFile.log"
+          "C:\MyFile\sdf sdf.log"
+          "F:\YDrive\"
+          "F:\XDirvte\Note.txt"
+          (Links are not displayed for MS-DOS and UNC paths unless they are within quotation marks)
+
           "file://sdfsfd/htr.html"
           "https://edi.codeplex.com/"
           "http://edi.codeplex.com/"
@@ -362,6 +373,8 @@ Local fixes are marked with Dirkster comments.
 
           are underlined and theme colored as hyperlink. The hyperlink is evaluated and executed
           when user (CTRL+)MouseClicks it. Errors (eg.: on dead-links) are not displayed in Edi.
+
+          Sample string that is not highlighted (since quotation marks are missing): F:\XDirvte\Note.txt
 
 § 3.3.3.0 The text editor supports zooming of text view via
           - CTRL + MouseWheel,
