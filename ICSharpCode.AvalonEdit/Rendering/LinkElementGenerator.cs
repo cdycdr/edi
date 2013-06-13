@@ -180,10 +180,16 @@ namespace ICSharpCode.AvalonEdit.Rendering
     {
       string targetUrl = match.Value;
 
+      if (targetUrl.Length < 3)     // any kind of file based link requires 3 letters e.g. 'C:\'
+        return null;
+
       // Dirkster99: IsWellFormedUriString is too restrictiv (MS-DOS and UNC paths will not pass)
       // if (Uri.IsWellFormedUriString(targetUrl, UriKind.Absolute))
-      if (targetUrl.StartsWith("\"") && targetUrl.EndsWith("\""))
-        targetUrl = targetUrl.Substring(1, targetUrl.Length - 2);
+      if(targetUrl.Length >= 5)
+      {
+        if (targetUrl.StartsWith("\"") && targetUrl.EndsWith("\""))
+          targetUrl = targetUrl.Substring(1, targetUrl.Length - 2);
+      }
 
       Uri uri = null;
 

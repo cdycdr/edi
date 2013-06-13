@@ -355,10 +355,10 @@ Local fixes are marked with Dirkster comments.
 
 § 3.3.0.0 The editor supports highlighting of links and (CTRL+)MouseClick execution. Strings, such as:
 
+          "C:\"
           "\\YDrive"
           "\\YDrive\MyFile.log"
           "\\YDrive\MyFile sdf\345345~1.log"
-          "C:\"
           "C:\MyFile.log"
           "C:\MyFile\sdf sdf.log"
           "F:\YDrive\"

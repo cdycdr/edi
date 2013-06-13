@@ -151,7 +151,30 @@ namespace ICSharpCode.AvalonEdit
 				}
 			}
 		}
-		
+
+    #region file hyperlinks
+    bool enableFileHyperlinks = true;
+
+    /// <summary>
+    /// Gets/Sets whether to enable clickable hyperlinks in the editor.
+    /// </summary>
+    /// <remarks>The default value is <c>true</c>.</remarks>
+    [DefaultValue(true)]
+    public virtual bool EnableFileHyperlinks
+    {
+      get { return enableFileHyperlinks; }
+      set
+      {
+        if (enableFileHyperlinks != value)
+        {
+          enableFileHyperlinks = value;
+          OnPropertyChanged("EnableFileHyperlinks");
+        }
+      }
+    }
+    #endregion file hyperlinks
+
+    #region mail hyperlinks		
 		bool enableEmailHyperlinks = true;
 		
 		/// <summary>
@@ -168,6 +191,7 @@ namespace ICSharpCode.AvalonEdit
 				}
 			}
 		}
+    #endregion mail hyperlinks
 		
 		bool requireControlModifierForHyperlinkClick = true;
 		
@@ -261,6 +285,7 @@ namespace ICSharpCode.AvalonEdit
 		}
 		#endregion
 
+    #region InsertMode
     bool isInsertMode = true;
 
     /// <summary>
@@ -280,9 +305,9 @@ namespace ICSharpCode.AvalonEdit
         }
       }
     }
+    #endregion InsertMode
 
-		
-		bool cutCopyWholeLine = true;
+    bool cutCopyWholeLine = true;
 
 		/// <summary>
 		/// Gets/Sets whether copying without a selection copies the whole current line.
