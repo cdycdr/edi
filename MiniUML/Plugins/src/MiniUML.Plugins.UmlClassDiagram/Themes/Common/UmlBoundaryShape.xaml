@@ -50,7 +50,7 @@
                        IsTabStop="False"
                        Style="{StaticResource UmlTextBox}"
                        Text="{Binding Path=Attribute[Name].Value}"
-                       AcceptsReturn="False"
+                       AcceptsReturn="True"
                        HorizontalAlignment="Center" VerticalAlignment="Bottom"
                       />
 
