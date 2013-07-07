@@ -61,7 +61,7 @@ namespace MiniUML.Framework.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a new Abstract Class shape.
+        ///   Looks up a localized string similar to Abstract Class.
         /// </summary>
         public static string STR_CMD_AbstractClass {
             get {
@@ -115,7 +115,7 @@ namespace MiniUML.Framework.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change.
+        ///   Looks up a localized string similar to Change Theme.
         /// </summary>
         public static string STR_CMD_CHANGETheme {
             get {
@@ -205,6 +205,24 @@ namespace MiniUML.Framework.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delegate.
+        /// </summary>
+        public static string STR_CMD_Delegate {
+            get {
+                return ResourceManager.GetString("STR_CMD_Delegate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new delegate element.
+        /// </summary>
+        public static string STR_CMD_Delegate_description {
+            get {
+                return ResourceManager.GetString("STR_CMD_Delegate_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string STR_CMD_Delete {
@@ -219,6 +237,24 @@ namespace MiniUML.Framework.Local {
         public static string STR_CMD_Delete_description {
             get {
                 return ResourceManager.GetString("STR_CMD_Delete_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deployment.
+        /// </summary>
+        public static string STR_CMD_Deployment {
+            get {
+                return ResourceManager.GetString("STR_CMD_Deployment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new deployment element.
+        /// </summary>
+        public static string STR_CMD_Deployment_description {
+            get {
+                return ResourceManager.GetString("STR_CMD_Deployment_description", resourceCulture);
             }
         }
         
@@ -604,7 +640,7 @@ namespace MiniUML.Framework.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operation aborted..
+        ///   Looks up a localized string similar to Operation aborted.
         /// </summary>
         public static string STR_OpenFILE_MSG_CAPTION {
             get {

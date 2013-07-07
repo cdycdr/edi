@@ -11,6 +11,8 @@
 
     private static RoutedUICommand loadFile;
     private static RoutedUICommand saveAll;
+    private static RoutedUICommand exportUMLToImage;
+
     private static RoutedUICommand pinUnpin;
     private static RoutedUICommand addMruEntry;
     private static RoutedUICommand removeMruEntry;
@@ -54,6 +56,9 @@
 
       inputs = new InputGestureCollection();
       AppCommand.saveAll = new RoutedUICommand(Strings.CMD_APP_SaveAll_Description, "SaveAll", typeof(AppCommand), inputs);
+
+      inputs = new InputGestureCollection();
+      AppCommand.exportUMLToImage = new RoutedUICommand(Strings.CMD_APP_ExportUMLToImage_Description, "ExportUMLToImage", typeof(AppCommand), inputs);
 
       // Initialize pin command (to set or unset a pin in MRU and re-sort list accordingly)
       inputs = new InputGestureCollection();
@@ -138,6 +143,15 @@
     public static RoutedUICommand SaveAll
     {
       get { return AppCommand.saveAll; }
+    }
+
+    /// <summary>
+    /// Execute a command to export the currently loaded UML Diagram (XML based data)
+    /// into an image based data format (png, jpeg, wmf)
+    /// </summary>
+    public static RoutedUICommand ExportUMLToImage
+    {
+      get { return AppCommand.exportUMLToImage; }
     }
 
     /// <summary>

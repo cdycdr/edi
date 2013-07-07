@@ -60,8 +60,8 @@
     /// </summary>
     public IEnumerable ItemsSource
     {
-      get { return (IEnumerable)GetValue(ComboBoxWaterMarkTextInput.ItemsSourceProperty); }
-      set { SetValue(ComboBoxWaterMarkTextInput.ItemsSourceProperty, value); }
+      get { return (IEnumerable)this.GetValue(ComboBoxWaterMarkTextInput.ItemsSourceProperty); }
+      set { this.SetValue(ComboBoxWaterMarkTextInput.ItemsSourceProperty, value); }
     }
 
     /// <summary>
@@ -70,8 +70,8 @@
     public string LabelContent
     {
       // These proeprties can be bound to. The XAML for this control binds the Label's content to this.
-      get { return (string)GetValue(ComboBoxWaterMarkTextInput.LabelContentProperty); }
-      set { SetValue(ComboBoxWaterMarkTextInput.LabelContentProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWaterMarkTextInput.LabelContentProperty); }
+      set { this.SetValue(ComboBoxWaterMarkTextInput.LabelContentProperty, value); }
     }
 
     /// <summary>
@@ -79,8 +79,8 @@
     /// </summary>
     public string DisplayMemberPath
     {
-      get { return (string)GetValue(ComboBoxWaterMarkTextInput.DisplayMemberPathProperty); }
-      set { SetValue(ComboBoxWaterMarkTextInput.DisplayMemberPathProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWaterMarkTextInput.DisplayMemberPathProperty); }
+      set { this.SetValue(ComboBoxWaterMarkTextInput.DisplayMemberPathProperty, value); }
     }
 
     /// <summary>
@@ -88,8 +88,8 @@
     /// </summary>
     public string SelectedValuePath
     {
-      get { return (string)GetValue(ComboBoxWaterMarkTextInput.SelectedValuePathProperty); }
-      set { SetValue(ComboBoxWaterMarkTextInput.SelectedValuePathProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWaterMarkTextInput.SelectedValuePathProperty); }
+      set { this.SetValue(ComboBoxWaterMarkTextInput.SelectedValuePathProperty, value); }
     }
 
     /// <summary>
@@ -97,8 +97,8 @@
     /// </summary>
     public object SelectedItem
     {
-      get { return (object)GetValue(ComboBoxWaterMarkTextInput.SelectedItemProperty); }
-      set { SetValue(ComboBoxWaterMarkTextInput.SelectedItemProperty, value); }
+      get { return (object)this.GetValue(ComboBoxWaterMarkTextInput.SelectedItemProperty); }
+      set { this.SetValue(ComboBoxWaterMarkTextInput.SelectedItemProperty, value); }
     }
 
     /// <summary>
@@ -106,8 +106,8 @@
     /// </summary>
     public object SelectedValue
     {
-      get { return (object)GetValue(ComboBoxWaterMarkTextInput.SelectedValueProperty); }
-      set { SetValue(ComboBoxWaterMarkTextInput.SelectedValueProperty, value); }
+      get { return (object)this.GetValue(ComboBoxWaterMarkTextInput.SelectedValueProperty); }
+      set { this.SetValue(ComboBoxWaterMarkTextInput.SelectedValueProperty, value); }
     }
 
     /// <summary>
@@ -115,8 +115,8 @@
     /// </summary>
     public int SelectedIndex
     {
-      get { return (int)GetValue(ComboBoxWaterMarkTextInput.SelectedIndexProperty); }
-      set { SetValue(ComboBoxWaterMarkTextInput.SelectedIndexProperty, value); }
+      get { return (int)this.GetValue(ComboBoxWaterMarkTextInput.SelectedIndexProperty); }
+      set { this.SetValue(ComboBoxWaterMarkTextInput.SelectedIndexProperty, value); }
     }
     #endregion ComboBox
 
@@ -127,8 +127,8 @@
     public string LabelTextBox
     {
       // These proeprties can be bound to. The XAML for this control binds the Label's content to this.
-      get { return (string)GetValue(ComboBoxWaterMarkTextInput.LabelTextBoxProperty); }
-      set { SetValue(ComboBoxWaterMarkTextInput.LabelTextBoxProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWaterMarkTextInput.LabelTextBoxProperty); }
+      set { this.SetValue(ComboBoxWaterMarkTextInput.LabelTextBoxProperty, value); }
     }
 
     /// <summary>
@@ -137,8 +137,8 @@
     public string Text
     {
       // These proeprties can be bound to. The XAML for this control binds the Label's content to this.
-      get { return (string)GetValue(ComboBoxWaterMarkTextInput.TextProperty); }
-      set { SetValue(ComboBoxWaterMarkTextInput.TextProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWaterMarkTextInput.TextProperty); }
+      set { this.SetValue(ComboBoxWaterMarkTextInput.TextProperty, value); }
     }
 
     /// <summary>
@@ -147,8 +147,8 @@
     public string Watermark
     {
       // These proeprties can be bound to. The XAML for this control binds the Watermark's content to this.
-      get { return (string)GetValue(ComboBoxWaterMarkTextInput.WatermarkProperty); }
-      set { SetValue(ComboBoxWaterMarkTextInput.WatermarkProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWaterMarkTextInput.WatermarkProperty); }
+      set { this.SetValue(ComboBoxWaterMarkTextInput.WatermarkProperty, value); }
     }
     #endregion TextBox
     #endregion properties

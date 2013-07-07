@@ -17,13 +17,16 @@ namespace SimpleControls.PathTrimmingTextBlock
   public class PathTrimmingTextBlock : TextBlock
   {
     #region fields
-    private FrameworkElement mContainer;
-
     /// <summary>
     /// Path dependency property that stores the trimmed path
     /// </summary>
     private static readonly DependencyProperty PathProperty =
-        DependencyProperty.Register("Path", typeof(string), typeof(PathTrimmingTextBlock), new UIPropertyMetadata(""));
+        DependencyProperty.Register("Path",
+                                    typeof(string),
+                                    typeof(PathTrimmingTextBlock),
+                                    new UIPropertyMetadata(string.Empty));
+
+    private FrameworkElement mContainer;
     #endregion fields
 
     #region constructor
@@ -34,8 +37,8 @@ namespace SimpleControls.PathTrimmingTextBlock
     {
       this.mContainer = null;
 
-      this.Loaded += new RoutedEventHandler(PathTrimmingTextBlock_Loaded);
-      this.Unloaded += new RoutedEventHandler(PathTrimmingTextBlock_Unloaded);
+      this.Loaded += new RoutedEventHandler(this.PathTrimmingTextBlock_Loaded);
+      this.Unloaded += new RoutedEventHandler(this.PathTrimmingTextBlock_Unloaded);
     }
     #endregion constructor
 
@@ -45,8 +48,8 @@ namespace SimpleControls.PathTrimmingTextBlock
     /// </summary>
     public string Path
     {
-      get { return (string)GetValue(PathProperty); }
-      set { SetValue(PathProperty, value); }
+      get { return (string)this.GetValue(PathProperty); }
+      set { this.SetValue(PathProperty, value); }
     }
     #endregion properties
 
@@ -57,7 +60,7 @@ namespace SimpleControls.PathTrimmingTextBlock
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    void PathTrimmingTextBlock_Loaded(object sender, RoutedEventArgs e)
+    private void PathTrimmingTextBlock_Loaded(object sender, RoutedEventArgs e)
     {
       FrameworkElement p = this.Parent as FrameworkElement;
 
@@ -87,9 +90,9 @@ namespace SimpleControls.PathTrimmingTextBlock
 
       if (this.mContainer != null)
       {
-        this.mContainer.SizeChanged += new SizeChangedEventHandler(container_SizeChanged);
+        this.mContainer.SizeChanged += new SizeChangedEventHandler(this.container_SizeChanged);
 
-        Text = GetTrimmedPath(mContainer.ActualWidth);
+        this.Text = this.GetTrimmedPath(this.mContainer.ActualWidth);
       }
       //// else
       ////  throw new InvalidOperationException("PathTrimmingTextBlock must have a container such as a Grid.");
@@ -100,10 +103,10 @@ namespace SimpleControls.PathTrimmingTextBlock
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    void PathTrimmingTextBlock_Unloaded(object sender, RoutedEventArgs e)
+    private void PathTrimmingTextBlock_Unloaded(object sender, RoutedEventArgs e)
     {
-      if (mContainer != null)
-        mContainer.SizeChanged -= container_SizeChanged;
+      if (this.mContainer != null)
+        this.mContainer.SizeChanged -= this.container_SizeChanged;
     }
 
     /// <summary>
@@ -111,10 +114,10 @@ namespace SimpleControls.PathTrimmingTextBlock
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    void container_SizeChanged(object sender, SizeChangedEventArgs e)
+    private void container_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-      if (mContainer != null)
-        Text = GetTrimmedPath(mContainer.ActualWidth);
+      if (this.mContainer != null)
+        this.Text = this.GetTrimmedPath(this.mContainer.ActualWidth);
     }
 
     /// <summary>
@@ -122,19 +125,19 @@ namespace SimpleControls.PathTrimmingTextBlock
     /// </summary>
     /// <param name="width"></param>
     /// <returns></returns>
-    string GetTrimmedPath(double width)
+    private string GetTrimmedPath(double width)
     {
       string filename = string.Empty;
       string directory = string.Empty;
 
       try
       {
-        filename = System.IO.Path.GetFileName(Path);
-        directory = System.IO.Path.GetDirectoryName(Path);
+        filename = System.IO.Path.GetFileName(this.Path);
+        directory = System.IO.Path.GetDirectoryName(this.Path);
       }
       catch (Exception)
       {
-        directory = Path;
+        directory = this.Path;
         filename = string.Empty;
       }
 
@@ -155,7 +158,7 @@ namespace SimpleControls.PathTrimmingTextBlock
         block.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
         widthOK = block.DesiredSize.Width < width;
-        //widthOK = formatted.Width < width;
+        ////widthOK = formatted.Width < width;
 
         if (!widthOK)
         {
@@ -165,12 +168,12 @@ namespace SimpleControls.PathTrimmingTextBlock
           changedWidth = true;
           directory = directory.Substring(0, directory.Length - 1);
         }
-
-      } while (!widthOK);
+      }
+      while (!widthOK);
 
       if (!changedWidth)
       {
-        return Path;
+        return this.Path;
       }
 
       if (block != null)   // Optimize for speed

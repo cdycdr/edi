@@ -11,18 +11,102 @@
 
   public class DocumentDataModel : DataModel
   {
+    #region fields
     public const string RootElementName = "MiniUML_Document";
 
+    #region Undo
+    private int _operationLevel = 0;
+
+    private bool _hasUnsavedData;
+    private UndoState _pendingUndoState;
+    private XElement _documentRoot;
+    private LinkedList<UndoState> _undoList = new LinkedList<UndoState>();
+    private LinkedList<UndoState> _redoList = new LinkedList<UndoState>();
+    #endregion Undo
+
+    // Shape Stuff
+    private Int64 _maxId = 0;
+    #endregion fields
+
+    #region constructor
     /// <summary>
     /// Constructor initializing the data model as an empty document.
     /// </summary>
     public DocumentDataModel()
     {
-      setDocumentRoot(new XElement("invalid"));
+      this.setDocumentRoot(new XElement("invalid"));
 
       base.State = ModelState.Invalid;
     }
+    #endregion constructor
 
+    #region properties
+    /// <summary>
+    /// Gets a value indicating whether an Undo operation is possible.
+    /// An INotifyPropertyChanged-enabled property.
+    /// </summary>
+    public bool HasUndoData
+    {
+      get
+      {
+        base.VerifyAccess();
+        return (_undoList.Count > 0);
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether an Redo operation is possible.
+    /// An INotifyPropertyChanged-enabled property.
+    /// </summary>
+    public bool HasRedoData
+    {
+      get
+      {
+        base.VerifyAccess();
+        return (_redoList.Count > 0);
+      }
+    }
+
+    /// <summary>
+    /// Gets the root XElement of the document. A PropertyChanged event is raised for this only when the root element is replaced, e.g. in New or Load.
+    /// An INotifyPropertyChanged-enabled property.
+    /// </summary>
+    public XElement DocumentRoot
+    {
+      get
+      {
+        base.VerifyAccess();
+        return _documentRoot;
+      }
+
+      set
+      {
+        base.VerifyAccess();
+
+        if (value == null)
+          throw new ArgumentNullException();
+
+        BeginOperation("Set DocumentRoot");
+        setDocumentRoot(value);
+        EndOperation("Set DocumentRoot");
+
+        base.SendPropertyChanged("DocumentRoot", "ObservableDocumentRoot");
+      }
+    }
+
+    /// <summary>
+    /// Gets the root XElement of the document. Identical to DocumentRoot, except that
+    /// a PropertyChanged event will be raised for this property whenever the document changes in any way.
+    /// An INotifyPropertyChanged-enabled property.
+    /// </summary>
+    public XElement ObservableDocumentRoot
+    {
+      get { return DocumentRoot; }
+      set { DocumentRoot = value; }
+    }
+    #endregion properties
+
+    #region methods
     /// <summary>
     /// Create a new document.
     /// </summary>
@@ -32,7 +116,7 @@
 
       VerifyState(ModelState.Ready, ModelState.Invalid);
 
-      setDocumentRoot(new XElement(RootElementName,
+      this.setDocumentRoot(new XElement(RootElementName,
                       new XAttribute("PageWidth", pageSize.Width),
                       new XAttribute("PageHeight", pageSize.Height),
                       new XAttribute("PageMargins", pageMargins.ToString())));
@@ -170,70 +254,6 @@
     }
 
     /// <summary>
-    /// Gets a value indicating whether an Undo operation is possible.
-    /// An INotifyPropertyChanged-enabled property.
-    /// </summary>
-    public bool HasUndoData
-    {
-      get
-      {
-        base.VerifyAccess();
-        return (_undoList.Count > 0);
-      }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether an Redo operation is possible.
-    /// An INotifyPropertyChanged-enabled property.
-    /// </summary>
-    public bool HasRedoData
-    {
-      get
-      {
-        base.VerifyAccess();
-        return (_redoList.Count > 0);
-      }
-    }
-
-    /// <summary>
-    /// Gets the root XElement of the document. A PropertyChanged event is raised for this only when the root element is replaced, e.g. in New or Load.
-    /// An INotifyPropertyChanged-enabled property.
-    /// </summary>
-    public XElement DocumentRoot
-    {
-      get
-      {
-        base.VerifyAccess();
-        return _documentRoot;
-      }
-
-      set
-      {
-        base.VerifyAccess();
-
-        if (value == null)
-          throw new ArgumentNullException();
-
-        BeginOperation("Set DocumentRoot");
-        setDocumentRoot(value);
-        EndOperation("Set DocumentRoot");
-
-        base.SendPropertyChanged("DocumentRoot", "ObservableDocumentRoot");
-      }
-    }
-
-    /// <summary>
-    /// Gets the root XElement of the document. Identical to DocumentRoot, except that
-    /// a PropertyChanged event will be raised for this property whenever the document changes in any way.
-    /// An INotifyPropertyChanged-enabled property.
-    /// </summary>
-    public XElement ObservableDocumentRoot
-    {
-      get { return DocumentRoot; }
-      set { DocumentRoot = value; }
-    }
-
-    /// <summary>
     /// Begins an "atomic" operation, during which the model state is Busy and no restore points are created.
     /// </summary>
     public void BeginOperation(String operationName)
@@ -358,30 +378,6 @@
       if (State != ModelState.Busy) setPendingUndoState();
     }
 
-    private int _operationLevel = 0;
-
-    private bool _hasUnsavedData;
-    private UndoState _pendingUndoState;
-    private XElement _documentRoot;
-    private LinkedList<UndoState> _undoList = new LinkedList<UndoState>();
-    private LinkedList<UndoState> _redoList = new LinkedList<UndoState>();
-
-    private struct UndoState
-    {
-      private readonly string _documentXml;
-      private readonly bool _hasUnsavedData;
-
-      public UndoState(XElement documentRoot, bool hasUnsavedData)
-      {
-        _documentXml = documentRoot.ToString();
-        _hasUnsavedData = hasUnsavedData;
-      }
-
-      public bool HasUnsavedData { get { return _hasUnsavedData; } }
-      public XElement DocumentRoot { get { return XElement.Parse(_documentXml); } }
-      public string DocumentRootXml { get { return _documentXml; } }
-    }
-
     #region Shape stuff
 
     public XElement GetShapeById(String id)
@@ -412,9 +408,6 @@
       return prefix + _maxId.ToString("X", CultureInfo.InvariantCulture);
     }
 
-    private Int64 _maxId = 0;
-
-
     /// <summary>
     /// An undocumented "feature" of XElement.Add is that it *SOMETIMES* (and only sometimes) adds a copy of the passed XElement, not the element itself.
     /// Nothing we can do about that. However, this method returns the created copy for further reference.
@@ -432,7 +425,26 @@
       XElement copy = (XElement)DocumentRoot.LastNode;
       return copy;
     }
-
     #endregion
+
+    #endregion methods
+
+    #region UndoStruct
+    private struct UndoState
+    {
+      private readonly string _documentXml;
+      private readonly bool _hasUnsavedData;
+
+      public UndoState(XElement documentRoot, bool hasUnsavedData)
+      {
+        _documentXml = documentRoot.ToString();
+        _hasUnsavedData = hasUnsavedData;
+      }
+
+      public bool HasUnsavedData { get { return _hasUnsavedData; } }
+      public XElement DocumentRoot { get { return XElement.Parse(_documentXml); } }
+      public string DocumentRootXml { get { return _documentXml; } }
+    }
+    #endregion UndoStruct
   }
 }

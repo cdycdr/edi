@@ -67,9 +67,6 @@
     <Reference Include="MsgBox">
       <HintPath>..\..\02_Libs\00_bin\MsgBox.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationFramework.Aero">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -145,11 +142,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CanvasView.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DocumentView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -195,6 +190,8 @@
     <Compile Include="Controls\RibbonGroup.cs" />
     <Compile Include="Controls\RibbonGallery.cs" />
     <Compile Include="Controls\SingleClickBlock.cs" />
+    <Compile Include="Converter\DiuToCentimetersConverter.cs" />
+    <Compile Include="Converter\ShapeIdToControlConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -212,10 +209,7 @@
       <DependentUpon>AnchorPoint.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\TemplateSelectors.cs" />
-    <Compile Include="Utilities\ValueConverters.cs" />
-    <Compile Include="Views\CanvasView.xaml.cs">
-      <DependentUpon>CanvasView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\CanvasView.cs" />
     <Compile Include="Views\DocumentView.xaml.cs">
       <DependentUpon>DocumentView.xaml</DependentUpon>
     </Compile>

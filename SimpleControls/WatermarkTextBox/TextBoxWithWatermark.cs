@@ -39,8 +39,8 @@
     public string LabelTextBox
     {
       // These proeprties can be bound to. The XAML for this control binds the Label's content to this.
-      get { return (string)GetValue(TextBoxWithWatermark.LabelTextBoxProperty); }
-      set { SetValue(TextBoxWithWatermark.LabelTextBoxProperty, value); }
+      get { return (string)this.GetValue(TextBoxWithWatermark.LabelTextBoxProperty); }
+      set { this.SetValue(TextBoxWithWatermark.LabelTextBoxProperty, value); }
     }
 
     /// <summary>
@@ -49,8 +49,8 @@
     public string Text
     {
       // These proeprties can be bound to. The XAML for this control binds the Label's content to this.
-      get { return (string)GetValue(TextBoxWithWatermark.TextProperty); }
-      set { SetValue(TextBoxWithWatermark.TextProperty, value); }
+      get { return (string)this.GetValue(TextBoxWithWatermark.TextProperty); }
+      set { this.SetValue(TextBoxWithWatermark.TextProperty, value); }
     }
 
     /// <summary>
@@ -59,8 +59,8 @@
     public string Watermark
     {
       // These proeprties can be bound to. The XAML for this control binds the Watermark's content to this.
-      get { return (string)GetValue(TextBoxWithWatermark.WatermarkProperty); }
-      set { SetValue(TextBoxWithWatermark.WatermarkProperty, value); }
+      get { return (string)this.GetValue(TextBoxWithWatermark.WatermarkProperty); }
+      set { this.SetValue(TextBoxWithWatermark.WatermarkProperty, value); }
     }
     #endregion properties
   }

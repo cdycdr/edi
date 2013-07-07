@@ -78,9 +78,9 @@
           return string.Empty;
 
         int n = 32;
-        return (mMRUEntry.PathFileName.Length > n ? mMRUEntry.PathFileName.Substring(0, 3) +
-                                                "... " + mMRUEntry.PathFileName.Substring(mMRUEntry.PathFileName.Length - n)
-                                              : mMRUEntry.PathFileName);
+        return (this.mMRUEntry.PathFileName.Length > n ? this.mMRUEntry.PathFileName.Substring(0, 3) +
+                                                "... " + this.mMRUEntry.PathFileName.Substring(this.mMRUEntry.PathFileName.Length - n)
+                                              : this.mMRUEntry.PathFileName);
       }
     }
 

@@ -29,6 +29,12 @@
     #endregion fields
 
     #region methods
+    /// <summary>
+    /// Create new folding for a givem visual basic document.
+    /// </summary>
+    /// <param name="document"></param>
+    /// <param name="firstErrorOffset"></param>
+    /// <returns></returns>
     public override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
     {
       firstErrorOffset = -1;
@@ -46,6 +52,13 @@
       return foldings.OrderBy(f => f.StartOffset);
     }
 
+    /// <summary>
+    /// Create new folding for a givem visual basic string representation.
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="lowerCaseText"></param>
+    /// <param name="keyword"></param>
+    /// <returns></returns>
     public IEnumerable<NewFolding> GetFoldings(string text, string lowerCaseText, string keyword)
     {
       const char vbCr = '\r';

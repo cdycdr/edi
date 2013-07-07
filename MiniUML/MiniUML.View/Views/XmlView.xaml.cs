@@ -38,8 +38,6 @@ namespace MiniUML.View.Views
 
     private void expander_Expanded(object sender, RoutedEventArgs e)
     {
-      _updateDesignerButton.Visibility = Visibility.Visible;
-
       XmlViewModel viewModel = base.DataContext as XmlViewModel;
 
       if (viewModel != null)
@@ -52,8 +50,6 @@ namespace MiniUML.View.Views
 
     private void expander_Collapsed(object sender, RoutedEventArgs e)
     {
-      _updateDesignerButton.Visibility = Visibility.Hidden;
-
       XmlViewModel viewModel = base.DataContext as XmlViewModel;
 
       if (viewModel != null) return;

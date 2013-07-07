@@ -50,6 +50,11 @@
                     ToolTipService.ShowOnDisabled="True" />
         </MenuItem>
         
+        <MenuItem Header="Export">
+          <MenuItem Command="cmd:AppCommand.ExportUMLToImage">
+          </MenuItem>
+        </MenuItem>
+
         <Separator/>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Save}"
                   Command="Save"
@@ -74,7 +79,7 @@
             </Style>
           </MenuItem.ItemContainerStyle>
         </MenuItem>
-        
+
         <Separator/>
         
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Close}"

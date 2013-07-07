@@ -5,11 +5,23 @@
 
   public class PinableListView : ListView
   {
-    // Getting CustomControl style from Themes/Generic.xaml does not work ???
+    /// <summary>
+    /// Static Standard Constructor
+    /// 
+    /// Getting CustomControl style from Themes/Generic.xaml does not work ???
+    /// </summary>
     static PinableListView()
     {
       DefaultStyleKeyProperty.OverrideMetadata(typeof(PinableListView),
                 new FrameworkPropertyMetadata(typeof(PinableListView)));
+    }
+
+    /// <summary>
+    /// Standard method is executed when control template is applied to lookless control.
+    /// </summary>
+    public override void OnApplyTemplate()
+    {
+      base.OnApplyTemplate();
     }
 
     protected override DependencyObject GetContainerForItemOverride()
@@ -20,11 +32,6 @@
     protected override bool IsItemItsOwnContainerOverride(object item)
     {
       return item is PinableListViewItem;
-    }
-
-    public override void OnApplyTemplate()
-    {
-      base.OnApplyTemplate();
     }
   }
 }

@@ -1,56 +1,93 @@
 ﻿namespace MiniUML.Plugins.UmlClassDiagram
 {
-  using System;
-  using System.Windows;
-  using System.Windows.Input;
-  using System.Windows.Media.Imaging;
-  using System.Xml.Linq;
   using MiniUML.Framework;
   using MiniUML.Model.ViewModels;
-  using MiniUML.View.Views;
+  using MiniUML.Plugins.UmlClassDiagram.ToolBox.ViewModel;
 
   public partial class PluginViewModel : ViewModel
   {
+    #region fields
+    private ClassShapeBoxViewModel mClassShapeBox = null;
+    private DeploymentShapeBoxViewModel mDeploymentShapeBox = null;
+    private UseCaseShapeBoxViewModel mUseCaseShapeBoxViewModel = null;
+    private ActivityShapeBoxViewModel mActivityShapeBoxViewModel = null;
+    #endregion fields
+
     #region constructor
+    /// <summary>
+    /// Standard constructor
+    /// </summary>
+    /// <param name="windowViewModel"></param>
     public PluginViewModel(IMiniUMLDocument windowViewModel)
     {
       // Store a reference to the parent view model.
-      _WindowViewModel = windowViewModel;
+      this.mWindowViewModel = windowViewModel;
 
-      // Create the commands in this view model.
-      _commandUtilities.InitializeCommands(this);
+      this.ConnectBox = new ConnectBoxViewModel(this);
     }
     #endregion constructor
 
-    #region View models
+    #region properties
+    /// <summary>
+    /// Get a collection of commands which can be used to create Class shapes on the canvas.
+    /// </summary>
+    public ClassShapeBoxViewModel ClassShapeBox
+    {
+      get
+      {
+        if (this.mClassShapeBox == null)
+          this.mClassShapeBox = new ClassShapeBoxViewModel(this);
 
-    public IMiniUMLDocument _WindowViewModel { get; private set; }
+        return this.mClassShapeBox;
+      }
+    }
 
-    #endregion
+    /// <summary>
+    /// Get a collection of commands which can be used to create Deployment shapes on the canvas.
+    /// </summary>
+    public DeploymentShapeBoxViewModel DeploymentShapeBox
+    {
+      get
+      {
+        if (this.mDeploymentShapeBox == null)
+          this.mDeploymentShapeBox = new DeploymentShapeBoxViewModel(this);
 
-    #region Commands
+        return this.mDeploymentShapeBox;
+      }
+    }
 
-    // Command properties
-    public CommandModel cmd_CreateInterfaceShape { get; private set; }
-    public CommandModel cmd_CreateAbstractClassShape { get; private set; }
-    public CommandModel cmd_CreateClassShape { get; private set; }
-    public CommandModel cmd_CreateStructShape { get; private set; }
-    public CommandModel cmd_CreateEnumShape { get; private set; }
+    public UseCaseShapeBoxViewModel UseCaseShapeBox
+    {
+      get
+      {
+        if (this.mUseCaseShapeBoxViewModel == null)
+          this.mUseCaseShapeBoxViewModel = new UseCaseShapeBoxViewModel(this);
 
-    // Connection types (arrows, triangles and such)
-    public CommandModel cmd_CreateAssociationShape { get; private set; }
-    public CommandModel cmd_CreateInheritanceShape { get; private set; }
-    public CommandModel cmd_CreateAggregationShape { get; private set; }
-    public CommandModel cmd_CreateCompositionShape { get; private set; }
+        return this.mUseCaseShapeBoxViewModel;
+      }
+    }
 
-    // Comment
-    public CommandModel cmd_CreateCommentShape { get; private set; }
+    public ActivityShapeBoxViewModel ActivityShapeBox
+    {
+      get
+      {
+        if (this.mActivityShapeBoxViewModel == null)
+          this.mActivityShapeBoxViewModel = new ActivityShapeBoxViewModel(this);
 
-    #region Command implementations
+        return this.mActivityShapeBoxViewModel;
+      }
+    }
 
-    private CommandUtilities _commandUtilities = new CommandUtilities();
-    #endregion
+    /// <summary>
+    /// Get a collection of commands which can be used to create connections between shapes on the canvas.
+    /// </summary>
+    public ConnectBoxViewModel ConnectBox { get; private set; }
 
-    #endregion
+    /// <summary>
+    /// Get the current <seealso cref="IMiniUMLDocument"/> which contains the
+    /// document with shapes and other items.
+    /// </summary>
+    public IMiniUMLDocument mWindowViewModel { get; private set; }
+    #endregion properties
   }
 }

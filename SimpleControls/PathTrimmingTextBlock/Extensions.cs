@@ -1,11 +1,8 @@
 ﻿namespace SimpleControls.PathTrimmingTextBlock
 {
-  using System.Collections.Generic;
-  using System.Net.Mime;
-  using System.Text;
   using System.Globalization;
 
-  static class Extensions
+  internal static class Extensions
   {
     /// <summary>
     /// Extend the string constructor with a string.Format like syntax.

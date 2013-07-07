@@ -49,7 +49,13 @@
       if (target == null)
         return;
 
-      frameworkElement.Loaded += (s, e) => Keyboard.Focus(target);
+      try
+      {
+        frameworkElement.Loaded += (s, e) => Keyboard.Focus(target);
+      }
+      catch
+      {
+      }
     }
     #endregion methods
   }

@@ -4,14 +4,26 @@
   using System.Collections.Generic;
   using System.IO;
   using System.Linq;
-  using System.Xml.Serialization;
-  using ICSharpCode.AvalonEdit.CodeCompletion;
   using System.Windows;
+  using System.Xml.Serialization;
 
+  using ICSharpCode.AvalonEdit.CodeCompletion;
+
+  /// <summary>
+  /// File based text completion class.
+  /// </summary>
   public class FileCompletionDataProvider : ICompletionDataProvider
 	{
 		private static readonly Dictionary<string, IEnumerable<ICompletionData>> Data = new Dictionary<string, IEnumerable<ICompletionData>>();
 
+    /// <summary>
+    /// Get text completion data for a word at a certain position.
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="position"></param>
+    /// <param name="input"></param>
+    /// <param name="highlightingName"></param>
+    /// <returns></returns>
 		public IEnumerable<ICompletionData> GetData(string text, int position, string input, string highlightingName)
 		{
 
@@ -25,6 +37,11 @@
 			return new List<ICompletionData>();
 		}
 
+    /// <summary>
+    /// Get text completion data for a type of hightlighting.
+    /// </summary>
+    /// <param name="highlightingName"></param>
+    /// <returns></returns>
 		private IEnumerable<ICompletionData> GetData(string highlightingName)
 		{
 			try
@@ -69,10 +86,21 @@
 		}
 	}
 
+  /// <summary>
+  /// Definition of filenames associated with a highlighting name.
+  /// </summary>
 	public class KeywordsFileOption
 	{
+    /// <summary>
+    /// Name of highlighting to be associated with a file
+    /// that contains text completion data.
+    /// </summary>
 		[XmlAttribute]
 		public string HighlightingName { get; set; }
+
+    /// <summary>
+    /// Name of file that contains completion data for a type of highlighting.
+    /// </summary>
 		[XmlAttribute]
 		public string Filename { get; set; }
 	}

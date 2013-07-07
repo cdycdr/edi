@@ -25,11 +25,14 @@ namespace MiniUML.Model.ViewModels
 
   public class DocumentViewModel : AbstractDocumentViewModel
   {
-    /// <summary>
-    /// Stores a reference to the app-global LoadThemeAssembly method.
-    /// </summary>
-    public static LoadThemeAssemblyDelegate LoadThemeAssemblyDelegate { get; set; }
+    #region fields
+    private string _fileName = MiniUML.Framework.Local.Strings.STR_Default_FileName;
+    private string _filePath = null;
+    private FrameworkElement _designSurface;
+    private readonly DocumentDataModel _dataModel;
+    #endregion fields
 
+    #region constructor
     public DocumentViewModel(MainWindowViewModel windowViewModel)
     {
       // Store a reference to the parent view model.
@@ -55,39 +58,13 @@ namespace MiniUML.Model.ViewModels
       this.mCanvasViewModel = new CanvasViewModel(this);
       vm_XmlViewModel = new XmlViewModel(this);
     }
+    #endregion constructor
 
+    #region properties
     /// <summary>
-    /// Queries the user to save unsaved changes
+    /// Stores a reference to the app-global LoadThemeAssembly method.
     /// </summary>
-    /// <returns>False on cancel, otherwise true.</returns>
-    public bool QuerySaveChanges()
-    {
-      if (!dm_DocumentDataModel.HasUnsavedData) return true;
-
-      MessageBoxResult result = MessageBox.Show(Application.Current.MainWindow,
-                                                string.Format(MiniUML.Framework.Local.Strings.STR_QUERY_SAVE_CHANGES, prop_DocumentFileName),
-                                                MiniUML.Framework.Local.Strings.STR_QUERY_SAVE_CHANGES_CAPTION,
-                                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
-
-      switch (result)
-      {
-        case MessageBoxResult.Yes:
-          return ((SaveCommandModel)cmd_Save).Execute();
-
-        case MessageBoxResult.No:
-          return true;
-
-        default:
-          return false;
-      }
-    }
-
-    public void LoadFile(String filename)
-    {
-      _dataModel.Load(filename);
-      prop_DocumentFilePath = filename;
-      vm_CanvasViewModel.prop_SelectedShapes.Clear();
-    }
+    public static LoadThemeAssemblyDelegate LoadThemeAssemblyDelegate { get; set; }
 
     public string prop_DocumentFilePath
     {
@@ -122,11 +99,6 @@ namespace MiniUML.Model.ViewModels
       }
     }
 
-    private string _fileName = MiniUML.Framework.Local.Strings.STR_Default_FileName;
-    private string _filePath = null;
-    private FrameworkElement _designSurface;
-    private readonly DocumentDataModel _dataModel;
-
     #region Data models
 
     public override DocumentDataModel dm_DocumentDataModel
@@ -140,9 +112,10 @@ namespace MiniUML.Model.ViewModels
 
     public MainWindowViewModel _WindowViewModel { get; private set; }
 
-    private CanvasViewModel mCanvasViewModel=null;
+    private CanvasViewModel mCanvasViewModel = null;
     public override CanvasViewModel vm_CanvasViewModel
-    { get
+    {
+      get
       {
         return this.mCanvasViewModel;
       }
@@ -377,14 +350,14 @@ namespace MiniUML.Model.ViewModels
     /// </summary>
     /// <param name="viewModel"></param>
     /// <returns></returns>
-    public static bool ExecuteSave(DocumentViewModel viewModel, string filePath)
+    public override bool ExecuteSave(string filePath)
     {
-      viewModel.prop_DocumentFilePath = filePath;
+      this.prop_DocumentFilePath = filePath;
 
       try
       {
         // Save document to the existing file.
-        viewModel._dataModel.Save(filePath);
+        this._dataModel.Save(filePath);
         return true;
       }
       catch (Exception ex)
@@ -508,6 +481,18 @@ namespace MiniUML.Model.ViewModels
     }
 
     /// <summary>
+    /// Save a document into the file system.
+    /// </summary>
+    /// <param name="viewModel"></param>
+    /// <returns></returns>
+    public override bool ExecuteExport(object sender, ExecutedRoutedEventArgs e, string defaultFileName)
+    {
+      ExportCommandModel.ExportUMLToImage(this, defaultFileName);
+
+      return true;
+    }
+
+    /// <summary>
     /// Private implementation of the Export command.
     /// </summary>
     private class ExportCommandModel : CommandModel
@@ -528,26 +513,40 @@ namespace MiniUML.Model.ViewModels
 
       public override void OnExecute(object sender, ExecutedRoutedEventArgs e)
       {
+        ExportUMLToImage(this._viewModel);
+      }
+
+      public static void ExportUMLToImage(DocumentViewModel viewModel, string defaultFileName = "")
+      {
         // Create and configure SaveFileDialog.
         FileDialog dlg = new SaveFileDialog()
         {
           ValidateNames = true,
           AddExtension = true,
-          Filter = MiniUML.Framework.Local.Strings.STR_FILETYPE_FILTER_EXPORT
+          Filter = MiniUML.Framework.Local.Strings.STR_FILETYPE_FILTER_EXPORT,
+          FileName = defaultFileName
         };
 
         // Show dialog; return if canceled.
-        if (!dlg.ShowDialog(Application.Current.MainWindow).GetValueOrDefault()) return;
+        if (!dlg.ShowDialog(Application.Current.MainWindow).GetValueOrDefault())
+          return;
 
         try
         {
           // Save document to a file of the specified type.
           switch (dlg.FilterIndex)
           {
-            case 1: saveAsBitmap(dlg.FileName, new PngBitmapEncoder(), true); break;
-            case 2: saveAsBitmap(dlg.FileName, new JpegBitmapEncoder(), false); break;
-            case 3: saveAsBitmap(dlg.FileName, new BmpBitmapEncoder(), false); break;
-            case 4: saveAsXPS(dlg.FileName); break;
+            case 1: saveAsBitmap(dlg.FileName, new PngBitmapEncoder(), true, viewModel);
+            break;
+
+            case 2: saveAsBitmap(dlg.FileName, new JpegBitmapEncoder(), false, viewModel);
+            break;
+
+            case 3: saveAsBitmap(dlg.FileName, new BmpBitmapEncoder(), false, viewModel);
+            break;
+
+            case 4: saveAsXPS(dlg.FileName, viewModel);
+            break;
           }
         }
         catch (Exception ex)
@@ -557,14 +556,14 @@ namespace MiniUML.Model.ViewModels
         }
       }
 
-      private void saveAsXPS(string file)
+      private static void saveAsXPS(string file, DocumentViewModel viewModel)
       {
         // Deselect shapes while saving.
-        List<XElement> selectedItems = new List<XElement>(_viewModel.vm_CanvasViewModel.prop_SelectedShapes);
-        _viewModel.vm_CanvasViewModel.prop_SelectedShapes.Clear();
+        List<XElement> selectedItems = new List<XElement>(viewModel.vm_CanvasViewModel.prop_SelectedShapes);
+        viewModel.vm_CanvasViewModel.prop_SelectedShapes.Clear();
 
         // Get a rectangle representing the page.
-        Rectangle page = _viewModel._commandUtility.GetDocumentRectangle();
+        Rectangle page = viewModel._commandUtility.GetDocumentRectangle();
 
         try
         {
@@ -581,35 +580,42 @@ namespace MiniUML.Model.ViewModels
         finally
         {
           // Reselect shapes.
-          _viewModel.vm_CanvasViewModel.SelectShapes(selectedItems);
+          viewModel.vm_CanvasViewModel.SelectShapes(selectedItems);
         }
       }
 
-      private void saveAsBitmap(string file, BitmapEncoder encoder, bool enableTransparentBackground)
+      private static void saveAsBitmap(string file,
+                                        BitmapEncoder encoder,
+                                        bool enableTransparentBackground,
+                                        DocumentViewModel viewModel)
       {
         // Create and configure ExportDocumentWindowViewModel.
         ExportDocumentWindowViewModel windowViewModel = new ExportDocumentWindowViewModel()
         {
           prop_Resolution = 96,
           prop_EnableTransparentBackground = enableTransparentBackground,
-          prop_TransparentBackground = false
+          prop_TransparentBackground = true
         };
 
-        // Create and configure ExportDocumentWindow.
-        IFactory windowFactory = Application.Current.Resources["ExportDocumentWindowFactory"] as IFactory;
-        Window window = windowFactory.CreateObject() as Window;
-        window.Owner = Application.Current.MainWindow;
-        window.DataContext = windowViewModel;
-
-        // Show window; return if canceled.
-        if (!window.ShowDialog().GetValueOrDefault()) return;
+//// TODO XXX FIXME
+////        // Create and configure ExportDocumentWindow.
+////        IFactory windowFactory = Application.Current.Resources["ExportDocumentWindowFactory"] as IFactory;
+////        Window window = windowFactory.CreateObject() as Window;
+////        window.Owner = Application.Current.MainWindow;
+////        window.DataContext = windowViewModel;
+////
+////
+////
+////        // Show window; return if canceled.
+////        if (!window.ShowDialog().GetValueOrDefault())
+////          return;
 
         // Deselect shapes while saving.
-        List<XElement> selectedItems = new List<XElement>(_viewModel.vm_CanvasViewModel.prop_SelectedShapes);
-        _viewModel.vm_CanvasViewModel.prop_SelectedShapes.Clear();
+        List<XElement> selectedItems = new List<XElement>(viewModel.vm_CanvasViewModel.prop_SelectedShapes);
+        viewModel.vm_CanvasViewModel.prop_SelectedShapes.Clear();
 
         // Get a rectangle representing the page and wrap it in a border to allow a background color to be set.
-        Border page = new Border() { Child = _viewModel._commandUtility.GetDocumentRectangle() };
+        Border page = new Border() { Child = viewModel._commandUtility.GetDocumentRectangle() };
 
         // Use transparent or white background?
         if (!windowViewModel.prop_TransparentBackground)
@@ -635,7 +641,7 @@ namespace MiniUML.Model.ViewModels
         finally
         {
           //Reselect shapes.
-          _viewModel.vm_CanvasViewModel.SelectShapes(selectedItems);
+          viewModel.vm_CanvasViewModel.SelectShapes(selectedItems);
         }
       }
 
@@ -756,7 +762,52 @@ namespace MiniUML.Model.ViewModels
 
       private DocumentViewModel _viewModel;
     }
+    #endregion
 
+    #endregion
+    #endregion properties
+
+    #region methods
+    /// <summary>
+    /// Queries the user to save unsaved changes
+    /// </summary>
+    /// <returns>False on cancel, otherwise true.</returns>
+    public bool QuerySaveChanges()
+    {
+      if (!dm_DocumentDataModel.HasUnsavedData) return true;
+
+      MessageBoxResult result = MessageBox.Show(Application.Current.MainWindow,
+                                                string.Format(MiniUML.Framework.Local.Strings.STR_QUERY_SAVE_CHANGES, prop_DocumentFileName),
+                                                MiniUML.Framework.Local.Strings.STR_QUERY_SAVE_CHANGES_CAPTION,
+                                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
+
+      switch (result)
+      {
+        case MessageBoxResult.Yes:
+          return ((SaveCommandModel)cmd_Save).Execute();
+
+        case MessageBoxResult.No:
+          return true;
+
+        default:
+          return false;
+      }
+    }
+
+    /// <summary>
+    /// Load the contents of a file from the windows file system into memory and display it.
+    /// </summary>
+    /// <param name="filename"></param>
+    public override void LoadFile(String filename)
+    {
+      this._dataModel.Load(filename);
+      prop_DocumentFilePath = filename;
+      this.vm_CanvasViewModel.prop_SelectedShapes.Clear();
+
+    }
+    #endregion methods
+
+    #region private class
     /// <summary>
     /// Private implementation of the SelectTheme command.
     /// </summary>
@@ -805,9 +856,6 @@ namespace MiniUML.Model.ViewModels
 
       private DocumentViewModel _viewModel;
     }
-
-    #endregion
-
-    #endregion
+    #endregion private class
   }
 }

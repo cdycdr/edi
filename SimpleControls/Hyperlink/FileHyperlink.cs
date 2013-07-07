@@ -83,18 +83,72 @@
     /// </summary>
     public string NavigateUri
     {
-      get { return (string)GetValue(FileHyperlink.NavigateUriProperty); }
-      set { SetValue(FileHyperlink.NavigateUriProperty, value); }
+      get { return (string)this.GetValue(FileHyperlink.NavigateUriProperty); }
+      set { this.SetValue(FileHyperlink.NavigateUriProperty, value); }
     }
 
     public string Text
     {
-      get { return (string)GetValue(FileHyperlink.TextProperty); }
-      set { SetValue(FileHyperlink.TextProperty, value); }
+      get { return (string)this.GetValue(FileHyperlink.TextProperty); }
+      set { this.SetValue(FileHyperlink.TextProperty, value); }
     }
     #endregion
 
     #region Methods
+    /// <summary>
+    /// Convinience method to open Windows Explorer with a selected file (if it exists).
+    /// Otherwise, Windows Explorer is opened in the location where the file should be at.
+    /// </summary>
+    /// <param name="oFileName"></param>
+    /// <returns></returns>
+    public static bool OpenFileLocationInWindowsExplorer(object oFileName)
+    {
+      string sFileName = oFileName as string;
+
+      if ((sFileName == null ? string.Empty : sFileName).Length == 0) return true;
+
+      try
+      {
+        if (System.IO.File.Exists(sFileName) == true)
+        {
+          // combine the arguments together it doesn't matter if there is a space after ','
+          string argument = @"/select, " + sFileName;
+
+          System.Diagnostics.Process.Start("explorer.exe", argument);
+          return true;
+        }
+        else
+        {
+          string sParentDir = System.IO.Directory.GetParent(sFileName).FullName;
+
+          if (System.IO.Directory.Exists(sParentDir) == false)
+            Msg.Show(string.Format(Local.Strings.STR_MSG_DIRECTORY_DOES_NOT_EXIST, sParentDir),
+                 Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
+                     MsgBoxButtons.OK, MsgBoxImage.Error);
+          else
+          {
+            // combine the arguments together it doesn't matter if there is a space after ','
+            string argument = @"/select, " + sParentDir;
+
+            System.Diagnostics.Process.Start("explorer.exe", argument);
+
+            return true;
+          }
+        }
+      }
+      catch (System.Exception ex)
+      {
+        Msg.Show(string.Format("{0}\n'{1}'.", ex.Message, (sFileName == null ? string.Empty : sFileName)),
+                  Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
+                  MsgBoxButtons.OK, MsgBoxImage.Error);
+      }
+
+      return true;
+    }
+
+    /// <summary>
+    /// Standard method that is executed when control template is applied.
+    /// </summary>
     public override void OnApplyTemplate()
     {
       base.OnApplyTemplate();
@@ -197,57 +251,6 @@
                  Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
                  MsgBoxButtons.OK, MsgBoxImage.Error);
       }
-    }
-
-    /// <summary>
-    /// Convinience method to open Windows Explorer with a selected file (if it exists).
-    /// Otherwise, Windows Explorer is opened in the location where the file should be at.
-    /// </summary>
-    /// <param name="oFileName"></param>
-    /// <returns></returns>
-    public static bool OpenFileLocationInWindowsExplorer(object oFileName)
-    {
-      string sFileName = oFileName as string;
-
-      if ((sFileName == null ? string.Empty : sFileName).Length == 0) return true;
-
-      try
-      {
-        if (System.IO.File.Exists(sFileName) == true)
-        {
-          // combine the arguments together it doesn't matter if there is a space after ','
-          string argument = @"/select, " + sFileName;
-
-          System.Diagnostics.Process.Start("explorer.exe", argument);
-          return true;
-        }
-        else
-        {
-          string sParentDir = System.IO.Directory.GetParent(sFileName).FullName;
-
-          if (System.IO.Directory.Exists(sParentDir) == false)
-            Msg.Show(string.Format(Local.Strings.STR_MSG_DIRECTORY_DOES_NOT_EXIST, sParentDir),
-                 Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
-                     MsgBoxButtons.OK, MsgBoxImage.Error);
-          else
-          {
-            // combine the arguments together it doesn't matter if there is a space after ','
-            string argument = @"/select, " + sParentDir;
-
-            System.Diagnostics.Process.Start("explorer.exe", argument);
-
-            return true;
-          }
-        }
-      }
-      catch (System.Exception ex)
-      {
-        Msg.Show(string.Format("{0}\n'{1}'.", ex.Message, (sFileName == null ? string.Empty : sFileName)),
-                  Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
-                  MsgBoxButtons.OK, MsgBoxImage.Error);
-      }
-
-      return true;
     }
     #endregion
   }

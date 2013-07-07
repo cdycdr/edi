@@ -29,11 +29,21 @@
     /// <param name="d"></param>
     /// <param name="e"></param>
     private static void OnIsFocusedPropertyChanged(DependencyObject d,
-            DependencyPropertyChangedEventArgs e)
+                                                   DependencyPropertyChangedEventArgs e)
     {
       var uie = (UIElement)d;
       if ((bool)e.NewValue)
       {
+        // Delay the call to allow the current batch of processing to finish before we shift focus.
+        uie.Dispatcher.BeginInvoke(
+        (System.Action)(() =>
+        {
+          if (uie.Focusable)
+          {
+            uie.Focus();
+          }
+        }), System.Windows.Threading.DispatcherPriority.Input);
+
         uie.Focus(); // Don't care about false values.
       }
     }

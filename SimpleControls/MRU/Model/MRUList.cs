@@ -2,10 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Linq;
-  using System.Text;
   using System.Xml.Serialization;
-  using System.Collections.ObjectModel;
 
   public class MRUList
   {
@@ -39,11 +36,11 @@
     internal bool AddEntry(MRUEntry emp,
                            MRUList.Spot addInSpot = MRUList.Spot.Last)
     {
-      if(emp == null)
+      if (emp == null)
         return false;
 
-      if(this.Entries == null)
-        this.Entries =  new List<MRUEntry>();
+      if (this.Entries == null)
+        this.Entries = new List<MRUEntry>();
 
       switch (addInSpot)
       {

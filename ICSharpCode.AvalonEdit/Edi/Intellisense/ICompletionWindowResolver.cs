@@ -7,6 +7,10 @@
   /// </summary>
   public interface ICompletionWindowResolver
 	{
+    /// <summary>
+    /// Get the window to resolve a text completion.
+    /// </summary>
+    /// <returns></returns>
 		CompletionWindow Resolve();
 	}
 }

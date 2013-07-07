@@ -343,4 +343,16 @@ aufgetretten.</value>
   <data name="STR_UML_CLASS_DIAGRAM_TT" xml:space="preserve">
     <value>UML Klassen Diagram</value>
   </data>
+  <data name="STR_CMD_Deployment" xml:space="preserve">
+    <value>Deployment</value>
+  </data>
+  <data name="STR_CMD_Deployment_description" xml:space="preserve">
+    <value>Erzeugt ein neues deployment element</value>
+  </data>
+  <data name="STR_CMD_Delegate" xml:space="preserve">
+    <value>Delegate</value>
+  </data>
+  <data name="STR_CMD_Delegate_description" xml:space="preserve">
+    <value>Erzeugt ein neues delegate element</value>
+  </data>
 </root>

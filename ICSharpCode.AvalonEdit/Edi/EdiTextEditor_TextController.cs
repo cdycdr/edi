@@ -23,11 +23,21 @@
     #endregion ITextBoxControllerFields
 
     #region ITextBoxController_Properties
+    /// <summary>
+    /// Get method for TextBoxController dependency property is set.
+    /// </summary>
+    /// <param name="element"></param>
+    /// <param name="value"></param>
     public static void SetTextBoxController(UIElement element, ITextBoxController value)
     {
       element.SetValue(EdiTextEditor.TextBoxControllerProperty, value);
     }
 
+    /// <summary>
+    /// Set method for TextBoxController dependency property is set.
+    /// </summary>
+    /// <param name="element"></param>
+    /// <returns></returns>
     public static ITextBoxController GetTextBoxController(UIElement element)
     {
       return (ITextBoxController)element.GetValue(EdiTextEditor.TextBoxControllerProperty);

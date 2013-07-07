@@ -46,8 +46,8 @@
     /// </summary>
     public IEnumerable ItemsSource
     {
-      get { return (IEnumerable)GetValue(ComboBoxWithLabel.ItemsSourceProperty); }
-      set { SetValue(ComboBoxWithLabel.ItemsSourceProperty, value); }
+      get { return (IEnumerable)this.GetValue(ComboBoxWithLabel.ItemsSourceProperty); }
+      set { this.SetValue(ComboBoxWithLabel.ItemsSourceProperty, value); }
     }
 
     /// <summary>
@@ -56,8 +56,8 @@
     /// </summary>
     public string LabelContent
     {
-      get { return (string)GetValue(ComboBoxWithLabel.LabelContentProperty); }
-      set { SetValue(ComboBoxWithLabel.LabelContentProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWithLabel.LabelContentProperty); }
+      set { this.SetValue(ComboBoxWithLabel.LabelContentProperty, value); }
     }
 
     /// <summary>
@@ -65,8 +65,8 @@
     /// </summary>
     public string DisplayMemberPath
     {
-      get { return (string)GetValue(ComboBoxWithLabel.DisplayMemberPathProperty); }
-      set { SetValue(ComboBoxWithLabel.DisplayMemberPathProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWithLabel.DisplayMemberPathProperty); }
+      set { this.SetValue(ComboBoxWithLabel.DisplayMemberPathProperty, value); }
     }
 
     /// <summary>
@@ -74,8 +74,8 @@
     /// </summary>
     public string SelectedValuePath
     {
-      get { return (string)GetValue(ComboBoxWithLabel.SelectedValuePathProperty); }
-      set { SetValue(ComboBoxWithLabel.SelectedValuePathProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWithLabel.SelectedValuePathProperty); }
+      set { this.SetValue(ComboBoxWithLabel.SelectedValuePathProperty, value); }
     }
 
     /// <summary>
@@ -83,8 +83,8 @@
     /// </summary>
     public object SelectedItem
     {
-      get { return (object)GetValue(ComboBoxWithLabel.SelectedItemProperty); }
-      set { SetValue(ComboBoxWithLabel.SelectedItemProperty, value); }
+      get { return (object)this.GetValue(ComboBoxWithLabel.SelectedItemProperty); }
+      set { this.SetValue(ComboBoxWithLabel.SelectedItemProperty, value); }
     }
 
     /// <summary>
@@ -92,8 +92,8 @@
     /// </summary>
     public object SelectedValue
     {
-      get { return (object)GetValue(ComboBoxWithLabel.SelectedValueProperty); }
-      set { SetValue(ComboBoxWithLabel.SelectedValueProperty, value); }
+      get { return (object)this.GetValue(ComboBoxWithLabel.SelectedValueProperty); }
+      set { this.SetValue(ComboBoxWithLabel.SelectedValueProperty, value); }
     }
 
     /// <summary>
@@ -101,8 +101,8 @@
     /// </summary>
     public int SelectedIndex
     {
-      get { return (int)GetValue(ComboBoxWithLabel.SelectedIndexProperty); }
-      set { SetValue(ComboBoxWithLabel.SelectedIndexProperty, value); }
+      get { return (int)this.GetValue(ComboBoxWithLabel.SelectedIndexProperty); }
+      set { this.SetValue(ComboBoxWithLabel.SelectedIndexProperty, value); }
     }
     #endregion properties
   }

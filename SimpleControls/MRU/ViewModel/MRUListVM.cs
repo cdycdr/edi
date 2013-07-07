@@ -39,8 +39,8 @@
     
     private int mMaxMruEntryCount;
 
-    private RelayCommand _removeLastEntryCommand;
-    private RelayCommand _removeFirstEntryCommand;
+    private RelayCommand mRemoveLastEntryCommand;
+    private RelayCommand mRemoveFirstEntryCommand;
     #endregion Fields
 
     #region Constructor
@@ -86,7 +86,7 @@
 
       set
       {
-        if(this.mMaxMruEntryCount != value)
+        if (this.mMaxMruEntryCount != value)
         {
           if (value < this.MinValidMruEntryCount || value > this.MaxValidMruEntryCount)
             throw new ArgumentOutOfRangeException("MaxMruEntryCount", value, "Valid values are: value >= 5 and value <= 256");
@@ -137,20 +137,46 @@
           this.mListOfMRUEntries = value;
 
           this.NotifyPropertyChanged(() => this.ListOfMRUEntries);
+          ////this.NotifyPropertyChanged(() => this.ListOfUnPinnedMRUEntries);
+          ////this.NotifyPropertyChanged(() => this.ListOfPinnedMRUEntries);
         }
       }
     }
+/***
+    [XmlIgnore]
+    public ObservableCollection<MRUEntryVM> ListOfPinnedMRUEntries
+    {
+      get
+      {
+        if (this.mListOfMRUEntries == null)
+          return null;
 
+        return new ObservableCollection<MRUEntryVM>(this.mListOfMRUEntries.Where(mru => mru.IsPinned == true));
+      }
+    }
+
+    [XmlIgnore]
+    public ObservableCollection<MRUEntryVM> ListOfUnPinnedMRUEntries
+    {
+      get
+      {
+        if (this.mListOfMRUEntries == null)
+          return null;
+
+        return new ObservableCollection<MRUEntryVM>(this.mListOfMRUEntries.Where(mru => mru.IsPinned == false));
+      }
+    }
+***/
     #region RemoveEntryCommands
     public ICommand RemoveFirstEntryCommand
     {
       get
       {
-        if (_removeFirstEntryCommand == null)
-          _removeFirstEntryCommand =
+        if (this.mRemoveFirstEntryCommand == null)
+          this.mRemoveFirstEntryCommand =
               new RelayCommand(() => this.OnRemoveMRUEntry(Model.MRUList.Spot.First));
 
-        return _removeFirstEntryCommand;
+        return this.mRemoveFirstEntryCommand;
       }
     }
     
@@ -158,50 +184,25 @@
     {
       get
       {
-        if (_removeLastEntryCommand == null)
-          _removeLastEntryCommand = new RelayCommand(() => this.OnRemoveMRUEntry(Model.MRUList.Spot.Last));
+        if (this.mRemoveLastEntryCommand == null)
+          this.mRemoveLastEntryCommand = new RelayCommand(() => this.OnRemoveMRUEntry(Model.MRUList.Spot.Last));
 
-        return _removeLastEntryCommand;
+        return this.mRemoveLastEntryCommand;
       }
     }
 
     #endregion RemoveEntryCommands
+
+    private string AppName
+    {
+      get
+      {
+        return Application.ResourceAssembly.GetName().Name;
+      }
+    }
     #endregion Properties
 
     #region Methods
-    #region AddRemove Methods
-    private void OnRemoveMRUEntry(Model.MRUList.Spot addInSpot = Model.MRUList.Spot.Last)
-    {
-      if (this.mListOfMRUEntries == null)
-        return;
-
-      if (this.mListOfMRUEntries.Count == 0)
-        return;
-
-      switch (addInSpot)
-      {
-        case MRUList.Spot.Last:
-          this.mListOfMRUEntries.RemoveAt(this.mListOfMRUEntries.Count - 1);
-          break;
-        case MRUList.Spot.First:
-          this.mListOfMRUEntries.RemoveAt(0);
-          break;
-
-        default:
-          break;
-      }
-
-      //// this.NotifyPropertyChanged(() => this.ListOfMRUEntries);
-    }
-
-    private int CountPinnedEntries()
-    {
-      if (this.mListOfMRUEntries != null)
-        return this.mListOfMRUEntries.Count(mru => mru.IsPinned == true);
-
-      return 0;
-    }
-
     /// <summary>
     /// 
     /// </summary>
@@ -214,10 +215,10 @@
         if (this.mListOfMRUEntries == null)
           return false;
 
-        int PinnedMruEntryCount = this.CountPinnedEntries();
+        int pinnedMruEntryCount = this.CountPinnedEntries();
 
         // pin an MRU entry into the next available pinned mode spot
-        if(bPinOrUnPinMruEntry == true)
+        if (bPinOrUnPinMruEntry == true)
         {
           MRUEntryVM e = this.mListOfMRUEntries.Single(mru => mru.IsPinned == false && mru.PathFileName == mruEntry.PathFileName);
 
@@ -227,9 +228,9 @@
           e.IsPinned = true;
 
           if (this.PinSortMode == MRUSortMethod.PinnedEntriesFirst)
-            this.mListOfMRUEntries.Insert(PinnedMruEntryCount, e);
+            this.mListOfMRUEntries.Insert(pinnedMruEntryCount, e);
 
-          PinnedMruEntryCount += 1;
+          pinnedMruEntryCount += 1;
           //// this.NotifyPropertyChanged(() => this.ListOfMRUEntries);
 
           return true;
@@ -243,10 +244,10 @@
             this.mListOfMRUEntries.Remove(e);
           
           e.IsPinned = false;
-          PinnedMruEntryCount -= 1;
+          pinnedMruEntryCount -= 1;
 
           if (this.PinSortMode == MRUSortMethod.PinnedEntriesFirst)
-            this.mListOfMRUEntries.Insert(PinnedMruEntryCount, e);
+            this.mListOfMRUEntries.Insert(pinnedMruEntryCount, e);
 
           //// this.NotifyPropertyChanged(() => this.ListOfMRUEntries);
 
@@ -260,7 +261,7 @@
                   + exp.ToString(), "Error when pinning an MRU entry", MsgBoxButtons.OK, MsgBoxImage.Error);
       }
 
-      return  false;
+      return false;
     }
 
     /// <summary>
@@ -298,10 +299,10 @@
 
         // Remove last entry if list has grown too long
         if (this.MaxMruEntryCount <= this.mListOfMRUEntries.Count)
-          this.mListOfMRUEntries.RemoveAt(this.mListOfMRUEntries.Count-1);
+          this.mListOfMRUEntries.RemoveAt(this.mListOfMRUEntries.Count - 1);
 
         // Add model entry in ViewModel collection (First pinned entry or first unpinned entry)
-        if(newEntry.IsPinned == true)
+        if (newEntry.IsPinned == true)
           this.mListOfMRUEntries.Insert(0, new MRUEntryVM(newEntry));
         else
         {
@@ -367,7 +368,6 @@
 
       return false;
     }
-    #endregion AddRemove Methods
 
     public MRUEntryVM FindMRUEntry(string filePathName)
     {
@@ -388,12 +388,36 @@
       }
     }
 
-    private string AppName
+    private void OnRemoveMRUEntry(Model.MRUList.Spot addInSpot = Model.MRUList.Spot.Last)
     {
-      get
+      if (this.mListOfMRUEntries == null)
+        return;
+
+      if (this.mListOfMRUEntries.Count == 0)
+        return;
+
+      switch (addInSpot)
       {
-        return Application.ResourceAssembly.GetName().Name;
+        case MRUList.Spot.Last:
+          this.mListOfMRUEntries.RemoveAt(this.mListOfMRUEntries.Count - 1);
+          break;
+        case MRUList.Spot.First:
+          this.mListOfMRUEntries.RemoveAt(0);
+          break;
+
+        default:
+          break;
       }
+
+      //// this.NotifyPropertyChanged(() => this.ListOfMRUEntries);
+    }
+
+    private int CountPinnedEntries()
+    {
+      if (this.mListOfMRUEntries != null)
+        return this.mListOfMRUEntries.Count(mru => mru.IsPinned == true);
+
+      return 0;
     }
     #endregion Methods
   }

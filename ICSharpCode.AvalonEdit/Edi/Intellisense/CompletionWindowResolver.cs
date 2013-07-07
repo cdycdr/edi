@@ -35,6 +35,10 @@ namespace ICSharpCode.AvalonEdit.Edi.Intellisense
 			_dataProviders.Add(new FileCompletionDataProvider());
 		}
 
+    /// <summary>
+    /// Get the window that contains suggestion towards completing a typed text.
+    /// </summary>
+    /// <returns></returns>
 		public CompletionWindow Resolve()
 		{
 			var hiName = string.Empty;

@@ -888,8 +888,16 @@ namespace Edi.ViewModel
           if (this.OnCloseSaveDirtyFile(doc) == false)
             return false;
 
-          mFiles.Remove(doc);
+          int idx = this.mFiles.IndexOf(doc);
 
+          this.mFiles.Remove(doc);
+
+          if (this.Documents.Count > idx)
+            this.ActiveDocument = this.mFiles[idx];
+          else
+            if (this.Documents.Count > 1 && this.Documents.Count == idx)
+              this.ActiveDocument = this.mFiles[idx-1];
+          else
           if (this.Documents.Count == 0)
             this.ActiveDocument = null;
           else
@@ -898,7 +906,7 @@ namespace Edi.ViewModel
           return true;
         }
 
-        {
+        /*
           // This could be a StartPage, Log4Net, or UML file or any other (read-only) document type
           if (doc != null)
           {
@@ -917,7 +925,7 @@ namespace Edi.ViewModel
 
             return true;
           }
-        }
+        */
       }
       catch (Exception exp)
       {

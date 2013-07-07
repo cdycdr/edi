@@ -34,8 +34,7 @@ namespace MiniUML.View.Windows
                     _viewModel.vm_DocumentViewModel.vm_CanvasViewModel.cmd_Copy,
                     _viewModel.vm_DocumentViewModel.vm_CanvasViewModel.cmd_Cut,
                     _viewModel.vm_DocumentViewModel.vm_CanvasViewModel.cmd_Paste,
-                    _viewModel.vm_DocumentViewModel.vm_CanvasViewModel.cmd_Delete,
-                    _viewModel.vm_DocumentViewModel.vm_CanvasViewModel.cmd_Select);
+                    _viewModel.vm_DocumentViewModel.vm_CanvasViewModel.cmd_Delete);
             };
         }
 

@@ -71,7 +71,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="behaviour\DragAndDropProps.cs" />
     <Compile Include="CommandModel.cs" />
+    <Compile Include="Command\CommandModelBase.cs" />
+    <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="helpers\DragObject.cs" />
+    <Compile Include="helpers\ToolBoxData.cs" />
+    <Compile Include="interfaces\IDragableCommandModel.cs" />
     <Compile Include="Local\Strings.de-DE.Designer.cs">
       <DependentUpon>Strings.de-DE.resx</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -19,7 +19,7 @@ namespace EdiViews.ViewModel.Documents
   {
     #region Fields
     private MiniUML.Model.ViewModels.RibbonViewModel mRibbonViewModel;
-    private MiniUML.Model.ViewModels.DocumentViewModel mDocumentMiniUML;
+    private MiniUML.Model.ViewModels.AbstractDocumentViewModel mDocumentMiniUML;
 
     private static int iNewFileCounter             = 1;
     private string defaultFileType                 = "uml";
@@ -55,7 +55,7 @@ namespace EdiViews.ViewModel.Documents
 
     #region properties
     #region MiniUML Document ViewModel
-    public MiniUML.Model.ViewModels.DocumentViewModel DocumentMiniUML
+    public MiniUML.Model.ViewModels.AbstractDocumentViewModel DocumentMiniUML
     {
       get
       {
@@ -338,7 +338,7 @@ namespace EdiViews.ViewModel.Documents
     {
       try
       {
-        MiniUML.Model.ViewModels.DocumentViewModel.ExecuteSave(this.mDocumentMiniUML, filePath);
+        this.mDocumentMiniUML.ExecuteSave(filePath);
 
         this.IsFilePathReal = true;
         this.FilePath = filePath;

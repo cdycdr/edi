@@ -20,16 +20,20 @@
     /// Constructor
     /// </summary>
     /// <param name="editor"></param>
+    /// <param name="highlightBackgroundColorBrush"></param>
     public HighlightCurrentLineBackgroundRenderer(TextEditor editor,
-                                                  SolidColorBrush HighlightBackgroundColorBrush = null)
+                                                  SolidColorBrush highlightBackgroundColorBrush = null)
     {
       this.mEditor = editor;
 
       // Light Blue 0x100000FF
-      this.BackgroundColorBrush = new SolidColorBrush((HighlightBackgroundColorBrush == null ? Color.FromArgb(0x10, 0x00, 0x00, 0xFF) :
-                                                                                               HighlightBackgroundColorBrush.Color));
+      this.BackgroundColorBrush = new SolidColorBrush((highlightBackgroundColorBrush == null ? Color.FromArgb(0x10, 0x00, 0x00, 0xFF) :
+                                                                                               highlightBackgroundColorBrush.Color));
     }
 
+    /// <summary>
+    /// Get the <seealso cref="KnownLayer"/> of the <seealso cref="TextEditor"/> control.
+    /// </summary>
     public KnownLayer Layer
     {
       get { return KnownLayer.Background; }
@@ -40,6 +44,11 @@
     /// </summary>
     public SolidColorBrush BackgroundColorBrush { get; set; }
 
+    /// <summary>
+    /// Draw the background line highlighting of the current line.
+    /// </summary>
+    /// <param name="textView"></param>
+    /// <param name="drawingContext"></param>
     public void Draw(TextView textView, DrawingContext drawingContext)
     {
       if (this.mEditor.Document == null)

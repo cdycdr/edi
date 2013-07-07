@@ -13,9 +13,9 @@
 
     public bool IsMouseOverListViewItem
     {
-      get { return (bool)GetValue(IsMouseOverListViewItemProperty); }
+      get { return (bool)this.GetValue(IsMouseOverListViewItemProperty); }
 
-      set { SetValue(IsMouseOverListViewItemProperty, value); }
+      set { this.SetValue(IsMouseOverListViewItemProperty, value); }
     }
 
     protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)

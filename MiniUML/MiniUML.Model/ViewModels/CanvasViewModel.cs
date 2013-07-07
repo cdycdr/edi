@@ -14,6 +14,7 @@ namespace MiniUML.Model.ViewModels
   using MiniUML.Framework;
   using MiniUML.Model.DataModels;
   using MsgBox;
+  using MiniUML.Framework.Command;
 
   public interface ICanvasViewMouseHandler
   {
@@ -27,6 +28,11 @@ namespace MiniUML.Model.ViewModels
 
   public class CanvasViewModel : ViewModel
   {
+    #region fields
+    bool mIsFocused;
+    private RelayCommand<object> mSelectCommand = null;
+    #endregion fields
+
     #region constructor
     public CanvasViewModel(DocumentViewModel documentViewModel)
     {
@@ -35,8 +41,33 @@ namespace MiniUML.Model.ViewModels
 
       // Create the commands in this view model.
       this._commandUtilities.InitializeCommands(this);
+
+      this.mIsFocused = false;
     }
     #endregion constructor
+
+    #region properties
+    /// <summary>
+    /// This property can be bound to a focus behaviour in a view
+    /// to transfer focus when the viewmodel deems this to be appropriate.
+    /// </summary>
+    public bool IsFocused
+    {
+      get
+      {
+        return this.mIsFocused;
+      }
+      
+      set
+      {
+        if (this.mIsFocused != value)
+        {
+          this.mIsFocused = value;
+          this.SendPropertyChanged("IsFocused");
+        }
+      }
+    }
+    #endregion properties
 
     #region Mouse handling (CanvasViewMouseHandler)
 
@@ -134,13 +165,25 @@ namespace MiniUML.Model.ViewModels
     #endregion
 
     #region Commands
+    /// <summary>
+    /// Get a command that can be used to active the mouse select shape mode.
+    /// </summary>
+    public RelayCommand<object> SelectCommand
+    {
+      get
+      {
+        if (this.mSelectCommand == null)
+          this.mSelectCommand = new RelayCommand<object>((p) => this.OnSelectMode_Execute(),
+                                                         (p) => this.OnSelectMode_CanExecute());
+        return this.mSelectCommand;
+      }
+    }
 
     // Command properties
     public CommandModel cmd_Delete { get; private set; }
     public CommandModel cmd_Cut { get; private set; }
     public CommandModel cmd_Copy { get; private set; }
     public CommandModel cmd_Paste { get; private set; }
-    public CommandModel cmd_Select { get; private set; }
 
     private CommandUtilities _commandUtilities = new CommandUtilities();
 
@@ -155,7 +198,6 @@ namespace MiniUML.Model.ViewModels
         viewModel.cmd_Cut = new CutCommandModel(viewModel);
         viewModel.cmd_Copy = new CopyCommandModel(viewModel);
         viewModel.cmd_Paste = new PasteCommandModel(viewModel);
-        viewModel.cmd_Select = new SelectCommandModel(viewModel);
       }
     }
 
@@ -324,36 +366,19 @@ namespace MiniUML.Model.ViewModels
 
       private CanvasViewModel _viewModel;
     }
+    #endregion
+    #endregion
 
-    /// <summary>
-    /// Private implementation of the Select command
-    /// </summary>
-    private class SelectCommandModel : CommandModel
+    #region Selection mode command
+    private bool OnSelectMode_CanExecute()
     {
-      public SelectCommandModel(CanvasViewModel viewModel)
-        : base(ApplicationCommands.Stop)
-      {
-        _viewModel = viewModel;
-        this.Name        = MiniUML.Framework.Local.Strings.STR_Select;
-        this.Description = MiniUML.Framework.Local.Strings.STR_Select_Description;
-        this.Image = new BitmapImage(new Uri("/MiniUML.Plugins.UmlClassDiagram;component/Resources/Images/Command.Select.png", UriKind.Relative));
-      }
-
-      public override void OnQueryEnabled(object sender, CanExecuteRoutedEventArgs e)
-      {
-        e.CanExecute = (_viewModel.CanvasViewMouseHandler != null);
-        e.Handled = true;
-      }
-
-      public override void OnExecute(object sender, ExecutedRoutedEventArgs e)
-      {
-        _viewModel.CancelCanvasViewMouseHandler();
-      }
-
-      private CanvasViewModel _viewModel;
+      return (this.CanvasViewMouseHandler != null);
     }
 
-    #endregion
-    #endregion
+    private void OnSelectMode_Execute()
+    {
+      this.CancelCanvasViewMouseHandler();
+    }
+    #endregion Selection mode command
   }
 }

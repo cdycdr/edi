@@ -7,32 +7,35 @@
              xmlns:cmdLabel="clr-namespace:MiniUML.Framework.Local;assembly=MiniUML.Framework"
              >
 
-    <StackPanel Background="{DynamicResource Style.Brushes.RibbonView.PanelBackground}">
+  <StackPanel><!-- Background="{DynamicResource Style.Brushes.RibbonView.PanelBackground}" -->
 
     <!-- Foreground="{DynamicResource Style.Brushes.RibbonView.Foreground}" -->
         <Expander x:Name="_expander"
-                  ExpandDirection="Down" IsExpanded="False"
+                  ExpandDirection="Down"
+                  IsExpanded="False"
                   
                   BorderThickness="0"
                   Expanded="expander_Expanded"
                   Collapsed="expander_Collapsed">
+      <Expander.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVis" />
+      </Expander.Resources>
 
-            <Expander.Header>
-                <StackPanel Orientation="Horizontal"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Stretch">
-                    <TextBlock Text="{x:Static cmdLabel:Strings.STR_TITLE_XML_Editor}"
-                               VerticalAlignment="Center"
-                               Margin="2" />
+        <Expander.Header>
+          <StackPanel Orientation="Horizontal"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch">
+              <TextBlock Text="{x:Static cmdLabel:Strings.STR_TITLE_XML_Editor}"
+                          VerticalAlignment="Center"
+                          Margin="3,1" />
 
-                    <Border MouseDown="updateDesignerButtonContainer_MouseDown">
-                        <controls:CommandButton x:Name="_updateDesignerButton"
-                                                Margin="15,2,2,0" Width="100" FontSize="9"
-                                                Visibility="Hidden"
-                                                Style="{DynamicResource GenericCommandButtonStyle}"
-                                                CommandModel="{Binding cmd_UpdateDesigner}"
-                                                CommandParameter="{Binding ElementName='_xmlTextBox', Path='Text'}"
-                                                framework:CreateCommandBinding.Command="{Binding cmd_UpdateDesigner}"/>
+              <Border MouseDown="updateDesignerButtonContainer_MouseDown">
+            <Button Content="{x:Static cmdLabel:Strings.STR_CMD_UPDATE}"
+                    Command="{Binding UpdateDesignerCommand}"
+                    CommandParameter="{Binding ElementName='_xmlTextBox', Path='Text'}"
+                    Margin="15,1,1,3" MinHeight="23" MinWidth="100"
+                    Visibility="{Binding ElementName=_expander, Path=IsExpanded,Converter={StaticResource boolToVis}}"
+                    />
                     </Border>
                 </StackPanel>
             </Expander.Header>
@@ -50,7 +53,7 @@
                          Height="220"
                          VerticalScrollBarVisibility="Auto"
                          HorizontalScrollBarVisibility="Auto"
-                         TextWrapping="WrapWithOverflow"
+                         TextWrapping="NoWrap"
                          AcceptsReturn="True"
                          PreviewKeyDown="xmlTextBox_PreviewKeyDown"/>
             </StackPanel>

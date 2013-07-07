@@ -339,4 +339,16 @@ XPS Document Files (*.xps)|*.xps</value>
   <data name="STR_UML_CLASS_DIAGRAM_TT" xml:space="preserve">
     <value>UML Class Diagram</value>
   </data>
+  <data name="STR_CMD_Deployment" xml:space="preserve">
+    <value>Deployment</value>
+  </data>
+  <data name="STR_CMD_Deployment_description" xml:space="preserve">
+    <value>Create a new deployment element</value>
+  </data>
+  <data name="STR_CMD_Delegate" xml:space="preserve">
+    <value>Delegate</value>
+  </data>
+  <data name="STR_CMD_Delegate_description" xml:space="preserve">
+    <value>Create a new delegate element</value>
+  </data>
 </root>

@@ -1,8 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-  <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/MiniUML.Plugins.UmlClassDiagram;component/Controls/UmlAssociation.xaml"/>
-    <ResourceDictionary Source="/MiniUML.Plugins.UmlClassDiagram;component/Controls/UmlThreePieceLine.xaml"/>
-  </ResourceDictionary.MergedDictionaries>
-</ResourceDictionary>

@@ -21,7 +21,11 @@ namespace MiniUML.View.Controls
 
     public interface ISnapTarget
     {
-        /** Snaps p to the SnapTarget, and sets snapAngle to the angle of the snap target line (if any). */
+        /// <summary>
+        /// Snaps p to the SnapTarget, and sets snapAngle to the angle of the snap target line (if any).
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="snapAngle"></param>
         void SnapPoint(ref Point p, out double snapAngle);
 
         event SnapTargetUpdateHandler SnapTargetUpdate;

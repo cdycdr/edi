@@ -16,6 +16,8 @@
   using EdiViews.StartPage;
   using EdiViews.Documents.StartPage;
   using EdiViews.ViewModel.Documents;
+  using MiniUML.Framework;
+using Microsoft.Win32;
 
   /// <summary>
   /// Base enumeration to determine the kind of command option
@@ -357,6 +359,36 @@
                           App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
         }
       }));
+
+      // Execute a command to save all edited files and current program settings
+      win.CommandBindings.Add(new CommandBinding(AppCommand.ExportUMLToImage,
+      (s, e) =>
+      {
+        try
+        {
+          if (this.vm_DocumentViewModel != null)
+          {
+            if ((this.vm_DocumentViewModel.dm_DocumentDataModel.State == DataModel.ModelState.Ready) == true)
+            {
+              this.vm_DocumentViewModel.ExecuteExport(s, e, this.ActiveDocument.FileName);
+            }
+          }
+        }
+        catch (Exception exp)
+        {
+          logger.Error(exp.Message, exp);
+          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        }
+      },
+      (s, e) =>  // Execute this comment only if an UML document is currently active
+      {
+        if (this.vm_DocumentViewModel != null)
+          e.CanExecute = (this.vm_DocumentViewModel.dm_DocumentDataModel.State == DataModel.ModelState.Ready);
+        else
+          e.CanExecute = false;
+      }      
+      ));
 
       win.CommandBindings.Add(new CommandBinding(AppCommand.PinUnpin,
       (s, e) =>

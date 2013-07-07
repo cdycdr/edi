@@ -38,6 +38,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -100,63 +102,47 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\Shapes\UmlCommentShape.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Shapes\GenericUmlAssociation.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
+    <Page Include="Controls\Templates\ShapeTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Shapes\GenericUmlContainerShape.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Shapes\GenericUmlMemberShape.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
+    <Page Include="Themes\Brushes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\UmlTextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\UmlListBox.xaml">
+    <Page Include="Themes\Common\UmlPackageShape.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\DataTemplates\Shapes\AssociationShapeTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Themes\Common\UmlCommentShape.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\DataTemplates\Shapes\ContainerShapeTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Themes\Common\UmlBoundaryShape.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\DataTemplates\Shapes\MemberShapeTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Themes\UmlNodeShape.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\DataTemplates\Shapes\ShapeTemplates.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
+    <Page Include="Themes\UmlDecisionShape.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\DataTemplates\Shapes\_MergedDictionaries.xaml">
+    <Page Include="Themes\UmlSquareShape.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UmlTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\UmlListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Templates\AssociationShapeTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
@@ -168,7 +154,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\UmlEpander.xaml">
+    <Page Include="Themes\UmlExpander.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,44 +164,67 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Theme\Generic.xaml">
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UmlCanvasShape.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UseCase\UmlUseCaseShape.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolBox\View\ToolBoxControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Shapes\UmlCommentShape.xaml.cs">
-      <DependentUpon>UmlCommentShape.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Shapes\GenericUmlAssociation.xaml.cs">
-      <DependentUpon>GenericUmlAssociation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Shapes\GenericUmlContainerShape.xaml.cs">
-      <DependentUpon>GenericUmlContainerShape.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Shapes\GenericUmlMemberShape.xaml.cs">
-      <DependentUpon>GenericUmlMemberShape.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Shapes\UmlClassShape.cs" />
-    <Compile Include="Controls\Shapes\UmlEnumShape.cs" />
-    <Compile Include="Controls\Shapes\UmlInterfaceShape.cs" />
-    <Compile Include="Controls\Shapes\UmlStructShape.cs" />
+    <Compile Include="Controls\Connect\GenericUmlAssociation.cs" />
+    <Compile Include="Controls\Connect\ThreePieceLine.cs" />
+    <Compile Include="Controls\ControlKey.cs" />
+    <Compile Include="Controls\Shapes\UmlCanvasShapeSelector.cs" />
+    <Compile Include="Controls\Shapes\UmlCanvasShape.cs" />
+    <Compile Include="Controls\Shapes\UmlUseCaseShape.cs" />
+    <Compile Include="Controls\Shapes\UmlNodeShape.cs" />
+    <Compile Include="Controls\Shapes\UmlBoundaryShape.cs" />
+    <Compile Include="Controls\Shapes\UmlPackageShape.cs" />
+    <Compile Include="Controls\Shapes\UmlDecisionShape.cs" />
+    <Compile Include="Controls\UmlKeys.cs" />
+    <Compile Include="Controls\Shapes\UmlSquareShape.cs" />
+    <Compile Include="Controls\Shapes\UmlCommentShape.cs" />
+    <Compile Include="Controls\ViewModel\Base\ViewModelBase.cs" />
+    <Compile Include="Controls\ViewModel\Connect\AbstractCreateAssociationMouseHandler.cs" />
+    <Compile Include="Controls\ViewModel\Connect\CreateAggregationShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Connect\CreateAssociationShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Connect\CreateCompositionShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Connect\CreateInheritanceShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Diagrams\CommonCommandModels.cs" />
+    <Compile Include="Controls\ViewModel\Diagrams\ActivityCommandModels.cs" />
+    <Compile Include="Controls\ViewModel\Diagrams\UseCaseCommandModels.cs" />
+    <Compile Include="Controls\ViewModel\Diagrams\DeploymentCommandModels.cs" />
+    <Compile Include="Controls\ViewModel\Diagrams\ClassCommandModels.cs" />
+    <Compile Include="Controls\ViewModel\Shapes\CreateCanvaseShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Shapes\CreateUseCaseShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Shapes\CreateNodeShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Shapes\CreateBoundaryShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Shapes\CreatePackageShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Shapes\CreateDecisionShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Shapes\CreateCommentShapeCommandModel.cs" />
+    <Compile Include="Controls\ViewModel\Shapes\CreateSquareShapeCommandModel.cs" />
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converter\ExptyStringToVisibilityConverter.cs" />
+    <Compile Include="Converter\ExptyStringToNullConverter.cs" />
+    <Compile Include="Converter\GroupByTypeConverter.cs" />
+    <Compile Include="Converter\ImageUrlConverter.cs" />
+    <Compile Include="Converter\PointCollectionConverter .cs" />
     <Compile Include="PluginModel.cs" />
     <Compile Include="PluginView.xaml.cs">
       <DependentUpon>PluginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PluginViewModel.cs" />
-    <Compile Include="PluginViewModels\CommandUtilities.cs" />
-    <Compile Include="PluginViewModels\CreateCompositionShapeCommandModel.cs" />
-    <Compile Include="PluginViewModels\CreateAggregationShapeCommandModel.cs" />
-    <Compile Include="PluginViewModels\CreateInterfaceShapeCommandModel.cs" />
-    <Compile Include="PluginViewModels\CreateCommentShapeCommandModel.cs" />
-    <Compile Include="PluginViewModels\CreateInheritanceShapeCommandModel.cs" />
-    <Compile Include="PluginViewModels\CreateAssociationShapeCommandModel.cs" />
-    <Compile Include="PluginViewModels\CreateEnumShapeCommandModel.cs" />
-    <Compile Include="PluginViewModels\CreateStructShapeCommandModel.cs" />
-    <Compile Include="PluginViewModels\CreateClassShapeCommandModel.cs" />
-    <Compile Include="PluginViewModels\CreateAbstractClassShapeCommandModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -229,7 +238,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utilities\ValueConverters.cs" />
+    <Compile Include="ToolBox\ViewModel\ConnectBoxViewModel.cs" />
+    <Compile Include="ToolBox\ViewModel\ActivitiyShapeBoxViewModel.cs" />
+    <Compile Include="ToolBox\ViewModel\UseCaseShapeBoxViewModel.cs" />
+    <Compile Include="ToolBox\ViewModel\DeploymentShapeBoxViewModel.cs" />
+    <Compile Include="ToolBox\ViewModel\ClassShapeBoxViewModel.cs" />
+    <Compile Include="ToolBox\ViewModel\IShapBox.cs" />
+    <Compile Include="ToolBox\View\ToolBoxControl.xaml.cs">
+      <DependentUpon>ToolBoxControl.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -242,13 +259,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Command.CreateAbstractClassShape.png" />
-    <Resource Include="Resources\Images\Command.CreateAssociationShape.png" />
-    <Resource Include="Resources\Images\Command.CreateClassShape.png" />
-    <Resource Include="Resources\Images\Command.CreateDelegateShape.png" />
-    <Resource Include="Resources\Images\Command.CreateInheritanceShape.png" />
-    <Resource Include="Resources\Images\Command.CreateInterfaceShape.png" />
-    <Resource Include="Resources\Images\Command.CreateStructShape.png" />
+    <Resource Include="Images\Connect\Command.CreateAssociationShape.png" />
+    <Resource Include="Images\Connect\Command.CreateInheritanceShape.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MiniUML.Framework\MiniUML.Framework.csproj">
@@ -267,19 +279,42 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Command.CreateCommentShape.png" />
-    <Resource Include="Resources\Images\Command.CreateEnumShape.png" />
+    <Resource Include="Images\Connect\Command.CreateAggregationShape.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Command.CreateAggregationShape.png" />
+    <Resource Include="Images\Connect\Command.CreateCompositionShape.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Command.CreateCompositionShape.png" />
+    <Resource Include="Images\Command.Select.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Command.Select.png" />
+    <Resource Include="Images\Shapes\Deployment\ComponentToolBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\Deployment\Component.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\Common\Note.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\Class\Association.png" />
+    <Resource Include="Images\Shapes\Class\Class.png" />
+    <Resource Include="Images\Shapes\Class\DataType.png" />
+    <Resource Include="Images\Shapes\Class\Enumeration.png" />
+    <Resource Include="Images\Shapes\Class\Interface.png" />
+    <Resource Include="Images\Shapes\Common\Package.png" />
+    <Resource Include="Images\Shapes\Class\Primitive.png" />
+    <Resource Include="Images\Shapes\Class\Signal.png" />
+    <Resource Include="Images\Shapes\Class\Table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\Class\TableToolBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\Common\Boundary.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- Import Project="$(ProgramFiles)\MSBuild\StyleCop\v4.7\StyleCop.Targets" / -->
   <PropertyGroup>
     <PostBuildEvent>Copy /Y "$(TargetPath)" "$(SolutionDir)Edi\MiniUML.Plugins"
 </PostBuildEvent>
@@ -289,6 +324,6 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-  </Target>
-  -->
+
+  </Target> -->
 </Project>

@@ -71,14 +71,14 @@ namespace SimpleControls.Hyperlink
     /// </summary>
     public System.Uri NavigateUri
     {
-      get { return (System.Uri)GetValue(WebHyperlink.NavigateUriProperty); }
-      set { SetValue(WebHyperlink.NavigateUriProperty, value); }
+      get { return (System.Uri)this.GetValue(WebHyperlink.NavigateUriProperty); }
+      set { this.SetValue(WebHyperlink.NavigateUriProperty, value); }
     }
 
     public string Text
     {
-      get { return (string)GetValue(WebHyperlink.TextProperty); }
-      set { SetValue(WebHyperlink.TextProperty, value); }
+      get { return (string)this.GetValue(WebHyperlink.TextProperty); }
+      set { this.SetValue(WebHyperlink.TextProperty, value); }
     }
     #endregion
 

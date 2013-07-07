@@ -1,11 +1,13 @@
-using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Markup;
 namespace MiniUML.View.Windows
 {
+  using System;
+  using System.Globalization;
+  using System.Windows;
+  using System.Windows.Markup;
+
   using MiniUML.Framework;
   using MiniUML.Model.ViewModels;
+  using MiniUML.View.Converter;
   using MiniUML.View.Utilities;
 
   /// <summary>

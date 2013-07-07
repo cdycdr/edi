@@ -57,8 +57,8 @@
     /// </summary>
     public IEnumerable ItemsSource
     {
-      get { return (IEnumerable)GetValue(ComboBoxWithLabeledTextInput.ItemsSourceProperty); }
-      set { SetValue(ComboBoxWithLabeledTextInput.ItemsSourceProperty, value); }
+      get { return (IEnumerable)this.GetValue(ComboBoxWithLabeledTextInput.ItemsSourceProperty); }
+      set { this.SetValue(ComboBoxWithLabeledTextInput.ItemsSourceProperty, value); }
     }
 
     /// <summary>
@@ -67,8 +67,8 @@
     public string LabelContent
     {
       // These proeprties can be bound to. The XAML for this control binds the Label's content to this.
-      get { return (string)GetValue(ComboBoxWithLabeledTextInput.LabelContentProperty); }
-      set { SetValue(ComboBoxWithLabeledTextInput.LabelContentProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWithLabeledTextInput.LabelContentProperty); }
+      set { this.SetValue(ComboBoxWithLabeledTextInput.LabelContentProperty, value); }
     }
 
     /// <summary>
@@ -76,8 +76,8 @@
     /// </summary>
     public string DisplayMemberPath
     {
-      get { return (string)GetValue(ComboBoxWithLabeledTextInput.DisplayMemberPathProperty); }
-      set { SetValue(ComboBoxWithLabeledTextInput.DisplayMemberPathProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWithLabeledTextInput.DisplayMemberPathProperty); }
+      set { this.SetValue(ComboBoxWithLabeledTextInput.DisplayMemberPathProperty, value); }
     }
 
     /// <summary>
@@ -85,8 +85,8 @@
     /// </summary>
     public string SelectedValuePath
     {
-      get { return (string)GetValue(ComboBoxWithLabeledTextInput.SelectedValuePathProperty); }
-      set { SetValue(ComboBoxWithLabeledTextInput.SelectedValuePathProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWithLabeledTextInput.SelectedValuePathProperty); }
+      set { this.SetValue(ComboBoxWithLabeledTextInput.SelectedValuePathProperty, value); }
     }
 
     /// <summary>
@@ -94,8 +94,8 @@
     /// </summary>
     public object SelectedItem
     {
-      get { return (object)GetValue(ComboBoxWithLabeledTextInput.SelectedItemProperty); }
-      set { SetValue(ComboBoxWithLabeledTextInput.SelectedItemProperty, value); }
+      get { return (object)this.GetValue(ComboBoxWithLabeledTextInput.SelectedItemProperty); }
+      set { this.SetValue(ComboBoxWithLabeledTextInput.SelectedItemProperty, value); }
     }
 
     /// <summary>
@@ -103,8 +103,8 @@
     /// </summary>
     public object SelectedValue
     {
-      get { return (object)GetValue(ComboBoxWithLabeledTextInput.SelectedValueProperty); }
-      set { SetValue(ComboBoxWithLabeledTextInput.SelectedValueProperty, value); }
+      get { return (object)this.GetValue(ComboBoxWithLabeledTextInput.SelectedValueProperty); }
+      set { this.SetValue(ComboBoxWithLabeledTextInput.SelectedValueProperty, value); }
     }
 
     /// <summary>
@@ -112,8 +112,8 @@
     /// </summary>
     public int SelectedIndex
     {
-      get { return (int)GetValue(ComboBoxWithLabeledTextInput.SelectedIndexProperty); }
-      set { SetValue(ComboBoxWithLabeledTextInput.SelectedIndexProperty, value); }
+      get { return (int)this.GetValue(ComboBoxWithLabeledTextInput.SelectedIndexProperty); }
+      set { this.SetValue(ComboBoxWithLabeledTextInput.SelectedIndexProperty, value); }
     }
     #endregion ComboBox
 
@@ -124,8 +124,8 @@
     public string LabelTextBox
     {
       // These proeprties can be bound to. The XAML for this control binds the Label's content to this.
-      get { return (string)GetValue(ComboBoxWithLabeledTextInput.LabelTextBoxProperty); }
-      set { SetValue(ComboBoxWithLabeledTextInput.LabelTextBoxProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWithLabeledTextInput.LabelTextBoxProperty); }
+      set { this.SetValue(ComboBoxWithLabeledTextInput.LabelTextBoxProperty, value); }
     }
 
     /// <summary>
@@ -134,8 +134,8 @@
     public string Text
     {
       // These proeprties can be bound to. The XAML for this control binds the Label's content to this.
-      get { return (string)GetValue(ComboBoxWithLabeledTextInput.TextProperty); }
-      set { SetValue(ComboBoxWithLabeledTextInput.TextProperty, value); }
+      get { return (string)this.GetValue(ComboBoxWithLabeledTextInput.TextProperty); }
+      set { this.SetValue(ComboBoxWithLabeledTextInput.TextProperty, value); }
     }
     #endregion TextBox
     #endregion properties
