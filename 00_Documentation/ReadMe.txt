@@ -1,13 +1,26 @@
 
 1 Version
 
-This Readme file has the Version 1.0.13.
+This Readme file has the Version 1.0.14.
 
 2 Edi 1.0
 
 Edit is a WPF text editor application written and published by
 Dirkster99 on CodeProject (http://www.codeproject.com/Articles/Dirkster99#Articles)
 and the contributing authors listed in the credits section.
+
+2.0 Building Edi from Sources
+
+- Building Edi from sources requires to build the AvalonDock sources first:
+  Change into sub-folder: edi\02_Libs\AvalonDock
+  and compile the test application project.
+  
+  Copy the resulting AvalonDock DLLs into the sub-folder:
+  edi\02_Libs\00_bin\Xceed.Wpf.AvalonDock
+
+- Open the Edi project and check whether the AvalonDock references appear OK
+
+- Rebuild the Edi project.
 
 2.1 Introduction
 
