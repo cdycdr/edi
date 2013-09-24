@@ -13,11 +13,24 @@
  - Query user whether files should be searched/browsed
  - or add lost & and found view that offers a hyperlink that performs a file open on the last known location
 
-* Minor Improvements in MiniUML
+* Added #region and #endregion folding support for cs files and started CSharpBraceFolding class
+
+* Major Improvements in MiniUML
+  - MiniUml Refactorings:
+    - This is the end of XElement as datamodel for shapes (see ShapeViewModelBase instead)
+    - PluginModel and PluginManager are setup to support more than one MiniUml plusing at a time.
+  
+  - Added new Align, Same Size, and Distribute functions based on Sukram's article series:
+    http://www.codeproject.com/Articles/24681/WPF-Diagram-Designer-Part-4
+
+  - Added RubberBand selection and ResizeAdorner based on:
+    http://www.codeproject.com/Articles/22952/WPF-Diagram-Designer-Part-1
+    http://www.codeproject.com/Articles/23265/WPF-Diagram-Designer-Part-2
+
   - Selecting a ContainerShape lets it acquire focus to support WPFs ApplicationCommands
   - Comment item is now multiline (added AcceptReturn=True)
   - Extended ContextMenus on various shapes by Cut, Copy, Paste, Undo, Redo (not all supported yet)
-  - Assigned ContextMenus to CanvasView with Cut, Copy, Paste
+  - Assigned ContextMenus to CanvasView with Cut, Copy, Paste, Undo, Redo
   - Added Export UML to Image Command in editor
   - Refactored Save and Export commands into AbstractDocumentViewModel
 

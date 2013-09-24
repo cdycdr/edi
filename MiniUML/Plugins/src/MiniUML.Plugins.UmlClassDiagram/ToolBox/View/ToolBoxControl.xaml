@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 
-             xmlns:behav="clr-namespace:MiniUML.Framework.behaviour;assembly=MiniUML.Framework"
+             xmlns:behav="clr-namespace:MiniUML.Model.behaviour;assembly=MiniUML.Model"
              xmlns:convert="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Converter"
 
              mc:Ignorable="d" 

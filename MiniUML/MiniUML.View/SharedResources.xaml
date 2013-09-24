@@ -6,15 +6,12 @@
     <ResourceDictionary.MergedDictionaries>
         
         <!-- Control styles -->
-        <ResourceDictionary Source="/MiniUML.View;component/Resources/Styles/Controls/CommandButton.xaml"/>
         <ResourceDictionary Source="/MiniUML.View;component/Resources/Styles/Controls/RibbonGroup.xaml"/>
         <ResourceDictionary Source="/MiniUML.View;component/Resources/Styles/Controls/RibbonGallery.xaml"/>
-        <ResourceDictionary Source="/MiniUML.View;component/Resources/Styles/Controls/SingleClickBlock.xaml"/>
                
     </ResourceDictionary.MergedDictionaries>
     
     <!-- Window factories -->
-    <windows:MainWindowFactory x:Key="MainWindowFactory"/>
     <windows:NewDocumentWindowFactory x:Key="NewDocumentWindowFactory"/>
     <windows:ExportDocumentWindowFactory x:Key="ExportDocumentWindowFactory"/>
     

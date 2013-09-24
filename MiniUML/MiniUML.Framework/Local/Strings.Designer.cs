@@ -61,6 +61,42 @@ namespace MiniUML.Framework.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply Indentation Strategy.
+        /// </summary>
+        public static string STR_Cmd__ApplyTextIndentationStrategy {
+            get {
+                return ResourceManager.GetString("STR_Cmd__ApplyTextIndentationStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert text to lower case.
+        /// </summary>
+        public static string STR_Cmd__ConvertTextToLowerCase {
+            get {
+                return ResourceManager.GetString("STR_Cmd__ConvertTextToLowerCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert to Title Case.
+        /// </summary>
+        public static string STR_Cmd__ConvertTextToTitleCase {
+            get {
+                return ResourceManager.GetString("STR_Cmd__ConvertTextToTitleCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invert Case.
+        /// </summary>
+        public static string STR_Cmd__InvertTextCase {
+            get {
+                return ResourceManager.GetString("STR_Cmd__InvertTextCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Abstract Class.
         /// </summary>
         public static string STR_CMD_AbstractClass {
@@ -151,6 +187,15 @@ namespace MiniUML.Framework.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collapse text foldings.
+        /// </summary>
+        public static string STR_Cmd_CollapseTextFoldings {
+            get {
+                return ResourceManager.GetString("STR_Cmd_CollapseTextFoldings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string STR_CMD_Comment {
@@ -183,6 +228,51 @@ namespace MiniUML.Framework.Local {
         public static string STR_CMD_Composition_description {
             get {
                 return ResourceManager.GetString("STR_CMD_Composition_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert Leading Spaces to Tabs.
+        /// </summary>
+        public static string STR_Cmd_ConvertLeadingSpaces {
+            get {
+                return ResourceManager.GetString("STR_Cmd_ConvertLeadingSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert Leading Tabs to Spaces.
+        /// </summary>
+        public static string STR_Cmd_ConvertLeadingTabsToSpaces {
+            get {
+                return ResourceManager.GetString("STR_Cmd_ConvertLeadingTabsToSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert Spaces to Tabs.
+        /// </summary>
+        public static string STR_CMD_ConvertSpacesToTabs {
+            get {
+                return ResourceManager.GetString("STR_CMD_ConvertSpacesToTabs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert Tabs to Spaces.
+        /// </summary>
+        public static string STR_CMD_ConvertTabsToSpaces {
+            get {
+                return ResourceManager.GetString("STR_CMD_ConvertTabsToSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert text to upper case.
+        /// </summary>
+        public static string STR_Cmd_ConvertTextToUpperCase {
+            get {
+                return ResourceManager.GetString("STR_Cmd_ConvertTextToUpperCase", resourceCulture);
             }
         }
         
@@ -277,6 +367,15 @@ namespace MiniUML.Framework.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expand text foldings.
+        /// </summary>
+        public static string STR_Cmd_ExpandTextFoldings {
+            get {
+                return ResourceManager.GetString("STR_Cmd_ExpandTextFoldings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export.
         /// </summary>
         public static string STR_CMD_Export_Command {
@@ -358,6 +457,24 @@ namespace MiniUML.Framework.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove Leading White Spaces.
+        /// </summary>
+        public static string STR_CMD_RemoveLeadingWhiteSpace {
+            get {
+                return ResourceManager.GetString("STR_CMD_RemoveLeadingWhiteSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Trailing White Space.
+        /// </summary>
+        public static string STR_CMD_RemoveTrailingWhiteSpace {
+            get {
+                return ResourceManager.GetString("STR_CMD_RemoveTrailingWhiteSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save the current document..
         /// </summary>
         public static string STR_CMD_SAVE_DOCUMENT {
@@ -417,6 +534,150 @@ namespace MiniUML.Framework.Local {
         public static string STR_CMD_UPDATE_DESCRIPTION {
             get {
                 return ResourceManager.GetString("STR_CMD_UPDATE_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string STR_CmdName_Copy {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy selected item.
+        /// </summary>
+        public static string STR_CmdName_Copy_TT {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Copy_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cut.
+        /// </summary>
+        public static string STR_CmdName_Cut {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Cut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cut selected item.
+        /// </summary>
+        public static string STR_CmdName_Cut_TT {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Cut_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string STR_CmdName_Delete {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete selected item.
+        /// </summary>
+        public static string STR_CmdName_Delete_TT {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Delete_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Line.
+        /// </summary>
+        public static string STR_CmdName_DeleteLine {
+            get {
+                return ResourceManager.GetString("STR_CmdName_DeleteLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deletes the current line of text.
+        /// </summary>
+        public static string STR_CmdName_DeleteLine_TT {
+            get {
+                return ResourceManager.GetString("STR_CmdName_DeleteLine_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste.
+        /// </summary>
+        public static string STR_CmdName_Paste {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste item from Windows clipboard.
+        /// </summary>
+        public static string STR_CmdName_Paste_TT {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Paste_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redo.
+        /// </summary>
+        public static string STR_CmdName_Redo {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Redo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redo last undo.
+        /// </summary>
+        public static string STR_CmdName_Redo_TT {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Redo_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select All.
+        /// </summary>
+        public static string STR_CmdName_SelectAll {
+            get {
+                return ResourceManager.GetString("STR_CmdName_SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all items.
+        /// </summary>
+        public static string STR_CmdName_SelectAll_TT {
+            get {
+                return ResourceManager.GetString("STR_CmdName_SelectAll_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo.
+        /// </summary>
+        public static string STR_CmdName_Undo {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo last edit.
+        /// </summary>
+        public static string STR_CmdName_Undo_TT {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Undo_TT", resourceCulture);
             }
         }
         
@@ -483,6 +744,24 @@ namespace MiniUML.Framework.Local {
         public static string STR_FILETYPE_FILTER_SAVE {
             get {
                 return ResourceManager.GetString("STR_FILETYPE_FILTER_SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Case.
+        /// </summary>
+        public static string STR_Label_TextCase {
+            get {
+                return ResourceManager.GetString("STR_Label_TextCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to White Spaces.
+        /// </summary>
+        public static string STR_Label_WhiteSpaces {
+            get {
+                return ResourceManager.GetString("STR_Label_WhiteSpaces", resourceCulture);
             }
         }
         

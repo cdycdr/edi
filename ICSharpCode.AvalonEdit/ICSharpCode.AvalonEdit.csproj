@@ -134,8 +134,10 @@
       <DependentUpon>EdiTextEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Edi\Folding\BraceFoldingStarategy.cs" />
+    <Compile Include="Edi\Folding\CSharpBraceFoldingStarategy.cs" />
     <Compile Include="Edi\Folding\VBNETFoldingStrategy.cs" />
     <Compile Include="Edi\HighlightCurrentLineBackgroundRenderer.cs" />
+    <Compile Include="Edi\HighlightingExtension.cs" />
     <Compile Include="Edi\Intellisense\CompletionWindowResolver.cs" />
     <Compile Include="Edi\Intellisense\FileCompletionDataProvider.cs" />
     <Compile Include="Edi\Intellisense\ICompletionDataProvider.cs" />

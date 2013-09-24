@@ -8,7 +8,6 @@ namespace Edi
   using System.Windows;
   using System.Windows.Threading;
 
-  using AvalonDock.Layout.Serialization;
   using Edi.ViewModel;
   using EdiViews.Config.ViewModel;
   using EdiViews.Documents.StartPage;
@@ -20,6 +19,7 @@ namespace Edi
   using MsgBox;
   using Util;
   using Util.ActivateWindow;
+  using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
   /// <summary>
   /// Interaction logic for App.xaml
@@ -29,12 +29,12 @@ namespace Edi
     #region fields
     readonly SingletonApplicationEnforcer enforcer = new SingletonApplicationEnforcer(ProcessSecondInstance, WindowLister.ActivateMainWindow, "Edi");
 
-    protected static readonly log4net.ILog logger;
+    protected static log4net.ILog Logger;
 
     static App()
     {
       XmlConfigurator.Configure();
-      logger = LogManager.GetLogger("default");
+      Logger = LogManager.GetLogger("default");
     }
 
     private Window mMainWin;
@@ -140,7 +140,7 @@ namespace Edi
       }
       catch (Exception exp)
       {
-        logger.Error(exp);
+        Logger.Error(exp);
         return false;
       }
 
@@ -155,18 +155,18 @@ namespace Edi
     {
       if (args != null)
       {
-        logger.InfoFormat("TRACE Processing command line 'args' in App.ProcessCmdLine");
+        Logger.InfoFormat("TRACE Processing command line 'args' in App.ProcessCmdLine");
 
         foreach (string sPath in args)
         {
-          logger.InfoFormat("TRACE Processing CMD param: '{0}'", sPath);
+          Logger.InfoFormat("TRACE Processing CMD param: '{0}'", sPath);
 
           // Command may not be bound yet so we do this via direct call
           Workspace.This.Open(sPath);
         }
       }
       else
-        logger.InfoFormat("TRACE There are no command line 'args' to process in App.ProcessCmdLine");
+        Logger.InfoFormat("TRACE There are no command line 'args' to process in App.ProcessCmdLine");
     }
 
     /// <summary>
@@ -257,7 +257,7 @@ namespace Edi
       {
         try
         {
-          logger.Error(string.Format(CultureInfo.InvariantCulture,
+          Logger.Error(string.Format(CultureInfo.InvariantCulture,
                        "The {0} application received request to shutdown: {1}.",
                        Application.ResourceAssembly.GetName(), e.ReasonSessionEnding.ToString()));
         }
@@ -279,7 +279,7 @@ namespace Edi
       }
       catch (Exception exp)
       {
-        logger.Error(exp);
+        Logger.Error(exp);
       }
     }
 
@@ -380,7 +380,7 @@ namespace Edi
       }
       catch (Exception exp)
       {
-        logger.Error(exp);
+        Logger.Error(exp);
       }
     }
 
@@ -404,7 +404,7 @@ namespace Edi
       }
       catch (Exception exp)
       {
-        logger.Error(exp);
+        Logger.Error(exp);
       }
     }
 
@@ -514,7 +514,7 @@ namespace Edi
       }
       catch (Exception exp)
       {
-        logger.Error(exp);
+        Logger.Error(exp);
       }
     }
 
@@ -535,7 +535,7 @@ namespace Edi
       }
       catch (Exception exp)
       {
-        logger.Error(exp);
+        Logger.Error(exp);
         Msg.Show(exp.ToString(), Util.Local.Strings.STR_MSG_UnknownError_InShutDownProcess, MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
@@ -558,7 +558,7 @@ namespace Edi
         else
           message = Util.Local.Strings.STR_Msg_UnknownError;
 
-        logger.Error(message);
+        Logger.Error(message);
 
         Msg.Show(e.Exception, Util.Local.Strings.STR_MSG_UnknownError_Caption,
                   MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
@@ -568,7 +568,7 @@ namespace Edi
       }
       catch (Exception exp)
       {
-        logger.Error(Util.Local.Strings.STR_MSG_UnknownError_InErrorDispatcher, exp);
+        Logger.Error(Util.Local.Strings.STR_MSG_UnknownError_InErrorDispatcher, exp);
       }
     }
     #endregion methods

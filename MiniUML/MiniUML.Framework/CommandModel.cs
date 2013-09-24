@@ -10,23 +10,23 @@
   public abstract class CommandModel
   {
     #region fields
-    private readonly RoutedCommand _routedCommand;
-    private string _name;
-    private string _description;
-    private BitmapImage _image;
+    private readonly RoutedCommand mRoutedCommand;
+    private string mName;
+    private string mDescription;
+    private BitmapImage mImage;
     #endregion fields
 
     #region Constructors
 
     public CommandModel()
     {
-      _routedCommand = new RoutedCommand();
+      this.mRoutedCommand = new RoutedCommand();
     }
 
     public CommandModel(RoutedUICommand command)
     {
-      _routedCommand = command;
-      _name = command.Text;
+      this.mRoutedCommand = command;
+      this.mName = command.Text;
     }
 
     #endregion
@@ -38,7 +38,7 @@
     /// </summary>
     public RoutedCommand Command
     {
-      get { return _routedCommand; }
+      get { return this.mRoutedCommand; }
     }
 
     /// <summary>
@@ -46,8 +46,8 @@
     /// </summary>
     public string Name
     {
-      get { return _name; }
-      set { _name = value; }
+      get { return this.mName; }
+      set { this.mName = value; }
     }
 
     /// <summary>
@@ -55,8 +55,8 @@
     /// </summary>
     public string Description
     {
-      get { return _description; }
-      set { _description = value; }
+      get { return this.mDescription; }
+      set { this.mDescription = value; }
     }
 
     /// <summary>
@@ -64,8 +64,8 @@
     /// </summary>
     public BitmapImage Image
     {
-      get { return _image; }
-      set { _image = value; }
+      get { return this.mImage; }
+      set { this.mImage = value; }
     }
 
     #endregion

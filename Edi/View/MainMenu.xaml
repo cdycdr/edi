@@ -49,23 +49,7 @@
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Open_Log4Net_TT}"
                     ToolTipService.ShowOnDisabled="True" />
         </MenuItem>
-        
-        <MenuItem Header="Export">
-          <MenuItem Command="cmd:AppCommand.ExportUMLToImage">
-          </MenuItem>
-        </MenuItem>
 
-        <Separator/>
-        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Save}"
-                  Command="Save"
-                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Save_TT}"
-                  ToolTipService.ShowOnDisabled="True" />
-
-        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs}"
-                  Command="SaveAs"
-                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs_TT}"
-                  ToolTipService.ShowOnDisabled="True"/>
-        
         <MenuItem ItemsSource="{Binding RecentFiles.MruList.ListOfMRUEntries}"
                   Header="{x:Static cmdLabel:Strings.STR_CmdName_RecentFiles}"
                   Visibility="{Binding Path=RecentFiles.MruList.ListOfMRUEntries, Mode=OneWay, Converter={EdiViewsConv:ZeroToVisibilityConverter}}">
@@ -80,6 +64,21 @@
           </MenuItem.ItemContainerStyle>
         </MenuItem>
 
+        <Separator/>
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Save}"
+                  Command="Save"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Save_TT}"
+                  ToolTipService.ShowOnDisabled="True" />
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs}"
+                  Command="SaveAs"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs_TT}"
+                  ToolTipService.ShowOnDisabled="True"/>
+
+        <MenuItem Header="Export">
+          <MenuItem Command="cmd:AppCommand.ExportUMLToImage">
+          </MenuItem>
+        </MenuItem>
         <Separator/>
         
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Close}"

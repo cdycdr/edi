@@ -39,7 +39,7 @@
     {
       // Lets use the file style for text and UML modeling since both editors
       // have similar capabilities (Load, Save, Edit, Undo, and so forth)
-      if (item is EdiViewModel || item is MiniUumViewModel)
+      if (item is EdiViewModel || item is MiniUmlViewModel)
         return this.FileStyle;
 
       if (item is StartPageViewModel)

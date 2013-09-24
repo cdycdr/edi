@@ -5,11 +5,11 @@
   xmlns:d="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
   xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
 
-  xmlns:viewutils="clr-namespace:MiniUML.View.Utilities;assembly=MiniUML.View"
   xmlns:controls="clr-namespace:MiniUML.View.Controls;assembly=MiniUML.View"
-  xmlns:shapes="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.Shapes"
+  xmlns:shapes="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.View.Shapes"
+  xmlns:designItem="clr-namespace:MiniUML.View.Views.ResizeAdorner;assembly=MiniUML.View"
 
-  xmlns:connect="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.Connect"
+  xmlns:connect="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.View.Connect"
 
   xmlns:conv="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Converter"
   xmlns:viewconv="clr-namespace:MiniUML.View.Converter;assembly=MiniUML.View"
@@ -22,47 +22,55 @@
 
   <Style TargetType="{x:Type shapes:UmlBoundaryShape}">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
-    <Setter Property="Width" Value="{Binding Attribute[Width].Value}" />
-    <Setter Property="Height" Value="{Binding Attribute[Height].Value}" />
+    <Setter Property="Width" Value="{Binding Width}" />
+    <Setter Property="Height" Value="{Binding Height}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type shapes:UmlBoundaryShape}">
 
-            <Grid>
-              <Grid.Resources>
-                <BooleanToVisibilityConverter x:Key="boolToVisConverter" />
-                <conv:EmptyStringToNullConverter x:Key="emptystringToNullConverter" />
-                <conv:EmptyStringToVisibilityConverter x:Key="emptystringToVisibilityConverter" />
-                <conv:StringBoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
-              </Grid.Resources>
+          <designItem:DesignerItem IsSelected="{Binding Path=IsSelected}"
+                                   ResizeSelectedShapes="{Binding ResizeSelectedShapesCommand}"
+                                   Background="{x:Null}" ><!-- Background=null makes inner part hittest invisible -->
+            <designItem:DesignerItem.Content>
+
+              <Grid>
+                <Grid.Resources>
+                  <BooleanToVisibilityConverter x:Key="boolToVisConverter" />
+                  <conv:EmptyStringToNullConverter x:Key="emptystringToNullConverter" />
+                  <conv:EmptyStringToVisibilityConverter x:Key="emptystringToVisibilityConverter" />
+                  <conv:StringBoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+                </Grid.Resources>
                 <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-              </Grid.RowDefinitions>
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-              <TextBox Grid.Row="0"
-                       BorderThickness="0"
-                       FontFamily="Consola"
-                       Margin="12,0"
-                       Visibility="{Binding Path=Attribute[Name].Value, Converter={StaticResource emptystringToVisibilityConverter}}"
-                       Background="Transparent"
-                       Foreground="Black"
-                       IsTabStop="False"
-                       Style="{StaticResource UmlTextBox}"
-                       Text="{Binding Path=Attribute[Name].Value}"
-                       AcceptsReturn="True"
-                       HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                      />
-
-              <Border Grid.Row="1"
-                      Visibility="{Binding Path=Attribute[HorizontalLine].Value, Converter={StaticResource boolToVisibilityConverter}}"
+                <!--Visibility="{Binding Path=HorizontalLine, Converter={StaticResource boolToVisibilityConverter}}"-->
+                <Border Grid.Row="0"
                       Background="{x:Null}"
                       BorderThickness="1"
                       BorderBrush="Black"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" />
-              <!-- Stroke="Black" StrokeThickness="4" -->
+                <!-- Stroke="Black" StrokeThickness="1" -->
 
-            </Grid>
+                <TextBox Grid.Row="0"
+                     BorderThickness="0"
+                     FontFamily="Consola"
+                     Margin="3,3"
+                     Visibility="{Binding Path=Name, Converter={StaticResource emptystringToVisibilityConverter}}"
+                     Background="Transparent"
+                     Foreground="Black"
+                     IsTabStop="False"
+                     Style="{StaticResource UmlTextBox}"
+                     Text="{Binding Path=Name}"
+                     AcceptsReturn="True"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Top"
+                  />
+
+              </Grid>
+
+            </designItem:DesignerItem.Content>
+          </designItem:DesignerItem>
 
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">

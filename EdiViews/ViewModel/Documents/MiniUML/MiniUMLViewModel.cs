@@ -14,12 +14,14 @@ namespace EdiViews.ViewModel.Documents
   using UnitComboLib.ViewModel;
   using MiniUML.Model.ViewModels;
   using System.ComponentModel;
+  using ICSharpCode.AvalonEdit.Highlighting;
+  using MiniUML.Model.ViewModels.Document;
 
-  public class MiniUumViewModel : EdiViews.ViewModel.Base.FileBaseViewModel
+  public class MiniUmlViewModel : EdiViews.ViewModel.Base.FileBaseViewModel
   {
     #region Fields
-    private MiniUML.Model.ViewModels.RibbonViewModel mRibbonViewModel;
-    private MiniUML.Model.ViewModels.AbstractDocumentViewModel mDocumentMiniUML;
+    private MiniUML.Model.ViewModels.Document.RibbonViewModel mRibbonViewModel;
+    private MiniUML.Model.ViewModels.Document.AbstractDocumentViewModel mDocumentMiniUML;
 
     private static int iNewFileCounter             = 1;
     private string defaultFileType                 = "uml";
@@ -33,15 +35,21 @@ namespace EdiViews.ViewModel.Documents
     /// Standard constructor. See also static <seealso cref="LoadFile"/> method
     /// for construction from file saved on disk.
     /// </summary>
-    public MiniUumViewModel()
+    public MiniUmlViewModel()
     {
       this.FilePath = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}",
-                                    MiniUumViewModel.defaultFileName,
-                                    MiniUumViewModel.iNewFileCounter++,
+                                    MiniUmlViewModel.defaultFileName,
+                                    MiniUmlViewModel.iNewFileCounter++,
                                     this.defaultFileType);
 
-      this.mRibbonViewModel = new RibbonViewModel(null);
-      this.mDocumentMiniUML = new MiniUML.Model.ViewModels.DocumentViewModel(null);
+      this.mRibbonViewModel = new RibbonViewModel();
+
+      // The plug-in model name identifies the plug-in that takes care of this document
+      // So, the supplied string is required to be in sync with
+      //
+      // MiniUML.Plugins.UmlClassDiagram.PluginModel.ModelName
+      //
+      this.mDocumentMiniUML = new MiniUML.Model.ViewModels.Document.DocumentViewModel("UMLClassDiagram");
 
       this.mDocumentMiniUML.dm_DocumentDataModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
       {
@@ -55,7 +63,7 @@ namespace EdiViews.ViewModel.Documents
 
     #region properties
     #region MiniUML Document ViewModel
-    public MiniUML.Model.ViewModels.AbstractDocumentViewModel DocumentMiniUML
+    public MiniUML.Model.ViewModels.Document.AbstractDocumentViewModel DocumentMiniUML
     {
       get
       {
@@ -75,7 +83,7 @@ namespace EdiViews.ViewModel.Documents
     #endregion MiniUML Document ViewModel
 
     #region MiniUML RibbonViewModel
-    public MiniUML.Model.ViewModels.RibbonViewModel vm_RibbonViewModel
+    public MiniUML.Model.ViewModels.Document.RibbonViewModel vm_RibbonViewModel
     {
       get
       {
@@ -107,7 +115,7 @@ namespace EdiViews.ViewModel.Documents
       {
         if (this.mFilePath == null || this.mFilePath == String.Empty)
           return string.Format(CultureInfo.CurrentCulture, "{0}.{1}",
-                               MiniUumViewModel.defaultFileName, this.defaultFileType);
+                               MiniUmlViewModel.defaultFileName, this.defaultFileType);
 
         return this.mFilePath;
       }
@@ -154,7 +162,7 @@ namespace EdiViews.ViewModel.Documents
         // This option should never happen - its an emergency break for those cases that never occur
         if (FilePath == null || FilePath == String.Empty)
           return string.Format(CultureInfo.InvariantCulture, "{0}.{1}",
-                               MiniUumViewModel.defaultFileName, this.defaultFileType);
+                               MiniUmlViewModel.defaultFileName, this.defaultFileType);
 
         return System.IO.Path.GetFileName(FilePath);
       }
@@ -258,7 +266,7 @@ namespace EdiViews.ViewModel.Documents
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    public static MiniUumViewModel LoadFile(string filePath)
+    public static MiniUmlViewModel LoadFile(string filePath)
     {
       bool IsFilePathReal = false;
 
@@ -273,7 +281,7 @@ namespace EdiViews.ViewModel.Documents
       if (IsFilePathReal == false)
         return null;
 
-      MiniUumViewModel vm = new MiniUumViewModel();
+      MiniUmlViewModel vm = new MiniUmlViewModel();
 
       if (vm.OpenFile(filePath) == true)
         return vm;
@@ -302,7 +310,7 @@ namespace EdiViews.ViewModel.Documents
 	        }
           catch (Exception ex)
           {
-            MsgBox.Msg.Show(ex.Message, "An error has occurred", MsgBoxButtons.OK);
+            MsgBox.Msg.Show(ex, ex.Message, "An error has occurred", MsgBoxButtons.OK);
 
             return false;
           }
@@ -312,7 +320,7 @@ namespace EdiViews.ViewModel.Documents
       }
       catch (Exception exp)
       {
-        MsgBox.Msg.Show(exp.Message, "An error has occurred", MsgBoxButtons.OK);
+        MsgBox.Msg.Show(exp, exp.Message, "An error has occurred", MsgBoxButtons.OK);
 
         return false;
       }

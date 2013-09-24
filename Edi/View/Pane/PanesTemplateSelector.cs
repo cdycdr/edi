@@ -1,6 +1,6 @@
 ﻿namespace Edi.View.Pane
 {
-  using AvalonDock.Layout;
+  using Xceed.Wpf.AvalonDock.Layout;
   using EdiViews.Documents.Log4Net;
   using EdiViews.Documents.StartPage;
   using EdiViews.FileStats;
@@ -78,7 +78,7 @@
       if (item is EdiViewModel)
         return this.FileViewTemplate;
 
-      if (item is MiniUumViewModel)
+      if (item is MiniUmlViewModel)
         return this.MiniUMLViewTemplate;
 
       if (item is StartPageViewModel)

@@ -2,15 +2,20 @@
 {
   using MiniUML.Framework;
   using MiniUML.Model.ViewModels;
+  using MiniUML.Model.ViewModels.Document;
+  using MiniUML.Plugins.UmlClassDiagram.Controls.ViewModel.UmlElements;
   using MiniUML.Plugins.UmlClassDiagram.ToolBox.ViewModel;
 
-  public partial class PluginViewModel : ViewModel
+  public partial class PluginViewModel : BaseViewModel
   {
     #region fields
-    private ClassShapeBoxViewModel mClassShapeBox = null;
-    private DeploymentShapeBoxViewModel mDeploymentShapeBox = null;
-    private UseCaseShapeBoxViewModel mUseCaseShapeBoxViewModel = null;
-    private ActivityShapeBoxViewModel mActivityShapeBoxViewModel = null;
+    private ToolBoxControlViewModel mClassShapeBox = null;
+    private ToolBoxControlViewModel mDeploymentShapeBox = null;
+    private ToolBoxControlViewModel mUseCaseShapeBoxViewModel = null;
+    private ToolBoxControlViewModel mActivityShapeBoxViewModel = null;
+    private ToolBoxControlViewModel mConnectBox = null;
+
+    private object lockobj = new object();
     #endregion fields
 
     #region constructor
@@ -22,8 +27,6 @@
     {
       // Store a reference to the parent view model.
       this.mWindowViewModel = windowViewModel;
-
-      this.ConnectBox = new ConnectBoxViewModel(this);
     }
     #endregion constructor
 
@@ -31,12 +34,12 @@
     /// <summary>
     /// Get a collection of commands which can be used to create Class shapes on the canvas.
     /// </summary>
-    public ClassShapeBoxViewModel ClassShapeBox
+    public ToolBoxControlViewModel ClassShapeBox
     {
       get
       {
         if (this.mClassShapeBox == null)
-          this.mClassShapeBox = new ClassShapeBoxViewModel(this);
+          this.mClassShapeBox = new ToolBoxControlViewModel(this, UmlDiagrams.Class);
 
         return this.mClassShapeBox;
       }
@@ -45,34 +48,40 @@
     /// <summary>
     /// Get a collection of commands which can be used to create Deployment shapes on the canvas.
     /// </summary>
-    public DeploymentShapeBoxViewModel DeploymentShapeBox
+    public ToolBoxControlViewModel DeploymentShapeBox
     {
       get
       {
         if (this.mDeploymentShapeBox == null)
-          this.mDeploymentShapeBox = new DeploymentShapeBoxViewModel(this);
+          this.mDeploymentShapeBox = new ToolBoxControlViewModel(this, UmlDiagrams.Deployment);
 
         return this.mDeploymentShapeBox;
       }
     }
 
-    public UseCaseShapeBoxViewModel UseCaseShapeBox
+    /// <summary>
+    /// Get a collection of commands which can be used to create Use Case diagram shapes on the canvas.
+    /// </summary>
+    public ToolBoxControlViewModel UseCaseShapeBox
     {
       get
       {
         if (this.mUseCaseShapeBoxViewModel == null)
-          this.mUseCaseShapeBoxViewModel = new UseCaseShapeBoxViewModel(this);
+          this.mUseCaseShapeBoxViewModel = new ToolBoxControlViewModel(this, UmlDiagrams.UseCase);
 
         return this.mUseCaseShapeBoxViewModel;
       }
     }
 
-    public ActivityShapeBoxViewModel ActivityShapeBox
+    /// <summary>
+    /// Get a collection of commands which can be used to create Activity diagram shapes on the canvas.
+    /// </summary>
+    public ToolBoxControlViewModel ActivityShapeBox
     {
       get
       {
         if (this.mActivityShapeBoxViewModel == null)
-          this.mActivityShapeBoxViewModel = new ActivityShapeBoxViewModel(this);
+          this.mActivityShapeBoxViewModel = new ToolBoxControlViewModel(this, UmlDiagrams.Activity);
 
         return this.mActivityShapeBoxViewModel;
       }
@@ -81,7 +90,16 @@
     /// <summary>
     /// Get a collection of commands which can be used to create connections between shapes on the canvas.
     /// </summary>
-    public ConnectBoxViewModel ConnectBox { get; private set; }
+    public ToolBoxControlViewModel ConnectBox
+    {
+      get
+      {
+        if (this.mConnectBox == null)
+          this.mConnectBox = new ToolBoxControlViewModel(this, UmlDiagrams.Connector);
+
+        return this.mConnectBox;
+      }
+    }
 
     /// <summary>
     /// Get the current <seealso cref="IMiniUMLDocument"/> which contains the
@@ -89,5 +107,28 @@
     /// </summary>
     public IMiniUMLDocument mWindowViewModel { get; private set; }
     #endregion properties
+
+    #region methods
+    /// <summary>
+    /// Thread safe method to find out whether document editing is currently permitted or not.
+    /// </summary>
+    /// <returns></returns>
+    internal bool QueryEnableEditCommands()
+    {
+      lock (this.lockobj)
+      {
+        if (this.mWindowViewModel == null)
+          return false;
+
+        if (this.mWindowViewModel.vm_DocumentViewModel == null)
+          return false;
+
+        if (this.mWindowViewModel.vm_DocumentViewModel.dm_DocumentDataModel == null)
+          return false;
+
+        return this.mWindowViewModel.vm_DocumentViewModel.dm_DocumentDataModel.State == DataModel.ModelState.Ready;
+      }
+    }
+    #endregion methods
   }
 }

@@ -17,7 +17,7 @@
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      return Double.Parse((String)value, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowDecimalPoint, culture) / 2.54 * 96;
+      return double.Parse((string)value, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowDecimalPoint, culture) / 2.54 * 96;
     }
   }
 }

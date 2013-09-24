@@ -1,7 +1,7 @@
 ﻿namespace Edi.View.Pane
 {
   using System.Linq;
-  using AvalonDock.Layout;
+  using Xceed.Wpf.AvalonDock.Layout;
 
   class LayoutInitializer : ILayoutUpdateStrategy
   {

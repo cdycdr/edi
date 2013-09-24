@@ -12,7 +12,7 @@
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Themes;component/Aero/Theme.xaml" />
+        <ResourceDictionary Source="/Themes;component/ExpressionDark/Theme.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>    
   </Application.Resources>

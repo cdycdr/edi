@@ -5,7 +5,6 @@
              xmlns:framework="clr-namespace:MiniUML.Framework;assembly=MiniUML.Framework"
              
              xmlns:cmdLabel="clr-namespace:MiniUML.Framework.Local;assembly=MiniUML.Framework"
-             xmlns:behav="clr-namespace:MiniUML.Framework.behaviour;assembly=MiniUML.Framework"
 
              xmlns:toolb="clr-namespace:MiniUML.Plugins.UmlClassDiagram.ToolBox.View"
              >

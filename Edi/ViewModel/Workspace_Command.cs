@@ -1,7 +1,6 @@
 ﻿namespace Edi.ViewModel
 {
   using System;
-  using System.Collections.Generic;
   using System.Diagnostics;
   using System.Threading;
   using System.Windows;
@@ -9,15 +8,13 @@
   using System.Windows.Threading;
 
   using EdiViews.Config.ViewModel;
+  using EdiViews.Documents.StartPage;
   using EdiViews.ViewModel.Base;
+  using EdiViews.ViewModel.Documents;
+  using MiniUML.Framework;
   using MsgBox;
   using MsgBox.Commands;
   using Util.Command;
-  using EdiViews.StartPage;
-  using EdiViews.Documents.StartPage;
-  using EdiViews.ViewModel.Documents;
-  using MiniUML.Framework;
-using Microsoft.Win32;
 
   /// <summary>
   /// Base enumeration to determine the kind of command option
@@ -370,7 +367,7 @@ using Microsoft.Win32;
           {
             if ((this.vm_DocumentViewModel.dm_DocumentDataModel.State == DataModel.ModelState.Ready) == true)
             {
-              this.vm_DocumentViewModel.ExecuteExport(s, e, this.ActiveDocument.FileName);
+              this.vm_DocumentViewModel.ExecuteExport(s, e, this.ActiveDocument.FileName + ".png");
             }
           }
         }

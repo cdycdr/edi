@@ -4,11 +4,10 @@ namespace MiniUML.View.Windows
   using System.Globalization;
   using System.Windows;
   using System.Windows.Markup;
-
   using MiniUML.Framework;
   using MiniUML.Model.ViewModels;
+  using MiniUML.Model.ViewModels.Document;
   using MiniUML.View.Converter;
-  using MiniUML.View.Utilities;
 
   /// <summary>
   /// Interaction logic for NewDocumentWindow.xaml
@@ -17,25 +16,26 @@ namespace MiniUML.View.Windows
   {
     public NewDocumentWindow()
     {
-      InitializeComponent();
-      Language = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
-      Title = (string)Application.Current.Resources["ApplicationName"];
+      this.InitializeComponent();
+      this.Language = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
+      this.Title = (string)Application.Current.Resources["ApplicationName"];
     }
 
     private bool getValues(out Size pageSize, out Thickness pageMargins)
     {
-      pageSize = new Size(); pageMargins = new Thickness();
+      pageSize = new Size();
+      pageMargins = new Thickness();
 
       DiuToCentimetersConverter converter = new DiuToCentimetersConverter();
 
       try
       {
-        double pageWidth = (double)converter.ConvertBack(_pageWidthTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
-        double pageHeight = (double)converter.ConvertBack(_pageHeightTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
-        double pageMarginTop = (double)converter.ConvertBack(_pageMarginTopTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
-        double pageMarginBottom = (double)converter.ConvertBack(_pageMarginBottomTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
-        double pageMarginLeft = (double)converter.ConvertBack(_pageMarginLeftTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
-        double pageMarginRight = (double)converter.ConvertBack(_pageMarginRightTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
+        double pageWidth = (double)converter.ConvertBack(this._pageWidthTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
+        double pageHeight = (double)converter.ConvertBack(this._pageHeightTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
+        double pageMarginTop = (double)converter.ConvertBack(this._pageMarginTopTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
+        double pageMarginBottom = (double)converter.ConvertBack(this._pageMarginBottomTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
+        double pageMarginLeft = (double)converter.ConvertBack(this._pageMarginLeftTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
+        double pageMarginRight = (double)converter.ConvertBack(this._pageMarginRightTextBox.Text, typeof(bool), null, CultureInfo.CurrentCulture);
 
         if (pageWidth < 0 || pageHeight < 0)
         {
@@ -80,16 +80,17 @@ namespace MiniUML.View.Windows
                         MiniUML.Framework.Local.Strings.STR_MSG_Warning_Caption,
                         MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Warning);
       }
+
       return false;
     }
 
     private void okButton_Click(object sender, RoutedEventArgs e)
     {
-      NewDocumentWindowViewModel viewModel = DataContext as NewDocumentWindowViewModel;
+      PageViewModelBase viewModel = DataContext as PageViewModelBase;
 
       Size pageSize;
       Thickness pageMargins;
-      if (getValues(out pageSize, out pageMargins))
+      if (this.getValues(out pageSize, out pageMargins))
       {
         viewModel.prop_PageSize = pageSize;
         viewModel.prop_PageMargins = pageMargins;
@@ -102,7 +103,7 @@ namespace MiniUML.View.Windows
     {
       Size pageSize;
       Thickness pageMargins;
-      if (getValues(out pageSize, out pageMargins))
+      if (this.getValues(out pageSize, out pageMargins))
       {
         // TODO XXX SettingsManager.Settings["DefaultPageSize"] = pageSize;
         // TODO XXX SettingsManager.Settings["DefaultPageMargins"] = pageMargins;

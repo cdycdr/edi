@@ -159,7 +159,7 @@
     <Compile Include="StartPage\StartPageView.xaml.cs">
       <DependentUpon>StartPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Documents\MiniUML\MiniUMLViewModel.cs" />
+    <Compile Include="ViewModel\Documents\MiniUml\MiniUmlViewModel.cs" />
     <Compile Include="ViewModel\Documents\StartPage\StartPageViewModel.cs" />
     <Compile Include="ViewModel\Base\DialogViewModelBase.cs" />
     <Compile Include="ViewModel\Base\FileBaseViewModel.cs" />

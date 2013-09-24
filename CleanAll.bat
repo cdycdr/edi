@@ -4,12 +4,6 @@ ECHO.
 ECHO This script deletes all temporary build files in their
 ECHO corresponding BIN and OBJ Folder contained in the following projects
 ECHO.
-ECHO AvalonDock
-ECHO AvalonDock.Themes.Aero
-ECHO AvalonDock.Themes.Expression
-ECHO AvalonDock.Theme.ExpressionDark
-ECHO AvalonDock.Themes.Metro
-ECHO AvalonDock.Theme.VS2010
 ECHO Edi
 ECHO EdiViews
 ECHO Themes
@@ -33,26 +27,6 @@ ECHO.
 ECHO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ECHO.
 ECHO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-ECHO Deleting BIN and OBJ Folders in AvalonDock
-ECHO.
-RMDIR /S /Q AvalonDock\AvalonDock\bin
-RMDIR /S /Q AvalonDock\AvalonDock\obj
-REM DEL /F /Q /S /A:H Automation.Tasks.Core\StyleCop.Cache >> C:\TEMP\CleanFiles.txt
-
-RMDIR /S /Q AvalonDock\AvalonDock.Themes.Aero\bin
-RMDIR /S /Q AvalonDock\AvalonDock.Themes.Aero\obj
-
-RMDIR /S /Q AvalonDock\AvalonDock.Theme.VS2010\bin
-RMDIR /S /Q AvalonDock\AvalonDock.Theme.VS2010\obj
-
-RMDIR /S /Q AvalonDock\AvalonDock.Themes.Expression\bin
-RMDIR /S /Q AvalonDock\AvalonDock.Themes.Expression\obj
-
-RMDIR /S /Q AvalonDock\AvalonDock.Theme.ExpressionDark\bin
-RMDIR /S /Q AvalonDock\AvalonDock.Theme.ExpressionDark\obj
-
-RMDIR /S /Q AvalonDock\AvalonDock.Themes.Metro\bin
-RMDIR /S /Q AvalonDock\AvalonDock.Themes.Metro\obj
 
 ECHO Deleting BIN and OBJ Folders in EDI folder
 ECHO.

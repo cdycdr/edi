@@ -13,8 +13,7 @@
   public class RibbonGallery : ListBox
   {
     #region fields
-    private bool _isDragging;
-    private Point _startPoint;
+    private Point mStartPoint;
     #endregion fields
 
     #region constructor
@@ -28,9 +27,9 @@
     protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
     {
       base.OnPreviewMouseDown(e);
-      _startPoint = e.GetPosition(null);
+      this.mStartPoint = e.GetPosition(null);
 
-      //TODO: This works, but it's a bit too fragile...
+      // TODO: This works, but it's a bit too fragile...
       this.SelectedItem = e.Source;
     }
 
@@ -38,7 +37,7 @@
     /// Method is executed when the user drags an item
     /// from the ribbon gallery onto the canvas.
     /// </summary>
-    /// <param name="e"></param>
+    /* <param name="e"></param>
     protected override void OnPreviewMouseMove(MouseEventArgs e)
     {
       if (e.LeftButton == MouseButtonState.Pressed && !_isDragging)
@@ -86,20 +85,20 @@
           }
         }
       }
-    }
-
-    private void DoDragDrop(MouseEventArgs e, IDragableCommandModel cmd)
-    {
-      _isDragging = true;
-      DataObject data = new DataObject(typeof(IDragableCommandModel), cmd);
-      DragDropEffects de = DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
-      _isDragging = false;
-    }
+    }*/
 
     protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
     {
       base.OnPreviewMouseUp(e);
       this.SelectedIndex = -1;
+    }
+
+    private void DoDragDrop(MouseEventArgs e, IDragableCommandModel cmd)
+    {
+      ////_isDragging = true;
+      DataObject data = new DataObject(typeof(IDragableCommandModel), cmd);
+      DragDropEffects de = DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
+      ////_isDragging = false;
     }
     #endregion methods
   }

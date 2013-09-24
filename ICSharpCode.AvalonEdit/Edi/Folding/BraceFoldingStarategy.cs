@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2009 Daniel Grunwald
+// Copyright (c) 2009 Daniel Grunwald
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -19,13 +19,14 @@
 namespace ICSharpCode.AvalonEdit.Edi.Folding
 {
   using System.Collections.Generic;
+  using System.Text.RegularExpressions;
   using ICSharpCode.AvalonEdit.Document;
   using ICSharpCode.AvalonEdit.Folding;
 
   /// <summary>
   /// Allows producing foldings from a document based on braces.
   /// </summary>
-  public class BraceFoldingStrategy : AbstractFoldingStrategy
+  public class BraceFoldingStarategy : AbstractFoldingStrategy
   {
     /// <summary>
     /// Gets/Sets the opening brace. The default value is '{'.
@@ -40,7 +41,7 @@ namespace ICSharpCode.AvalonEdit.Edi.Folding
     /// <summary>
     /// Creates a new BraceFoldingStrategy.
     /// </summary>
-    public BraceFoldingStrategy()
+    public BraceFoldingStarategy()
     {
       this.OpeningBrace = '{';
       this.ClosingBrace = '}';
@@ -67,11 +68,14 @@ namespace ICSharpCode.AvalonEdit.Edi.Folding
 
       Stack<int> startOffsets = new Stack<int>();
       int lastNewLineOffset = 0;
+
       char openingBrace = this.OpeningBrace;
       char closingBrace = this.ClosingBrace;
+
       for (int i = 0; i < document.TextLength; i++)
       {
         char c = document.GetCharAt(i);
+
         if (c == openingBrace)
         {
           startOffsets.Push(i);
@@ -79,6 +83,7 @@ namespace ICSharpCode.AvalonEdit.Edi.Folding
         else if (c == closingBrace && startOffsets.Count > 0)
         {
           int startOffset = startOffsets.Pop();
+
           // don't fold if opening and closing brace are on the same line
           if (startOffset < lastNewLineOffset)
           {
@@ -90,7 +95,9 @@ namespace ICSharpCode.AvalonEdit.Edi.Folding
           lastNewLineOffset = i + 1;
         }
       }
+
       newFoldings.Sort((a, b) => a.StartOffset.CompareTo(b.StartOffset));
+
       return newFoldings;
     }
   }

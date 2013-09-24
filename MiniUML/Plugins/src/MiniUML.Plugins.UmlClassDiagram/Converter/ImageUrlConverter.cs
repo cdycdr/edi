@@ -11,6 +11,9 @@
   public class ImageUrlConverter : IValueConverter
   {
     #region constructor
+    /// <summary>
+    /// Static class constructor
+    /// </summary>
     static ImageUrlConverter()
     {
       Instance = new ImageUrlConverter();

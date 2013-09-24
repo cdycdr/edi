@@ -5,11 +5,11 @@
   xmlns:d="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
   xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
 
-  xmlns:viewutils="clr-namespace:MiniUML.View.Utilities;assembly=MiniUML.View"
   xmlns:controls="clr-namespace:MiniUML.View.Controls;assembly=MiniUML.View"
-  xmlns:shapes="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.Shapes"
+  xmlns:shapes="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.View.Shapes"
+  xmlns:designItem="clr-namespace:MiniUML.View.Views.ResizeAdorner;assembly=MiniUML.View"
 
-  xmlns:connect="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.Connect"
+  xmlns:connect="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.View.Connect"
 
   xmlns:conv="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Converter"
   xmlns:viewconv="clr-namespace:MiniUML.View.Converter;assembly=MiniUML.View"
@@ -44,14 +44,19 @@
   <!-- Default style for comment shape -->
   <Style TargetType="{x:Type shapes:UmlCommentShape}">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
-    <Setter Property="Width" Value="{Binding Attribute[Width].Value}" />
-    <Setter Property="Height" Value="{Binding Attribute[Height].Value}" />
+    <Setter Property="Width" Value="{Binding Width}" />
+    <Setter Property="Height" Value="{Binding Height}" />
     <Setter Property="ToolTip" Value="Note" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type shapes:UmlCommentShape}">
 
-          <Border Background="{TemplateBinding Property=Background}"
+          <designItem:DesignerItem IsSelected="{Binding Path=IsSelected}"
+                                   ResizeSelectedShapes="{Binding ResizeSelectedShapesCommand}"
+                                   Background="{x:Null}" ><!-- Background=null makes inner part hittest invisible -->
+            <designItem:DesignerItem.Content>
+
+              <Border Background="{TemplateBinding Property=Background}"
                   BorderBrush="{TemplateBinding Property=BorderBrush}"
                   BorderThickness="{TemplateBinding Property=BorderThickness}" 
               >
@@ -108,12 +113,15 @@
                        Foreground="Black"
                        IsTabStop="False"
                        Style="{StaticResource UmlTextBox}"
-                       Text="{Binding Path=Attribute[Text].Value}"
+                       Text="{Binding Path=Text}"
                        AcceptsReturn="True"
                        Margin="5,5,21,5"
                    />
             </Grid>
           </Border>
+
+            </designItem:DesignerItem.Content>
+          </designItem:DesignerItem>
 
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">

@@ -17,7 +17,7 @@
 
       string s = value as string;
 
-      if (s!= null)
+      if (s != null)
       {
         if (s == string.Empty)
           return null;

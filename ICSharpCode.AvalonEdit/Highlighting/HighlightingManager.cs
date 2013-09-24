@@ -55,6 +55,18 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 
     #region properties
     /// <summary>
+    /// Gets the default HighlightingManager instance.
+    /// The default HighlightingManager comes with built-in highlightings.
+    /// </summary>
+    public static HighlightingManager Instance
+    {
+      get
+      {
+        return DefaultHighlightingManager.Instance;
+      }
+    }
+
+    /// <summary>
     /// Gets a copy of all highlightings.
     /// </summary>
     public ReadOnlyCollection<IHighlightingDefinition> HighlightingDefinitions
@@ -237,17 +249,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 
 			RegisterHighlighting(name, extensions, new DelayLoadedHighlightingDefinition(name, lazyLoadedHighlighting));
 		}
-		
-		/// <summary>
-		/// Gets the default HighlightingManager instance.
-		/// The default HighlightingManager comes with built-in highlightings.
-		/// </summary>
-		public static HighlightingManager Instance {
-			get {
-				return DefaultHighlightingManager.Instance;
-			}
-		}
-    #endregion methods
+		#endregion methods
 
     #region internal classes
     internal sealed class DelayLoadedHighlightingDefinition : IHighlightingDefinition

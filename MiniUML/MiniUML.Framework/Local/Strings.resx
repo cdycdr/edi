@@ -351,4 +351,97 @@ XPS Document Files (*.xps)|*.xps</value>
   <data name="STR_CMD_Delegate_description" xml:space="preserve">
     <value>Create a new delegate element</value>
   </data>
+  <data name="STR_CmdName_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="STR_CmdName_Copy_TT" xml:space="preserve">
+    <value>Copy selected item</value>
+  </data>
+  <data name="STR_CmdName_Cut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="STR_CmdName_Cut_TT" xml:space="preserve">
+    <value>Cut selected item</value>
+  </data>
+  <data name="STR_CmdName_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="STR_CmdName_DeleteLine" xml:space="preserve">
+    <value>Delete Line</value>
+  </data>
+  <data name="STR_CmdName_DeleteLine_TT" xml:space="preserve">
+    <value>Deletes the current line of text</value>
+  </data>
+  <data name="STR_CmdName_Delete_TT" xml:space="preserve">
+    <value>Delete selected item</value>
+  </data>
+  <data name="STR_CmdName_Paste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="STR_CmdName_Paste_TT" xml:space="preserve">
+    <value>Paste item from Windows clipboard</value>
+  </data>
+  <data name="STR_CmdName_Redo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="STR_CmdName_Redo_TT" xml:space="preserve">
+    <value>Redo last undo</value>
+  </data>
+  <data name="STR_CmdName_SelectAll" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="STR_CmdName_SelectAll_TT" xml:space="preserve">
+    <value>Select all items</value>
+  </data>
+  <data name="STR_CmdName_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="STR_CmdName_Undo_TT" xml:space="preserve">
+    <value>Undo last edit</value>
+  </data>
+  <data name="STR_Cmd_CollapseTextFoldings" xml:space="preserve">
+    <value>Collapse text foldings</value>
+  </data>
+  <data name="STR_Cmd_ConvertLeadingSpaces" xml:space="preserve">
+    <value>Convert Leading Spaces to Tabs</value>
+  </data>
+  <data name="STR_Cmd_ConvertLeadingTabsToSpaces" xml:space="preserve">
+    <value>Convert Leading Tabs to Spaces</value>
+  </data>
+  <data name="STR_CMD_ConvertSpacesToTabs" xml:space="preserve">
+    <value>Convert Spaces to Tabs</value>
+  </data>
+  <data name="STR_CMD_ConvertTabsToSpaces" xml:space="preserve">
+    <value>Convert Tabs to Spaces</value>
+  </data>
+  <data name="STR_Cmd_ConvertTextToUpperCase" xml:space="preserve">
+    <value>Convert text to upper case</value>
+  </data>
+  <data name="STR_Cmd_ExpandTextFoldings" xml:space="preserve">
+    <value>Expand text foldings</value>
+  </data>
+  <data name="STR_CMD_RemoveLeadingWhiteSpace" xml:space="preserve">
+    <value>Remove Leading White Spaces</value>
+  </data>
+  <data name="STR_CMD_RemoveTrailingWhiteSpace" xml:space="preserve">
+    <value>Remove Trailing White Space</value>
+  </data>
+  <data name="STR_Cmd__ApplyTextIndentationStrategy" xml:space="preserve">
+    <value>Apply Indentation Strategy</value>
+  </data>
+  <data name="STR_Cmd__ConvertTextToLowerCase" xml:space="preserve">
+    <value>Convert text to lower case</value>
+  </data>
+  <data name="STR_Cmd__ConvertTextToTitleCase" xml:space="preserve">
+    <value>Convert to Title Case</value>
+  </data>
+  <data name="STR_Cmd__InvertTextCase" xml:space="preserve">
+    <value>Invert Case</value>
+  </data>
+  <data name="STR_Label_TextCase" xml:space="preserve">
+    <value>Text Case</value>
+  </data>
+  <data name="STR_Label_WhiteSpaces" xml:space="preserve">
+    <value>White Spaces</value>
+  </data>
 </root>

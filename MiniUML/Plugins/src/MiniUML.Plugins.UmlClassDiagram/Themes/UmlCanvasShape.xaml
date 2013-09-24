@@ -5,13 +5,11 @@
   xmlns:d="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
   xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
 
-  xmlns:viewutils="clr-namespace:MiniUML.View.Utilities;assembly=MiniUML.View"
   xmlns:controls="clr-namespace:MiniUML.View.Controls;assembly=MiniUML.View"
-  xmlns:shapes="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.Shapes"
+  xmlns:shapes="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.View.Shapes"
+  xmlns:designItem="clr-namespace:MiniUML.View.Views.ResizeAdorner;assembly=MiniUML.View"
 
-  xmlns:connect="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.Connect"
-
-  xmlns:PathShapeSel="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls"
+  xmlns:connect="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Controls.View.Connect"
 
   xmlns:conv="clr-namespace:MiniUML.Plugins.UmlClassDiagram.Converter"
   xmlns:viewconv="clr-namespace:MiniUML.View.Converter;assembly=MiniUML.View"
@@ -24,8 +22,8 @@
 
   <Style TargetType="{x:Type shapes:UmlCanvasShape}">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
-    <Setter Property="Height" Value="{Binding Attribute[Height].Value}" />
-    <Setter Property="Width" Value="{Binding Attribute[Width].Value}" />
+    <Setter Property="Height" Value="{Binding Height}" />
+    <Setter Property="Width" Value="{Binding Width}" />
     <Setter Property="Background" Value="Black" />
     <Setter Property="Template">
       <Setter.Value>
@@ -35,9 +33,9 @@
               <!-- Uml Actor Man Sketch -->
               <Canvas HorizontalAlignment="Center"
                       VerticalAlignment="Bottom"
-                      Background="White" Width="60" Height="85">
-                <!-- Rectangle Width="{Binding Attribute[Width].Value}"
-                       Height="{Binding Attribute[Height].Value}"
+                      Background="Transparent" Width="60" Height="85">
+                <!-- Rectangle Width="{Binding Width}"
+                       Height="{Binding Height}"
                        Stroke="Gray" Opacity="0.75" StrokeDashArray="4,2" / -->
 
                 <!-- Vertical line for throat and back of use case man -->
@@ -201,42 +199,52 @@
                                            Event2="{StaticResource Event2}"
                                          />
           </ControlTemplate.Resources>
-            <Grid>
-            <Grid.Resources>
-              <SolidColorBrush Color="Black" x:Key="ForegroundDiagram" />
-              <SolidColorBrush Color="White" x:Key="BackgroundDiagram" />
-            </Grid.Resources>
 
-            <Grid.RowDefinitions>
-              <RowDefinition Height="*" />
-              <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
 
-            <ContentControl Grid.Row="0"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Bottom"
-                            HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                            Background="White"
-                            Content="{Binding Attribute[UmlShapeKey].Value}"
-                            ContentTemplateSelector="{StaticResource CanvasShapeSelector}"
-                            />
+          <designItem:DesignerItem IsSelected="{Binding Path=IsSelected}"
+                                   ResizeSelectedShapes="{Binding ResizeSelectedShapesCommand}"
+                                   Background="{x:Null}" ><!-- Background=null makes inner part hittest invisible -->
+            <designItem:DesignerItem.Content>
 
-            <Grid VerticalAlignment="Top" HorizontalAlignment="Center"
-                  Grid.Row="1">
-                <TextBox BorderThickness="0"
-                         FontFamily="Consola"
-                         Margin="3,0"
-                         Background="Transparent"
-                         Foreground="Black"
-                         IsTabStop="False"
-                         Style="{StaticResource UmlTextBox}"
-                         Text="{Binding Path=Attribute[Name].Value}"
-                         AcceptsReturn="False"
-                         HorizontalContentAlignment="Center" VerticalContentAlignment="Top"
-                         HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                       />
+              <Grid>
+              <Grid.Resources>
+                <SolidColorBrush Color="Black" x:Key="ForegroundDiagram" />
+                <SolidColorBrush Color="White" x:Key="BackgroundDiagram" />
+              </Grid.Resources>
+
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+              </Grid.RowDefinitions>
+
+              <ContentControl Grid.Row="0"
+                              HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Bottom"
+                              HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                              Background="White"
+                              Content="{Binding CanvasShape}"
+                              ContentTemplateSelector="{StaticResource CanvasShapeSelector}"
+                              /> <!-- UmlShapeKey -->
+
+              <Grid VerticalAlignment="Top" HorizontalAlignment="Center"
+                    Grid.Row="1">
+                  <TextBox BorderThickness="0"
+                           FontFamily="Consola"
+                           Margin="3,0"
+                           Background="Transparent"
+                           Foreground="Black"
+                           IsTabStop="False"
+                           Style="{StaticResource UmlTextBox}"
+                           Text="{Binding Path=Name}"
+                           AcceptsReturn="False"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Top"
+                           HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                         />
+                </Grid>
               </Grid>
-            </Grid>
+
+            </designItem:DesignerItem.Content>
+          </designItem:DesignerItem>
 
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">

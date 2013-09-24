@@ -8,8 +8,6 @@ namespace Edi.ViewModel
   using System.Windows;
   using System.Windows.Input;
   using System.Windows.Threading;
-
-  using AvalonDock.Layout.Serialization;
   using Edi.ViewModel.Base;
   using EdiViews;
   using EdiViews.About;
@@ -21,9 +19,11 @@ namespace Edi.ViewModel
   using EdiViews.ViewModel.Base;
   using EdiViews.ViewModel.Documents;
   using Microsoft.Win32;
+  using MiniUML.Model.ViewModels;
+  using MiniUML.Model.ViewModels.Document;
   using MsgBox;
   using SimpleControls.MRU.ViewModel;
-  using MiniUML.Model.ViewModels;
+  using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
   public partial class Workspace : Edi.ViewModel.Base.ViewModelBase, IMiniUMLDocument
   {
@@ -139,15 +139,15 @@ namespace Edi.ViewModel
     /// 
     /// This particular property is also required to load MiniUML Plugins.
     /// </summary>
-    public MiniUML.Model.ViewModels.AbstractDocumentViewModel vm_DocumentViewModel
+    public MiniUML.Model.ViewModels.Document.AbstractDocumentViewModel vm_DocumentViewModel
     {
       get
       {
-        MiniUumViewModel vm = this.mActiveDocument as MiniUumViewModel;
+        MiniUmlViewModel vm = this.mActiveDocument as MiniUmlViewModel;
 
         if (vm != null)
         {
-          return vm.DocumentMiniUML as MiniUML.Model.ViewModels.AbstractDocumentViewModel;
+          return vm.DocumentMiniUML as MiniUML.Model.ViewModels.Document.AbstractDocumentViewModel;
         }
 
         return null;
@@ -340,7 +340,7 @@ namespace Edi.ViewModel
       {
         if ((fileExtension == string.Format(".{0}", Workspace.MiniUMLFileExtension) && t == TypeOfDocument.EdiTextEditor) || t == TypeOfDocument.UMLEditor)
 	      {
-          fileViewModel = MiniUumViewModel.LoadFile(filePath);
+          fileViewModel = MiniUmlViewModel.LoadFile(filePath);
 	      }
         else
         {
@@ -408,7 +408,7 @@ namespace Edi.ViewModel
 
           case TypeOfDocument.UMLEditor:
           {
-            var vm = new MiniUumViewModel();
+            var vm = new MiniUmlViewModel();
 
             vm.CloseDocument += new EventHandler(this.ProcessCloseDocumentEvent);
             this.mFiles.Add(vm);
@@ -784,7 +784,7 @@ namespace Edi.ViewModel
       if (f is EdiViewModel)
         return Workspace.EdiTextEditorFileFilter;
 
-      if (f is MiniUumViewModel)
+      if (f is MiniUmlViewModel)
         return Workspace.UMLFileFilter;
 
       if (f is Log4NetViewModel)

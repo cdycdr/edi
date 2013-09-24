@@ -1,6 +1,7 @@
-﻿using System.Windows;
-namespace MiniUML.Framework.interfaces
+﻿namespace MiniUML.Framework.interfaces
 {
+  using System.Windows;
+
   /// <summary>
   /// This interface specifies a method that is called when an item is
   /// dragged from the toolbox and being dropped on the canvas.

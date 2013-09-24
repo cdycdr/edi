@@ -1,14 +1,14 @@
 ﻿<Window x:Class="MiniUML.View.Windows.ExportDocumentWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:utilities="clr-namespace:MiniUML.View.Utilities"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False" WindowState="Normal" Icon="{DynamicResource ApplicationIcon}">
 
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition/>            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>

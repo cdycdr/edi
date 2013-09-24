@@ -4,8 +4,10 @@
   using System.Globalization;
   using System.Windows;
   using System.Windows.Data;
-
+  using System.Xml.Linq;
   using MiniUML.Framework;
+  using MiniUML.Model.ViewModels;
+  using MiniUML.Model.ViewModels.Shapes;
   using MiniUML.View.Controls;
   using MiniUML.View.Views;
 
@@ -26,7 +28,7 @@
     public UIElement ReferenceControl
     {
       get { return (UIElement)GetValue(ReferenceControlProperty); }
-      set { SetValue(ReferenceControlProperty, value); }
+      set { this.SetValue(ReferenceControlProperty, value); }
     }
     #endregion properties
 
@@ -44,7 +46,7 @@
     /// <returns></returns>
     public object Convert(object shapeID, Type targetType, object parameter, CultureInfo culture)
     {
-      object o = convert(shapeID, targetType, parameter, culture);
+      object o = this.convert(shapeID, targetType, parameter, culture);
 
       if (o == null)
         o = AnchorPoint.InvalidSnapTarget;
@@ -52,28 +54,9 @@
       return o;
     }
 
-    private object convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-      String shape = value as String;
-
-      // Convert invalid shapeID into invalid snap target
-      if (shape == null || shape == "" || ReferenceControl == null)
-        return null;
-
-      // Find canvas view through reference on this converter
-      CanvasView cv = CanvasView.GetCanvasView(ReferenceControl);
-
-      // No canvas view found
-      if (cv == null)
-        return null;
-
-      // Use CanvasView to find canvas object in vicinity
-      return cv.ControlFromElement(cv._CanvasViewModel._DocumentViewModel.dm_DocumentDataModel.GetShapeById(shape));
-    }
-
     /// <summary>
     /// Convert given <seealso cref="UIElement"/> reference from <seealso cref="CanvasView"/>
-    /// into shapeID of type <seealso cref="string"/> (equivalent to Id attribute in XElement).
+    /// into shapeID of type <seealso cref="string"/>.
     /// </summary>
     /// <param name="value"></param>
     /// <param name="type"></param>
@@ -85,11 +68,33 @@
       UIElement control = value as UIElement;
 
       if (control == null)
-        return "";
+        return string.Empty;
 
       CanvasView cv = CanvasView.GetCanvasView(control);
 
-      return cv.ElementFromControl(control).GetStringAttribute("Id");
+      return cv.ElementFromControl(control).ID;
+    }
+
+    private object convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      string shape = value as string;
+
+      // Convert invalid shapeID into invalid snap target
+      if (shape == null || shape == string.Empty || this.ReferenceControl == null)
+        return null;
+
+      // Find canvas view through reference on this converter
+      CanvasView cv = CanvasView.GetCanvasView(this.ReferenceControl);
+
+      // No canvas view found
+      if (cv == null)
+        return null;
+
+      // Get references element from viewmodel
+      ShapeViewModelBase e = cv.CanvasViewModel.DocumentViewModel.dm_DocumentDataModel.GetShapeById(shape);
+
+      // Use CanvasView to find canvas object in vicinity
+      return cv.ControlFromElement(e);
     }
     #endregion methods
   }

@@ -7,11 +7,11 @@ namespace Edi.ViewModel
   using System.Reflection;
   using System.Windows;
 
-  using Edi.AvalonEdit.Highlighting;
   using EdiViews.Config.ViewModel;
+  using ICSharpCode.AvalonEdit.Edi;
   using ICSharpCode.AvalonEdit.Highlighting;
-  using MsgBox;
   using ICSharpCode.AvalonEdit.Highlighting.Themes;
+  using MsgBox;
   using System.Windows.Media;
   using EdiViews.ViewModel.Documents;
 
@@ -210,7 +210,7 @@ namespace Edi.ViewModel
             Uris = new string[2];
 
             Uris[0] = "/Themes;component/Aero/Theme.xaml";
-            Uris[1] = "/AvalonDock.Themes.Aero;component/Theme.xaml";
+            Uris[1] = "/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml";
             break;
 
           case EdiThemesViewModel.WPFTheme.ExpressionDark:
@@ -218,14 +218,14 @@ namespace Edi.ViewModel
 
             Uris[0] = "/Themes;component/ExpressionDark/Theme.xaml";
             Uris[1] = "/EdiViews;component/Themes/Expressiondark.xaml";
-            Uris[2] = "/AvalonDock.Themes.ExpressionDark;component/Theme.xaml";
+            Uris[2] = "/Xceed.Wpf.AvalonDock.Themes.ExpressionDark;component/Theme.xaml";
             break;
 
           case EdiThemesViewModel.WPFTheme.VS2010:
             Uris = new string[2];
 
             Uris[0] = "/Themes;component/VS2010/Theme.xaml";
-            Uris[1] = "/AvalonDock.Themes.VS2010;component/Theme.xaml";
+            Uris[1] = "/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml";
             break;
 
           case EdiThemesViewModel.WPFTheme.Generic:
@@ -238,7 +238,7 @@ namespace Edi.ViewModel
             Uris = new string[2];
 
             Uris[0] = "/Themes;component/Metro/Theme.xaml";
-            Uris[1] = "/AvalonDock.Themes.Metro;component/Theme.xaml";
+            Uris[1] = "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml";
             break;
 
           case EdiThemesViewModel.WPFTheme.ExpressionDark2:
@@ -246,7 +246,7 @@ namespace Edi.ViewModel
 
             Uris[0] = "/Themes;component/ExpressionDark2/Theme.xaml";
             Uris[1] = "/EdiViews;component/Themes/Expressiondark2.xaml";
-            Uris[2] = "/AvalonDock.Themes.Expression;component/DarkTheme.xaml";
+            Uris[2] = "/Xceed.Wpf.AvalonDock.Themes.Expression;component/DarkTheme.xaml";
             break;
 
           case EdiThemesViewModel.WPFTheme.ExpressionLight2:
@@ -254,7 +254,7 @@ namespace Edi.ViewModel
 
             Uris[0] = "/Themes;component/ExpressionLight2/Theme.xaml";
             Uris[1] = "/EdiViews;component/Themes/ExpressionLight2.xaml";
-            Uris[2] = "/AvalonDock.Themes.Expression;component/LightTheme.xaml";
+            Uris[2] = "/Xceed.Wpf.AvalonDock.Themes.Expression;component/LightTheme.xaml";
             break;
 
           default:

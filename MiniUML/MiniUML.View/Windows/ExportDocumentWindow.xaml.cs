@@ -4,9 +4,9 @@ namespace MiniUML.View.Windows
   using System.Globalization;
   using System.Windows;
   using System.Windows.Markup;
-
   using MiniUML.Framework;
   using MiniUML.Model.ViewModels;
+  using MiniUML.Model.ViewModels.Document;
   using MsgBox;
 
   /// <summary>
@@ -16,16 +16,16 @@ namespace MiniUML.View.Windows
   {
     public ExportDocumentWindow()
     {
-      InitializeComponent();
-      Language = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
-      Title = (string)Application.Current.Resources["ApplicationName"];
+      this.InitializeComponent();
+      this.Language = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
+      this.Title = (string)Application.Current.Resources["ApplicationName"];
     }
 
     private void okButton_Click(object sender, RoutedEventArgs e)
     {
       try
       {
-        double resolution = Double.Parse(_dpiTextBox.Text,
+        double resolution = double.Parse(this._dpiTextBox.Text,
             NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowDecimalPoint,
             CultureInfo.CurrentCulture);
 

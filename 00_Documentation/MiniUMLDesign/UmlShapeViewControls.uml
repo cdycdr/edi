@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document
+  Size="1793.79,1793.79" xmlns="MiniUml">
+  <Boundary
+    Name="MiniUML.Plugins.UmlClassDiagram.Controls.View.Shapes"
+    ID=""
+    Position="100,10,700,775" />
+  <Class
+    Name="Base.ShapeViewBase"
+    ID="auto_1"
+    Position="173,62,147,75"
+    Stereotype="" />
+  <Class
+    Name="UmlUseCaseShape"
+    ID="auto_0"
+    Position="444,62,178,75"
+    Stereotype="" />
+  <Class
+    Name="UmlSquareShape"
+    ID="auto_2"
+    Position="445,156.166666666667,178,75"
+    Stereotype="" />
+  <Class
+    Name="UmlPackageShape"
+    ID="auto_3"
+    Position="445,250.333333333333,178,75"
+    Stereotype="" />
+  <Class
+    Name="UmlNodeShape"
+    ID="auto_4"
+    Position="447,344.5,178,75"
+    Stereotype="" />
+  <Class
+    Name="UmlDecisionShape"
+    ID="auto_5"
+    Position="449,438.666666666667,178,75"
+    Stereotype="" />
+  <Class
+    Name="UmlCommentShape"
+    ID="auto_6"
+    Position="450,532.833333333333,178,75"
+    Stereotype="" />
+  <Class
+    Name="UmlCanvasShape"
+    ID="auto_7"
+    Position="451,627,178,75"
+    Stereotype="" />
+  <Class
+    Name="UmlBoundaryShape"
+    ID="auto_8"
+    Position="172,687,178,75"
+    Stereotype="" />
+  <Inheritance
+    Name=""
+    ID=""
+    Position="0,0"
+    From="auto_0"
+    FromArrow=""
+    To="auto_1"
+    ToArrow="Uml.Arrows.Triangle">
+    <Anchor
+      Name=""
+      ID=""
+      Position="444,104.16" />
+    <Anchor
+      Name=""
+      ID=""
+      Position="320,104.16" />
+  </Inheritance>
+  <Inheritance
+    Name=""
+    ID=""
+    Position="0,0"
+    From="auto_2"
+    FromArrow=""
+    To="auto_1"
+    ToArrow="Uml.Arrows.Triangle">
+    <Anchor
+      Name=""
+      ID=""
+      Position="445,202.16" />
+    <Anchor
+      Name=""
+      ID=""
+      Position="320,122.16" />
+  </Inheritance>
+  <Inheritance
+    Name=""
+    ID=""
+    Position="0,0"
+    From="auto_3"
+    FromArrow=""
+    To="auto_1"
+    ToArrow="Uml.Arrows.Triangle">
+    <Anchor
+      Name=""
+      ID=""
+      Position="445,291.16" />
+    <Anchor
+      Name=""
+      ID=""
+      Position="309,137" />
+  </Inheritance>
+  <Inheritance
+    Name=""
+    ID=""
+    Position="0,0"
+    From="auto_4"
+    FromArrow=""
+    To="auto_1"
+    ToArrow="Uml.Arrows.Triangle">
+    <Anchor
+      Name=""
+      ID=""
+      Position="447,383.16" />
+    <Anchor
+      Name=""
+      ID=""
+      Position="293,137" />
+  </Inheritance>
+  <Inheritance
+    Name=""
+    ID=""
+    Position="0,0"
+    From="auto_5"
+    FromArrow=""
+    To="auto_1"
+    ToArrow="Uml.Arrows.Triangle">
+    <Anchor
+      Name=""
+      ID=""
+      Position="449,481.16" />
+    <Anchor
+      Name=""
+      ID=""
+      Position="264,137" />
+  </Inheritance>
+  <Inheritance
+    Name=""
+    ID=""
+    Position="0,0"
+    From="auto_6"
+    FromArrow=""
+    To="auto_1"
+    ToArrow="Uml.Arrows.Triangle">
+    <Anchor
+      Name=""
+      ID=""
+      Position="450,575.16" />
+    <Anchor
+      Name=""
+      ID=""
+      Position="240,137" />
+  </Inheritance>
+  <Inheritance
+    Name=""
+    ID=""
+    Position="0,0"
+    From="auto_7"
+    FromArrow=""
+    To="auto_1"
+    ToArrow="Uml.Arrows.Triangle">
+    <Anchor
+      Name=""
+      ID=""
+      Position="451,668.16" />
+    <Anchor
+      Name=""
+      ID=""
+      Position="223,137" />
+  </Inheritance>
+  <Inheritance
+    Name=""
+    ID=""
+    Position="0,0"
+    From="auto_8"
+    FromArrow=""
+    To="auto_1"
+    ToArrow="Uml.Arrows.Triangle">
+    <Anchor
+      Name=""
+      ID=""
+      Position="193,687" />
+    <Anchor
+      Name=""
+      ID=""
+      Position="193,137" />
+  </Inheritance>
+  <Note
+    Name=""
+    ID=""
+    Position="800,0,307,89">
+    <Text>This diagram shows the view control classes
+that are responsible for displaying shapes on
+the canvas.</Text>
+  </Note>
+</Document>

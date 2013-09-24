@@ -1,35 +1,42 @@
-﻿using System;
-using System.Windows;
-
-namespace MiniUML.View.Controls
+﻿namespace MiniUML.View.Controls
 {
-    public class SnapTargetUpdateEventArgs : EventArgs
-    {
-        public Vector moveDelta;
-        public bool isMoveUpdate = false;
+  using System.Windows;
 
-        public SnapTargetUpdateEventArgs() { }
+  /// <summary>
+  /// Determine when a snaptarget move should be updated.
+  /// </summary>
+  public enum MoveUpdate
+  {
+    /// <summary>
+    /// Implement update right away.
+    /// </summary>
+    MoveDelta = 1,
 
-        public SnapTargetUpdateEventArgs(Vector moveDelta)
-        {
-            isMoveUpdate = true;
-            this.moveDelta = moveDelta;
-        }
-    }
+    /// <summary>
+    /// Update later with next layout update.
+    /// </summary>
+    CoerceOnNextLayoutUpdate = 2
+  }
 
-    public delegate void SnapTargetUpdateHandler(ISnapTarget source, SnapTargetUpdateEventArgs e);
+  /// <summary>
+  /// Interface definition to let <seealso cref="AchorPoint.xaml.cs"/> points
+  /// snap to a shape like target.
+  /// </summary>
+  public interface ISnapTarget
+  {
+    /// <summary>
+    /// The event occurs when a line should snap to a target point(?).
+    /// </summary>
+    event SnapTargetUpdateHandler SnapTargetUpdate;
 
-    public interface ISnapTarget
-    {
-        /// <summary>
-        /// Snaps p to the SnapTarget, and sets snapAngle to the angle of the snap target line (if any).
-        /// </summary>
-        /// <param name="p"></param>
-        /// <param name="snapAngle"></param>
-        void SnapPoint(ref Point p, out double snapAngle);
+    /// <summary>
+    /// Determine the best position <paramref name="p"/> and angle <paramref name="snapAngle"/>
+    /// for an AchorPoint to snap to the angle of the snap target line (if any).
+    /// </summary>
+    /// <param name="p"></param>
+    /// <param name="snapAngle"></param>
+    void SnapPoint(ref Point p, out double snapAngle);
 
-        event SnapTargetUpdateHandler SnapTargetUpdate;
-
-        void NotifySnapTargetUpdate(SnapTargetUpdateEventArgs e);
-    }
+    void NotifySnapTargetUpdate(SnapTargetUpdateEventArgs e);
+  }
 }

@@ -1,0 +1,29 @@
+
+
+MiniUML.Plugins.UmlClassDiagram->PluginView
+                                   |
+								   | Binds to
+                                   |
+MiniUML.Plugins.UmlClassDiagram->PluginViewModel
+
+
+
+------------------------------
+
+MiniUML.View.TemplateSelector.ShapeTemplateSelector
+MiniUML.View.TemplateSelector.ArrowTemplateSelector
+                                     |
+									 | Use
+									 |
+MiniUML.Framework -> static class PluginManager
+                                     |
+                                     +--> ObservableCollection<PluginModel> PluginModels
+
+                    static class Edi.App.MiniUmlPluginLoader
+									 |
+									 | Is loaded and instanciated
+									 |
+									 
+MiniUML.Plugins.UmlClassDiagram->PluginModel : abstract class MiniUML.Framework.PluginModel
+                                     |
+									 +--> FrameworkElement View

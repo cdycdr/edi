@@ -404,10 +404,15 @@ namespace EdiViews.FindReplace.ViewModel
     /// <returns>The regular expression.</returns>
     public Regex GetRegEx(bool ForceLeftToRight = false)
     {
+      // Multiline option is required to support matching start and end of line in regex
+      // http://msdn.microsoft.com/en-us/library/system.text.regularexpressions.regexoptions.aspx
+      // http://stackoverflow.com/questions/6596060/how-to-match-begin-or-end-of-line-using-c-regex
       Regex r;
-      RegexOptions o = RegexOptions.None;
+      RegexOptions o = RegexOptions.Multiline;
+
       if (SearchUp && !ForceLeftToRight)
         o = o | RegexOptions.RightToLeft;
+
       if (!CaseSensitive)
         o = o | RegexOptions.IgnoreCase;
 
@@ -416,10 +421,13 @@ namespace EdiViews.FindReplace.ViewModel
       else
       {
         string s = Regex.Escape(TextToFind);
+
         if (UseWildcards)
           s = s.Replace("\\*", ".*").Replace("\\?", ".");
+
         if (WholeWord)
           s = "\\W" + s + "\\W";
+
         r = new Regex(s, o);
       }
 

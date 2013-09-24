@@ -59,11 +59,14 @@
             this.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.DefaultIndentationStrategy();
             break;
           case "C#":
+            this.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.CSharp.CSharpIndentationStrategy(this.Options);
+            mFoldingStrategy = new CSharpBraceFoldingStrategy();
+            break;
           case "C++":
           case "PHP":
           case "Java":
             this.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.CSharp.CSharpIndentationStrategy(this.Options);
-            mFoldingStrategy = new BraceFoldingStrategy();
+            mFoldingStrategy = new CSharpBraceFoldingStrategy();
             break;
           case "VBNET":
             this.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.CSharp.CSharpIndentationStrategy(this.Options);
