@@ -106,13 +106,9 @@
       <DependentUpon>ConfigDlg.xaml</DependentUpon>
     </Compile>
     <Compile Include="Config\ViewModel\ConfigViewModel.cs" />
-    <Compile Include="Config\ViewModel\EdiThemesViewModel.cs" />
-    <Compile Include="Config\ViewModel\HlThemeConfig.cs" />
-    <Compile Include="Config\ViewModel\HlThemeKey.cs" />
     <Compile Include="Config\ViewModel\ViewPosSzViewModel.cs" />
     <Compile Include="Converter\BooleanToTypeModeStringConverter.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
-    <Compile Include="Converter\HlThemeKeyToBooleanConverter.cs" />
     <Compile Include="Converter\MessageType\CountToVisibilityHiddenConverter.cs" />
     <Compile Include="Converter\MessageType\MsgTypeToResourceConverter.cs" />
     <Compile Include="Converter\NullToVisibilityConverter.cs" />

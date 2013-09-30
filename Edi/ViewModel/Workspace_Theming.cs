@@ -3,28 +3,20 @@ namespace Edi.ViewModel
   using System;
   using System.Collections.Generic;
   using System.Globalization;
-  using System.Linq;
   using System.Reflection;
   using System.Windows;
+  using System.Windows.Media;
 
-  using EdiViews.Config.ViewModel;
+  using EdiViews.ViewModel.Documents;
   using ICSharpCode.AvalonEdit.Edi;
   using ICSharpCode.AvalonEdit.Highlighting;
   using ICSharpCode.AvalonEdit.Highlighting.Themes;
   using MsgBox;
-  using System.Windows.Media;
-  using EdiViews.ViewModel.Documents;
+  using Themes;
+  using Themes.Definition;
 
   public partial class Workspace
   {
-    #region Themes
-    /// <summary>
-    /// Expose the application theme currently applicable
-    /// (see Also themining in <seealso cref="ConfigViewModel"/> )
-    /// </summary>
-    public EdiThemesViewModel Skins { get; set; }
-    #endregion Themes
-
     /// <summary>
     /// Change WPF theme to theme supplied in <paramref name="themeToSwitchTo"/>
     /// 
@@ -34,8 +26,7 @@ namespace Edi.ViewModel
     /// !!! Use the <seealso cref="CurrentTheme"/> property to change !!!
     /// !!! the theme when App is running                             !!!
     /// </summary>
-    /// <param name="themeToSwitchTo"></param>
-    public void ResetTheme(object sender, EventArgs args)
+    public void ResetTheme()
     {
       // Reset customized resources (if there are any from last change) and
       // enforce reload of original values from resource dictionary
@@ -57,13 +48,16 @@ namespace Edi.ViewModel
         }
       }
 
-      HlThemeKey themeToSwitchTo = new HlThemeKey(EdiThemesViewModel.DefaultWPFTheme);
+      // Get WPF Theme definition from Themes Assembly
+      EditorThemeBase nextThemeToSwitchTo = Themes.ThemesManager.Instance.SelectedTheme;
+
+      string themeToSwitchTo = ThemesManager.DefaultThemeName;
 
       if (this.Config != null)
       {
         themeToSwitchTo = this.Config.CurrentTheme;
 
-        this.SwitchToSelectedTheme(null, themeToSwitchTo);
+        this.SwitchToSelectedTheme(nextThemeToSwitchTo);
       }
 
       // Backup highlighting names (if any) and restore highlighting associations after reloading highlighting definitions
@@ -81,18 +75,21 @@ namespace Edi.ViewModel
       }
 
       // Is the current theme configured with a highlighting theme???
-      HighlightingThemes hlThemes = this.Config.FindHighlightingTheme(themeToSwitchTo);
+      ////this.Config.FindHighlightingTheme(
+      HighlightingThemes hlThemes = nextThemeToSwitchTo.HighlightingStyles;
 
       // Re-load all highlighting patterns and re-apply highlightings
       HighlightingExtension.RegisterCustomHighlightingPatterns(hlThemes);
 
       //Re-apply highlightings after resetting highlighting manager
-
       List<EdiViewModel> l = this.Documents;
       for (int i = 0; i < l.Count; i++)
       {
         if (l[i] != null)
         {
+          if (HlNames[i] == null) // The highlighting is null if highlighting is switched off for this file(!)
+            continue;
+
           IHighlightingDefinition hdef = HighlightingManager.Instance.GetDefinition(HlNames[i]);
 
             if (hdef != null)
@@ -191,77 +188,16 @@ namespace Edi.ViewModel
     /// </summary>
     /// <param name="sParameter"></param>
     /// <param name="thisTheme"></param>
-    private bool SwitchToSelectedTheme(string sParameter = null, HlThemeKey thisTheme = null)
+    private bool SwitchToSelectedTheme(EditorThemeBase nextThemeToSwitchTo)
     {
       const string themesModul = "Themes.dll";
       
       try
       {
-        if (sParameter != null)
-          thisTheme = new HlThemeKey(EdiThemesViewModel.MapNameToEnum(sParameter)); // Select theme by name if one was given
+        // Get WPF Theme definition from Themes Assembly
+        EditorThemeBase theme = Themes.ThemesManager.Instance.SelectedTheme;
 
-        this.Skins.CurrentTheme = (thisTheme == null ? new HlThemeKey(EdiThemesViewModel.WPFTheme.Aero) : thisTheme);
-
-        string[] Uris = null;
-
-        switch (thisTheme.AppTheme)
-        {
-          case EdiThemesViewModel.WPFTheme.Aero:
-            Uris = new string[2];
-
-            Uris[0] = "/Themes;component/Aero/Theme.xaml";
-            Uris[1] = "/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml";
-            break;
-
-          case EdiThemesViewModel.WPFTheme.ExpressionDark:
-            Uris = new string[3];
-
-            Uris[0] = "/Themes;component/ExpressionDark/Theme.xaml";
-            Uris[1] = "/EdiViews;component/Themes/Expressiondark.xaml";
-            Uris[2] = "/Xceed.Wpf.AvalonDock.Themes.ExpressionDark;component/Theme.xaml";
-            break;
-
-          case EdiThemesViewModel.WPFTheme.VS2010:
-            Uris = new string[2];
-
-            Uris[0] = "/Themes;component/VS2010/Theme.xaml";
-            Uris[1] = "/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml";
-            break;
-
-          case EdiThemesViewModel.WPFTheme.Generic:
-            Uris = new string[1];
-
-            Uris[0] = "/Themes;component/Generic/Theme.xaml";
-            break;
-
-          case EdiThemesViewModel.WPFTheme.Metro:
-            Uris = new string[2];
-
-            Uris[0] = "/Themes;component/Metro/Theme.xaml";
-            Uris[1] = "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml";
-            break;
-
-          case EdiThemesViewModel.WPFTheme.ExpressionDark2:
-            Uris = new string[3];
-
-            Uris[0] = "/Themes;component/ExpressionDark2/Theme.xaml";
-            Uris[1] = "/EdiViews;component/Themes/Expressiondark2.xaml";
-            Uris[2] = "/Xceed.Wpf.AvalonDock.Themes.Expression;component/DarkTheme.xaml";
-            break;
-
-          case EdiThemesViewModel.WPFTheme.ExpressionLight2:
-            Uris = new string[3];
-
-            Uris[0] = "/Themes;component/ExpressionLight2/Theme.xaml";
-            Uris[1] = "/EdiViews;component/Themes/ExpressionLight2.xaml";
-            Uris[2] = "/Xceed.Wpf.AvalonDock.Themes.Expression;component/LightTheme.xaml";
-            break;
-
-          default:
-            break;
-        }
-
-        if (Uris != null)
+        if (theme != null)
         {
           Application.Current.Resources.MergedDictionaries.Clear();
 
@@ -281,11 +217,11 @@ namespace Edi.ViewModel
             return false;
           }
 
-          for (int i = 0; i < Uris.Length; i++)
+          foreach (var item in theme.Resources)
           {
             try
             {
-              Uri Res = new Uri(Uris[i], UriKind.Relative);
+              Uri Res = new Uri(item, UriKind.Relative);
 
               ResourceDictionary dictionary = Application.LoadComponent(Res) as ResourceDictionary;
 
@@ -294,7 +230,7 @@ namespace Edi.ViewModel
             }
             catch (Exception Exp)
             {
-              MsgBox.Msg.Show(Exp, string.Format(CultureInfo.CurrentCulture, "'{0}'", Uris[i]), MsgBoxButtons.OK, MsgBoxImage.Error);
+              MsgBox.Msg.Show(Exp, string.Format(CultureInfo.CurrentCulture, "'{0}'", item), MsgBoxButtons.OK, MsgBoxImage.Error);
             }
           }
         }
@@ -305,6 +241,10 @@ namespace Edi.ViewModel
                         MsgBoxButtons.OK, MsgBoxImage.Error);
 
         return false;
+      }
+      finally
+      {
+        // MainWindowViewManager.SelectedWPFTheme = 
       }
 
       return true;

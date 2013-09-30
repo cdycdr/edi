@@ -346,8 +346,9 @@ namespace Edi
             this.Shutdown();
         }
       }
-      catch
+      catch (Exception exp)
       {
+        Logger.Error(exp);
       }
 
       try

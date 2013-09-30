@@ -6,7 +6,6 @@
   using System.Windows;
   using System.Windows.Input;
   using System.Windows.Threading;
-
   using EdiViews.Config.ViewModel;
   using EdiViews.Documents.StartPage;
   using EdiViews.ViewModel.Base;
@@ -14,6 +13,7 @@
   using MiniUML.Framework;
   using MsgBox;
   using MsgBox.Commands;
+  using Themes;
   using Util.Command;
 
   /// <summary>
@@ -185,7 +185,7 @@
         }
       }));
 
-
+      // Change the WPF/TextEditor highlighting theme currently used in the application
       win.CommandBindings.Add(new CommandBinding(AppCommand.ViewTheme,
                               (s, e) => this.ChangeThemeCmd_Executed(s, e, win.Dispatcher)));
 
@@ -413,9 +413,11 @@
     /// <param name="s"></param>
     /// <param name="e"></param>
     /// <param name="disp"></param>
-    private void ChangeThemeCmd_Executed(object s, ExecutedRoutedEventArgs e, System.Windows.Threading.Dispatcher disp)
+    private void ChangeThemeCmd_Executed(object s,
+                                         ExecutedRoutedEventArgs e,
+                                         System.Windows.Threading.Dispatcher disp)
     {
-      HlThemeKey oldTheme = new HlThemeKey(EdiThemesViewModel.WPFTheme.Generic);
+      string oldTheme = ThemesManager.DefaultThemeName;
 
       try
       {
@@ -425,10 +427,10 @@
         if (e.Parameter == null)
           return;
 
-        HlThemeKey t = e.Parameter as HlThemeKey;
+        string newThemeName = e.Parameter as string;
 
         // Check if request is available
-        if (t == null)
+        if (newThemeName == null)
           return;
 
         oldTheme = this.Config.CurrentTheme;
@@ -442,8 +444,11 @@
           {
             try
             {
-
-              this.Config.CurrentTheme = t;
+              if (Themes.ThemesManager.Instance.SetSelectedTheme(newThemeName) == true)
+              {
+                this.Config.CurrentTheme = newThemeName;
+                this.ResetTheme();                        // Initialize theme in process
+              }
             }
             catch (Exception exp)
             {

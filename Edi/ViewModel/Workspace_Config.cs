@@ -3,6 +3,7 @@
   using System;
   using EdiViews.Config.ViewModel;
   using MsgBox;
+  using Themes;
 
   public partial class Workspace
   {
@@ -78,9 +79,9 @@
       // Initialize skinning engine with this current skin
       // standard skins defined in class enum
       // plus configured cosumt skins with highlighting
-      this.Skins = new EdiThemesViewModel(this.Config.CurrentTheme, this.Config.HlThemesConfig.GetEnumerator()); 
-      this.ResetTheme(null, null);                                   // Initialize theme in process
-      this.Config.ThemeChanged += new EventHandler(this.ResetTheme); // Later changes are event-based
+      
+      ThemesManager.Instance.SetSelectedTheme(this.Config.CurrentTheme);
+      this.ResetTheme();                       // Initialize theme in process
     }
   }
 }

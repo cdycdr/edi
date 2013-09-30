@@ -10,6 +10,7 @@
   using SimpleControls.MRU.ViewModel;
   using Util;
   using System.Reflection;
+  using Themes;
 
   [Serializable]
   [XmlRoot(ElementName = "ProgramSettings", IsNullable = false)]
@@ -22,14 +23,13 @@
     protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     private MRUListVM mMruList;
-    private HlThemeKey mCurrentTheme;
-    private SerializableDictionary<HlThemeKey, HlThemeConfig> mHlThemesConfig = null;
+    private string mCurrentTheme;
     #endregion fields
 
     #region constructor
     public ConfigViewModel()
     {
-      this.mCurrentTheme = new HlThemeKey(EdiThemesViewModel.DefaultWPFTheme);
+      this.mCurrentTheme = ThemesManager.DefaultThemeName;
 
       this.DocumentZoomUnit = TextEditorZoomInPercent;     // Zoom View in Percent
       this.DocumentZoomView = 150;                        // Font Size 12 is 100 %
@@ -45,55 +45,6 @@
       // Construct MRUListVM ViewModel with parameter to decide whether pinned entries
       // are sorted into the first (pinned list) spot or not (favourites list)
       this.mMruList = new MRUListVM(MRUSortMethod.PinnedEntriesFirst);
-
-      // ExpressionDark has a default highlighting theme since most highlightings
-      // are really designed to work for black on white (and not visce versa)
-      this.mHlThemesConfig = new SerializableDictionary<HlThemeKey, HlThemeConfig>();
-
-      string appLocation = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-
-      string themeName = "Deep Black";
-      HlThemeConfig hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\DeepBlack.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.ExpressionDark, themeName) { HlThemeName = "Expression Dark (Deep Black)" }, hlTheme);
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\DeepBlack.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.ExpressionDark2, themeName) { HlThemeName = "Expression Dark 2 (Deep Black)" }, hlTheme);
-
-      themeName = "Bright Standard";
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\BrightStandard.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.VS2010, themeName) { HlThemeName = "VS2010 (Bright Standard)" }, hlTheme);
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\BrightStandard.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.Aero, themeName) { HlThemeName = "Aero (Bright Standard)" }, hlTheme);
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\BrightStandard.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.Generic, themeName) { HlThemeName = "Generic (Bright Standard)" }, hlTheme);
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\BrightStandard.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.ExpressionLight2, themeName) { HlThemeName = "Expression Light 2 (Bright Standard)" }, hlTheme);
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\BrightStandard.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.Metro, themeName) { HlThemeName = "Metro (Bright Standard)" }, hlTheme);
-
-      themeName = "True Blue";
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\TrueBlue.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.ExpressionDark2, themeName) { HlThemeName = "Expression Dark 2 (True Blue)" }, hlTheme);
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\TrueBlue.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.ExpressionLight2, themeName) { HlThemeName = "Expression Light 2 (True Blue)" }, hlTheme);
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\TrueBlue.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.ExpressionDark, themeName) { HlThemeName = "Expression Dark (True Blue)" }, hlTheme);
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\TrueBlue.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.VS2010, themeName) { HlThemeName = "VS2010 (TrueBlue)" }, hlTheme);
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\TrueBlue.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.Aero, themeName) { HlThemeName = "Aero (True Blue)" }, hlTheme);
-
-      hlTheme = new HlThemeConfig(themeName, appLocation, @"AvalonEdit\HighLighting_Themes\TrueBlue.xshd");
-      this.mHlThemesConfig.Add(new HlThemeKey(EdiThemesViewModel.WPFTheme.Metro, themeName) { HlThemeName = "Metro (True Blue)" }, hlTheme);
     }
     #endregion constructor
 
@@ -134,10 +85,10 @@
 
     #region theming
     /// <summary>
-    /// Get/set WPF theme for the complete Application
+    /// Get/set WPF theme configured for the complete Application
     /// </summary>
     [XmlElement("CurrentTheme")]
-    public HlThemeKey CurrentTheme
+    public string CurrentTheme
     {
       get
       {
@@ -147,39 +98,9 @@
       set
       {
         if (this.mCurrentTheme != value)
-        {
-          this.mCurrentTheme = value;    // OnPropertChanged is part of this call
-
-          if (ThemeChanged != null)
-            ThemeChanged(this, EventArgs.Empty);
-        }
+          this.mCurrentTheme = value;
       }
     }
-
-    [XmlElement("HighlightingThemes")]
-    public SerializableDictionary<HlThemeKey, HlThemeConfig> HlThemesConfig
-    {
-      get
-      {
-        if (this.mHlThemesConfig == null)
-          this.mHlThemesConfig = new SerializableDictionary<HlThemeKey, HlThemeConfig>();
-
-        return mHlThemesConfig;
-      }
-
-      set
-      {
-        if (this.mHlThemesConfig != value)
-        {
-          this.mHlThemesConfig = value;
-
-          this.NotifyPropertyChanged(() => this.mHlThemesConfig);
-        }
-      }
-    }
-
-    [XmlIgnore]
-    public EventHandler ThemeChanged = null;
     #endregion theming
 
     /// <summary>
@@ -318,22 +239,14 @@
     #endregion Load Save ProgramOptions ViewModel
 
     /// <summary>
-    /// Check whether the <paramref name="WpfTheme"/> is configured
+    /// Check whether the <paramref name="hlThemeName"/> is configured
     /// with a highlighting theme and return it if that is the case.
     /// </summary>
-    /// <param name="WpfTheme"></param>
+    /// <param name="hlThemeName"></param>
     /// <returns>List of highlighting themes that should be applied for this WPF theme</returns>
-    public HighlightingThemes FindHighlightingTheme(HlThemeKey hlTheme)
+    public HighlightingThemes FindHighlightingTheme(string hlThemeName)
     {
-      // Is this WPF theme configured with a highlighting theme???
-      HlThemeConfig cfg = null;
-
-      this.HlThemesConfig.TryGetValue(hlTheme, out cfg);
-
-      if (cfg != null)
-        return cfg.HighlightingStyles;
-
-      return null;
+      return ThemesManager.Instance.GetTextEditorHighlighting(hlThemeName);
     }
     #endregion methods
   }

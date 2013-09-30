@@ -115,6 +115,7 @@
                        Style="{StaticResource UmlTextBox}"
                        Text="{Binding Path=Text}"
                        AcceptsReturn="True"
+                       TextWrapping="WrapWithOverflow"
                        Margin="5,5,21,5"
                    />
             </Grid>

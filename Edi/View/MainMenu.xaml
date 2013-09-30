@@ -6,6 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="500"
              
+            xmlns:theme="clr-namespace:Themes;assembly=Themes"
             xmlns:EdiViewsConv="clr-namespace:EdiViews.Converter;assembly=EdiViews"
             xmlns:cmd="clr-namespace:Util.Command;assembly=Util"
             xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
@@ -167,18 +168,22 @@
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
       </MenuItem>
       <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_View}">
-        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Themes}" ItemsSource="{Binding Skins.Themes}">
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Themes}"
+                  ItemsSource="{Binding Source={x:Static theme:ThemesManager.Instance}, Path=ListAllThemes}">
           <MenuItem.Resources>
             <RadioButton x:Key="rb" x:Shared="false" HorizontalAlignment="Right"  VerticalAlignment="Center"
                          GroupName="MenuGroup"
                          IsHitTestVisible="False"
-                         Margin="3,0,0,0" IsChecked="{Binding IsChecked, Mode=OneWay}">
+                         Margin="3,0,0,0" IsChecked="{Binding IsSelected, Mode=OneWay}">
               <RadioButton.Template>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
                   <!-- Data="M 0,5.1 L 1.7,5.2 L 3.4,7.1 L 8,0.4 L 9.2,0 L 3.3,10.8 Z" -->
                   <Grid>
-                    <Path x:Name="uncheck" Visibility="Collapsed" Margin="7,0,0,0" VerticalAlignment="Center"
-                        Fill="Transparent">
+                    <Path x:Name="uncheck"
+                          Visibility="Collapsed"
+                          Margin="7,0,0,0"
+                          VerticalAlignment="Center"
+                          Fill="Transparent">
                       <Path.Data>
                         <PathGeometry>
                           <PathGeometry.Figures>
@@ -197,8 +202,11 @@
                         </PathGeometry>
                       </Path.Data>
                     </Path>
-                    <Path x:Name="check" Visibility="Collapsed" Margin="7,0,0,0" VerticalAlignment="Center"
-                        Fill="{TemplateBinding MenuItem.Foreground}">
+                    <Path x:Name="check"
+                          Visibility="Collapsed"
+                          Margin="7,0,0,0"
+                          VerticalAlignment="Center"
+                          Fill="{TemplateBinding MenuItem.Foreground}">
                       <Path.Data>
                         <PathGeometry>
                           <PathGeometry.Figures>
@@ -233,10 +241,10 @@
           </MenuItem.Resources>
           <MenuItem.ItemContainerStyle>
             <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
-              <Setter Property="Header" Value="{Binding Text}" />
+              <Setter Property="Header" Value="{Binding HlThemeName}" />
               <Setter Property="Icon" Value="{DynamicResource rb}" />
               <Setter Property="Command" Value="cmd:AppCommand.ViewTheme" />
-              <Setter Property="CommandParameter" Value="{Binding ThemeID}" />
+              <Setter Property="CommandParameter" Value="{Binding HlThemeName}" />
               <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
               <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
               <Setter Property="Margin" Value="3,3,3,0" />

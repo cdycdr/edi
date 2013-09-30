@@ -3,16 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Startup="Application_Startup"
              >
-<!-- StartupUri="MainWindow.xaml" -->
-  <!-- This might be useful for working with the designer-, but not loading XAML
-       resources here improves the application start-up time substantially.
-
-       Therfore, use XAML resources for debugging ONLY.
-  -->
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Themes;component/ExpressionDark/Theme.xaml" />
+        <ResourceDictionary Source="/Themes;component/Generic/Theme.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>    
   </Application.Resources>

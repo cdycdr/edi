@@ -152,7 +152,8 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		/// Gets a highlighting definition by name.
 		/// Returns null if the definition is not found.
 		/// </summary>
-		public IHighlightingDefinition GetDefinition(string name)
+    /// <param name="nameofHighlightingDefinition">Name of highlighting definition to get</param>
+		public IHighlightingDefinition GetDefinition(string nameofHighlightingDefinition)
 		{
 			lock (lockObj)
       {
@@ -160,8 +161,12 @@ namespace ICSharpCode.AvalonEdit.Highlighting
         if (sortedHighlightingsByName == null)
           return null;
 
-			  IHighlightingDefinition rh;
-        if (sortedHighlightingsByName.TryGetValue(name, out rh))
+        //Dirkster99 Bugfix
+        if (nameofHighlightingDefinition == null)
+          throw new ArgumentException("Name of Highlighting Definition parameter cannot be null.");
+
+        IHighlightingDefinition rh;
+        if (sortedHighlightingsByName.TryGetValue(nameofHighlightingDefinition, out rh))
 				  return rh;
 			  else
 				  return null;
