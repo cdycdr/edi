@@ -6,13 +6,11 @@ namespace Edi.ViewModel
   using System.Reflection;
   using System.Windows;
   using System.Windows.Media;
-
   using EdiViews.ViewModel.Documents;
   using ICSharpCode.AvalonEdit.Edi;
   using ICSharpCode.AvalonEdit.Highlighting;
   using ICSharpCode.AvalonEdit.Highlighting.Themes;
   using MsgBox;
-  using Themes;
   using Themes.Definition;
 
   public partial class Workspace
@@ -50,15 +48,7 @@ namespace Edi.ViewModel
 
       // Get WPF Theme definition from Themes Assembly
       EditorThemeBase nextThemeToSwitchTo = Themes.ThemesManager.Instance.SelectedTheme;
-
-      string themeToSwitchTo = ThemesManager.DefaultThemeName;
-
-      if (this.Config != null)
-      {
-        themeToSwitchTo = this.Config.CurrentTheme;
-
-        this.SwitchToSelectedTheme(nextThemeToSwitchTo);
-      }
+      this.SwitchToSelectedTheme(nextThemeToSwitchTo);
 
       // Backup highlighting names (if any) and restore highlighting associations after reloading highlighting definitions
       List<string> HlNames = new List<string>();

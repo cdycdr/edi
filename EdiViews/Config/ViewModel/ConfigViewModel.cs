@@ -37,7 +37,6 @@
       this.RunSingleInstance = true;
       
       // Session Data
-      this.MainWindowPosSz = new ViewPosSzViewModel();
       this.MainWindowPosSz = new ViewPosSzViewModel(100,100, 1000, 700);
 
       this.LastActiveFile = string.Empty;
@@ -64,24 +63,8 @@
     [XmlAttribute(AttributeName = "ReloadOpenFilesFromLastSession")]
     public bool ReloadOpenFilesOnAppStart { get; set; }
 
-    #region Session Data
-    /// <summary>
-    /// Get/set position and size of MainWindow
-    /// </summary>
-    [XmlElement(ElementName = "MainWindowPos")]
-    public ViewPosSzViewModel MainWindowPosSz { get; set; }
-
     [XmlElement(ElementName = "RunSingleInstance")]
     public bool RunSingleInstance { get; set; }
-
-    /// <summary>
-    /// Remember the last active path and name of last active document.
-    /// 
-    /// This can be useful when selecting active document in next session or
-    /// determining a useful default path when there is no document currently open.
-    /// </summary>
-    [XmlAttribute(AttributeName = "LastActiveFile")]
-    public string LastActiveFile { get; set; }
 
     #region theming
     /// <summary>
@@ -102,6 +85,22 @@
       }
     }
     #endregion theming
+
+    #region Session Data
+    /// <summary>
+    /// Get/set position and size of MainWindow
+    /// </summary>
+    [XmlElement(ElementName = "MainWindowPos")]
+    public ViewPosSzViewModel MainWindowPosSz { get; set; }
+
+    /// <summary>
+    /// Remember the last active path and name of last active document.
+    /// 
+    /// This can be useful when selecting active document in next session or
+    /// determining a useful default path when there is no document currently open.
+    /// </summary>
+    [XmlAttribute(AttributeName = "LastActiveFile")]
+    public string LastActiveFile { get; set; }
 
     /// <summary>
     /// List of most recently used files

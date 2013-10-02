@@ -13,6 +13,7 @@
   using MiniUML.Framework;
   using MsgBox;
   using MsgBox.Commands;
+  using Settings;
   using Themes;
   using Util.Command;
 
@@ -276,7 +277,7 @@
           if (this.ActiveDocument != null)
           {
             if (Workspace.This.OnSave(this.ActiveDocument, true))
-              this.Config.MruList.AddMRUEntry(this.ActiveDocument.FilePath);
+              SettingsManager.Instance.SessionData.MruList.AddMRUEntry(this.ActiveDocument.FilePath);
           }
         }
         catch (Exception exp)
@@ -433,7 +434,7 @@
         if (newThemeName == null)
           return;
 
-        oldTheme = this.Config.CurrentTheme;
+        oldTheme = SettingsManager.Instance.SettingData.CurrentTheme;
 
         // The Work to perform on another thread
         ThreadStart start = delegate
@@ -446,7 +447,7 @@
             {
               if (Themes.ThemesManager.Instance.SetSelectedTheme(newThemeName) == true)
               {
-                this.Config.CurrentTheme = newThemeName;
+                SettingsManager.Instance.SettingData.CurrentTheme = newThemeName;
                 this.ResetTheme();                        // Initialize theme in process
               }
             }
@@ -466,7 +467,7 @@
       }
       catch (Exception exp)
       {
-        this.Config.CurrentTheme = oldTheme;
+        SettingsManager.Instance.SettingData.CurrentTheme = oldTheme;
 
         logger.Error(exp.Message, exp);
         MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,

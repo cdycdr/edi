@@ -1,8 +1,10 @@
 ﻿namespace Edi.ViewModel
 {
   using System;
+  using System.Windows;
   using EdiViews.Config.ViewModel;
   using MsgBox;
+  using Settings;
   using Themes;
 
   public partial class Workspace
@@ -10,29 +12,6 @@
     #region fields
     private ConfigViewModel _config = null;
     #endregion fields
-
-    /// <summary>
-    /// Get/set program settings for entire application
-    /// </summary>
-    public ConfigViewModel Config
-    {
-      get
-      {
-        if (_config == null)
-          _config = new ConfigViewModel();
-
-        return _config;
-      }
-
-      internal set
-      {
-        if (_config != value)
-        {
-          _config = value;
-          this.NotifyPropertyChanged(() => this.Config);
-        }
-      }
-    }
 
     /// <summary>
     /// Save application settings when the application is being closed down
@@ -43,8 +22,8 @@
       {
         App.CreateAppDataFolder();
 
-        // Save/initialize program options that determine global program behaviour
-        ConfigViewModel.SaveOptions(App.DirFileAppSessionData, this.Config);
+        SettingsManager.Instance.SaveOptions(App.DirFileAppSettingsData, SettingsManager.Instance.SettingData);
+        SettingsManager.Instance.SaveSessionData(App.DirFileAppSessionData, SettingsManager.Instance.SessionData);
       }
       catch (Exception exp)
       {
@@ -57,30 +36,17 @@
     /// </summary>
     public void LoadConfigOnAppStartup()
     {
-      ConfigViewModel retOpts = null;
+      // Re/Load program options and user profile session data to control global behaviour of program
+      SettingsManager.Instance.LoadOptions(App.DirFileAppSettingsData);
+      SettingsManager.Instance.LoadSessionData(App.DirFileAppSessionData);
 
-      try
-      {
-        // Re/Load program options to control global behaviour of program
-        if ((retOpts = ConfigViewModel.LoadOptions(App.DirFileAppSessionData)) == null)
-          retOpts = new ConfigViewModel();
-      }
-      catch
-      {
-      }
-      finally
-      {
-        if (retOpts == null)
-          retOpts = new ConfigViewModel();
-      }
-
-      this.Config = retOpts;
+      SettingsManager.Instance.CheckSettingsOnLoad(SystemParameters.VirtualScreenLeft, SystemParameters.VirtualScreenTop);
 
       // Initialize skinning engine with this current skin
       // standard skins defined in class enum
       // plus configured cosumt skins with highlighting
       
-      ThemesManager.Instance.SetSelectedTheme(this.Config.CurrentTheme);
+      ThemesManager.Instance.SetSelectedTheme(SettingsManager.Instance.SettingData.CurrentTheme);
       this.ResetTheme();                       // Initialize theme in process
     }
   }

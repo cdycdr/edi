@@ -22,6 +22,7 @@ namespace Edi.ViewModel
   using MiniUML.Model.ViewModels;
   using MiniUML.Model.ViewModels.Document;
   using MsgBox;
+  using Settings;
   using SimpleControls.MRU.ViewModel;
   using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
@@ -107,7 +108,7 @@ namespace Edi.ViewModel
               if (value != null && this.mShutDownInProgress == false)
               {
                 if (value.IsFilePathReal == true)
-                  this.Config.LastActiveFile = value.FilePath;
+                  SettingsManager.Instance.SessionData.LastActiveFile = value.FilePath;
               }
             }
           });
@@ -236,7 +237,7 @@ namespace Edi.ViewModel
       get
       {
         if (this.mRecentFiles == null)
-          this.mRecentFiles = new RecentFilesViewModel(this.Config.MruList);
+          this.mRecentFiles = new RecentFilesViewModel(SettingsManager.Instance.SessionData.MruList);
 
         return this.mRecentFiles;
       }
@@ -351,13 +352,14 @@ namespace Edi.ViewModel
 
       if (fileViewModel == null)
       {
-        if (this.Config.MruList.FindMRUEntry(filePath) != null)
+
+        if (SettingsManager.Instance.SessionData.MruList.FindMRUEntry(filePath) != null)
         {
           if (MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture,
                               "The file:\n\n'{0}'\n\ndoes not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?", filePath),
                               "Error Loading file", MsgBoxButtons.YesNo) == MsgBoxResult.Yes)
           {
-            this.Config.MruList.RemoveEntry(filePath);
+            SettingsManager.Instance.SessionData.MruList.RemoveEntry(filePath);
           }
         }
 
@@ -678,7 +680,8 @@ namespace Edi.ViewModel
       try
       {
         // Set scale factor in default size of text font
-        vm.InitScaleView(this.Config.DocumentZoomUnit, this.Config.DocumentZoomView);
+        vm.InitScaleView(SettingsManager.Instance.SettingData.DocumentZoomUnit,
+                         SettingsManager.Instance.SettingData.DocumentZoomView);
 
         this.ActiveDocument = vm;
       }
@@ -721,7 +724,7 @@ namespace Edi.ViewModel
           sPath = this.ActiveEdiDocument.GetFilePath();
 
         if (sPath == string.Empty)
-          sPath = this.Config.GetLastActivePath();
+          sPath = SettingsManager.Instance.SessionData.GetLastActivePath();
 
         if (sPath == string.Empty)
           sPath = App.MyDocumentsUserDir;
@@ -1074,7 +1077,7 @@ namespace Edi.ViewModel
           return null;
         else
         {
-          StartPageViewModel s = new StartPageViewModel(this.Config.MruList);
+          StartPageViewModel s = new StartPageViewModel(SettingsManager.Instance.SessionData.MruList);
 
           s.CloseDocument += new EventHandler(ProcessCloseDocumentEvent);
 

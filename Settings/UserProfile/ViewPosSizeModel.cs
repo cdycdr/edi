@@ -1,9 +1,7 @@
-﻿namespace EdiViews.Config.ViewModel
+﻿namespace Settings.UserProfile
 {
   using System;
-  using System.Windows;
   using System.Xml.Serialization;
-  using EdiViews.ViewModel.Base;
 
   /// <summary>
   /// Simple wrapper class for allowing windows to persist their
@@ -15,7 +13,7 @@
   /// </summary>
   [Serializable]
   [XmlRoot(ElementName = "ControlPos", IsNullable = true)]
-  public class ViewPosSzViewModel : EdiViews.ViewModel.Base.ViewModelBase
+  public class ViewPosSizeModel
   {
     #region fields
     private double mX, mY, mWidth, mHeight;
@@ -26,7 +24,7 @@
     /// <summary>
     /// Standard class constructor
     /// </summary>
-    public ViewPosSzViewModel()
+    public ViewPosSizeModel()
     {
       this.mX = 0;
       this.mY = 0;
@@ -43,7 +41,11 @@
     /// <param name="y"></param>
     /// <param name="width"></param>
     /// <param name="height"></param>
-    public ViewPosSzViewModel(int x, int y, int width, int height, bool isMaximized = false)
+    public ViewPosSizeModel(double x,
+                            double y,
+                            double width,
+                            double height,
+                            bool isMaximized = false)
     {
       this.mX = x;
       this.mY = y;
@@ -52,26 +54,13 @@
       this.mIsMaximized = isMaximized;
       this.DefaultConstruct = false;
     }
-
-    /// <summary>
-    /// Convinience constructor from window object
-    /// </summary>
-    /// <param name="c"></param>
-    public ViewPosSzViewModel(Window c) : this()
-    {
-      if (c != null)
-      {
-        this.X = c.Left;
-        this.Y = c.Top;
-        this.Width = c.Width;
-        this.Height = c.Height;
-        this.DefaultConstruct = false;
-
-        this.IsMaximized = (c.WindowState == WindowState.Maximized);
-      }
-    }
     #endregion constructors
 
+    #region properties
+    /// <summary>
+    /// Get whetehr this object was created through the default constructor or not
+    /// (default data values can be easily overwritten by actual data).
+    /// </summary>
     [XmlIgnore]
     public bool DefaultConstruct { get; private set; }
 
@@ -91,7 +80,6 @@
         if (this.mX != value)
         {
           this.mX = value;
-          this.NotifyPropertyChanged(() => this.X);
         }
       }
     }
@@ -112,7 +100,6 @@
         if (this.mY != value)
         {
           this.mY = value;
-          this.NotifyPropertyChanged(() => this.Y);
         }
       }
     }
@@ -133,7 +120,6 @@
         if (this.mWidth != value)
         {
           this.mWidth = value;
-          this.NotifyPropertyChanged(() => this.Width);
         }
       }
     }
@@ -154,7 +140,6 @@
         if (this.mHeight != value)
         {
           this.mHeight = value;
-          this.NotifyPropertyChanged(() => this.Height);
         }
       }      
     }
@@ -175,43 +160,25 @@
         if (this.mIsMaximized != value)
         {
           this.mIsMaximized = value;
-          this.NotifyPropertyChanged(() => this.IsMaximized);
         }
       }
     }
+    #endregion properties
 
+    #region methods
     /// <summary>
     /// Convinience function to set the position of a view to a valid position
     /// </summary>
-    public void SetValidPos()
+    public void SetValidPos(double SystemParameters_VirtualScreenLeft,
+                            double SystemParameters_VirtualScreenTop)
     {
       // Restore the position with a valid position
-      if (this.X < SystemParameters.VirtualScreenLeft)
-        this.X = SystemParameters.VirtualScreenLeft;
+      if (this.X < SystemParameters_VirtualScreenLeft)
+        this.X = SystemParameters_VirtualScreenLeft;
 
-      if (this.Y < SystemParameters.VirtualScreenTop)
-        this.Y = SystemParameters.VirtualScreenTop;
+      if (this.Y < SystemParameters_VirtualScreenTop)
+        this.Y = SystemParameters_VirtualScreenTop;
     }
-
-    /// <summary>
-    /// Convinience function to set the position, height, and width of a window
-    /// according to the values stored in this class
-    /// </summary>
-    /// <param name="c"></param>
-    public void SetPos(Window c)
-    {
-      if (c != null)
-      {
-        c.Left = this.X;
-        c.Top = this.Y;
-        c.Width = this.Width;
-        c.Height = this.Height;
-
-        if (this.IsMaximized == true)
-          c.WindowState = WindowState.Maximized;
-        else
-          c.WindowState = WindowState.Normal;
-      }
-    }
+    #endregion methods
   }
 }

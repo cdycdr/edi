@@ -7,7 +7,6 @@ namespace Edi
   using System.Threading;
   using System.Windows;
   using System.Windows.Threading;
-
   using Edi.ViewModel;
   using EdiViews.Config.ViewModel;
   using EdiViews.Documents.StartPage;
@@ -17,6 +16,8 @@ namespace Edi
   using log4net;
   using log4net.Config;
   using MsgBox;
+  using Settings;
+  using Settings.UserProfile;
   using Util;
   using Util.ActivateWindow;
   using Xceed.Wpf.AvalonDock.Layout.Serialization;
@@ -121,7 +122,19 @@ namespace Edi
       get
       {
         return System.IO.Path.Combine(App.DirAppData,
-                                      string.Format(CultureInfo.InvariantCulture, "{0}.session", App.AssemblyTitle));
+                                      string.Format(CultureInfo.InvariantCulture, "{0}.App.session", App.AssemblyTitle));
+      }
+    }
+
+    /// <summary>
+    /// Get path and file name to application specific settings file
+    /// </summary>
+    internal static string DirFileAppSettingsData
+    {
+      get
+      {
+        return System.IO.Path.Combine(App.DirAppData,
+                                      string.Format(CultureInfo.InvariantCulture, "{0}.App.settings", App.AssemblyTitle));
       }
     }
     #endregion properties
@@ -340,7 +353,7 @@ namespace Edi
       {
         Workspace.This.LoadConfigOnAppStartup();
 
-        if (Workspace.This.Config.RunSingleInstance == true)
+        if (SettingsManager.Instance.SettingData.RunSingleInstance == true)
         {
           if (enforcer.ShouldApplicationExit() == true)
             this.Shutdown();
@@ -372,7 +385,7 @@ namespace Edi
             this.OnClosed(this.mMainWin.DataContext as ViewModel.Workspace, this.mMainWin);
           };
 
-          this.LoadSession(Workspace.This, this.mMainWin);
+          this.ConstructMainWindowSession(Workspace.This, this.mMainWin);
           this.mMainWin.Show();
 
           if (e != null)
@@ -385,7 +398,12 @@ namespace Edi
       }
     }
 
-    private void LoadSession(Workspace workSpace, Window win)
+    /// <summary>
+    /// COnstruct MainWindow an attach datacontext to it.
+    /// </summary>
+    /// <param name="workSpace"></param>
+    /// <param name="win"></param>
+    private void ConstructMainWindowSession(Workspace workSpace, Window win)
     {
       try
       {
@@ -394,9 +412,13 @@ namespace Edi
         // Establish command binding to accept user input via commanding framework
         workSpace.InitCommandBinding(win);
 
-        workSpace.Config.MainWindowPosSz.SetPos(win);      // (Re)-set mainWindow view coordinates
+        win.Left = SettingsManager.Instance.SessionData.MainWindowPosSz.X;
+        win.Top = SettingsManager.Instance.SessionData.MainWindowPosSz.Y;
+        win.Width = SettingsManager.Instance.SessionData.MainWindowPosSz.Width;
+        win.Height = SettingsManager.Instance.SessionData.MainWindowPosSz.Height;
+        win.WindowState = (SettingsManager.Instance.SessionData.MainWindowPosSz.IsMaximized == true ? WindowState.Maximized : WindowState.Normal);
 
-        string lastActiveFile = workSpace.Config.LastActiveFile;
+        string lastActiveFile = SettingsManager.Instance.SessionData.LastActiveFile;
 
         MainWindow mainWin = win as MainWindow;
 
@@ -421,7 +443,7 @@ namespace Edi
       if (win == null)
         return;
 
-      string lastActiveFile = Workspace.This.Config.LastActiveFile;
+      string lastActiveFile = SettingsManager.Instance.SessionData.LastActiveFile;
       string layoutFileName = System.IO.Path.Combine(App.DirAppData, "Layout.config");
 
       if (System.IO.File.Exists(layoutFileName) == true)
@@ -452,7 +474,7 @@ namespace Edi
               args.Content = (object)Workspace.This.Log4NetMessageTool; // Re-create log4net message tool window binding
             else
             {
-              if (Workspace.This.Config.ReloadOpenFilesOnAppStart == true)
+              if (SettingsManager.Instance.SettingData.ReloadOpenFilesOnAppStart == true)
               {
                 if (!string.IsNullOrWhiteSpace(args.Model.ContentId))
                 {
@@ -529,7 +551,9 @@ namespace Edi
       try
       {
         // Persist window position, width and height from this session
-        appVM.Config.MainWindowPosSz = new ViewPosSzViewModel(win);
+        SettingsManager.Instance.SessionData.MainWindowPosSz =
+          new ViewPosSizeModel(win.Left, win.Top, win.Width, win.Height,
+                               (win.WindowState == WindowState.Maximized ? true : false));
 
         // Save/initialize program options that determine global programm behaviour
         appVM.SaveConfigOnAppClosed();
