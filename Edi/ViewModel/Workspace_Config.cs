@@ -2,17 +2,12 @@
 {
   using System;
   using System.Windows;
-  using EdiViews.Config.ViewModel;
   using MsgBox;
   using Settings;
   using Themes;
 
   public partial class Workspace
   {
-    #region fields
-    private ConfigViewModel _config = null;
-    #endregion fields
-
     /// <summary>
     /// Save application settings when the application is being closed down
     /// </summary>
@@ -22,7 +17,12 @@
       {
         App.CreateAppDataFolder();
 
-        SettingsManager.Instance.SaveOptions(App.DirFileAppSettingsData, SettingsManager.Instance.SettingData);
+        // Save program options only if there are un-saved changes that need persistence
+        // This can be caused when WPF theme was changed or something else
+        // but should normally not occur as often as saving session data
+        if (SettingsManager.Instance.SettingData.IsDirty == true)
+            SettingsManager.Instance.SaveOptions(App.DirFileAppSettingsData, SettingsManager.Instance.SettingData);
+
         SettingsManager.Instance.SaveSessionData(App.DirFileAppSessionData, SettingsManager.Instance.SessionData);
       }
       catch (Exception exp)

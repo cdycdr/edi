@@ -4,41 +4,23 @@ namespace EdiViews.About
   using EdiViews.ViewModel.Base;
   using System.Collections.Generic;
 
+  /// <summary>
+  /// Organize the viewmodel for an about program information presentation
+  /// (e.g. About dialog)
+  /// </summary>
   public class AboutViewModel : DialogViewModelBase
   {
-    #region fields
-    private DialogViewModelBase mOpenCloseView;
-    #endregion fields
-
     #region constructor
+    /// <summary>
+    /// Class constructor
+    /// </summary>
     public AboutViewModel()
+    : base()
     {
     }
     #endregion constructor
 
     #region properties
-    /// <summary>
-    /// Get property to expose elements necessary to evaluate user input
-    /// when the user completes his input (eg.: clicks OK in a dialog).
-    /// </summary>
-    public DialogViewModelBase OpenCloseView
-    {
-      get
-      {
-        return this.mOpenCloseView;
-      }
-
-      private set
-      {
-        if (this.mOpenCloseView != value)
-        {
-          this.mOpenCloseView = value;
-
-          this.NotifyPropertyChanged(() => this.OpenCloseView);
-        }
-      }
-    }
-
     /// <summary>
     /// Get title of application for display in About view.
     /// </summary>
@@ -142,16 +124,5 @@ namespace EdiViews.About
       }
     }
     #endregion properties
-
-    #region methods
-    /// <summary>
-    /// Initialize input states such that user can input information
-    /// with a view based GUI (eg.: dialog)
-    /// </summary>
-    public void InitDialogInputData()
-    {
-      this.OpenCloseView = new EdiViews.ViewModel.Base.DialogViewModelBase();
-    }
-    #endregion methods
   }
 }

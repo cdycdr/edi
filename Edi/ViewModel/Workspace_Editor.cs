@@ -244,25 +244,14 @@ namespace Edi.ViewModel
           int iCurrLine = Workspace.GetCurrentEditorLine(f);
 
           dlgVM = new EdiViews.GotoLine.GotoLineViewModel(1, f.Document.LineCount, iCurrLine);
-          dlg = ViewSelector.GetDialogView((object)dlgVM);
+          dlg = ViewSelector.GetDialogView((object)dlgVM, Application.Current.MainWindow);
 
-          // It is important to either:
-          // 1> Use the InitDialogInputData methode here or
-          // 2> Reset the WindowCloseResult=null property
-          // because otherwise ShowDialog will not work twice
-          // (Symptom: The dialog is closed immeditialy by the attached behaviour)
-          dlgVM.InitDialogInputData();
-
-          dlg.DataContext = dlgVM;
-
-          dlg.Closing += dlgVM.OpenCloseView.OnClosing;
-
-          dlg.Owner = Application.Current.MainWindow; // Make sure that dialog window appears in front of main window
+          dlg.Closing += dlgVM.OnClosing;
 
           dlg.ShowDialog();
 
           // Copy input if user OK'ed it. This could also be done by a method, equality operator, or copy constructor
-          if (((EdiViews.GotoLine.GotoLineViewModel)dlg.DataContext).OpenCloseView.WindowCloseResult == true)
+          if (dlgVM.WindowCloseResult == true)
           {
             DocumentLine line = f.Document.GetLineByNumber(dlgVM.LineNumber);
 
@@ -279,7 +268,7 @@ namespace Edi.ViewModel
         {
           if (dlg != null)
           {
-            dlg.Closing -= dlgVM.OpenCloseView.OnClosing;
+            dlg.Closing -= dlgVM.OnClosing;
             dlg.Close();
           }
         }
@@ -317,20 +306,9 @@ namespace Edi.ViewModel
 
           this.FindReplaceVM.CurrentEditor = f;
 
-          dlg = ViewSelector.GetDialogView((object)this.FindReplaceVM);
+          dlg = ViewSelector.GetDialogView((object)this.FindReplaceVM, Application.Current.MainWindow);
 
-          // It is important to either:
-          // 1> Use the InitDialogInputData methode here or
-          // 2> Reset the WindowCloseResult=null property
-          // because otherwise ShowDialog will not work twice
-          // (Symptom: The dialog is closed immeditialy by the attached behaviour)
-          this.FindReplaceVM.InitDialogInputData();
-
-          dlg.DataContext = this.FindReplaceVM;
-
-          dlg.Closing += this.FindReplaceVM.OpenCloseView.OnClosing;
-
-          dlg.Owner = Application.Current.MainWindow; // Make sure that dialog window appears in front of main window
+          dlg.Closing += this.FindReplaceVM.OnClosing;
 
           dlg.ShowDialog();
         }
@@ -343,7 +321,7 @@ namespace Edi.ViewModel
         {
           if (dlg != null)
           {
-            dlg.Closing -= this.FindReplaceVM.OpenCloseView.OnClosing;
+            dlg.Closing -= this.FindReplaceVM.OnClosing;
             dlg.Close();
           }
         }

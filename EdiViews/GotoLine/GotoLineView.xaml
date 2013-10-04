@@ -40,12 +40,11 @@
               </StackPanel>
 
               <StackPanel Grid.Row="1">
-                <StackPanel Visibility="{Binding OpenCloseView.ListMessages.Count, Converter={StaticResource CountToVisibilityHidden}}" Margin="0,15">
-                  <TextBlock Text="{Binding OpenCloseView.ProblemCaption}"
+                <StackPanel Visibility="{Binding ListMessages.Count, Converter={StaticResource CountToVisibilityHidden}}" Margin="0,15">
+                  <TextBlock Text="{Binding ProblemCaption}"
                              TextWrapping="Wrap" Margin="3" />
 
-                  <ListBox DataContext="{Binding OpenCloseView}"
-                           ItemsSource="{Binding ListMessages}" MaxHeight="65"
+                  <ListBox ItemsSource="{Binding ListMessages}" MaxHeight="65"
                            BorderBrush="Transparent"
                            Background="Transparent"
                            Grid.Row="1"

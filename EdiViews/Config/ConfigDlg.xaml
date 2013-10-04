@@ -13,7 +13,7 @@
         ShowInTaskbar="false"
         MinWidth="300"
 
-        behav:DialogCloser.DialogResult="{Binding OpenCloseView.WindowCloseResult}"
+        behav:DialogCloser.DialogResult="{Binding WindowCloseResult}"
 
         Icon="{StaticResource Image_EditIcon}"
 
@@ -38,14 +38,14 @@
         <ColumnDefinition Width="Auto" SharedSizeGroup="StandardButtons"/>
       </Grid.ColumnDefinitions>
       <Button Content="_Cancel"
-            Command="{Binding OpenCloseView.CancelCommand}"
-            IsCancel="True"
-            Grid.Column="0" Padding="3" Margin="6" MinHeight="24" MinWidth="80"/>
+              Command="{Binding CancelCommand}"
+              IsCancel="True"
+              Grid.Column="0" Padding="3" Margin="6" MinHeight="24" MinWidth="80"/>
 
       <Button Content="_OK"
-            Command="{Binding OpenCloseView.OKCommand}"
-            IsDefault="True"
-            Grid.Column="1" Padding="3" Margin="6" MinHeight="24" MinWidth="80"/>
+              Command="{Binding OKCommand}"
+              IsDefault="True"
+              Grid.Column="1" Padding="3" Margin="6,8,6,4" MinHeight="24" MinWidth="80"/>
     </Grid>
   </Grid>
 </Window>

@@ -12,12 +12,11 @@ namespace EdiViews.ViewModel.Documents
   using ICSharpCode.AvalonEdit.Highlighting;
   using ICSharpCode.AvalonEdit.Utils;
   using MsgBox;
+  using Settings.ProgramSettings;
   using SimpleControls.Command;
   using UnitComboLib.Unit;
   using UnitComboLib.Unit.Screen;
   using UnitComboLib.ViewModel;
-  using MiniUML.Framework;
-  using System.Configuration;
 
   public class EdiViewModel : EdiViews.ViewModel.Base.FileBaseViewModel, EdiViews.FindReplace.ViewModel.IEditor
   {
@@ -37,7 +36,8 @@ namespace EdiViews.ViewModel.Documents
     /// </summary>
     public EdiViewModel()
     {
-      this.SizeUnitLabel = new UnitViewModel(this.GenerateScreenUnitList(), new ScreenConverter(), 0);
+      var items = Settings.SettingsManager.Instance.SettingData.GenerateScreenUnitList();
+      this.SizeUnitLabel = new UnitViewModel(items, new ScreenConverter(), 0);
 
       this.TxtControl = new TextBoxController();
       
@@ -865,26 +865,11 @@ namespace EdiViews.ViewModel.Documents
     /// </summary>
     /// <param name="unit"></param>
     /// <param name="defaultValue"></param>
-    public void InitScaleView(int unit, double defaultValue)
+    public void InitScaleView(ZoomUnit unit, double defaultValue)
     {
-      this.SizeUnitLabel = new UnitViewModel(this.GenerateScreenUnitList(), new ScreenConverter(), unit, defaultValue);
-    }
+      var unitList = Settings.SettingsManager.Instance.SettingData.GenerateScreenUnitList();
 
-    /// <summary>
-    /// Initialize Scale View with useful units in percent and font point size
-    /// </summary>
-    /// <returns></returns>
-    private ObservableCollection<ListItem> GenerateScreenUnitList()
-    {
-      ObservableCollection<ListItem> unitList = new ObservableCollection<ListItem>();
-
-      var percentDefaults = new ObservableCollection<string>() { "25", "50", "75", "100", "125", "150", "175", "200", "300", "400", "500" };
-      var pointsDefaults = new ObservableCollection<string>() { "3", "6", "8", "9", "10", "12", "14", "16", "18", "20", "24", "26", "32", "48", "60" };
-
-      unitList.Add(new ListItem(Itemkey.ScreenPercent,    Util.Local.Strings.STR_SCALE_VIEW_PERCENT, Util.Local.Strings.STR_SCALE_VIEW_PERCENT_SHORT, percentDefaults));
-      unitList.Add(new ListItem(Itemkey.ScreenFontPoints, Util.Local.Strings.STR_SCALE_VIEW_POINT,   Util.Local.Strings.STR_SCALE_VIEW_POINT_SHORT, pointsDefaults));
-
-      return unitList;
+      this.SizeUnitLabel = new UnitViewModel(unitList, new ScreenConverter(), (int)unit, defaultValue);
     }
     #endregion ScaleView methods
 

@@ -174,6 +174,7 @@ namespace EdiViews.ViewModel.Base
               this.OnRequestClose(true);
             }
           });
+
         return this.mOKCommand;
       }
     }

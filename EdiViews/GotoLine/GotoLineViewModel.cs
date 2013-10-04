@@ -3,13 +3,30 @@
   using SimpleControls.MRU.ViewModel;
   using System.Collections.Generic;
   using System.Globalization;
-
   using EdiViews.ViewModel.Base;
 
-  public class GotoLineViewModel : EdiViews.ViewModel.Base.ViewModelBase
+  /// <summary>
+  /// This viewmodel organizes the backend of a goto line (dialog) functionality
+  /// which lets the user type a number and skips the (texteditor) view to that line.
+  /// 
+  /// The class verifies the length of the current document and whether the entered
+  /// text is a number and whether that number is within avaliable limits etc...
+  /// </summary>
+  public class GotoLineViewModel : DialogViewModelBase
   {
+    #region fields
     private int mMin, mMax, iCurrentLine;
+    private string mSelectedText = string.Empty;
+    private string mLineNumberInput;
+    #endregion fields
 
+    #region constructor
+    /// <summary>
+    /// Class constructor
+    /// </summary>
+    /// <param name="iMin"></param>
+    /// <param name="iMax"></param>
+    /// <param name="iCurrentLine"></param>
     public GotoLineViewModel(int iMin, int iMax, int iCurrentLine)
     {
       this.mMin = iMin;
@@ -17,33 +34,15 @@
       this.iCurrentLine = iCurrentLine;
 
       this.mLineNumberInput = iCurrentLine.ToString();
+
+      this.EvaluateInputData = this.ValidateData;
     }
+    #endregion constructor
 
     #region properties
     /// <summary>
-    /// Get property to expose elements necessary to evaluate user input
-    /// when the user completes his input (eg.: clicks OK in a dialog).
+    /// Get/set string representing the input line number.
     /// </summary>
-    private DialogViewModelBase mOpenCloseView;
-    public DialogViewModelBase OpenCloseView
-    {
-      get
-      {
-        return this.mOpenCloseView;
-      }
-
-      private set
-      {
-        if (this.mOpenCloseView != value)
-        {
-          this.mOpenCloseView = value;
-
-          this.NotifyPropertyChanged(() => this.OpenCloseView);
-        }
-      }
-    }
-
-    private string mLineNumberInput;
     public string LineNumberInput
     {
       get
@@ -62,6 +61,9 @@
       }
     }
 
+    /// <summary>
+    /// Get integer representing the input line number or -1 if input is invalid.
+    /// </summary>
     public int LineNumber
     {
       get
@@ -80,6 +82,9 @@
       }
     }
 
+    /// <summary>
+    /// Get avalaiable range of line numbers that a user can choose from.
+    /// </summary>
     public string MinMaxRange
     {
       get
@@ -88,7 +93,6 @@
       }
     }
 
-    private string mSelectedText = string.Empty;
     public string SelectedText
     {
       get
@@ -109,21 +113,8 @@
 
     #region methods
     /// <summary>
-    /// Initilize input states such that user can input information
-    /// with a view based GUI (eg.: dialog)
-    /// </summary>
-    public void InitDialogInputData()
-    {
-      this.OpenCloseView = new EdiViews.ViewModel.Base.DialogViewModelBase();
-
-      // Attach delegate method to validate user input on OK
-      // Not setting this means that user input is never validated and view will always close on OK
-      if (this.mOpenCloseView != null)
-        this.mOpenCloseView.EvaluateInputData = this.ValidateData;
-    }
-
-    /// <summary>
-    /// Delegate method that is call whenever a user OK'es or Cancels the view that is bound to <seealso cref="OpenCloseView"/>
+    /// Delegate method that is called whenever a user OKs or Cancels
+    /// the view that is bound to this viewmodel.
     /// </summary>
     /// <param name="listMsgs"></param>
     /// <returns></returns>

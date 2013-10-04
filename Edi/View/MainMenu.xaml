@@ -259,6 +259,11 @@
                   Command="cmd:AppCommand.ShowStartPage"
                   ToolTipService.ShowOnDisabled="True"
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"  />
+
+        <MenuItem Header="Settings..."
+                  Command="cmd:AppCommand.ProgramSettings"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
       </MenuItem>
 
       <!-- XXXXXXXXXXXXXXXXXXXX -->

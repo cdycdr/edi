@@ -211,12 +211,12 @@
                         </unit:UnitCombobox>
 
                         <ScrollBar Name="PART_HorizontalScrollBar"
-                                 Orientation="Horizontal"
-                                 Grid.Column="1"
-                                 Value="{TemplateBinding HorizontalOffset}"
-                                 Maximum="{TemplateBinding ScrollableWidth}"
-                                 ViewportSize="{TemplateBinding ViewportWidth}"
-                                 Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                                   Orientation="Horizontal"
+                                   Grid.Column="1"
+                                   Value="{TemplateBinding HorizontalOffset}"
+                                   Maximum="{TemplateBinding ScrollableWidth}"
+                                   ViewportSize="{TemplateBinding ViewportWidth}"
+                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
                       </Grid>
                       <!-- Using DialogBackgroundBrush since Editor can use a WPF Theme independent background color -->
                       <DockPanel Grid.Column="1" Grid.Row="1" LastChildFill="false" Background="{DynamicResource DialogBackgroundBrush}">

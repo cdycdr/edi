@@ -8,6 +8,7 @@
     #region CommandFramework Fields
     private static RoutedUICommand exit;
     private static RoutedUICommand about;
+    private static RoutedUICommand programSettings;
 
     private static RoutedUICommand loadFile;
     private static RoutedUICommand saveAll;
@@ -49,6 +50,9 @@
 
       inputs = new InputGestureCollection();
       AppCommand.about = new RoutedUICommand(Strings.CMD_APP_About_Description, "About", typeof(AppCommand), inputs);
+
+      inputs = new InputGestureCollection();
+      AppCommand.programSettings = new RoutedUICommand("Edit or Review your program settings", "ProgramSettings", typeof(AppCommand), inputs);
 
       // Execute file open command (without user interaction)
       inputs = new InputGestureCollection();
@@ -127,6 +131,14 @@
     public static RoutedUICommand About
     {
       get { return AppCommand.about; }
+    }
+
+    public static RoutedUICommand ProgramSettings
+    {
+      get
+      {
+        return AppCommand.programSettings;
+      }
     }
 
     /// <summary>

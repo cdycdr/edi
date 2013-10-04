@@ -139,8 +139,11 @@
         if (this.mSelectedItem != value)
         {
           this.mSelectedItem = value;
+
           this.NotifyPropertyChanged(() => this.SelectedItem);
           this.NotifyPropertyChanged(() => this.ScreenPoints);
+          this.NotifyPropertyChanged(() => this.MinValue);
+          this.NotifyPropertyChanged(() => this.MaxValue);          
         }
       }
     }
@@ -243,7 +246,7 @@
     /// <summary>
     /// Get double value represented in unit as indicated by SelectedItem.Key.
     /// </summary>
-    protected double Value
+    public double Value
     {
       get
       {
@@ -261,6 +264,28 @@
           this.NotifyPropertyChanged(() => this.StringValue);
           this.NotifyPropertyChanged(() => this.ScreenPoints);
         }
+      }
+    }
+
+    /// <summary>
+    /// Get the legal minimum value in dependency of the current unit.
+    /// </summary>
+    public double MinValue
+    {
+      get
+      {
+        return this.GetMinValue(this.SelectedItem.Key);
+      }
+    }
+
+    /// <summary>
+    /// Get the legal maximum value in dependency of the current unit.
+    /// </summary>
+    public double MaxValue
+    {
+      get
+      {
+        return this.GetMaxValue(this.SelectedItem.Key);
       }
     }
 
@@ -300,12 +325,25 @@
         double dValue;
         if (double.TryParse(this.mstrValue, out dValue) == true)
         {
-          this.mValue = this.mUnitConverter.Convert(this.SelectedItem.Key, dValue, li.Key);
+          double tempValue = this.mUnitConverter.Convert(this.SelectedItem.Key, dValue, li.Key);
+
+          if (tempValue < this.GetMinValue(unitKey))
+            tempValue = this.GetMinValue(unitKey);
+          else
+            if (tempValue > this.GetMaxValue(unitKey))
+              tempValue = this.GetMaxValue(unitKey);
+
+          this.Value = tempValue;
           this.mstrValue = string.Format("{0:0}", this.mValue);
 
           this.mSelectedItem = li;
+
+          this.ValueTip = this.SetUnitRangeMessage(unitKey);  // Set standard tool tip about valid range
         }
 
+        this.NotifyPropertyChanged(() => this.Value);
+        this.NotifyPropertyChanged(() => this.MinValue);
+        this.NotifyPropertyChanged(() => this.MaxValue);
         this.NotifyPropertyChanged(() => this.Value);
         this.NotifyPropertyChanged(() => this.StringValue);
         this.NotifyPropertyChanged(() => this.SelectedItem);
@@ -324,50 +362,52 @@
     /// <param name="message"></param>
     /// <returns>False if range is not acceptable, true otherwise</returns>
     private bool IsDoubleWithinRange(double doubleValue,
-                                     Itemkey unitToConvert, out string message)
+                                     Itemkey unitToConvert,
+                                     out string message)
     {
-      message = string.Empty;
+      message = this.SetUnitRangeMessage(unitToConvert);
 
       switch (unitToConvert)
       {
         // Implement a minimum value of 2 in any way (no matter what the unit is)
         case Itemkey.ScreenFontPoints:
           if (doubleValue < MinFontSizeValue)
-          {
-            message = this.FontSizeErrorTip();
             return false;
-          }
           else
-          {
             if (doubleValue > MaxFontSizeValue)
-            {
-              message = this.FontSizeErrorTip();
               return false;
-            }
-          }
 
           return true;
 
-          // Implement a minimum value of 2 in any way (no matter what the unit is)
-          case Itemkey.ScreenPercent:
+        // Implement a minimum value of 2 in any way (no matter what the unit is)
+        case Itemkey.ScreenPercent:
           if (doubleValue < MinPercentageSizeValue)
-          {
-            message = this.PercentSizeErrorTip();
             return false;
-          }
           else
-          {
             if (doubleValue > MaxPercentageSizeValue)
-            {
-              message = this.PercentSizeErrorTip();
               return false;
-            }
-          }
 
           return true;
       }
 
       return false;
+    }
+
+    private string SetUnitRangeMessage(Itemkey unit)
+    {
+      switch (unit)
+      {
+        // Implement a minimum value of 2 in any way (no matter what the unit is)
+        case Itemkey.ScreenFontPoints:
+          return this.FontSizeErrorTip();
+
+          // Implement a minimum value of 2 in any way (no matter what the unit is)
+          case Itemkey.ScreenPercent:
+          return this.PercentSizeErrorTip();
+
+          default:
+          throw new System.NotSupportedException(unit.ToString());
+       }
     }
 
     /// <summary>
@@ -377,8 +417,8 @@
     private string FontSizeErrorTip()
     {
       return string.Format(Strings.Enter_Font_Size_InRange_Message,
-                                    string.Format("{0:0}", MinFontSizeValue),
-                                    string.Format("{0:0}", MaxFontSizeValue));
+                           string.Format("{0:0}", MinFontSizeValue),
+                           string.Format("{0:0}", MaxFontSizeValue));
     }
 
     /// <summary>
@@ -433,6 +473,23 @@
 
       return strError;
     }
+
+    private double GetMinValue(Itemkey key)
+    {
+      if (key == Itemkey.ScreenFontPoints)
+        return UnitViewModel.MinFontSizeValue;
+
+      return UnitViewModel.MinPercentageSizeValue;
+    }
+
+    private double GetMaxValue(Itemkey key)
+    {
+      if (key == Itemkey.ScreenFontPoints)
+        return UnitViewModel.MaxFontSizeValue;
+
+      return UnitViewModel.MaxPercentageSizeValue;
+    }
+
     #endregion methods
   }
 }

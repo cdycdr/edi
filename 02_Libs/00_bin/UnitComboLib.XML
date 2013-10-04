@@ -507,6 +507,16 @@
             Get double value represented in unit as indicated by SelectedItem.Key.
             </summary>
         </member>
+        <member name="P:UnitComboLib.ViewModel.UnitViewModel.MinValue">
+            <summary>
+            Get the legal minimum value in dependency of the current unit.
+            </summary>
+        </member>
+        <member name="P:UnitComboLib.ViewModel.UnitViewModel.MaxValue">
+            <summary>
+            Get the legal maximum value in dependency of the current unit.
+            </summary>
+        </member>
         <member name="P:UnitComboLib.ViewModel.UnitViewModel.SetSelectedItemCommand">
             <summary>
             Get command to be executed when the user has selected a unit

@@ -6,7 +6,6 @@
   using System.Windows;
   using System.Windows.Input;
   using System.Windows.Threading;
-  using EdiViews.Config.ViewModel;
   using EdiViews.Documents.StartPage;
   using EdiViews.ViewModel.Base;
   using EdiViews.ViewModel.Documents;
@@ -71,6 +70,13 @@
       {
         this.AppAbout_CommandExecuted();
       }));
+
+      win.CommandBindings.Add(new CommandBinding(AppCommand.ProgramSettings,
+      (s, e) =>
+      {
+        this.AppProgramSettings_CommandExecuted();
+      }));
+      
 
       // Standard File New command binding via ApplicationCommands enumeration
       win.CommandBindings.Add(new CommandBinding(ApplicationCommands.New,

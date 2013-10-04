@@ -21,7 +21,7 @@
 
         WindowStartupLocation="CenterOwner"
 
-        behav:DialogCloser.DialogResult="{Binding OpenCloseView.WindowCloseResult}"
+        behav:DialogCloser.DialogResult="{Binding WindowCloseResult}"
         behav:RemoveIcon.Remove="true"
 
         KeyDown="Window_KeyDown"

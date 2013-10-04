@@ -137,6 +137,7 @@
           loadedModel = new Options();  // Just get the defaults if serilization wasn't working here...
       }
 
+      loadedModel.SetDirtyFlag(false);  // Data has just been loaded from persistence (or default) so its not dirty for sure
       this.SettingData = loadedModel;
     }
 
@@ -145,9 +146,9 @@
     /// See <seealso cref="LoadOptions"/> to load program options on program start.
     /// </summary>
     /// <param name="settingsFileName"></param>
-    /// <param name="vm"></param>
+    /// <param name="optionsModel"></param>
     /// <returns></returns>
-    public bool SaveOptions(string settingsFileName, Options vm)
+    public bool SaveOptions(string settingsFileName, Options optionsModel)
     {
       try
       {
@@ -163,9 +164,11 @@
           // Create a new XmlSerializer instance with the type of the test class
           XmlSerializer serializerObj = new XmlSerializer(typeof(Options));
 
-          serializerObj.Serialize(xw, vm);
+          serializerObj.Serialize(xw, optionsModel);
 
           xw.Close(); // Cleanup
+
+          optionsModel.SetDirtyFlag(false);
 
           return true;
         }

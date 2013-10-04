@@ -1,9 +1,6 @@
 ﻿namespace Edi
 {
-  using System.Collections.Generic;
   using Edi.View;
-  using EdiViews.Config.ViewModel;
-  using Themes;
 
   /// <summary>
   /// This class manages global settings such as a

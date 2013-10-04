@@ -11,6 +11,7 @@ namespace Edi.ViewModel
   using Edi.ViewModel.Base;
   using EdiViews;
   using EdiViews.About;
+  using EdiViews.Config.ViewModel;
   using EdiViews.Documents.Log4Net;
   using EdiViews.Documents.StartPage;
   using EdiViews.FileStats;
@@ -19,7 +20,6 @@ namespace Edi.ViewModel
   using EdiViews.ViewModel.Base;
   using EdiViews.ViewModel.Documents;
   using Microsoft.Win32;
-  using MiniUML.Model.ViewModels;
   using MiniUML.Model.ViewModels.Document;
   using MsgBox;
   using Settings;
@@ -498,6 +498,36 @@ namespace Edi.ViewModel
       }
     }
     #endregion Application_Exit_Command
+
+    private void AppProgramSettings_CommandExecuted()
+    {
+      try
+      {
+        // Initialize view model for editing settings
+        ConfigViewModel dlgVM = new ConfigViewModel();
+        dlgVM.LoadOptionsFromModel(SettingsManager.Instance.SettingData);
+
+        // Create dialog and attach viewmodel to view datacontext
+        Window dlg = ViewSelector.GetDialogView(dlgVM, Application.Current.MainWindow);
+
+        dlg.ShowDialog();
+
+        if (dlgVM.WindowCloseResult == true)
+        {
+          dlgVM.SaveOptionsToModel(SettingsManager.Instance.SettingData);
+
+          if (SettingsManager.Instance.SettingData.IsDirty == true)
+            SettingsManager.Instance.SaveOptions(App.DirFileAppSettingsData, SettingsManager.Instance.SettingData);
+        }
+      }
+      catch (Exception exp)
+      {
+        logger.Error(exp.Message, exp);
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
+                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+      }
+    }
 
     #region Application_About_Command
     private void AppAbout_CommandExecuted()

@@ -8,7 +8,6 @@ namespace Edi
   using System.Windows;
   using System.Windows.Threading;
   using Edi.ViewModel;
-  using EdiViews.Config.ViewModel;
   using EdiViews.Documents.StartPage;
   using EdiViews.FileStats;
   using EdiViews.Log4Net;
@@ -501,6 +500,8 @@ namespace Edi
                 else
                   args.Cancel = true;
               }
+              else
+                args.Cancel = true;
             }
         };
 

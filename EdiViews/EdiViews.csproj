@@ -106,7 +106,6 @@
       <DependentUpon>ConfigDlg.xaml</DependentUpon>
     </Compile>
     <Compile Include="Config\ViewModel\ConfigViewModel.cs" />
-    <Compile Include="Config\ViewModel\ViewPosSzViewModel.cs" />
     <Compile Include="Converter\BooleanToTypeModeStringConverter.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
     <Compile Include="Converter\MessageType\CountToVisibilityHiddenConverter.cs" />

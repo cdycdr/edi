@@ -12,26 +12,108 @@
             <conv:EnumToBooleanConverter x:Key="enumConverter" />
           </ControlTemplate.Resources>
             <Border Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}">
+							      BorderBrush="{TemplateBinding BorderBrush}"
+							      BorderThickness="{TemplateBinding BorderThickness}">
 
             <Grid>
-              <GroupBox Header="Most Recent Files (MRU) mode">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+              </Grid.RowDefinitions>
+
+              <GroupBox Header="Application Behaviour" Grid.Row="0" Margin="9">
+                <Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                  </Grid.RowDefinitions>
+                  <CheckBox Content="Restore last user session when application starts"
+                            IsChecked="{Binding ReloadOpenFilesOnAppStart}"
+                            Grid.Row="0"
+                          />
+
+                  <CheckBox Content="Run Edi only once"
+                            IsChecked="{Binding RunSingleInstance}"
+                            Grid.Row="1"
+                          />
+                </Grid>
+              </GroupBox>
+
+              <!-- This option can be set but is not implemented, yet, so we hide it for now -->
+              <GroupBox Header="Most Recent Files (MRU) mode" Grid.Row="1" Visibility="Collapsed" Margin="9">
                 <StackPanel>
-                  <RadioButton IsChecked="{Binding Path=MruList.PinSortMode, Mode=OneWay,
+                  <RadioButton IsChecked="{Binding Path=MruPinSortMode, Mode=TwoWay,
                                Converter={StaticResource enumConverter},
                                ConverterParameter=PinnedEntriesFirst}"
                                Content="Pin entries at the beginning of the list"
-                               ToolTip="{Binding ReplaceArchiveNeverTip,Mode=OneTime}"
                                Grid.Row="0" Margin="3" />
-                  <RadioButton IsChecked="{Binding Path=MruList.PinSortMode, Mode=OneWay, 
+
+                  <RadioButton IsChecked="{Binding Path=MruPinSortMode, Mode=TwoWay, 
                                Converter={StaticResource enumConverter},
                                ConverterParameter=UnsortedFavourites}"
                                Content="Favourites (not sorted)"
-                               ToolTip="{Binding ReplaceArchiveAskTip,Mode=OneTime}"
                                Grid.Row="1" Margin="3" />
                 </StackPanel>
               </GroupBox>
+
+              <GroupBox Header="Text Editor Options" Grid.Row="2" Margin="9">
+                <StackPanel>
+                  <Label Content="Adjust text editor character size using:" />
+                  <Grid Margin="3">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                      <RadioButton IsChecked="{Binding Path=DocumentZoomUnit, Mode=TwoWay,
+                                   Converter={StaticResource enumConverter},
+                                   ConverterParameter=Percentage}"
+                                   Content="Percent"
+                                   Grid.Row="0" Margin="3" />
+
+                      <RadioButton IsChecked="{Binding Path=DocumentZoomUnit, Mode=TwoWay, 
+                                   Converter={StaticResource enumConverter},
+                                   ConverterParameter=Points}"
+                                   Content="Point"
+                                   Grid.Row="1" Margin="3" />
+                    </StackPanel>
+                    <Grid Grid.Column="1" Margin="15,0,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                      </Grid.ColumnDefinitions>
+
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                      </Grid.RowDefinitions>
+
+                      <TextBox DataContext="{Binding SizeUnitLabel}"
+                               Text="{Binding StringValue, Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                               ToolTip="{Binding ValueTip}"
+                               Grid.Column="0" Grid.Row="0" MinWidth="85"
+                               VerticalAlignment="Center" HorizontalAlignment="Right"
+                               HorizontalContentAlignment="Right"/>
+
+                      <Label DataContext="{Binding SizeUnitLabel}"
+                             Content="{Binding SelectedItem.DisplayNameShort}"
+                             ToolTip="{Binding SelectedItem.DisplayNameLong}"
+                             Grid.Column="1" Grid.Row="0" MinWidth="25"
+                             VerticalAlignment="Center" HorizontalAlignment="Left"
+                             HorizontalContentAlignment="Left" />
+
+                      <Slider DataContext="{Binding SizeUnitLabel}"
+                              Value="{Binding Value}"
+                              Minimum="{Binding MinValue}"
+                              Maximum="{Binding MaxValue}"
+                              ToolTip="{Binding ValueTip}"
+                              Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" />
+                    </Grid>
+                  </Grid>
+                </StackPanel>
+              </GroupBox>
+
             </Grid>
 
           </Border>

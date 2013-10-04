@@ -12,14 +12,13 @@ namespace EdiViews.FindReplace.ViewModel
   using SimpleControls.Command;
   using MsgBox;
 
-  public class FindReplaceViewModel : EdiViews.ViewModel.Base.ViewModelBase
+  public class FindReplaceViewModel : DialogViewModelBase
   {
     #region fields
     private RelayCommand<object> mFindCommand;
     private RelayCommand<object> mReplaceCommand;
     private RelayCommand<object> mReplaceAllCommand;
 
-    private DialogViewModelBase mOpenCloseView;
     private string mTextToFind = string.Empty;
     private string mReplacementText = string.Empty;
     private bool mSearchUp = false;
@@ -38,7 +37,11 @@ namespace EdiViews.FindReplace.ViewModel
     #endregion fields
 
     #region constructor
+    /// <summary>
+    /// Class constructor
+    /// </summary>
     public FindReplaceViewModel()
+    :base()
     {
       this.CurrentEditor = null;
     }
@@ -46,27 +49,8 @@ namespace EdiViews.FindReplace.ViewModel
 
     #region properties
     /// <summary>
-    /// Get property to expose elements necessary to evaluate user input
-    /// when the user completes his input (eg.: clicks OK in a dialog).
+    /// Get/set text to find via find/replace
     /// </summary>
-    public DialogViewModelBase OpenCloseView
-    {
-      get
-      {
-        return this.mOpenCloseView;
-      }
-
-      private set
-      {
-        if (this.mOpenCloseView != value)
-        {
-          this.mOpenCloseView = value;
-
-          this.NotifyPropertyChanged(() => this.OpenCloseView);
-        }
-      }
-    }
-
     public string TextToFind
     {
       get
@@ -85,6 +69,9 @@ namespace EdiViews.FindReplace.ViewModel
       }
     }
 
+    /// <summary>
+    /// Get/set text to replace via find/replace
+    /// </summary>
     public string ReplacementText
     {
       get
@@ -103,6 +90,9 @@ namespace EdiViews.FindReplace.ViewModel
       }
     }
 
+    /// <summary>
+    /// Get/set whether the search is upward in text or downwards.
+    /// </summary>
     public bool SearchUp
     {
       get
@@ -121,6 +111,9 @@ namespace EdiViews.FindReplace.ViewModel
       }
     }
 
+    /// <summary>
+    /// Get/set whether to do a wildcard based search or not.
+    /// </summary>
     public bool UseWildcards
     {
       get
@@ -139,6 +132,9 @@ namespace EdiViews.FindReplace.ViewModel
       }
     }
 
+    /// <summary>
+    /// Get/set whether to search case sensitive or not.
+    /// </summary>
     public bool CaseSensitive
     {
       get
@@ -157,6 +153,9 @@ namespace EdiViews.FindReplace.ViewModel
       }
     }
 
+    /// <summary>
+    /// Get/set whether to search text with regular expressions or not.
+    /// </summary>
     public bool UseRegEx
     {
       get
@@ -175,6 +174,9 @@ namespace EdiViews.FindReplace.ViewModel
       }
     }
 
+    /// <summary>
+    /// Get/set whether to search for a whole word occurrance or not.
+    /// </summary>
     public bool WholeWord
     {
       get
@@ -193,6 +195,10 @@ namespace EdiViews.FindReplace.ViewModel
       }
     }
 
+    /// <summary>
+    /// Get/set whether Find and Replace textbox in view
+    /// support multiline input or not.
+    /// </summary>
     public bool AcceptsReturn
     {
       get
@@ -211,6 +217,9 @@ namespace EdiViews.FindReplace.ViewModel
       }
     }
 
+    /// <summary>
+    /// Get/set whether replace is to be displayed and used in view or not.
+    /// </summary>
     public bool AllowReplace
     {
       get
@@ -302,6 +311,9 @@ namespace EdiViews.FindReplace.ViewModel
       }
     }
 
+    /// <summary>
+    /// Get/set whether to search in current document, all open documents etc.
+    /// </summary>
     public EdiViews.FindReplace.SearchScope SearchIn
     {
       get
@@ -388,15 +400,6 @@ namespace EdiViews.FindReplace.ViewModel
     #endregion properties
 
     #region methods
-    /// <summary>
-    /// Initialize input states such that user can input information
-    /// with a view based GUI (eg.: dialog)
-    /// </summary>
-    public void InitDialogInputData()
-    {
-      this.OpenCloseView = new EdiViews.ViewModel.Base.DialogViewModelBase();
-    }
-
     /// <summary>
     /// Constructs a regular expression according to the currently selected search parameters.
     /// </summary>

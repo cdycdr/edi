@@ -17,21 +17,27 @@
       if (viewModel == null)
         throw new Exception("The viewModel parameter cannot be null.");
 
-      if (viewModel is EdiViews.About.AboutViewModel)
-      {
-        EdiViews.About.AboutDlg win = new EdiViews.About.AboutDlg() { Owner = parent };
+      Window win = null;
 
-        ((EdiViews.About.AboutViewModel)viewModel).InitDialogInputData();
+      if (viewModel is EdiViews.Config.ViewModel.ConfigViewModel) // Return programm settings dialog instance
+        win = new EdiViews.Config.ConfigDlg();
+      else
+      if (viewModel is EdiViews.About.AboutViewModel)             // Return about programm dialog instance
+        win = new EdiViews.About.AboutDlg();
+      else
+      if (viewModel is EdiViews.GotoLine.GotoLineViewModel)       // Return goto line dialog instance
+        win = new EdiViews.GotoLine.GotoLineDlg();
+      else
+      if (viewModel is EdiViews.FindReplace.ViewModel.FindReplaceViewModel) // Return find replace dialog instance
+        win = new EdiViews.FindReplace.FindReplaceDialog();
+
+      if (win != null)
+      {
+        win.Owner = parent;
         win.DataContext = viewModel;
 
         return win;
       }
-
-      if (viewModel is EdiViews.GotoLine.GotoLineViewModel)
-        return new EdiViews.GotoLine.GotoLineDlg();
-
-      if (viewModel is EdiViews.FindReplace.ViewModel.FindReplaceViewModel)
-        return new EdiViews.FindReplace.FindReplaceDialog();
 
       throw new NotSupportedException(viewModel.GetType().ToString());
     }
