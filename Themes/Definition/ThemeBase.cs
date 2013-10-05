@@ -16,7 +16,7 @@
     string SelectedThemeName { get; }
   }
 
-  public class EditorThemeBase
+  public class ThemeBase
   {
     #region fields
     private HighlightingThemes mStyles;
@@ -28,7 +28,7 @@
     /// <summary>
     /// Parameterized constructor
     /// </summary>
-    internal EditorThemeBase(IParentSelectedTheme parent,
+    internal ThemeBase(IParentSelectedTheme parent,
                            List<string> resources,
                            string wpfThemeName,
                            string editorThemeName,
@@ -50,7 +50,7 @@
     /// <summary>
     /// Hidden constructor
     /// </summary>
-    protected EditorThemeBase()
+    protected ThemeBase()
     : base()
     {
       this.mPathLocation = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);

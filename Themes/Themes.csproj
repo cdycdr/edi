@@ -83,7 +83,7 @@
   <ItemGroup>
     <Compile Include="Behaviour\MergeStyleBehaviour.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Definition\ThemeResources.cs" />
+    <Compile Include="Definition\ThemeBase.cs" />
     <Compile Include="ThemesManager.cs" />
   </ItemGroup>
   <ItemGroup>

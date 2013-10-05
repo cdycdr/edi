@@ -53,8 +53,9 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			lineTransformers = new ObserveAddRemoveCollection<IVisualLineTransformer>(LineTransformer_Added, LineTransformer_Removed);
 			backgroundRenderers = new ObserveAddRemoveCollection<IBackgroundRenderer>(BackgroundRenderer_Added, BackgroundRenderer_Removed);
 			columnRulerRenderer = new ColumnRulerRenderer(this);
+
 			this.Options = new TextEditorOptions();
-			this.columnRulerRenderer.SetRuler(Options.ColumnRulerPosition, ColumnRulerPen);
+      //// this.columnRulerRenderer.SetRuler(Options.ColumnRulerPosition, ColumnRulerPen);
 			
 			Debug.Assert(singleCharacterElementGenerator != null); // assert that the option change created the builtin element generators
 			
@@ -200,9 +201,8 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// </summary>
 		protected virtual void OnOptionChanged(PropertyChangedEventArgs e)
 		{
-			if (OptionChanged != null) {
-				OptionChanged(this, e);
-			}
+			if (OptionChanged != null)
+				this.OptionChanged(this, e);
 
       // Dirkster99 Bugfix for binding to options (assumption: ColumRulers are not shown by default)
       if ((Options != null ? Options.ShowColumnRuler : false) == true)

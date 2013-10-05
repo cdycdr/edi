@@ -1,6 +1,7 @@
 ﻿namespace EdiViews.Config.ViewModel
 {
   using EdiViews.ViewModel.Base;
+  using ICSharpCode.AvalonEdit;
   using Settings.ProgramSettings;
   using SimpleControls.MRU.ViewModel;
   using UnitComboLib.Unit.Screen;
@@ -27,10 +28,17 @@
 
       var unitList = Settings.SettingsManager.Instance.SettingData.GenerateScreenUnitList();
       this.SizeUnitLabel = new UnitViewModel(unitList, new ScreenConverter(), (int)ZoomUnit.Percentage, 100);
+
+      this.EditorTextOptions = new TextEditorOptions();
     }
     #endregion constructor
 
     #region properties
+    /// <summary>
+    /// Expose AvalonEdit Text Editing options for editing in program settings view.
+    /// </summary>
+    public TextEditorOptions EditorTextOptions { get; set; }
+
     /// <summary>
     /// Get/set MRU pin sort mode to determine MRU pin behaviour.
     /// </summary>
@@ -139,8 +147,8 @@
       this.ReloadOpenFilesOnAppStart = settingData.ReloadOpenFilesOnAppStart;
       this.RunSingleInstance = settingData.RunSingleInstance;
 
-      var unitList = Settings.SettingsManager.Instance.SettingData.GenerateScreenUnitList();
-      this.SizeUnitLabel = new UnitViewModel(unitList, new ScreenConverter(),
+      this.EditorTextOptions = new TextEditorOptions(settingData.EditorTextOptions);
+      this.SizeUnitLabel = new UnitViewModel(settingData.GenerateScreenUnitList(), new ScreenConverter(),
                                             (int)settingData.DocumentZoomUnit, settingData.DocumentZoomView);
     }
 
@@ -155,12 +163,15 @@
       settingData.ReloadOpenFilesOnAppStart = this.ReloadOpenFilesOnAppStart;
       settingData.RunSingleInstance = this.RunSingleInstance;
 
+      settingData.EditorTextOptions = new TextEditorOptions(this.EditorTextOptions);
       if (this.SizeUnitLabel.SelectedItem.Key == UnitComboLib.Unit.Itemkey.ScreenFontPoints)
         settingData.DocumentZoomUnit = ZoomUnit.Points;
       else
         settingData.DocumentZoomUnit = ZoomUnit.Percentage;
 
       settingData.DocumentZoomView = (int)this.SizeUnitLabel.Value;
+
+      settingData.IsDirty = true;
     }
 
     /// <summary>

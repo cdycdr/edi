@@ -3,6 +3,7 @@
 					xmlns:local="clr-namespace:EdiViews.Config"
 
           xmlns:conv="clr-namespace:EdiViews.Converter"
+          xmlns:numUpDown="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
           >
 	<Style TargetType="{x:Type local:AppConfigView}">
 		<Setter Property="Template">
@@ -58,60 +59,115 @@
               </GroupBox>
 
               <GroupBox Header="Text Editor Options" Grid.Row="2" Margin="9">
-                <StackPanel>
-                  <Label Content="Adjust text editor character size using:" />
-                  <Grid Margin="3">
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="Auto" />
-                      <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                      <RadioButton IsChecked="{Binding Path=DocumentZoomUnit, Mode=TwoWay,
-                                   Converter={StaticResource enumConverter},
-                                   ConverterParameter=Percentage}"
-                                   Content="Percent"
-                                   Grid.Row="0" Margin="3" />
+                  <Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                  </Grid.RowDefinitions>
 
-                      <RadioButton IsChecked="{Binding Path=DocumentZoomUnit, Mode=TwoWay, 
-                                   Converter={StaticResource enumConverter},
-                                   ConverterParameter=Points}"
-                                   Content="Point"
-                                   Grid.Row="1" Margin="3" />
-                    </StackPanel>
-                    <Grid Grid.Column="1" Margin="15,0,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                  <StackPanel Grid.Row="0" Margin="0,3,0,3" DataContext="{Binding EditorTextOptions}">
+                    <CheckBox IsChecked="{Binding ShowSpaces}" Content="Show Spaces" />
+                    <CheckBox IsChecked="{Binding ShowTabs}" Content="Show Tabs" />
+                    <CheckBox IsChecked="{Binding ShowEndOfLine}" Content="Show end of line" />
+                    <CheckBox IsChecked="{Binding ConvertTabsToSpaces}" Content="Convert tabulator character into space character" />
+                    <CheckBox IsChecked="{Binding ShowBoxForControlCharacters}" Content="Show box for control characters" />
+                    <!-- CheckBox IsChecked="{Binding IndentationSize}" Content="Indentation size" / -->
+
+                    <CheckBox IsChecked="{Binding CutCopyWholeLine}" Content="Cut Copy current line of text" />
+                    <CheckBox IsChecked="{Binding AllowScrollBelowDocument}" Content="Scroll below document" />
+                    <CheckBox IsChecked="{Binding InheritWordWrapIndentation}" Content="Inherit word wrap indentation" />
+                    <CheckBox IsChecked="{Binding EnableRectangularSelection}" Content="Rectangular selection (ALT+Shift or ALT+Mouse selection)" />
+                    <CheckBox IsChecked="{Binding EnableTextDragDrop}" Content="Text drag &amp; drop" />
+                    <CheckBox IsChecked="{Binding EnableVirtualSpace}" Content="virtual space" />
+                    <CheckBox IsChecked="{Binding EnableImeSupport}" Content="IME Support" />
+<!--
+    private double mWordWrapIndentation = 0;
+-->
+                    <GroupBox Header="Column Ruler" Margin="9">
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto" />
+                          <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox IsChecked="{Binding ShowColumnRuler}"
+                                  Content="Show column ruler"
+                                  Grid.Column="0"/>
+
+                        <numUpDown:NumericUpDown Value="{Binding ColumnRulerPosition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                                 MinValue="2" MaxValue="1024"
+                                                 Grid.Column="1" />
+                      </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Hyperlinks" Margin="9">
+                      <StackPanel>
+                        <CheckBox IsChecked="{Binding EnableHyperlinks}" Content="Show WWW hyperlinks" />
+                        <CheckBox IsChecked="{Binding EnableFileHyperlinks}" Content="Show file hyperlinks" />
+                        <CheckBox IsChecked="{Binding EnableEmailHyperlinks}" Content="Show Email hyperlinks" />
+                        <CheckBox IsChecked="{Binding RequireControlModifierForHyperlinkClick}" Content="Require Control key for hyperlink click" />
+                      </StackPanel>
+                    </GroupBox>
+
+
+                  </StackPanel>
+                  
+                  <!-- Text Document View Size Elements -->
+                  <StackPanel Grid.Row="1">
+                    <Label Content="Adjust text editor character size using:" />
+                    <Grid Margin="3">
                       <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                       </Grid.ColumnDefinitions>
+                      <StackPanel Grid.Column="0">
+                        <RadioButton IsChecked="{Binding Path=DocumentZoomUnit, Mode=TwoWay,
+                                     Converter={StaticResource enumConverter},
+                                     ConverterParameter=Percentage}"
+                                     Content="Percent"
+                                     Grid.Row="0" Margin="3" />
 
-                      <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                      </Grid.RowDefinitions>
+                        <RadioButton IsChecked="{Binding Path=DocumentZoomUnit, Mode=TwoWay, 
+                                     Converter={StaticResource enumConverter},
+                                     ConverterParameter=Points}"
+                                     Content="Point"
+                                     Grid.Row="1" Margin="3" />
+                      </StackPanel>
+                      <Grid Grid.Column="1" Margin="15,0,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="*" />
+                          <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                      <TextBox DataContext="{Binding SizeUnitLabel}"
-                               Text="{Binding StringValue, Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                               ToolTip="{Binding ValueTip}"
-                               Grid.Column="0" Grid.Row="0" MinWidth="85"
-                               VerticalAlignment="Center" HorizontalAlignment="Right"
-                               HorizontalContentAlignment="Right"/>
+                        <Grid.RowDefinitions>
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                      <Label DataContext="{Binding SizeUnitLabel}"
-                             Content="{Binding SelectedItem.DisplayNameShort}"
-                             ToolTip="{Binding SelectedItem.DisplayNameLong}"
-                             Grid.Column="1" Grid.Row="0" MinWidth="25"
-                             VerticalAlignment="Center" HorizontalAlignment="Left"
-                             HorizontalContentAlignment="Left" />
+                        <TextBox DataContext="{Binding SizeUnitLabel}"
+                                 Text="{Binding StringValue, Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                 ToolTip="{Binding ValueTip}"
+                                 Grid.Column="0" Grid.Row="0" MinWidth="85"
+                                 VerticalAlignment="Center" HorizontalAlignment="Right"
+                                 HorizontalContentAlignment="Right"/>
 
-                      <Slider DataContext="{Binding SizeUnitLabel}"
-                              Value="{Binding Value}"
-                              Minimum="{Binding MinValue}"
-                              Maximum="{Binding MaxValue}"
-                              ToolTip="{Binding ValueTip}"
-                              Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" />
+                        <Label DataContext="{Binding SizeUnitLabel}"
+                               Content="{Binding SelectedItem.DisplayNameShort}"
+                               ToolTip="{Binding SelectedItem.DisplayNameLong}"
+                               Grid.Column="1" Grid.Row="0" MinWidth="25"
+                               VerticalAlignment="Center" HorizontalAlignment="Left"
+                               HorizontalContentAlignment="Left" />
+
+                        <Slider DataContext="{Binding SizeUnitLabel}"
+                                Value="{Binding Value}"
+                                Minimum="{Binding MinValue}"
+                                Maximum="{Binding MaxValue}"
+                                ToolTip="{Binding ValueTip}"
+                                Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" />
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </StackPanel>
+                  </StackPanel>
+                </Grid>
               </GroupBox>
 
             </Grid>

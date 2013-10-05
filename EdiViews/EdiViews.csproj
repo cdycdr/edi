@@ -61,6 +61,10 @@
     <Reference Include="MsgBox">
       <HintPath>..\02_Libs\00_bin\MsgBox.dll</HintPath>
     </Reference>
+    <Reference Include="NumericUpDownLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\02_Libs\00_bin\NumericUpDownLib.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />

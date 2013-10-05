@@ -21,6 +21,7 @@ namespace EdiViews.ViewModel.Documents
   public class EdiViewModel : EdiViews.ViewModel.Base.FileBaseViewModel, EdiViews.FindReplace.ViewModel.IEditor
   {
     #region Fields
+    private ICSharpCode.AvalonEdit.TextEditorOptions mTextOptions;
     private IHighlightingDefinition mHighlightingDefinition;
     private static int iNewFileCounter = 1;
     private string defaultFileType = "txt";
@@ -36,6 +37,9 @@ namespace EdiViews.ViewModel.Documents
     /// </summary>
     public EdiViewModel()
     {
+      // Copy text editor settings from settingsmanager by default
+      this.TextOptions = new ICSharpCode.AvalonEdit.TextEditorOptions(Settings.SettingsManager.Instance.SettingData.EditorTextOptions);
+
       var items = Settings.SettingsManager.Instance.SettingData.GenerateScreenUnitList();
       this.SizeUnitLabel = new UnitViewModel(items, new ScreenConverter(), 0);
 
@@ -355,8 +359,6 @@ namespace EdiViews.ViewModel.Documents
       }
     }
 
-    private ICSharpCode.AvalonEdit.TextEditorOptions mTextOptions            
-            = new ICSharpCode.AvalonEdit.TextEditorOptions(){  IndentationSize=2, ConvertTabsToSpaces=true};
     public ICSharpCode.AvalonEdit.TextEditorOptions TextOptions
     {
       get

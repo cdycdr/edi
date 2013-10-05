@@ -3,6 +3,7 @@
   using System;
   using System.Collections.ObjectModel;
   using System.Xml.Serialization;
+  using ICSharpCode.AvalonEdit;
   using ICSharpCode.AvalonEdit.Highlighting.Themes;
   using SimpleControls.MRU.ViewModel;
   using Themes;
@@ -48,6 +49,8 @@
     /// </summary>
     public Options()
     {
+      this.EditorTextOptions = new TextEditorOptions();
+
       this.mCurrentTheme = ThemesManager.DefaultThemeName;
 
       this.mDocumentZoomUnit = ZoomUnit.Percentage;     // Zoom View in Percent
@@ -71,6 +74,8 @@
       if (copyThis == null)
         return;
 
+      this.EditorTextOptions = copyThis.EditorTextOptions;
+
       this.mCurrentTheme = copyThis.mCurrentTheme;
 
       this.mDocumentZoomUnit = copyThis.mDocumentZoomUnit;     // Zoom View in Percent
@@ -86,6 +91,8 @@
     #endregion constructor
 
     #region properties
+    public TextEditorOptions EditorTextOptions { get; set; }
+
     /// <summary>
     /// Percentage Size of data to be viewed by default
     /// </summary>
@@ -214,7 +221,7 @@
         return this.mIsDirty;
       }
 
-      private set
+      set
       {
         if (this.mIsDirty != value)
           this.mIsDirty = value;

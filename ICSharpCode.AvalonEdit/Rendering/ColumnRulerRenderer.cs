@@ -35,14 +35,22 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		public KnownLayer Layer {
 			get { return KnownLayer.Background; }
 		}
-		
+
+    /// <summary>
+    /// Set the Column Ruler of the texteditor to the requested column.
+    /// </summary>
+    /// <param name="column"></param>
+    /// <param name="pen"></param>
 		public void SetRuler(int column, Pen pen)
 		{
-			if (this.column != column) {
+			if (this.column != column)
+      {
 				this.column = column;
 				textView.InvalidateLayer(this.Layer);
 			}
-			if (this.pen != pen) {
+
+			if (this.pen != pen)
+      {
 				this.pen = pen;
 				textView.InvalidateLayer(this.Layer);
 			}

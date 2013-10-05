@@ -23,7 +23,7 @@
     const string AeroThemeName = "Aero";
     static readonly string[] AeroThemeResources =
     {
-      "/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
       "/Themes;component/Aero/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml"
@@ -59,7 +59,7 @@
     const string ExpressionLight2ThemeName = "Expression Light 2";
     static readonly string[] ExpressionLight2Resources = 
     {
-      "/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
       
       "/Themes;component/ExpressionLight2/Theme.xaml",
@@ -68,33 +68,33 @@
     };
     #endregion Expression Light 2 theme resources
 
-    #region theme resources 
+    #region Generic theme resources 
     const string GenericThemeName = "Generic";
     static readonly string[] GenericResources = 
     {
-      "/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
       "/Themes;component/Generic/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml"
     };
-    #endregion theme resources
+    #endregion Generic theme resources
 
-    #region theme resources 
+    #region Light Metro theme resources
     const string MetroThemeName = "Metro";
     static readonly string[] MetroResources = 
     {
-      "/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
       "/Themes;component/Metro/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml"
     };
-    #endregion theme resources
+    #endregion Light Metro theme resources
 
-    #region VS2010 theme resources 
+    #region VS2010 theme resources
     const string VS2010 = "VS 2010";
     static readonly string[] VS2010Resources = 
     {
-      "/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
       "/Themes;component/VS2010/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml"
@@ -117,8 +117,8 @@
 
     protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-    private SortedDictionary<string, EditorThemeBase> mTextEditorThemes = null;
-    private ObservableCollection<EditorThemeBase> mListOfAllThemes = null;
+    private SortedDictionary<string, ThemeBase> mTextEditorThemes = null;
+    private ObservableCollection<ThemeBase> mListOfAllThemes = null;
     private string mSelectedThemeName = string.Empty;
     #endregion fields
 
@@ -159,14 +159,14 @@
     /// <summary>
     /// Get the object that has links to all resources for the currently selected WPF theme.
     /// </summary>
-    public EditorThemeBase SelectedTheme
+    public ThemeBase SelectedTheme
     {
       get
       {
         if (this.mTextEditorThemes == null || this.mListOfAllThemes == null)
           this.BuildThemeCollections();
 
-        EditorThemeBase theme;
+        ThemeBase theme;
         this.mTextEditorThemes.TryGetValue(this.mSelectedThemeName, out theme);
 
         // Fall back to default if all else fails
@@ -184,7 +184,7 @@
     /// Get a list of all available themes (This property can typically be used to bind
     /// menuitems or other resources to let the user select a theme in the user interface).
     /// </summary>
-    public ObservableCollection<EditorThemeBase> ListAllThemes
+    public ObservableCollection<ThemeBase> ListAllThemes
     {
       get
       {
@@ -207,7 +207,7 @@
       if (this.mTextEditorThemes == null || this.mListOfAllThemes == null)
         this.BuildThemeCollections();
 
-      EditorThemeBase theme;
+      ThemeBase theme;
       this.mTextEditorThemes.TryGetValue(themeName, out theme);
 
       // Fall back to default if all else fails
@@ -227,7 +227,7 @@
     public HighlightingThemes GetTextEditorHighlighting(string themeName)
     {
       // Is this WPF theme configured with a highlighting theme???
-      EditorThemeBase cfg = null;
+      ThemeBase cfg = null;
 
       this.mTextEditorThemes.TryGetValue(themeName, out cfg);
 
@@ -243,9 +243,9 @@
     private void BuildThemeCollections()
     {
       this.mTextEditorThemes = this.BuildThemeDictionary();
-      this.mListOfAllThemes = new ObservableCollection<EditorThemeBase>();
+      this.mListOfAllThemes = new ObservableCollection<ThemeBase>();
 
-      foreach (KeyValuePair<string, EditorThemeBase> t in this.mTextEditorThemes)
+      foreach (KeyValuePair<string, ThemeBase> t in this.mTextEditorThemes)
       {
         this.mListOfAllThemes.Add(t.Value);
       }
@@ -255,11 +255,11 @@
     /// Build a sorted structure of all default themes and their resources.
     /// </summary>
     /// <returns></returns>
-    private SortedDictionary<string, EditorThemeBase> BuildThemeDictionary()
+    private SortedDictionary<string, ThemeBase> BuildThemeDictionary()
     {
-      SortedDictionary<string, EditorThemeBase> ret = new SortedDictionary<string, EditorThemeBase>();
+      SortedDictionary<string, ThemeBase> ret = new SortedDictionary<string, ThemeBase>();
 
-      EditorThemeBase t = null;
+      ThemeBase t = null;
       string themeName = null;
       List<string> wpfTheme = null;
 
@@ -271,14 +271,14 @@
         themeName = AeroThemeName;
         wpfTheme = new List<string>(AeroThemeResources);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, null, null, null);
+        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
                                 appLocation, EditorThemeBrightStandardLocation);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
                                 appLocation, EditorThemeTrueBlueLocation);
         ret.Add(t.HlThemeName, t);
 
@@ -286,14 +286,14 @@
         themeName = ExpressionDark2ThemeName;
         wpfTheme = new List<string>(ExpressionDark2Resources);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, null, null, null);
+        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeDeepBlack,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeDeepBlack,
                                 appLocation, EditorThemeDeepBlackLocation);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
                                 appLocation, EditorThemeTrueBlueLocation);
         ret.Add(t.HlThemeName, t);
 
@@ -301,14 +301,14 @@
         themeName = ExpressionDarkThemeName;
         wpfTheme = new List<string>(ExpressionDarkResources);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, null, null, null);
+        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeDeepBlack,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeDeepBlack,
                                 appLocation, EditorThemeDeepBlackLocation);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
                                 appLocation, EditorThemeTrueBlueLocation);
         ret.Add(t.HlThemeName, t);
 
@@ -316,14 +316,14 @@
         themeName = ExpressionLight2ThemeName;
         wpfTheme = new List<string>(ExpressionLight2Resources);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, null, null, null);
+        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
                                 appLocation, EditorThemeBrightStandardLocation);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
                                 appLocation, EditorThemeTrueBlueLocation);
         ret.Add(t.HlThemeName, t);
 
@@ -331,14 +331,14 @@
         themeName = GenericThemeName;
         wpfTheme = new List<string>(GenericResources);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, null, null, null);
+        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
                                 appLocation, EditorThemeBrightStandardLocation);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
                                 appLocation, EditorThemeTrueBlueLocation);
         ret.Add(t.HlThemeName, t);
 
@@ -346,14 +346,14 @@
         themeName = MetroThemeName;
         wpfTheme = new List<string>(MetroResources);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, null, null, null);
+        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
                                 appLocation, EditorThemeBrightStandardLocation);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
                                 appLocation, EditorThemeTrueBlueLocation);
         ret.Add(t.HlThemeName, t);
 
@@ -361,14 +361,14 @@
         themeName = VS2010;
         wpfTheme = new List<string>(VS2010Resources);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, null, null, null);
+        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
                                 appLocation, EditorThemeBrightStandardLocation);
         ret.Add(t.HlThemeName, t);
 
-        t = new EditorThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
+        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
                                 appLocation, EditorThemeTrueBlueLocation);
         ret.Add(t.HlThemeName, t);
       }

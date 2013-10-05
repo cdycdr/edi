@@ -47,7 +47,7 @@ namespace Edi.ViewModel
       }
 
       // Get WPF Theme definition from Themes Assembly
-      EditorThemeBase nextThemeToSwitchTo = Themes.ThemesManager.Instance.SelectedTheme;
+      ThemeBase nextThemeToSwitchTo = Themes.ThemesManager.Instance.SelectedTheme;
       this.SwitchToSelectedTheme(nextThemeToSwitchTo);
 
       // Backup highlighting names (if any) and restore highlighting associations after reloading highlighting definitions
@@ -178,14 +178,14 @@ namespace Edi.ViewModel
     /// </summary>
     /// <param name="sParameter"></param>
     /// <param name="thisTheme"></param>
-    private bool SwitchToSelectedTheme(EditorThemeBase nextThemeToSwitchTo)
+    private bool SwitchToSelectedTheme(ThemeBase nextThemeToSwitchTo)
     {
       const string themesModul = "Themes.dll";
       
       try
       {
         // Get WPF Theme definition from Themes Assembly
-        EditorThemeBase theme = Themes.ThemesManager.Instance.SelectedTheme;
+        ThemeBase theme = Themes.ThemesManager.Instance.SelectedTheme;
 
         if (theme != null)
         {
