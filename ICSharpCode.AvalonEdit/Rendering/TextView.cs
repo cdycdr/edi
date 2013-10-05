@@ -1,28 +1,28 @@
 ﻿// Copyright (c) AlphaSierraPapa for the SharpDevelop Team (for details please see \doc\copyright.txt)
 // This code is distributed under the GNU LGPL (for details please see \doc\license.txt)
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.TextFormatting;
-using System.Windows.Threading;
-
-using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Utils;
-
 namespace ICSharpCode.AvalonEdit.Rendering
 {
-	/// <summary>
+  using System;
+  using System.Collections.Generic;
+  using System.Collections.ObjectModel;
+  using System.ComponentModel;
+  using System.ComponentModel.Design;
+  using System.Diagnostics;
+  using System.Globalization;
+  using System.Linq;
+  using System.Windows;
+  using System.Windows.Controls;
+  using System.Windows.Controls.Primitives;
+  using System.Windows.Input;
+  using System.Windows.Media;
+  using System.Windows.Media.TextFormatting;
+  using System.Windows.Threading;
+
+  using ICSharpCode.AvalonEdit.Document;
+  using ICSharpCode.AvalonEdit.Utils;
+  
+  /// <summary>
 	/// A virtualizing panel producing+showing <see cref="VisualLine"/>s for a <see cref="TextDocument"/>.
 	/// 
 	/// This is the heart of the text editor, this class controls the text rendering process.
@@ -33,15 +33,17 @@ namespace ICSharpCode.AvalonEdit.Rendering
 	                                                 Justification = "The user usually doesn't work with TextView but with TextEditor; and nulling the Document property is sufficient to dispose everything.")]
 	public class TextView : FrameworkElement, IScrollInfo, IWeakEventListener, ITextEditorComponent, IServiceProvider
 	{
+    #region fields
+    ColumnRulerRenderer columnRulerRenderer;
+    #endregion fields
+
 		#region Constructor
 		static TextView()
 		{
 			ClipToBoundsProperty.OverrideMetadata(typeof(TextView), new FrameworkPropertyMetadata(Boxes.True));
 			FocusableProperty.OverrideMetadata(typeof(TextView), new FrameworkPropertyMetadata(Boxes.False));
 		}
-		
-		ColumnRulerRenderer columnRulerRenderer;
-		
+			
 		/// <summary>
 		/// Creates a new TextView instance.
 		/// </summary>
@@ -66,7 +68,6 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			this.hoverLogic.MouseHover += (sender, e) => RaiseHoverEventPair(e, PreviewMouseHoverEvent, MouseHoverEvent);
 			this.hoverLogic.MouseHoverStopped += (sender, e) => RaiseHoverEventPair(e, PreviewMouseHoverStoppedEvent, MouseHoverStoppedEvent);
 		}
-
 		#endregion
 		
 		#region Document Property
@@ -1197,7 +1198,8 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// <summary>
 		/// Gets the list of background renderers.
 		/// </summary>
-		public IList<IBackgroundRenderer> BackgroundRenderers {
+		public IList<IBackgroundRenderer> BackgroundRenderers
+    {
 			get { return backgroundRenderers; }
 		}
 		
@@ -1219,10 +1221,18 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			RenderBackground(drawingContext, KnownLayer.Background);
 		}
 		
+    /// <summary>
+    /// Render background items 'below' the text. A typical background item
+    /// is the column ruler or current line highlighter.
+    /// </summary>
+    /// <param name="drawingContext"></param>
+    /// <param name="layer"></param>
 		internal void RenderBackground(DrawingContext drawingContext, KnownLayer layer)
 		{
-			foreach (IBackgroundRenderer bg in backgroundRenderers) {
-				if (bg.Layer == layer) {
+			foreach (IBackgroundRenderer bg in backgroundRenderers)
+      {
+				if (bg.Layer == layer)
+        {
 					bg.Draw(this, drawingContext);
 				}
 			}

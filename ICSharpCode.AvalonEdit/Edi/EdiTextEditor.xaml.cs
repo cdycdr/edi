@@ -202,10 +202,24 @@
     {
       if (newValue != null)
       {
-        this.TextArea.TextView.BackgroundRenderers.Clear();
+        HighlightCurrentLineBackgroundRenderer oldRenderer = null;
 
-        this.TextArea.TextView.BackgroundRenderers.Add(
-                new HighlightCurrentLineBackgroundRenderer(this, newValue.Clone()));
+        // Make sure there is only one of this type of background renderer
+        // Otherwise, we might keep adding and WPF keeps drawing them on top of each other
+        foreach (var item in this.TextArea.TextView.BackgroundRenderers)
+        {
+          if (item != null)
+          {
+            if (item is HighlightCurrentLineBackgroundRenderer)
+            {
+              oldRenderer = item as HighlightCurrentLineBackgroundRenderer;
+            }
+          }
+        }
+
+        this.TextArea.TextView.BackgroundRenderers.Remove(oldRenderer);
+
+        this.TextArea.TextView.BackgroundRenderers.Add(new HighlightCurrentLineBackgroundRenderer(this, newValue.Clone()));
       }
     }
 

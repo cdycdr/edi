@@ -27,7 +27,7 @@
       this.mEditor = editor;
 
       // Light Blue 0x100000FF
-      this.BackgroundColorBrush = new SolidColorBrush((highlightBackgroundColorBrush == null ? Color.FromArgb(0x10, 0x00, 0x00, 0xFF) :
+      this.BackgroundColorBrush = new SolidColorBrush((highlightBackgroundColorBrush == null ? Color.FromArgb(0x10, 0x80, 0x80, 0x80) :
                                                                                                highlightBackgroundColorBrush.Color));
     }
 

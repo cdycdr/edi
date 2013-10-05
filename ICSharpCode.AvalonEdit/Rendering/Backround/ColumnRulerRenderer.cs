@@ -29,6 +29,22 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			this.pen = new Pen(new SolidColorBrush(DefaultForeground), 1);
 			this.pen.Freeze();
 			this.textView = textView;
+
+      ColumnRulerRenderer oldRenderer = null;
+
+      // Make sure there is only one of this type of background renderer
+      // Otherwise, we might keep adding and WPF keeps drawing them on top of each other
+      foreach (var item in this.textView.BackgroundRenderers)
+      {
+        if (item != null)
+        {
+          if (item is ColumnRulerRenderer)
+            oldRenderer = item as ColumnRulerRenderer;
+        }
+      }
+
+      this.textView.BackgroundRenderers.Remove(oldRenderer);
+
 			this.textView.BackgroundRenderers.Add(this);
 		}
 		

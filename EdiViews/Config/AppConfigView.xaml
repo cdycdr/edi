@@ -38,6 +38,8 @@
                             IsChecked="{Binding RunSingleInstance}"
                             Grid.Row="1"
                           />
+
+                  <TextBlock Text="TODO: Localization" />
                 </Grid>
               </GroupBox>
 
