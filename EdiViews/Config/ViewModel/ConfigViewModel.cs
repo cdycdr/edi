@@ -131,6 +131,18 @@
         }
       }
     }
+
+    /// <summary>
+    /// Get the title string of the view - to be displayed in the associated view
+    /// (e.g. as dialog title)
+    /// </summary>
+    public string WindowTitle
+    {
+      get
+      {
+        return "Progam Settings...";
+      }
+    }
     #endregion ScaleView
     #endregion properties
 

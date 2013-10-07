@@ -27,9 +27,12 @@
               </Grid.ColumnDefinitions>
 
               <Image Grid.Row="0" Grid.Column="0" Source="{DynamicResource Image_About}" Width="128" />
-              <TextBlock Grid.Column="1" FontSize="25" Margin="33,0,0,0" Height="41" VerticalAlignment="Top" Text="{Binding AppTitle, Mode=OneTime}" />
-              <TextBlock Grid.Column="1" Margin="33,47,11,57" Text="{Binding SubTitle, Mode=OneTime}" />
-              <hyp:WebHyperlink Grid.Column="1" Margin="33,0,11,23" VerticalAlignment="Bottom" NavigateUri="{Binding AppUrl,Mode=OneTime}" Text="{Binding AppUrlDisplayString,Mode=OneTime}" />
+
+              <StackPanel Grid.Column="1" Grid.Row="0" Margin="18,3,3,3">
+                <!-- TextBlock Grid.Column="1" FontSize="25" Margin="3" Height="41" VerticalAlignment="Top" Text="{Binding AppTitle, Mode=OneTime}" / -->
+                <TextBlock Margin="3" Text="{Binding SubTitle, Mode=OneTime}" />
+                <hyp:WebHyperlink Margin="3"  VerticalAlignment="Bottom" NavigateUri="{Binding AppUrl,Mode=OneTime}" Text="{Binding AppUrlDisplayString,Mode=OneTime}" />
+              </StackPanel>
 
               <TabControl Grid.Row="2" Grid.ColumnSpan="2"
                           HorizontalAlignment="Stretch"
@@ -71,6 +74,7 @@
                       <RowDefinition Height="Auto" />
                       <RowDefinition Height="Auto" />
                       <RowDefinition Height="Auto" />
+                      <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -106,6 +110,12 @@
                     <hyp:WebHyperlink Grid.Column="2" Grid.Row="5" Margin="3"
                                       HorizontalAlignment="Left" VerticalAlignment="Center" NavigateUri="https://miniuml.codeplex.com/" Text="Unified Modeling language (Uml)" />
 
+                    <Label Content="Modern UI (mui):"
+                           Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3" />
+                    <hyp:WebHyperlink Grid.Column="2" Grid.Row="6" Margin="3"
+                                      HorizontalAlignment="Left" VerticalAlignment="Center" NavigateUri="http://mui.codeplex.com/" Text="Modern UI (mui)" />
+
+                    
                   </Grid>
                 </TabItem>
               </TabControl>

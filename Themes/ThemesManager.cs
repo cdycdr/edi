@@ -25,6 +25,7 @@
     {
       "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
+      "/EdiViews;component/Themes/ModernDialogEx.xaml",
       "/Themes;component/Aero/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml"
     };
@@ -34,8 +35,9 @@
     const string ExpressionDark2ThemeName = "Expression Dark 2";
     static readonly string[] ExpressionDark2Resources =
     {
-      "/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml",
+      "/EdiViews;component/Themes/Edi.ModernUI.Dark.xaml",
       "/Edi;component/ModernWindowEx.xaml",
+      "/EdiViews;component/Themes/ModernDialogEx.xaml",
       
       "/Themes;component/ExpressionDark2/Theme.xaml",
       "/EdiViews;component/Themes/Expressiondark2.xaml",
@@ -47,8 +49,32 @@
     const string ExpressionDarkThemeName = "Expression Dark";
     static readonly string[] ExpressionDarkResources = 
     {
-      "/Edi;component/Edi.ModernUI.Dark.xaml",
+      "/EdiViews;component/Themes/Edi.ModernUI.Dark.xaml",
       "/Edi;component/ModernWindowEx.xaml",
+      "/EdiViews;component/Themes/ModernDialogEx.xaml",
+      "/FirstFloor.ModernUI;component/Assets/Button.xaml",
+      "/FirstFloor.ModernUI;component/Assets/Calendar.xaml",
+      "/FirstFloor.ModernUI;component/Assets/CheckBox.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ComboBox.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ContextMenu.xaml",
+      "/FirstFloor.ModernUI;component/Assets/DataGrid.xaml",
+      "/FirstFloor.ModernUI;component/Assets/DatePicker.xaml",
+      "/FirstFloor.ModernUI;component/Assets/GridSplitter.xaml",
+      "/FirstFloor.ModernUI;component/Assets/Hyperlink.xaml",
+      "/FirstFloor.ModernUI;component/Assets/Label.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ListBox.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ListView.xaml",
+      "/FirstFloor.ModernUI;component/Assets/MenuItem.xaml",
+      "/FirstFloor.ModernUI;component/Assets/PasswordBox.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ProgressBar.xaml",
+      "/FirstFloor.ModernUI;component/Assets/RadioButton.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ScrollBar.xaml",
+      "/FirstFloor.ModernUI;component/Assets/Slider.xaml",
+      "/FirstFloor.ModernUI;component/Assets/TextBlock.xaml",
+      "/FirstFloor.ModernUI;component/Assets/TextBox.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ToolTip.xaml",
+      "/FirstFloor.ModernUI;component/Assets/TreeView.xaml",
+
       "/Themes;component/ExpressionDark/Theme.xaml",
       "/EdiViews;component/Themes/Expressiondark.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.ExpressionDark;component/Theme.xaml"
@@ -61,6 +87,7 @@
     {
       "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
+      "/EdiViews;component/Themes/ModernDialogEx.xaml",
       
       "/Themes;component/ExpressionLight2/Theme.xaml",
       "/EdiViews;component/Themes/ExpressionLight2.xaml",
@@ -74,6 +101,8 @@
     {
       "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
+      "/EdiViews;component/Themes/ModernDialogEx.xaml",
+
       "/Themes;component/Generic/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml"
     };
@@ -85,6 +114,8 @@
     {
       "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
+      "/EdiViews;component/Themes/ModernDialogEx.xaml",
+
       "/Themes;component/Metro/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml"
     };
@@ -96,6 +127,8 @@
     {
       "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
+      "/EdiViews;component/Themes/ModernDialogEx.xaml",
+
       "/Themes;component/VS2010/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml"
     };

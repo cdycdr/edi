@@ -41,6 +41,18 @@
 
     #region properties
     /// <summary>
+    /// Get the title string of the view - to be displayed in the associated view
+    /// (e.g. as dialog title)
+    /// </summary>
+    public string WindowTitle
+    {
+      get
+      {
+        return "Goto Line...";
+      }
+    }
+
+    /// <summary>
     /// Get/set string representing the input line number.
     /// </summary>
     public string LineNumberInput

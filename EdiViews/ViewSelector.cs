@@ -20,7 +20,7 @@
       Window win = null;
 
       if (viewModel is EdiViews.Config.ViewModel.ConfigViewModel) // Return programm settings dialog instance
-        win = new EdiViews.Config.ConfigDlg();
+        win = new EdiViews.Config.ConfigDlg(){ Title = "Settings..."};
       else
       if (viewModel is EdiViews.About.AboutViewModel)             // Return about programm dialog instance
         win = new EdiViews.About.AboutDlg();

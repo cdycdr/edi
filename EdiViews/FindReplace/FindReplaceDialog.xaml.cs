@@ -1,12 +1,11 @@
 ﻿namespace EdiViews.FindReplace
 {
-  using System.Windows;
   using System.Windows.Input;
 
   /// <summary>
   /// Interaction logic for FindReplaceDialog.xaml
   /// </summary>
-  public partial class FindReplaceDialog : Window
+  public partial class FindReplaceDialog : FirstFloor.ModernUI.Windows.Controls.ModernWindow
   {
     public FindReplaceDialog()
     {

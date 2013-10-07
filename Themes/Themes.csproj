@@ -55,6 +55,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FirstFloor.ModernUI">
+      <HintPath>..\02_Libs\00_bin\Mui\FirstFloor.ModernUI.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\02_Libs\00_bin\log4net.dll</HintPath>
     </Reference>

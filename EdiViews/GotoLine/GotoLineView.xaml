@@ -24,20 +24,25 @@
                 <RowDefinition Height="Auto" />
               </Grid.RowDefinitions>
 
-              <StackPanel Grid.Row="0" Margin="0,9">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+              <Grid Grid.Row="0" Margin="0,9">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
                   <Label Content="{x:Static cmdLabel:Strings.STR_GOTOLINE_LINE_RANGE_LABEL}" Margin="0"/>
                   <Label Content=" " Margin="0"/>
                   <Label Content="{Binding MinMaxRange}" Margin="0" />
                   <Label Content=":" Margin="0"/>
-
                 </StackPanel>
+
                 <TextBox Text="{Binding LineNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          behav:TextBoxSelect.SelectedText="{Binding SelectedText}"
                          MaxLines="1"
                          MaxLength="10"
+                         Grid.Row="1"
                          Name="PART_TxtLineNumber" />
-              </StackPanel>
+              </Grid>
 
               <StackPanel Grid.Row="1">
                 <StackPanel Visibility="{Binding ListMessages.Count, Converter={StaticResource CountToVisibilityHidden}}" Margin="0,15">

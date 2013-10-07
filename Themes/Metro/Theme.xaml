@@ -10,8 +10,8 @@
     >
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="/Themes;component/Icons.xaml" />
-    <ResourceDictionary Source="/Themes;component/Metro/Brushes.xaml" />
-    <ResourceDictionary Source="/Themes;component/Metro/StatusBar.xaml" />
+    <!-- ResourceDictionary Source="/Themes;component/Metro/Brushes.xaml" / -->
+    <!-- ResourceDictionary Source="/Themes;component/Metro/StatusBar.xaml" / -->
     <ResourceDictionary Source="/Themes;component/Metro/EdiAvalonEdit.xaml" />
     <ResourceDictionary Source="/Themes;component/Metro/UnitCombobox.xaml" />
 
@@ -79,13 +79,13 @@
     </Setter>
   </Style>
 
-  <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource {x:Type ContextMenu}}">
+  <!-- Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource {x:Type ContextMenu}}">
     <Setter Property="Background" Value="{StaticResource ContextMenuBackground}" />
     <Setter Property="BorderBrush" Value="{StaticResource ContextMenuBorderBrush}" />
     <Setter Property="BorderThickness" Value="1" />
-  </Style>
+  </Style -->
 
-  <Style TargetType="{x:Type ToolBar}" BasedOn="{StaticResource {x:Type ToolBar}}">
+  <!-- Style TargetType="{x:Type ToolBar}" BasedOn="{StaticResource {x:Type ToolBar}}">
     <Setter Property="Background" Value="{StaticResource ToolBarBackground}" />
   </Style>
 
@@ -107,14 +107,14 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-  </Style>
+  </Style -->
 
   <!-- Style x:Key="{x:Type StatusBarItem}" BasedOn="{StaticResource {x:Type StatusBarItem}}">
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Foreground" Value="Black" />
   </Style -->
 
-  <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}">
+  <!-- ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}">
     <Border Name="Border" >
       <Grid>
         <ContentPresenter Margin="6,3,6,3"
@@ -163,6 +163,6 @@
 
   <Style TargetType="{x:Type Separator}" BasedOn="{StaticResource {x:Type Separator}}">
     <Setter Property="Foreground" Value="{StaticResource SeperatorForeground}" />
-  </Style>
+  </Style -->
 
 </ResourceDictionary>

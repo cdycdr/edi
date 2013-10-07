@@ -49,6 +49,18 @@ namespace EdiViews.FindReplace.ViewModel
 
     #region properties
     /// <summary>
+    /// Get the title string of the view - to be displayed in the associated view
+    /// (e.g. as dialog title)
+    /// </summary>
+    public string WindowTitle
+    {
+      get
+      {
+        return "Progam Settings...";
+      }
+    }
+
+    /// <summary>
     /// Get/set text to find via find/replace
     /// </summary>
     public string TextToFind

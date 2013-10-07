@@ -15,12 +15,12 @@
     <Setter Property="Background" Value="Black"/>
   </Style>
 
-  <Style TargetType="ConfigDialg:ConfigDlg">
+  <!-- Style TargetType="ConfigDialg:ConfigDlg">
     <Setter Property="Background" Value="Black"/>
-  </Style>
+  </Style -->
 
-  <Style TargetType="AboutDialg:AboutDlg">
+  <!-- Style TargetType="AboutDialg:AboutDlg">
     <Setter Property="Background" Value="Black"/>
-  </Style>
+  </Style -->
 
 </ResourceDictionary>

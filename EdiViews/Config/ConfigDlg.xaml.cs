@@ -5,7 +5,7 @@
   /// <summary>
   /// Interaction logic for GotoLine.xaml
   /// </summary>
-  public partial class ConfigDlg : Window
+  public partial class ConfigDlg : FirstFloor.ModernUI.Windows.Controls.ModernWindow
   {
     public ConfigDlg()
     {

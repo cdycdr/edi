@@ -22,6 +22,18 @@ namespace EdiViews.About
 
     #region properties
     /// <summary>
+    /// Get the title string of the view - to be displayed in the associated view
+    /// (e.g. as dialog title)
+    /// </summary>
+    public string WindowTitle
+    {
+      get
+      {
+        return "About Edi";
+      }
+    }
+
+    /// <summary>
     /// Get title of application for display in About view.
     /// </summary>
     public string AppTitle
@@ -49,7 +61,7 @@ namespace EdiViews.About
         get
         {
             // Get all Copyright attributes on this assembly
-            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+            object[] attributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
 
             // If there aren't any Copyright attributes, return an empty string
             if (attributes.Length == 0)
