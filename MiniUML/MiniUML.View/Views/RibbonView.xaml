@@ -53,7 +53,7 @@
 
                   <ContentPresenter.ContentTemplate>
                     <DataTemplate>
-                      <ContentPresenter Content="{Binding Path=View}"/>
+                      <ContentPresenter Content="{Binding Path=View}"/><!-- This is the top ribbon in the document -->
                     </DataTemplate>
                   </ContentPresenter.ContentTemplate>
                 </ContentPresenter>

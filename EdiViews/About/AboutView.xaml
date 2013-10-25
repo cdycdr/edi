@@ -65,7 +65,7 @@
                   </Grid>
                 </TabItem>
               
-                <TabItem Header="Contributors">
+                <TabItem Header="Contributors" Margin="3,0">
                   <Grid Margin="3">
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto" />

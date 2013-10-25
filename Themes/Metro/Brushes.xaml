@@ -140,6 +140,7 @@
   <SolidColorBrush x:Key="SolidBorderBrush" Color="#FF9ba7b7" />
 
   <SolidColorBrush x:Key="TextBrush" Color="#FF000000" />
+  <SolidColorBrush x:Key="WindowBackgroundBrush" Color="White" />
 
   <!-- Brushes -->
 </ResourceDictionary>

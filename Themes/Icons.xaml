@@ -6,6 +6,7 @@
   <BitmapImage x:Key="Image_New" UriSource="pack://application:,,,/Themes;component/Images/App/File_New32.png" />
   <BitmapImage x:Key="Image_Open" UriSource="pack://application:,,,/Themes;component/Images/App/File_Open32.png" />
   <BitmapImage x:Key="Image_Save" UriSource="pack://application:,,,/Themes;component/Images/App/File_Save32.png" />
+  <BitmapImage x:Key="Image_SaveAs" UriSource="pack://application:,,,/Themes;component/Images/App/File_Save32.png" />
   <BitmapImage x:Key="Image_SaveAll" UriSource="pack://application:,,,/Themes;component/Images/App/File_Save_All32.png" />
 
   <BitmapImage x:Key="Image_Cut" UriSource="pack://application:,,,/Themes;component/Images/App/Edit_Cut32.png" />

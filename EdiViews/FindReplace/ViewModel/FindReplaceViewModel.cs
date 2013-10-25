@@ -56,7 +56,7 @@ namespace EdiViews.FindReplace.ViewModel
     {
       get
       {
-        return "Progam Settings...";
+        return "Find and Replace...";
       }
     }
 

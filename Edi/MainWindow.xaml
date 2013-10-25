@@ -288,7 +288,7 @@
         </avalonDock:LayoutRoot>
       </avalonDock:DockingManager>
 
-    <view:StatusBar  Grid.Row="4" />
+    <!-- view:StatusBar  Grid.Row="4" / -->
   </Grid>
 
 </mui:ModernWindow>

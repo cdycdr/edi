@@ -234,7 +234,7 @@
               Grid.Column="1" Grid.Row="0" Margin="3,0" />
 
       <GridSplitter Height="5" VerticalAlignment="Center"
-                    Background="Transparent" Foreground="White" HorizontalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
                     Grid.Column="2" Grid.Row="0" Margin="0"
                     DragDelta="GridSplitter_DragDelta"
                     />

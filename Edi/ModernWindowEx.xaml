@@ -45,7 +45,7 @@
             </Border.Resources>
 
             <Grid>
-              <Border BorderBrush="{DynamicResource WindowBorder}" BorderThickness="1">
+              <Border BorderBrush="{DynamicResource WindowBorder}" BorderThickness="1" Background="{DynamicResource WindowBackgroundBrush}">
                 <AdornerDecorator>
                   <Grid x:Name="LayoutRoot" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
@@ -56,6 +56,7 @@
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto" />
                       <RowDefinition Height="*" />
+                      <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Column="0">
@@ -64,6 +65,7 @@
                         <ColumnDefinition Width="*" />
                       </Grid.ColumnDefinitions>
 
+                      <!-- Window Icon -->
                       <Border Grid.Column="0" Grid.Row="0" Margin="6,0" >
                         <Image HorizontalAlignment="Left"
                                VerticalAlignment="Top"
@@ -84,6 +86,7 @@
                         </Border.Style>
                       </Border>
 
+                      <!-- Main Menu -->
                       <ContentControl Grid.Column="1"
                                       Grid.Row="0"
                                       VerticalAlignment="Bottom"
@@ -97,14 +100,14 @@
                     <!-- window background content -->
                     <!-- ContentControl Grid.RowSpan="2" Content="{TemplateBinding BackgroundContent}" / -->
 
-                    <!-- window content -->
-                    <ContentControl Grid.RowSpan="2" Content="{TemplateBinding Content}" />
-
                     <!-- window system buttons-->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top"
-                                Margin="0,0,6,0"
+                    <StackPanel Grid.Row="0"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="6,0,0,0"
                                 syscmd:WindowChrome.IsHitTestVisibleInChrome="True"
-                                Grid.Row="0">
+                                >
                       <Button Command="{Binding Source={x:Static shell:SystemCommands.MinimizeWindowCommand}}"
                               ToolTip="{x:Static modernui:Resources.Minimize}"
                               Style="{StaticResource EdiSystemButton}">
@@ -165,14 +168,32 @@
                       </Button>
                     </StackPanel>
 
-                    <!-- resize grip 
-                    <Grid Grid.Row="1">
-                      <Path x:Name="ResizeGrip" Visibility="Collapsed" Width="12" Height="12" Margin="1" HorizontalAlignment="Right" 
+                    <!-- window content -->
+                    <ContentControl Grid.Row="0" Grid.RowSpan="2" Content="{TemplateBinding Content}" />
+
+                    <!-- resize grip -->
+                    <Grid Grid.Row="3">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                      </Grid.ColumnDefinitions>
+                      <!-- Main Menu -->
+                      <ContentControl Grid.Column="0"
+                                      VerticalAlignment="Bottom"
+                                      VerticalContentAlignment="Bottom"
+                                      HorizontalAlignment="Stretch"
+                                      HorizontalContentAlignment="Stretch"
+                                      shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                      Content="{Binding Source={x:Static local:MainWindowViewManager.MainWindowStatusBar}}"/>
+
+                      <Path x:Name="ResizeGrip"
+                            Grid.Column="1"
+                            Visibility="Collapsed" Width="12" Height="12" Margin="1" HorizontalAlignment="Right" 
                             Stroke="{DynamicResource WindowText}"
                             StrokeThickness="1"
                             Stretch="None"
                             Data="F1 M1,10 L3,10 M5,10 L7,10 M9,10 L11,10 M2,9 L2,11 M6,9 L6,11 M10,9 L10,11 M5,6 L7,6 M9,6 L11,6 M6,5 L6,7 M10,5 L10,7 M9,2 L11,2 M10,1 L10,3" />
-                    </Grid>-->
+                    </Grid>
                   </Grid>
                 </AdornerDecorator>
               </Border>
@@ -190,13 +211,13 @@
               <Setter TargetName="Maximize" Property="Visibility" Value="Visible" />
               <Setter TargetName="Restore" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <!-- MultiTrigger>
+            <MultiTrigger>
               <MultiTrigger.Conditions>
                 <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
                 <Condition Property="WindowState" Value="Normal" />
               </MultiTrigger.Conditions>
               <Setter TargetName="ResizeGrip" Property="Visibility" Value="Visible" />
-            </MultiTrigger -->
+            </MultiTrigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>

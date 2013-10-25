@@ -94,6 +94,8 @@
   <SolidColorBrush x:Key="PinableListViewForegroundDisabled" Color="#88888888"/>
   <SolidColorBrush x:Key="PinableListViewBackground" Color="White"/>
 
+  <SolidColorBrush x:Key="WindowBackgroundBrush" Color="White" />
+
   <!-- Brushes -->
 
 

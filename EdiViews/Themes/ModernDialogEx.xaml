@@ -91,7 +91,7 @@
 
                     <!-- window system buttons-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top"
-                                Margin="0,0,6,0"
+                                Margin="6,0,0,0"
                                 syscmd:WindowChrome.IsHitTestVisibleInChrome="True"
                                 Grid.Row="0">
                       <StackPanel x:Name="MinimizeFrame">

@@ -3,30 +3,60 @@
 
   <BitmapImage x:Key="Image_About" UriSource="pack://application:,,,/Themes;component/Images/App/About/AboutLogo128.png" />
 
-  <BitmapImage x:Key="Image_New" UriSource="pack://application:,,,/Themes;component/Images/App/File_New32.png" />
-  <BitmapImage x:Key="Image_Open" UriSource="pack://application:,,,/Themes;component/Images/App/File_Open32.png" />
-  <BitmapImage x:Key="Image_Save" UriSource="pack://application:,,,/Themes;component/Images/App/File_Save32.png" />
-  <BitmapImage x:Key="Image_SaveAll" UriSource="pack://application:,,,/Themes;component/Images/App/File_Save_All32.png" />
+  <!-- New -->
+  <BitmapImage x:Key="Image_New" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.page.new.png" />
 
-  <BitmapImage x:Key="Image_Cut" UriSource="pack://application:,,,/Themes;component/Images/App/Edit_Cut32.png" />
-  <BitmapImage x:Key="Image_Copy" UriSource="pack://application:,,,/Themes;component/Images/App/Edit_Copy32.png" />
-  <BitmapImage x:Key="Image_Paste" UriSource="pack://application:,,,/Themes;component/Images/App/edit_Paste32.png" />
-  <BitmapImage x:Key="Image_Delete" UriSource="pack://application:,,,/Themes;component/Images/App/Edit_Delete32.png" />
+  <!-- Open -->
+  <BitmapImage x:Key="Image_Open" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.folder.open.png" />
 
-  <BitmapImage x:Key="Image_Undo" UriSource="pack://application:,,,/Themes;component/Images/App/Edit_Undo32.png" />
-  <BitmapImage x:Key="Image_Redo" UriSource="pack://application:,,,/Themes;component/Images/App/Edit_Redo32.png" />
-  <BitmapImage x:Key="Image_WordWrap" UriSource="pack://application:,,,/Themes;component/Images/App/ShowWordWrap32.png" />
-  <BitmapImage x:Key="Image_ShowLineNumbers" UriSource="pack://application:,,,/Themes;component/Images/App/ShowLineNumbers32.png" />
-  <BitmapImage x:Key="Image_EndOfLine" UriSource="pack://application:,,,/Themes;component/Images/App/ShowEnter32.png" />
+  <!-- Save -->
+  <BitmapImage x:Key="Image_Save" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.disk.png" />
 
-  <BitmapImage x:Key="Image_Space" UriSource="pack://application:,,,/Themes;component/Images/App/ShowSpaces32.png" />
-  <BitmapImage x:Key="Image_Tabs" UriSource="pack://application:,,,/Themes;component/Images/App/ShowTab32.png" />
+  <!-- Save As-->
+  <BitmapImage x:Key="Image_SaveAs" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.disk.download.png" />
+
+  <!-- Save All-->
+  <BitmapImage x:Key="Image_SaveAll" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.saveall.png" />
+
+  <!-- Copy -->
+  <BitmapImage x:Key="Image_Copy" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.page.copy.png" />
+
+  <!-- Cut -->
+  <BitmapImage x:Key="Image_Cut" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/scissors.png" />
+
+  <!-- Paste -->
+  <BitmapImage x:Key="Image_Paste" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.clipboard.paste.png" />
+
+  <!-- Delete -->
+  <BitmapImage x:Key="Image_Delete" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/delete.png" />
+
+  <!-- Undo -->
+  <BitmapImage x:Key="Image_Undo" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.undo.png" />
+
+  <!-- Redo -->
+  <BitmapImage x:Key="Image_Redo" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.redo.png" />
+
+  <!-- Word Wrap -->
+  <BitmapImage x:Key="Image_WordWrap" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.text.align.justify.png" />
+
+  <!-- ShowLineNumbers appbar.list.png -->
+  <BitmapImage x:Key="Image_ShowLineNumbers" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/ShowLineNumbers.png" />
+
+  <!-- Show end of line character in text editor -->
+  <BitmapImage x:Key="Image_EndOfLine" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/ShowEndOfLine.png" />
+
+  <!-- Show Space character in text editor -->
+  <BitmapImage x:Key="Image_Space" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/ShowSpace.png" />
+
+  <!-- Show Tab character in text editor -->
+  <BitmapImage x:Key="Image_Tabs" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/ShowTab.png" />
 
   <BitmapImage x:Key="Image_EditFind" UriSource="pack://application:,,,/Themes;component/Images/App/Edit_Find32.png" />
   <BitmapImage x:Key="Image_EditIcon" UriSource="pack://application:,,,/Themes;component/Images/App/Edit_Find16.ico" />
   <BitmapImage x:Key="Image_EditFindReplace" UriSource="pack://application:,,,/Themes;component/Images/App/Edit_Find_Replace32.png" />
 
-  <BitmapImage x:Key="Image_SyntaxHighlighting" UriSource="pack://application:,,,/Themes;component/Images/App/SyntaxHighlighting_32.png" />
+  <!-- SyntaxHighlighting on/off -->
+  <BitmapImage x:Key="Image_SyntaxHighlighting" UriSource="pack://application:,,,/Themes;component/MetroIcons/Dark/appbar.lamp.variant.png" />
 
   <!-- ToolWindows -->
   <BitmapImage x:Key="Image_PropertyHand" UriSource="pack://application:,,,/Themes;component/Images/property-blue.png" />

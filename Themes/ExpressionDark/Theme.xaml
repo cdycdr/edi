@@ -11,17 +11,46 @@
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="/Themes;component/IconsDarkExpression.xaml" />
     <ResourceDictionary Source="/Themes;component/ExpressionDark/Brushes.xaml" />
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Edi.ModernUI.Dark.xaml" />
 
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/TabControl.xaml" />
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Edi.ModernUI.Dark.xaml" />
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Controls.TabControl.xaml" />
+
+
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Controls.Toolbar.xaml" />
+
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/ComboBox.xaml" />
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Controls.TextBox.xaml" />
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/ScrollViewer.xaml" / -->
-    <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/StatusBar.xaml" / -->
+    
+    <!-- Statusbar is white without this -->
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/StatusBar.xaml" />
+
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/MenuStyles.xaml" />
+    <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/MenuItem.xaml" / -->
+
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/ContextMenu.xaml" />
+    <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/ContextMenuStyle.xaml" / -->
+
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/Menu.xaml" / -->
 
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Label.xaml" />
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Hyperlink.xaml" />
+
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/TextBlock.xaml" />
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Slider.xaml" />
+
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Controls.ListBox.xaml" />
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Controls.GroupBox.xaml" />
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/GridSplitter.xaml" />
+    
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/Button.xaml" />
     <ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/ToggleButton.xaml" / -->
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/ToolBar.xaml" / -->
 
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/ScrollBar.xaml" / -->
-    <ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/Expander.xaml" />
+    <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/Expander.xaml" / -->
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/ListView.xaml" / -->
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/ProgressBar.xaml" /  -->
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/TextBox.xaml" / -->
@@ -32,12 +61,11 @@
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/GroupBox.xaml" /-->
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/Label.xaml" / -->
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/ListBox.xaml" / -->
-    <ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/TabControl.xaml" />
+
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/TreeView.xaml" / -->
 
     <!-- MsgBox is black on black without this -->
-    <ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/TextBlock.xaml" />
-
+    <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/TextBlock.xaml" / -->
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/Hyperlink.xaml" / -->
 
     <ResourceDictionary Source="/Themes;component/ExpressionDark/EdiControls/EdiAvalonEdit.xaml" />

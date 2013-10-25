@@ -15,6 +15,7 @@ ECHO MiniUML.Model
 ECHO MiniUML.View
 ECHO MiniUML.Plugins.UmlClassDiagram
 ECHO.
+ECHO Settings
 ECHO SimpleControls
 ECHO Util
 ECHO.
@@ -61,6 +62,9 @@ RMDIR /S /Q .\MiniUML\Plugins\src\MiniUML.Plugins.UmlClassDiagram\obj
 
 ECHO Deleting BIN and OBJ Folders in utilities
 ECHO.
+
+RMDIR /S /Q Settings\bin
+RMDIR /S /Q Settings\obj
 
 RMDIR /S /Q SimpleControls\bin
 RMDIR /S /Q SimpleControls\obj

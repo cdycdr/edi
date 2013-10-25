@@ -19,44 +19,19 @@
   {
     #region fields
     #region WPF Themes
-    #region Aero theme resources
-    const string AeroThemeName = "Aero";
-    static readonly string[] AeroThemeResources =
-    {
-      "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
-      "/Edi;component/ModernWindowEx.xaml",
-      "/EdiViews;component/Themes/ModernDialogEx.xaml",
-      "/Themes;component/Aero/Theme.xaml",
-      "/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml"
-    };
-    #endregion Aero theme resources
-
-    #region Expression Dark 2 theme resources
-    const string ExpressionDark2ThemeName = "Expression Dark 2";
-    static readonly string[] ExpressionDark2Resources =
-    {
-      "/EdiViews;component/Themes/Edi.ModernUI.Dark.xaml",
-      "/Edi;component/ModernWindowEx.xaml",
-      "/EdiViews;component/Themes/ModernDialogEx.xaml",
-      
-      "/Themes;component/ExpressionDark2/Theme.xaml",
-      "/EdiViews;component/Themes/Expressiondark2.xaml",
-      "/Xceed.Wpf.AvalonDock.Themes.Expression;component/DarkTheme.xaml"
-    };
-    #endregion Expression Dark 2 theme resources
-
     #region Expression Dark theme resources
     const string ExpressionDarkThemeName = "Expression Dark";
     static readonly string[] ExpressionDarkResources = 
     {
-      "/EdiViews;component/Themes/Edi.ModernUI.Dark.xaml",
       "/Edi;component/ModernWindowEx.xaml",
       "/EdiViews;component/Themes/ModernDialogEx.xaml",
-      "/FirstFloor.ModernUI;component/Assets/Button.xaml",
+
+      // "/FirstFloor.ModernUI;component/Assets/Button.xaml",
+
       "/FirstFloor.ModernUI;component/Assets/Calendar.xaml",
       "/FirstFloor.ModernUI;component/Assets/CheckBox.xaml",
       "/FirstFloor.ModernUI;component/Assets/ComboBox.xaml",
-      "/FirstFloor.ModernUI;component/Assets/ContextMenu.xaml",
+      // "/FirstFloor.ModernUI;component/Assets/ContextMenu.xaml",
       "/FirstFloor.ModernUI;component/Assets/DataGrid.xaml",
       "/FirstFloor.ModernUI;component/Assets/DatePicker.xaml",
       "/FirstFloor.ModernUI;component/Assets/GridSplitter.xaml",
@@ -64,7 +39,7 @@
       "/FirstFloor.ModernUI;component/Assets/Label.xaml",
       "/FirstFloor.ModernUI;component/Assets/ListBox.xaml",
       "/FirstFloor.ModernUI;component/Assets/ListView.xaml",
-      "/FirstFloor.ModernUI;component/Assets/MenuItem.xaml",
+      //"/FirstFloor.ModernUI;component/Assets/MenuItem.xaml",
       "/FirstFloor.ModernUI;component/Assets/PasswordBox.xaml",
       "/FirstFloor.ModernUI;component/Assets/ProgressBar.xaml",
       "/FirstFloor.ModernUI;component/Assets/RadioButton.xaml",
@@ -77,23 +52,9 @@
 
       "/Themes;component/ExpressionDark/Theme.xaml",
       "/EdiViews;component/Themes/Expressiondark.xaml",
-      "/Xceed.Wpf.AvalonDock.Themes.ExpressionDark;component/Theme.xaml"
+      "/Xceed.Wpf.AvalonDock.Themes.Expression;component/DarkTheme.xaml"
     };
     #endregion Expression Dark theme resources
-
-    #region Expression Light 2 theme resources 
-    const string ExpressionLight2ThemeName = "Expression Light 2";
-    static readonly string[] ExpressionLight2Resources = 
-    {
-      "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
-      "/Edi;component/ModernWindowEx.xaml",
-      "/EdiViews;component/Themes/ModernDialogEx.xaml",
-      
-      "/Themes;component/ExpressionLight2/Theme.xaml",
-      "/EdiViews;component/Themes/ExpressionLight2.xaml",
-      "/Xceed.Wpf.AvalonDock.Themes.Expression;component/LightTheme.xaml"
-    };
-    #endregion Expression Light 2 theme resources
 
     #region Generic theme resources 
     const string GenericThemeName = "Generic";
@@ -120,19 +81,6 @@
       "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml"
     };
     #endregion Light Metro theme resources
-
-    #region VS2010 theme resources
-    const string VS2010 = "VS 2010";
-    static readonly string[] VS2010Resources = 
-    {
-      "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
-      "/Edi;component/ModernWindowEx.xaml",
-      "/EdiViews;component/Themes/ModernDialogEx.xaml",
-
-      "/Themes;component/VS2010/Theme.xaml",
-      "/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml"
-    };
-    #endregion VS2010 theme resources
     #endregion WPF Themes
 
     #region Text Editor Themes
@@ -146,7 +94,7 @@
     const string EditorThemeDeepBlackLocation = @"AvalonEdit\HighLighting_Themes\DeepBlack.xshd";
     #endregion Text Editor Themes
 
-    public const string DefaultThemeName = AeroThemeName;
+    public const string DefaultThemeName = ThemesManager.ExpressionDarkThemeName;
 
     protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -300,36 +248,6 @@
       {
         string appLocation = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-        //Aero themes
-        themeName = AeroThemeName;
-        wpfTheme = new List<string>(AeroThemeResources);
-
-        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
-        ret.Add(t.HlThemeName, t);
-
-        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
-                                appLocation, EditorThemeBrightStandardLocation);
-        ret.Add(t.HlThemeName, t);
-
-        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
-                                appLocation, EditorThemeTrueBlueLocation);
-        ret.Add(t.HlThemeName, t);
-
-        // ExpressionDark2 Themes
-        themeName = ExpressionDark2ThemeName;
-        wpfTheme = new List<string>(ExpressionDark2Resources);
-
-        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
-        ret.Add(t.HlThemeName, t);
-
-        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeDeepBlack,
-                                appLocation, EditorThemeDeepBlackLocation);
-        ret.Add(t.HlThemeName, t);
-
-        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
-                                appLocation, EditorThemeTrueBlueLocation);
-        ret.Add(t.HlThemeName, t);
-
         // ExpressionDark Theme
         themeName = ExpressionDarkThemeName;
         wpfTheme = new List<string>(ExpressionDarkResources);
@@ -339,21 +257,6 @@
 
         t = new ThemeBase(this, wpfTheme, themeName, EditorThemeDeepBlack,
                                 appLocation, EditorThemeDeepBlackLocation);
-        ret.Add(t.HlThemeName, t);
-
-        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
-                                appLocation, EditorThemeTrueBlueLocation);
-        ret.Add(t.HlThemeName, t);
-
-        // Expression Light
-        themeName = ExpressionLight2ThemeName;
-        wpfTheme = new List<string>(ExpressionLight2Resources);
-
-        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
-        ret.Add(t.HlThemeName, t);
-
-        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
-                                appLocation, EditorThemeBrightStandardLocation);
         ret.Add(t.HlThemeName, t);
 
         t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
@@ -378,21 +281,6 @@
         // Metro Theme
         themeName = MetroThemeName;
         wpfTheme = new List<string>(MetroResources);
-
-        t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
-        ret.Add(t.HlThemeName, t);
-
-        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
-                                appLocation, EditorThemeBrightStandardLocation);
-        ret.Add(t.HlThemeName, t);
-
-        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
-                                appLocation, EditorThemeTrueBlueLocation);
-        ret.Add(t.HlThemeName, t);
-
-        // VS 2010 Theme
-        themeName = VS2010;
-        wpfTheme = new List<string>(VS2010Resources);
 
         t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
         ret.Add(t.HlThemeName, t);

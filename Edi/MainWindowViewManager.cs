@@ -11,6 +11,7 @@
   {
     #region fields
     private static MainMenu mMainMenu = null;
+    private static StatusBar mMainWindowStatusBar = null;
     #endregion fields
 
     #region constructor
@@ -34,6 +35,17 @@
           MainWindowViewManager.mMainMenu = new MainMenu();
 
         return MainWindowViewManager.mMainMenu;
+      }
+    }
+
+    public static StatusBar MainWindowStatusBar
+    {
+      get
+      {
+        if (MainWindowViewManager.mMainWindowStatusBar == null)
+          MainWindowViewManager.mMainWindowStatusBar = new StatusBar();
+
+        return MainWindowViewManager.mMainWindowStatusBar;
       }
     }
     #endregion properties

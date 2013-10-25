@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Edi.View.MainToolbar"
+<UserControl x:Class="Edi.View.MainToolbar"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -23,30 +23,30 @@
         <Button Command="New" SnapsToDevicePixels="True"
                 ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_New_Text_TT}"
                 ToolTipService.ShowOnDisabled="True">
-          <Image Source="{StaticResource Image_New}" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="{DynamicResource Image_New}" Height="32" SnapsToDevicePixels="True" />
         </Button>
 
         <Button Command="Open" SnapsToDevicePixels="True"
                 ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Open_Text_TT}"
                 ToolTipService.ShowOnDisabled="True">
-          <Image Source="{StaticResource Image_Open}" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="{DynamicResource Image_Open}" Height="32" SnapsToDevicePixels="True" />
         </Button>
 
         <Button Command="Save" SnapsToDevicePixels="True"
                 ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Save_TT}"
                 ToolTipService.ShowOnDisabled="True">
-          <Image Source="{StaticResource Image_Save}" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="{DynamicResource Image_Save}" Height="32" SnapsToDevicePixels="True" />
         </Button>
 
         <Button Command="SaveAs" SnapsToDevicePixels="True"
                 ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs_TT}"
                 ToolTipService.ShowOnDisabled="True">
-          <Image Source="{StaticResource Image_Save}" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="{DynamicResource Image_SaveAs}" Height="32" SnapsToDevicePixels="True" />
         </Button>
 
         <Button Command="cmd:AppCommand.SaveAll" SnapsToDevicePixels="True"
                 ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="{StaticResource Image_SaveAll}" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="{DynamicResource Image_SaveAll}" Height="32" SnapsToDevicePixels="True" />
         </Button>
 
         <Separator Margin="9,3" SnapsToDevicePixels="True" />
@@ -54,22 +54,22 @@
         <Button Command="Copy" SnapsToDevicePixels="True"
                 ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Copy_TT}"
                 ToolTipService.ShowOnDisabled="True">
-          <Image Source="{StaticResource Image_Copy}" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="{DynamicResource Image_Copy}" Height="32" SnapsToDevicePixels="True" />
         </Button>
         <Button Command="Cut" SnapsToDevicePixels="True"
                 ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Cut_TT}"
                 ToolTipService.ShowOnDisabled="True">
-          <Image Source="{StaticResource Image_Cut}" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="{DynamicResource Image_Cut}" Height="32" SnapsToDevicePixels="True" />
         </Button>
         <Button Command="Paste" SnapsToDevicePixels="True"
                 ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Paste_TT}"
                 ToolTipService.ShowOnDisabled="True">
-          <Image Source="{StaticResource Image_Paste}" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="{DynamicResource Image_Paste}" Height="32" SnapsToDevicePixels="True" />
         </Button>
         <Button Command="Delete" SnapsToDevicePixels="True"
                 ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Delete_TT}"
                 ToolTipService.ShowOnDisabled="True">
-          <Image Source="{StaticResource Image_Delete}" Height="32"/>
+          <Image Source="{DynamicResource Image_Delete}" Height="32"/>
         </Button>
 
         <Separator Margin="9,3"/>
@@ -77,12 +77,12 @@
         <Button Command="Undo" SnapsToDevicePixels="True"
                 ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Undo_TT}"
                 ToolTipService.ShowOnDisabled="True">
-          <Image Source="{StaticResource Image_Undo}" Height="32"/>
+          <Image Source="{DynamicResource Image_Undo}" Height="32"/>
         </Button>
         <Button Command="Redo" SnapsToDevicePixels="True"
                 ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Redo_TT}"
                 ToolTipService.ShowOnDisabled="True">
-          <Image Source="{StaticResource Image_Redo}" Height="32"/>
+          <Image Source="{DynamicResource Image_Redo}" Height="32"/>
         </Button>
 
         <Separator Margin="9,3"/>
@@ -93,7 +93,7 @@
                       ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_WordWrap_TT}"
                       ToolTipService.ShowOnDisabled="True"
                       >
-          <Image Source="{StaticResource Image_WordWrap}" Height="32"/>
+          <Image Source="{DynamicResource Image_WordWrap}" Height="32"/>
         </ToggleButton>
         <ToggleButton IsChecked="{Binding ActiveEdiDocument.ShowLineNumbers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       CommandParameter="{x:Static vm:ToggleEditorOption.ShowLineNumber}"
@@ -101,7 +101,7 @@
                       ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_ShowLineNumbers_TT}"
                       ToolTipService.ShowOnDisabled="True"
                       >
-          <Image Source="{StaticResource Image_ShowLineNumbers}" Height="32"/>
+          <Image Source="{DynamicResource Image_ShowLineNumbers}" Height="32"/>
         </ToggleButton>
         <ToggleButton IsChecked="{Binding ActiveEdiDocument.ShowEndOfLine, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       Command="{Binding ToggleEditorOptionCommand}"
@@ -109,7 +109,7 @@
                       ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_ShowEndOfLine_TT}"
                       ToolTipService.ShowOnDisabled="True"
                       >
-          <Image Source="{StaticResource Image_EndOfLine}" Height="32"/>
+          <Image Source="{DynamicResource Image_EndOfLine}" Height="32"/>
         </ToggleButton>
         <ToggleButton IsChecked="{Binding ActiveEdiDocument.ShowSpaces, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       Command="{Binding ToggleEditorOptionCommand}"
@@ -117,7 +117,7 @@
                       ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_ShowSpaces_TT}"
                       ToolTipService.ShowOnDisabled="True"
                       >
-          <Image Source="{StaticResource Image_Space}" Height="32"/>
+          <Image Source="{DynamicResource Image_Space}" Height="32"/>
         </ToggleButton>
         <ToggleButton IsChecked="{Binding ActiveEdiDocument.ShowTabs, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       Command="{Binding ToggleEditorOptionCommand}"
@@ -125,7 +125,7 @@
                       ToolTip="{x:Static cmdLabel:Strings.STR_ToggleEditorOptionCmd_ShowTabs_TT}"
                       ToolTipService.ShowOnDisabled="True"
                       >
-          <Image Source="{StaticResource Image_Tabs}" Height="32"/>
+          <Image Source="{DynamicResource Image_Tabs}" Height="32"/>
         </ToggleButton>
 
         <Separator Visibility="{Binding Path=ActiveDocument, Mode=OneWay, Converter={conv:ActiveDocumentToVisibilityConverter}}"
@@ -143,8 +143,9 @@
         <Button Command="cmd:AppCommand.DisableHighlighting" SnapsToDevicePixels="True"
                 Margin="3,0"
                 Visibility="{Binding Path=ActiveDocument, Mode=OneWay, Converter={conv:ActiveDocumentToVisibilityConverter}}"
-                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="{StaticResource Image_SyntaxHighlighting}" Height="32"/>
+                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"
+                ToolTipService.ShowOnDisabled="True">
+          <Image Source="{DynamicResource Image_SyntaxHighlighting}" Height="32"/>
         </Button>
       </ToolBar>
     </ToolBarTray>

@@ -85,27 +85,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\MergeStyleBehaviour.cs" />
+    <Compile Include="MetroControls\MetroAnimatedSingleRowTabControl.cs" />
+    <Compile Include="MetroControls\MetroAnimatedTabControl.cs" />
+    <Compile Include="MetroControls\MetroTabControl.cs" />
+    <Compile Include="MetroControls\MetroTabItem.cs" />
+    <Compile Include="MetroControls\SafeRaise.cs" />
+    <Compile Include="MetroControls\TextboxHelper.cs" />
+    <Compile Include="MetroControls\ToggleSwitch.cs" />
+    <Compile Include="MetroConverters\BackgroundToForegroundConverter.cs" />
+    <Compile Include="MetroConverters\FontSizeOffsetConverter.cs" />
+    <Compile Include="MetroConverters\MarkupConverter.cs" />
+    <Compile Include="MetroConverters\OffOnConverter.cs" />
+    <Compile Include="MetroConverters\ThicknessToDoubleConverter.cs" />
+    <Compile Include="MetroConverters\ToUpperConverter.cs" />
+    <Compile Include="MetroConverters\TreeViewMarginConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Definition\ThemeBase.cs" />
     <Compile Include="ThemesManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Aero\Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Aero\StatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Aero\Theme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons.xaml">
@@ -121,24 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Generic\Theme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="VS2010\Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="VS2010\StatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="VS2010\Theme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
@@ -219,130 +197,6 @@
     <Resource Include="Images\App\PinableListViewDark\NoPin16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Aero\EdiAvalonEdit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Aero\UnitCombobox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\Button.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\ComboBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\EdiControls\EdiAvalonEdit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\Expander.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\GroupBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\Hyperlink.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\Label.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\ListBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\ListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\Menu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\EdiControls\MsgBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\EdiControls\PinableListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\ProgressBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\ScrollBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\ScrollViewer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\Slider.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\StatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\TabControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\TextBlock.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\TextBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\EdiControls\UnitCombobox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Theme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\ToggleButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\ToolBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\ToolTip.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\Controls\TreeView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\YalvLib\GridStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExpressionDark2\YalvLib\YalvLib.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ExpressionDark\EdiControls\YalvLib\GridStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -355,7 +209,71 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionLight2\UnitCombobox.xaml">
+    <Page Include="ExpressionDark\MetroStyles\Colours.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\ContextMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\Controls.GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\Controls.ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\Controls.TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\Controls.TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\Controls.Toolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\Edi.ModernUI.Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\GridSplitter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\Hyperlink.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\ContextMenuStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\MenuItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\MenuStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpressionDark\MetroStyles\TextBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -363,27 +281,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Metro\Styles\MenuStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Metro\UnitCombobox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="VS2010\EdiAvalonEdit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Resource Include="ExpressionLight2\Theme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="ExpressionLight2\Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="ExpressionLight2\StatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-    <Page Include="ExpressionLight2\EdiAvalonEdit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -518,10 +420,45 @@
     <Content Include="Images\App\About\about.svg" />
     <Content Include="Images\App\File_Save16.png" />
     <Content Include="Images\App\File_Save64.png" />
-    <Page Include="VS2010\UnitCombobox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Resource Include="MetroIcons\Dark\appbar.disk.png" />
+    <Resource Include="MetroIcons\Dark\appbar.folder.open.png" />
+    <Resource Include="MetroIcons\Dark\appbar.page.new.png" />
+    <Resource Include="MetroIcons\Dark\appbar.save.png" />
+    <Resource Include="MetroIcons\Dark\appbar.disk.download.png" />
+    <Resource Include="MetroIcons\Dark\appbar.saveall.png" />
+    <Resource Include="MetroIcons\Dark\appbar.clipboard.paste.png" />
+    <Resource Include="MetroIcons\Dark\appbar.page.copy.png" />
+    <Resource Include="MetroIcons\Dark\appbar.redo.png" />
+    <Resource Include="MetroIcons\Dark\appbar.undo.png" />
+    <Resource Include="MetroIcons\Dark\appbar.text.align.justify.png" />
+    <Resource Include="MetroIcons\Dark\ShowTab.png" />
+    <Resource Include="MetroIcons\Dark\ShowSpace.png" />
+    <Resource Include="MetroIcons\Dark\ShowEndOfLine.png" />
+    <Resource Include="MetroIcons\Dark\ShowLineNumbers.png" />
+    <Resource Include="MetroIcons\Light\ShowLineNumbers.png" />
+    <Resource Include="MetroIcons\Dark\scissors.png" />
+    <Resource Include="MetroIcons\Dark\delete.png" />
+    <Resource Include="MetroIcons\Light\delete.png" />
+    <Resource Include="MetroIcons\Dark\appbar.lamp.variant.png" />
+    <Content Include="MetroIcons\Light\scissors.png" />
+    <Content Include="MetroIcons\Light\ShowSpace.png" />
+    <Content Include="MetroIcons\SVG\appbar.clipboard.paste.svg" />
+    <Content Include="MetroIcons\SVG\appbar.disk.download.svg" />
+    <Content Include="MetroIcons\SVG\appbar.disk.svg" />
+    <Content Include="MetroIcons\SVG\appbar.folder.open.svg" />
+    <Content Include="MetroIcons\SVG\appbar.page.copy.svg" />
+    <Content Include="MetroIcons\SVG\appbar.page.new.svg" />
+    <Content Include="MetroIcons\SVG\appbar.redo.svg" />
+    <Content Include="MetroIcons\SVG\appbar.save.svg" />
+    <Content Include="MetroIcons\SVG\appbar.text.align.justify.svg" />
+    <Content Include="MetroIcons\SVG\appbar.undo.svg" />
+    <Content Include="MetroIcons\SVG\appbar.saveall.svg" />
+    <Content Include="MetroIcons\SVG\delete.svg" />
+    <Content Include="MetroIcons\SVG\scissors.svg" />
+    <Content Include="MetroIcons\SVG\ShowEndOfLine.svg" />
+    <Content Include="MetroIcons\SVG\ShowLineNumbers.svg" />
+    <Content Include="MetroIcons\SVG\ShowSpace.svg" />
+    <Content Include="MetroIcons\SVG\ShowTab.svg" />
     <Resource Include="Images\Log4Net\ClearFilter\ClearFilters_16.png" />
     <Resource Include="Images\Log4Net\ClearFilter\ClearFilters_32.png" />
     <Resource Include="Images\Log4Net\ClearFilter\ClearFilters_64.png" />

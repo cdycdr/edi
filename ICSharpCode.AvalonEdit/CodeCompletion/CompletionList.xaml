@@ -25,8 +25,7 @@
 						<Trigger Property="IsSelected" Value="true">
 							<Setter Property="Background"
 							        Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-							<Setter Property="Foreground"
-							        Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -38,8 +37,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type cc:CompletionList}">
-					<cc:CompletionListBox x:Name="PART_ListBox"
-						ItemContainerStyle="{StaticResource CompletionListBoxItem}">
+					<cc:CompletionListBox x:Name="PART_ListBox" ItemContainerStyle="{DynamicResource CompletionListBoxItem}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal">

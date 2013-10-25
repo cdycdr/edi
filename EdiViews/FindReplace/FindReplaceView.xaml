@@ -35,7 +35,7 @@
                     <ComboBoxItem Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_CURRENTDOC}" />
                     <ComboBoxItem Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_OPENDOCS}" />
                   </ComboBox>
-                  <Expander Header="{x:Static cmdLabel:Strings.STR_FINDREPLACE_Options}" IsExpanded="False">
+                  <GroupBox Header="{x:Static cmdLabel:Strings.STR_FINDREPLACE_Options}" Padding="3">
                     <StackPanel>
                       <CheckBox Margin="1" Name="chkCaseSensitive" IsChecked="{Binding CaseSensitive, Mode=TwoWay}" Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_CaseSensitive}"     />
                       <CheckBox Margin="1" Name="chkSearchUp"      IsChecked="{Binding SearchUp, Mode=TwoWay}"      Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_SearchBackWard}"    />
@@ -43,7 +43,7 @@
                       <CheckBox Margin="1" Name="chkRegex"         IsChecked="{Binding UseRegEx, Mode=TwoWay}"      Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_RegularExpression}" />
                       <CheckBox Margin="1" Name="chkWildcards"     IsChecked="{Binding UseWildcards, Mode=TwoWay}"  Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_Wildcards}"         />
                     </StackPanel>
-                  </Expander>
+                  </GroupBox>
                 </StackPanel>
               </StackPanel>
             </DataTemplate>
@@ -54,8 +54,8 @@
             <Grid>
               <TabControl Name="tabMain" Height="Auto" BorderThickness="{Binding AllowReplace,  Converter={StaticResource boolToInt}}">
                 <TabItem Header="Find" Name="tabFind" IsSelected="{Binding ShowAsFind}"
-                                       ContentTemplate="{StaticResource FindPageTemplate}"
-                                       Visibility="{Binding AllowReplace, Converter={StaticResource boolToVis}}">
+                         ContentTemplate="{StaticResource FindPageTemplate}"
+                         Visibility="{Binding AllowReplace, Converter={StaticResource boolToVis}}">
                   <StackPanel>
                     <TextBox Text="{Binding TextToFind, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              Margin="3"
@@ -64,12 +64,12 @@
                              behav:FocusExtension.IsFocused="{Binding IsTextToFindFocused}"
                              />
                     <Button Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_FINDNEXT}"
-                            MinHeight="27" MinWidth="85"
+                            MinHeight="27"
                             Command="{Binding FindCommand}"
-                            Margin="3" IsDefault="True" HorizontalAlignment="Right" Width="65" />
+                            Margin="3" IsDefault="True" HorizontalAlignment="Right"/>
                   </StackPanel>
                 </TabItem>
-                <TabItem Header="Replace" Name="tabReplace"
+                <TabItem Header="Replace" Name="tabReplace" Margin="3,0"
                          IsSelected="{Binding ShowAsFind, Converter={StaticResource InvertBooleanConv}}"
                          ContentTemplate="{StaticResource FindPageTemplate}"
                          Visibility="{Binding AllowReplace, Converter={StaticResource boolToVis}}">
@@ -88,15 +88,15 @@
                       <Button Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_FINDNEXT}"
                               Command="{Binding FindCommand}"
                               IsDefault="True" Margin="3" HorizontalAlignment="Right"
-                              MinHeight="27" MinWidth="85" />
+                              MinHeight="27" />
                       
                       <Button Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_Replace}"
                               Command="{Binding ReplaceCommand}"
-                              Margin="3" HorizontalAlignment="Right" Width="65" />
+                              Margin="3" HorizontalAlignment="Right" />
 
                       <Button Command="{Binding ReplaceAllCommand}"
                               Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_ReplaceAll}" Margin="3"
-                              HorizontalAlignment="Right" MinHeight="27" MinWidth="85" />
+                              HorizontalAlignment="Right" MinHeight="27" />
                     </StackPanel>
                   </StackPanel>
                 </TabItem>

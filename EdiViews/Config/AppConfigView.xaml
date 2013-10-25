@@ -103,8 +103,9 @@
                   <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <!-- Text Document View Size Elements -->
-                <StackPanel Grid.Row="0" Grid.Column="1">
-                  <Label Content="Adjust text editor character size using:" />
+                <GroupBox Grid.Row="0" Grid.Column="1"
+                          Header="Adjust text editor character size" Margin="9" Padding="9">
+                <StackPanel >
                   <Grid Margin="3">
                     <Grid.ColumnDefinitions>
                       <ColumnDefinition Width="Auto" />
@@ -157,6 +158,7 @@
                     </Grid>
                   </Grid>
                 </StackPanel>
+                </GroupBox>
 
                 <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding EditorTextOptions}">
                   <GroupBox Header="Column Ruler" Margin="9" Padding="9">

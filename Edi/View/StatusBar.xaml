@@ -39,7 +39,7 @@
             <TextBlock Text="{x:Static cmdLabel:Strings.STR_StatusBar_X_Coord_Label}"
                        ToolTip="{x:Static cmdLabel:Strings.STR_StatusBar_X_Coord_Label_TT}"
                        Margin="3,0" Grid.Column="0"/>
-            <TextBlock Text="{Binding ActiveEdiDocument.Line, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <TextBlock Text="{Binding ActiveEdiDocument.Column, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                        ToolTip="{x:Static cmdLabel:Strings.STR_StatusBar_X_Coord_Label_TT}"
                        Margin="3,0" Grid.Column="1" MinWidth="10" HorizontalAlignment="Left" />
           </Grid>
@@ -52,7 +52,7 @@
             <TextBlock Text="{x:Static cmdLabel:Strings.STR_StatusBar_Y_Coord_Label}"
                        ToolTip="{x:Static cmdLabel:Strings.STR_StatusBar_Y_Coord_Label_TT}"
                        Margin="3,0" Grid.Column="0"/>
-            <TextBlock Text="{Binding ActiveEdiDocument.Column, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <TextBlock Text="{Binding ActiveEdiDocument.Line, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                        ToolTip="{x:Static cmdLabel:Strings.STR_StatusBar_Y_Coord_Label_TT}"
                        Foreground="{DynamicResource StatusBarForegroundColor}"
                        Margin="3,0" Grid.Column="1" MinWidth="10" HorizontalAlignment="Left" />

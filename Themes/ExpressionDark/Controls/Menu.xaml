@@ -151,14 +151,14 @@
       </ControlTemplate>
 
       <ControlTemplate x:Key="{ComponentResourceKey ResourceId=SubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
-        <ControlTemplate.Resources>
+        <!-- ControlTemplate.Resources>
           <Storyboard x:Key="HighlightOn">
             <DoubleAnimation Duration="00:00:00.1000000" Storyboard.TargetName="BackgroundGradientSelected" Storyboard.TargetProperty="Opacity" To="0.84"/>
           </Storyboard>
           <Storyboard x:Key="HighlightOff">
             <DoubleAnimation Duration="00:00:00.4000000" Storyboard.TargetName="BackgroundGradientSelected" Storyboard.TargetProperty="Opacity" To="0"/>
           </Storyboard>
-        </ControlTemplate.Resources>
+        </ControlTemplate.Resources -->
 
         <Grid SnapsToDevicePixels="true">
           <Grid.RowDefinitions>
@@ -203,14 +203,14 @@
         </Grid>
         <ControlTemplate.Triggers>
 
-          <Trigger Property="IsPressed" Value="True">
+          <!-- Trigger Property="IsPressed" Value="True">
             <Trigger.ExitActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOn}" />
             </Trigger.ExitActions>
             <Trigger.EnterActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOff}" />
             </Trigger.EnterActions>
-          </Trigger>
+          </Trigger -->
           <Trigger Property="Icon" Value="{x:Null}">
             <Setter Property="Visibility" TargetName="Icon" Value="Collapsed" />
           </Trigger>
@@ -218,14 +218,14 @@
             <Setter Property="Visibility" TargetName="GlyphPanel" Value="Visible" />
             <Setter Property="Visibility" TargetName="Icon" Value="Collapsed" />
           </Trigger>
-          <Trigger Property="IsHighlighted" Value="true">
+          <!-- Trigger Property="IsHighlighted" Value="true">
             <Trigger.ExitActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOff}" />
             </Trigger.ExitActions>
             <Trigger.EnterActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOn}" />
             </Trigger.EnterActions>
-          </Trigger>
+          </Trigger -->
           <Trigger Property="IsEnabled" Value="false">
             <Setter Property="Foreground" Value="{StaticResource DisabledSubMenuItemForegroundBrush}" />
             <Setter Property="Background" TargetName="GlyphPanel" Value="{StaticResource DisabledSubMenuItemBackgroundBrush}" />
@@ -236,14 +236,14 @@
       </ControlTemplate>
 
       <ControlTemplate x:Key="{ComponentResourceKey ResourceId=TopLevelHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
-        <ControlTemplate.Resources>
+        <!-- ControlTemplate.Resources>
           <Storyboard x:Key="HighlightOn">
             <DoubleAnimation Duration="00:00:00.1000000" Storyboard.TargetName="BackgroundGradientSelected" Storyboard.TargetProperty="Opacity" To="0.84"/>
           </Storyboard>
           <Storyboard x:Key="HighlightOff">
             <DoubleAnimation Duration="00:00:00.4000000" Storyboard.TargetName="BackgroundGradientSelected" Storyboard.TargetProperty="Opacity" To="0"/>
           </Storyboard>
-        </ControlTemplate.Resources>
+        </ControlTemplate.Resources -->
 
         <Grid SnapsToDevicePixels="true">
           <Rectangle x:Name="BackgroundGradientOver" Fill="{StaticResource hoverGradient}" Stroke="{StaticResource hoverStroke}" RadiusX="2" RadiusY="2"  Opacity="0" Grid.ColumnSpan="4"/>
@@ -289,7 +289,7 @@
         </Grid>
         <ControlTemplate.Triggers>
 
-          <MultiTrigger>
+          <!-- MultiTrigger>
             <MultiTrigger.Conditions>
               <Condition Property="IsChecked" Value="True"/>
               <Condition Property="IsHighlighted" Value="True"/>
@@ -300,7 +300,7 @@
             <MultiTrigger.EnterActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOn}" />
             </MultiTrigger.EnterActions>
-          </MultiTrigger>
+          </MultiTrigger -->
 
           <Trigger Property="IsSuspendingPopupAnimation" Value="true">
             <Setter Property="PopupAnimation" TargetName="PART_Popup" Value="None" />
@@ -319,15 +319,15 @@
             <Setter Property="BitmapEffect" Value="{DynamicResource PopupDropShadow}" TargetName="Shdw"/>
           </Trigger>
 
-          <Trigger Property="IsHighlighted" Value="true">
+          <!-- Trigger Property="IsHighlighted" Value="true">
             <Trigger.ExitActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOff}" />
             </Trigger.ExitActions>
             <Trigger.EnterActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOn}" />
             </Trigger.EnterActions>
-          </Trigger>
-          <Trigger Property="IsKeyboardFocused" Value="true">
+          </Trigger -->
+          <!-- Trigger Property="IsKeyboardFocused" Value="true">
             <Trigger.ExitActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOff}" />
             </Trigger.ExitActions>
@@ -342,7 +342,7 @@
             <Trigger.EnterActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOn}" />
             </Trigger.EnterActions>
-          </Trigger>
+          </Trigger -->
           <Trigger Property="IsEnabled" Value="false">
             <Setter Property="Foreground" Value="{StaticResource DisabledMenuItemForegroundBrush}" />
             <Setter Property="Fill" TargetName="GlyphPanel" Value="{StaticResource DisabledMenuItemFillBrush}" />
@@ -351,14 +351,14 @@
       </ControlTemplate>
 
       <ControlTemplate x:Key="{ComponentResourceKey ResourceId=TopLevelItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
-        <ControlTemplate.Resources>
+        <!-- ControlTemplate.Resources>
           <Storyboard x:Key="HighlightOn">
             <DoubleAnimation Duration="00:00:00.1000000" Storyboard.TargetName="BackgroundGradientSelected" Storyboard.TargetProperty="Opacity" To="0.84"/>
           </Storyboard>
           <Storyboard x:Key="HighlightOff">
             <DoubleAnimation Duration="00:00:00.4000000" Storyboard.TargetName="BackgroundGradientSelected" Storyboard.TargetProperty="Opacity" To="0"/>
           </Storyboard>
-        </ControlTemplate.Resources>
+        </ControlTemplate.Resources -->
 
         <Grid SnapsToDevicePixels="true">
 
@@ -387,7 +387,7 @@
             <Setter Property="Visibility" TargetName="GlyphPanel" Value="Visible" />
             <Setter Property="Visibility" TargetName="Icon" Value="Collapsed" />
           </Trigger>
-          <Trigger Property="IsHighlighted" Value="true">
+          <!-- Trigger Property="IsHighlighted" Value="true">
             <Trigger.ExitActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOff}" />
             </Trigger.ExitActions>
@@ -395,8 +395,8 @@
               <BeginStoryboard Storyboard="{StaticResource HighlightOn}" />
             </Trigger.EnterActions>
             <Setter Property="Stroke" TargetName="InnerBorder" Value="{StaticResource TopLevelIsHighlightedInnerBorderStroke}" />
-          </Trigger>
-          <Trigger Property="IsKeyboardFocused" Value="true">
+          </Trigger -->
+          <!-- Trigger Property="IsKeyboardFocused" Value="true">
             <Setter Property="Stroke" TargetName="InnerBorder" Value="{StaticResource TopLevelIsKeyboardFocusedInnerBorderStroke}" />
             <Trigger.ExitActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOff}" />
@@ -404,7 +404,7 @@
             <Trigger.EnterActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOn}" />
             </Trigger.EnterActions>
-          </Trigger>
+          </Trigger -->
           <Trigger Property="IsEnabled" Value="false">
             <Setter Property="Foreground" Value="{StaticResource DisabledMenuItemForegroundBrush}" />
             <Setter Property="Fill" TargetName="GlyphPanel" Value="{StaticResource DisabledMenuItemFillBrush}" />
@@ -413,14 +413,14 @@
       </ControlTemplate>
 
       <ControlTemplate x:Key="{ComponentResourceKey ResourceId=SubmenuHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
-        <ControlTemplate.Resources>
+        <!-- ControlTemplate.Resources>
           <Storyboard x:Key="HighlightOn">
             <DoubleAnimation Duration="00:00:00.1000000" Storyboard.TargetName="BackgroundGradientSelected" Storyboard.TargetProperty="Opacity" To="0.84"/>
           </Storyboard>
           <Storyboard x:Key="HighlightOff">
             <DoubleAnimation Duration="00:00:00.4000000" Storyboard.TargetName="BackgroundGradientSelected" Storyboard.TargetProperty="Opacity" To="0"/>
           </Storyboard>
-        </ControlTemplate.Resources>
+        </ControlTemplate.Resources -->
 
         <Grid SnapsToDevicePixels="true">
 
@@ -484,14 +484,14 @@
         </Grid>
 
         <ControlTemplate.Triggers>
-          <Trigger Property="IsPressed" Value="True">
+          <!-- Trigger Property="IsPressed" Value="True">
             <Trigger.ExitActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOn}" />
             </Trigger.ExitActions>
             <Trigger.EnterActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOff}" />
             </Trigger.EnterActions>
-          </Trigger>
+          </Trigger -->
 
           <Trigger Property="IsSuspendingPopupAnimation" Value="true">
             <Setter Property="PopupAnimation" TargetName="PART_Popup" Value="None" />
@@ -512,14 +512,14 @@
             <Setter Property="BitmapEffect" Value="{DynamicResource PopupDropShadow}" TargetName="Shdw"/>
           </Trigger>
 
-          <Trigger Property="IsHighlighted" Value="true">
+          <!-- Trigger Property="IsHighlighted" Value="true">
             <Trigger.ExitActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOff}" />
             </Trigger.ExitActions>
             <Trigger.EnterActions>
               <BeginStoryboard Storyboard="{StaticResource HighlightOn}" />
             </Trigger.EnterActions>
-          </Trigger>
+          </Trigger -->
 
           <Trigger Property="IsEnabled" Value="false">
             <Setter Property="Foreground" Value="{StaticResource DisabledSubMenuItemForegroundBrush}" />
