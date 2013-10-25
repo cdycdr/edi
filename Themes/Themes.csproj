@@ -104,12 +104,6 @@
     <Compile Include="ThemesManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Generic\Brushes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -241,7 +235,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\Edi.ModernUI.Dark.xaml">
+    <Page Include="ExpressionDark\Edi.ModernUI.Dark.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -277,7 +271,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="IconsLight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Metro\EdiAvalonEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Metro\ModernUI.Light.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -301,7 +303,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="IconsDarkExpression.xaml">
+    <Resource Include="IconsDark.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
@@ -440,8 +442,21 @@
     <Resource Include="MetroIcons\Dark\delete.png" />
     <Resource Include="MetroIcons\Light\delete.png" />
     <Resource Include="MetroIcons\Dark\appbar.lamp.variant.png" />
-    <Content Include="MetroIcons\Light\scissors.png" />
-    <Content Include="MetroIcons\Light\ShowSpace.png" />
+    <Resource Include="MetroIcons\Light\appbar.clipboard.paste.png" />
+    <Resource Include="MetroIcons\Light\appbar.disk.download.png" />
+    <Resource Include="MetroIcons\Light\appbar.disk.png" />
+    <Resource Include="MetroIcons\Light\appbar.folder.open.png" />
+    <Resource Include="MetroIcons\Light\appbar.lamp.variant.png" />
+    <Resource Include="MetroIcons\Light\appbar.page.copy.png" />
+    <Resource Include="MetroIcons\Light\appbar.page.new.png" />
+    <Resource Include="MetroIcons\Light\appbar.redo.png" />
+    <Resource Include="MetroIcons\Light\appbar.text.align.justify.png" />
+    <Resource Include="MetroIcons\Light\appbar.undo.png" />
+    <Resource Include="MetroIcons\Light\scissors.png" />
+    <Resource Include="MetroIcons\Light\ShowSpace.png" />
+    <Resource Include="MetroIcons\Light\appbar.saveall.png" />
+    <Resource Include="MetroIcons\Light\ShowTab.png" />
+    <Resource Include="MetroIcons\Light\ShowEndOfLine.png" />
     <Content Include="MetroIcons\SVG\appbar.clipboard.paste.svg" />
     <Content Include="MetroIcons\SVG\appbar.disk.download.svg" />
     <Content Include="MetroIcons\SVG\appbar.disk.svg" />

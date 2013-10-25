@@ -9,12 +9,11 @@
     xmlns:hyperl="clr-namespace:SimpleControls.Hyperlink;assembly=SimpleControls"
     >
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/Themes;component/IconsDarkExpression.xaml" />
+    <ResourceDictionary Source="/Themes;component/IconsDark.xaml" />
     <ResourceDictionary Source="/Themes;component/ExpressionDark/Brushes.xaml" />
-    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Edi.ModernUI.Dark.xaml" />
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/Edi.ModernUI.Dark.xaml" />
 
     <ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/TabControl.xaml" />
-    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Edi.ModernUI.Dark.xaml" />
     <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Controls.TabControl.xaml" />
 
 

@@ -65,7 +65,6 @@
       "/EdiViews;component/Themes/ModernDialogEx.xaml",
 
       "/Themes;component/Generic/Theme.xaml",
-      "/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml"
     };
     #endregion Generic theme resources
 
@@ -73,9 +72,32 @@
     const string MetroThemeName = "Metro";
     static readonly string[] MetroResources = 
     {
-      "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
       "/Edi;component/ModernWindowEx.xaml",
       "/EdiViews;component/Themes/ModernDialogEx.xaml",
+
+      // "/FirstFloor.ModernUI;component/Assets/Button.xaml",
+
+      "/FirstFloor.ModernUI;component/Assets/Calendar.xaml",
+      "/FirstFloor.ModernUI;component/Assets/CheckBox.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ComboBox.xaml",
+      // "/FirstFloor.ModernUI;component/Assets/ContextMenu.xaml",
+      "/FirstFloor.ModernUI;component/Assets/DataGrid.xaml",
+      "/FirstFloor.ModernUI;component/Assets/DatePicker.xaml",
+      "/FirstFloor.ModernUI;component/Assets/GridSplitter.xaml",
+      "/FirstFloor.ModernUI;component/Assets/Hyperlink.xaml",
+      "/FirstFloor.ModernUI;component/Assets/Label.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ListBox.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ListView.xaml",
+      //"/FirstFloor.ModernUI;component/Assets/MenuItem.xaml",
+      "/FirstFloor.ModernUI;component/Assets/PasswordBox.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ProgressBar.xaml",
+      "/FirstFloor.ModernUI;component/Assets/RadioButton.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ScrollBar.xaml",
+      "/FirstFloor.ModernUI;component/Assets/Slider.xaml",
+      "/FirstFloor.ModernUI;component/Assets/TextBlock.xaml",
+      "/FirstFloor.ModernUI;component/Assets/TextBox.xaml",
+      "/FirstFloor.ModernUI;component/Assets/ToolTip.xaml",
+      "/FirstFloor.ModernUI;component/Assets/TreeView.xaml",
 
       "/Themes;component/Metro/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml"

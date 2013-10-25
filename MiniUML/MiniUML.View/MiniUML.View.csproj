@@ -265,6 +265,50 @@
   <ItemGroup>
     <Resource Include="Images\BrightBackground\Paste.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Dark\appbar.clipboard.paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Dark\appbar.page.copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Dark\appbar.redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Dark\appbar.undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Dark\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Dark\scissors.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Light\appbar.clipboard.paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Light\appbar.page.copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Light\appbar.redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Light\appbar.undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Light\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MetroIcons\Light\scissors.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MetroIcons\SVG\appbar.clipboard.paste.svg" />
+    <Content Include="MetroIcons\SVG\appbar.page.copy.svg" />
+    <Content Include="MetroIcons\SVG\appbar.redo.svg" />
+    <Content Include="MetroIcons\SVG\appbar.undo.svg" />
+    <Content Include="MetroIcons\SVG\delete.svg" />
+    <Content Include="MetroIcons\SVG\scissors.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- Import Project="$(ProgramFiles)\MSBuild\StyleCop\v4.7\StyleCop.Targets" / -->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

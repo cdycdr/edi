@@ -5,11 +5,8 @@ ECHO This script deletes all temporary build files in their
 ECHO corresponding BIN and OBJ Folder contained in the following projects
 ECHO.
 ECHO Xceed.Wpf.AvalonDock.AvalonDock
-ECHO Xceed.Wpf.AvalonDock.AvalonDock.Themes.Aero
 ECHO Xceed.Wpf.AvalonDock.AvalonDock.Themes.Expression
-ECHO Xceed.Wpf.AvalonDock.AvalonDock.Theme.ExpressionDark
 ECHO Xceed.Wpf.AvalonDock.AvalonDock.Themes.Metro
-ECHO Xceed.Wpf.AvalonDock.AvalonDock.Theme.VS2010
 ECHO TestApplication
 ECHO.
 ECHO.
@@ -27,17 +24,8 @@ RMDIR /S /Q Xceed.Wpf.AvalonDock\bin
 RMDIR /S /Q Xceed.Wpf.AvalonDock\obj
 REM DEL /F /Q /S /A:H Automation.Tasks.Core\StyleCop.Cache >> C:\TEMP\CleanFiles.txt
 
-RMDIR /S /Q Xceed.Wpf.AvalonDock.Themes.Aero\bin
-RMDIR /S /Q Xceed.Wpf.AvalonDock.Themes.Aero\obj
-
-RMDIR /S /Q Xceed.Wpf.AvalonDock.Themes.VS2010\bin
-RMDIR /S /Q Xceed.Wpf.AvalonDock.Themes.VS2010\obj
-
 RMDIR /S /Q Xceed.Wpf.AvalonDock.Themes.Expression\bin
 RMDIR /S /Q Xceed.Wpf.AvalonDock.Themes.Expression\obj
-
-RMDIR /S /Q Xceed.Wpf.AvalonDock.Theme.ExpressionDark\bin
-RMDIR /S /Q Xceed.Wpf.AvalonDock.Theme.ExpressionDark\obj
 
 RMDIR /S /Q Xceed.Wpf.AvalonDock.Themes.Metro\bin
 RMDIR /S /Q Xceed.Wpf.AvalonDock.Themes.Metro\obj

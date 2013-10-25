@@ -9,7 +9,7 @@
     xmlns:hyperl="clr-namespace:SimpleControls.Hyperlink;assembly=SimpleControls"
     >
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/Themes;component/Icons.xaml" />
+    <ResourceDictionary Source="/Themes;component/IconsLight.xaml" />
     <ResourceDictionary Source="/Themes;component/Generic/Brushes.xaml" />
 
     <ResourceDictionary Source="/MiniUML.View;component/SharedResources.xaml"/>

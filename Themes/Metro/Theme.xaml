@@ -9,9 +9,11 @@
     xmlns:hyperl="clr-namespace:SimpleControls.Hyperlink;assembly=SimpleControls"
     >
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/Themes;component/Icons.xaml" />
+    <ResourceDictionary Source="/Themes;component/IconsLight.xaml" />
     <!-- ResourceDictionary Source="/Themes;component/Metro/Brushes.xaml" / -->
     <!-- ResourceDictionary Source="/Themes;component/Metro/StatusBar.xaml" / -->
+
+    <ResourceDictionary Source="/Themes;component/Metro/ModernUI.Light.xaml" />
     <ResourceDictionary Source="/Themes;component/Metro/Styles/MenuStyles.xaml" />
     <ResourceDictionary Source="/Themes;component/Metro/EdiAvalonEdit.xaml" />
     <ResourceDictionary Source="/Themes;component/Metro/UnitCombobox.xaml" />
