@@ -13,7 +13,7 @@
     <ResourceDictionary Source="/Themes;component/ExpressionDark/Brushes.xaml" />
     <ResourceDictionary Source="/Themes;component/ExpressionDark/Edi.ModernUI.Dark.xaml" />
 
-    <ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/TabControl.xaml" />
+    <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/TabControl.xaml" / -->
     <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Controls.TabControl.xaml" />
 
 

@@ -61,18 +61,21 @@
       </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="ContextMenuBorderBrush" Color="#FF9ba7b7"/>
+  <SolidColorBrush x:Key="ContextMenuBorderBrush" Color="#FF9ba7b7"/>
+
+  <!-- Toolbar button mouseover -->
+  <SolidColorBrush x:Key="BtnOverFill" Color="#12222222"/>
+  <SolidColorBrush x:Key="ToolBarButtonPressed" Color="#124242F2"/>
 
   <!-- AvalonDock_ThemeAero_BaseColor16 -->
   <LinearGradientBrush x:Key="ToolBarTrayBackground"
                          StartPoint="0,0"
                          EndPoint="0,1">
-    <GradientStop Color="#B7CAE0" Offset="0" />
-    <GradientStop Color="#E8F0FF" Offset="1" />
+    <GradientStop Color="White" Offset="1" />
   </LinearGradientBrush>
 
   <!-- Based on AvalonDock_ThemeAero_BaseColor8 -->
-  <SolidColorBrush x:Key="ToolBarBackground" Color="#D2E6FA"/>
+  <SolidColorBrush x:Key="ToolBarBackground" Color="White"/>
 
   <!-- Based on AvalonDock_ThemeAero_BaseColor6 -->
   <LinearGradientBrush x:Key="MenuBackground"

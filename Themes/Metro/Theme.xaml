@@ -14,7 +14,18 @@
     <!-- ResourceDictionary Source="/Themes;component/Metro/StatusBar.xaml" / -->
 
     <ResourceDictionary Source="/Themes;component/Metro/ModernUI.Light.xaml" />
+
+    <ResourceDictionary Source="/Themes;component/Metro/Styles/Controls.TabControl.xaml" />
+    <ResourceDictionary Source="/Themes;component/Metro/Styles/Controls.Toolbar.xaml" />
+    
+    <ResourceDictionary Source="/Themes;component/Metro/Styles/Combobox.xaml" />
+    <ResourceDictionary Source="/Themes;component/Metro/Styles/GridSplitter.xaml" />
+    <ResourceDictionary Source="/Themes;component/Metro/Styles/Hyperlink.xaml" />
+    <ResourceDictionary Source="/Themes;component/Metro/Styles/Label.xaml" />
     <ResourceDictionary Source="/Themes;component/Metro/Styles/MenuStyles.xaml" />
+    <ResourceDictionary Source="/Themes;component/Metro/Styles/Slider.xaml" />
+    <ResourceDictionary Source="/Themes;component/Metro/Styles/Textblock.xaml" />
+
     <ResourceDictionary Source="/Themes;component/Metro/EdiAvalonEdit.xaml" />
     <ResourceDictionary Source="/Themes;component/Metro/UnitCombobox.xaml" />
 
