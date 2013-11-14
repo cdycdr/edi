@@ -76,7 +76,7 @@
       <HintPath>..\02_Libs\00_bin\Mui\Microsoft.Windows.Shell.dll</HintPath>
     </Reference>
     <Reference Include="MsgBox">
-      <HintPath>..\02_Libs\00_bin\MsgBox.dll</HintPath>
+      <HintPath>..\02_Libs\00_bin\MsgBox\MsgBox.dll</HintPath>
     </Reference>
     <Reference Include="NumericUpDownLib">
       <HintPath>..\02_Libs\00_bin\NumericUpDownLib.dll</HintPath>
@@ -87,7 +87,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>

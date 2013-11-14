@@ -62,7 +62,7 @@
       <HintPath>..\02_Libs\00_bin\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MsgBox">
-      <HintPath>..\02_Libs\00_bin\MsgBox.dll</HintPath>
+      <HintPath>..\02_Libs\00_bin\MsgBox\MsgBox.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

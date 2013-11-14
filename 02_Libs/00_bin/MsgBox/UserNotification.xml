@@ -19,7 +19,7 @@
             Expectation: The connected view is processing the event and shows a (pop-up) message to the user.
             </summary>
         </member>
-        <member name="M:UserNotification.Events.ShowNotificationEvent.#ctor(System.String,System.String,System.String)">
+        <member name="M:UserNotification.Events.ShowNotificationEvent.#ctor(System.String,System.String,System.Windows.Media.Imaging.BitmapImage)">
             <summary>
                Initializes a new instance of the ShowNotificationEvent class.
             </summary>
@@ -37,7 +37,7 @@
             Get message of notification.
             </summary>
         </member>
-        <member name="P:UserNotification.Events.ShowNotificationEvent.ImageUrl">
+        <member name="P:UserNotification.Events.ShowNotificationEvent.ImageIcon">
             <summary>
             Get url string to an image resource that represents this type of notification.
             </summary>
@@ -102,7 +102,7 @@
             Get/set message of notification
             </summary>
         </member>
-        <member name="P:UserNotification.ViewModel.NotificationViewModel.ImageUrl">
+        <member name="P:UserNotification.ViewModel.NotificationViewModel.ImageIcon">
             <summary>
             Get/set ImageUrl to (icon) image shown in the notification
             </summary>
