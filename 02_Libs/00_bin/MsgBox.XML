@@ -93,11 +93,155 @@
             Eventhandler to re-evaluate whether this command can execute or not
             </summary>
         </member>
+        <member name="T:MsgBox.Converter.ImageEnumToVisibilityConverter">
+            <summary>
+            XAML mark up extension to convert an image enum value into a visibility value.
+            This class is used to decide whether an image is shown or not.
+            
+            The converter returns <seealso cref="F:System.Windows.Visibility.Visible"/>
+            if the MsgBoxImage != MsgBoxImage.None, otherwise <seealso cref="F:System.Windows.Visibility.Collapsed"/>
+            is returned.
+            </summary>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToVisibilityConverter.#ctor">
+            <summary>
+            Standard Constructor
+            </summary>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToVisibilityConverter.ProvideValue(System.IServiceProvider)">
+            <summary>
+            When implemented in a derived class, returns an object that is provided
+            as the value of the target property for this markup extension.
+            
+            When a XAML processor processes a type node and member value that is a markup extension,
+            it invokes the ProvideValue method of that markup extension and writes the result into the
+            object graph or serialization stream. The XAML object writer passes service context to each
+            such implementation through the serviceProvider parameter.
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Null to visibility conversion method
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToVisibilityConverter.SetImageSource(MsgBox.MsgBoxImage)">
+            <summary>
+            This function does the actual conversion from enum to <seealso cref="T:System.Windows.Visibility"/>.
+            </summary>
+            <param name="image"></param>
+            <returns>Visibility.Collapsed for MsgBoxImage.None or Visibility.Visible for all others.</returns>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Visibility to Null conversion method (is not implemented)
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MsgBox.Converter.ImageEnumToImageConverter">
+            <summary>
+            XAML mark up extension to convert a null value into a visibility value.
+            This class is used to decide whether text document related controls,
+            such as, highlighting patterns is shown or not.
+            
+            The converter returns <seealso cref="F:System.Windows.Visibility.Visible"/>
+            if the currently Active document is a text file that can be highlighted
+            and <seealso cref="F:System.Windows.Visibility.Collapsed"/> otherwise.
+            </summary>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToImageConverter.#ctor">
+            <summary>
+            Standard Constructor
+            </summary>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToImageConverter.ProvideValue(System.IServiceProvider)">
+            <summary>
+            When implemented in a derived class, returns an object that is provided
+            as the value of the target property for this markup extension.
+            
+            When a XAML processor processes a type node and member value that is a markup extension,
+            it invokes the ProvideValue method of that markup extension and writes the result into the
+            object graph or serialization stream. The XAML object writer passes service context to each
+            such implementation through the serviceProvider parameter.
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToImageConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Null to visibility conversion method
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToImageConverter.SetImageSource(MsgBox.MsgBoxImage)">
+            <summary>
+            This function does the actual conversion from enum to <seealso cref="T:System.Windows.Media.Imaging.BitmapImage"/>.
+            </summary>
+            <param name="image"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToImageConverter.GetApplicationResource(System.String)">
+            <summary>
+            Attempt to locate a dynamic (<seealso cref="T:System.Windows.Media.Imaging.BitmapImage"/>) resource
+            and return it or return null if the resource could not be located.
+            </summary>
+            <param name="resourceKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Converter.ImageEnumToImageConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Visibility to Null conversion method (is not implemented)
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MsgBox.MsgBoxStyle">
+            <summary>
+            A message box can be presented using different WPF styles.
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxStyle.System">
+            <summary>
+            Use the native Windows system look &amp; feel to show message box dialogs (standard window chrome).
+            </summary>
+        </member>
+        <member name="F:MsgBox.MsgBoxStyle.WPFThemed">
+            <summary>
+            Use a custom WPF look &amp; feel to show message box dialogs (custom window chrome).
+            </summary>
+        </member>
+        <member name="P:MsgBox.IMsgBoxService.Style">
+            <summary>
+            Get/set property to determine whether message box can be styled in WPF or not.
+            </summary>
+        </member>
         <member name="T:MsgBox.Internal.MessageBoxService">
             <summary>
             A service that shows message boxes.
             
             Source: http://www.codeproject.com/Articles/70223/Using-a-Service-Locator-to-Work-with-MessageBoxes
+            </summary>
+        </member>
+        <member name="M:MsgBox.Internal.MessageBoxService.#ctor">
+            <summary>
+            Class constructor
             </summary>
         </member>
         <member name="M:MsgBox.Internal.MessageBoxService.MsgBox#IMsgBoxService#Show(System.String,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
@@ -117,7 +261,35 @@
             <param name="showCopyMessage"></param>
             <returns></returns>
         </member>
-        <member name="T:MsgBox.Internal.ViewModel.DialogCloser">
+        <member name="M:MsgBox.Internal.MessageBoxService.MsgBox#IMsgBoxService#Show(System.Windows.Window,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Show message box with explicit referenc to owner window.
+            </summary>
+            <param name="owner"></param>
+            <param name="messageBoxText"></param>
+            <param name="caption"></param>
+            <param name="buttonOption"></param>
+            <param name="image"></param>
+            <param name="btnDefault"></param>
+            <param name="helpLink"></param>
+            <param name="helpLinkTitle"></param>
+            <param name="helpLinkLabel"></param>
+            <param name="navigateHelplinkMethod"></param>
+            <param name="showCopyMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Internal.MessageBoxService.InitializeViewModel(System.Exception,System.String,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean,MsgBox.MsgBoxResult,System.Boolean)">
+            <summary>
+            Construct a new message box viewmodel
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:MsgBox.Internal.MessageBoxService.Style">
+            <summary>
+            Get/set property to determine whether message box can be styled in WPF or not.
+            </summary>
+        </member>
+        <member name="T:MsgBox.Behaviour.DialogCloser">
              <summary>
              Attachable behaviour class that can be used to tell a View (window) to close itself
              when the ViewModel has determined that. Usage in XAML and ViewModel:
@@ -151,14 +323,14 @@
              Source: http://stackoverflow.com/questions/501886/wpf-mvvm-newbie-how-should-the-viewmodel-close-the-form
              </summary>
         </member>
-        <member name="M:MsgBox.Internal.ViewModel.DialogCloser.SetDialogResult(System.Windows.Window,System.Nullable{System.Boolean})">
+        <member name="M:MsgBox.Behaviour.DialogCloser.SetDialogResult(System.Windows.Window,System.Nullable{System.Boolean})">
             <summary>
             Set portion of the dependency property
             </summary>
             <param name="target"></param>
             <param name="value"></param>
         </member>
-        <member name="T:MsgBox.Internal.ViewModel.EnumMatchToBooleanConverter">
+        <member name="T:MsgBox.Converter.EnumMatchToBooleanConverter">
             <summary>
             This class can be used to databind a (group of) radio button control(s)
             with an enumeration in a ViewModel.
@@ -166,7 +338,7 @@
             Source: http://www.wpftutorial.net/RadioButton.html
             </summary>
         </member>
-        <member name="M:MsgBox.Internal.ViewModel.EnumMatchToBooleanConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:MsgBox.Converter.EnumMatchToBooleanConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>
             Enum to Boolean Converter method
             </summary>
@@ -176,7 +348,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:MsgBox.Internal.ViewModel.EnumMatchToBooleanConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:MsgBox.Converter.EnumMatchToBooleanConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>
             Boolean to Enum Converter method
             </summary>
@@ -186,64 +358,46 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="T:MsgBox.Internal.ViewModel.SetKeyboardFocusWhenIsDefault">
+        <member name="T:MsgBox.Behaviour.SetKeyboardFocusWhenIsDefault">
             <summary>
             This attached property can be used to set the keyboard focus on a button that has
             IsDefault="True". Keyboard focus is required to support keyboard navigation with cursor keys.
             </summary>
         </member>
-        <member name="M:MsgBox.Internal.ViewModel.SetKeyboardFocusWhenIsDefault.GetSetFocus(System.Windows.DependencyObject)">
+        <member name="M:MsgBox.Behaviour.SetKeyboardFocusWhenIsDefault.GetSetFocus(System.Windows.DependencyObject)">
             <summary>
             Get portion of dependency property
             </summary>
             <param name="obj"></param>
             <returns></returns>
         </member>
-        <member name="M:MsgBox.Internal.ViewModel.SetKeyboardFocusWhenIsDefault.SetSetFocus(System.Windows.DependencyObject,System.Boolean)">
+        <member name="M:MsgBox.Behaviour.SetKeyboardFocusWhenIsDefault.SetSetFocus(System.Windows.DependencyObject,System.Boolean)">
             <summary>
             Set portion of dependency property
             </summary>
             <param name="obj"></param>
             <param name="value"></param>
         </member>
-        <member name="M:MsgBox.Internal.ViewModel.SetKeyboardFocusWhenIsDefault.OnSetFocusChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+        <member name="M:MsgBox.Behaviour.SetKeyboardFocusWhenIsDefault.OnSetFocusChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
             Attach event handler when the attached property is set to true
             </summary>
             <param name="d"></param>
             <param name="e"></param>
         </member>
-        <member name="M:MsgBox.Internal.ViewModel.SetKeyboardFocusWhenIsDefault.button_Unloaded(System.Object,System.Windows.RoutedEventArgs)">
+        <member name="M:MsgBox.Behaviour.SetKeyboardFocusWhenIsDefault.button_Unloaded(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
             Detach eventhandlers when button is about to be destroyed
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:MsgBox.Internal.ViewModel.SetKeyboardFocusWhenIsDefault.button_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+        <member name="M:MsgBox.Behaviour.SetKeyboardFocusWhenIsDefault.button_Loaded(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
             Attach to the onloaded event and set keyboard focus on this button if it is already a default
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
-        </member>
-        <member name="T:MsgBox.MsgBoxView">
-            <summary>
-            Interaction logic for MsgBoxView.xaml
-            </summary>
-            <summary>
-            MsgBoxView
-            </summary>
-        </member>
-        <member name="M:MsgBox.MsgBoxView.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
-        <member name="M:MsgBox.MsgBoxView.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
         </member>
         <member name="T:MsgBox.Msg">
             <summary>
@@ -356,6 +510,25 @@
             <param name="defaultResult">A MsgBox.MsgBoxResult value that specifies the default result of the message box.</param>
             <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
         </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Display a message box. The message box displays a message, title bar caption, button, and icon.
+            Further options, such as, link to background information + naviagtion function, and copy button
+            can be displayed.
+            
+            The mothod accepts a default message box <seealso cref="T:MsgBox.MsgBoxResult"/> result and returns a result.
+            </summary>
+            <param name="messageBoxText"></param>
+            <param name="caption"></param>
+            <param name="buttonOption"></param>
+            <param name="btnDefault"></param>
+            <param name="helpLink"></param>
+            <param name="helpLinkTitle"></param>
+            <param name="helpLabel"></param>
+            <param name="navigateHelplinkMethod"></param>
+            <param name="showCopyMessage"></param>
+            <returns></returns>
+        </member>
         <member name="M:MsgBox.Msg.Show(System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
             <summary>
             Displays a message box that has a message, title bar caption, button, and icon;
@@ -450,6 +623,163 @@
             <param name="showCopyMessage">Show a UI element (e.g. button) that lets the user copy the displayed message into the Windows clipboard</param>
             <returns>A MsgBox.MsgBoxResult value that specifies which message box button is clicked by the user.</returns>
         </member>
+        <member name="M:MsgBox.Msg.Show(System.Windows.Window,System.String,System.String,MsgBox.MsgBoxResult,System.Boolean,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box in front of the specified window.
+            
+            The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+            message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+            parameter to define the results being returned if the user is allowed to close the message box via
+            F4 key, esc key or window close (x) [Window chrome accessibility].
+            
+            The message box displays a message,
+            title bar caption, button, and icon; and accepts a default message box result and returns a result.
+            </summary>
+            <param name="owner"></param>
+            <param name="messageBoxText"></param>
+            <param name="caption"></param>
+            <param name="defaultCloseResult"></param>
+            <param name="dialogCanCloseViaChrome"></param>
+            <param name="buttonOption"></param>
+            <param name="image"></param>
+            <param name="btnDefault"></param>
+            <param name="helpLink"></param>
+            <param name="helpLinkTitle"></param>
+            <param name="helpLinkLabel"></param>
+            <param name="navigateHelplinkMethod"></param>
+            <param name="showCopyMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,MsgBox.MsgBoxResult,System.Boolean,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box in front of the current window being shown.
+            
+            The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+            message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+            parameter to define the results being returned if the user is allowed to close the message box via
+            F4 key, esc key or window close (x) [Window chrome accessibility].
+            
+            The message box can display a message,
+            a hyperlink, and copy bitton; and accepts a default message box botton and returns a result.
+            </summary>
+            <param name="messageBoxText"></param>
+            <param name="defaultCloseResult"></param>
+            <param name="dialogCanCloseViaChrome"></param>
+            <param name="btnDefault"></param>
+            <param name="helpLink"></param>
+            <param name="helpLinkTitle"></param>
+            <param name="helpLabel"></param>
+            <param name="navigateHelplinkMethod"></param>
+            <param name="showCopyMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String,MsgBox.MsgBoxResult,System.Boolean,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box in front of the current window being shown.
+            
+            The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+            message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+            parameter to define the results being returned if the user is allowed to close the message box via
+            F4 key, esc key or window close (x) [Window chrome accessibility].
+            
+            The message box can display a message, caption,
+            a hyperlink, and copy bitton; and accepts a default message box botton and returns a result.
+            </summary>
+            <param name="messageBoxText"></param>
+            <param name="caption"></param>
+            <param name="defaultCloseResult"></param>
+            <param name="dialogCanCloseViaChrome"></param>
+            <param name="btnDefault"></param>
+            <param name="helpLink"></param>
+            <param name="helpLinkTitle"></param>
+            <param name="helpLabel"></param>
+            <param name="navigateHelplinkMethod"></param>
+            <param name="showCopyMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxResult,System.Boolean,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box in front of the current window being shown.
+            
+            The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+            message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+            parameter to define the results being returned if the user is allowed to close the message box via
+            F4 key, esc key or window close (x) [Window chrome accessibility].
+            
+            The message box can display a message, caption, custom buttons (yes, no etc...),
+            a hyperlink, and copy bitton; and accepts a default message box botton and returns a result.
+            </summary>
+            <param name="messageBoxText"></param>
+            <param name="caption"></param>
+            <param name="buttonOption"></param>
+            <param name="defaultCloseResult"></param>
+            <param name="dialogCanCloseViaChrome"></param>
+            <param name="btnDefault"></param>
+            <param name="helpLink"></param>
+            <param name="helpLinkTitle"></param>
+            <param name="helpLabel"></param>
+            <param name="navigateHelplinkMethod"></param>
+            <param name="showCopyMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Boolean,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box in front of the current window being shown.
+            
+            The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+            message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+            parameter to define the results being returned if the user is allowed to close the message box via
+            F4 key, esc key or window close (x) [Window chrome accessibility].
+            
+            The message box can display a message, caption, custom buttons (yes, no etc...), an image,
+            a hyperlink, and copy bitton; and accepts a default message box botton and returns a result.
+            </summary>
+            <param name="messageBoxText"></param>
+            <param name="caption"></param>
+            <param name="buttonOption"></param>
+            <param name="image"></param>
+            <param name="defaultCloseResult"></param>
+            <param name="dialogCanCloseViaChrome"></param>
+            <param name="btnDefault"></param>
+            <param name="helpLink"></param>
+            <param name="helpLinkTitle"></param>
+            <param name="helpLabel"></param>
+            <param name="navigateHelplinkMethod"></param>
+            <param name="showCopyMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Msg.Show(System.String,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Boolean,MsgBox.MsgBoxResult,System.Object,System.String,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Displays a message box in front of the current window being shown.
+            
+            The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+            message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+            parameter to define the results being returned if the user is allowed to close the message box via
+            F4 key, esc key or window close (x) [Window chrome accessibility].
+            
+            The message box can display a message, caption, additional details, custom buttons (yes, no etc...), an image,
+            a hyperlink, and copy bitton; and accepts a default message box botton and returns a result.
+            </summary>
+            <param name="messageBoxText"></param>
+            <param name="caption"></param>
+            <param name="details"></param>
+            <param name="buttonOption"></param>
+            <param name="image"></param>
+            <param name="defaultCloseResult"></param>
+            <param name="dialogCanCloseViaChrome"></param>
+            <param name="btnDefault"></param>
+            <param name="helpLink"></param>
+            <param name="helpLinkTitle"></param>
+            <param name="helpLabel"></param>
+            <param name="navigateHelplinkMethod"></param>
+            <param name="showCopyMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="P:MsgBox.Msg.Style">
+            <summary>
+            Get/set property to determine whether message box can be styled in WPF or not.
+            </summary>
+        </member>
         <member name="T:MsgBox.Local.Strings">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -476,9 +806,24 @@
               Looks up a localized string similar to _Close.
             </summary>
         </member>
+        <member name="P:MsgBox.Local.Strings.Close_Tip_Label">
+            <summary>
+              Looks up a localized string similar to Close.
+            </summary>
+        </member>
         <member name="P:MsgBox.Local.Strings.Copy_Button_Label">
             <summary>
               Looks up a localized string similar to Copy.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.Copy_Button_ToolTip">
+            <summary>
+              Looks up a localized string similar to Copy information to clipboard.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Local.Strings.COPY_KEY_TIP">
+            <summary>
+              Looks up a localized string similar to Press Cntrl+C to copy the displayed text.
             </summary>
         </member>
         <member name="P:MsgBox.Local.Strings.MsgBox_Expander_Header_Title">
@@ -592,7 +937,7 @@
         </member>
         <member name="T:MsgBox.IconHelper">
             <summary>
-            Remove an icon from a window's title bar:
+            Remove an icon from a window's (system style) title bar:
             Source: http://wpftutorial.net/RemoveIcon.html
             </summary>
         </member>
@@ -615,9 +960,9 @@
             - (Expander) section with more textual/technical details
             </summary>
         </member>
-        <member name="M:MsgBox.Internal.ViewModel.MsgBoxViewModel.#ctor(System.String,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.Func{System.Object,System.Boolean},System.Boolean)">
+        <member name="M:MsgBox.Internal.ViewModel.MsgBoxViewModel.#ctor(System.String,System.String,System.String,MsgBox.MsgBoxButtons,MsgBox.MsgBoxImage,MsgBox.MsgBoxResult,System.Object,System.String,System.Func{System.Object,System.Boolean},System.Boolean,MsgBox.MsgBoxResult,System.Boolean)">
             <summary>
-            Class constructor
+            Class constructor from parameters.
             </summary>
             <param name="caption"></param>
             <param name="messageBoxText"></param>
@@ -629,6 +974,33 @@
             <param name="helpLinkTitle"></param>
             <param name="navigateHelplinkMethod"></param>
             <param name="enableCopyFunction"></param>
+            <param name="defaultCloseResult">Determines the result if user closes a dialog with Esc, F4, or Window close button (X)</param>
+            <param name="dialogCanCloseViaChrome">Determines whether user can close dialog via Esc, F4, or Window close button (X)</param>
+        </member>
+        <member name="M:MsgBox.Internal.ViewModel.MsgBoxViewModel.GetExceptionDetails(System.Exception,System.String,System.String@)">
+            <summary>
+            Extract a textual tree of inner exceptions from an exception and return its representation as string.
+            </summary>
+            <param name="exp"></param>
+            <param name="textMessage"></param>
+            <param name="details"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.Internal.ViewModel.MsgBoxViewModel.MessageBox_Closing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Message box result is not set if dialog view is closed via F4, Window X button (standard chrome)
+            so we determine whether the dialog is allowed to close via these 'hidden' mechanics and cancel it if not.
+            
+            Otherwise, we set the result to default result here.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MsgBox.Internal.ViewModel.MsgBoxViewModel.ShowLegalCloseOptionsNotification">
+            <summary>
+            Show a notification that users should use the labelled choice buttons to close a dialog
+            instead of trying escape, ALT-F4, or Window Close (X) ... window chrome accessibilies...
+            </summary>
         </member>
         <member name="M:MsgBox.Internal.ViewModel.MsgBoxViewModel.CopyTextToClipboard(System.String)">
             <summary>
@@ -647,11 +1019,11 @@
             <param name="uriTarget"></param>
             <returns></returns>
         </member>
-        <member name="M:MsgBox.Internal.ViewModel.MsgBoxViewModel.SetImageSource(MsgBox.MsgBoxImage)">
+        <member name="M:MsgBox.Internal.ViewModel.MsgBoxViewModel.SetButtonVisibility(MsgBox.MsgBoxButtons)">
             <summary>
-            Set the image to be displayed in the messagebox
+            Determine the visibility of each button based on the given <paramref name="buttonOption"/> parameter.
             </summary>
-            <param name="image"></param>
+            <param name="buttonOption"></param>
         </member>
         <member name="M:MsgBox.Internal.ViewModel.MsgBoxViewModel.SetupDefaultButton(MsgBox.MsgBoxButtons,MsgBox.MsgBoxResult)">
             <summary>
@@ -659,6 +1031,12 @@
             </summary>
             <param name="buttonOption"></param>
             <param name="defaultButton"></param>
+        </member>
+        <member name="E:MsgBox.Internal.ViewModel.MsgBoxViewModel.ShowNotificationMessage">
+            <summary>
+            Expose an event that is triggered when the viewmodel tells its view:
+            Here is another notification message please show it to the user.
+            </summary>
         </member>
         <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.Title">
             <summary>
@@ -677,15 +1055,6 @@
             More message details displayed in an expander (this can, for example,
             by a stacktrace or other technical information that can be shown for
             trouble shooting advanced scenarious via copy button - CSC etc...).
-            </summary>
-        </member>
-        <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.MessageImageSource">
-            <summary>
-            Get/set property to determine a image that is shown to the user.
-            The image in turn gives an impression whether a messagebox shows
-            an error, an urgent problem, just an information or anything else...
-            
-            This property represents the actual IMAGE not the enumeration.
             </summary>
         </member>
         <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.CopyImageSource">
@@ -737,12 +1106,23 @@
             <summary>
             Get property to determine whether the dialog can be closed with
             the corresponding result or not. This property is typically used
-            with an attached behaviour (<seealso cref="T:MsgBox.Internal.ViewModel.DialogCloser"/>) in the Views's XAML.
+            with an attached behaviour (<seealso cref="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.DialogCloseResult"/>) in the Views's XAML.
             </summary>
         </member>
         <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.Result">
             <summary>
             Get the resulting button that has been clicked by the user when working with the message box.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.DefaultCloseResult">
+            <summary>
+            Get/set property to determine dialog result when user closes it
+            via F4 or Window Close (X) button when using Windows standard window chrome.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.DialogCanCloseViaChrome">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.HelpLink">
@@ -772,6 +1152,38 @@
             the problem description off to those who care and know...
             </summary>
         </member>
+        <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.TypeOfImage">
+            <summary>
+            Get property to determine type pf image to be shown to the user
+            based on <seealso cref="T:MsgBox.MsgBoxImage"/> enumeration.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.YesCommand">
+            <summary>
+            Get the command that is executed when the user clicked the 'Yes' button.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.NoCommand">
+            <summary>
+            Get the command that is executed when the user clicked the 'No' button.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.CancelCommand">
+            <summary>
+            Get the command that is executed when the user clicked the 'Cancel' button.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.CloseCommand">
+            <summary>
+            Get the command that is executed when the user clicked the 'Close' button
+            or attempted to close the dialog via ESC-Key binding.
+            </summary>
+        </member>
+        <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.OkCommand">
+            <summary>
+            Get the command that is executed when the user clicked the 'OK' button.
+            </summary>
+        </member>
         <member name="P:MsgBox.Internal.ViewModel.MsgBoxViewModel.NavigateToUri">
             <summary>
             Execute a command that starts a new (browser)
@@ -782,30 +1194,6 @@
             <summary>
             Execute a command to copy the text string supplied
             as parameter into the clipboard
-            </summary>
-        </member>
-        <member name="T:MsgBox.Internal.View.MsgBoxDialog">
-            <summary>
-            Interaction logic for WPFMessageBox.xaml
-            
-            Source: http://www.codeproject.com/Articles/70223/Using-a-Service-Locator-to-Work-with-MessageBoxes
-            </summary>
-        </member>
-        <member name="M:MsgBox.Internal.View.MsgBoxDialog.OnSourceInitialized(System.EventArgs)">
-            <summary>
-            Remove the icon from the window chrome to give this window a message box like appearrance.
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:MsgBox.Internal.View.MsgBoxDialog.GetOwnerWindow">
-            <summary>
-            Attempt to find the owner window for a message box
-            </summary>
-            <returns>Owner Window</returns>
-        </member>
-        <member name="M:MsgBox.Internal.View.MsgBoxDialog.InitializeComponent">
-            <summary>
-            InitializeComponent
             </summary>
         </member>
         <member name="T:MsgBox.MsgBoxButtons">
@@ -912,6 +1300,11 @@
             Display a standard image indicating the end of a process run or program exit.
             </summary>
         </member>
+        <member name="F:MsgBox.MsgBoxImage.None">
+            <summary>
+            Do not show an image at all.
+            </summary>
+        </member>
         <member name="T:MsgBox.MsgBoxResult">
             <summary>
             This enumeration describes the possible results from displaying a message. A result is directly
@@ -961,6 +1354,268 @@
         <member name="F:MsgBox.MsgBoxResult.Close">
             <summary>
             The result value of the message box is Close.
+            </summary>
+        </member>
+        <member name="T:MsgBox.View.Modern.Behavior.ModernDialogCloser">
+            <summary>
+            Implements an attached property that enables cloasing a
+            <seealso cref="T:MsgBox.View.Modern.ModernDialog"/> view view viewmodel implementation.
+            </summary>
+        </member>
+        <member name="F:MsgBox.View.Modern.Behavior.ModernDialogCloser.DialogCloserProperty">
+            <summary>
+            Backing store of the Dialog closer dependency property.
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.Modern.Behavior.ModernDialogCloser.GetDialogCloser(System.Windows.DependencyObject)">
+            <summary>
+            Get portion of the Dialog closer dependency property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.View.Modern.Behavior.ModernDialogCloser.SetDialogCloser(System.Windows.DependencyObject,System.Int32)">
+            <summary>
+            Set portion of the Dialog closer dependency property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:MsgBox.View.Modern.ModernDialog">
+            <summary>
+            Represents a Modern UI styled dialog window.
+            </summary>
+        </member>
+        <member name="F:MsgBox.View.Modern.ModernDialog.BackgroundContentProperty">
+            <summary>
+            Identifies the BackgroundContent dependency property.
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.Modern.ModernDialog.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MsgBox.View.Modern.ModernDialog"/> class.
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.Modern.ModernDialog.Show(MsgBox.Internal.ViewModel.MsgBoxViewModel,System.Windows.Window)">
+            <summary>
+            Display a message box based on a given view model.
+            </summary>
+            <param name="viewModel">The viewmodel contains additional
+            parameters for the message view.</param>
+            <param name="owner">The message view will be attached to this owning window
+            of this parameter is non-null, otherwise Application.Current.MainWindow
+            is being used.</param>
+            <returns></returns>
+        </member>
+        <member name="P:MsgBox.View.Modern.ModernDialog.BackgroundContent">
+            <summary>
+            Gets or sets the background content of this window instance.
+            </summary>
+        </member>
+        <member name="T:MsgBox.View.Modern.Windows.Converters.BooleanToFontWeightConverter">
+            <summary>
+            Converts a boolean value to a font weight (false: normal, true: bold)
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.Modern.Windows.Converters.BooleanToFontWeightConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:MsgBox.View.Modern.Windows.Converters.BooleanToFontWeightConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:MsgBox.View.Modern.Windows.Converters.BooleanToVisibilityConverter">
+            <summary>
+            Converts boolean to visibility values.
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.Modern.Windows.Converters.BooleanToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:MsgBox.View.Modern.Windows.Converters.BooleanToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:MsgBox.View.Modern.Windows.Converters.NullToVisibilityConverter">
+            <summary>
+            Converts a null value to Visibility.Visible and any other value to Visibility.Collapsed
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.Modern.Windows.Converters.NullToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:MsgBox.View.Modern.Windows.Converters.NullToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:MsgBox.View.Modern.Windows.Converters.ToLowerConverter">
+            <summary>
+            Converts string values to lower case.
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.Modern.Windows.Converters.ToLowerConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:MsgBox.View.Modern.Windows.Converters.ToLowerConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:MsgBox.View.Modern.Windows.Converters.ToUpperConverter">
+            <summary>
+            Converts string values to upper case.
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.Modern.Windows.Converters.ToUpperConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:MsgBox.View.Modern.Windows.Converters.ToUpperConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:MsgBox.View.MsgBoxDialog">
+            <summary>
+            Interaction logic for MsgBoxDialog.xaml
+            
+            Source: http://www.codeproject.com/Articles/70223/Using-a-Service-Locator-to-Work-with-MessageBoxes
+            </summary>
+            <summary>
+            MsgBoxDialog
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.MsgBoxDialog.#ctor">
+            <summary>
+            Class Constructor
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.MsgBoxDialog.Show(MsgBox.Internal.ViewModel.MsgBoxViewModel,System.Windows.Window)">
+            <summary>
+            Display a message box based on a given view model.
+            </summary>
+            <param name="viewModel">The viewmodel contains additional
+            parameters for the message view.</param>
+            <param name="owner">The message view will be attached to this owning window
+            of this parameter is non-null, otherwise Application.Current.MainWindow
+            is being used.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MsgBox.View.MsgBoxDialog.OnSourceInitialized(System.EventArgs)">
+            <summary>
+            Remove the icon from the window chrome to give this window a message box like appearrance.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:MsgBox.View.MsgBoxDialog.GetOwnerWindow">
+            <summary>
+            Attempt to find the owner window for a message box
+            </summary>
+            <returns>Owner Window</returns>
+        </member>
+        <member name="M:MsgBox.View.MsgBoxDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:MsgBox.View.MsgBoxView">
+            <summary>
+            Interaction logic for MsgBoxView.xaml
+            </summary>
+            <summary>
+            MsgBoxView
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.MsgBoxView.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:MsgBox.View.MsgBoxView.InitializeComponent">
+            <summary>
+            InitializeComponent
             </summary>
         </member>
     </members>

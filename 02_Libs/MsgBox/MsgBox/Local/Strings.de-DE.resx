@@ -122,26 +122,46 @@
   </data>
   <data name="Close__Button_Label" xml:space="preserve">
     <value>_Schließen</value>
+    <comment>_Close</comment>
   </data>
   <data name="Copy_Button_Label" xml:space="preserve">
     <value>Kopieren</value>
+    <comment>Copy</comment>
+  </data>
+  <data name="Copy_Button_ToolTip" xml:space="preserve">
+    <value>Kopiert die angezeigten Informationen in die Zwischenablage.</value>
+    <comment>Copy information to clipboard</comment>
+  </data>
+  <data name="COPY_KEY_TIP" xml:space="preserve">
+    <value>Drücken Sie Strg+C um den angezeigten Text zu kopieren</value>
+    <comment>Press Cntrl+C to copy the displayed text</comment>
   </data>
   <data name="MsgBox_Expander_Header_Title" xml:space="preserve">
     <value>Weitere Details</value>
+    <comment>More Details</comment>
   </data>
   <data name="No_Button_Label" xml:space="preserve">
     <value>_Nein</value>
+    <comment>_No</comment>
   </data>
   <data name="OK_Button_Label" xml:space="preserve">
     <value>O_K</value>
+    <comment>O_K</comment>
   </data>
   <data name="ToolTip_MoreDetails" xml:space="preserve">
-    <value>Click to view details on this topic</value>
+    <value>Klicken Sie hier um mehr details zu diesem Thema zu finden.</value>
+    <comment>Click to view details on this topic</comment>
   </data>
   <data name="Unknown_Error_Message" xml:space="preserve">
     <value>Ein unbekannter Fehler ist aufgetretten.</value>
+    <comment>An unknown error occured.</comment>
   </data>
   <data name="Yes_Button_Label" xml:space="preserve">
     <value>_Ja</value>
+    <comment>_Yes</comment>
+  </data>
+  <data name="Close_Tip_Label" xml:space="preserve">
+    <value>Schließen</value>
+    <comment>Close</comment>
   </data>
 </root>

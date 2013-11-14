@@ -14,8 +14,4 @@
     <ResourceDictionary Source="/Themes;component/ExpressionDark/Brushes.xaml"/>
   </ResourceDictionary.MergedDictionaries>
 
-  <Style TargetType="msg:MsgBoxView" >
-    <Setter Property="Background" Value="{StaticResource DialogBackgroundBrush}" />
-  </Style>
-
 </ResourceDictionary>

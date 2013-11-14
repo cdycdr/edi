@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+    xmlns:controls="clr-namespace:FirstFloor.ModernUI.Windows.Controls;assembly=FirstFloor.ModernUI"
+    xmlns:msg="clr-namespace:MsgBox.View;assembly=MsgBox"
+    >
+  <Style TargetType="msg:MsgBoxView">
+    <Setter Property="Background" Value="Black" />
+  </Style>
+
+  <!-- Style x:Key="MsgBoxStyle" TargetType="msg:MsgBoxDialog">
+    <Setter Property="Background" Value="Black" />
+  </Style-->
+
+</ResourceDictionary>

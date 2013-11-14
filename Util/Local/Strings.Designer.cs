@@ -979,6 +979,27 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error Loading file.
+        /// </summary>
+        public static string STR_ERROR_LOADING_FILE_CAPTION {
+            get {
+                return ResourceManager.GetString("STR_ERROR_LOADING_FILE_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file:
+        ///&apos;{0}&apos;
+        ///
+        ///does not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?.
+        /// </summary>
+        public static string STR_ERROR_LOADING_FILE_MSG {
+            get {
+                return ResourceManager.GetString("STR_ERROR_LOADING_FILE_MSG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Untitled.
         /// </summary>
         public static string STR_FILE_DEFAULTNAME {

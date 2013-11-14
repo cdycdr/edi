@@ -2,13 +2,23 @@
 {
   using System;
   using System.Diagnostics;
-  using System.Reflection;
-  using System.Windows;
   using System.Windows.Input;
   using System.Windows.Media;
-  using System.Windows.Media.Imaging;
-
   using Commands;
+  using UserNotification.Events;
+  using UserNotification.View;
+
+  /***
+   * 
+   * Window Close Esc Key                           -> Set default result via CloseCommand CommandParameter binding
+   * Window Close F4                                -> Set default result via MessageBox_Closing method
+   * Window Close (X) Button (System window chrome) -> Set default result via MessageBox_Closing method
+   * 
+   * Behavior is same when setting default result but what do we do if
+   * this.DialogCanCloseWithF4 == true
+   * 
+   * and the user hits escape?
+   */
 
   /// <summary>
   /// Source:
@@ -21,31 +31,14 @@
   /// - Help Link Navigation for advanced research in online resources (by the user)
   /// - (Expander) section with more textual/technical details
   /// </summary>
-  internal class MsgBoxViewModel : ViewModel.Base.BaseViewModel
+  internal class MsgBoxViewModel : ViewModel.Base.BaseViewModel, INotifyableViewModel
   {
     #region fields
-    private static string[] msgBoxImageResourcesUris =
-    {
-       "48px-Emblem-important-yellow.svg.png",
-       "48px-Help-browser.svg.png",
-       "48px-Dialog-error-round.svg.png",
-       "48px-Dialog-accept.svg.png",
-       "48px-Software-update-urgent.svg.png",
-       "48px-Dialog-information_on.svg.png",
-       "48px-Emblem-notice.svg.png",
-
-       // Advanced Icon Set
-       "48px-Dialog-information.svg.png",
-       "48px-Dialog-information_red.svg.png",
-       "48px-Emblem-important.svg.png",
-       "48px-Emblem-important-red.svg.png",
-       "48px-Process-stop.svg.png"
-    };
-
     private string mTitle;
     private string mMessage;
     private string mInnerMessageDetails;
 
+    private readonly MsgBoxButtons mButtonOption;  // Store button configuration that is shown in dialog
     private bool mYesNoVisibility;
     private bool mCancelVisibility;
     private bool mOKVisibility;
@@ -55,19 +48,21 @@
     private RelayCommand mYesCommand;
     private RelayCommand mNoCommand;
     private RelayCommand mCancelCommand;
-    private RelayCommand<string> mCloseCommand;
+    private RelayCommand<object> mCloseCommand;
     private RelayCommand mOKCommand;
     private RelayCommand<string> mNavigateToUri;
     private RelayCommand<string> mCopyText;
 
     private bool mEnableCopyFunction;
 
-    private ImageSource mMessageImageSource;
     private ImageSource mCopyImageSource;
 
     private MsgBoxResult mIsDefaultButton;
 
     private MsgBoxResult mResult;
+    private MsgBoxResult mDefaultCloseResult;
+
+    private bool mDialogCanCloseViaChrome;
     private bool? mDialogCloseResult;
 
     private string mHyperlinkLabel = string.Empty;
@@ -78,7 +73,7 @@
 
     #region constructor
     /// <summary>
-    /// Class constructor
+    /// Class constructor from parameters.
     /// </summary>
     /// <param name="caption"></param>
     /// <param name="messageBoxText"></param>
@@ -90,17 +85,22 @@
     /// <param name="helpLinkTitle"></param>
     /// <param name="navigateHelplinkMethod"></param>
     /// <param name="enableCopyFunction"></param>
+    /// <param name="defaultCloseResult">Determines the result if user closes a dialog with Esc, F4, or Window close button (X)</param>
+    /// <param name="dialogCanCloseViaChrome">Determines whether user can close dialog via Esc, F4, or Window close button (X)</param>
     internal MsgBoxViewModel(string messageBoxText, 
-                              string caption,
-                              string innerMessage,
-                              MsgBoxButtons buttonOption,
-                              MsgBoxImage image,
-                              MsgBoxResult defaultButton = MsgBoxResult.None,
-                              object helpLink = null,
-                              string helpLinkTitle = "",
-                              Func<object, bool> navigateHelplinkMethod = null,
-                              bool enableCopyFunction = false)
+                             string caption,
+                             string innerMessage,
+                             MsgBoxButtons buttonOption,
+                             MsgBoxImage image,
+                             MsgBoxResult defaultButton = MsgBoxResult.None,
+                             object helpLink = null,
+                             string helpLinkTitle = "",
+                             Func<object, bool> navigateHelplinkMethod = null,
+                             bool enableCopyFunction = false,
+                             MsgBoxResult defaultCloseResult = MsgBoxResult.None,
+                             bool dialogCanCloseViaChrome = true)
     {
+      this.mButtonOption = buttonOption;
       this.Title = caption;
       this.Message = messageBoxText;
       this.InnerMessageDetails = innerMessage;
@@ -109,11 +109,15 @@
 
       this.mIsDefaultButton = this.SetupDefaultButton(buttonOption, defaultButton);
 
-      this.SetImageSource(image);
+      this.TypeOfImage = image;
+
       this.mHelpLink = helpLink;
       this.mHelpLinkTitle = helpLinkTitle;
 
       this.mResult = MsgBoxResult.None;
+      this.mDefaultCloseResult = defaultCloseResult;
+      this.mDialogCanCloseViaChrome = dialogCanCloseViaChrome;
+
       this.mDialogCloseResult = null;
 
       if (navigateHelplinkMethod != null)
@@ -122,6 +126,14 @@
       this.EnableCopyFunction = enableCopyFunction;
     }
     #endregion constructor
+
+    #region events
+    /// <summary>
+    /// Expose an event that is triggered when the viewmodel tells its view:
+    /// Here is another notification message please show it to the user.
+    /// </summary>
+    public event UserNotification.Events.ShowNotificationEventHandler ShowNotificationMessage;
+    #endregion events
 
     #region properties
     /// <summary>
@@ -185,27 +197,6 @@
           this.mInnerMessageDetails = value;
           this.NotifyPropertyChanged(() => this.InnerMessageDetails);
         }
-      }
-    }
-
-    /// <summary>
-    /// Get/set property to determine a image that is shown to the user.
-    /// The image in turn gives an impression whether a messagebox shows
-    /// an error, an urgent problem, just an information or anything else...
-    /// 
-    /// This property represents the actual IMAGE not the enumeration.
-    /// </summary>
-    public ImageSource MessageImageSource
-    {
-      get
-      {
-        return this.mMessageImageSource;
-      }
-
-      set
-      {
-        this.mMessageImageSource = value;
-        this.NotifyPropertyChanged(() => this.MessageImageSource);
       }
     }
 
@@ -365,7 +356,7 @@
     /// <summary>
     /// Get property to determine whether the dialog can be closed with
     /// the corresponding result or not. This property is typically used
-    /// with an attached behaviour (<seealso cref="DialogCloser"/>) in the Views's XAML.
+    /// with an attached behaviour (<seealso cref="DialogCloseResult"/>) in the Views's XAML.
     /// </summary>
     public bool? DialogCloseResult
     {
@@ -400,6 +391,47 @@
         {
           this.mResult = value;
           this.NotifyPropertyChanged(() => this.Result);
+        }
+      }
+    }
+
+    /// <summary>
+    /// Get/set property to determine dialog result when user closes it
+    /// via F4 or Window Close (X) button when using Windows standard window chrome.
+    /// </summary>
+    public MsgBoxResult DefaultCloseResult
+    {
+      get
+      {
+        return this.mDefaultCloseResult;
+      }
+
+      private set
+      {
+        if (this.mDefaultCloseResult != value)
+        {
+          this.mDefaultCloseResult = value;
+          this.NotifyPropertyChanged(() => this.DefaultCloseResult);
+        }
+      }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool DialogCanCloseViaChrome
+    {
+      get
+      {
+        return this.mDialogCanCloseViaChrome;
+      }
+
+      private set
+      {
+        if (this.mDialogCanCloseViaChrome != value)
+        {
+          this.mDialogCanCloseViaChrome = value;
+          this.NotifyPropertyChanged(() => this.DialogCanCloseViaChrome);
         }
       }
     }
@@ -507,7 +539,19 @@
       }
     }
 
+    /// <summary>
+    /// Get property to determine type pf image to be shown to the user
+    /// based on <seealso cref="MsgBoxImage"/> enumeration.
+    /// </summary>
+    public MsgBoxImage TypeOfImage
+    {
+      get; private set;
+    }
+
     #region Commanding
+    /// <summary>
+    /// Get the command that is executed when the user clicked the 'Yes' button.
+    /// </summary>
     public ICommand YesCommand
     {
       get
@@ -523,6 +567,9 @@
       }
     }
 
+    /// <summary>
+    /// Get the command that is executed when the user clicked the 'No' button.
+    /// </summary>
     public ICommand NoCommand
     {
       get
@@ -537,6 +584,9 @@
       }
     }
 
+    /// <summary>
+    /// Get the command that is executed when the user clicked the 'Cancel' button.
+    /// </summary>
     public ICommand CancelCommand
     {
       get
@@ -552,35 +602,54 @@
       }
     }
 
+    /// <summary>
+    /// Get the command that is executed when the user clicked the 'Close' button
+    /// or attempted to close the dialog via ESC-Key binding.
+    /// </summary>
     public ICommand CloseCommand
     {
       get
       {
         if (this.mCloseCommand == null)
-          this.mCloseCommand = new RelayCommand<string>((p) =>
+        {
+          this.mCloseCommand = new RelayCommand<object>((p) =>
           {
-            string ComParam = p as string;
-            bool bSetResult = true;
+            bool bComparam = false;
+            MsgBoxResult ComParam = MsgBoxResult.None;
 
-            if (ComParam != null)                 // Interpret close window (ESC Key) as Cancel
+            // The ESC-Key binding will close this with a parameter
+            if (p != null)
             {
-              if (ComParam.ToLower() == "cancel" && this.CancelVisibility == true)
+              if (p is MsgBoxResult)
               {
-                this.Result = MsgBoxResult.Cancel;
-                bSetResult = false;
+                // Close via ESC key (or close via other than labeled buttons) is disabled
+                if (this.DialogCanCloseViaChrome == false)
+                {
+                  this.ShowLegalCloseOptionsNotification();
+                  return;
+                }
+
+                ComParam = (MsgBoxResult)p;
+                bComparam = true;
               }
             }
 
-            if (bSetResult == true)
-              this.Result = MsgBoxResult.Close;
+            if (bComparam == true)              // Interpret close window (ESC Key) as Cancel
+              this.Result = ComParam;
+            else
+              this.Result = MsgBoxResult.Close; // Close with (Close) button does not occur with a parameter
 
             this.DialogCloseResult = true;
           });
+        }
 
         return this.mCloseCommand;
       }
     }
 
+    /// <summary>
+    /// Get the command that is executed when the user clicked the 'OK' button.
+    /// </summary>
     public ICommand OkCommand
     {
       get
@@ -610,7 +679,7 @@
         return this.mNavigateToUri;
       }
     }
-
+    
     /// <summary>
     /// Execute a command to copy the text string supplied
     /// as parameter into the clipboard
@@ -629,6 +698,102 @@
     #endregion properties
 
     #region methods
+    /// <summary>
+    /// Extract a textual tree of inner exceptions from an exception and return its representation as string.
+    /// </summary>
+    /// <param name="exp"></param>
+    /// <param name="textMessage"></param>
+    /// <param name="details"></param>
+    /// <returns></returns>
+    public static string GetExceptionDetails(Exception exp,
+                                             string textMessage,
+                                             out string details)
+    {
+      details = string.Empty;
+      string messageBoxText = string.Empty;
+
+      try
+      {
+        // Write Message tree of inner exception into textual representation
+        messageBoxText = exp.Message;
+
+        Exception innerEx = exp.InnerException;
+
+        for (int i = 0; innerEx != null; i++, innerEx = innerEx.InnerException)
+        {
+          string spaces = string.Empty;
+
+          for (int j = 0; j < i; j++)
+            spaces += "  ";
+
+          messageBoxText += "\n" + spaces + "└─>" + innerEx.Message;
+        }
+
+        // Label message tree with meaningful info: "Error while reading file X."
+        if (textMessage != null)
+        {
+          if (textMessage.Length > 0)
+          {
+            messageBoxText = string.Format("{0}\n\n{1}", textMessage, messageBoxText);
+          }
+        }
+
+        // Write complete stack trace info into details section
+        details = exp.ToString();
+      }
+      catch
+      {
+      }
+
+      return messageBoxText;
+    }
+
+    /// <summary>
+    /// Message box result is not set if dialog view is closed via F4, Window X button (standard chrome)
+    /// so we determine whether the dialog is allowed to close via these 'hidden' mechanics and cancel it if not.
+    /// 
+    /// Otherwise, we set the result to default result here.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void MessageBox_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+      if (this.DialogCanCloseViaChrome == false)
+      {
+        if (this.Result == MsgBoxResult.None)
+        {
+          e.Cancel = true;     // Revoke close event since this is not allowed here
+
+          this.ShowLegalCloseOptionsNotification();
+
+          return;
+        }
+      }
+
+      // Just set default close result and continue closing the dialog
+      if (this.Result == MsgBoxResult.None)
+        this.Result = this.DefaultCloseResult;
+    }
+
+    /// <summary>
+    /// Show a notification that users should use the labelled choice buttons to close a dialog
+    /// instead of trying escape, ALT-F4, or Window Close (X) ... window chrome accessibilies...
+    /// </summary>
+    private void ShowLegalCloseOptionsNotification()
+    {
+      if (this.ShowNotificationMessage != null)
+      {
+        this.ShowNotificationMessage(this, new ShowNotificationEvent
+         (
+          "Usage",
+          string.Format("Please close this dialog by clicking on one of the choice buttons: {0}.",
+                         this.GetVisibleButtonDescription(this.mButtonOption)),
+
+          "pack://application:,,,/MsgBox;component/Images/MsgBoxImages/48px-Dialog-error-round.svg.png"
+         ));
+      }
+    }
+
     /// <summary>
     /// Write the supplied string into the Wiindows Clipboard such that
     /// users can past it into their favourite text editor
@@ -668,6 +833,10 @@
       return false;
     }
 
+    /// <summary>
+    /// Determine the visibility of each button based on the given <paramref name="buttonOption"/> parameter.
+    /// </summary>
+    /// <param name="buttonOption"></param>
     private void SetButtonVisibility(MsgBoxButtons buttonOption)
     {
       switch (buttonOption)
@@ -728,34 +897,31 @@
         this.ShowDetails = true;
     }
 
-    /// <summary>
-    /// Set the image to be displayed in the messagebox
-    /// </summary>
-    /// <param name="image"></param>
-    private void SetImageSource(MsgBoxImage image)
+    private string GetVisibleButtonDescription(MsgBoxButtons buttonOption)
     {
-      string resourceAssembly = Assembly.GetAssembly(typeof(MsgBoxViewModel)).GetName().Name;
-
-      string folder = "Images/MsgBoxImages/";
-
-      // Tango Icon set: http://commons.wikimedia.org/wiki/Tango_icons
-      // Default image displayed in message box
-      string source = string.Format("pack://application:,,,/{0};component/{1}48px-Dialog-information_on.svg.png",
-                                    resourceAssembly, folder);
-
-      try
+      switch (buttonOption)
       {
-        source = string.Format("pack://application:,,,/{0};component/{1}{2}",
-                                 resourceAssembly,
-                                 folder,
-                                 MsgBoxViewModel.msgBoxImageResourcesUris[(int)image]);
-      }
-      catch (Exception)
-      {
-      }
+        case MsgBoxButtons.OKCancel:
+          return "Cancel, Ok";
 
-      Uri imageUri = new Uri(source, UriKind.RelativeOrAbsolute);
-      this.MessageImageSource = new BitmapImage(imageUri);
+        case MsgBoxButtons.YesNo:
+          return "Yes, No";
+
+        case MsgBoxButtons.YesNoCancel:
+          return "Yes, No, Cancel";
+
+        case MsgBoxButtons.OK:
+          return "Ok";
+
+        case MsgBoxButtons.OKClose:
+          return "Ok, Close";
+
+        case MsgBoxButtons.Close:
+          return "Close";
+
+        default:
+          return "Ok, Close";
+      }
     }
 
     /// <summary>

@@ -126,6 +126,14 @@
   <data name="Copy_Button_Label" xml:space="preserve">
     <value>Copy</value>
   </data>
+  <data name="Copy_Button_ToolTip" xml:space="preserve">
+    <value>Copy information to clipboard</value>
+    <comment>Copy information to clipboard</comment>
+  </data>
+  <data name="COPY_KEY_TIP" xml:space="preserve">
+    <value>Press Cntrl+C to copy the displayed text</value>
+    <comment>Press Cntrl+C to copy the displayed text</comment>
+  </data>
   <data name="MsgBox_Expander_Header_Title" xml:space="preserve">
     <value>More Details</value>
   </data>
@@ -143,5 +151,9 @@
   </data>
   <data name="Yes_Button_Label" xml:space="preserve">
     <value>_Yes</value>
+  </data>
+  <data name="Close_Tip_Label" xml:space="preserve">
+    <value>Close</value>
+    <comment>Close</comment>
   </data>
 </root>

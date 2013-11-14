@@ -31,6 +31,10 @@
 
     <ResourceDictionary Source="/MiniUML.View;component/SharedResources.xaml"/>
 
+    <!-- Use dark brush definitions -->
+    <ResourceDictionary Source="/MsgBox;component/Themes/LightBrushes.xaml" />
+    <ResourceDictionary Source="/MsgBox;component/Themes/LightIcons.xaml" />
+
     <!-- ResourceDictionary Source="/AvalonDock.Themes.Metro;component/Theme.xaml" / -->
   </ResourceDictionary.MergedDictionaries>
 

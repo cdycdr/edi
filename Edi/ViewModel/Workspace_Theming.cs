@@ -184,6 +184,9 @@ namespace Edi.ViewModel
       
       try
       {
+        // set the style of the message box display in back-end system.
+        Msg.Style = MsgBoxStyle.System;
+
         // Get WPF Theme definition from Themes Assembly
         ThemeBase theme = Themes.ThemesManager.Instance.SelectedTheme;
 
@@ -234,7 +237,9 @@ namespace Edi.ViewModel
       }
       finally
       {
-        // MainWindowViewManager.SelectedWPFTheme = 
+        // set the style of the message box display in back-end system.
+        if (nextThemeToSwitchTo.WPFThemeName != "Generic")
+          Msg.Style = MsgBoxStyle.WPFThemed;
       }
 
       return true;

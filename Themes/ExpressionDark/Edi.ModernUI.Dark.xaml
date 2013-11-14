@@ -5,7 +5,9 @@
   <Color x:Key="AccentColor">#1ba1e2</Color>
   <SolidColorBrush x:Key="Accent" Color="{DynamicResource AccentColor}" />
 
-  <Color x:Key="WindowBackgroundColor">#252526</Color>
+  <SolidColorBrush x:Key="SystemButtonMouseOverBackgroundColor" Color="#20FFFFFF" />
+
+  <Color x:Key="WindowBackgroundColor">#151516</Color>
 
   <SolidColorBrush x:Key="ButtonBackground" Color="#333333" />
   <SolidColorBrush x:Key="ButtonBackgroundHover" Color="#3e3e42" />

@@ -804,4 +804,16 @@ Beenden Sie den anderen Prozess und laden Sie die Datei nochmal oder speichern S
     <value>pt</value>
     <comment>Is the short notation for the unit 'point'</comment>
   </data>
+  <data name="STR_ERROR_LOADING_FILE_MSG" xml:space="preserve">
+    <value>Die Datei
+'{0}'
+
+existiert nicht oder kann nicht geladen werden.
+Soll dieses Dokument von der Liste der zuletzt verwendeten Dokumente gelöscht werden?</value>
+    <comment>The file:\n\n'{0}'\n\ndoes not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?</comment>
+  </data>
+  <data name="STR_ERROR_LOADING_FILE_CAPTION" xml:space="preserve">
+    <value>Fehler beim öffnen eines Dokuments</value>
+    <comment>Error Loading file</comment>
+  </data>
 </root>

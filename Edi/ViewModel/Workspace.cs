@@ -355,9 +355,8 @@ namespace Edi.ViewModel
 
         if (SettingsManager.Instance.SessionData.MruList.FindMRUEntry(filePath) != null)
         {
-          if (MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture,
-                              "The file:\n\n'{0}'\n\ndoes not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?", filePath),
-                              "Error Loading file", MsgBoxButtons.YesNo) == MsgBoxResult.Yes)
+          if (MsgBox.Msg.Show(string.Format(Util.Local.Strings.STR_ERROR_LOADING_FILE_MSG, filePath),
+                                            Util.Local.Strings.STR_ERROR_LOADING_FILE_CAPTION, MsgBoxButtons.YesNo) == MsgBoxResult.Yes)
           {
             SettingsManager.Instance.SessionData.MruList.RemoveEntry(filePath);
           }

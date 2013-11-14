@@ -18,7 +18,7 @@
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
         <Setter Property="Foreground" Value="{DynamicResource LinkButtonTextHover}"/>
-        <Setter Property="Background" Value="#20FFFFFF" />
+        <Setter Property="Background" Value="{DynamicResource SystemButtonMouseOverBackgroundColor}" />
       </Trigger>
       <Trigger Property="IsPressed" Value="True">
         <Setter Property="Foreground" Value="{DynamicResource LinkButtonTextPressed}" />
@@ -70,17 +70,12 @@
                           <Rectangle Fill="{DynamicResource Accent}" Canvas.Top="0" Canvas.Left="0" Width="18" Height="33" />
                         </Canvas>
 
-                        <TextBlock Text="{Binding WindowTitle}" FontSize="21" Margin="24,1,3,3"/>
+                        <TextBlock Text="{Binding WindowTitle}" Margin="24,1,3,3"
+                                   FontFamily="Segoe UI"
+                                   FontSize="21"
+                                   TextOptions.TextFormattingMode="Ideal"
+                                   TextTrimming="CharacterEllipsis" />
                       </StackPanel>
-
-                      <!-- ContentControl Grid.Column="1"
-                                      Grid.Row="0"
-                                      VerticalAlignment="Bottom"
-                                      VerticalContentAlignment="Bottom"
-                                      HorizontalAlignment="Left"
-                                      HorizontalContentAlignment="Left"
-                                      shell:WindowChrome.IsHitTestVisibleInChrome="True"
-                                      Content="{Binding Source={x:Static local:MainWindowViewManager.MainWindowMenu}}"/ -->
                     </Grid>
 
                     <!-- window background content -->
@@ -100,8 +95,8 @@
                                 Style="{StaticResource EdiViewsSystemButton}">
                           <Button.Content>
                             <Grid Width="32" Height="30"
-                                VerticalAlignment="Center" HorizontalAlignment="Center"
-                                RenderTransform="1,0,0,1,0,1">
+                                  VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  RenderTransform="1,0,0,1,0,1">
                               <Path Data="M0,6 L8,6 Z" Width="8" Height="7" VerticalAlignment="Center" HorizontalAlignment="Center"
                                   Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" StrokeThickness="2"  />
                             </Grid>

@@ -9,11 +9,32 @@
   /// </summary>
   public static class Msg
   {
+    #region constructor
     static Msg()
     {
       ServiceInjector.InjectServices();
     }
+    #endregion constructor
 
+    #region properties
+    /// <summary>
+    /// Get/set property to determine whether message box can be styled in WPF or not.
+    /// </summary>
+    public static MsgBoxStyle Style
+    {
+      get
+      {
+        return Msg.GetService<IMsgBoxService>().Style;
+      }
+
+      set
+      {
+        Msg.GetService<IMsgBoxService>().Style = value;
+      }
+    }
+    #endregion properties
+
+    #region methods
     /// <summary>
     /// Retrieves a service object identified by <typeparamref name="TServiceContract"/>.
     /// </summary>
@@ -166,6 +187,41 @@
       return Msg.GetService<IMsgBoxService>().Show(owner, messageBoxText, caption, button, icon, defaultResult);
     }
     #endregion System.MessageBox replacements    
+
+    #region custom messagebox methods
+    /// <summary>
+    /// Display a message box. The message box displays a message, title bar caption, button, and icon.
+    /// Further options, such as, link to background information + naviagtion function, and copy button
+    /// can be displayed.
+    /// 
+    /// The mothod accepts a default message box <seealso cref="MsgBoxResult"/> result and returns a result.
+    /// </summary>
+    /// <param name="messageBoxText"></param>
+    /// <param name="caption"></param>
+    /// <param name="buttonOption"></param>
+    /// <param name="btnDefault"></param>
+    /// <param name="helpLink"></param>
+    /// <param name="helpLinkTitle"></param>
+    /// <param name="helpLabel"></param>
+    /// <param name="navigateHelplinkMethod"></param>
+    /// <param name="showCopyMessage"></param>
+    /// <returns></returns>
+    [SecurityCritical]
+    public static MsgBoxResult Show(string messageBoxText,
+                                    string caption,
+                                    MsgBoxButtons buttonOption,
+                                    MsgBoxResult btnDefault = MsgBoxResult.None,
+                                    object helpLink = null,
+                                    string helpLinkTitle = "",
+                                    string helpLabel = "",
+                                    Func<object, bool> navigateHelplinkMethod = null,
+                                    bool showCopyMessage = false)
+    {
+      return Msg.GetService<IMsgBoxService>().Show(messageBoxText, caption,
+                                                   buttonOption, btnDefault,
+                                                   helpLink, helpLinkTitle, helpLabel, navigateHelplinkMethod,
+                                                   showCopyMessage);
+    }
 
     /// <summary>
     /// Displays a message box that has a message, title bar caption, button, and icon;
@@ -327,5 +383,290 @@
                                                    helpLink, helpLinkTitle, helpLinkLabel, navigateHelplinkMethod, showCopyMessage);
     }
 
+    /// <summary>
+    /// Displays a message box in front of the specified window.
+    /// 
+    /// The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+    /// message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+    /// parameter to define the results being returned if the user is allowed to close the message box via
+    /// F4 key, esc key or window close (x) [Window chrome accessibility].
+    /// 
+    /// The message box displays a message,
+    /// title bar caption, button, and icon; and accepts a default message box result and returns a result.
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <param name="messageBoxText"></param>
+    /// <param name="caption"></param>
+    /// <param name="defaultCloseResult"></param>
+    /// <param name="dialogCanCloseViaChrome"></param>
+    /// <param name="buttonOption"></param>
+    /// <param name="image"></param>
+    /// <param name="btnDefault"></param>
+    /// <param name="helpLink"></param>
+    /// <param name="helpLinkTitle"></param>
+    /// <param name="helpLinkLabel"></param>
+    /// <param name="navigateHelplinkMethod"></param>
+    /// <param name="showCopyMessage"></param>
+    /// <returns></returns>
+    [SecurityCritical]
+    public static MsgBoxResult Show(Window owner,
+                                    string messageBoxText, string caption,
+                                    MsgBoxResult defaultCloseResult,
+                                    bool dialogCanCloseViaChrome,
+                                    MsgBoxButtons buttonOption = MsgBoxButtons.OK,
+                                    MsgBoxImage image = MsgBoxImage.Error,
+                                    MsgBoxResult btnDefault = MsgBoxResult.None,
+                                    object helpLink = null,
+                                    string helpLinkTitle = "",
+                                    string helpLinkLabel = "",
+                                    Func<object, bool> navigateHelplinkMethod = null,
+                                    bool showCopyMessage = false)
+    {
+      return Msg.GetService<IMsgBoxService>().Show(owner, messageBoxText, caption,
+                                                   defaultCloseResult, dialogCanCloseViaChrome,
+                                                   buttonOption,
+                                                   image,
+                                                   btnDefault,
+                                                   helpLink,
+                                                   helpLinkTitle,
+                                                   helpLinkLabel,
+                                                   navigateHelplinkMethod,
+                                                   showCopyMessage);
+    }
+
+    /// <summary>
+    /// Displays a message box in front of the current window being shown.
+    /// 
+    /// The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+    /// message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+    /// parameter to define the results being returned if the user is allowed to close the message box via
+    /// F4 key, esc key or window close (x) [Window chrome accessibility].
+    /// 
+    /// The message box can display a message,
+    /// a hyperlink, and copy bitton; and accepts a default message box botton and returns a result.
+    /// </summary>
+    /// <param name="messageBoxText"></param>
+    /// <param name="defaultCloseResult"></param>
+    /// <param name="dialogCanCloseViaChrome"></param>
+    /// <param name="btnDefault"></param>
+    /// <param name="helpLink"></param>
+    /// <param name="helpLinkTitle"></param>
+    /// <param name="helpLabel"></param>
+    /// <param name="navigateHelplinkMethod"></param>
+    /// <param name="showCopyMessage"></param>
+    /// <returns></returns>
+    [SecurityCritical]
+    public static MsgBoxResult Show(string messageBoxText,
+                                    MsgBoxResult defaultCloseResult,
+                                    bool dialogCanCloseViaChrome,
+                                    MsgBoxResult btnDefault = MsgBoxResult.None,
+                                    object helpLink = null,
+                                    string helpLinkTitle = "",
+                                    string helpLabel = "",
+                                    Func<object, bool> navigateHelplinkMethod = null,
+                                    bool showCopyMessage = false)
+    {
+      return Msg.GetService<IMsgBoxService>().Show(messageBoxText,
+                                                   defaultCloseResult,
+                                                   dialogCanCloseViaChrome,
+                                                   btnDefault,
+                                                   helpLink,
+                                                   helpLinkTitle,
+                                                   helpLabel,
+                                                   navigateHelplinkMethod,
+                                                   showCopyMessage);
+    }
+
+    /// <summary>
+    /// Displays a message box in front of the current window being shown.
+    /// 
+    /// The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+    /// message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+    /// parameter to define the results being returned if the user is allowed to close the message box via
+    /// F4 key, esc key or window close (x) [Window chrome accessibility].
+    /// 
+    /// The message box can display a message, caption,
+    /// a hyperlink, and copy bitton; and accepts a default message box botton and returns a result.
+    /// </summary>
+    /// <param name="messageBoxText"></param>
+    /// <param name="caption"></param>
+    /// <param name="defaultCloseResult"></param>
+    /// <param name="dialogCanCloseViaChrome"></param>
+    /// <param name="btnDefault"></param>
+    /// <param name="helpLink"></param>
+    /// <param name="helpLinkTitle"></param>
+    /// <param name="helpLabel"></param>
+    /// <param name="navigateHelplinkMethod"></param>
+    /// <param name="showCopyMessage"></param>
+    /// <returns></returns>
+    [SecurityCritical]
+    public static MsgBoxResult Show(string messageBoxText, string caption,
+                                    MsgBoxResult defaultCloseResult,
+                                    bool dialogCanCloseViaChrome,
+                                    MsgBoxResult btnDefault = MsgBoxResult.None,
+                                    object helpLink = null,
+                                    string helpLinkTitle = "",
+                                    string helpLabel = "",
+                                    Func<object, bool> navigateHelplinkMethod = null,
+                                    bool showCopyMessage = false)
+    {
+      return Msg.GetService<IMsgBoxService>().Show(messageBoxText, caption,
+                                                   defaultCloseResult,
+                                                   dialogCanCloseViaChrome,
+                                                   btnDefault,
+                                                   helpLink,
+                                                   helpLinkTitle,
+                                                   helpLabel,
+                                                   navigateHelplinkMethod,
+                                                   showCopyMessage);
+    }
+
+    /// <summary>
+    /// Displays a message box in front of the current window being shown.
+    /// 
+    /// The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+    /// message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+    /// parameter to define the results being returned if the user is allowed to close the message box via
+    /// F4 key, esc key or window close (x) [Window chrome accessibility].
+    /// 
+    /// The message box can display a message, caption, custom buttons (yes, no etc...),
+    /// a hyperlink, and copy bitton; and accepts a default message box botton and returns a result.
+    /// </summary>
+    /// <param name="messageBoxText"></param>
+    /// <param name="caption"></param>
+    /// <param name="buttonOption"></param>
+    /// <param name="defaultCloseResult"></param>
+    /// <param name="dialogCanCloseViaChrome"></param>
+    /// <param name="btnDefault"></param>
+    /// <param name="helpLink"></param>
+    /// <param name="helpLinkTitle"></param>
+    /// <param name="helpLabel"></param>
+    /// <param name="navigateHelplinkMethod"></param>
+    /// <param name="showCopyMessage"></param>
+    /// <returns></returns>
+    [SecurityCritical]
+    public static MsgBoxResult Show(string messageBoxText, string caption,
+                                    MsgBoxButtons buttonOption,
+                                    MsgBoxResult defaultCloseResult,
+                                    bool dialogCanCloseViaChrome,
+                                    MsgBoxResult btnDefault = MsgBoxResult.None,
+                                    object helpLink = null,
+                                    string helpLinkTitle = "",
+                                    string helpLabel = "",
+                                    Func<object, bool> navigateHelplinkMethod = null,
+                                    bool showCopyMessage = false)
+    {
+      return Msg.GetService<IMsgBoxService>().Show(messageBoxText, caption,
+                                                   buttonOption,
+                                                   defaultCloseResult,
+                                                   dialogCanCloseViaChrome,
+                                                   btnDefault,
+                                                   helpLink,
+                                                   helpLinkTitle,
+                                                   helpLabel,
+                                                   navigateHelplinkMethod,
+                                                   showCopyMessage);
+    }
+
+    /// <summary>
+    /// Displays a message box in front of the current window being shown.
+    /// 
+    /// The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+    /// message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+    /// parameter to define the results being returned if the user is allowed to close the message box via
+    /// F4 key, esc key or window close (x) [Window chrome accessibility].
+    /// 
+    /// The message box can display a message, caption, custom buttons (yes, no etc...), an image,
+    /// a hyperlink, and copy bitton; and accepts a default message box botton and returns a result.
+    /// </summary>
+    /// <param name="messageBoxText"></param>
+    /// <param name="caption"></param>
+    /// <param name="buttonOption"></param>
+    /// <param name="image"></param>
+    /// <param name="defaultCloseResult"></param>
+    /// <param name="dialogCanCloseViaChrome"></param>
+    /// <param name="btnDefault"></param>
+    /// <param name="helpLink"></param>
+    /// <param name="helpLinkTitle"></param>
+    /// <param name="helpLabel"></param>
+    /// <param name="navigateHelplinkMethod"></param>
+    /// <param name="showCopyMessage"></param>
+    /// <returns></returns>
+    [SecurityCritical]
+    public static MsgBoxResult Show(string messageBoxText, string caption,
+                                    MsgBoxButtons buttonOption, MsgBoxImage image,
+                                    MsgBoxResult defaultCloseResult,
+                                    bool dialogCanCloseViaChrome,
+                                    MsgBoxResult btnDefault = MsgBoxResult.None,
+                                    object helpLink = null,
+                                    string helpLinkTitle = "",
+                                    string helpLabel = "",
+                                    Func<object, bool> navigateHelplinkMethod = null,
+                                    bool showCopyMessage = false)
+    {
+      return Msg.GetService<IMsgBoxService>().Show(messageBoxText, caption,
+                                                   buttonOption, image,
+                                                   defaultCloseResult,
+                                                   dialogCanCloseViaChrome,
+                                                   btnDefault,
+                                                   helpLink,
+                                                   helpLinkTitle,
+                                                   helpLabel,
+                                                   navigateHelplinkMethod,
+                                                   showCopyMessage);
+    }
+
+    /// <summary>
+    /// Displays a message box in front of the current window being shown.
+    /// 
+    /// The caller can specify with <paramref name="dialogCanCloseViaChrome"/> whether users can close the
+    /// message box dialog view via F4 key, esc key or window close (x) button. Use the <paramref name="defaultCloseResult"/>
+    /// parameter to define the results being returned if the user is allowed to close the message box via
+    /// F4 key, esc key or window close (x) [Window chrome accessibility].
+    /// 
+    /// The message box can display a message, caption, additional details, custom buttons (yes, no etc...), an image,
+    /// a hyperlink, and copy bitton; and accepts a default message box botton and returns a result.
+    /// </summary>
+    /// <param name="messageBoxText"></param>
+    /// <param name="caption"></param>
+    /// <param name="details"></param>
+    /// <param name="buttonOption"></param>
+    /// <param name="image"></param>
+    /// <param name="defaultCloseResult"></param>
+    /// <param name="dialogCanCloseViaChrome"></param>
+    /// <param name="btnDefault"></param>
+    /// <param name="helpLink"></param>
+    /// <param name="helpLinkTitle"></param>
+    /// <param name="helpLabel"></param>
+    /// <param name="navigateHelplinkMethod"></param>
+    /// <param name="showCopyMessage"></param>
+    /// <returns></returns>
+    [SecurityCritical]
+    public static MsgBoxResult Show(string messageBoxText, string caption,
+                                    string details,
+                                    MsgBoxButtons buttonOption, MsgBoxImage image,
+                                    MsgBoxResult defaultCloseResult,
+                                    bool dialogCanCloseViaChrome,
+                                    MsgBoxResult btnDefault = MsgBoxResult.None,
+                                    object helpLink = null,
+                                    string helpLinkTitle = "",
+                                    string helpLabel = "",
+                                    Func<object, bool> navigateHelplinkMethod = null,
+                                    bool showCopyMessage = false)
+    {
+      return Msg.GetService<IMsgBoxService>().Show(messageBoxText, caption,
+                                                   details,
+                                                   buttonOption, image,
+                                                   defaultCloseResult,
+                                                   dialogCanCloseViaChrome,
+                                                   btnDefault,
+                                                   helpLink,
+                                                   helpLinkTitle,
+                                                   helpLabel,
+                                                   navigateHelplinkMethod,
+                                                   showCopyMessage);
+    }
+    #endregion custom messagebox methods
+    #endregion methods
   }
 }

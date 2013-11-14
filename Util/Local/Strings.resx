@@ -805,4 +805,15 @@ End the other process and re-open the file or save the file in a different locat
   <data name="CMD_APP_ExportUMLToImage_Description" xml:space="preserve">
     <value>UML to Image</value>
   </data>
+  <data name="STR_ERROR_LOADING_FILE_MSG" xml:space="preserve">
+    <value>The file:
+'{0}'
+
+does not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?</value>
+    <comment>The file:\n\n'{0}'\n\ndoes not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?</comment>
+  </data>
+  <data name="STR_ERROR_LOADING_FILE_CAPTION" xml:space="preserve">
+    <value>Error Loading file</value>
+    <comment>Error Loading file</comment>
+  </data>
 </root>

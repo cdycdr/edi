@@ -18,7 +18,7 @@
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
         <Setter Property="Foreground" Value="{DynamicResource LinkButtonTextHover}"/>
-        <Setter Property="Background" Value="#20FFFFFF" />
+        <Setter Property="Background" Value="{DynamicResource SystemButtonMouseOverBackgroundColor}" />
       </Trigger>
       <Trigger Property="IsPressed" Value="True">
         <Setter Property="Foreground" Value="{DynamicResource LinkButtonTextPressed}" />

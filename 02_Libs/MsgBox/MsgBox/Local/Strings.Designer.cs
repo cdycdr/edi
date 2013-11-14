@@ -79,11 +79,38 @@ namespace MsgBox.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close_Tip_Label {
+            get {
+                return ResourceManager.GetString("Close_Tip_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
         public static string Copy_Button_Label {
             get {
                 return ResourceManager.GetString("Copy_Button_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy information to clipboard.
+        /// </summary>
+        public static string Copy_Button_ToolTip {
+            get {
+                return ResourceManager.GetString("Copy_Button_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press Cntrl+C to copy the displayed text.
+        /// </summary>
+        public static string COPY_KEY_TIP {
+            get {
+                return ResourceManager.GetString("COPY_KEY_TIP", resourceCulture);
             }
         }
         

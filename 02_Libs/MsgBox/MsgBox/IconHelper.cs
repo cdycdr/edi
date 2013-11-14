@@ -6,7 +6,7 @@
   using System.Windows.Interop;
 
   /// <summary>
-  /// Remove an icon from a window's title bar:
+  /// Remove an icon from a window's (system style) title bar:
   /// Source: http://wpftutorial.net/RemoveIcon.html
   /// </summary>
   public static class IconHelper

@@ -43,7 +43,11 @@
     <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Controls.ListBox.xaml" />
     <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Controls.GroupBox.xaml" />
     <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/GridSplitter.xaml" />
-    
+
+    <!-- Use dark brush definitions -->
+    <ResourceDictionary Source="/MsgBox;component/Themes/DarkBrushes.xaml" />
+    <ResourceDictionary Source="/MsgBox;component/Themes/DarkIcons.xaml" />
+
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/Button.xaml" />
     <ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/ToggleButton.xaml" / -->
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/ToolBar.xaml" / -->
