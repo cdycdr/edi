@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProgramSettings\LanguageCollection.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="ProgramSettings\Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -49,25 +49,25 @@
           <MenuItem Command="Cut" Header="{x:Static cmdLabel:Strings.STR_CmdName_Cut}"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Cut_TT}">
             <MenuItem.Icon>
-              <Image Source="{StaticResource Image_Cut}" Height="16"/>
+              <Image Source="{DynamicResource Image_Cut}" Height="16"/>
             </MenuItem.Icon>
           </MenuItem>
           <MenuItem Command="Copy" Header="{x:Static cmdLabel:Strings.STR_CmdName_Copy}"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Copy_TT}">
             <MenuItem.Icon>
-              <Image Source="{StaticResource Image_Copy}" Height="16"/>
+              <Image Source="{DynamicResource Image_Copy}" Height="16"/>
             </MenuItem.Icon>
           </MenuItem>
           <MenuItem Command="Paste" Header="{x:Static cmdLabel:Strings.STR_CmdName_Paste}"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Paste_TT}">
             <MenuItem.Icon>
-              <Image Source="{StaticResource Image_Paste}" Height="16"/>
+              <Image Source="{DynamicResource Image_Paste}" Height="16"/>
             </MenuItem.Icon>
           </MenuItem>
           <MenuItem Command="Delete" Header="{x:Static cmdLabel:Strings.STR_CmdName_Delete}"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Delete_TT}">
             <MenuItem.Icon>
-              <Image Source="{StaticResource Image_Delete}" Height="16"/>
+              <Image Source="{DynamicResource Image_Delete}" Height="16"/>
             </MenuItem.Icon>
           </MenuItem>
           <Separator />
@@ -76,13 +76,13 @@
           <Separator />
           <MenuItem Command="Undo" Header="{x:Static cmdLabel:Strings.STR_CmdName_Undo}">
             <MenuItem.Icon>
-              <Image Source="{StaticResource Image_Undo}" Height="16"/>
+              <Image Source="{DynamicResource Image_Undo}" Height="16"/>
             </MenuItem.Icon>
           </MenuItem>
           <MenuItem Command="Redo" Header="{x:Static cmdLabel:Strings.STR_CmdName_Redo}"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Redo_TT}" >
             <MenuItem.Icon>
-              <Image Source="{StaticResource Image_Redo}" Height="16"/>
+              <Image Source="{DynamicResource Image_Redo}" Height="16"/>
             </MenuItem.Icon>
           </MenuItem>
           <Separator />

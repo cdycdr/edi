@@ -65,8 +65,13 @@
                         <ColumnDefinition Width="*" />
                       </Grid.ColumnDefinitions>
 
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                      </Grid.RowDefinitions>
+
                       <!-- Window Icon -->
-                      <Border Grid.Column="0" Grid.Row="0" Margin="6,0" >
+                      <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="6,0" >
                         <Image HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                Source="/Edi;component/EdiLogo.ico"
@@ -86,9 +91,12 @@
                         </Border.Style>
                       </Border>
 
+                      <!-- TextBlock Grid.Column="1" Grid.Row="0" Margin="3"
+                                 Text="{TemplateBinding Title}" Foreground="Wheat" / -->
+
                       <!-- Main Menu -->
                       <ContentControl Grid.Column="1"
-                                      Grid.Row="0"
+                                      Grid.Row="1"
                                       VerticalAlignment="Bottom"
                                       VerticalContentAlignment="Bottom"
                                       HorizontalAlignment="Left"

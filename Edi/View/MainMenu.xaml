@@ -259,15 +259,16 @@
                   Command="cmd:AppCommand.ShowStartPage"
                   ToolTipService.ShowOnDisabled="True"
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"  />
+      </MenuItem>
+
+      <!-- XXXXXXXXXXXXXXXXXXXX -->
+      <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Tools}">
 
         <MenuItem Header="Settings..."
                   Command="cmd:AppCommand.ProgramSettings"
                   ToolTipService.ShowOnDisabled="True"
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
-      </MenuItem>
-
-      <!-- XXXXXXXXXXXXXXXXXXXX -->
-      <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Tools}">
+        <Separator />
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_RecentFiles_TW}"
                   IsChecked="{Binding RecentFiles.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
 

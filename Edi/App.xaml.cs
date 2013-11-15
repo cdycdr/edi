@@ -338,11 +338,6 @@ namespace Edi
         // Set shutdown mode here (and reset further below) to enable showing custom dialogs (messageboxes)
         // durring start-up without shutting down application when the custom dialogs (messagebox) closes
         this.ShutdownMode = System.Windows.ShutdownMode.OnExplicitShutdown;
-
-        Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-        Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-        //Thread.CurrentThread.CurrentCulture = new CultureInfo("de-DE");
-        //Thread.CurrentThread.CurrentUICulture = new CultureInfo("de-DE");
       }
       catch
       {
@@ -351,6 +346,9 @@ namespace Edi
       try
       {
         Workspace.This.LoadConfigOnAppStartup();
+
+        Thread.CurrentThread.CurrentCulture = new CultureInfo(SettingsManager.Instance.SettingData.LanguageSelected);
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo(SettingsManager.Instance.SettingData.LanguageSelected);
 
         if (SettingsManager.Instance.SettingData.RunSingleInstance == true)
         {

@@ -1,5 +1,7 @@
 ﻿namespace EdiViews.Config.ViewModel
 {
+  using System.Collections.ObjectModel;
+  using System.Linq;
   using EdiViews.ViewModel.Base;
   using ICSharpCode.AvalonEdit;
   using Settings.ProgramSettings;
@@ -10,9 +12,12 @@
   public class ConfigViewModel :  DialogViewModelBase
   {
     #region fields
+    private bool mWordWrapText;
     private bool mReloadOpenFilesOnAppStart;
     private MRUSortMethod mPinSortMode;
     private bool mRunSingleInstance;
+
+    private LanguageCollection mLanguageSelected;
     #endregion fields
 
     #region constructor
@@ -22,18 +27,56 @@
     public ConfigViewModel()
     : base()
     {
+      // Setup default values here - real values are loaded in a specific method of this class (!)
+      this.mWordWrapText = false;
       this.mReloadOpenFilesOnAppStart = false;
       this.mRunSingleInstance = true;
       this.mPinSortMode = MRUSortMethod.PinnedEntriesFirst;
 
-      var unitList = Settings.SettingsManager.Instance.SettingData.GenerateScreenUnitList();
+      this.WordWrapText = false;
+
+      // Get default list of units from settings manager
+      var unitList = new ObservableCollection<ListItem>(Options.GenerateScreenUnitList());
       this.SizeUnitLabel = new UnitViewModel(unitList, new ScreenConverter(), (int)ZoomUnit.Percentage, 100);
 
       this.EditorTextOptions = new TextEditorOptions();
+
+      // Initialize localization settings
+      this.Languages = new ObservableCollection<LanguageCollection>(Options.GetSupportedLanguages());
+
+      // Set default language to make sure app neutral is selected and available for sure
+      // (this is a fallback if all else fails)
+      try
+      {
+        this.LanguageSelected = this.Languages.FirstOrDefault(lang => lang.BCP47 == Options.DefaultLocal);
+      }
+      catch
+      {
+      }
     }
     #endregion constructor
 
     #region properties
+    /// <summary>
+    /// Get/set whether WordWarp should be applied in editor (by default) or not.
+    /// </summary>
+    public bool WordWrapText
+    {
+      get
+      {
+        return this.mWordWrapText;
+      }
+
+      set
+      {
+        if (this.mWordWrapText != value)
+        {
+          this.mWordWrapText = value;
+          this.NotifyPropertyChanged(() => this.WordWrapText);
+        }
+      }
+    }
+
     /// <summary>
     /// Expose AvalonEdit Text Editing options for editing in program settings view.
     /// </summary>
@@ -144,6 +187,33 @@
       }
     }
     #endregion ScaleView
+
+    #region Language Localization Support
+    /// <summary>
+    /// Get list of GUI languages supported in this application.
+    /// </summary>
+    public ObservableCollection<LanguageCollection> Languages { get; private set; }
+
+    /// <summary>
+    /// Get/set language of message box buttons for display in localized form.
+    /// </summary>
+    public LanguageCollection LanguageSelected
+    {
+      get
+      {
+        return this.mLanguageSelected;
+      }
+
+      set
+      {
+        if (this.mLanguageSelected != value)
+        {
+          this.mLanguageSelected = value;
+          this.NotifyPropertyChanged(() => this.LanguageSelected);
+        }
+      }
+    }
+    #endregion Language Localization Support
     #endregion properties
 
     #region methods
@@ -159,9 +229,20 @@
       this.ReloadOpenFilesOnAppStart = settingData.ReloadOpenFilesOnAppStart;
       this.RunSingleInstance = settingData.RunSingleInstance;
 
+      this.WordWrapText = settingData.WordWarpText;
+
       this.EditorTextOptions = new TextEditorOptions(settingData.EditorTextOptions);
-      this.SizeUnitLabel = new UnitViewModel(settingData.GenerateScreenUnitList(), new ScreenConverter(),
+      this.SizeUnitLabel = new UnitViewModel(new ObservableCollection<ListItem>(Options.GenerateScreenUnitList()),
+                                             new ScreenConverter(),
                                             (int)settingData.DocumentZoomUnit, settingData.DocumentZoomView);
+
+      try
+      {
+        this.LanguageSelected = this.Languages.FirstOrDefault(lang => lang.BCP47 == settingData.LanguageSelected);
+      }
+      catch
+      {
+      }
     }
 
     /// <summary>
@@ -175,6 +256,8 @@
       settingData.ReloadOpenFilesOnAppStart = this.ReloadOpenFilesOnAppStart;
       settingData.RunSingleInstance = this.RunSingleInstance;
 
+      settingData.WordWarpText = this.WordWrapText;
+
       settingData.EditorTextOptions = new TextEditorOptions(this.EditorTextOptions);
       if (this.SizeUnitLabel.SelectedItem.Key == UnitComboLib.Unit.Itemkey.ScreenFontPoints)
         settingData.DocumentZoomUnit = ZoomUnit.Points;
@@ -182,6 +265,8 @@
         settingData.DocumentZoomUnit = ZoomUnit.Percentage;
 
       settingData.DocumentZoomView = (int)this.SizeUnitLabel.Value;
+
+      settingData.LanguageSelected = this.LanguageSelected.BCP47;
 
       settingData.IsDirty = true;
     }

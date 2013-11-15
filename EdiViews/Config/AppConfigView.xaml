@@ -35,16 +35,27 @@
                       <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <CheckBox Content="Restore last user session when application starts"
-                            IsChecked="{Binding ReloadOpenFilesOnAppStart}"
-                            Grid.Row="0"
-                          />
+                              IsChecked="{Binding ReloadOpenFilesOnAppStart}"
+                              Grid.Row="0"
+                            />
 
                     <CheckBox Content="Run Edi only once"
-                            IsChecked="{Binding RunSingleInstance}"
-                            Grid.Row="1"
-                          />
+                              IsChecked="{Binding RunSingleInstance}"
+                              Grid.Row="1"
+                            />
 
-                    <TextBlock Text="TODO: Localization" Grid.Row="2"/>
+                    <StackPanel Margin="0,12" Grid.Row="2">
+                      <Label Content="Application Language:" />
+                      <ComboBox ItemsSource="{Binding Languages}"
+                                SelectedItem="{Binding LanguageSelected}"
+                                SelectedValuePath="BCP47"
+                                DisplayMemberPath="DisplayName"
+                                HorizontalAlignment="Left" VerticalAlignment="Top"
+                                MinWidth="150" Margin="0,3"
+                                ToolTip="Restart the application to see the effect of this setting."
+                                />
+                    </StackPanel>
+
                   </Grid>
                 </GroupBox>
 
@@ -72,24 +83,25 @@
                       <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Margin="0,3,0,3" DataContext="{Binding EditorTextOptions}">
-                      <CheckBox IsChecked="{Binding ShowSpaces}" Content="Show Spaces" />
-                      <CheckBox IsChecked="{Binding ShowTabs}" Content="Show Tabs" />
-                      <CheckBox IsChecked="{Binding ShowEndOfLine}" Content="Show end of line" />
-                      <CheckBox IsChecked="{Binding ConvertTabsToSpaces}" Content="Convert tabulator character into space character" />
-                      <CheckBox IsChecked="{Binding ShowBoxForControlCharacters}" Content="Show box for control characters" />
-                      <!-- CheckBox IsChecked="{Binding IndentationSize}" Content="Indentation size" / -->
+                    <StackPanel Grid.Row="0" Margin="0,3,0,3">
+                      <CheckBox IsChecked="{Binding WordWrapText}" Content="Word Wrap Text" />
 
-                      <CheckBox IsChecked="{Binding CutCopyWholeLine}" Content="Cut Copy current line of text" />
-                      <CheckBox IsChecked="{Binding AllowScrollBelowDocument}" Content="Scroll below document" />
-                      <CheckBox IsChecked="{Binding InheritWordWrapIndentation}" Content="Inherit word wrap indentation" />
-                      <CheckBox IsChecked="{Binding EnableRectangularSelection}" Content="Rectangular selection (ALT+Shift or ALT+Mouse selection)" />
-                      <CheckBox IsChecked="{Binding EnableTextDragDrop}" Content="Text drag &amp; drop" />
-                      <CheckBox IsChecked="{Binding EnableVirtualSpace}" Content="virtual space" />
-                      <CheckBox IsChecked="{Binding EnableImeSupport}" Content="IME Support" />
-                      <!--
-      private double mWordWrapIndentation = 0;
-  -->
+                      <StackPanel DataContext="{Binding EditorTextOptions}">
+                        <CheckBox IsChecked="{Binding ShowSpaces}" Content="Show Spaces" />
+                        <CheckBox IsChecked="{Binding ShowTabs}" Content="Show Tabs" />
+                        <CheckBox IsChecked="{Binding ShowEndOfLine}" Content="Show end of line" />
+                        <CheckBox IsChecked="{Binding ConvertTabsToSpaces}" Content="Convert tabulator character into space character" />
+                        <CheckBox IsChecked="{Binding ShowBoxForControlCharacters}" Content="Show box for control characters" />
+                        <!-- CheckBox IsChecked="{Binding IndentationSize}" Content="Indentation size" / -->
+
+                        <CheckBox IsChecked="{Binding CutCopyWholeLine}" Content="Cut Copy current line of text" />
+                        <CheckBox IsChecked="{Binding AllowScrollBelowDocument}" Content="Scroll below document" />
+                        <CheckBox IsChecked="{Binding InheritWordWrapIndentation}" Content="Inherit word wrap indentation" />
+                        <CheckBox IsChecked="{Binding EnableRectangularSelection}" Content="Rectangular selection (ALT+Shift or ALT+Mouse selection)" />
+                        <CheckBox IsChecked="{Binding EnableTextDragDrop}" Content="Text drag &amp; drop" />
+                        <CheckBox IsChecked="{Binding EnableVirtualSpace}" Content="virtual space" />
+                        <CheckBox IsChecked="{Binding EnableImeSupport}" Content="IME Support" />
+                      </StackPanel>
                     </StackPanel>
                   </Grid>
                 </GroupBox>

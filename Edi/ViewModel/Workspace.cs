@@ -891,7 +891,10 @@ namespace Edi.ViewModel
           fileToClose.CanSaveData == true)
       {
         var res = MsgBox.Msg.Show(string.Format(CultureInfo.CurrentCulture, Util.Local.Strings.STR_MSG_SaveChangesForFile, fileToClose.FileName),
-                                  this.ApplicationTitle, MsgBoxButtons.YesNoCancel, MsgBoxImage.Question, MsgBoxResult.Yes);
+                                  this.ApplicationTitle,
+                                  MsgBoxButtons.YesNoCancel, MsgBoxImage.Question,
+                                  MsgBoxResult.Yes, false, 
+                                  MsgBoxResult.Yes);
 
         if (res == MsgBoxResult.Cancel)
           return false;

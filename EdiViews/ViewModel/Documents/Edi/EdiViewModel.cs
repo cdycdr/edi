@@ -6,7 +6,6 @@ namespace EdiViews.ViewModel.Documents
   using System.IO;
   using System.Text;
   using System.Windows.Input;
-
   using ICSharpCode.AvalonEdit.Document;
   using ICSharpCode.AvalonEdit.Edi.TextBoxControl;
   using ICSharpCode.AvalonEdit.Highlighting;
@@ -14,10 +13,13 @@ namespace EdiViews.ViewModel.Documents
   using MsgBox;
   using Settings.ProgramSettings;
   using SimpleControls.Command;
-  using UnitComboLib.Unit;
   using UnitComboLib.Unit.Screen;
   using UnitComboLib.ViewModel;
 
+  /// <summary>
+  /// This viewmodel class represents the business logic of the text editor.
+  /// Each text editor document instance is associated with a <seealso cref="EdiViewModel"/> instance.
+  /// </summary>
   public class EdiViewModel : EdiViews.ViewModel.Base.FileBaseViewModel, EdiViews.FindReplace.ViewModel.IEditor
   {
     #region Fields
@@ -28,6 +30,9 @@ namespace EdiViews.ViewModel.Documents
     private readonly static string defaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
 
     private object lockThis = new object();
+
+    private bool mWordWrap = false;            // Toggle state command
+    private bool mShowLineNumbers = true;     // Toggle state command
     #endregion Fields
 
     #region constructor
@@ -39,8 +44,9 @@ namespace EdiViews.ViewModel.Documents
     {
       // Copy text editor settings from settingsmanager by default
       this.TextOptions = new ICSharpCode.AvalonEdit.TextEditorOptions(Settings.SettingsManager.Instance.SettingData.EditorTextOptions);
+      this.WordWrap = Settings.SettingsManager.Instance.SettingData.WordWarpText;
+      var items = new ObservableCollection<ListItem>(Options.GenerateScreenUnitList());
 
-      var items = Settings.SettingsManager.Instance.SettingData.GenerateScreenUnitList();
       this.SizeUnitLabel = new UnitViewModel(items, new ScreenConverter(), 0);
 
       this.TxtControl = new TextBoxController();
@@ -272,7 +278,9 @@ namespace EdiViews.ViewModel.Documents
       }
     }
 
-    private bool mWordWrap = false;            // Toggle state command
+    /// <summary>
+    /// Get/set whether word wrap is currently activated or not.
+    /// </summary>
     public bool WordWrap
     {
       get
@@ -289,8 +297,10 @@ namespace EdiViews.ViewModel.Documents
         }
       }
     }
-
-    private bool mShowLineNumbers = true;     // Toggle state command
+    
+    /// <summary>
+    /// Get/set whether line numbers are currently shown or not.
+    /// </summary>
     public bool ShowLineNumbers
     {
       get
@@ -308,6 +318,9 @@ namespace EdiViews.ViewModel.Documents
       }
     }
 
+    /// <summary>
+    /// Get/set whether the end of each line is currently shown or not.
+    /// </summary>
     public bool ShowEndOfLine               // Toggle state command
     {
       get
@@ -325,6 +338,9 @@ namespace EdiViews.ViewModel.Documents
       }
     }
 
+    /// <summary>
+    /// Get/set whether the spaces are highlighted or not.
+    /// </summary>
     public bool ShowSpaces               // Toggle state command
     {
       get
@@ -342,6 +358,9 @@ namespace EdiViews.ViewModel.Documents
       }
     }
 
+    /// <summary>
+    /// Get/set whether the tabulator characters are highlighted or not.
+    /// </summary>
     public bool ShowTabs               // Toggle state command
     {
       get
@@ -359,6 +378,9 @@ namespace EdiViews.ViewModel.Documents
       }
     }
 
+    /// <summary>
+    /// Get/Set texteditor options frmo <see cref="AvalonEdit"/> editor as <see cref="TextEditorOptions"/> instance.
+    /// </summary>
     public ICSharpCode.AvalonEdit.TextEditorOptions TextOptions
     {
       get
@@ -539,6 +561,9 @@ namespace EdiViews.ViewModel.Documents
 
     #region Encoding
     private Encoding mFileEncoding = Encoding.UTF8;
+    /// <summary>
+    /// Get/set file encoding of current text file.
+    /// </summary>
     public Encoding FileEncoding
     {
       get
@@ -869,7 +894,7 @@ namespace EdiViews.ViewModel.Documents
     /// <param name="defaultValue"></param>
     public void InitScaleView(ZoomUnit unit, double defaultValue)
     {
-      var unitList = Settings.SettingsManager.Instance.SettingData.GenerateScreenUnitList();
+      var unitList = new ObservableCollection<ListItem>(Options.GenerateScreenUnitList());
 
       this.SizeUnitLabel = new UnitViewModel(unitList, new ScreenConverter(), (int)unit, defaultValue);
     }

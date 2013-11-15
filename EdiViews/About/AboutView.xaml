@@ -75,6 +75,7 @@
                       <RowDefinition Height="Auto" />
                       <RowDefinition Height="Auto" />
                       <RowDefinition Height="Auto" />
+                      <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -115,7 +116,13 @@
                     <hyp:WebHyperlink Grid.Column="2" Grid.Row="6" Margin="3"
                                       HorizontalAlignment="Left" VerticalAlignment="Center" NavigateUri="http://mui.codeplex.com/" Text="Modern UI (mui)" />
 
+                    <Label Content="MsgBox:"
+                           Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3" />
+                    <hyp:WebHyperlink Grid.Column="2" Grid.Row="7" Margin="3"
+                                      HorizontalAlignment="Left" VerticalAlignment="Center" NavigateUri="http://msgbox.codeplex.com/" Text="MsgBox (A WPF message box service)" />
+
                     
+
                   </Grid>
                 </TabItem>
               </TabControl>

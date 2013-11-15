@@ -29,7 +29,8 @@
     <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/MenuStyles.xaml" />
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/MenuItem.xaml" / -->
 
-    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/ContextMenu.xaml" />
+    <ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/Controls.ContextMenu.xaml" />
+    <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/ContextMenu.xaml" / -->
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/MetroStyles/ContextMenuStyle.xaml" / -->
 
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/Menu.xaml" / -->
