@@ -183,7 +183,7 @@
     {
       get
       {
-        return "Progam Settings...";
+        return Util.Local.Strings.STR_ProgramSettings_Caption;
       }
     }
     #endregion ScaleView

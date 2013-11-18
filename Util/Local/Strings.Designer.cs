@@ -1155,6 +1155,24 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find.
+        /// </summary>
+        public static string STR_FIND_BUTTON_CAPTION {
+            get {
+                return ResourceManager.GetString("STR_FIND_BUTTON_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find and Replace....
+        /// </summary>
+        public static string STR_FIND_REPLACE_CAPTION {
+            get {
+                return ResourceManager.GetString("STR_FIND_REPLACE_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to replace all occurrences of &apos;{0}&apos; with &apos;{1}&apos;?.
         /// </summary>
         public static string STR_FINDREPLACE_ASK_REALLY_REPLACEEVERYTHING {
@@ -1295,6 +1313,15 @@ namespace Util.Local {
         public static string STR_FINDREPLACE_Wildcards {
             get {
                 return ResourceManager.GetString("STR_FINDREPLACE_Wildcards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Goto Line ....
+        /// </summary>
+        public static string STR_GOTO_LINE_CAPTION {
+            get {
+                return ResourceManager.GetString("STR_GOTO_LINE_CAPTION", resourceCulture);
             }
         }
         
@@ -1786,6 +1813,33 @@ namespace Util.Local {
         public static string STR_MSG_UnknownError_InShutDownProcess {
             get {
                 return ResourceManager.GetString("STR_MSG_UnknownError_InShutDownProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application Behaviour.
+        /// </summary>
+        public static string STR_ProgramSettings_ApplicationBehaviour_Header {
+            get {
+                return ResourceManager.GetString("STR_ProgramSettings_ApplicationBehaviour_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progam Settings....
+        /// </summary>
+        public static string STR_ProgramSettings_Caption {
+            get {
+                return ResourceManager.GetString("STR_ProgramSettings_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace.
+        /// </summary>
+        public static string STR_REPLACE_BUTTON_CAPTION {
+            get {
+                return ResourceManager.GetString("STR_REPLACE_BUTTON_CAPTION", resourceCulture);
             }
         }
         

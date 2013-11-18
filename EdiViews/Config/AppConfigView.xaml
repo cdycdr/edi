@@ -4,6 +4,7 @@
 
           xmlns:conv="clr-namespace:EdiViews.Converter"
           xmlns:numUpDown="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
+          xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
           >
 	<Style TargetType="{x:Type local:AppConfigView}">
     <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -31,7 +32,7 @@
                   <RowDefinition Height="Auto" />
                   <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <GroupBox Header="Application Behaviour" Grid.Row="0" Margin="9" Padding="9">
+                <GroupBox Header="{x:Static cmdLabel:Strings.STR_ProgramSettings_ApplicationBehaviour_Header}" Grid.Row="0" Margin="9" Padding="9">
                   <Grid>
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto" />

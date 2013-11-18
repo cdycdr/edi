@@ -48,7 +48,7 @@
     {
       get
       {
-        return "Goto Line...";
+        return Util.Local.Strings.STR_GOTO_LINE_CAPTION;
       }
     }
 

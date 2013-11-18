@@ -56,7 +56,7 @@ namespace EdiViews.FindReplace.ViewModel
     {
       get
       {
-        return "Find and Replace...";
+        return Util.Local.Strings.STR_FIND_REPLACE_CAPTION;
       }
     }
 

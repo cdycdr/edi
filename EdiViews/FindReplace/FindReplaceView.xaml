@@ -57,7 +57,7 @@
 							BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid>
               <TabControl Name="tabMain" Height="Auto" BorderThickness="{Binding AllowReplace,  Converter={StaticResource boolToInt}}">
-                <TabItem Header="Find" Name="tabFind" IsSelected="{Binding ShowAsFind}"
+                <TabItem Header="{x:Static cmdLabel:Strings.STR_FIND_BUTTON_CAPTION}" Name="tabFind" IsSelected="{Binding ShowAsFind}"
                          ContentTemplate="{StaticResource FindPageTemplate}"
                          Visibility="{Binding AllowReplace, Converter={StaticResource boolToVis}}">
                   <StackPanel>
@@ -73,7 +73,7 @@
                             Margin="3" IsDefault="True" HorizontalAlignment="Right"/>
                   </StackPanel>
                 </TabItem>
-                <TabItem Header="Replace" Name="tabReplace" Margin="3,0"
+                <TabItem Header="{x:Static cmdLabel:Strings.STR_REPLACE_BUTTON_CAPTION}" Name="tabReplace" Margin="3,0"
                          IsSelected="{Binding ShowAsFind, Converter={StaticResource InvertBooleanConv}}"
                          ContentTemplate="{StaticResource FindPageTemplate}"
                          Visibility="{Binding AllowReplace, Converter={StaticResource boolToVis}}">

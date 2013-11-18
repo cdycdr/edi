@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="texts" xml:space="preserve">
+  <data name="CMD_APP_About_Description" xml:space="preserve">
     <value>Informationen über EDI anzeigen</value>
   </data>
   <data name="CMD_APP_CloseDoc_Description" xml:space="preserve">
@@ -815,5 +815,29 @@ Soll dieses Dokument von der Liste der zuletzt verwendeten Dokumente gelöscht w
   <data name="STR_ERROR_LOADING_FILE_CAPTION" xml:space="preserve">
     <value>Fehler beim öffnen eines Dokuments</value>
     <comment>Error Loading file</comment>
+  </data>
+  <data name="STR_FIND_BUTTON_CAPTION" xml:space="preserve">
+    <value>Suchen</value>
+    <comment>Find</comment>
+  </data>
+  <data name="STR_FIND_REPLACE_CAPTION" xml:space="preserve">
+    <value>Suchen und Ersetzen...</value>
+    <comment>Find and Replace...</comment>
+  </data>
+  <data name="STR_GOTO_LINE_CAPTION" xml:space="preserve">
+    <value>Gehe zu ...</value>
+    <comment>Goto Line...</comment>
+  </data>
+  <data name="STR_REPLACE_BUTTON_CAPTION" xml:space="preserve">
+    <value>Ersetzen</value>
+    <comment>Replace</comment>
+  </data>
+  <data name="STR_ProgramSettings_ApplicationBehaviour_Header" xml:space="preserve">
+    <value>Anwendungseinstellungen</value>
+    <comment>Application Settings</comment>
+  </data>
+  <data name="STR_ProgramSettings_Caption" xml:space="preserve">
+    <value>Programmeinstellungen</value>
+    <comment>Progam Settings...</comment>
   </data>
 </root>

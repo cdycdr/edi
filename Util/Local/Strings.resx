@@ -816,4 +816,28 @@ does not exist or cannot be loaded.\n\nDo you want to remove this file from the 
     <value>Error Loading file</value>
     <comment>Error Loading file</comment>
   </data>
+  <data name="STR_FIND_BUTTON_CAPTION" xml:space="preserve">
+    <value>Find</value>
+    <comment>Find</comment>
+  </data>
+  <data name="STR_FIND_REPLACE_CAPTION" xml:space="preserve">
+    <value>Find and Replace...</value>
+    <comment>Find and Replace...</comment>
+  </data>
+  <data name="STR_GOTO_LINE_CAPTION" xml:space="preserve">
+    <value>Goto Line ...</value>
+    <comment>Goto Line...</comment>
+  </data>
+  <data name="STR_REPLACE_BUTTON_CAPTION" xml:space="preserve">
+    <value>Replace</value>
+    <comment>Replace</comment>
+  </data>
+  <data name="STR_ProgramSettings_ApplicationBehaviour_Header" xml:space="preserve">
+    <value>Application Behaviour</value>
+    <comment>Application Settings</comment>
+  </data>
+  <data name="STR_ProgramSettings_Caption" xml:space="preserve">
+    <value>Progam Settings...</value>
+    <comment>Progam Settings...</comment>
+  </data>
 </root>
