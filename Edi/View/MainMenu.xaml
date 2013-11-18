@@ -99,7 +99,7 @@
                   ToolTipService.ShowOnDisabled="True"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Undo_TT}">
           <MenuItem.Icon>
-            <Image Source="{StaticResource Image_Undo}" Height="16" />
+            <Image Source="{DynamicResource Image_Undo}" Height="16" />
           </MenuItem.Icon>
         </MenuItem>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Redo}"
@@ -107,7 +107,7 @@
                   ToolTipService.ShowOnDisabled="True"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Redo_TT}">
           <MenuItem.Icon>
-            <Image Source="{StaticResource Image_Redo}" Height="16" />
+            <Image Source="{DynamicResource Image_Redo}" Height="16" />
           </MenuItem.Icon>
         </MenuItem>
         <Separator />
@@ -117,7 +117,7 @@
                   ToolTipService.ShowOnDisabled="True"
                   >
           <MenuItem.Icon>
-            <Image Source="{StaticResource Image_Cut}" Height="16" />
+            <Image Source="{DynamicResource Image_Cut}" Height="16" />
           </MenuItem.Icon>
         </MenuItem>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Copy}"
@@ -125,7 +125,7 @@
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Copy_TT}"
                   ToolTipService.ShowOnDisabled="True">
           <MenuItem.Icon>
-            <Image Source="{StaticResource Image_Copy}" Height="16" />
+            <Image Source="{DynamicResource Image_Copy}" Height="16" />
           </MenuItem.Icon>
         </MenuItem>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Paste}"
@@ -133,14 +133,14 @@
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Paste_TT}"
                   ToolTipService.ShowOnDisabled="True">
           <MenuItem.Icon>
-            <Image Source="{StaticResource Image_Paste}" Height="16"/>
+            <Image Source="{DynamicResource Image_Paste}" Height="16"/>
           </MenuItem.Icon>
         </MenuItem>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Delete}" Command="Delete"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Delete_TT}"
                   ToolTipService.ShowOnDisabled="True">
           <MenuItem.Icon>
-            <Image Source="{StaticResource Image_Delete}" Height="16"/>
+            <Image Source="{DynamicResource Image_Delete}" Height="16"/>
           </MenuItem.Icon>
         </MenuItem>
         <Separator />
@@ -154,7 +154,7 @@
                   ToolTipService.ShowOnDisabled="True"
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" >
           <MenuItem.Icon>
-            <Image Source="{StaticResource Image_EditFind}" Width="16" />
+            <Image Source="{DynamicResource Image_EditFind}" Width="16" />
           </MenuItem.Icon>
         </MenuItem>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Find}"
