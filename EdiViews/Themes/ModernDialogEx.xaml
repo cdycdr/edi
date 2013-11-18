@@ -82,7 +82,11 @@
                     <!-- ContentControl Grid.RowSpan="2" Content="{TemplateBinding BackgroundContent}" / -->
 
                     <!-- window content -->
-                    <ContentControl Grid.Row="1" Content="{TemplateBinding Content}" />
+                    <ContentControl Grid.Row="1" Content="{TemplateBinding Content}"
+                                    FocusVisualStyle="{x:Null}"
+                                    Focusable="False"
+                                    SnapsToDevicePixels="True"
+                                    />
 
                     <!-- window system buttons-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top"

@@ -40,11 +40,12 @@
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="Auto" SharedSizeGroup="StandardButtons"/>
       </Grid.ColumnDefinitions>
+
       <Button Content="{x:Static cmdLabel:Strings.STR_ABOUT_OK_BUTTON}"
-              Command="{Binding OKCommand}"
-              IsDefault="True"
-              IsCancel="True"
-              Grid.Column="1" Padding="3" Margin="6" MinHeight="24" MinWidth="80"/>
+            Command="{Binding OKCommand}"
+            IsDefault="True"
+            IsCancel="True"
+            Grid.Column="1" Padding="3" Margin="6" MinHeight="24" MinWidth="80"/>
     </Grid>
   </Grid>
 </mui:ModernWindow >

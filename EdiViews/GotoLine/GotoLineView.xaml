@@ -7,7 +7,11 @@
           xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
           >
 	<Style TargetType="{x:Type local:GotoLineView}">
-		<Setter Property="Template">
+    <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:GotoLineView}">
           <ControlTemplate.Resources>

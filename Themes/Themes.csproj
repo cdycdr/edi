@@ -85,20 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\MergeStyleBehaviour.cs" />
-    <Compile Include="MetroControls\MetroAnimatedSingleRowTabControl.cs" />
-    <Compile Include="MetroControls\MetroAnimatedTabControl.cs" />
-    <Compile Include="MetroControls\MetroTabControl.cs" />
-    <Compile Include="MetroControls\MetroTabItem.cs" />
-    <Compile Include="MetroControls\SafeRaise.cs" />
     <Compile Include="MetroControls\TextboxHelper.cs" />
-    <Compile Include="MetroControls\ToggleSwitch.cs" />
     <Compile Include="MetroConverters\BackgroundToForegroundConverter.cs" />
-    <Compile Include="MetroConverters\FontSizeOffsetConverter.cs" />
     <Compile Include="MetroConverters\MarkupConverter.cs" />
-    <Compile Include="MetroConverters\OffOnConverter.cs" />
     <Compile Include="MetroConverters\ThicknessToDoubleConverter.cs" />
     <Compile Include="MetroConverters\ToUpperConverter.cs" />
-    <Compile Include="MetroConverters\TreeViewMarginConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Definition\ThemeBase.cs" />
     <Compile Include="ThemesManager.cs" />
@@ -191,83 +182,83 @@
     <Resource Include="Images\App\PinableListViewDark\NoPin16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ExpressionDark\EdiControls\YalvLib\GridStyle.xaml">
+    <Page Include="MetroDark\EdiControls\YalvLib\GridStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\EdiControls\YalvLib\YalvLib.xaml">
+    <Page Include="MetroDark\EdiControls\YalvLib\YalvLib.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\EdiControls\UnitCombobox.xaml">
+    <Page Include="MetroDark\EdiControls\UnitCombobox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\ComboBox.xaml">
+    <Page Include="MetroDark\MetroStyles\ComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\ContextMenu.xaml">
+    <Page Include="MetroDark\MetroStyles\ContextMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\Controls.ContextMenu.xaml">
+    <Page Include="MetroDark\MetroStyles\Controls.ContextMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\Controls.GroupBox.xaml">
+    <Page Include="MetroDark\MetroStyles\Controls.GroupBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\Controls.ListBox.xaml">
+    <Page Include="MetroDark\MetroStyles\Controls.ListBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\Controls.TabControl.xaml">
+    <Page Include="MetroDark\MetroStyles\Controls.TabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\Controls.TextBox.xaml">
+    <Page Include="MetroDark\MetroStyles\Controls.TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\Controls.Toolbar.xaml">
+    <Page Include="MetroDark\MetroStyles\Controls.Toolbar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Edi.ModernUI.Dark.xaml">
+    <Page Include="MetroDark\Edi.ModernUI.Dark.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\GridSplitter.xaml">
+    <Page Include="MetroDark\MetroStyles\GridSplitter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\Hyperlink.xaml">
+    <Page Include="MetroDark\MetroStyles\Hyperlink.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\Label.xaml">
+    <Page Include="MetroDark\MetroStyles\Label.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\ContextMenuStyle.xaml">
+    <Page Include="MetroDark\MetroStyles\ContextMenuStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\MenuItem.xaml">
+    <Page Include="MetroDark\MetroStyles\MenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\MenuStyles.xaml">
+    <Page Include="MetroDark\MetroStyles\MenuStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\Slider.xaml">
+    <Page Include="MetroDark\MetroStyles\Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\MetroStyles\TextBlock.xaml">
+    <Page Include="MetroDark\MetroStyles\TextBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -275,67 +266,67 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\EdiAvalonEdit.xaml">
+    <Page Include="MetroLight\EdiAvalonEdit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\ModernUI.Light.xaml">
+    <Page Include="MetroLight\ModernUI.Light.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\Styles\ComboBox.xaml">
+    <Page Include="MetroLight\Styles\ComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\Styles\Controls.TabControl.xaml">
+    <Page Include="MetroLight\Styles\Controls.TabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\Styles\Controls.TextBox.xaml">
+    <Page Include="MetroLight\Styles\Controls.TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\Styles\Controls.Toolbar.xaml">
+    <Page Include="MetroLight\Styles\Controls.Toolbar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\Styles\GridSplitter.xaml">
+    <Page Include="MetroLight\Styles\GridSplitter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\Styles\Hyperlink.xaml">
+    <Page Include="MetroLight\Styles\Hyperlink.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\Styles\Label.xaml">
+    <Page Include="MetroLight\Styles\Label.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\Styles\MenuStyles.xaml">
+    <Page Include="MetroLight\Styles\MenuStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\Styles\Slider.xaml">
+    <Page Include="MetroLight\Styles\Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\Styles\TextBlock.xaml">
+    <Page Include="MetroLight\Styles\TextBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Metro\UnitCombobox.xaml">
+    <Page Include="MetroLight\UnitCombobox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Resource Include="Metro\StatusBar.xaml">
+    <Resource Include="MetroLight\StatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Metro\Brushes.xaml">
+    <Resource Include="MetroLight\Brushes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Metro\Theme.xaml">
+    <Resource Include="MetroLight\Theme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
@@ -343,107 +334,107 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
-    <Page Include="ExpressionDark\Brushes.xaml">
+    <Page Include="MetroDark\Brushes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\Button.xaml">
+    <Page Include="MetroDark\Controls\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpressionDark\Controls\ComboBox.xaml">
+    <Page Include="MetroDark\Controls\ComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\EdiControls\EdiAvalonEdit.xaml">
+    <Page Include="MetroDark\EdiControls\EdiAvalonEdit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\ScrollViewer.xaml">
+    <Page Include="MetroDark\Controls\ScrollViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\Hyperlink.xaml">
+    <Page Include="MetroDark\Controls\Hyperlink.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\EdiControls\PinableListView.xaml">
+    <Page Include="MetroDark\EdiControls\PinableListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\EdiControls\MsgBox.xaml">
+    <Page Include="MetroDark\EdiControls\MsgBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\TextBlock.xaml">
+    <Page Include="MetroDark\Controls\TextBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\GroupBox.xaml">
+    <Page Include="MetroDark\Controls\GroupBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\Label.xaml">
+    <Page Include="MetroDark\Controls\Label.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\ListBox.xaml">
+    <Page Include="MetroDark\Controls\ListBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\TabControl.xaml">
+    <Page Include="MetroDark\Controls\TabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\ToolTip.xaml">
+    <Page Include="MetroDark\Controls\ToolTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\ToolBar.xaml">
+    <Page Include="MetroDark\Controls\ToolBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\ListView.xaml">
+    <Page Include="MetroDark\Controls\ListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\ToggleButton.xaml">
+    <Page Include="MetroDark\Controls\ToggleButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\Slider.xaml">
+    <Page Include="MetroDark\Controls\Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\TextBox.xaml">
+    <Page Include="MetroDark\Controls\TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\ProgressBar.xaml">
+    <Page Include="MetroDark\Controls\ProgressBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\Expander.xaml">
+    <Page Include="MetroDark\Controls\Expander.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\Menu.xaml">
+    <Page Include="MetroDark\Controls\Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpressionDark\Controls\ScrollBar.xaml">
+    <Page Include="MetroDark\Controls\ScrollBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpressionDark\Controls\StatusBar.xaml">
+    <Page Include="MetroDark\Controls\StatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Theme.xaml">
+    <Page Include="MetroDark\Theme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExpressionDark\Controls\TreeView.xaml">
+    <Page Include="MetroDark\Controls\TreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -7,12 +7,16 @@
           >
   <!-- This view displays information about an application -->
 	<Style TargetType="{x:Type local:AboutView}">
+    <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:AboutView}">
             <Border Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}">
+							      BorderBrush="{TemplateBinding BorderBrush}"
+							      BorderThickness="{TemplateBinding BorderThickness}">
 
             <Grid Margin="10">
               <Grid.RowDefinitions>
@@ -26,7 +30,9 @@
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
 
-              <Image Grid.Row="0" Grid.Column="0" Source="{DynamicResource Image_About}" Width="128" />
+              <Image Grid.Row="0" Grid.Column="0"
+                     Focusable="False"
+                     Source="{DynamicResource Image_About}" Width="128" />
 
               <StackPanel Grid.Column="1" Grid.Row="0" Margin="18,3,3,3">
                 <!-- TextBlock Grid.Column="1" FontSize="25" Margin="3" Height="41" VerticalAlignment="Top" Text="{Binding AppTitle, Mode=OneTime}" / -->

@@ -20,8 +20,8 @@
     #region fields
     #region WPF Themes
     #region Expression Dark theme resources
-    const string ExpressionDarkThemeName = "Expression Dark";
-    static readonly string[] ExpressionDarkResources = 
+    const string MetroDarkThemeName = "Metro Dark";
+    static readonly string[] MetroDarkResources = 
     {
       "/Edi;component/ModernWindowEx.xaml",
       "/EdiViews;component/Themes/ModernDialogEx.xaml",
@@ -50,8 +50,7 @@
       "/FirstFloor.ModernUI;component/Assets/ToolTip.xaml",
       "/FirstFloor.ModernUI;component/Assets/TreeView.xaml",
 
-      "/Themes;component/ExpressionDark/Theme.xaml",
-      "/EdiViews;component/Themes/Expressiondark.xaml",
+      "/Themes;component/MetroDark/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Expression;component/DarkTheme.xaml"
     };
     #endregion Expression Dark theme resources
@@ -69,7 +68,7 @@
     #endregion Generic theme resources
 
     #region Light Metro theme resources
-    const string MetroThemeName = "Metro";
+    const string MetroLightThemeName = "Metro Light";
     static readonly string[] MetroResources = 
     {
       "/Edi;component/ModernWindowEx.xaml",
@@ -99,7 +98,7 @@
       "/FirstFloor.ModernUI;component/Assets/ToolTip.xaml",
       "/FirstFloor.ModernUI;component/Assets/TreeView.xaml",
 
-      "/Themes;component/Metro/Theme.xaml",
+      "/Themes;component/MetroLight/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml"
     };
     #endregion Light Metro theme resources
@@ -116,7 +115,7 @@
     const string EditorThemeDeepBlackLocation = @"AvalonEdit\HighLighting_Themes\DeepBlack.xshd";
     #endregion Text Editor Themes
 
-    public const string DefaultThemeName = ThemesManager.ExpressionDarkThemeName;
+    public const string DefaultThemeName = ThemesManager.MetroLightThemeName;
 
     protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -271,8 +270,8 @@
         string appLocation = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
         // ExpressionDark Theme
-        themeName = ExpressionDarkThemeName;
-        wpfTheme = new List<string>(ExpressionDarkResources);
+        themeName = MetroDarkThemeName;
+        wpfTheme = new List<string>(MetroDarkResources);
 
         t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
         ret.Add(t.HlThemeName, t);
@@ -301,7 +300,7 @@
         ret.Add(t.HlThemeName, t);
 
         // Metro Theme
-        themeName = MetroThemeName;
+        themeName = MetroLightThemeName;
         wpfTheme = new List<string>(MetroResources);
 
         t = new ThemeBase(this, wpfTheme, themeName, null, null, null);

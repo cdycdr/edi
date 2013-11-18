@@ -11,7 +11,7 @@
     xmlns:msg="clr-namespace:MsgBox;assembly=MsgBox"
     >
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/Themes;component/ExpressionDark/Brushes.xaml"/>
+    <ResourceDictionary Source="/Themes;component/MetroDark/Brushes.xaml"/>
   </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

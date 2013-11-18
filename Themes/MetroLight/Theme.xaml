@@ -13,25 +13,25 @@
     <!-- ResourceDictionary Source="/Themes;component/Metro/Brushes.xaml" / -->
     <!-- ResourceDictionary Source="/Themes;component/Metro/StatusBar.xaml" / -->
 
-    <ResourceDictionary Source="/Themes;component/Metro/ModernUI.Light.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/ModernUI.Light.xaml" />
 
-    <ResourceDictionary Source="/Themes;component/Metro/Styles/Controls.TabControl.xaml" />
-    <ResourceDictionary Source="/Themes;component/Metro/Styles/Controls.Toolbar.xaml" />
-    
-    <ResourceDictionary Source="/Themes;component/Metro/Styles/Combobox.xaml" />
-    <ResourceDictionary Source="/Themes;component/Metro/Styles/GridSplitter.xaml" />
-    <ResourceDictionary Source="/Themes;component/Metro/Styles/Hyperlink.xaml" />
-    <ResourceDictionary Source="/Themes;component/Metro/Styles/Label.xaml" />
-    <ResourceDictionary Source="/Themes;component/Metro/Styles/MenuStyles.xaml" />
-    <ResourceDictionary Source="/Themes;component/Metro/Styles/Slider.xaml" />
-    <ResourceDictionary Source="/Themes;component/Metro/Styles/Textblock.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Controls.TabControl.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Controls.Toolbar.xaml" />
 
-    <ResourceDictionary Source="/Themes;component/Metro/EdiAvalonEdit.xaml" />
-    <ResourceDictionary Source="/Themes;component/Metro/UnitCombobox.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Combobox.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/Styles/GridSplitter.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Hyperlink.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Label.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/Styles/MenuStyles.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Slider.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Textblock.xaml" />
+
+    <ResourceDictionary Source="/Themes;component/MetroLight/EdiAvalonEdit.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/UnitCombobox.xaml" />
 
     <ResourceDictionary Source="/MiniUML.View;component/SharedResources.xaml"/>
 
-    <!-- Use dark brush definitions -->
+    <!-- MsgBox brush definitions -->
     <ResourceDictionary Source="/MsgBox;component/Themes/LightBrushes.xaml" />
     <ResourceDictionary Source="/MsgBox;component/Themes/LightIcons.xaml" />
 

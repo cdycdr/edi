@@ -15,7 +15,7 @@
     xmlns:unit="clr-namespace:UnitComboLib;assembly=UnitComboLib"
     >
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/Themes;component/Metro/Brushes.xaml" />
+    <ResourceDictionary Source="/Themes;component/MetroLight/Brushes.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <Style TargetType="{x:Type EdiAvalonEdit:EdiTextEditor}">

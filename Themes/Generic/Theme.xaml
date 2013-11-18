@@ -12,6 +12,10 @@
     <ResourceDictionary Source="/Themes;component/IconsLight.xaml" />
     <ResourceDictionary Source="/Themes;component/Generic/Brushes.xaml" />
 
+    <!-- MsgBox brush definitions -->
+    <ResourceDictionary Source="/MsgBox;component/Themes/LightBrushes.xaml" />
+    <ResourceDictionary Source="/MsgBox;component/Themes/LightIcons.xaml" />
+
     <ResourceDictionary Source="/MiniUML.View;component/SharedResources.xaml"/>
 
     <!-- ResourceDictionary Source="/AvalonDock.Themes.Aero;component/Theme.xaml" / -->
