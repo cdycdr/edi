@@ -63,7 +63,7 @@
   <!-- BitmapImage x:Key="Image_NoPin" UriSource="pack://application:,,,/Themes;component/Images/App/PinableListViewDark/NoPin16.png" / -->
 
   <!-- Document Tab Icons  -->
-  <BitmapImage x:Key="Image_DocTabReadOnly" UriSource="pack://application:,,,/Themes;component/Images/App/DocTabDark/Lock-icon.png" />
+  <BitmapImage x:Key="Image_DocTabReadOnly" UriSource="pack://application:,,,/Themes;component/Images/App/DocTab/Lock-icon.png" />
 
   <!-- Log4Net Icons  -->
   <BitmapImage x:Key="Image_Log4NetClearFilters" UriSource="pack://application:,,,/Themes;component/Images/Log4Net/ClearFilter/ClearFilters_32.png" />

@@ -71,8 +71,8 @@
             <StackPanel Orientation="Horizontal">
               <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
               <!-- Show IsReadOnly Icon in document tab if that properties' present and true -->
-              <Image Source="{StaticResource Image_DocTabReadOnly}" Margin="3,0,0,0"
-                    VerticalAlignment="Center">
+              <Image Source="{DynamicResource Image_DocTabReadOnly}" Margin="3,0,0,0"
+                     VerticalAlignment="Center">
                 <Image.Visibility>
                   <PriorityBinding FallbackValue="Collapsed">
                     <Binding Path="Content.IsReadOnly" Mode="OneWay" Converter="{StaticResource BoolToVisibilityConverter}" />

@@ -62,28 +62,28 @@
             <MenuItem Command="Paste" Header="{x:Static cmdLabel:Strings.STR_CmdName_Paste}"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Paste_TT}">
               <MenuItem.Icon>
-                <Image Source="{StaticResource Image_Paste}" Height="16"/>
+                <Image Source="{DynamicResource Image_Paste}" Height="16"/>
               </MenuItem.Icon>
             </MenuItem>
             <MenuItem Command="Delete" Header="{x:Static cmdLabel:Strings.STR_CmdName_Delete}"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Delete_TT}">
               <MenuItem.Icon>
-                <Image Source="{StaticResource Image_Delete}" Height="16"/>
+              <Image Source="{DynamicResource Image_Delete}" Height="16"/>
               </MenuItem.Icon>
             </MenuItem>
             <Separator />
             <MenuItem Command="SelectAll" Header="{x:Static cmdLabel:Strings.STR_CmdName_SelectAll}"
-                    ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SelectAll_TT}"/>
+                      ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SelectAll_TT}"/>
             <Separator />
             <MenuItem Command="Undo" Header="{x:Static cmdLabel:Strings.STR_CmdName_Undo}">
               <MenuItem.Icon>
-                <Image Source="{StaticResource Image_Undo}" Height="16"/>
+                <Image Source="{DynamicResource Image_Undo}" Height="16"/>
               </MenuItem.Icon>
             </MenuItem>
             <MenuItem Command="Redo" Header="{x:Static cmdLabel:Strings.STR_CmdName_Redo}"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Redo_TT}" >
               <MenuItem.Icon>
-                <Image Source="{StaticResource Image_Redo}" Height="16"/>
+                <Image Source="{DynamicResource Image_Redo}" Height="16"/>
               </MenuItem.Icon>
             </MenuItem>
             <Separator />
@@ -111,11 +111,11 @@
 
 
               <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.ConvertLeadingTabsToSpaces}"
-                    Header="{x:Static cmdLabel:Strings.STR_Cmd_ConvertLeadingTabsToSpaces}"
+                        Header="{x:Static cmdLabel:Strings.STR_Cmd_ConvertLeadingTabsToSpaces}"
                     />
 
               <MenuItem Command="{x:Static aedit_cmd:AvalonEditCommands.ConvertLeadingSpacesToTabs}"
-                    Header="{x:Static cmdLabel:Strings.STR_Cmd_ConvertLeadingSpaces}"
+                        Header="{x:Static cmdLabel:Strings.STR_Cmd_ConvertLeadingSpaces}"
                     />
             </MenuItem>
 
