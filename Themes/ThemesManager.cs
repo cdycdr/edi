@@ -291,14 +291,6 @@
         t = new ThemeBase(this, wpfTheme, themeName, null, null, null);
         ret.Add(t.HlThemeName, t);
 
-        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeBrightStandard,
-                                appLocation, EditorThemeBrightStandardLocation);
-        ret.Add(t.HlThemeName, t);
-
-        t = new ThemeBase(this, wpfTheme, themeName, EditorThemeTrueBlue,
-                                appLocation, EditorThemeTrueBlueLocation);
-        ret.Add(t.HlThemeName, t);
-
         // Metro Theme
         themeName = MetroLightThemeName;
         wpfTheme = new List<string>(MetroResources);
