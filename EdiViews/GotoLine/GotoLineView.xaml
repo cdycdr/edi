@@ -22,7 +22,7 @@
 							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}">
 
-            <Grid Margin="9,3">
+            <Grid Margin="3">
               <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
@@ -49,7 +49,7 @@
               </Grid>
 
               <StackPanel Grid.Row="1">
-                <StackPanel Visibility="{Binding ListMessages.Count, Converter={StaticResource CountToVisibilityHidden}}" Margin="0,15">
+                <StackPanel Visibility="{Binding ListMessages.Count, Converter={StaticResource CountToVisibilityHidden}}" Margin="0,3">
                   <TextBlock Text="{Binding ProblemCaption}"
                              TextWrapping="Wrap" Margin="3" />
 
@@ -71,6 +71,7 @@
                   </ListBox>
                 </StackPanel>
               </StackPanel>
+
             </Grid>
 
           </Border>

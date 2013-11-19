@@ -7,14 +7,14 @@
         xmlns:views="clr-namespace:EdiViews.GotoLine"
         xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
 
-        Title="Go To Line"
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="false"
-        MinWidth="300"
 
         Style="{DynamicResource EmptyDialog}"
+        MinHeight="100"
+        MinWidth="300"
 
         behav:DialogCloser.DialogResult="{Binding WindowCloseResult}"
         >
