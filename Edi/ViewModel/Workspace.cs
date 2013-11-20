@@ -395,6 +395,8 @@ namespace Edi.ViewModel
     {
       try
       {
+        throw new NotFiniteNumberException();
+
         switch (t)
         {
           case TypeOfDocument.EdiTextEditor:

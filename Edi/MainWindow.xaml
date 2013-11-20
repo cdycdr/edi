@@ -37,8 +37,6 @@
         Title="{Binding ApplicationTitle}"
         Icon="/Edi;component/EdiLogo.ico"
         behav:DialogCloser.DialogResult="{Binding DialogCloseResult}"        
-
-        Style="{StaticResource EmptyWindow}"
         >
     <Grid>
       <Grid.Resources>
