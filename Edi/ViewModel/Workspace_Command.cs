@@ -154,8 +154,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
       (s, e) =>
@@ -187,8 +187,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       }));
 
@@ -237,8 +237,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       }));
 
@@ -258,7 +258,7 @@
           logger.Error(exp.Message, exp);
           MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
                           MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
       (s, e) =>
@@ -289,8 +289,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
       (s, e) =>
@@ -309,8 +309,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       }
       ));
@@ -359,8 +359,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       }));
 
@@ -381,8 +381,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
       (s, e) =>  // Execute this comment only if an UML document is currently active
@@ -460,8 +460,8 @@
             catch (Exception exp)
             {
               logger.Error(exp.Message, exp);
-              MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                              App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+              MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                              App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
             }
           }));
         };
@@ -476,8 +476,8 @@
         SettingsManager.Instance.SettingData.CurrentTheme = oldTheme;
 
         logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                        App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                        App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
       }
     }
 
@@ -502,8 +502,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
       (s, e) =>
@@ -535,8 +535,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
       (s, e) => { e.CanExecute = CanExecuteIfActiveDocumentIsEdiViewModel(); }));
@@ -553,8 +553,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
       (s, e) => { e.CanExecute = CanExecuteIfActiveDocumentIsEdiViewModel(); }));
@@ -583,8 +583,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
       (s, e) => { e.CanExecute = CanExecuteIfActiveDocumentIsEdiViewModel(); }));
@@ -613,8 +613,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
       (s, e) => { e.CanExecute = CanExecuteIfActiveDocumentIsEdiViewModel(); }));
@@ -631,8 +631,8 @@
         catch (Exception exp)
         {
           logger.Error(exp.Message, exp);
-          MsgBox.Msg.Show(exp, App.IssueTrackerText, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                          App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
       (s, e) => { e.CanExecute = CanExecuteIfActiveDocumentIsEdiViewModel(); }));

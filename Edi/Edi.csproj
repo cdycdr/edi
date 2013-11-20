@@ -78,9 +78,6 @@
     <Reference Include="MsgBox">
       <HintPath>..\02_Libs\00_bin\MsgBox\MsgBox.dll</HintPath>
     </Reference>
-    <Reference Include="NumericUpDownLib">
-      <HintPath>..\02_Libs\00_bin\NumericUpDownLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -96,12 +93,6 @@
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>..\02_Libs\00_bin\Xceed.Wpf.AvalonDock\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Expression">
-      <HintPath>..\02_Libs\00_bin\Xceed.Wpf.AvalonDock\Xceed.Wpf.AvalonDock.Themes.Expression.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
-      <HintPath>..\02_Libs\00_bin\Xceed.Wpf.AvalonDock\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-    </Reference>
     <Reference Include="YalvLib">
       <HintPath>..\02_Libs\00_bin\YalvLib\YalvLib.dll</HintPath>
     </Reference>
@@ -113,7 +104,6 @@
     <Compile Include="Converter\ActiveDocumentConverter.cs" />
     <Compile Include="Converter\ActiveDocumentToVisibilityConverter.cs" />
     <Compile Include="MainWindowViewManager.cs" />
-    <Compile Include="MiniUmlPluginLoader.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
     <Compile Include="ViewModel\Workspace_Editor.cs" />
     <Compile Include="ViewModel\Workspace_Theming.cs" />
@@ -327,7 +317,7 @@
       <Name>EdiViews</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
-      <Project>{6C55B776-26D4-4DB3-A6AB-87E783B2F3D1}</Project>
+      <Project>{6c55b776-26d4-4db3-a6ab-87e783b2f3d1}</Project>
       <Name>ICSharpCode.AvalonEdit</Name>
     </ProjectReference>
     <ProjectReference Include="..\MiniUML\MiniUML.Framework\MiniUML.Framework.csproj">
@@ -383,6 +373,13 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>REM Make sure this library is available in the target path
+Copy /Y "$(SolutionDir)02_Libs\00_bin\NumericUpDownLib.dll" "$(TargetDir)"
+Copy /Y "$(SolutionDir)02_Libs\00_bin\Xceed.Wpf.AvalonDock\Xceed.Wpf.AvalonDock.Themes.Expression.dll" "$(TargetDir)"
+Copy /Y "$(SolutionDir)02_Libs\00_bin\Xceed.Wpf.AvalonDock\Xceed.Wpf.AvalonDock.Themes.Metro.dll" "$(TargetDir)"
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -100,6 +100,7 @@
   <ItemGroup>
     <Compile Include="behaviour\DragAndDropProps.cs" />
     <Compile Include="Events\RubberBandSelectionEventArgs.cs" />
+    <Compile Include="MiniUmlPluginLoader.cs" />
     <Compile Include="Model\DocumentDataModel.cs" />
     <Compile Include="Model\UmlTypeToStringConverterBase.cs" />
     <Compile Include="PluginManager.cs" />

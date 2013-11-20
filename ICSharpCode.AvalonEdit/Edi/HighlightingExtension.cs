@@ -49,36 +49,10 @@
               HighlightingManager.Instance.RegisterHighlighting(definition.Name, definition.Extensions.ToArray(), hightlight);
             }
             catch{ throw; }
-
-/*          catch (Exception ex)
-            {
-              string filename = file;
-
-              try
-              {
-                filename = System.IO.Path.GetFileName(file);
-              }
-              catch
-              {
-              }
-
-              MsgBox.Msg.Show(ex, string.Format(CultureInfo.InvariantCulture, Util.Local.Strings.STR_MSG_ErrorRegisteringHighlighting, filename),
-                              MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Alert, MsgBox.MsgBoxResult.NoDefaultButton,
-                              App.IssueTrackerLink, App.IssueTrackerTitle, App.IssueTrackerText, null, true);
-            }
- */
           }
         }
       }
       catch{ throw; }
-
-/*    catch (Exception ex)
-      {
-        MsgBox.Msg.Show(ex, Util.Local.Strings.STR_MSG_Unexpected_Error,
-                        MsgBox.MsgBoxButtons.OK, MsgBox.MsgBoxImage.Alert, MsgBox.MsgBoxResult.NoDefaultButton,
-                        App.IssueTrackerLink, App.IssueTrackerTitle, App.IssueTrackerText, null, true);
-      }
- */
     }
 
     private static XshdSyntaxDefinition LoadXshdDefinition(string fullName)

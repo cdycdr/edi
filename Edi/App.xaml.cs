@@ -38,9 +38,6 @@ namespace Edi
     }
 
     private Window mMainWin;
-
-    public static readonly string IssueTrackerTitle = Util.Local.Strings.STR_MSG_IssueTrackerTitle;
-    public static readonly string IssueTrackerText = Util.Local.Strings.STR_MSG_IssueTrackerText;
     public const string IssueTrackerLink  = "https://edi.codeplex.com/workitem/list/basic";
     #endregion fields
 
@@ -363,7 +360,8 @@ namespace Edi
 
       try
       {
-        MiniUmlPluginLoader.LoadPlugins(App.AssemblyEntryLocation + @"\MiniUML.Plugins\", Workspace.This);
+        // Attempt to load a MiniUML plugin via the model class
+        MiniUML.Model.MiniUmlPluginLoader.LoadPlugins(App.AssemblyEntryLocation + @"\MiniUML.Plugins\", Workspace.This);
         
         Application.Current.MainWindow = this.mMainWin = new MainWindow();
         this.ShutdownMode = System.Windows.ShutdownMode.OnLastWindowClose;
@@ -586,7 +584,7 @@ namespace Edi
 
         Msg.Show(e.Exception, Util.Local.Strings.STR_MSG_UnknownError_Caption,
                   MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                  App.IssueTrackerLink, App.IssueTrackerLink, App.IssueTrackerText, null, true);
+                  App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
 
         e.Handled = true;
       }
