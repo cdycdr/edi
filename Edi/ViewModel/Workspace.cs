@@ -275,8 +275,7 @@ namespace Edi.ViewModel
       }
     }
     
-
-    public bool ShutDownInProgress_Cancel
+    internal bool ShutDownInProgress_Cancel
     {
       get
       {
@@ -286,10 +285,7 @@ namespace Edi.ViewModel
       set
       {
         if (this.mShutDownInProgress_Cancel != value)
-        {
           this.mShutDownInProgress_Cancel = value;
-          this.NotifyPropertyChanged(() => this.mShutDownInProgress_Cancel);
-        }
       }
     }
 
