@@ -453,10 +453,13 @@ and a statement about the function/workflow you were using. Attach screenshots o
     <value>An error occurred while loading plugin assembly '{0}'.</value>
   </data>
   <data name="STR_MSG_ErrorWhileSavingAFile" xml:space="preserve">
-    <value>Error '{0}'\nhas occurred while saving a file.</value>
+    <value>Error '{0}'
+has occurred while saving a file.</value>
   </data>
   <data name="STR_MSG_ErrorWhileSavingFileX" xml:space="preserve">
-    <value>Error '{0}'\nhas occurred while saving the file\n:'{1}'</value>
+    <value>Error '{0}'
+has occurred while saving the file:
+'{1}'</value>
   </data>
   <data name="STR_MSG_PluginNotLoaded" xml:space="preserve">
     <value>Plugin not loaded.</value>
@@ -564,7 +567,10 @@ and a statement about the function/workflow you were using. Attach screenshots o
     <value>An unexpected error occurred.</value>
   </data>
   <data name="STR_THEMING_MSG_CANNOT_FIND_PATH" xml:space="preserve">
-    <value>Cannot find Path to: '{0}'\n\nPlease make sure this module is accessible.</value>
+    <value>Cannot find Path to:
+'{0}'
+
+Please make sure this module is accessible.</value>
   </data>
   <data name="STR_THEMING_CAPTION" xml:space="preserve">
     <value>Theming Error</value>
@@ -809,8 +815,13 @@ End the other process and re-open the file or save the file in a different locat
     <value>The file:
 '{0}'
 
-does not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?</value>
-    <comment>The file:\n\n'{0}'\n\ndoes not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?</comment>
+does not exist or cannot be loaded.
+Do you want to remove this file from the list of recent files?</value>
+    <comment>The file:
+'{0}'
+
+does not exist or cannot be loaded.
+Do you want to remove this file from the list of recent files?</comment>
   </data>
   <data name="STR_ERROR_LOADING_FILE_CAPTION" xml:space="preserve">
     <value>Error Loading file</value>

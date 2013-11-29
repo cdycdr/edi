@@ -991,7 +991,8 @@ namespace Util.Local {
         ///   Looks up a localized string similar to The file:
         ///&apos;{0}&apos;
         ///
-        ///does not exist or cannot be loaded.\n\nDo you want to remove this file from the list of recent files?.
+        ///does not exist or cannot be loaded.
+        ///Do you want to remove this file from the list of recent files?.
         /// </summary>
         public static string STR_ERROR_LOADING_FILE_MSG {
             get {
@@ -1641,7 +1642,8 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error &apos;{0}&apos;\nhas occurred while saving a file..
+        ///   Looks up a localized string similar to Error &apos;{0}&apos;
+        ///has occurred while saving a file..
         /// </summary>
         public static string STR_MSG_ErrorWhileSavingAFile {
             get {
@@ -1650,7 +1652,9 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error &apos;{0}&apos;\nhas occurred while saving the file\n:&apos;{1}&apos;.
+        ///   Looks up a localized string similar to Error &apos;{0}&apos;
+        ///has occurred while saving the file:
+        ///&apos;{1}&apos;.
         /// </summary>
         public static string STR_MSG_ErrorWhileSavingFileX {
             get {
@@ -1979,7 +1983,10 @@ namespace Util.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot find Path to: &apos;{0}&apos;\n\nPlease make sure this module is accessible..
+        ///   Looks up a localized string similar to Cannot find Path to:
+        ///&apos;{0}&apos;
+        ///
+        ///Please make sure this module is accessible..
         /// </summary>
         public static string STR_THEMING_MSG_CANNOT_FIND_PATH {
             get {
