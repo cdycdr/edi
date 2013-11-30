@@ -76,7 +76,9 @@
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs_TT}"
                   ToolTipService.ShowOnDisabled="True"/>
 
-        <MenuItem Header="Export">
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Export}"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Export_TT}"
+                  ToolTipService.ShowOnDisabled="True">
           <MenuItem Command="cmd:AppCommand.ExportUMLToImage">
           </MenuItem>
         </MenuItem>
@@ -264,7 +266,7 @@
       <!-- XXXXXXXXXXXXXXXXXXXX -->
       <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Tools}">
 
-        <MenuItem Header="Settings..."
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Settings}"
                   Command="cmd:AppCommand.ProgramSettings"
                   ToolTipService.ShowOnDisabled="True"
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />

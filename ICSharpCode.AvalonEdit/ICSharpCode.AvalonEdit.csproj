@@ -94,6 +94,7 @@
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -103,6 +104,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -118,7 +120,7 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="UnitComboLib">
-      <HintPath>..\02_Libs\00_bin\UnitComboLib.dll</HintPath>
+      <HintPath>..\02_Libs\00_bin\UnitComboLib\UnitComboLib.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -133,6 +135,7 @@
     <Compile Include="Edi\EdiTextEditor.xaml.cs">
       <DependentUpon>EdiTextEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Edi\EditTextEditor_Printing.cs" />
     <Compile Include="Edi\Folding\BraceFoldingStarategy.cs" />
     <Compile Include="Edi\Folding\CSharpBraceFoldingStarategy.cs" />
     <Compile Include="Edi\Folding\VBNETFoldingStrategy.cs" />
@@ -143,6 +146,14 @@
     <Compile Include="Edi\Intellisense\ICompletionDataProvider.cs" />
     <Compile Include="Edi\Intellisense\ICompletionWindowResolver.cs" />
     <Compile Include="Edi\Intellisense\TextCompletionData.cs" />
+    <Compile Include="Edi\PrintEngine\DocumentPaginatorWrapper.cs" />
+    <Compile Include="Edi\PrintEngine\Printing.cs" />
+    <Compile Include="Edi\PrintEngine\PrintPreviewDialog.xaml.cs">
+      <DependentUpon>PrintPreviewDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Edi\PrintEngine\PrintPreviewDocumentViewer.cs">
+      <DependentUpon>PrintPreviewDocumentViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Edi\TextBoxControl\ITextBoxController.cs" />
     <Compile Include="Edi\TextBoxControl\TextBoxController.cs" />
     <Compile Include="Highlighting\Themes\GlobalStyles.cs" />
@@ -481,6 +492,14 @@
     <Page Include="Edi\EdiTextEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Edi\PrintEngine\PrintPreviewDocumentViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Edi\PrintEngine\PrintPreviewDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Search\SearchPanel.xaml">
       <DependentUpon>SearchPanel.cs</DependentUpon>

@@ -32,6 +32,7 @@
 
       CmdBindings.Add(new CommandBinding(EdiTextEditorCommands.FoldsCollapseAll, EdiTextEditor.FoldsCollapseAll, EdiTextEditor.FoldsColapseExpandCanExecute));
       CmdBindings.Add(new CommandBinding(EdiTextEditorCommands.FoldsExpandAll, EdiTextEditor.FoldsExpandAll, EdiTextEditor.FoldsColapseExpandCanExecute));
+      CmdBindings.Add(new CommandBinding(EdiTextEditorCommands.PrintDocument, EdiTextEditor.PrintDocument, EdiTextEditor.PrintDocumentCanExecute));
     }
 
     /// <summary>

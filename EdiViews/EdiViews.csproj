@@ -84,9 +84,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnitComboLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\02_Libs\00_bin\UnitComboLib.dll</HintPath>
+    <Reference Include="UnitComboLib">
+      <HintPath>..\02_Libs\00_bin\UnitComboLib\UnitComboLib.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="YalvLib">

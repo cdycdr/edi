@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="STR_MSG_DIRECTORY_DOES_NOT_EXIST" xml:space="preserve">
-    <value>Das Verzeichnis '{0}' existiert nicht oder liegt nicht im Zugriff.</value>
+    <value>Le répertoire {0} n'existe pas ou n'est pas accessible.</value>
   </data>
   <data name="STR_MSG_ERROR_FINDING_RESOURCE" xml:space="preserve">
-    <value>Es ist ein Fehler bei der Suche nach einer Resource aufgetretten.</value>
+    <value>Erreur trouver la ressource demandée</value>
   </data>
 </root>

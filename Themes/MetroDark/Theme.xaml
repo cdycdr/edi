@@ -45,6 +45,8 @@
     <ResourceDictionary Source="/Themes;component/MetroDark/MetroStyles/Controls.GroupBox.xaml" />
     <ResourceDictionary Source="/Themes;component/MetroDark/MetroStyles/GridSplitter.xaml" />
 
+    <ResourceDictionary Source="/Themes;component/MetroDark/EdiControls/DocumentViewer.xaml" />
+
     <!-- Use dark brush definitions -->
     <ResourceDictionary Source="/MsgBox;component/Themes/DarkBrushes.xaml" />
     <ResourceDictionary Source="/MsgBox;component/Themes/DarkIcons.xaml" />

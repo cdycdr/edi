@@ -8,6 +8,8 @@
     xmlns:behav="clr-namespace:YalvLib.Behaviour;assembly=YalvLib"
     xmlns:conv="clr-namespace:YavLib.Converter;assembly=YalvLib"
     xmlns:Properties="clr-namespace:YalvLib.Strings;assembly=YalvLib"
+
+    xmlns:localiz="clr-namespace:Util.Local;assembly=Util"
     >
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="../../Brushes.xaml" />
@@ -128,7 +130,7 @@
                               Command="ApplicationCommands.Copy" />
                     <Separator />
                     <MenuItem ItemsSource="{Binding Path=DataGridColumns.DataGridColumns}"
-                              Header="Columns"
+                              Header="{x:Static localiz:Strings.STR_YALVLIb_Columns_MenuLabel}"
                               DataContext="{Binding LogItems}">
                       <MenuItem.ItemContainerStyle>
                         <Style TargetType="{x:Type MenuItem}">

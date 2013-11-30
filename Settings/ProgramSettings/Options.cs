@@ -300,6 +300,7 @@
 
       ret.Add(new LanguageCollection() { Language = "de", Locale = "DE", Name = "Deutsch (German)" });
       ret.Add(new LanguageCollection() { Language = "en", Locale = "US", Name = "English (English)" });
+      ret.Add(new LanguageCollection() { Language = "fr", Locale = "FR", Name = "Français (French)" });
 
       return ret;
     }

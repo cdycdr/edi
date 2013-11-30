@@ -427,6 +427,27 @@ This section lists the requirements that should (at least in part) be implemente
          The Edi.exe.config file can be used to configure whether logging is enabled or not.
          http://logging.apache.org/log4net/
 
+3.1 Terminology
+
+-------------------+-------------------------+----------------------------------------------------
+English            | German                  | Description
+-------------------+-------------------------+----------------------------------------------------
+Most Recent Files  | Zuletzt genutzte        | Most Recent Files (MRU) are recently accessed via
+                   | Dateien                 | File>Open, drag & drop etc. These files are
+                   | Dateien                 | displayed at the top of the MRU list.
+-------------------+-------------------------+----------------------------------------------------
+Program Settings   | Programmeinstellungen   | Refers to those options that can be configured to
+                   |                         | adjust a program to a user's needs.
+-------------------+-------------------------+----------------------------------------------------
+
+3.1.1 Typical XAML Constructs to Localic
+
+Perform regular expression search with:
+Header="[A-Z]
+ToolTip="[A-Z]
+Content="[A-Z]
+Text="[A-Z]
+
 4 Licensing
 
 This editor is published under the LGPL license.
@@ -463,5 +484,3 @@ and edited using Edi with a custom highlighting pattern for *.txt files.
 
 * Log4Net is an effort from the Apache Foundation
   http://logging.apache.org/log4net/
-
-

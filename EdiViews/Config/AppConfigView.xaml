@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:local="clr-namespace:EdiViews.Config"
 
@@ -39,25 +39,25 @@
                       <RowDefinition Height="Auto" />
                       <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <CheckBox Content="Restore last user session when application starts"
+                    <CheckBox Content="{x:Static cmdLabel:Strings.STR_Settings_RestoreUserSession}"
                               IsChecked="{Binding ReloadOpenFilesOnAppStart}"
                               Grid.Row="0"
                             />
 
-                    <CheckBox Content="Run Edi only once"
+                    <CheckBox Content="{x:Static cmdLabel:Strings.STR_Settings_RunEdiOnlyOnce}"
                               IsChecked="{Binding RunSingleInstance}"
                               Grid.Row="1"
                             />
 
                     <StackPanel Margin="0,12" Grid.Row="2">
-                      <Label Content="Application Language:" />
+                      <Label Content="{x:Static cmdLabel:Strings.STR_Settings_ApplicationLanguage}" />
                       <ComboBox ItemsSource="{Binding Languages}"
                                 SelectedItem="{Binding LanguageSelected}"
                                 SelectedValuePath="BCP47"
                                 DisplayMemberPath="DisplayName"
                                 HorizontalAlignment="Left" VerticalAlignment="Top"
                                 MinWidth="150" Margin="0,3"
-                                ToolTip="Restart the application to see the effect of this setting."
+                                ToolTip="{x:Static cmdLabel:Strings.STR_Settings_ApplicationLanguage_TT}"
                                 />
                     </StackPanel>
 
@@ -65,23 +65,23 @@
                 </GroupBox>
 
                 <!-- This option can be set but is not implemented, yet, so we hide it for now -->
-              <GroupBox Header="Most Recent Files (MRU) mode" Grid.Row="1" Visibility="Collapsed" Margin="9" Padding="9">
+              <GroupBox Header="{x:Static cmdLabel:Strings.STR_Settings_MRU_Section_Label}" Grid.Row="1" Visibility="Collapsed" Margin="9" Padding="9">
                   <StackPanel>
                     <RadioButton IsChecked="{Binding Path=MruPinSortMode, Mode=TwoWay,
                                Converter={StaticResource enumConverter},
                                ConverterParameter=PinnedEntriesFirst}"
-                               Content="Pin entries at the beginning of the list"
+                               Content="{x:Static cmdLabel:Strings.STR_Settings_MRU_Pin_At_StartOption}"
                                Grid.Row="0" Margin="3" />
 
                     <RadioButton IsChecked="{Binding Path=MruPinSortMode, Mode=TwoWay, 
                                Converter={StaticResource enumConverter},
                                ConverterParameter=UnsortedFavourites}"
-                               Content="Favourites (not sorted)"
+                               Content="{x:Static cmdLabel:Strings.STR_Settings_MRU_Pin_At_Current_Position}"
                                Grid.Row="1" Margin="3" />
                   </StackPanel>
                 </GroupBox>
 
-              <GroupBox Header="Text Editor Options" Grid.Row="1" Margin="9" Padding="9">
+              <GroupBox Header="{x:Static cmdLabel:Strings.STR_Settings_Editor_Section_Label}" Grid.Row="1" Margin="9" Padding="9">
                   <Grid>
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto" />
@@ -89,30 +89,28 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0" Margin="0,3,0,3">
-                      <CheckBox IsChecked="{Binding WordWrapText}" Content="Word Wrap Text" />
+                      <CheckBox IsChecked="{Binding WordWrapText}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_WordWrap}" />
 
                       <StackPanel DataContext="{Binding EditorTextOptions}">
-                        <CheckBox IsChecked="{Binding ShowSpaces}" Content="Show Spaces" />
-                        <CheckBox IsChecked="{Binding ShowTabs}" Content="Show Tabs" />
-                        <CheckBox IsChecked="{Binding ShowEndOfLine}" Content="Show end of line" />
-                        <CheckBox IsChecked="{Binding ConvertTabsToSpaces}" Content="Convert tabulator character into space character" />
-                        <CheckBox IsChecked="{Binding ShowBoxForControlCharacters}" Content="Show box for control characters" />
+                        <CheckBox IsChecked="{Binding ShowSpaces}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_ShowSpaces}" />
+                        <CheckBox IsChecked="{Binding ShowTabs}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_ShowTabs}" />
+                        <CheckBox IsChecked="{Binding ShowEndOfLine}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_ShowEndOfLine}" />
+                        <CheckBox IsChecked="{Binding ConvertTabsToSpaces}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_ConvertTabToSpace}" />
+                        <CheckBox IsChecked="{Binding ShowBoxForControlCharacters}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_ShowBoxForControlChar}" />
                         <!-- CheckBox IsChecked="{Binding IndentationSize}" Content="Indentation size" / -->
 
-                        <CheckBox IsChecked="{Binding CutCopyWholeLine}" Content="Cut Copy current line of text" />
-                        <CheckBox IsChecked="{Binding AllowScrollBelowDocument}" Content="Scroll below document" />
-                        <CheckBox IsChecked="{Binding InheritWordWrapIndentation}" Content="Inherit word wrap indentation" />
-                        <CheckBox IsChecked="{Binding EnableRectangularSelection}" Content="Rectangular selection (ALT+Shift or ALT+Mouse selection)" />
-                        <CheckBox IsChecked="{Binding EnableTextDragDrop}" Content="Text drag &amp; drop" />
-                        <CheckBox IsChecked="{Binding EnableVirtualSpace}" Content="virtual space" />
-                        <CheckBox IsChecked="{Binding EnableImeSupport}" Content="IME Support" />
+                        <CheckBox IsChecked="{Binding CutCopyWholeLine}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_CutCopyWholeLine}" />
+                        <CheckBox IsChecked="{Binding AllowScrollBelowDocument}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_AllowScrollBelowDocument}" />
+                        <CheckBox IsChecked="{Binding InheritWordWrapIndentation}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_InheritWordWrapIndentation}" />
+                        <CheckBox IsChecked="{Binding EnableRectangularSelection}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_EnableRectangularSelection}" />
+                        <CheckBox IsChecked="{Binding EnableTextDragDrop}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_EnableTextDragDrop}" />
+                        <CheckBox IsChecked="{Binding EnableVirtualSpace}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_EnableVirtualSpace}" />
+                        <CheckBox IsChecked="{Binding EnableImeSupport}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_EnableImeSupport}" />
                       </StackPanel>
                     </StackPanel>
                   </Grid>
                 </GroupBox>
-
               </Grid>
-
 
               <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -121,7 +119,7 @@
                 </Grid.RowDefinitions>
                 <!-- Text Document View Size Elements -->
                 <GroupBox Grid.Row="0" Grid.Column="1"
-                          Header="Adjust text editor character size" Margin="9" Padding="9">
+                          Header="{x:Static cmdLabel:Strings.STR_Settings_Editor_CharacterSizeSectionLabel}" Margin="9" Padding="9">
                 <StackPanel >
                   <Grid Margin="3">
                     <Grid.ColumnDefinitions>
@@ -132,13 +130,13 @@
                       <RadioButton IsChecked="{Binding Path=DocumentZoomUnit, Mode=TwoWay,
                                      Converter={StaticResource enumConverter},
                                      ConverterParameter=Percentage}"
-                                     Content="Percent"
+                                     Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_CharacterSizeInPercent}"
                                      Grid.Row="0" Margin="3" />
 
                       <RadioButton IsChecked="{Binding Path=DocumentZoomUnit, Mode=TwoWay, 
                                      Converter={StaticResource enumConverter},
                                      ConverterParameter=Points}"
-                                     Content="Point"
+                                     Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_CharacterSizeInPoints}"
                                      Grid.Row="1" Margin="3" />
                     </StackPanel>
                     <Grid Grid.Column="1" Margin="15,0,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Top">
@@ -178,7 +176,7 @@
                 </GroupBox>
 
                 <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding EditorTextOptions}">
-                  <GroupBox Header="Column Ruler" Margin="9" Padding="9">
+                  <GroupBox Header="{x:Static cmdLabel:Strings.STR_Settings_Editor_ColumnRulerSectionLabel}" Margin="9" Padding="9">
                     <Grid>
                       <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -186,21 +184,21 @@
                       </Grid.ColumnDefinitions>
 
                       <CheckBox IsChecked="{Binding ShowColumnRuler}"
-                                  Content="Show column ruler"
-                                  Grid.Column="0"/>
+                                Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_ShowColumnRulerOption}"
+                                Grid.Column="0"/>
 
                       <numUpDown:NumericUpDown Value="{Binding ColumnRulerPosition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                                 MinValue="2" MaxValue="1024"
-                                                 Grid.Column="1" />
+                                               MinValue="2" MaxValue="1024"
+                                               Grid.Column="1" />
                     </Grid>
                   </GroupBox>
 
-                  <GroupBox Header="Hyperlinks" Margin="9" Padding="9">
+                  <GroupBox Header="{x:Static cmdLabel:Strings.STR_Settings_Editor_Hyperlink_Section}" Margin="9" Padding="9">
                     <StackPanel>
-                      <CheckBox IsChecked="{Binding EnableHyperlinks}" Content="Show WWW hyperlinks" />
-                      <CheckBox IsChecked="{Binding EnableFileHyperlinks}" Content="Show file hyperlinks" />
-                      <CheckBox IsChecked="{Binding EnableEmailHyperlinks}" Content="Show Email hyperlinks" />
-                      <CheckBox IsChecked="{Binding RequireControlModifierForHyperlinkClick}" Content="Require Control key for hyperlink click" />
+                      <CheckBox IsChecked="{Binding EnableHyperlinks}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_ShowHyperlinks}" />
+                      <CheckBox IsChecked="{Binding EnableFileHyperlinks}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_EnableFileHyperlinks}" />
+                      <CheckBox IsChecked="{Binding EnableEmailHyperlinks}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_EnableEmailHyperlinks}" />
+                      <CheckBox IsChecked="{Binding RequireControlModifierForHyperlinkClick}" Content="{x:Static cmdLabel:Strings.STR_Settings_Editor_RequireControlModifierForHyperlinkClick}" />
                     </StackPanel>
                   </GroupBox>
                 </StackPanel>

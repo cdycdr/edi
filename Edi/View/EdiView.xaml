@@ -147,6 +147,11 @@
           <MenuItem Command="{x:Static edi_cmd:EdiTextEditorCommands.FoldsExpandAll}"
                     Header="{x:Static cmdLabel:Strings.STR_Cmd_ExpandTextFoldings}"
                     />
+          <Separator />
+
+          <MenuItem Command="{x:Static edi_cmd:EdiTextEditorCommands.PrintDocument}"
+                    Header="Print Preview"
+                  />
         </ContextMenu>
       </ae:EdiTextEditor.ContextMenu>
     </ae:EdiTextEditor>

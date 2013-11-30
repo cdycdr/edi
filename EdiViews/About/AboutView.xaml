@@ -45,7 +45,7 @@
                           VerticalAlignment="Stretch"
                           MinWidth="450"
                           >
-                <TabItem Header="Version Info" Name="InfoTab">
+                <TabItem Header="{x:Static cmdLabel:Strings.STR_ABOUT_VERSION_INFO_LABEL}" Name="InfoTab">
                   <Grid Margin="3">
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto" />
@@ -70,8 +70,8 @@
                              DisplayMemberPath="Value" />
                   </Grid>
                 </TabItem>
-              
-                <TabItem Header="Contributors" Margin="3,0">
+
+                <TabItem Header="{x:Static cmdLabel:Strings.STR_Contributors_Label}" Margin="3,0">
                   <Grid Margin="3">
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto" />

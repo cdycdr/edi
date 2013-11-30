@@ -76,7 +76,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UnitComboLib">
-      <HintPath>..\02_Libs\00_bin\UnitComboLib.dll</HintPath>
+      <HintPath>..\02_Libs\00_bin\UnitComboLib\UnitComboLib.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="YalvLib">
@@ -227,6 +227,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MetroDark\Edi.ModernUI.Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MetroDark\EdiControls\DocumentViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

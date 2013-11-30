@@ -11,6 +11,8 @@
 		<ResourceDictionary Source="/ICSharpCode.AvalonEdit;component/CodeCompletion/CompletionList.xaml" />
 		<ResourceDictionary Source="/ICSharpCode.AvalonEdit;component/CodeCompletion/InsightWindow.xaml" />
 
+    <ResourceDictionary Source="/ICSharpCode.AvalonEdit;component/Edi/PrintEngine/PrintPreviewDocumentViewer.xaml" />
+
   </ResourceDictionary.MergedDictionaries>
 	
 	<Style TargetType="{x:Type editing:LineNumberMargin}">
