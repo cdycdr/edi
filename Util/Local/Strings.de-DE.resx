@@ -851,4 +851,115 @@ Do you want to remove this file from the list of recent files?</comment>
     <value>Programmeinstellungen</value>
     <comment>Progam Settings...</comment>
   </data>
+  <data name="STR_Settings_RestoreUserSession" xml:space="preserve">
+    <value>Letzte Sitzung wiederherstellen wenn Anwendung gestartet wird</value>
+  </data>
+  <data name="STR_Settings_RunEdiOnlyOnce" xml:space="preserve">
+    <value>Edi nur einmal ausführen</value>
+  </data>
+  <data name="STR_Settings_ApplicationLanguage" xml:space="preserve">
+    <value>Sprache:</value>
+  </data>
+  <data name="STR_Settings_ApplicationLanguage_TT" xml:space="preserve">
+    <value>Ein Neustart der Anwendung ist notwendig um den Effekt dieser Einstellung zu sehen.</value>
+  </data>
+  <data name="STR_Settings_MRU_Section_Label" xml:space="preserve">
+    <value>Zuletzt verwendeten Dokumente (MRU) Modus</value>
+  </data>
+  <data name="STR_Settings_MRU_Pin_At_StartOption" xml:space="preserve">
+    <value>PIN-Einträge am Anfang der Liste</value>
+  </data>
+  <data name="STR_Settings_MRU_Pin_At_Current_Position" xml:space="preserve">
+    <value>Favoriten (nicht sortiert)</value>
+  </data>
+  <data name="STR_Settings_Editor_Section_Label" xml:space="preserve">
+    <value>Text-Editor-Optionen</value>
+  </data>
+  <data name="STR_Settings_Editor_WordWrap" xml:space="preserve">
+    <value>Word-Wrap-Texte</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowSpaces" xml:space="preserve">
+    <value>Leerstellen anzeigen</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowTabs" xml:space="preserve">
+    <value>Tabulator anzeigen</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowEndOfLine" xml:space="preserve">
+    <value>Ende der Zeile anzeigen</value>
+  </data>
+  <data name="STR_Settings_Editor_ConvertTabToSpace" xml:space="preserve">
+    <value>Tabulator-Zeichen in Leerzeichen umwandeln</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowBoxForControlChar" xml:space="preserve">
+    <value>Viereck für Steuerzeichen anzeigen</value>
+  </data>
+  <data name="STR_Settings_Editor_CutCopyWholeLine" xml:space="preserve">
+    <value>Aktuellen Textzeile ausschneiden und kopieren</value>
+  </data>
+  <data name="STR_Settings_Editor_AllowScrollBelowDocument" xml:space="preserve">
+    <value>Am Dokumentende weiterblättern</value>
+  </data>
+  <data name="STR_Settings_Editor_InheritWordWrapIndentation" xml:space="preserve">
+    <value>Word Wrap Einzug vererben</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableRectangularSelection" xml:space="preserve">
+    <value>Rechteckige Auswahl (ALT + Shift oder ALT + Mausselektion)</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableTextDragDrop" xml:space="preserve">
+    <value>Text Drag &amp; Drop</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableVirtualSpace" xml:space="preserve">
+    <value>virtueller Raum</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableImeSupport" xml:space="preserve">
+    <value>IME-Unterstützung</value>
+  </data>
+  <data name="STR_Settings_Editor_CharacterSizeSectionLabel" xml:space="preserve">
+    <value>Text-Editor-Schriftgröße anpassen</value>
+  </data>
+  <data name="STR_Settings_Editor_CharacterSizeInPercent" xml:space="preserve">
+    <value>Prozent</value>
+  </data>
+  <data name="STR_Settings_Editor_CharacterSizeInPoints" xml:space="preserve">
+    <value>Punkte</value>
+  </data>
+  <data name="STR_Settings_Editor_ColumnRulerSectionLabel" xml:space="preserve">
+    <value>Lineal</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowColumnRulerOption" xml:space="preserve">
+    <value>Lineal anzeigen</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowHyperlinks" xml:space="preserve">
+    <value>WWW-Links anzeigen</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableFileHyperlinks" xml:space="preserve">
+    <value>Datei-Links anzeigen</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableEmailHyperlinks" xml:space="preserve">
+    <value>E-Mail-hyperlinks anzeigen</value>
+  </data>
+  <data name="STR_Settings_Editor_RequireControlModifierForHyperlinkClick" xml:space="preserve">
+    <value>Hyperlink klick mit STRG-Taste</value>
+  </data>
+  <data name="STR_CmdName_Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="STR_CmdName_Export_TT" xml:space="preserve">
+    <value>Wandeln Sie Daten in ein Dateiformat, das für andere Anwendungen geeignet ist.</value>
+  </data>
+  <data name="STR_CmdName_Settings" xml:space="preserve">
+    <value>Einstellungen...</value>
+  </data>
+  <data name="STR_ABOUT_VERSION_INFO_LABEL" xml:space="preserve">
+    <value>Versionsinfo</value>
+  </data>
+  <data name="STR_Contributors_Label" xml:space="preserve">
+    <value>Mitwirkende</value>
+  </data>
+  <data name="STR_Settings_Editor_Hyperlink_Section" xml:space="preserve">
+    <value>Hyperlinks</value>
+  </data>
+  <data name="STR_YALVLIb_Columns_MenuLabel" xml:space="preserve">
+    <value>Spalten</value>
+  </data>
 </root>

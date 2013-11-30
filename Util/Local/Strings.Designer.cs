@@ -286,6 +286,15 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Version Info.
+        /// </summary>
+        public static string STR_ABOUT_VERSION_INFO_LABEL {
+            get {
+                return ResourceManager.GetString("STR_ABOUT_VERSION_INFO_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The directory &apos;{0}&apos; does not exist or cannot be accessed..
         /// </summary>
         public static string STR_ACCESS_DIRECTORY_ERROR {
@@ -601,6 +610,24 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string STR_CmdName_Export {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert data into a file format that is suitable to other applications..
+        /// </summary>
+        public static string STR_CmdName_Export_TT {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Export_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _File.
         /// </summary>
         public static string STR_CmdName_File {
@@ -898,6 +925,15 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings....
+        /// </summary>
+        public static string STR_CmdName_Settings {
+            get {
+                return ResourceManager.GetString("STR_CmdName_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Themes.
         /// </summary>
         public static string STR_CmdName_Themes {
@@ -948,6 +984,15 @@ namespace Util.Local {
         public static string STR_CmdName_View_Start_Page {
             get {
                 return ResourceManager.GetString("STR_CmdName_View_Start_Page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contributors.
+        /// </summary>
+        public static string STR_Contributors_Label {
+            get {
+                return ResourceManager.GetString("STR_Contributors_Label", resourceCulture);
             }
         }
         
@@ -1884,6 +1929,285 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language:.
+        /// </summary>
+        public static string STR_Settings_ApplicationLanguage {
+            get {
+                return ResourceManager.GetString("STR_Settings_ApplicationLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart the application to see the effect of this setting..
+        /// </summary>
+        public static string STR_Settings_ApplicationLanguage_TT {
+            get {
+                return ResourceManager.GetString("STR_Settings_ApplicationLanguage_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scroll below document.
+        /// </summary>
+        public static string STR_Settings_Editor_AllowScrollBelowDocument {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_AllowScrollBelowDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Percent.
+        /// </summary>
+        public static string STR_Settings_Editor_CharacterSizeInPercent {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_CharacterSizeInPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Points.
+        /// </summary>
+        public static string STR_Settings_Editor_CharacterSizeInPoints {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_CharacterSizeInPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adjust text editor character size.
+        /// </summary>
+        public static string STR_Settings_Editor_CharacterSizeSectionLabel {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_CharacterSizeSectionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column Ruler.
+        /// </summary>
+        public static string STR_Settings_Editor_ColumnRulerSectionLabel {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_ColumnRulerSectionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert tabulator character into space character.
+        /// </summary>
+        public static string STR_Settings_Editor_ConvertTabToSpace {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_ConvertTabToSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cut and copy current line of text.
+        /// </summary>
+        public static string STR_Settings_Editor_CutCopyWholeLine {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_CutCopyWholeLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Email hyperlinks.
+        /// </summary>
+        public static string STR_Settings_Editor_EnableEmailHyperlinks {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_EnableEmailHyperlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show file hyperlinks.
+        /// </summary>
+        public static string STR_Settings_Editor_EnableFileHyperlinks {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_EnableFileHyperlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IME Support.
+        /// </summary>
+        public static string STR_Settings_Editor_EnableImeSupport {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_EnableImeSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rectangular selection (ALT+Shift or ALT+Mouse selection).
+        /// </summary>
+        public static string STR_Settings_Editor_EnableRectangularSelection {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_EnableRectangularSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text drag &amp; drop.
+        /// </summary>
+        public static string STR_Settings_Editor_EnableTextDragDrop {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_EnableTextDragDrop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to virtual space.
+        /// </summary>
+        public static string STR_Settings_Editor_EnableVirtualSpace {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_EnableVirtualSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hyperlinks.
+        /// </summary>
+        public static string STR_Settings_Editor_Hyperlink_Section {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_Hyperlink_Section", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inherit word wrap indentation.
+        /// </summary>
+        public static string STR_Settings_Editor_InheritWordWrapIndentation {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_InheritWordWrapIndentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Require Control key for hyperlink click.
+        /// </summary>
+        public static string STR_Settings_Editor_RequireControlModifierForHyperlinkClick {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_RequireControlModifierForHyperlinkClick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Editor Options.
+        /// </summary>
+        public static string STR_Settings_Editor_Section_Label {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_Section_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show box for control characters.
+        /// </summary>
+        public static string STR_Settings_Editor_ShowBoxForControlChar {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_ShowBoxForControlChar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show column ruler.
+        /// </summary>
+        public static string STR_Settings_Editor_ShowColumnRulerOption {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_ShowColumnRulerOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show end of line.
+        /// </summary>
+        public static string STR_Settings_Editor_ShowEndOfLine {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_ShowEndOfLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show WWW hyperlinks.
+        /// </summary>
+        public static string STR_Settings_Editor_ShowHyperlinks {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_ShowHyperlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Spaces.
+        /// </summary>
+        public static string STR_Settings_Editor_ShowSpaces {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_ShowSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Tabs.
+        /// </summary>
+        public static string STR_Settings_Editor_ShowTabs {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_ShowTabs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Word Wrap Text.
+        /// </summary>
+        public static string STR_Settings_Editor_WordWrap {
+            get {
+                return ResourceManager.GetString("STR_Settings_Editor_WordWrap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Favourites (not sorted).
+        /// </summary>
+        public static string STR_Settings_MRU_Pin_At_Current_Position {
+            get {
+                return ResourceManager.GetString("STR_Settings_MRU_Pin_At_Current_Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin entries at the beginning of the list.
+        /// </summary>
+        public static string STR_Settings_MRU_Pin_At_StartOption {
+            get {
+                return ResourceManager.GetString("STR_Settings_MRU_Pin_At_StartOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Most Recent Files (MRU) mode.
+        /// </summary>
+        public static string STR_Settings_MRU_Section_Label {
+            get {
+                return ResourceManager.GetString("STR_Settings_MRU_Section_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore last user session when application starts.
+        /// </summary>
+        public static string STR_Settings_RestoreUserSession {
+            get {
+                return ResourceManager.GetString("STR_Settings_RestoreUserSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run Edi only once.
+        /// </summary>
+        public static string STR_Settings_RunEdiOnlyOnce {
+            get {
+                return ResourceManager.GetString("STR_Settings_RunEdiOnlyOnce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open file....
         /// </summary>
         public static string STR_STARTPAGE_FILEOPEN_TT {
@@ -2090,6 +2414,15 @@ namespace Util.Local {
         public static string STR_ToggleEditorOptionCmd_WordWrap_TT {
             get {
                 return ResourceManager.GetString("STR_ToggleEditorOptionCmd_WordWrap_TT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Columns.
+        /// </summary>
+        public static string STR_YALVLIb_Columns_MenuLabel {
+            get {
+                return ResourceManager.GetString("STR_YALVLIb_Columns_MenuLabel", resourceCulture);
             }
         }
     }
