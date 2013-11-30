@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,474 +118,474 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CMD_APP_About_Description" xml:space="preserve">
-    <value>Mostrar información sobre EDI</value>
+    <value>Visualizza informazioni su EDI</value>
   </data>
   <data name="CMD_APP_CloseDoc_Description" xml:space="preserve">
-    <value>Documento de cierre</value>
+    <value>Chiudere documento</value>
   </data>
   <data name="CMD_App_Exit_Describtion" xml:space="preserve">
-    <value>Aplicación de salida</value>
+    <value>Uscire dall'applicazione</value>
   </data>
   <data name="CMD_APP_OpenURL_Description" xml:space="preserve">
-    <value>Abrir URL...</value>
+    <value>Apri URL...</value>
   </data>
   <data name="CMD_APP_Open_Description" xml:space="preserve">
-    <value>Abrir el archivo...</value>
+    <value>Aprire il file...</value>
   </data>
   <data name="CMD_APP_SaveAll_Description" xml:space="preserve">
-    <value>Salvar a todos...</value>
+    <value>Salvare tutti...</value>
   </data>
   <data name="CMD_APP_ShowStartPage_Description" xml:space="preserve">
-    <value>Mostrar la página de inicio</value>
+    <value>Visualizza pagina iniziale</value>
   </data>
   <data name="CMD_APP_ViewTheme_Description" xml:space="preserve">
-    <value>Tema de aplicación de vista</value>
+    <value>Cambia tema</value>
   </data>
   <data name="CMD_MRU_AddEntry_Description" xml:space="preserve">
-    <value>Agregar entrada MRU</value>
+    <value>Aggiungi voce MRU</value>
   </data>
   <data name="CMD_MRU_Pin_Description" xml:space="preserve">
-    <value>Fijar o liberar una entrada MRU</value>
+    <value>Bloccare o sbloccare una voce MRU</value>
   </data>
   <data name="CMD_MRU_RemoveEntry_Description" xml:space="preserve">
-    <value>Elimine la entrada MRU</value>
+    <value>Rimuovere voce MRU</value>
   </data>
   <data name="CMD_TXT_DisableHighlighting_Description" xml:space="preserve">
-    <value>Desactivar el resaltado de sintaxis para el archivo actual</value>
+    <value>Spegnere l'evidenziazione della sintassi per il file corrente.</value>
   </data>
   <data name="CMD_TXT_FindNextText_Description" xml:space="preserve">
-    <value>Buscar la siguiente aparición del texto específico en un documento</value>
+    <value>Trovare l'occorrenza successiva del testo specifico in un documento</value>
   </data>
   <data name="CMD_TXT_FindNext_Description" xml:space="preserve">
-    <value>Buscar texto específico en un documento</value>
+    <value>Trovare testo specifico in un documento</value>
   </data>
   <data name="CMD_TXT_FindPreviousText_Description" xml:space="preserve">
-    <value>Buscar anterior aparición del texto específico en un documento</value>
+    <value>Cercare l'occorrenza precedente di testo specifico in un documento</value>
   </data>
   <data name="CMD_TXT_FindReplaceText_Description" xml:space="preserve">
-    <value>Buscar y reemplazar un texto específico en un documento</value>
+    <value>Trovare e sostituire testo in un documento specifico</value>
   </data>
   <data name="CMD_TXT_GotoLine_Description" xml:space="preserve">
-    <value>Ir a una línea específica en un documento</value>
+    <value>Passare a una riga specifica in un documento</value>
   </data>
   <data name="STR_Category_Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Errore</value>
   </data>
   <data name="STR_Category_Information" xml:space="preserve">
-    <value>Información</value>
+    <value>Informazioni</value>
   </data>
   <data name="STR_Category_InternalError" xml:space="preserve">
-    <value>Error interno</value>
+    <value>Errore interno</value>
   </data>
   <data name="STR_Category_UnknownError" xml:space="preserve">
-    <value>Error desconocido</value>
+    <value>Errore sconosciuto</value>
   </data>
   <data name="STR_Category_Warning" xml:space="preserve">
-    <value>ADVERTENCIA</value>
+    <value>Avviso</value>
   </data>
   <data name="STR_Category_Unknown_Internal_Error" xml:space="preserve">
-    <value>Error interno desconocido</value>
+    <value>Errore interno sconosciuto</value>
   </data>
   <data name="STR_CmdName_File" xml:space="preserve">
-    <value>_Archivo</value>
+    <value>_File</value>
   </data>
   <data name="STR_CmdName_New" xml:space="preserve">
-    <value>Nuevo</value>
+    <value>Nuovo</value>
   </data>
   <data name="STR_CmdName_New_Text" xml:space="preserve">
-    <value>Documento de texto</value>
+    <value>Documento di testo</value>
   </data>
   <data name="STR_CmdName_New_UML" xml:space="preserve">
     <value>Documento UML</value>
   </data>
   <data name="STR_CmdName_Open" xml:space="preserve">
-    <value>Abierto</value>
+    <value>Aperto</value>
   </data>
   <data name="STR_CmdName_Open_Log4Net" xml:space="preserve">
-    <value>Documento log4net</value>
+    <value>Documento di log4net</value>
   </data>
   <data name="STR_CmdName_Open_Text" xml:space="preserve">
-    <value>Documento de texto</value>
+    <value>Documento di testo</value>
   </data>
   <data name="STR_CmdName_Open_UML" xml:space="preserve">
     <value>Documento UML</value>
   </data>
   <data name="STR_CmdName_RecentFiles" xml:space="preserve">
-    <value>Documentos recientes</value>
+    <value>Documenti recenti</value>
   </data>
   <data name="STR_CmdName_Save" xml:space="preserve">
-    <value>Salvar</value>
+    <value>Salvare</value>
   </data>
   <data name="STR_CmdName_SaveAs" xml:space="preserve">
-    <value>Guardar como...</value>
+    <value>Salva come...</value>
   </data>
   <data name="STR_CmdName_Close" xml:space="preserve">
-    <value>Cerrar</value>
+    <value>Chiudere</value>
   </data>
   <data name="STR_CmdName_Copy" xml:space="preserve">
     <value>Copia</value>
   </data>
   <data name="STR_CmdName_Copy_TT" xml:space="preserve">
-    <value>Copiar el elemento seleccionado</value>
+    <value>Copiare l'elemento selezionato</value>
   </data>
   <data name="STR_CmdName_Cut" xml:space="preserve">
-    <value>Corte</value>
+    <value>Taglio</value>
   </data>
   <data name="STR_CmdName_Cut_TT" xml:space="preserve">
-    <value>Cortar el elemento seleccionado</value>
+    <value>Tagliare l'elemento selezionato</value>
   </data>
   <data name="STR_CmdName_Delete" xml:space="preserve">
-    <value>Borrar</value>
+    <value>Eliminare</value>
   </data>
   <data name="STR_CmdName_Delete_TT" xml:space="preserve">
-    <value>Eliminar el elemento seleccionado</value>
+    <value>Eliminare l'elemento selezionato</value>
   </data>
   <data name="STR_CmdName_Edit" xml:space="preserve">
-    <value>_Editar</value>
+    <value>Modifica</value>
   </data>
   <data name="STR_CmdName_Exit" xml:space="preserve">
-    <value>Salida</value>
+    <value>Uscita</value>
   </data>
   <data name="STR_CmdName_Find" xml:space="preserve">
-    <value>Encontrar</value>
+    <value>Trovare</value>
   </data>
   <data name="STR_CmdName_GotoLine" xml:space="preserve">
-    <value>Ir a la línea...</value>
+    <value>Vai alla linea...</value>
   </data>
   <data name="STR_CmdName_Help" xml:space="preserve">
-    <value>_Ayuda</value>
+    <value>_Guida</value>
   </data>
   <data name="STR_CmdName_Help_About" xml:space="preserve">
-    <value>Acerca de</value>
+    <value>Circa</value>
   </data>
   <data name="STR_CmdName_Log4Net_Message_TW" xml:space="preserve">
-    <value>Ventana de herramientas log4net mensaje</value>
+    <value>Finestra di messaggio di log4net strumento</value>
   </data>
   <data name="STR_CmdName_Log4Net_TW" xml:space="preserve">
-    <value>Ventana de herramientas log4net</value>
+    <value>Log4net strumento finestra</value>
   </data>
   <data name="STR_CmdName_New_Text_TT" xml:space="preserve">
-    <value>Crear un archivo de texto</value>
+    <value>Creare un file di testo</value>
   </data>
   <data name="STR_CmdName_New_UML_TT" xml:space="preserve">
-    <value>Crear un archivo de uml</value>
+    <value>Creare un file uml</value>
   </data>
   <data name="STR_CmdName_Open_Log4Net_TT" xml:space="preserve">
-    <value>Abrir un archivo de Log4Net</value>
+    <value>Aprire un file Log4Net.</value>
   </data>
   <data name="STR_CmdName_Open_Text_TT" xml:space="preserve">
-    <value>Abrir un archivo de texto</value>
+    <value>Aprire un file di testo</value>
   </data>
   <data name="STR_CmdName_Open_UML_TT" xml:space="preserve">
-    <value>Abrir un archivo UML</value>
+    <value>Aprire un file UML</value>
   </data>
   <data name="STR_CmdName_Paste" xml:space="preserve">
-    <value>Pasta</value>
+    <value>Incolla</value>
   </data>
   <data name="STR_CmdName_Paste_TT" xml:space="preserve">
-    <value>Artículo pegar desde el portapapeles de Windows</value>
+    <value>Elemento incolla dagli Appunti di Windows</value>
   </data>
   <data name="STR_CmdName_Properties_TW" xml:space="preserve">
-    <value>Ventana de herramientas de propiedades</value>
+    <value>Finestra Proprietà</value>
   </data>
   <data name="STR_CmdName_RecentFiles_TW" xml:space="preserve">
-    <value>Ventana de herramientas de archivos recientes</value>
+    <value>Finestra file recenti</value>
   </data>
   <data name="STR_CmdName_Redo" xml:space="preserve">
-    <value>Rehacer</value>
+    <value>Rifare</value>
   </data>
   <data name="STR_CmdName_Redo_TT" xml:space="preserve">
-    <value>Rehacer deshacer último</value>
+    <value>Ripeti ultima Annulla</value>
   </data>
   <data name="STR_CmdName_Replace" xml:space="preserve">
-    <value>Reemplazar</value>
+    <value>Sostituire</value>
   </data>
   <data name="STR_CmdName_SaveAs_TT" xml:space="preserve">
-    <value>Guarde el archivo como cierto tipo y en cierto lugar</value>
+    <value>Salvare il file come un certo tipo e in alcune località</value>
   </data>
   <data name="STR_CmdName_Save_TT" xml:space="preserve">
-    <value>Guardar archivo actual</value>
+    <value>Salvare il file corrente.</value>
   </data>
   <data name="STR_CmdName_SelectAll" xml:space="preserve">
-    <value>Seleccionar todo</value>
+    <value>Seleziona tutto</value>
   </data>
   <data name="STR_CmdName_SelectAll_TT" xml:space="preserve">
-    <value>Seleccione todos los elementos</value>
+    <value>Selezionare tutti gli elementi</value>
   </data>
   <data name="STR_CmdName_Themes" xml:space="preserve">
-    <value>Temas</value>
+    <value>_Tema</value>
   </data>
   <data name="STR_CmdName_Tools" xml:space="preserve">
-    <value>_Herramienta</value>
+    <value>_Strumenti</value>
   </data>
   <data name="STR_CmdName_Undo" xml:space="preserve">
-    <value>Deshacer</value>
+    <value>Annulla</value>
   </data>
   <data name="STR_CmdName_Undo_TT" xml:space="preserve">
-    <value>Deshacer última edición</value>
+    <value>Annulla l'ultima modifica</value>
   </data>
   <data name="STR_CmdName_View" xml:space="preserve">
-    <value>_Vista</value>
+    <value>BamView</value>
   </data>
   <data name="STR_CmdName_View_Start_Page" xml:space="preserve">
-    <value>Página de inicio</value>
+    <value>Pagina iniziale</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_HighlightingDefinition_TT" xml:space="preserve">
-    <value>Seleccione un texto destacando patrón</value>
+    <value>Selezionare un testo evidenziando il modello</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_ShowEndOfLine" xml:space="preserve">
-    <value>Ver final de línea</value>
+    <value>Visualizza fine linea</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_ShowEndOfLine_TT" xml:space="preserve">
-    <value>Ver final de línea</value>
+    <value>Visualizza fine linea</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_ShowLineNumbers" xml:space="preserve">
-    <value>Mostrar números de línea</value>
+    <value>Visualizza i numeri di riga</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_ShowLineNumbers_TT" xml:space="preserve">
-    <value>Mostrar números de línea</value>
+    <value>Visualizza i numeri di riga</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_ShowSpaces" xml:space="preserve">
-    <value>Mostrar espacios</value>
+    <value>Visualizza spazi</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_ShowSpaces_TT" xml:space="preserve">
-    <value>Mostrar caracteres de espacio</value>
+    <value>Visualizza spazi vuoti</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_ShowTabs" xml:space="preserve">
-    <value>Mostrar fichas</value>
+    <value>Visualizza schede</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_ShowTabs_TT" xml:space="preserve">
-    <value>Mostrar caracteres de tabulador</value>
+    <value>Visualizza caratteri Tabulatore</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_WordWrap" xml:space="preserve">
-    <value>Ajuste de línea</value>
+    <value>Word Wrap</value>
   </data>
   <data name="STR_ToggleEditorOptionCmd_WordWrap_TT" xml:space="preserve">
-    <value>Ceñido de texto alrededor de vistas de documento</value>
+    <value>Disporre il testo intorno vista documento</value>
   </data>
   <data name="STR_Insert_Overtype_Mode_TT" xml:space="preserve">
-    <value>Modo texto insertar o sobrescribir (interruptor de encendido/con la tecla insert)</value>
+    <value>Modalità testo Insert o sovrascrittura (interruttore on/di con tasto INS)</value>
   </data>
   <data name="STR_StatusBar_Ready" xml:space="preserve">
-    <value>Listo.</value>
+    <value>Pronto.</value>
   </data>
   <data name="STR_StatusBar_Textencoding_TT" xml:space="preserve">
-    <value>Codificación del texto en el documento actual</value>
+    <value>Codifica del testo nel documento corrente</value>
   </data>
   <data name="STR_StatusBar_X_Coord_Label" xml:space="preserve">
     <value>X:</value>
   </data>
   <data name="STR_StatusBar_X_Coord_Label_TT" xml:space="preserve">
-    <value>Columna del cursor en el documento actual</value>
+    <value>Colonna del cursore nel documento corrente</value>
   </data>
   <data name="STR_StatusBar_Y_Coord_Label" xml:space="preserve">
     <value>Y:</value>
   </data>
   <data name="STR_StatusBar_Y_Coord_Label_TT" xml:space="preserve">
-    <value>Fila del cursor en el documento actual</value>
+    <value>Riga del cursore nel documento corrente</value>
   </data>
   <data name="STR_MSG_IssueTrackerText" xml:space="preserve">
-    <value>Haga clic en el enlace de abajo para verificar si se trata de un problema conocido.
+    <value>Cliccate sul link qui sotto per verificare se questo è un problema noto.
 
-Por favor informar de este problema si no se conoce, sin embargo.
+Si prega di segnalare questo problema se non è noto, ancora.
 
-El informe debe contener el siguiente mensaje de error (puede utilizar el botón Copiar)
-y una declaración sobre la función/flujo de trabajo que estaba utilizando. Adjuntar archivos de imágenes o la muestra si es aplicable.</value>
+La relazione del problema dovrebbe contenere il messaggio di errore riportato di seguito (è possibile utilizzare il pulsante copia)
+e una dichiarazione circa la funzione/flusso di lavoro che si stava utilizzando. Se applicabile, allegare file screenshot o campione.</value>
   </data>
   <data name="STR_MSG_IssueTrackerTitle" xml:space="preserve">
-    <value>Error no controlado</value>
+    <value>Errore non gestito</value>
   </data>
   <data name="STR_Msg_UnknownError" xml:space="preserve">
-    <value>Se produjo un error desconocido.</value>
+    <value>Si è verificato un errore sconosciuto.</value>
   </data>
   <data name="STR_MSG_UnknownError_Caption" xml:space="preserve">
-    <value>Error no controlado</value>
+    <value>Errore non gestito</value>
   </data>
   <data name="STR_MSG_UnknownError_InErrorDispatcher" xml:space="preserve">
-    <value>Error al enviar una excepción</value>
+    <value>Errore durante l'invio di eccezione non gestita</value>
   </data>
   <data name="STR_MSG_UnknownError_InShutDownProcess" xml:space="preserve">
-    <value>Error en el proceso de cierre.</value>
+    <value>Errore nel processo di arresto.</value>
   </data>
   <data name="STR_AppCommand_CopyFileURLToClipboard" xml:space="preserve">
-    <value>Ruta de la copia en el portapapeles</value>
+    <value>Percorso copia negli Appunti</value>
   </data>
   <data name="STR_AppCommand_CopyFileURLToClipboard_TT" xml:space="preserve">
-    <value>La trayectoria de este documento de copia en el portapapeles de Windows</value>
+    <value>Copiare il percorso di questo documento nella Clipboard di Windows</value>
   </data>
   <data name="STR_AppCommand_OpenContainingFolder" xml:space="preserve">
-    <value>Abra la carpeta que contienen...</value>
+    <value>Aprire la cartella contenente...</value>
   </data>
   <data name="STR_AppCommand_OpenContainingFolder_TT" xml:space="preserve">
-    <value>Abra la carpeta que contiene este documento en el explorador de Windows</value>
+    <value>Aprire la cartella che contiene questo documento in Windows Explorer</value>
   </data>
   <data name="STR_MSG_ErrorLoadingPlugin" xml:space="preserve">
-    <value>Se ha producido un error al inicializar un plugin en ensamblado '{0}'.</value>
+    <value>Errore durante l'inizializzazione di un plugin trovato nell'assembly '{0}'.</value>
   </data>
   <data name="STR_MSG_ErrorRegisteringHighlighting" xml:space="preserve">
-    <value>Error al registrar destacando: '{0}'</value>
+    <value>Errore durante la registrazione evidenziando: '{0}'</value>
   </data>
   <data name="STR_MSG_ErrorSavingFile" xml:space="preserve">
-    <value>Ha ocurrido un problema inesperado al guardar el archivo.</value>
+    <value>Un problema imprevisto si è verificato durante il salvataggio del file.</value>
   </data>
   <data name="STR_MSG_ErrorWhileLoadingPlugin" xml:space="preserve">
-    <value>Se ha producido un error al cargar el plugin ensamblado '{0}'.</value>
+    <value>Errore durante il caricamento di assembly plugin '{0}'.</value>
   </data>
   <data name="STR_MSG_ErrorWhileSavingAFile" xml:space="preserve">
-    <value>Error '{0}'
-se ha producido al guardar un archivo.</value>
+    <value>Errore '{0}'
+si è verificato durante il salvataggio di un file.</value>
   </data>
   <data name="STR_MSG_ErrorWhileSavingFileX" xml:space="preserve">
-    <value>Error '{0}'
-ha ocurrido al guardar el archivo:
+    <value>Errore '{0}'
+si è verificato durante il salvataggio del file:
 '{1}'</value>
   </data>
   <data name="STR_MSG_PluginNotLoaded" xml:space="preserve">
-    <value>Plugin no cargado.</value>
+    <value>Plugin non caricato.</value>
   </data>
   <data name="STR_MSG_SaveChangesForFile" xml:space="preserve">
-    <value>¿Guardar los cambios para el archivo '{0}'?</value>
+    <value>Salvare le modifiche per il file '{0}'?</value>
   </data>
   <data name="STR_MSG_Unexpected_Error" xml:space="preserve">
-    <value>Error inesperado</value>
+    <value>Errore imprevisto</value>
   </data>
   <data name="STR_MSG_UnknownDocumentType" xml:space="preserve">
-    <value>Tipo de documento desconocido</value>
+    <value>Tipo di documento sconosciuto</value>
   </data>
   <data name="STR_CmdName_DeleteLine" xml:space="preserve">
-    <value>Borrar línea</value>
+    <value>Eliminare la riga</value>
   </data>
   <data name="STR_CmdName_DeleteLine_TT" xml:space="preserve">
-    <value>Borra la línea actual de texto</value>
+    <value>Elimina la riga di testo corrente</value>
   </data>
   <data name="STR_Cmd_CollapseTextFoldings" xml:space="preserve">
-    <value>Colapso texto pliegues</value>
+    <value>Crollo testo piegature</value>
   </data>
   <data name="STR_Cmd_ConvertLeadingSpaces" xml:space="preserve">
-    <value>Convertir hacia espacios de pestañas</value>
+    <value>Convertire i principali spazi per schede</value>
   </data>
   <data name="STR_Cmd_ConvertLeadingTabsToSpaces" xml:space="preserve">
-    <value>Convertir las lengüetas hacia espacios</value>
+    <value>Convertire spazi che porta schede</value>
   </data>
   <data name="STR_CMD_ConvertSpacesToTabs" xml:space="preserve">
-    <value>Convertir espacios de pestañas</value>
+    <value>Convertire gli spazi in tabulazioni</value>
   </data>
   <data name="STR_CMD_ConvertTabsToSpaces" xml:space="preserve">
-    <value>Convertir tabulaciones en espacios</value>
+    <value>Convertire tabulazioni in spazi</value>
   </data>
   <data name="STR_Cmd_ConvertTextToUpperCase" xml:space="preserve">
-    <value>Convertir texto a mayúsculas</value>
+    <value>Convertire il testo in lettere maiuscole</value>
   </data>
   <data name="STR_Cmd_ExpandTextFoldings" xml:space="preserve">
-    <value>Expandir texto pliegues</value>
+    <value>Espandere il testo piegature</value>
   </data>
   <data name="STR_CMD_RemoveLeadingWhiteSpace" xml:space="preserve">
-    <value>Quitar principales espacios en blanco</value>
+    <value>Rimuovere portando gli spazi vuoti</value>
   </data>
   <data name="STR_CMD_RemoveTrailingWhiteSpace" xml:space="preserve">
-    <value>Quitar los espacios en blanco</value>
+    <value>Rimuovere lo spazio finale</value>
   </data>
   <data name="STR_Cmd__ApplyTextIndentationStrategy" xml:space="preserve">
-    <value>Aplicar sangría estrategia</value>
+    <value>Applicare la strategia di rientro</value>
   </data>
   <data name="STR_Cmd__ConvertTextToLowerCase" xml:space="preserve">
-    <value>Convertir texto a caso inferior</value>
+    <value>Convertire il testo in minuscolo</value>
   </data>
   <data name="STR_Cmd__ConvertTextToTitleCase" xml:space="preserve">
-    <value>Convertir a título</value>
+    <value>Convertire maiuscole</value>
   </data>
   <data name="STR_Cmd__InvertTextCase" xml:space="preserve">
-    <value>Caso de invertir</value>
+    <value>Caso invertito</value>
   </data>
   <data name="STR_Label_TextCase" xml:space="preserve">
-    <value>Minúsculas del texto</value>
+    <value>Caso di testo</value>
   </data>
   <data name="STR_Label_WhiteSpaces" xml:space="preserve">
-    <value>Espacios en blanco</value>
+    <value>Spazi vuoti</value>
   </data>
   <data name="STR_FileType_FileFilter_Log4j" xml:space="preserve">
-    <value>"salida XML log4net (*.log4j, *.xml) | * .log4j; *. xml|Todos los archivos (*. *) | *. * "</value>
+    <value>"log4net output XML (*.log4j, *. Xml) | * .log4j; *. Xml |Tutti i file (*. *) | *. * "</value>
   </data>
   <data name="STR_FileType_FileFilter_UML" xml:space="preserve">
-    <value>Unified Modeling Language (*.uml, *.xml) | * .uml; *. xml|Todos los archivos (*. *) | *. * "</value>
+    <value>Unified Modeling Language (*.uml, *. Xml) | * Uml; *. Xml |Tutti i file (*. *) | *. * "</value>
   </data>
   <data name="STR_FileType_FileFilter_AllFiles" xml:space="preserve">
-    <value>Todos los archivos (*. *) | *. *</value>
+    <value>Tutti i file (*. *) | *. *</value>
   </data>
   <data name="STR_FileType_FileFilter_TextFiles" xml:space="preserve">
-    <value>Archivos de texto (*.txt) | * .txt</value>
+    <value>File di testo (*. txt) | *. txt</value>
   </data>
   <data name="STR_FileType_FileFilter_CSharp" xml:space="preserve">
-    <value>Archivos de C# (*.cs) | * .cs</value>
+    <value>File c# (*.cs) | *. cs</value>
   </data>
   <data name="STR_FileType_FileFilter_HTML" xml:space="preserve">
-    <value>Archivos HTML (*.htm, *.html, *.css, *.js) | * .htm *.html; *.css; *.js</value>
+    <value>File HTML (*. htm, *. html, *.css, *.js) | *. htm; *. html; *.css; *.js</value>
   </data>
   <data name="STR_FileType_FileFilter_SQL" xml:space="preserve">
-    <value>Estructurado Query Language (*.sql) | * SQL</value>
+    <value>Strutturata Query Language (*.sql) | *. Sql</value>
   </data>
   <data name="STR_FileType_FileFilter_Log4NetPlusText" xml:space="preserve">
-    <value>salida XML log4net (*.log4j, *.log, *.txt, *.xml) | * .log4j; *.log *.txt; *.xml</value>
+    <value>log4net output XML (*. txt, log, *.log4j, *. Xml) | * .log4j log; *. txt; *. Xml</value>
   </data>
   <data name="STR_MSG_FIND_NO_MORE_ITEMS_FOUND" xml:space="preserve">
-    <value>Hay no hay resultados de búsqueda más para mostrar.</value>
+    <value>Non ci sono più risultati di ricerca per visualizzare.</value>
   </data>
   <data name="STR_MSG_FIND_NO_MORE_ITEMS_FOUND2" xml:space="preserve">
-    <value>No ocurrencia más encontrado.</value>
+    <value>Nessun ulteriore occorrenza trovata.</value>
   </data>
   <data name="STR_MSG_FIND_Caption" xml:space="preserve">
-    <value>Búsqueda de</value>
+    <value>Ricerca</value>
   </data>
   <data name="STR_MSG_FIND_UNEXPECTED_ERROR" xml:space="preserve">
-    <value>Se produjo un error inesperado.</value>
+    <value>Si è verificato un errore imprevisto.</value>
   </data>
   <data name="STR_THEMING_MSG_CANNOT_FIND_PATH" xml:space="preserve">
-    <value>No puede encontrar el camino para:
+    <value>Impossibile trovare il percorso per:
 '{0}'
 
-Por favor, asegúrese de que este módulo es accesible.</value>
+Si prega di assicurarsi che questo modulo è accessibile.</value>
   </data>
   <data name="STR_THEMING_CAPTION" xml:space="preserve">
-    <value>Error de tematización</value>
+    <value>Errore di tematizzazione</value>
   </data>
   <data name="STR_MSG_DIRCREATED_NO_PLuginLoaded" xml:space="preserve">
-    <value>Directorio creado; No hay plugins cargados.</value>
+    <value>Plugin nella directory creata; nessun plugin caricati.</value>
   </data>
   <data name="STR_MSG_DIRCREATED_NO_PLuginLoaded_Caption" xml:space="preserve">
-    <value>El directorio del plugin no fue encontrado.</value>
+    <value>Directory dei plugin non è stata trovata.</value>
   </data>
   <data name="STR_MSG_ACCESS_PLuginDir" xml:space="preserve">
-    <value>Error al acceder al directorio del plugin.</value>
+    <value>Errore durante l'accesso alle directory dei plugin.</value>
   </data>
   <data name="STR_MSG_ACCESS_PLuginDir_Caption" xml:space="preserve">
-    <value>Error al cargar el plug-in de UML</value>
+    <value>Errore durante il caricamento del plug-in UML</value>
   </data>
   <data name="STR_MSG_UML_PLugin_NOTALL_Loaded" xml:space="preserve">
-    <value>No todos los plugins MiniUml habían cargado OK.</value>
+    <value>Non tutti i MiniUml plugin caricati OK.</value>
   </data>
   <data name="STR_MSG_UML_PLugin_NOTALL_Loaded_Caption" xml:space="preserve">
-    <value>Error al cargar el plug-ins de UML</value>
+    <value>Errore caricamento UML plug-in</value>
   </data>
   <data name="STR_MSG_UML_PLugin_Duplicate" xml:space="preserve">
-    <value>Ya se ha cargado un plugin con el nombre especificado.</value>
+    <value>Un plugin con il nome specificato è già stato caricato.</value>
   </data>
   <data name="STR_ABOUT_MSG" xml:space="preserve">
-    <value>Un texto y Editor de UML.</value>
+    <value>Un testo e un Editor UML.</value>
   </data>
   <data name="STR_ABOUT_Version" xml:space="preserve">
-    <value>Versión</value>
+    <value>Versione</value>
   </data>
   <data name="STR_ABOUT_DOCKING_LAYOUT" xml:space="preserve">
-    <value>Sistema de diseño de acoplamiento:</value>
+    <value>Sistema docking di Layout:</value>
   </data>
   <data name="STR_ABOUT_TextEditor" xml:space="preserve">
-    <value>Editor de texto:</value>
+    <value>Editor di testo:</value>
   </data>
   <data name="STR_ABOUT_Log4NetViewer" xml:space="preserve">
     <value>Log4net Viewer:</value>
   </data>
   <data name="STR_ABOUT_CODE_COMPLETION" xml:space="preserve">
-    <value>Completación de código:</value>
+    <value>Completamento del codice:</value>
   </data>
   <data name="STR_ABOUT_OK_BUTTON" xml:space="preserve">
     <value>_OK</value>
@@ -597,324 +597,324 @@ Por favor, asegúrese de que este módulo es accesible.</value>
     <value>OVR</value>
   </data>
   <data name="STR_FILESTATES_FileName" xml:space="preserve">
-    <value>Nombre de archivo</value>
+    <value>Nome del file</value>
   </data>
   <data name="STR_FILESTATES_FilePath" xml:space="preserve">
-    <value>Ruta del archivo</value>
+    <value>Percorso del file</value>
   </data>
   <data name="STR_FILESTATES_FileSize" xml:space="preserve">
-    <value>Tamaño del archivo</value>
+    <value>Dimensione del file</value>
   </data>
   <data name="STR_FILESTATES_LASTMODIFICATION" xml:space="preserve">
-    <value>Fecha y hora de la última modificación.</value>
+    <value>Data e ora dell'ultima modifica.</value>
   </data>
   <data name="STR_FINDREPLACE_FINDLABEL" xml:space="preserve">
-    <value>Texto a buscar:</value>
+    <value>Testo da trovare:</value>
   </data>
   <data name="STR_FINDREPLACE_SearchInLABEL" xml:space="preserve">
-    <value>Buscar en:</value>
+    <value>Ricerca:</value>
   </data>
   <data name="STR_FINDREPLACE_CURRENTDOC" xml:space="preserve">
-    <value>Documento actual</value>
+    <value>Documento corrente</value>
   </data>
   <data name="STR_FINDREPLACE_OPENDOCS" xml:space="preserve">
-    <value>Documentos abiertos</value>
+    <value>Tutti i documenti aperti</value>
   </data>
   <data name="STR_FINDREPLACE_Options" xml:space="preserve">
-    <value>Opciones</value>
+    <value>Opzioni</value>
   </data>
   <data name="STR_FINDREPLACE_CaseSensitive" xml:space="preserve">
-    <value>Mayúsculas y minúsculas</value>
+    <value>Maiuscole e minuscole</value>
   </data>
   <data name="STR_FINDREPLACE_SearchBackWard" xml:space="preserve">
-    <value>Buscar por</value>
+    <value>Ricerca fino</value>
   </data>
   <data name="STR_FINDREPLACE_MatchWholeWord" xml:space="preserve">
-    <value>Partido toda la palabra</value>
+    <value>Parola intera</value>
   </data>
   <data name="STR_FINDREPLACE_RegularExpression" xml:space="preserve">
-    <value>Expresión regular</value>
+    <value>Espressione regolare</value>
   </data>
   <data name="STR_FINDREPLACE_Wildcards" xml:space="preserve">
-    <value>Comodines</value>
+    <value>Caratteri jolly</value>
   </data>
   <data name="STR_FINDREPLACE_ReplaceWith" xml:space="preserve">
-    <value>Reemplazar con:</value>
+    <value>Sostituire con:</value>
   </data>
   <data name="STR_FINDREPLACE_FINDNEXT" xml:space="preserve">
-    <value>Encontrar _Next</value>
+    <value>Trovare Next</value>
   </data>
   <data name="STR_FINDREPLACE_Replace" xml:space="preserve">
-    <value>_Reemplazar</value>
+    <value>_Sostituire</value>
   </data>
   <data name="STR_FINDREPLACE_ReplaceAll" xml:space="preserve">
-    <value>Reemplazar _Todos</value>
+    <value>Sostituire tutti</value>
   </data>
   <data name="STR_FINDREPLACE_ASK_REALLY_REPLACEEVERYTHING" xml:space="preserve">
-    <value>¿Quieres reemplazar todas las apariciones de '{0}' con '{1}'?</value>
+    <value>Davvero volete sostituire tutte le occorrenze di '{0}' con '{1}'?</value>
   </data>
   <data name="STR_FINDREPLACE_ReplaceAll_Caption" xml:space="preserve">
-    <value>Reemplazar todo</value>
+    <value>Sostituire tutte le</value>
   </data>
   <data name="STR_GOTOLINE_OK_BUTTON" xml:space="preserve">
     <value>_OK</value>
   </data>
   <data name="STR_GOTOLINE_CANCEL_BUTTON" xml:space="preserve">
-    <value>_Cancelar</value>
+    <value>_Annulla</value>
   </data>
   <data name="STR_GOTOLINE_LINE_RANGE_LABEL" xml:space="preserve">
-    <value>Línea</value>
+    <value>Linea</value>
   </data>
   <data name="STR_LOG4NET_FILTER_TOOLTIP" xml:space="preserve">
-    <value>Escriba un criterio de filtro y activar el filtro para personalizar la pantalla.</value>
+    <value>Digitare i criteri di filtro e attivare il filtro per personalizzare la visualizzazione.</value>
   </data>
   <data name="STR_LOG4NET_FILTER_ALL" xml:space="preserve">
-    <value>TODOS</value>
+    <value>TUTTI</value>
   </data>
   <data name="STR_LOG4NET_FILTER_DEBUG" xml:space="preserve">
-    <value>DEPURACIÓN</value>
+    <value>ESEGUIRE IL DEBUG</value>
   </data>
   <data name="STR_LOG4NET_FILTER_INFO" xml:space="preserve">
-    <value>Información</value>
+    <value>INFO</value>
   </data>
   <data name="STR_LOG4NET_FILTER_WARN" xml:space="preserve">
-    <value>ADVIERTEN</value>
+    <value>AVVERTIRE</value>
   </data>
   <data name="STR_LOG4NET_FILTER_ERROR" xml:space="preserve">
-    <value>ERROR</value>
+    <value>ERRORE</value>
   </data>
   <data name="STR_LOG4NET_FILTER_FATAL" xml:space="preserve">
-    <value>FATAL</value>
+    <value>FATALE</value>
   </data>
   <data name="STR_LOG4NET_FILTER_DEBUG_TT" xml:space="preserve">
-    <value>Depuración</value>
+    <value>Eseguire il debug</value>
   </data>
   <data name="STR_LOG4NET_FILTER_INFO_TT" xml:space="preserve">
-    <value>Información</value>
+    <value>Informazioni</value>
   </data>
   <data name="STR_LOG4NET_FILTER_WARN_TT" xml:space="preserve">
-    <value>ADVERTENCIA</value>
+    <value>Avviso</value>
   </data>
   <data name="STR_LOG4NET_FILTER_ERROR_TT" xml:space="preserve">
-    <value>Error</value>
+    <value>Errore</value>
   </data>
   <data name="STR_LOG4NET_FILTER_FATAL_TT" xml:space="preserve">
-    <value>Error fatal</value>
+    <value>Errore fatale</value>
   </data>
   <data name="STR_LOG4NET_DELTATIME" xml:space="preserve">
-    <value>hora diferencial:</value>
+    <value>T: Delta</value>
   </data>
   <data name="STR_LOG4NET_FILTERRESULT_TT" xml:space="preserve">
-    <value>Suma de elementos mostrados en realidad (después de aplicar los filtros).</value>
+    <value>Somma di elementi effettivamente visualizzati (dopo l'applicazione di filtri).</value>
   </data>
   <data name="STR_LOG4NET_ENTERLOGID_TT" xml:space="preserve">
-    <value>Introduzca un elemento de registro Id para desplazarse a la vista de documento para su artículo.</value>
+    <value>Immettere una voce di registro Id per far scorrere la visualizzazione del documento alla sua voce.</value>
   </data>
   <data name="STR_LOG4NET_DOCUMENTTAB_TT" xml:space="preserve">
-    <value>Un documento de log4net puede utilizarse para ver la salida XML desde una sesión de registrador log4net.</value>
+    <value>Un documento log4net può essere utilizzato per visualizzare l'output XML da una sessione di logger log4net.</value>
   </data>
   <data name="STR_LOG4NET_READONY_REASON" xml:space="preserve">
-    <value>No puede editar un documento de Log4net. Este es un documento de visor de sólo lectura.</value>
+    <value>Un documento di Log4net non può essere la modifica. Questo è un documento di sola lettura di spettatore.</value>
   </data>
   <data name="STR_MRU_MENUITEM_COPYURL" xml:space="preserve">
-    <value>Camino de copia en el portapapeles</value>
+    <value>Copia percorso negli Appunti</value>
   </data>
   <data name="STR_MRU_MENUITEM_OpenWithWindowsApp" xml:space="preserve">
-    <value>Abierto con la aplicación de Windows...</value>
+    <value>Aperta con applicazione di Windows...</value>
   </data>
   <data name="STR_MRU_MENUITEM_OpenInContainingFolder" xml:space="preserve">
-    <value>Abierto en la carpeta que contiene</value>
+    <value>Aperto nel contenente la cartella</value>
   </data>
   <data name="STR_MRU_MENUITEM_Remove" xml:space="preserve">
-    <value>Quitar</value>
+    <value>Rimuovere</value>
   </data>
   <data name="STR_STARTPAGE_TITLE" xml:space="preserve">
-    <value>Página de inicio</value>
+    <value>Pagina iniziale</value>
   </data>
   <data name="STR_STARTPAGE_WELCOME_TT" xml:space="preserve">
-    <value>¡ Bienvenido a Edi. Revise esta página para comenzar con esta aplicación del editor.</value>
+    <value>Benvenuti a Edi. Rivedere questa pagina per iniziare a utilizzare questa applicazione editor.</value>
   </data>
   <data name="STR_STARTPAGE_VISITPROJECTHOMEPAGE_TT" xml:space="preserve">
-    <value>Visite la página de Internet de esta aplicación</value>
+    <value>Visitate il sito Internet di questa applicazione</value>
   </data>
   <data name="STR_STARTPAGE_FILEOPEN_TT" xml:space="preserve">
-    <value>Abrir el archivo...</value>
+    <value>Aprire il file...</value>
   </data>
   <data name="STR_DIALOG_INPUT_PROBLEM_CAPTION" xml:space="preserve">
-    <value>Su aporte no es suficiente. Corregir los siguientes problemas o haga clic en cancelar.</value>
+    <value>Il vostro contributo non è sufficiente. Correggere i seguenti problemi o fare clic su Annulla.</value>
   </data>
   <data name="STR_ACCESS_DIRECTORY_ERROR" xml:space="preserve">
-    <value>El directorio '{0}' no existe o no se puede acceder.</value>
+    <value>La directory '{0}' non esiste o non è accessibile.</value>
   </data>
   <data name="STR_FILE_FINDING_CAPTION" xml:space="preserve">
-    <value>Error al buscar el archivo</value>
+    <value>File di individuazione degli errori</value>
   </data>
   <data name="STR_FILE_DEFAULTNAME" xml:space="preserve">
-    <value>Sin título</value>
+    <value>Senza titolo</value>
   </data>
   <data name="STR_FILE_READONLY_REASON_NO_WRITE_PERMISSION" xml:space="preserve">
-    <value>Este archivo no se puede editar porque no tiene acceso de escritura.
-Cambiar los permisos de acceso de archivo o guardar el archivo en una ubicación diferente si desea editar.</value>
+    <value>Questo file non può essere modificato perché non hai accesso in scrittura.
+Modificare le autorizzazioni di accesso al file o salvare il file in un percorso diverso, se si desidera modificarlo.</value>
   </data>
   <data name="STR_FILE_READONLY_REASON_USED_BY_OTHER_PROCESS" xml:space="preserve">
-    <value>No se puede editar este archivo porque otro proceso está escribiendo actualmente a él.
-Acabar con el otro proceso y volver a abrir el archivo o guardar el archivo en una ubicación diferente si desea editar.</value>
+    <value>Questo file non può essere modificato perché un altro processo sta attualmente scrivendo ad esso.
+Terminare il processo di altri e ri-aprire il file o salvare il file in un percorso diverso, se si desidera modificarlo.</value>
   </data>
   <data name="STR_FILE_OPEN_ERROR_MSG_CAPTION" xml:space="preserve">
-    <value>Se ha producido un error</value>
+    <value>Si è verificato un errore</value>
   </data>
   <data name="STR_SCALE_VIEW_PERCENT" xml:space="preserve">
-    <value>por ciento</value>
+    <value>per cento</value>
   </data>
   <data name="STR_SCALE_VIEW_PERCENT_SHORT" xml:space="preserve">
     <value>%</value>
   </data>
   <data name="STR_SCALE_VIEW_POINT" xml:space="preserve">
-    <value>tamaño de la fuente</value>
+    <value>dimensione carattere</value>
   </data>
   <data name="STR_SCALE_VIEW_POINT_SHORT" xml:space="preserve">
     <value>PT</value>
   </data>
   <data name="CMD_APP_ExportUMLToImage_Description" xml:space="preserve">
-    <value>UML a imagen</value>
+    <value>UML per immagine</value>
   </data>
   <data name="STR_ERROR_LOADING_FILE_MSG" xml:space="preserve">
-    <value>El archivo:
+    <value>Il file:
 '{0}'
 
-No existe o no se puede cargar.
-¿Quieres eliminar este archivo de la lista de archivos recientes?</value>
+non esiste o non può essere caricato.
+Vuoi rimuovere questo file dall'elenco dei file recenti?</value>
   </data>
   <data name="STR_ERROR_LOADING_FILE_CAPTION" xml:space="preserve">
-    <value>Error al cargar el archivo</value>
+    <value>Errore di caricamento file</value>
   </data>
   <data name="STR_FIND_BUTTON_CAPTION" xml:space="preserve">
-    <value>Encontrar</value>
+    <value>Trovare</value>
   </data>
   <data name="STR_FIND_REPLACE_CAPTION" xml:space="preserve">
-    <value>Buscar y reemplazar...</value>
+    <value>Trovare e sostituire...</value>
   </data>
   <data name="STR_GOTO_LINE_CAPTION" xml:space="preserve">
-    <value>Ir a la línea...</value>
+    <value>Vai alla linea...</value>
   </data>
   <data name="STR_REPLACE_BUTTON_CAPTION" xml:space="preserve">
-    <value>Reemplazar</value>
+    <value>Sostituire</value>
   </data>
   <data name="STR_ProgramSettings_ApplicationBehaviour_Header" xml:space="preserve">
-    <value>Comportamiento de la aplicación</value>
+    <value>Comportamento di applicazione</value>
   </data>
   <data name="STR_ProgramSettings_Caption" xml:space="preserve">
-    <value>Ajustes de programa...</value>
+    <value>Progamma impostazioni...</value>
   </data>
   <data name="STR_Settings_RestoreUserSession" xml:space="preserve">
-    <value>Restaurar la última sesión de usuario cuando se inicia la aplicación</value>
+    <value>Ripristinare l'ultima sessione dell'utente quando l'applicazione viene avviata</value>
   </data>
   <data name="STR_Settings_RunEdiOnlyOnce" xml:space="preserve">
-    <value>Ejecutar sólo una vez Edi</value>
+    <value>Eseguire una sola volta Edi</value>
   </data>
   <data name="STR_Settings_ApplicationLanguage" xml:space="preserve">
-    <value>Idioma:</value>
+    <value>Lingua:</value>
   </data>
   <data name="STR_Settings_ApplicationLanguage_TT" xml:space="preserve">
-    <value>Reiniciar la aplicación para ver el efecto de este ajuste.</value>
+    <value>Riavviare l'applicazione per vedere l'effetto di questa impostazione.</value>
   </data>
   <data name="STR_Settings_MRU_Section_Label" xml:space="preserve">
-    <value>Modo la mayoría de archivos recientes (MRU)</value>
+    <value>La maggior parte delle modalità di file recenti (MRU)</value>
   </data>
   <data name="STR_Settings_MRU_Pin_At_StartOption" xml:space="preserve">
-    <value>PIN entradas al principio de la lista</value>
+    <value>Immissioni di pin all'inizio della lista</value>
   </data>
   <data name="STR_Settings_MRU_Pin_At_Current_Position" xml:space="preserve">
-    <value>Favoritos (no clasificados)</value>
+    <value>Preferiti (non ordinati)</value>
   </data>
   <data name="STR_Settings_Editor_Section_Label" xml:space="preserve">
-    <value>Opciones del Editor de texto</value>
+    <value>Opzioni dell'Editor di testo</value>
   </data>
   <data name="STR_Settings_Editor_WordWrap" xml:space="preserve">
-    <value>Texto</value>
+    <value>Word Wrap Text</value>
   </data>
   <data name="STR_Settings_Editor_ShowSpaces" xml:space="preserve">
-    <value>Mostrar espacios</value>
+    <value>Visualizza spazi</value>
   </data>
   <data name="STR_Settings_Editor_ShowTabs" xml:space="preserve">
-    <value>Mostrar fichas</value>
+    <value>Visualizza schede</value>
   </data>
   <data name="STR_Settings_Editor_ShowEndOfLine" xml:space="preserve">
-    <value>Ver final de línea</value>
+    <value>Visualizza fine linea</value>
   </data>
   <data name="STR_Settings_Editor_ConvertTabToSpace" xml:space="preserve">
-    <value>Convertir caracteres de tabulador en carácter de espacio</value>
+    <value>Convertire carattere tabulatore in carattere spazio</value>
   </data>
   <data name="STR_Settings_Editor_ShowBoxForControlChar" xml:space="preserve">
-    <value>Mostrar cuadro de caracteres de control</value>
+    <value>Casella Visualizza per i caratteri di controllo</value>
   </data>
   <data name="STR_Settings_Editor_CutCopyWholeLine" xml:space="preserve">
-    <value>Cortar y copiar la actual línea de texto</value>
+    <value>Tagliare e copiare la riga di testo corrente</value>
   </data>
   <data name="STR_Settings_Editor_AllowScrollBelowDocument" xml:space="preserve">
-    <value>Desplazarse por debajo de documento</value>
+    <value>Scorrere sotto il documento</value>
   </data>
   <data name="STR_Settings_Editor_InheritWordWrapIndentation" xml:space="preserve">
-    <value>Heredar indentación de envoltura de palabra</value>
+    <value>Ereditare il rientro di word wrap</value>
   </data>
   <data name="STR_Settings_Editor_EnableRectangularSelection" xml:space="preserve">
-    <value>Selección rectangular (ALT + MAYÚS o ALT + ratón selección)</value>
+    <value>Selezione rettangolare (ALT + Shift o ALT + Mouse selezione)</value>
   </data>
   <data name="STR_Settings_Editor_EnableTextDragDrop" xml:space="preserve">
-    <value>Arrastrar texto &amp; gota</value>
+    <value>Testo trascinare &amp; goccia</value>
   </data>
   <data name="STR_Settings_Editor_EnableVirtualSpace" xml:space="preserve">
-    <value>espacio virtual</value>
+    <value>spazio virtuale</value>
   </data>
   <data name="STR_Settings_Editor_EnableImeSupport" xml:space="preserve">
-    <value>Soporte IME</value>
+    <value>Supporto IME</value>
   </data>
   <data name="STR_Settings_Editor_CharacterSizeSectionLabel" xml:space="preserve">
-    <value>Ajustar tamaño de carácter de editor de texto</value>
+    <value>Regolare la dimensione del carattere di testo editor</value>
   </data>
   <data name="STR_Settings_Editor_CharacterSizeInPercent" xml:space="preserve">
-    <value>Por ciento</value>
+    <value>Per cento</value>
   </data>
   <data name="STR_Settings_Editor_CharacterSizeInPoints" xml:space="preserve">
-    <value>Puntos</value>
+    <value>Punti</value>
   </data>
   <data name="STR_Settings_Editor_ColumnRulerSectionLabel" xml:space="preserve">
-    <value>Regla de columna</value>
+    <value>Righello di colonna</value>
   </data>
   <data name="STR_Settings_Editor_ShowColumnRulerOption" xml:space="preserve">
-    <value>Mostrar columna gobernante</value>
+    <value>Mostra colonna righello</value>
   </data>
   <data name="STR_Settings_Editor_ShowHyperlinks" xml:space="preserve">
-    <value>Mostrar hipervínculos WWW</value>
+    <value>Visualizza collegamenti ipertestuali WWW</value>
   </data>
   <data name="STR_Settings_Editor_EnableFileHyperlinks" xml:space="preserve">
-    <value>Mostrar archivo hipervínculos</value>
+    <value>Visualizza file collegamenti ipertestuali</value>
   </data>
   <data name="STR_Settings_Editor_EnableEmailHyperlinks" xml:space="preserve">
-    <value>Mostrar hipervínculos de correo electrónico</value>
+    <value>Visualizza collegamenti ipertestuali Email</value>
   </data>
   <data name="STR_Settings_Editor_RequireControlModifierForHyperlinkClick" xml:space="preserve">
-    <value>Requiere clave de Control de hipervínculo haga clic en</value>
+    <value>Richiedono una chiave di controllo per fare clic su collegamento ipertestuale</value>
   </data>
   <data name="STR_CmdName_Export" xml:space="preserve">
-    <value>Exportación</value>
+    <value>Esportazione</value>
   </data>
   <data name="STR_CmdName_Export_TT" xml:space="preserve">
-    <value>Convertir datos en un formato de archivo que es adecuado para otros usos.</value>
+    <value>Convertire i dati in un formato di file che è adatto ad altre applicazioni.</value>
   </data>
   <data name="STR_CmdName_Settings" xml:space="preserve">
-    <value>Configuración...</value>
+    <value>Impostazioni...</value>
   </data>
   <data name="STR_ABOUT_VERSION_INFO_LABEL" xml:space="preserve">
-    <value>Información de versión</value>
+    <value>Informazioni sulla versione</value>
   </data>
   <data name="STR_Contributors_Label" xml:space="preserve">
-    <value>Colaboradores</value>
+    <value>Contributori</value>
   </data>
   <data name="STR_Settings_Editor_Hyperlink_Section" xml:space="preserve">
-    <value>Hipervínculos</value>
+    <value>Collegamenti ipertestuali</value>
   </data>
   <data name="STR_YALVLIb_Columns_MenuLabel" xml:space="preserve">
-    <value>Columnas</value>
+    <value>Colonne</value>
   </data>
 </root>
