@@ -172,79 +172,11 @@
       <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_View}">
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Themes}"
                   ItemsSource="{Binding Source={x:Static theme:ThemesManager.Instance}, Path=ListAllThemes}">
-          <MenuItem.Resources>
-            <RadioButton x:Key="rb" x:Shared="false" HorizontalAlignment="Right"  VerticalAlignment="Center"
-                         GroupName="MenuGroup"
-                         IsHitTestVisible="False"
-                         Margin="3,0,0,0" IsChecked="{Binding IsSelected, Mode=OneWay}">
-              <RadioButton.Template>
-                <ControlTemplate TargetType="{x:Type RadioButton}">
-                  <!-- Data="M 0,5.1 L 1.7,5.2 L 3.4,7.1 L 8,0.4 L 9.2,0 L 3.3,10.8 Z" -->
-                  <Grid>
-                    <Path x:Name="uncheck"
-                          Visibility="Collapsed"
-                          Margin="7,0,0,0"
-                          VerticalAlignment="Center"
-                          Fill="Transparent">
-                      <Path.Data>
-                        <PathGeometry>
-                          <PathGeometry.Figures>
-                            <PathFigureCollection>
-                              <PathFigure IsClosed="True" StartPoint="0,0">
-                                <PathFigure.Segments>
-                                  <PathSegmentCollection>
-                                    <LineSegment Point="16,0" />
-                                    <LineSegment Point="16,16" />
-                                    <LineSegment Point="0,16" />
-                                  </PathSegmentCollection>
-                                </PathFigure.Segments>
-                              </PathFigure>
-                            </PathFigureCollection>
-                          </PathGeometry.Figures>
-                        </PathGeometry>
-                      </Path.Data>
-                    </Path>
-                    <Path x:Name="check"
-                          Visibility="Collapsed"
-                          Margin="7,0,0,0"
-                          VerticalAlignment="Center"
-                          Fill="{TemplateBinding MenuItem.Foreground}">
-                      <Path.Data>
-                        <PathGeometry>
-                          <PathGeometry.Figures>
-                            <PathFigureCollection>
-                              <PathFigure IsClosed="True" StartPoint="2.5,8">
-                                <PathFigure.Segments>
-                                  <PathSegmentCollection>
-                                    <LineSegment Point="5,13.5" />
-                                    <LineSegment Point="7,13.5" />
-                                    <LineSegment Point="12.5,2.5" />
-                                    <LineSegment Point="5.5,11.5" />
-                                  </PathSegmentCollection>
-                                </PathFigure.Segments>
-                              </PathFigure>
-                            </PathFigureCollection>
-                          </PathGeometry.Figures>
-                        </PathGeometry>
-                      </Path.Data>
-                    </Path>
-                  </Grid>
-                  <ControlTemplate.Triggers>
-                    <Trigger Property="IsChecked" Value="True">
-                      <Setter TargetName="check" Property="Visibility" Value="Visible" />
-                    </Trigger>
-                    <Trigger Property="IsChecked" Value="False">
-                      <Setter TargetName="uncheck" Property="Visibility" Value="Visible" />
-                    </Trigger>
-                  </ControlTemplate.Triggers>
-                </ControlTemplate>
-              </RadioButton.Template>
-            </RadioButton>
-          </MenuItem.Resources>
           <MenuItem.ItemContainerStyle>
             <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
               <Setter Property="Header" Value="{Binding HlThemeName}" />
-              <Setter Property="Icon" Value="{DynamicResource rb}" />
+              <!-- Setter Property="IsCheckable" Value="True" / -->
+              <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=OneWay}" />
               <Setter Property="Command" Value="cmd:AppCommand.ViewTheme" />
               <Setter Property="CommandParameter" Value="{Binding HlThemeName}" />
               <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />

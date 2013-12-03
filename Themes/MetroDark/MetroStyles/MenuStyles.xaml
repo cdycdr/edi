@@ -57,13 +57,33 @@
                     <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup"/>
                     <ColumnDefinition x:Name="Col3" Width="14"/>
                   </Grid.ColumnDefinitions>
-                  <ContentPresenter Grid.Column="0" x:Name="Icon" VerticalAlignment="Center" 
-                                                      ContentSource="Icon"/>
+
+                  <ContentPresenter Grid.Column="0" x:Name="Icon" Margin="2,0,2,0" VerticalAlignment="Center" ContentSource="Icon"/>
+
+                  <Border Margin="2,0,2,0" x:Name="GlyphPanel"
+                          Width="18" Height="18"
+                          Visibility="Collapsed"
+                          HorizontalAlignment="Center"
+                          Background="{DynamicResource CheckMarkBackgroundBrush}"
+                          BorderBrush="{DynamicResource CheckMarkBorderBrush}"
+                          BorderThickness="2" CornerRadius="0">
+
+                    <Path Fill="{DynamicResource CheckMarkForegroundBrush}"
+                          HorizontalAlignment="Center"
+                          FlowDirection="LeftToRight"
+                          x:Name="Glyph"
+                          Width="9"
+                          Height="11"
+                          Data="{StaticResource Checkmark}" />
+                  </Border>
+
                   <ContentPresenter Grid.Column="1" Margin="{TemplateBinding Padding}" 
-                                                      x:Name="HeaderHost" RecognizesAccessKey="True" 
-                                                      ContentSource="Header" VerticalAlignment="Center"/>
+                                    x:Name="HeaderHost" RecognizesAccessKey="True" 
+                                    ContentSource="Header" VerticalAlignment="Center"/>
+
                   <ContentPresenter Grid.Column="2" Margin="8,1,8,1" x:Name="IGTHost" 
-                                                    ContentSource="InputGestureText" VerticalAlignment="Center"/>
+                                    ContentSource="InputGestureText" VerticalAlignment="Center"/>
+
                   <Grid Grid.Column="3" Margin="4,0,6,0" x:Name="ArrowPanel" VerticalAlignment="Center">
                     <Path x:Name="ArrowPanelPath" HorizontalAlignment="Right" VerticalAlignment="Center" 
                                               Fill="{TemplateBinding Foreground}" Data="M0,0 L0,8 L4,4 z"/>
@@ -95,6 +115,12 @@
                 </Grid>
               </Border>
               <ControlTemplate.Triggers>
+                <!-- A menu entry with check mark cannot have an icon -->
+                <Trigger Property="IsChecked" Value="true">
+                  <Setter Property="Visibility" TargetName="GlyphPanel" Value="Visible" />
+                  <Setter Property="Visibility" TargetName="Icon" Value="Collapsed" />
+                </Trigger>
+
                 <Trigger Property="Role" Value="TopLevelHeader">
                   <Setter Property="Padding" Value="6,0,6,2"/>
                   <Setter TargetName="SubMenuPopup" Property="Placement" Value="Bottom"/>
@@ -176,6 +202,9 @@
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
                   <Setter Property="Foreground" Value="{StaticResource MenuDisabledForeground}"/>
+                  <Setter Property="Background" TargetName="GlyphPanel" Value="{StaticResource DisabledSubMenuItemBackgroundBrush}" />
+                  <Setter Property="BorderBrush" TargetName="GlyphPanel" Value="{StaticResource DisabledSubMenuItemBorderBrush}" />
+                  <!-- Setter Property="Fill" TargetName="Glyph" Value="{StaticResource DisabledSubMenuItemFillBrush}" / -->
                 </Trigger>
               </ControlTemplate.Triggers>
             </ControlTemplate>

@@ -90,9 +90,9 @@
   <SolidColorBrush x:Key="FocusScrollButtonBrush" Color="#FF042271" />
   <SolidColorBrush x:Key="ScrollButtonBrush" Color="#FFFFFFFF" />
 
-  <SolidColorBrush x:Key="CheckMarkBackgroundBrush" Color="#50E6EFF4" />
+  <SolidColorBrush x:Key="CheckMarkBackgroundBrush" Color="Transparent" />
   <SolidColorBrush x:Key="CheckMarkBorderBrush" Color="#90CDD3E6" />
-  <SolidColorBrush x:Key="CheckMarkForegroundBrush" Color="#FF000000" />
+  <SolidColorBrush x:Key="CheckMarkForegroundBrush" Color="White" />
 
   <SolidColorBrush x:Key="DisabledMenuBarBackgroundBrush" Color="#A5000000" />
   <SolidColorBrush x:Key="DisabledMenuBarBorderBrush" Color="#59C0C0C0" />

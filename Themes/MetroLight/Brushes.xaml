@@ -51,6 +51,43 @@
   <SolidColorBrush x:Key="SeperatorForeground" Color="#FF808080"/>
   <SolidColorBrush x:Key="SeperatorBorderBrush" Color="#8591a2"/>
 
+  <!-- Start of Menu Specific Resources XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+  <SolidColorBrush x:Key="FocusScrollButtonBrush" Color="#FF042271" />
+  <SolidColorBrush x:Key="ScrollButtonBrush" Color="#FFFFFFFF" />
+
+  <SolidColorBrush x:Key="CheckMarkBackgroundBrush" Color="Transparent" />
+  <SolidColorBrush x:Key="CheckMarkBorderBrush" Color="#FF888888" />
+  <SolidColorBrush x:Key="CheckMarkForegroundBrush" Color="Black" />
+
+  <SolidColorBrush x:Key="DisabledMenuBarBackgroundBrush" Color="#A5000000" />
+  <SolidColorBrush x:Key="DisabledMenuBarBorderBrush" Color="#59C0C0C0" />
+
+  <SolidColorBrush x:Key="DisabledMenuItemForegroundBrush" Color="#FF9A9A9A" />
+  <SolidColorBrush x:Key="DisabledMenuItemFillBrush" Color="#848589" />
+
+  <SolidColorBrush x:Key="DisabledSubMenuItemForegroundBrush" Color="#FF9A9A9A" />
+  <SolidColorBrush x:Key="DisabledSubMenuItemBackgroundBrush" Color="#FFEEE9E9" />
+  <SolidColorBrush x:Key="DisabledSubMenuItemBorderBrush" Color="#DBD6D6" />
+  <SolidColorBrush x:Key="DisabledSubMenuItemFillBrush" Color="#848589" />
+
+  <SolidColorBrush x:Key="TopLevelIsHighlightedInnerBorderStroke" Color="#ccFFFFFF" />
+  <SolidColorBrush x:Key="TopLevelIsKeyboardFocusedInnerBorderStroke" Color="#50747272" />
+
+
+  <SolidColorBrush x:Key="MenuBarBackgroundBorderBrush" Color="#F0000000"/>
+
+  <SolidColorBrush x:Key="MenuTextBrush" Color="#FFFFFFFF"/>
+  <SolidColorBrush x:Key="HeaderSeparatorBrush" Color="#888" />
+  <!-- Color x:Key="MenuBorder">#802C628B</Color -->
+  <SolidColorBrush x:Key="MenuBorderBrush" Color="#FFFFFFFF"/>
+
+  <SolidColorBrush x:Key="MenuBackground" Color="White" />
+
+  <SolidColorBrush x:Key="MenuItemForegroundEnabled" Color="#FF000000"/>
+  <SolidColorBrush x:Key="MenuItemForegroundDisabled" Color="#888888"/>
+  <SolidColorBrush x:Key="SubMenuBorderBrush" Color="#888888"/>
+  <!-- SolidColorBrush x:Key="MenuBackground" Color="#FF000000"/ -->
+
   <!-- AvalonDock_ThemeAero_BaseColor6 -->
   <LinearGradientBrush x:Key="ContextMenuBackground"
                          StartPoint="0,0"
@@ -78,18 +115,6 @@
   <SolidColorBrush x:Key="ToolBarBackground" Color="White"/>
 
   <!-- Based on AvalonDock_ThemeAero_BaseColor6 -->
-  <LinearGradientBrush x:Key="MenuBackground"
-                         StartPoint="0,0"
-                         EndPoint="0,1">
-    <LinearGradientBrush.GradientStops>
-      <GradientStop Color="#FCFDFE" Offset="0" />
-      <GradientStop Color="#D2E6FA" Offset="1" />
-    </LinearGradientBrush.GradientStops>
-  </LinearGradientBrush>
-
-  <SolidColorBrush x:Key="MenuItemForegroundEnabled" Color="#FF000000"/>
-  <SolidColorBrush x:Key="MenuItemForegroundDisabled" Color="#888888"/>
-  <SolidColorBrush x:Key="SubMenuBorderBrush" Color="#888888"/>
 
   <LinearGradientBrush x:Key="HighlightMenuItemGradient" StartPoint="0,0" EndPoint="0,1">
     <GradientStop Color="#FFFCF2" Offset="0" />
