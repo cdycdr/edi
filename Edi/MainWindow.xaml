@@ -37,6 +37,7 @@
         Title="{Binding ApplicationTitle}"
         Icon="/Edi;component/EdiLogo.ico"
         behav:DialogCloser.DialogResult="{Binding DialogCloseResult}"        
+        behav:WindowMaximized.IsNotMaximized="{Binding IsNotMaximized,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
         >
     <Grid>
       <Grid.Resources>

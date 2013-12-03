@@ -100,6 +100,7 @@
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="About\AboutViewModel.cs" />
+    <Compile Include="Behaviour\WindowMaximized.cs" />
     <Compile Include="Behaviour\HideToolbarOverflowButton.cs" />
     <Compile Include="Behaviour\KeyboardFocus.cs" />
     <Compile Include="Behaviour\OffLineIndicator.cs" />

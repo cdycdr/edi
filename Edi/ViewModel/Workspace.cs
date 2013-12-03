@@ -36,12 +36,12 @@ namespace Edi.ViewModel
     public static readonly string UMLFileFilter = Util.Local.Strings.STR_FileType_FileFilter_UML;
 
     public static readonly string EdiTextEditorFileFilter =
-                                     Util.Local.Strings.STR_FileType_FileFilter_AllFiles +
-                                     "|" + Util.Local.Strings.STR_FileType_FileFilter_TextFiles +
-                                     "|" + Util.Local.Strings.STR_FileType_FileFilter_CSharp +
-                                     "|" + Util.Local.Strings.STR_FileType_FileFilter_HTML +
-                                     "|" + Util.Local.Strings.STR_FileType_FileFilter_SQL +
-                                     "|" + Util.Local.Strings.STR_FileType_FileFilter_Log4NetPlusText;
+                  Util.Local.Strings.STR_FileType_FileFilter_AllFiles +
+                  "|" + Util.Local.Strings.STR_FileType_FileFilter_TextFiles +
+                  "|" + Util.Local.Strings.STR_FileType_FileFilter_CSharp +
+                  "|" + Util.Local.Strings.STR_FileType_FileFilter_HTML +
+                  "|" + Util.Local.Strings.STR_FileType_FileFilter_SQL +
+                  "|" + Util.Local.Strings.STR_FileType_FileFilter_Log4NetPlusText;
 
     public const string LayoutFileName = "Layout.config";
 
@@ -50,6 +50,8 @@ namespace Edi.ViewModel
     protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     private bool? mDialogCloseResult;
+    private bool? mIsNotMaximized = false;
+
     private bool mShutDownInProgress;
     private bool mShutDownInProgress_Cancel;
 
@@ -988,6 +990,27 @@ namespace Edi.ViewModel
         {
           this.mDialogCloseResult = value;
           this.NotifyPropertyChanged(() => this.DialogCloseResult);
+        }
+      }
+    }
+
+    /// <summary>
+    /// Get/set property to determine whether window is in maximized state or not.
+    /// (this can be handy to determine when a resize grip should be shown or not)
+    /// </summary>
+    public bool? IsNotMaximized
+    {
+      get
+      {
+        return this.mIsNotMaximized;
+      }
+
+      set
+      {
+        if (this.mIsNotMaximized != value)
+        {
+          this.mIsNotMaximized = value;
+          this.NotifyPropertyChanged(() => this.IsNotMaximized);
         }
       }
     }
