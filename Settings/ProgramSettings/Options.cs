@@ -5,6 +5,7 @@
   using System.Collections.ObjectModel;
   using System.Xml.Serialization;
   using ICSharpCode.AvalonEdit;
+  using ICSharpCode.AvalonEdit.Edi.BlockSurround;
   using ICSharpCode.AvalonEdit.Highlighting.Themes;
   using SimpleControls.MRU.ViewModel;
   using Themes;
@@ -49,6 +50,9 @@
     private MRUSortMethod mMRU_SortMethod;
     private string mLanguageSelected;
     private bool mIsDirty = false;
+
+    private bool mTextToHTML_ShowLineNumbers = true;                        // Text to HTML export
+    private bool mTextToHTML_TextToHTML_AlternateLineBackground = true;
     #endregion fields
 
     #region constructor
@@ -68,6 +72,10 @@
       this.mCurrentTheme = ThemesManager.DefaultThemeName;
       this.mMRU_SortMethod = MRUSortMethod.PinnedEntriesFirst;
       this.mLanguageSelected = Options.DefaultLocal;
+
+      this.HighlightOnFileNew = true;
+      this.FileNewDefaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
+      this.FileNewDefaultFileExtension = ".txt";
 
       this.mIsDirty = false;
     }
@@ -268,6 +276,65 @@
         }
       }
     }
+
+    #region HTML Export
+    [XmlElement("TextToHTML_ShowLineNumbers")]
+    public bool TextToHTML_ShowLineNumbers
+    {
+      get
+      {
+        return this.mTextToHTML_ShowLineNumbers;
+      }
+
+      set
+      {
+        if (this.mTextToHTML_ShowLineNumbers != value)
+        {
+          this.mTextToHTML_ShowLineNumbers = value;
+          this.IsDirty = true;
+        }
+      }
+    }
+
+    [XmlElement("TextToHTML_AlternateLineBackground")]
+    public bool TextToHTML_AlternateLineBackground
+    {
+      get
+      {
+        return this.mTextToHTML_TextToHTML_AlternateLineBackground;
+      }
+
+      set
+      {
+        if (this.mTextToHTML_TextToHTML_AlternateLineBackground != value)
+        {
+          this.mTextToHTML_TextToHTML_AlternateLineBackground = value;
+          this.IsDirty = true;
+        }
+      }
+    }
+    #endregion HTML Export
+
+    #region New File Default options
+    /// <summary>
+    /// Determine whether a file created with File>New should be highlighted or not.
+    /// </summary>
+    [XmlElement("NewFile_HighlightOnFileNew")]
+    public bool HighlightOnFileNew { get; set; }
+
+    /// <summary>
+    /// Get/set default name of file that is created via File>New.
+    /// </summary>
+    [XmlElement("NewFile_DefaultFileName")]
+    public string FileNewDefaultFileName { get; set; }
+
+    /// <summary>
+    /// Get/set default string of file extension (including '.' character)
+    /// that is created via File>New.
+    /// </summary>
+    [XmlElement("NewFile_DefaultFileExtension")]
+    public string FileNewDefaultFileExtension { get; set; }
+    #endregion New File Default options
 
     /// <summary>
     /// Get/set whether the settings stored in this instance have been

@@ -43,6 +43,8 @@
                       TextBoxController="{Binding TxtControl}"
                       Line="{Binding Line, Mode=OneWayToSource}"
                       Column="{Binding Column, Mode=OneWayToSource}"
+
+                      InsertBlocks="{Binding InsertBlocks}"
       >
       <ae:EdiTextEditor.ContextMenu>
         <ContextMenu>
@@ -150,6 +152,7 @@
           <Separator />
 
           <MenuItem Command="{x:Static edi_cmd:EdiTextEditorCommands.PrintDocument}"
+                    CommandParameter="{Binding FilePath}"
                     Header="Print Preview"
                   />
         </ContextMenu>

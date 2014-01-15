@@ -5,16 +5,39 @@ namespace EdiViews.ViewModel.Documents
   using System.Globalization;
   using System.IO;
   using System.Text;
+  using System.Windows;
   using System.Windows.Input;
+  using EdiViews.Process;
+  using EdiViews.ViewModel.Documents.Edi;
   using ICSharpCode.AvalonEdit.Document;
+  using ICSharpCode.AvalonEdit.Edi.BlockSurround;
   using ICSharpCode.AvalonEdit.Edi.TextBoxControl;
   using ICSharpCode.AvalonEdit.Highlighting;
   using ICSharpCode.AvalonEdit.Utils;
+  using Microsoft.Win32;
   using MsgBox;
   using Settings.ProgramSettings;
   using SimpleControls.Command;
   using UnitComboLib.Unit.Screen;
   using UnitComboLib.ViewModel;
+
+  /// <summary>
+  /// Enumerate the state of the document to enable a corresponding dynamic display.
+  /// </summary>
+  public enum DocumentState
+  {
+    /// <summary>
+    /// Document is loading and cannot be view, yet
+    /// </summary>
+    IsLoading,
+
+    /// <summary>
+    /// Document is loaded and can either be viewed (readonly) or edited
+    /// </summary>
+    IsEditing,
+
+    IsInvalid
+  }
 
   /// <summary>
   /// This viewmodel class represents the business logic of the text editor.
@@ -23,16 +46,44 @@ namespace EdiViews.ViewModel.Documents
   public class EdiViewModel : EdiViews.ViewModel.Base.FileBaseViewModel, EdiViews.FindReplace.ViewModel.IEditor
   {
     #region Fields
+    private static int iNewFileCounter = 0;
+    private string mDefaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
+    private string mDefaultFileType = ".txt";
+
+    private TextDocument mDocument;
     private ICSharpCode.AvalonEdit.TextEditorOptions mTextOptions;
     private IHighlightingDefinition mHighlightingDefinition;
-    private static int iNewFileCounter = 1;
-    private string defaultFileType = "txt";
-    private readonly static string defaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
+
+    private string mFilePath = null;
+    private bool mIsDirty = false;
 
     private object lockThis = new object();
 
     private bool mWordWrap = false;            // Toggle state command
     private bool mShowLineNumbers = true;     // Toggle state command
+    private Encoding mFileEncoding = Encoding.UTF8;
+    private DocumentState mState = DocumentState.IsLoading;
+
+    private int mLine = 0;      // These properties are used to display the current column/line
+    private int mColumn = 0;    // of the cursor in the user interface
+
+    // These properties are used to save and restore the editor state when CTRL+TABing between documents
+    private int mTextEditorCaretOffset = 0;
+    private int mTextEditorSelectionStart = 0;
+    private int mTextEditorSelectionLength = 0;
+    private bool mTextEditorIsRectangularSelection = false;
+    private double mTextEditorScrollOffsetX = 0;
+    private double mTextEditorScrollOffsetY = 0;
+
+    private TextBoxController mTxtControl = null;
+
+    private bool mIsReadOnly = true;
+    private string mIsReadOnlyReason = string.Empty;
+
+    private FileLoader mAsyncProcessor;
+
+    RelayCommand<object> mCloseCommand = null;
+
     #endregion Fields
 
     #region constructor
@@ -42,32 +93,42 @@ namespace EdiViews.ViewModel.Documents
     /// </summary>
     public EdiViewModel()
     {
-      // Copy text editor settings from settingsmanager by default
-      this.TextOptions = new ICSharpCode.AvalonEdit.TextEditorOptions(Settings.SettingsManager.Instance.SettingData.EditorTextOptions);
-      this.WordWrap = Settings.SettingsManager.Instance.SettingData.WordWarpText;
-      var items = new ObservableCollection<ListItem>(Options.GenerateScreenUnitList());
+      this.CloseOnErrorWithoutMessage = false;
 
+      // Copy text editor settings from settingsmanager by default
+      this.TextOptions = new ICSharpCode.AvalonEdit.TextEditorOptions();
+      this.WordWrap = false;
+
+      var items = new ObservableCollection<ListItem>(Options.GenerateScreenUnitList());
       this.SizeUnitLabel = new UnitViewModel(items, new ScreenConverter(), 0);
 
       this.TxtControl = new TextBoxController();
-      
-      this.FilePath = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}",
-                                    EdiViewModel.defaultFileName, EdiViewModel.iNewFileCounter++, this.defaultFileType);
+
+      this.FilePath = this.GetDefaultFileNewName();
 
       this.IsDirty = false;
-      this.mHighlightingDefinition = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(this.mFilePath));;
+      this.mHighlightingDefinition = null;
 
-      this.mDocument = new TextDocument();
+      this.mDocument = null; //new TextDocument();
 
       this.TextEditorSelectionStart = 0;
       this.TextEditorSelectionLength = 0;
+
+      this.InsertBlocks = null;
     }
     #endregion constructor
 
-    #region properties
-    #region FilePath
-    private string mFilePath = null;
+    public event EventHandler<ProcessResultEvent> ProcessingResultEvent;
 
+    #region properties
+    /// <summary>
+    /// Indicate whether error on load is displayed to user or not.
+    /// </summary>
+    protected bool CloseOnErrorWithoutMessage { get; set; }
+
+    public ObservableCollection<BlockDefinition> InsertBlocks{ get; set; }
+
+    #region FilePath
     /// <summary>
     /// Get/set complete path including file name to where this stored.
     /// This string is never null or empty.
@@ -76,8 +137,8 @@ namespace EdiViews.ViewModel.Documents
     {
       get
       {
-        if (this.mFilePath == null || this.mFilePath == String.Empty)
-          return string.Format(CultureInfo.CurrentCulture, "{0}.{1}", EdiViewModel.defaultFileName, this.defaultFileType);
+        if (string.IsNullOrEmpty(this.mFilePath))
+          return this.GetDefaultFileNewName();
 
         return this.mFilePath;
       }
@@ -88,9 +149,9 @@ namespace EdiViews.ViewModel.Documents
         {
           this.mFilePath = value;
 
-          this.NotifyPropertyChanged(() => this.FilePath);
-          this.NotifyPropertyChanged(() => this.FileName);
-          this.NotifyPropertyChanged(() => this.Title);
+          this.RaisePropertyChanged(() => this.FilePath);
+          this.RaisePropertyChanged(() => this.FileName);
+          this.RaisePropertyChanged(() => this.Title);
 
           this.HighlightingDefinition = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(this.mFilePath));
         }
@@ -124,8 +185,8 @@ namespace EdiViews.ViewModel.Documents
       get
       {
         // This option should never happen - its an emergency break for those cases that never occur
-        if (FilePath == null || FilePath == String.Empty)
-          return string.Format(CultureInfo.InvariantCulture, "{0}.{1}", EdiViewModel.defaultFileName, this.defaultFileType);
+        if (string.IsNullOrEmpty(FilePath))
+          return this.GetDefaultFileNewName();
 
         return System.IO.Path.GetFileName(FilePath);
       }
@@ -142,25 +203,33 @@ namespace EdiViews.ViewModel.Documents
     #endregion FileName
 
     #region IsReadOnly
-    private bool mIsReadOnly = false;
+    /// <summary>
+    /// Get/set whether document can currently be edit by user
+    /// (through attached UI) or not.
+    /// </summary>
     public bool IsReadOnly
     {
       get
       {
-        return this.mIsReadOnly;
+        lock(this.lockThis)
+        {
+          return this.mIsReadOnly;
+        }
       }
 
       protected set
       {
-        if (this.mIsReadOnly != value)
+        lock(this.lockThis)
         {
-          this.mIsReadOnly = value;
-          this.NotifyPropertyChanged(() => this.IsReadOnly);
+          if (this.mIsReadOnly != value)
+          {
+            this.mIsReadOnly = value;
+            this.RaisePropertyChanged(() => this.IsReadOnly);
+          }
         }
       }
     }
 
-    private string mIsReadOnlyReason = string.Empty;
     public string IsReadOnlyReason
     {
       get
@@ -173,15 +242,13 @@ namespace EdiViews.ViewModel.Documents
         if (this.mIsReadOnlyReason != value)
         {
           this.mIsReadOnlyReason = value;
-          this.NotifyPropertyChanged(() => this.IsReadOnlyReason);
+          this.RaisePropertyChanged(() => this.IsReadOnlyReason);
         }
       }
     }
     #endregion IsReadOnly
 
     #region TextContent
-    TextDocument mDocument;
-
     /// <summary>
     /// This property wraps the document class provided by AvalonEdit. The actual text is inside
     /// the document and can be accessed at save, load or other processing times.
@@ -192,21 +259,23 @@ namespace EdiViews.ViewModel.Documents
     /// </summary>
     public TextDocument Document
     {
-      get { return mDocument; }
+      get
+      {
+        return this.mDocument;
+      }
+
       set
       {
-        if (mDocument != value)
+        if (this.mDocument != value)
         {
-          mDocument = value;
-          RaisePropertyChanged("Document");
+          this.mDocument = value;
+          this.RaisePropertyChanged(() => this.Document);
         }
       }
     }
     #endregion
 
     #region IsDirty
-    private bool _isDirty = false;
-
     /// <summary>
     /// IsDirty indicates whether the file currently loaded
     /// in the editor was modified by the user or not.
@@ -215,17 +284,17 @@ namespace EdiViews.ViewModel.Documents
     {
       get
       {
-        return _isDirty;
+        return mIsDirty;
       }
       
       set
       {
-        if (_isDirty != value)
+        if (mIsDirty != value)
         {
-          _isDirty = value;
+          mIsDirty = value;
 
-          this.NotifyPropertyChanged(() => this.IsDirty);
-          this.NotifyPropertyChanged(() => this.Title);
+          this.RaisePropertyChanged(() => this.IsDirty);
+          this.RaisePropertyChanged(() => this.Title);
         }
       }
     }
@@ -272,7 +341,7 @@ namespace EdiViews.ViewModel.Documents
           {
             this.mHighlightingDefinition = value;
 
-            this.NotifyPropertyChanged(() => this.HighlightingDefinition);
+            this.RaisePropertyChanged(() => this.HighlightingDefinition);
           }
         }
       }
@@ -293,7 +362,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mWordWrap != value)
         {
           this.mWordWrap = value;
-          this.NotifyPropertyChanged(() => this.WordWrap);
+          this.RaisePropertyChanged(() => this.WordWrap);
         }
       }
     }
@@ -313,7 +382,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mShowLineNumbers != value)
         {
           this.mShowLineNumbers = value;
-          this.NotifyPropertyChanged(() => this.ShowLineNumbers);
+          this.RaisePropertyChanged(() => this.ShowLineNumbers);
         }
       }
     }
@@ -333,7 +402,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.TextOptions.ShowEndOfLine != value)
         {
           this.TextOptions.ShowEndOfLine = value;
-          this.NotifyPropertyChanged(() => this.ShowEndOfLine);
+          this.RaisePropertyChanged(() => this.ShowEndOfLine);
         }
       }
     }
@@ -353,7 +422,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.TextOptions.ShowSpaces != value)
         {
           this.TextOptions.ShowSpaces = value;
-          this.NotifyPropertyChanged(() => this.ShowSpaces);
+          this.RaisePropertyChanged(() => this.ShowSpaces);
         }
       }
     }
@@ -373,7 +442,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.TextOptions.ShowTabs != value)
         {
           this.TextOptions.ShowTabs = value;
-          this.NotifyPropertyChanged(() => this.ShowTabs);
+          this.RaisePropertyChanged(() => this.ShowTabs);
         }
       }
     }
@@ -393,34 +462,58 @@ namespace EdiViews.ViewModel.Documents
         if (this.mTextOptions != value)
         {
           this.mTextOptions = value;
-          this.NotifyPropertyChanged(() => this.TextOptions);
+          this.RaisePropertyChanged(() => this.TextOptions);
         }
       }
     }
     #endregion AvalonEdit properties
 
-    #region LoadFile
-    public static EdiViewModel LoadFile(string filePath)
+    #region State
+    /// <summary>
+    /// </summary>
+    public DocumentState State
     {
-      bool IsFilePathReal = false;
+      get
+      {
+        lock(this.lockThis)
+        {
+          return this.mState;
+        }
+      }
+      
+      set
+      {
+        lock(this.lockThis)
+        {
+          if (this.mState != value)
+          {
+            this.mState = value;
 
-      try 
-	    {	        
-        IsFilePathReal = File.Exists(filePath);
-	    }
-	    catch
-	    {
-	    }
+            this.RaisePropertyChanged(() => this.State);
+          }
+        }
+      }
+    }
+    #endregion State
 
-      if (IsFilePathReal == false)
-        return null;
-
+    #region LoadFile
+    /// <summary>
+    /// Load a files contents into the viewmodel for viewing and editing.
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <param name="closeOnErrorWithoutMessage"></param>
+    /// <returns></returns>
+    public static EdiViewModel LoadFile(string filePath, bool closeOnErrorWithoutMessage = false)
+    {
       EdiViewModel vm = new EdiViewModel();
+      vm.InitInstance(Settings.SettingsManager.Instance.SettingData);
+      vm.FilePath = filePath;
+      vm.CloseOnErrorWithoutMessage = closeOnErrorWithoutMessage;
 
-      if (vm.OpenFile(filePath) == true)
-        return vm;
+      vm.LoadFileAsync(filePath);
+      ////vm.OpenFile(filePath);   // Non-async file open version
 
-      return null;
+      return vm;
     }
 
     /// <summary>
@@ -432,11 +525,13 @@ namespace EdiViews.ViewModel.Documents
     {
       try
       {
-        if ((this.IsFilePathReal = File.Exists(filePath)) == true)
+        this.IsFilePathReal = File.Exists(filePath);
+
+        if (this.IsFilePathReal == true)
         {
           this.FilePath = filePath;
           this.ContentId = this.mFilePath;
-          IsDirty = false; // Mark document loaded from persistence as unedited copy (display without dirty mark '*' in name)
+          this.IsDirty = false; // Mark document loaded from persistence as unedited copy (display without dirty mark '*' in name)
 
           // Check file attributes and set to read-only if file attributes indicate that
           if ((System.IO.File.GetAttributes(filePath) & FileAttributes.ReadOnly) != 0)
@@ -451,10 +546,14 @@ namespace EdiViews.ViewModel.Documents
             {
               using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
               {
-                this.mDocument = new TextDocument(reader.ReadToEnd());
+                this.Document = new TextDocument(reader.ReadToEnd());
                 this.FileEncoding = reader.CurrentEncoding; // assign encoding after ReadToEnd() so that the StreamReader can autodetect the encoding
               }
             }
+            
+            this.IsReadOnly = false;
+            this.IsReadOnlyReason = string.Empty;
+            this.State = DocumentState.IsEditing;
           }
           catch                 // File may be blocked by another process
           {                    // Try read-only shared method and set file access to read-only
@@ -467,40 +566,42 @@ namespace EdiViews.ViewModel.Documents
               {
                 using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
                 {
-                  this.mDocument = new TextDocument(reader.ReadToEnd());
+                  this.Document = new TextDocument(reader.ReadToEnd());
                   this.FileEncoding = reader.CurrentEncoding; // assign encoding after ReadToEnd() so that the StreamReader can autodetect the encoding
                 }
               }
+
+              this.State = DocumentState.IsEditing;
             }
             catch (Exception ex)
             {
-              MsgBox.Msg.Show(ex.Message, Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, MsgBoxButtons.OK);
-
-              return false;
+              throw new Exception(Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, ex);
             }
           }
         }
         else
-          return false;
+          throw new FileNotFoundException(filePath);   // File does not exist
       }
       catch (Exception exp)
       {
-        MsgBox.Msg.Show(exp.Message, Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, MsgBoxButtons.OK);
-
-        return false;
+        throw new Exception(Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, exp);
       }
 
       return true;
     }
     #endregion LoadFile
 
-    #region SaveCommand
+    #region SaveCommand SaveAsCommand
     /// <summary>
-    /// Save the document viewed in this viewmodel.
+    /// Indicate whether there is something to save in the document
+    /// currently viewed in through this viewmodel.
     /// </summary>
     override public bool CanSave()
     {
-      return true;  // IsDirty
+      if (this.Document == null)
+        return false;
+
+      return true;
     }
 
     /// <summary>
@@ -525,18 +626,19 @@ namespace EdiViews.ViewModel.Documents
         throw;
       }
     }
-    #endregion
 
-    #region SaveAsCommand
+    /// <summary>
+    /// Indicate whether there is something to save as ... in the document
+    /// currently viewed in through this viewmodel.
+    /// </summary>
+    /// <returns></returns>
     override public bool CanSaveAs()
     {
-      return true;  // IsDirty
+      return this.CanSave();
     }
-    #endregion
+    #endregion SaveCommand SaveAsCommand
 
     #region CloseCommand
-    RelayCommand<object> _closeCommand = null;
-
     /// <summary>
     /// This command cloases a single file. The binding for this is in the AvalonDock LayoutPanel Style.
     /// </summary>
@@ -544,23 +646,29 @@ namespace EdiViews.ViewModel.Documents
     {
       get
       {
-        if (_closeCommand == null)
+        if (mCloseCommand == null)
         {
-          _closeCommand = new RelayCommand<object>((p) => this.OnClose(), (p) => this.CanClose());
+          mCloseCommand = new RelayCommand<object>((p) => this.OnClose(), (p) => this.CanClose());
         }
 
-        return _closeCommand;
+        return mCloseCommand;
       }
     }
 
+    /// <summary>
+    /// Determine whether document can be closed or not.
+    /// </summary>
+    /// <returns></returns>
     override public bool CanClose()
     {
+      if (this.State == DocumentState.IsLoading)
+        return false;
+
       return true;
     }
     #endregion
 
     #region Encoding
-    private Encoding mFileEncoding = Encoding.UTF8;
     /// <summary>
     /// Get/set file encoding of current text file.
     /// </summary>
@@ -576,7 +684,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mFileEncoding != value)
         {
           this.mFileEncoding = value;
-          this.NotifyPropertyChanged(() => this.mFileEncoding);
+          this.RaisePropertyChanged(() => this.mFileEncoding);
         }
       }
     }
@@ -590,9 +698,10 @@ namespace EdiViews.ViewModel.Documents
     #endregion ScaleView
 
     #region CaretPosition
-    // These properties are used to display the current column/line
-    // of the cursor in the user interface
-    private int mLine = 0;
+    /// <summary>
+    /// Get/set property to indicate the current line
+    /// of the cursor in the user interface.
+    /// </summary>
     public int Line
     {
       get
@@ -605,12 +714,15 @@ namespace EdiViews.ViewModel.Documents
         if (this.mLine != value)
         {
           this.mLine = value;
-          this.NotifyPropertyChanged(() => this.Line);
+          this.RaisePropertyChanged(() => this.Line);
         }
       }
     }
 
-    private int mColumn = 0;
+    /// <summary>
+    /// Get/set property to indicate the current column
+    /// of the cursor in the user interface.
+    /// </summary>
     public int Column
     {
       get
@@ -623,21 +735,13 @@ namespace EdiViews.ViewModel.Documents
         if (this.mColumn != value)
         {
           this.mColumn = value;
-          this.NotifyPropertyChanged(() => this.Column);
+          this.RaisePropertyChanged(() => this.Column);
         }
       }
     }
     #endregion CaretPosition
 
     #region EditorStateProperties
-    // These properties are used to save and restore the editor state when CTRL+TABing between documents
-    private int mTextEditorCaretOffset = 0;
-    private int mTextEditorSelectionStart = 0;
-    private int mTextEditorSelectionLength = 0;
-    private bool mTextEditorIsRectangularSelection = false;
-    private double mTextEditorScrollOffsetX = 0;
-    private double mTextEditorScrollOffsetY = 0;
-
     /// <summary>
     /// Get/set editor carret position
     /// for CTRL-TAB Support http://avalondock.codeplex.com/workitem/15079
@@ -654,7 +758,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mTextEditorCaretOffset != value)
         {
           this.mTextEditorCaretOffset = value;
-          this.NotifyPropertyChanged(() => this.TextEditorCaretOffset);
+          this.RaisePropertyChanged(() => this.TextEditorCaretOffset);
         }
       }
     }
@@ -675,7 +779,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mTextEditorSelectionStart != value)
         {
           this.mTextEditorSelectionStart = value;
-          this.NotifyPropertyChanged(() => this.TextEditorSelectionStart);
+          this.RaisePropertyChanged(() => this.TextEditorSelectionStart);
         }
       }
     }
@@ -696,7 +800,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mTextEditorSelectionLength != value)
         {
           this.mTextEditorSelectionLength = value;
-          this.NotifyPropertyChanged(() => this.TextEditorSelectionLength);
+          this.RaisePropertyChanged(() => this.TextEditorSelectionLength);
         }
       }
     }
@@ -713,7 +817,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mTextEditorIsRectangularSelection != value)
         {
           this.mTextEditorIsRectangularSelection = value;
-          this.NotifyPropertyChanged(() => this.TextEditorIsRectangularSelection);
+          this.RaisePropertyChanged(() => this.TextEditorIsRectangularSelection);
         }
       }
     }
@@ -734,7 +838,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mTextEditorScrollOffsetX != value)
         {
           this.mTextEditorScrollOffsetX = value;
-          this.NotifyPropertyChanged(() => this.TextEditorScrollOffsetX);
+          this.RaisePropertyChanged(() => this.TextEditorScrollOffsetX);
         }
       }
     }
@@ -754,7 +858,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mTextEditorScrollOffsetY != value)
         {
           this.mTextEditorScrollOffsetY = value;
-          this.NotifyPropertyChanged(() => this.TextEditorScrollOffsetY);
+          this.RaisePropertyChanged(() => this.TextEditorScrollOffsetY);
         }
       }
     }
@@ -762,7 +866,6 @@ namespace EdiViews.ViewModel.Documents
     #endregion EditorStateProperties
 
     #region TxtControl
-    private TextBoxController mTxtControl = null;
     public TextBoxController TxtControl
     {
       get
@@ -775,7 +878,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mTxtControl != value)
         {
           this.mTxtControl = value;
-          this.NotifyPropertyChanged(() => this.TxtControl);
+          this.RaisePropertyChanged(() => this.TxtControl);
         }
       }
     }
@@ -860,6 +963,79 @@ namespace EdiViews.ViewModel.Documents
 
     #region methods
     /// <summary>
+    /// Initialize viewmodel with data that should not be initialized in constructor
+    /// but is usually necessary after creating default object.
+    /// </summary>
+    /// <param name="SettingData"></param>
+    public void InitInstance(Options SettingData)
+    {
+      if (SettingData != null)
+      {
+        this.FilePath = this.GetDefaultFileNewName(SettingData.FileNewDefaultFileName,
+                                                   SettingData.FileNewDefaultFileExtension);
+
+        this.TextOptions = new ICSharpCode.AvalonEdit.TextEditorOptions(SettingData.EditorTextOptions);
+        this.HighlightingDefinition = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(this.mFilePath));
+      }
+
+      this.InsertBlocks = new ObservableCollection<BlockDefinition>(Config.ViewModel.ConfigViewModel.GetDefaultBlockDefinitions());
+
+      this.WordWrap = SettingData.WordWarpText;
+    }
+
+    /// <summary>
+    /// Can be called when executing File>New for this document type.
+    /// The method changes all document states such that users can start
+    /// editing and be creating new content.
+    /// </summary>
+    public void CreateNewDocument()
+    {
+      this.Document = new TextDocument();
+      this.State = DocumentState.IsEditing;
+      this.IsReadOnly = false;
+      this.IsReadOnlyReason = string.Empty;
+    }
+
+    /// <summary>
+    /// Export the current content of the text editor as HTML.
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="e"></param>
+    /// <param name="filePath"></param>
+    public void ExportToHTML(string defaultFileName = "",
+                             bool showLineNumbers = true,
+                             bool alternateLineBackground = true)
+    {
+      string ExportHTMLFileFilter = Util.Local.Strings.STR_ExportHTMLFileFilter;
+
+      // Create and configure SaveFileDialog.
+      FileDialog dlg = new SaveFileDialog()
+      {
+        ValidateNames = true,
+        AddExtension = true,
+        Filter = ExportHTMLFileFilter,
+        FileName = defaultFileName
+      };
+
+      // Show dialog; return if canceled.
+      if (!dlg.ShowDialog(Application.Current.MainWindow).GetValueOrDefault())
+        return;
+
+      defaultFileName = dlg.FileName;
+
+      IHighlightingDefinition highlightDefinition = this.HighlightingDefinition;
+
+      HtmlWriter w = new HtmlWriter();
+      w.ShowLineNumbers = showLineNumbers;
+      w.AlternateLineBackground = alternateLineBackground;
+
+      string html = w.GenerateHtml(this.Text, highlightDefinition);
+      File.WriteAllText(defaultFileName, "<html><body>" + html + "</body></html>");
+
+      System.Diagnostics.Process.Start(defaultFileName); // view in browser
+    }
+
+    /// <summary>
     /// Get the path of the file or empty string if file does not exists on disk.
     /// </summary>
     /// <returns></returns>
@@ -886,6 +1062,14 @@ namespace EdiViews.ViewModel.Documents
       this.HighlightingDefinition = null;
     }
 
+    /// <summary>
+    /// Increase the document counter for new documents created via New command.
+    /// </summary>
+    public void IncreaseNewCounter()
+    {
+      EdiViewModel.iNewFileCounter += 1;
+    }
+
     #region ScaleView methods
     /// <summary>
     /// Initialize scale view of content to indicated value and unit.
@@ -900,6 +1084,107 @@ namespace EdiViews.ViewModel.Documents
     }
     #endregion ScaleView methods
 
+    private bool CommandCancelProcessingCanExecute(object obj)
+    {
+      return (this.mAsyncProcessor != null);
+    }
+
+    private object CommandCancelProcessingExecuted(object arg)
+    {
+      if (this.mAsyncProcessor != null)
+        this.mAsyncProcessor.Cancel();
+
+      return null;
+    }
+
+    /// <summary>
+    /// Load a file asynchronously to display its content through this ViewModel.
+    /// http://yalvlib.codeplex.com/SourceControl/latest#src/YalvLib/ViewModel/YalvViewModel.cs
+    /// </summary>
+    /// <param name="path">file path</param>
+    private void LoadFileAsync(string path)
+    {
+      if (this.mAsyncProcessor != null)
+      {
+        if (Msg.Show(
+            "An operation is currently in progress. Would you like to cancel the current process?",
+            "Processing...",
+            MsgBoxButtons.YesNo, MsgBoxImage.Question, MsgBoxResult.No) == MsgBoxResult.Yes)
+        {
+          this.mAsyncProcessor.Cancel();
+        }
+      }
+
+      this.mAsyncProcessor = new FileLoader();
+
+      this.mAsyncProcessor.ProcessingResultEvent += FileLoaderLoadResultEvent;
+
+      this.State = DocumentState.IsLoading;
+
+      this.mAsyncProcessor.ExecuteAsynchronously(delegate
+                                                {
+                                                  try
+                                                  {
+                                                    this.OpenFile(path);
+                                                  }
+                                                  finally
+                                                  {
+                                                    // Set this to invalid if viewmodel still things its loading...
+                                                    if (this.State == DocumentState.IsLoading)
+                                                      this.State = DocumentState.IsInvalid;
+                                                  }
+                                                },
+                                                true);
+    }
+
+    /// <summary>
+    /// Method is executed when the background process finishes and returns here
+    /// because it was cancelled or is done processing.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void FileLoaderLoadResultEvent(object sender, ResultEvent e)
+    {
+      this.mAsyncProcessor.ProcessingResultEvent -= FileLoaderLoadResultEvent;
+      this.mAsyncProcessor = null;
+
+      CommandManager.InvalidateRequerySuggested();
+
+      // close documents automatically without message when re-loading on startup
+      if (this.State == DocumentState.IsInvalid && this.CloseOnErrorWithoutMessage == true)
+      {
+        this.OnClose();
+        return;
+      }
+
+      // Continue processing in parent of this viewmodel if there is any such requested
+      if (this.ProcessingResultEvent != null)
+      {
+        this.ProcessingResultEvent(this, new ProcessResultEvent(e.Message, e.Error, e.Cancel,
+                                                                TypeOfResult.FileLoad,
+                                                                e.ResultObjects, e.InnerException));
+      }
+    }
+
+    /// <summary>
+    /// Generates the default file name (with counter and extension)
+    /// for File>New text document.
+    /// </summary>
+    /// <returns></returns>
+    private string GetDefaultFileNewName(string defaultFileName = null,
+                                         string defaultFileExtension = null)
+    {
+      if (defaultFileName != null)
+        this.mDefaultFileName = defaultFileName;
+
+      if (defaultFileExtension != null)
+        this.mDefaultFileType = defaultFileExtension;
+
+      return string.Format(CultureInfo.InvariantCulture, "{0}{1}{2}",
+              this.mDefaultFileName,
+              (EdiViewModel.iNewFileCounter == 0 ? string.Empty : " " + EdiViewModel.iNewFileCounter.ToString()),
+              this.mDefaultFileType);
+    }
     #endregion methods
   }
 }

@@ -38,13 +38,13 @@ namespace Edi
     }
 
     private Window mMainWin;
-    public const string IssueTrackerLink  = "https://edi.codeplex.com/workitem/list/basic";
+    public const string IssueTrackerLink = "https://edi.codeplex.com/workitem/list/basic";
     #endregion fields
 
     #region constructor
     public App()
     {
-      this.InitializeComponent(); 
+      this.InitializeComponent();
     }
     #endregion constructor
 
@@ -362,7 +362,7 @@ namespace Edi
       {
         // Attempt to load a MiniUML plugin via the model class
         MiniUML.Model.MiniUmlPluginLoader.LoadPlugins(App.AssemblyEntryLocation + @"\MiniUML.Plugins\", Workspace.This);
-        
+
         Application.Current.MainWindow = this.mMainWin = new MainWindow();
         this.ShutdownMode = System.Windows.ShutdownMode.OnLastWindowClose;
 
@@ -413,6 +413,12 @@ namespace Edi
         win.Height = SettingsManager.Instance.SessionData.MainWindowPosSz.Height;
         win.WindowState = (SettingsManager.Instance.SessionData.MainWindowPosSz.IsMaximized == true ? WindowState.Maximized : WindowState.Normal);
 
+        // Initialize Window State in viewmodel to show resize grip when window is not maximized
+        if (win.WindowState == WindowState.Maximized)
+          workSpace.IsNotMaximized = false;
+        else
+          workSpace.IsNotMaximized = true;
+
         string lastActiveFile = SettingsManager.Instance.SessionData.LastActiveFile;
 
         MainWindow mainWin = win as MainWindow;
@@ -445,66 +451,102 @@ namespace Edi
       {
         var layoutSerializer = new XmlLayoutSerializer(win.dockManager);
 
+        // Try to load the last active content first so user can see everything
+        // else being loaded in background while active document is there ASAP ;-)
+        object lastActiveDocumentViewModel = ReloadDocument(lastActiveFile);
+
         layoutSerializer.LayoutSerializationCallback += (s, args) =>
         {
-          string sId = args.Model.ContentId;
-
-          // Empty Ids ar einvalide but possible if aaplication is closed with File>New without edits.
-          if (string.IsNullOrWhiteSpace(sId) == true)
+          // This can happen if the previous session was loading a file
+          // but was unable to initialize the view ...
+          if (args.Model.ContentId == null)
           {
             args.Cancel = true;
             return;
           }
 
-          if (args.Model.ContentId == FileStatsViewModel.ToolContentId)
-            args.Content = Workspace.This.FileStats;
+          Console.WriteLine("ReloadDocument {0}", args.Model.ContentId);
+
+          if (args.Model.ContentId == lastActiveFile)
+            args.Model.Content = lastActiveDocumentViewModel;
           else
-            if (args.Model.ContentId == RecentFilesViewModel.ToolContentId)
-              args.Content = (object)Workspace.This.RecentFiles;
-            else
-            if (args.Model.ContentId == Log4NetToolViewModel.ToolContentId)
-              args.Content = (object)Workspace.This.Log4NetTool; // Re-create log4net tool window binding
-            else
+            App.ReloadContentOnStartUp(args);
+        };
+
+        layoutSerializer.Deserialize(layoutFileName);
+
+        win.dockManager.Loaded +=  (s, args) =>
+        {
+          // Activate last content when dockmanager is loaded
+          // (do not do it through view model since threading and timing issues could undo this)
+          if (lastActiveDocumentViewModel != null)
+          {
+            win.dockManager.ActiveContent = lastActiveDocumentViewModel;            
+            ////Workspace.This.SetActiveDocument(lastActiveFile);
+          }
+        };
+      }
+    }
+
+    private static void ReloadContentOnStartUp(LayoutSerializationCallbackEventArgs args)
+    {
+      string sId = args.Model.ContentId;
+
+      // Empty Ids are invalid but possible if aaplication is closed with File>New without edits.
+      if (string.IsNullOrWhiteSpace(sId) == true)
+      {
+        args.Cancel = true;
+        return;
+      }
+
+      if (args.Model.ContentId == FileStatsViewModel.ToolContentId)
+        args.Content = Workspace.This.FileStats;
+      else
+        if (args.Model.ContentId == RecentFilesViewModel.ToolContentId)
+          args.Content = (object)Workspace.This.RecentFiles;
+        else
+          if (args.Model.ContentId == Log4NetToolViewModel.ToolContentId)
+            args.Content = (object)Workspace.This.Log4NetTool; // Re-create log4net tool window binding
+          else
             if (args.Model.ContentId == Log4NetMessageToolViewModel.ToolContentId)
               args.Content = (object)Workspace.This.Log4NetMessageTool; // Re-create log4net message tool window binding
             else
             {
               if (SettingsManager.Instance.SettingData.ReloadOpenFilesOnAppStart == true)
               {
-                if (!string.IsNullOrWhiteSpace(args.Model.ContentId))
-                {
-                  switch (args.Model.ContentId)
-                  {
-                    case StartPageViewModel.StartPageContentId: // Re-create start page content
-                      if (Workspace.This.GetStartPage(false) == null)
-                      {
-                        args.Content = Workspace.This.GetStartPage(true);
-                      }
-                      break;
-                    
-                    default:
-                      if (System.IO.File.Exists(args.Model.ContentId))
-                      {
-                        // Re-create Edi document (text file or log4net document) content content
-                        args.Content = Workspace.This.Open(args.Model.ContentId);
-                      }
-                      else
-                        args.Cancel = true;
-                      break;
-                  }
-                }
-                else
+                args.Content = App.ReloadDocument(args.Model.ContentId);
+
+                if (args.Content == null)
                   args.Cancel = true;
               }
               else
                 args.Cancel = true;
             }
-        };
+    }
 
-        layoutSerializer.Deserialize(layoutFileName);
+    private static object ReloadDocument(string path)
+    {
+      object ret = null;
 
-        Workspace.This.SetActiveDocument(lastActiveFile);
+      if (!string.IsNullOrWhiteSpace(path))
+      {
+        switch (path)
+        {
+          case StartPageViewModel.StartPageContentId: // Re-create start page content
+            if (Workspace.This.GetStartPage(false) == null)
+            {
+              ret = Workspace.This.GetStartPage(true);
+            }
+            break;
+
+          default:
+            // Re-create Edi document (text file or log4net document) content content
+            ret = Workspace.This.Open(path, CloseDocOnError.WithoutUserNotification);
+            break;
+        }
       }
+
+      return ret;
     }
 
     /// <summary>

@@ -34,6 +34,9 @@
   /// </summary>
   public class AppConfigView : Control
   {
+    /// <summary>
+    /// Static class constructor
+    /// </summary>
     static AppConfigView()
     {
       DefaultStyleKeyProperty.OverrideMetadata(typeof(AppConfigView), new FrameworkPropertyMetadata(typeof(AppConfigView)));

@@ -49,8 +49,8 @@
         if (this.mLog4NetVM != value)
         {
           this.mLog4NetVM = value;
-          this.NotifyPropertyChanged(() => this.Log4NetVM);
-          this.NotifyPropertyChanged(() => this.IsOnline);
+          this.RaisePropertyChanged(() => this.Log4NetVM);
+          this.RaisePropertyChanged(() => this.IsOnline);
         }
       }
     }

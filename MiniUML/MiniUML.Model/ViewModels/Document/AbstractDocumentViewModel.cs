@@ -1,6 +1,5 @@
 ﻿namespace MiniUML.Model.ViewModels.Document
 {
-  using System;
   using System.Windows;
   using System.Windows.Input;
   using MiniUML.Model.Model;

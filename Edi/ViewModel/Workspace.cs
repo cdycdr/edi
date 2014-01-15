@@ -4,6 +4,7 @@ namespace Edi.ViewModel
   using System.Collections.Generic;
   using System.Collections.ObjectModel;
   using System.Globalization;
+  using System.IO;
   using System.Linq;
   using System.Windows;
   using System.Windows.Input;
@@ -16,6 +17,7 @@ namespace Edi.ViewModel
   using EdiViews.Documents.StartPage;
   using EdiViews.FileStats;
   using EdiViews.Log4Net;
+  using EdiViews.Process;
   using EdiViews.ViewModel;
   using EdiViews.ViewModel.Base;
   using EdiViews.ViewModel.Documents;
@@ -25,6 +27,23 @@ namespace Edi.ViewModel
   using Settings;
   using SimpleControls.MRU.ViewModel;
   using Xceed.Wpf.AvalonDock.Layout.Serialization;
+
+  /// <summary>
+  /// Determine whether an error on load file operation
+  /// is silent (no user notification) or not.
+  /// </summary>
+  public enum CloseDocOnError
+  {
+    /// <summary>
+    /// Close documents automatically without message (when re-loading on startup)
+    /// </summary>
+    WithoutUserNotification,
+
+    /// <summary>
+    /// Close documents on error with message (when doin' interactive File>Open)
+    /// </summary>
+    WithUserNotification
+  }
 
   public partial class Workspace : Edi.ViewModel.Base.ViewModelBase, IMiniUMLDocument
   {
@@ -50,7 +69,7 @@ namespace Edi.ViewModel
     protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     private bool? mDialogCloseResult;
-    private bool? mIsNotMaximized = false;
+    private bool? mIsNotMaximized = null;
 
     private bool mShutDownInProgress;
     private bool mShutDownInProgress_Cancel;
@@ -313,6 +332,7 @@ namespace Edi.ViewModel
     /// <param name="AddIntoMRU">indicate whether file is to be added into MRU or not</param>
     /// <returns></returns>
     public FileBaseViewModel Open(string filePath,
+                                  CloseDocOnError closeDocumentWithoutMessageOnError = CloseDocOnError.WithUserNotification,
                                   bool AddIntoMRU = true,
                                   TypeOfDocument t = TypeOfDocument.EdiTextEditor)
     {
@@ -343,8 +363,13 @@ namespace Edi.ViewModel
 	      }
         else
         {
+          bool closeOnErrorWithoutMessage = false;
+
+          if (closeDocumentWithoutMessageOnError == CloseDocOnError.WithoutUserNotification)
+            closeOnErrorWithoutMessage = true;
+
           // try to load a standard text file from the file system
-          fileViewModel = EdiViewModel.LoadFile(filePath);
+          fileViewModel = EdiViewModel.LoadFile(filePath, closeOnErrorWithoutMessage);
         }
       }
 
@@ -370,7 +395,10 @@ namespace Edi.ViewModel
       EdiViewModel ediVM = fileViewModel as EdiViewModel;
 
       if (ediVM != null)
+      {
+        ediVM.ProcessingResultEvent += this.vm_ProcessingResultEvent;
         this.SetActiveDocumentOnNewFileOrOpenFile(ediVM);
+      }
       else
       {
         if (fileViewModel is Log4NetViewModel)
@@ -398,8 +426,13 @@ namespace Edi.ViewModel
           case TypeOfDocument.EdiTextEditor:
           {
             var vm = new EdiViewModel();
+            vm.InitInstance(Settings.SettingsManager.Instance.SettingData);
 
+            vm.IncreaseNewCounter();
             vm.CloseDocument += new EventHandler(this.ProcessCloseDocumentEvent);
+            vm.ProcessingResultEvent += vm_ProcessingResultEvent;
+            vm.CreateNewDocument();
+
             this.mFiles.Add(vm);
             this.SetActiveDocumentOnNewFileOrOpenFile(vm);
           }
@@ -462,7 +495,7 @@ namespace Edi.ViewModel
         {
           foreach(string fileName in dlg.FileNames)
           {
-            this.Open(fileName, true, t);
+            this.Open(fileName, CloseDocOnError.WithUserNotification, true, t);
           }
         }
       }
@@ -1151,9 +1184,86 @@ namespace Edi.ViewModel
       FileBaseViewModel f = sender as FileBaseViewModel;
 
       if (f != null)
+        this.CloseDocument(f);
+    }
+
+    private void CloseDocument(FileBaseViewModel f)
+    {
+      if (f != null)
       {
         f.CloseDocument -= this.ProcessCloseDocumentEvent;
+
+        // Detach EdiViewModel specific events
+        EdiViewModel eVM = f as EdiViewModel;
+        if (eVM != null)
+        {
+          eVM.ProcessingResultEvent -= vm_ProcessingResultEvent;
+        }
+
         this.Close(f);
+      }
+    }
+
+    /// <summary>
+    /// Handle Processing results from asynchronous tasks that are
+    /// executed in a viewmodel and return later with a result.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void vm_ProcessingResultEvent(object sender, ProcessResultEvent e)
+    {
+      EdiViewModel vm = sender as EdiViewModel;
+
+      if (vm != null)
+      {
+        try
+        {
+          switch (e.TypeOfResult)
+          {
+            case TypeOfResult.FileLoad:      // Process an EdiViewModel file load event result
+              if (e.InnerException != null)
+              {
+                Exception error = vm.GetInnerMostException(e.InnerException);
+
+                string filePath = vm.FilePath;
+                this.CloseDocument(vm);
+                vm = null;
+
+                if (error != null && filePath != null)
+                {
+                  if (error is FileNotFoundException)
+                  {
+                    if (SettingsManager.Instance.SessionData.MruList.FindMRUEntry(filePath) != null)
+                    {
+                      if (MsgBox.Msg.Show(string.Format(Util.Local.Strings.STR_ERROR_LOADING_FILE_MSG, filePath),
+                                                        Util.Local.Strings.STR_ERROR_LOADING_FILE_CAPTION, MsgBoxButtons.YesNo) == MsgBoxResult.Yes)
+                      {
+                        SettingsManager.Instance.SessionData.MruList.RemoveEntry(filePath);
+                      }
+                    }
+
+                    return;
+                  }
+                }
+
+                MsgBox.Msg.Show(e.InnerException, "An unexpected error occured",
+                                 MsgBoxButtons.OK, MsgBoxImage.Alert);
+              }
+              break;
+
+            default:
+              throw new NotImplementedException(e.TypeOfResult.ToString());
+          }
+        }
+        catch (Exception)
+        {
+
+          throw;
+        }
+        finally
+        {
+        
+        }
       }
     }
     #endregion methods

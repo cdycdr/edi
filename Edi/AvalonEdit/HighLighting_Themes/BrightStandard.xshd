@@ -568,6 +568,9 @@ http://wpfknowledge.blogspot.de/2012/05/note-this-is-not-original-work.html
 
       <WordsStyle name="Problem"  fgColor="#FFFF4040" />
       <WordsStyle name="Complete" fgColor="#FF006400" />
+
+      <!-- Highlight Time information at begining of line: eg.: "2:04:45 PM" or "12:04:45 AM" -->
+      <WordsStyle name="HighlightTime" fontStyle="italic" fgColor="#FF00008D" />
     </LexerType>
 
     <LexerType name="VBNET" desc="Color definitions for Visual Basic .Net highlighting pattern">

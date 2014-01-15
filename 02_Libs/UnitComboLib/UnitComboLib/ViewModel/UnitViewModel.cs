@@ -140,10 +140,10 @@
         {
           this.mSelectedItem = value;
 
-          this.NotifyPropertyChanged(() => this.SelectedItem);
-          this.NotifyPropertyChanged(() => this.ScreenPoints);
-          this.NotifyPropertyChanged(() => this.MinValue);
-          this.NotifyPropertyChanged(() => this.MaxValue);          
+          this.RaisePropertyChanged(() => this.SelectedItem);
+          this.RaisePropertyChanged(() => this.ScreenPoints);
+          this.RaisePropertyChanged(() => this.MinValue);
+          this.RaisePropertyChanged(() => this.MaxValue);          
         }
       }
     }
@@ -217,7 +217,7 @@
         if (this.mValueTip != value)
         {
           this.mValueTip = value;
-          this.NotifyPropertyChanged(() => this.ValueTip);
+          this.RaisePropertyChanged(() => this.ValueTip);
         }
       }
     }
@@ -238,7 +238,7 @@
         if (this.mstrValue != value)
         {
           this.mstrValue = value;
-          this.NotifyPropertyChanged(() => this.StringValue);
+          this.RaisePropertyChanged(() => this.StringValue);
         }
       }
     }
@@ -260,9 +260,9 @@
           this.mValue = value;
           this.mstrValue = string.Format("{0:0}", this.mValue);
 
-          this.NotifyPropertyChanged(() => this.Value);
-          this.NotifyPropertyChanged(() => this.StringValue);
-          this.NotifyPropertyChanged(() => this.ScreenPoints);
+          this.RaisePropertyChanged(() => this.Value);
+          this.RaisePropertyChanged(() => this.StringValue);
+          this.RaisePropertyChanged(() => this.ScreenPoints);
         }
       }
     }
@@ -336,17 +336,15 @@
           this.Value = tempValue;
           this.mstrValue = string.Format("{0:0}", this.mValue);
 
-          this.mSelectedItem = li;
-
+          this.SelectedItem = li;
           this.ValueTip = this.SetUnitRangeMessage(unitKey);  // Set standard tool tip about valid range
         }
 
-        this.NotifyPropertyChanged(() => this.Value);
-        this.NotifyPropertyChanged(() => this.MinValue);
-        this.NotifyPropertyChanged(() => this.MaxValue);
-        this.NotifyPropertyChanged(() => this.Value);
-        this.NotifyPropertyChanged(() => this.StringValue);
-        this.NotifyPropertyChanged(() => this.SelectedItem);
+        this.RaisePropertyChanged(() => this.Value);
+        this.RaisePropertyChanged(() => this.MinValue);
+        this.RaisePropertyChanged(() => this.MaxValue);
+        this.RaisePropertyChanged(() => this.StringValue);
+        this.RaisePropertyChanged(() => this.SelectedItem);
       }
 
       return null;

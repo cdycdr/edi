@@ -68,7 +68,7 @@
         {
           this.mLineNumberInput = value;
 
-          this.NotifyPropertyChanged(() => this.LineNumberInput);
+          this.RaisePropertyChanged(() => this.LineNumberInput);
         }
       }
     }
@@ -117,7 +117,7 @@
         if (this.mSelectedText != value)
         {
           this.mSelectedText = value;
-          this.NotifyPropertyChanged(() => this.SelectedText);
+          this.RaisePropertyChanged(() => this.SelectedText);
         }
       }
     }

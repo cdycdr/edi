@@ -97,7 +97,7 @@ namespace EdiViews.ViewModel.Base
         if (this.mDialogCloseResult != value)
         {
           this.mDialogCloseResult = value;
-          this.NotifyPropertyChanged(() => this.WindowCloseResult);
+          this.RaisePropertyChanged(() => this.WindowCloseResult);
         }
       }
     }
@@ -120,7 +120,7 @@ namespace EdiViews.ViewModel.Base
         if (this.mIsReadyToClose != value)
         {
           this.mIsReadyToClose = value;
-          this.NotifyPropertyChanged(() => this.IsReadyToClose);
+          this.RaisePropertyChanged(() => this.IsReadyToClose);
         }
       }
     }

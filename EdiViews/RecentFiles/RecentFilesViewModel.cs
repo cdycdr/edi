@@ -78,7 +78,7 @@
 
         this.MruList.AddMRUEntry(e);
 
-        this.NotifyPropertyChanged(() => this.MruList);
+        this.RaisePropertyChanged(() => this.MruList);
       }
     }
   }

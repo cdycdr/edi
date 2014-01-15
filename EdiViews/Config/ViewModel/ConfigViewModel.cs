@@ -1,9 +1,11 @@
 ﻿namespace EdiViews.Config.ViewModel
 {
+  using System.Collections.Generic;
   using System.Collections.ObjectModel;
   using System.Linq;
   using EdiViews.ViewModel.Base;
   using ICSharpCode.AvalonEdit;
+  using ICSharpCode.AvalonEdit.Edi.BlockSurround;
   using Settings.ProgramSettings;
   using SimpleControls.MRU.ViewModel;
   using UnitComboLib.Unit.Screen;
@@ -18,6 +20,13 @@
     private bool mRunSingleInstance;
 
     private LanguageCollection mLanguageSelected;
+    
+    private bool mTextToHTML_ShowLineNumbers = true;
+    private bool mTextToHTML_TextToHTML_AlternateLineBackground = true;
+
+    private bool mHighlightOnFileNew = true;
+    private string mFileNewDefaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
+    private string mFileNewDefaultFileExtension = ".txt";
     #endregion fields
 
     #region constructor
@@ -42,7 +51,7 @@
       this.EditorTextOptions = new TextEditorOptions();
 
       // Initialize localization settings
-      this.Languages = new ObservableCollection<LanguageCollection>(Options.GetSupportedLanguages());
+      this.Languages = new List<LanguageCollection>(Options.GetSupportedLanguages());
 
       // Set default language to make sure app neutral is selected and available for sure
       // (this is a fallback if all else fails)
@@ -72,7 +81,7 @@
         if (this.mWordWrapText != value)
         {
           this.mWordWrapText = value;
-          this.NotifyPropertyChanged(() => this.WordWrapText);
+          this.RaisePropertyChanged(() => this.WordWrapText);
         }
       }
     }
@@ -97,11 +106,12 @@
         if (this.mPinSortMode != value)
         {
           this.mPinSortMode = value;
-          this.NotifyPropertyChanged(() => this.MruPinSortMode);
+          this.RaisePropertyChanged(() => this.MruPinSortMode);
         }
       }
     }
 
+    #region Application Behaviour
     /// <summary>
     /// Get/set whether application re-loads files open in last sesssion or not
     /// </summary>
@@ -117,7 +127,7 @@
         if (this.mReloadOpenFilesOnAppStart != value)
         {
           this.mReloadOpenFilesOnAppStart = value;
-          this.NotifyPropertyChanged(() => this.ReloadOpenFilesOnAppStart);
+          this.RaisePropertyChanged(() => this.ReloadOpenFilesOnAppStart);
         }
       }
     }
@@ -137,10 +147,11 @@
         if (this.mRunSingleInstance != value)
         {
           this.mRunSingleInstance = value;
-          this.NotifyPropertyChanged(() => this.RunSingleInstance);
+          this.RaisePropertyChanged(() => this.RunSingleInstance);
         }
       }
     }
+    #endregion Application Behaviour
 
     #region ScaleView
     /// <summary>
@@ -170,7 +181,7 @@
           else
             this.SizeUnitLabel.SetSelectedItemCommand.Execute(UnitComboLib.Unit.Itemkey.ScreenPercent);
 
-          this.NotifyPropertyChanged(() => this.DocumentZoomUnit);
+          this.RaisePropertyChanged(() => this.DocumentZoomUnit);
         }
       }
     }
@@ -192,7 +203,7 @@
     /// <summary>
     /// Get list of GUI languages supported in this application.
     /// </summary>
-    public ObservableCollection<LanguageCollection> Languages { get; private set; }
+    public List<LanguageCollection> Languages { get; private set; }
 
     /// <summary>
     /// Get/set language of message box buttons for display in localized form.
@@ -209,14 +220,163 @@
         if (this.mLanguageSelected != value)
         {
           this.mLanguageSelected = value;
-          this.NotifyPropertyChanged(() => this.LanguageSelected);
+          this.RaisePropertyChanged(() => this.LanguageSelected);
         }
       }
     }
     #endregion Language Localization Support
+
+    #region Text To HTML Export
+    /// <summary>
+    /// Get/set whether Text to HTML should contain line numbers or not.
+    /// </summary>
+    public bool TextToHTML_ShowLineNumbers
+    {
+      get
+      {
+        return this.mTextToHTML_ShowLineNumbers;
+      }
+
+      set
+      {
+        if (this.mTextToHTML_ShowLineNumbers != value)
+        {
+          this.mTextToHTML_ShowLineNumbers = value;
+          this.RaisePropertyChanged(() => this.TextToHTML_ShowLineNumbers);
+        }
+      }
+    }
+
+    /// <summary>
+    /// Get/set whether Text to HTML should contain an alternating background.
+    /// </summary>
+    public bool TextToHTML_AlternateLineBackground
+    {
+      get
+      {
+        return this.mTextToHTML_TextToHTML_AlternateLineBackground;
+      }
+
+      set
+      {
+        if (this.mTextToHTML_TextToHTML_AlternateLineBackground != value)
+        {
+          this.mTextToHTML_TextToHTML_AlternateLineBackground = value;
+          this.RaisePropertyChanged(() => this.TextToHTML_AlternateLineBackground);
+        }
+      }
+    }
+    #endregion Text To HTML Export
+
+    #region NewFileDefaults
+    /// <summary>
+    /// Determine whether a file created with File>New should be highlighted or not.
+    /// </summary>
+    public bool HighlightOnFileNew
+    {
+      get
+      {
+        return this.mHighlightOnFileNew;
+      }
+
+      set
+      {
+        if (this.mHighlightOnFileNew != value)
+        {
+          this.mHighlightOnFileNew = value;
+          this.RaisePropertyChanged(() => this.HighlightOnFileNew);
+        }
+      }
+    }
+
+    /// <summary>
+    /// Get/set default name of file that is created via File>New.
+    /// </summary>
+    public string FileNewDefaultFileName
+    {
+      get
+      {
+        return this.mFileNewDefaultFileName;
+      }
+
+      set
+      {
+        if (this.mFileNewDefaultFileName != value)
+        {
+          this.mFileNewDefaultFileName = value;
+          this.RaisePropertyChanged(() => this.FileNewDefaultFileName);
+        }
+      }
+    }
+
+    /// <summary>
+    /// Get/set default string of file extension (including '.' character)
+    /// that is created via File>New.
+    /// </summary>
+    public string FileNewDefaultFileExtension
+    {
+      get
+      {
+        return this.mFileNewDefaultFileExtension;
+      }
+
+      set
+      {
+        if (this.mFileNewDefaultFileExtension != value)
+        {
+          this.mFileNewDefaultFileExtension = value;
+          this.RaisePropertyChanged(() => this.FileNewDefaultFileExtension);
+        }
+      }
+    }
+    #endregion NewFileDefaults
     #endregion properties
 
     #region methods
+
+    public static IEnumerable<BlockDefinition> GetDefaultBlockDefinitions()
+    {
+      List<BlockDefinition> ret = new List<BlockDefinition>();
+
+      ret.Add(new BlockDefinition("/**", "**/", BlockDefinition.BlockAt.StartAndEnd,
+                                  string.Empty,   // Default BlockSurrond
+                                  System.Windows.Input.Key.D1,
+                                  System.Windows.Input.ModifierKeys.Control
+                                ));
+
+      ret.Add(new BlockDefinition("////", string.Empty, BlockDefinition.BlockAt.Start,
+                                  string.Empty,   // Default BlockSurrond
+                                  System.Windows.Input.Key.D2,
+                                  System.Windows.Input.ModifierKeys.Control
+                                ));
+
+      ret.Add(new BlockDefinition(string.Empty, "<<<<", BlockDefinition.BlockAt.End,
+                                  string.Empty,   // Default BlockSurrond
+                                  System.Windows.Input.Key.D3,
+                                  System.Windows.Input.ModifierKeys.Control
+                                ));
+
+      ret.Add(new BlockDefinition("/**", "**/", BlockDefinition.BlockAt.StartAndEnd,
+                                  "*.txt",
+                                  System.Windows.Input.Key.D1,
+                                  System.Windows.Input.ModifierKeys.Control
+                                ));
+
+      ret.Add(new BlockDefinition("/**", "**/", BlockDefinition.BlockAt.StartAndEnd,
+                                  "*.cs",
+                                  System.Windows.Input.Key.D1,
+                                  System.Windows.Input.ModifierKeys.Control
+                                ));
+
+      ret.Add(new BlockDefinition("<!--", "-->", BlockDefinition.BlockAt.StartAndEnd,
+                                  "*.xml;*.html;*.htm",
+                                  System.Windows.Input.Key.D1,
+                                  System.Windows.Input.ModifierKeys.Control
+                                ));
+
+      return ret;
+    }
+
     /// <summary>
     /// Reset the view model to those options that are going to be presented for editing.
     /// </summary>
@@ -243,6 +403,13 @@
       catch
       {
       }
+
+      this.TextToHTML_ShowLineNumbers = settingData.TextToHTML_ShowLineNumbers;
+      this.TextToHTML_AlternateLineBackground = settingData.TextToHTML_AlternateLineBackground;
+
+      this.HighlightOnFileNew = settingData.HighlightOnFileNew;
+      this.FileNewDefaultFileName = settingData.FileNewDefaultFileName;
+      this.FileNewDefaultFileExtension = settingData.FileNewDefaultFileExtension;
     }
 
     /// <summary>
@@ -267,6 +434,13 @@
       settingData.DocumentZoomView = (int)this.SizeUnitLabel.Value;
 
       settingData.LanguageSelected = this.LanguageSelected.BCP47;
+
+      settingData.TextToHTML_ShowLineNumbers = this.TextToHTML_ShowLineNumbers;
+      settingData.TextToHTML_AlternateLineBackground = this.TextToHTML_AlternateLineBackground;
+
+      settingData.HighlightOnFileNew = this.HighlightOnFileNew;
+      settingData.FileNewDefaultFileName = this.FileNewDefaultFileName;
+      settingData.FileNewDefaultFileExtension = this.FileNewDefaultFileExtension;
 
       settingData.IsDirty = true;
     }

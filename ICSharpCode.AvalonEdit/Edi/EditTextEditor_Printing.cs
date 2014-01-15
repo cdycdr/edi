@@ -17,7 +17,31 @@
       if (edi == null)
         return;
 
-      edi.PrintPreviewDocument();
+      string filename = null;
+      try
+      {
+        if (e != null)
+        {
+          if (e.Parameter != null)
+          {
+            filename = e.Parameter as string;
+
+            if (filename != null)
+            {
+              int MaxLen = 52;
+
+              // Work with elipses if string is too long
+              if (filename.Length > (MaxLen + 8))
+                filename = filename.Substring(0, 5) + "..." + filename.Substring((filename.Length - MaxLen), MaxLen);
+            }
+          }
+        }
+      }
+      catch
+      {
+      }
+
+      edi.PrintPreviewDocument(filename);
     }
 
     /// <summary>
@@ -39,11 +63,11 @@
       e.CanExecute = true;
     }
 
-    private void PrintPreviewDocument()
+    private void PrintPreviewDocument(string printDocumentName = "")
     {
       // Printing.PageSetupDialog();              // .NET dialog
 
-      Printing.PrintPreviewDialog(this, "Print Document");           // WPF print preview dialog
+      Printing.PrintPreviewDialog(this, printDocumentName); // WPF print preview dialog
 
       /* Printing.PrintPreviewDialog(filename);   // WPF print preview dialog, filename as document title
 

@@ -43,6 +43,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 			var document = textArea.Document;
 			if (document == null)
 				throw ThrowUtil.NoDocumentAssigned();
+
 			return Create(textArea, startPosition, endPosition);
 		}
 		

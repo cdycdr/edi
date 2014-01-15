@@ -64,9 +64,9 @@ namespace EdiViews.Documents.Log4Net
         {
           this.mFilePath = value;
 
-          this.NotifyPropertyChanged(() => this.FilePath);
-          this.NotifyPropertyChanged(() => this.FileName);
-          this.NotifyPropertyChanged(() => this.Title);
+          this.RaisePropertyChanged(() => this.FilePath);
+          this.RaisePropertyChanged(() => this.FileName);
+          this.RaisePropertyChanged(() => this.Title);
         }
       }
     }

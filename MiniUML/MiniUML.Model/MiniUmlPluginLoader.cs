@@ -94,7 +94,9 @@ namespace MiniUML.Model
             }
             catch (Exception ex)
             {
-              MsgBox.Msg.Show(ex, string.Format(Util.Local.Strings.STR_MSG_ErrorLoadingPlugin, assemblyFile),
+              MsgBox.Msg.Show(ex,
+                              string.Format(Util.Local.Strings.STR_MSG_ErrorLoadingPlugin, assemblyFile),
+                              Util.Local.Strings.STR_MSG_PluginNotLoaded,
                               MsgBoxButtons.OK, MsgBoxImage.Error);
 
               ////ExceptionManager.Register(ex,
@@ -106,8 +108,10 @@ namespace MiniUML.Model
       }
       catch (Exception ex)
       {
-        MsgBox.Msg.Show(ex, Util.Local.Strings.STR_MSG_PluginNotLoaded,
-                        string.Format(Util.Local.Strings.STR_MSG_ErrorWhileLoadingPlugin, assemblyFile));
+        MsgBox.Msg.Show(ex,
+                        string.Format(Util.Local.Strings.STR_MSG_ErrorWhileLoadingPlugin, assemblyFile),
+                        Util.Local.Strings.STR_MSG_PluginNotLoaded,
+                        MsgBoxButtons.OK, MsgBoxImage.Error);
 
         return;
       }

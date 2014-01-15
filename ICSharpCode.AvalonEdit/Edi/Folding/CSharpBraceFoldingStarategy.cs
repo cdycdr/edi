@@ -54,7 +54,16 @@ namespace ICSharpCode.AvalonEdit.Edi.Folding
     {
       firstErrorOffset = -1;
 
-      return CreateNewFoldings(document);
+      // Lets not crash the application over something as silly as foldings ...
+      try
+      {
+        return CreateNewFoldings(document);
+      }
+      catch
+      {
+      }
+
+      return new List<NewFolding>(); ;
     }
 
     /// <summary>
@@ -111,9 +120,6 @@ namespace ICSharpCode.AvalonEdit.Edi.Folding
 
         foreach (string item in lines)
         {
-          
-
-
           if (Regex.Match(item, reStartRegion, RegexOptions.IgnoreCase).Success == true)
           {
             LineOffsets.Push(new FoldLine() { Name = item, Offste = offset, TypeOfFold = FoldType.Line});

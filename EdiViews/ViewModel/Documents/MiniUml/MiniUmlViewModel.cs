@@ -76,7 +76,7 @@ namespace EdiViews.ViewModel.Documents
         {
           this.mDocumentMiniUML = value;
 
-          this.NotifyPropertyChanged(() => this.DocumentMiniUML);
+          this.RaisePropertyChanged(() => this.DocumentMiniUML);
         }
       }
     }
@@ -96,7 +96,7 @@ namespace EdiViews.ViewModel.Documents
         {
           this.mRibbonViewModel = value;
 
-          this.NotifyPropertyChanged(() => this.vm_RibbonViewModel);
+          this.RaisePropertyChanged(() => this.vm_RibbonViewModel);
         }
       }
     }
@@ -126,9 +126,9 @@ namespace EdiViews.ViewModel.Documents
         {
           this.mFilePath = value;
 
-          this.NotifyPropertyChanged(() => this.FilePath);
-          this.NotifyPropertyChanged(() => this.FileName);
-          this.NotifyPropertyChanged(() => this.Title);
+          this.RaisePropertyChanged(() => this.FilePath);
+          this.RaisePropertyChanged(() => this.FileName);
+          this.RaisePropertyChanged(() => this.Title);
         }
       }
     }
@@ -192,7 +192,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mIsReadOnly != value)
         {
           this.mIsReadOnly = value;
-          this.NotifyPropertyChanged(() => this.IsReadOnly);
+          this.RaisePropertyChanged(() => this.IsReadOnly);
         }
       }
     }
@@ -210,7 +210,7 @@ namespace EdiViews.ViewModel.Documents
         if (this.mIsReadOnlyReason != value)
         {
           this.mIsReadOnlyReason = value;
-          this.NotifyPropertyChanged(() => this.IsReadOnlyReason);
+          this.RaisePropertyChanged(() => this.IsReadOnlyReason);
         }
       }
     }
@@ -236,8 +236,8 @@ namespace EdiViews.ViewModel.Documents
         {
           mIsDirty = value;
 
-          this.NotifyPropertyChanged(() => this.IsDirty);
-          this.NotifyPropertyChanged(() => this.Title);
+          this.RaisePropertyChanged(() => this.IsDirty);
+          this.RaisePropertyChanged(() => this.Title);
         }
       }
     }

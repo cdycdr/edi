@@ -20,7 +20,7 @@
     /// <summary>
     /// Static constructor
     /// </summary>
-    public PrintPreviewDocumentViewer()
+    static PrintPreviewDocumentViewer()
     {
       DefaultStyleKeyProperty.OverrideMetadata(typeof(PrintPreviewDocumentViewer),
                                                new FrameworkPropertyMetadata(typeof(PrintPreviewDocumentViewer)));

@@ -76,7 +76,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mTextToFind = value;
 
-          this.NotifyPropertyChanged(() => this.TextToFind);
+          this.RaisePropertyChanged(() => this.TextToFind);
         }
       }
     }
@@ -97,7 +97,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mReplacementText = value;
 
-          this.NotifyPropertyChanged(() => this.ReplacementText);
+          this.RaisePropertyChanged(() => this.ReplacementText);
         }
       }
     }
@@ -118,7 +118,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mSearchUp = value;
 
-          this.NotifyPropertyChanged(() => this.SearchUp);
+          this.RaisePropertyChanged(() => this.SearchUp);
         }
       }
     }
@@ -139,7 +139,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mUseWildcards = value;
 
-          this.NotifyPropertyChanged(() => this.UseWildcards);
+          this.RaisePropertyChanged(() => this.UseWildcards);
         }
       }
     }
@@ -160,7 +160,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mCaseSensitive = value;
 
-          this.NotifyPropertyChanged(() => this.CaseSensitive);
+          this.RaisePropertyChanged(() => this.CaseSensitive);
         }
       }
     }
@@ -181,7 +181,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mUseRegEx = value;
 
-          this.NotifyPropertyChanged(() => this.UseRegEx);
+          this.RaisePropertyChanged(() => this.UseRegEx);
         }
       }
     }
@@ -202,7 +202,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mWholeWord = value;
 
-          this.NotifyPropertyChanged(() => this.WholeWord);
+          this.RaisePropertyChanged(() => this.WholeWord);
         }
       }
     }
@@ -224,7 +224,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mAcceptsReturn = value;
 
-          this.NotifyPropertyChanged(() => this.AcceptsReturn);
+          this.RaisePropertyChanged(() => this.AcceptsReturn);
         }
       }
     }
@@ -245,7 +245,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mAllowReplace = value;
 
-          this.NotifyPropertyChanged(() => this.AllowReplace);
+          this.RaisePropertyChanged(() => this.AllowReplace);
         }
       }
     }
@@ -278,7 +278,7 @@ namespace EdiViews.FindReplace.ViewModel
             this.IsTextToFindInReplaceFocused = true;
           }
 
-          this.NotifyPropertyChanged(() => this.ShowAsFind);
+          this.RaisePropertyChanged(() => this.ShowAsFind);
         }
       }
     }
@@ -298,7 +298,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mIsTextToFindFocused = value;
 
-          this.NotifyPropertyChanged(() => this.IsTextToFindFocused);
+          this.RaisePropertyChanged(() => this.IsTextToFindFocused);
         }
       }
     }
@@ -318,7 +318,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mIsTextToFindInReplaceFocused = value;
 
-          this.NotifyPropertyChanged(() => this.IsTextToFindInReplaceFocused);
+          this.RaisePropertyChanged(() => this.IsTextToFindInReplaceFocused);
         }
       }
     }
@@ -339,7 +339,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mSearchIn = value;
 
-          this.NotifyPropertyChanged(() => this.SearchIn);
+          this.RaisePropertyChanged(() => this.SearchIn);
         }
       }
     }
@@ -364,7 +364,7 @@ namespace EdiViews.FindReplace.ViewModel
         {
           this.mShowSearchIn = value;
 
-          this.NotifyPropertyChanged(() => this.ShowSearchIn);
+          this.RaisePropertyChanged(() => this.ShowSearchIn);
         }
       }
     }

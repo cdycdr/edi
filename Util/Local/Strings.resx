@@ -965,4 +965,21 @@ Do you want to remove this file from the list of recent files?</comment>
     <value>Columns</value>
     <comment>Columns</comment>
   </data>
+  <data name="CMD_APP_ExportTextToHTML_Description" xml:space="preserve">
+    <value>Text to HTML</value>
+    <comment>Application command</comment>
+  </data>
+  <data name="STR_ExportHTMLFileFilter" xml:space="preserve">
+    <value>HTML Files (*.html, *.htm)|*.html;*.htm|
+All Files (*.*)|*.*</value>
+  </data>
+  <data name="STR_Settings_Text2HTML_AlternatingBackground" xml:space="preserve">
+    <value>Alternate background color</value>
+  </data>
+  <data name="STR_Settings_Text2HTML_GroupHeader" xml:space="preserve">
+    <value>Text to HTML Export</value>
+  </data>
+  <data name="STR_Settings_Text2HTML_ShowLineNumbers" xml:space="preserve">
+    <value>Show line numbers</value>
+  </data>
 </root>

@@ -128,6 +128,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EdiTextEditorCommands.cs" />
+    <Compile Include="Edi\BlockSurround\AvalonHelper.cs" />
+    <Compile Include="Edi\BlockSurround\TextReplaceBlockRegion.cs" />
+    <Compile Include="Edi\BlockSurround\BlockDefinition.cs" />
+    <Compile Include="Edi\BracketRenderer\BracketHighlightRenderer.cs" />
+    <Compile Include="Edi\BracketRenderer\BracketSearchResult.cs" />
+    <Compile Include="Edi\BracketRenderer\DefaultBracketSearcher.cs" />
+    <Compile Include="Edi\BracketRenderer\IBracketSearcher.cs" />
+    <Compile Include="Edi\BracketRenderer\MyBracketSearcher.cs" />
     <Compile Include="Edi\EdiTextEditor_CompletionWindow.cs" />
     <Compile Include="Edi\EdiTextEditor_Dp.cs" />
     <Compile Include="Edi\EdiTextEditor_Folding.cs" />

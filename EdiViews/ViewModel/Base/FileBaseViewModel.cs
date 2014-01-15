@@ -178,6 +178,26 @@ namespace EdiViews.ViewModel.Base
 
     #region methods
     /// <summary>
+    /// Search for most inner exceptions and return it to caller.
+    /// </summary>
+    /// <param name="exp"></param>
+    /// <param name="caption"></param>
+    /// <returns></returns>
+    public Exception GetInnerMostException(Exception exp)
+    {
+      if (exp != null)
+      {
+        while (exp.InnerException != null)
+          exp = exp.InnerException;
+      }
+
+      if (exp != null)
+        return exp;
+
+      return null;
+    }
+
+    /// <summary>
     /// Indicate whether document can be closed.
     /// </summary>
     /// <returns></returns>

@@ -29,14 +29,15 @@
       if (window != null)
         window.StateChanged -= window_StateChanged;
 
-      if (e != null)
-      {
-        if (e.NewValue == null)
-          return;
-      }
-
       if (window != null)
+      {
         window.StateChanged += window_StateChanged;
+
+        if (window.WindowState == WindowState.Maximized)
+          WindowMaximized.SetIsNotMaximized(window, false);
+        else
+          WindowMaximized.SetIsNotMaximized(window, true);
+      }
     }
 
     static void window_StateChanged(object sender, System.EventArgs e)

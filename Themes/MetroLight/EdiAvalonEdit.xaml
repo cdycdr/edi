@@ -43,7 +43,7 @@
                   <Pen Brush="{DynamicResource EditorSelectionBorder}" Thickness="1"/>
                 </Setter.Value>
               </Setter>
-              <Setter Property="SelectionForeground" Value="{DynamicResource EditorSelectionForeground}"/>
+              <Setter Property="SelectionForeground" Value="{x:Null}"/><!-- Set to null to let highlighting shine through selection -->
               <Setter Property="Template">
                 <Setter.Value>
                   <ControlTemplate TargetType="{x:Type editing:TextArea}">

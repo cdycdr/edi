@@ -261,14 +261,17 @@ namespace ICSharpCode.AvalonEdit.Editing
 		public virtual DataObject CreateDataObject(TextArea textArea)
 		{
 			string text = GetText();
+
 			// Ensure we use the appropriate newline sequence for the OS
 			DataObject data = new DataObject(TextUtilities.NormalizeNewLines(text, Environment.NewLine));
+
 			// we cannot use DataObject.SetText - then we cannot drag to SciTe
 			// (but dragging to Word works in both cases)
 			
-			// Also copy text in HTML format to clipboard - good for pasting text into Word
-			// or to the SharpDevelop forums.
-			HtmlClipboard.SetHtml(data, CreateHtmlFragment(new HtmlOptions(textArea.Options)));
+			// Also copy text in HTML format to clipboard - good for pasting text into Word or to the SharpDevelop forums.
+      if (textArea.Options.EnableCopyHighlighting == true)
+			  HtmlClipboard.SetHtml(data, CreateHtmlFragment(new HtmlOptions(textArea.Options)));
+
 			return data;
 		}
 	}

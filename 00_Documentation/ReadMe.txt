@@ -1,4 +1,8 @@
 
+Todo
+-> Visibility of AvalonEdit via Converter
+-> Thread owner exception ???
+
 1 Version
 
 This Readme file has the Version 1.0.14.

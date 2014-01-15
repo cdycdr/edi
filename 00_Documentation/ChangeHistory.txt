@@ -13,6 +13,34 @@
  - Query user whether files should be searched/browsed
  - or add lost & and found view that offers a hyperlink that performs a file open on the last known location
 
+---
+
+* Updated MsgBox sub-system to incorporate bug fix for showing dialogs without MainWindow
+  which has previously killed error messages in very first start-up of application
+
+* Adjusted Chinese translation per proof reader review
+
+* Added first version of BlockSurround support
+  select a block of text and press Ctrl+1 on the keyboard to see in action
+  ToDo Extend this to make it customizable per file/Highlighting type?
+
+* Added bracket highlighting to improve read-ability of code when using bracket characters, such as:
+  "<[({})]>"
+
+* Introduced first version of Printing function in the text control (Context Menu>Print Preview)
+
+* Fixed minor bug with zooing in UnitComboLib
+
+* Fixed minor bug with Load/Unload and Mousewheel zoom in EdiTextEditor control
+
+* Introduced option to enable/disable code completion in Tools>Settings
+
+* Loading text files is now performed with asynchronous tasks to improve start-up performance.
+
+* Added an AvalonEdit Option to Copy Text with (HTML coded) or without highlighting (default)
+
+---- Release: Edi is MUI
+
 * Added #region and #endregion folding support for cs files and started CSharpBraceFolding class
 
 * Major Improvements in MiniUML

@@ -83,7 +83,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </remarks>
 		public bool IsDeleted {
 			get {
-				document.DebugVerifyAccess();
+////				document.DebugVerifyAccess();
 				return node == null;
 			}
 		}
@@ -110,7 +110,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <exception cref="InvalidOperationException">Thrown when trying to get the Offset from a deleted anchor.</exception>
 		public int Offset {
 			get {
-				document.DebugVerifyAccess();
+////				document.DebugVerifyAccess();
 				
 				TextAnchorNode n = this.node;
 				if (n == null)

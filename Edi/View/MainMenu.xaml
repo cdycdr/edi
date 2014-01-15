@@ -79,8 +79,10 @@
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Export}"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Export_TT}"
                   ToolTipService.ShowOnDisabled="True">
-          <MenuItem Command="cmd:AppCommand.ExportUMLToImage">
-          </MenuItem>
+
+          <MenuItem Command="cmd:AppCommand.ExportUMLToImage" />
+          <MenuItem Command="cmd:AppCommand.ExportTextToHTML" />
+
         </MenuItem>
         <Separator/>
         

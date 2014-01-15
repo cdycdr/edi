@@ -1,7 +1,9 @@
 ﻿namespace ICSharpCode.AvalonEdit.Edi
 {
+  using System.Collections.ObjectModel;
   using System.Windows;
   using System.Windows.Media;
+  using ICSharpCode.AvalonEdit.Edi.BlockSurround;
 
   /// <summary>
   /// This part of the AvalonEdit extension contains additional
@@ -10,6 +12,14 @@
   public partial class EdiTextEditor : TextEditor
   {
     #region fields
+    // InsertBlocks DependencyProperty is the backing store for InsertBlocks.
+    // These are text blocks user can insert at the beginning and/or end of a selection.
+    public static readonly DependencyProperty InsertBlocksProperty =
+        DependencyProperty.Register("InsertBlocks",
+                                    typeof(ObservableCollection<BlockDefinition>),
+                                    typeof(EdiTextEditor),
+                                    new PropertyMetadata(null));
+
     #region EditorCurrentLineBackground
     // Style the background color of the current editor line
     private static readonly DependencyProperty EditorCurrentLineBackgroundProperty =
@@ -242,6 +252,16 @@
     }
     #endregion EditorScrollOffsetXY
     #endregion EditorStateProperties
+
+    /// <summary>
+    /// InsertBlocks DependencyProperty is the backing store for InsertBlocks.
+    /// These are text blocks user can insert at the beginning and/or end of a selection.
+    /// </summary>
+    public ObservableCollection<BlockDefinition> InsertBlocks
+    {
+      get { return (ObservableCollection<BlockDefinition>)GetValue(InsertBlocksProperty); }
+      set { SetValue(InsertBlocksProperty, value); }
+    }
     #endregion properties
 
     #region methods
@@ -267,5 +287,9 @@
       }
     }
     #endregion methods
+
+
+
+    
   }
 }

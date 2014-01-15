@@ -104,6 +104,9 @@
     <Compile Include="Behaviour\HideToolbarOverflowButton.cs" />
     <Compile Include="Behaviour\KeyboardFocus.cs" />
     <Compile Include="Behaviour\OffLineIndicator.cs" />
+    <Compile Include="Config\AppBehaviourConfigView.xaml.cs">
+      <DependentUpon>AppBehaviourConfigView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Config\AppConfigView.xaml.cs">
       <DependentUpon>AppConfigView.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,7 @@
     </Compile>
     <Compile Include="Config\ViewModel\ConfigViewModel.cs" />
     <Compile Include="Converter\BooleanToTypeModeStringConverter.cs" />
+    <Compile Include="Converter\DocumentStateToVisibilityConverter.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
     <Compile Include="Converter\MessageType\CountToVisibilityHiddenConverter.cs" />
     <Compile Include="Converter\MessageType\MsgTypeToResourceConverter.cs" />
@@ -154,7 +158,11 @@
       <DependentUpon>Log4NetToolView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Log4Net\Log4NetToolViewModel.cs" />
+    <Compile Include="Process\ProcessResultEvent.cs" />
+    <Compile Include="Process\FileLoader.cs" />
+    <Compile Include="Process\ResultEvent.cs" />
     <Compile Include="ViewModel\Documents\Edi\EdiViewModel.cs" />
+    <Compile Include="ViewModel\Documents\Edi\HtmlWriter.cs" />
     <Compile Include="ViewModel\Documents\Log4Net\Log4NetViewModel.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,6 +223,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="About\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Config\AppBehaviourConfigView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

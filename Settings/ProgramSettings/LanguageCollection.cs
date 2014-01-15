@@ -8,7 +8,7 @@
   /// 
   /// The class definition is based on BCP 47 which in turn is used to
   /// set the UI and thread culture (which in turn selects the correct
-  /// string resource in MsgBox assembly).
+  /// string resource in each referenced assembly).
   /// </summary>
   public class LanguageCollection
   {

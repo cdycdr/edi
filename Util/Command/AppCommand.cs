@@ -13,6 +13,7 @@
     private static RoutedUICommand loadFile;
     private static RoutedUICommand saveAll;
     private static RoutedUICommand exportUMLToImage;
+    private static RoutedUICommand exportTextToHTML;
 
     private static RoutedUICommand pinUnpin;
     private static RoutedUICommand addMruEntry;
@@ -63,6 +64,9 @@
 
       inputs = new InputGestureCollection();
       AppCommand.exportUMLToImage = new RoutedUICommand(Strings.CMD_APP_ExportUMLToImage_Description, "ExportUMLToImage", typeof(AppCommand), inputs);
+
+      inputs = new InputGestureCollection();
+      AppCommand.exportTextToHTML = new RoutedUICommand(Strings.CMD_APP_ExportTextToHTML_Description, "ExportTextToHTML", typeof(AppCommand), inputs);
 
       // Initialize pin command (to set or unset a pin in MRU and re-sort list accordingly)
       inputs = new InputGestureCollection();
@@ -164,6 +168,15 @@
     public static RoutedUICommand ExportUMLToImage
     {
       get { return AppCommand.exportUMLToImage; }
+    }
+
+    /// <summary>
+    /// Execute a command to export the currently loaded and highlighted text (XML, C# ...)
+    /// into an HTML data format (*.htm, *.html ...)
+    /// </summary>
+    public static RoutedUICommand ExportTextToHTML
+    {
+      get { return AppCommand.exportTextToHTML; }
     }
 
     /// <summary>

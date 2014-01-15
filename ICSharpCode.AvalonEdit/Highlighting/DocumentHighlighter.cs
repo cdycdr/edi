@@ -44,8 +44,10 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		{
 			if (document == null)
 				throw new ArgumentNullException("document");
+
 			if (baseRuleSet == null)
-				throw new ArgumentNullException("baseRuleSet");
+      	throw new ArgumentNullException("baseRuleSet");
+
 			this.document = document;
 			this.baseRuleSet = baseRuleSet;
 			WeakLineTracker.Register(document, this);

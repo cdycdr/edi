@@ -43,6 +43,9 @@ namespace ICSharpCode.AvalonEdit
     private bool mEnableImeSupport = true;
     private bool mShowColumnRuler = false;
     private int mColumnRulerPosition = 80;
+    private bool mEnableCopyHighlighting = false;
+    private bool mEnableCodeCompletion = false;
+    private bool mEnableHighlightBrackets = true;
     #endregion fields
 
 		#region ctor
@@ -450,6 +453,65 @@ namespace ICSharpCode.AvalonEdit
 				}
 			}
 		}
+
+    /// <summary>
+    /// Get/set option to determine whether Copy function should copy
+    /// highlighting information or not (copy with highlighting or without).
+    /// </summary>
+    [DefaultValue(false)]
+    public virtual bool EnableCopyHighlighting
+    {
+      get { return this.mEnableCopyHighlighting; }
+      set
+      {
+        if (this.mEnableCopyHighlighting != value)
+        {
+          this.mEnableCopyHighlighting = value;
+          OnPropertyChanged("CopyHighlighting");
+        }
+      }
+    }
+
+    /// <summary>
+    /// Get/set option to determine whether Code Completion - complete
+    /// typed entries with completion window is activ or not.
+    /// </summary>
+    [DefaultValue(false)]
+    public virtual bool EnableCodeCompletion
+    {
+      get { return this.mEnableCodeCompletion; }
+      set
+      {
+        if (this.mEnableCodeCompletion != value)
+        {
+          this.mEnableCodeCompletion = value;
+          OnPropertyChanged("EnableCodeCompletion");
+        }
+      }
+    }
+
+    /// <summary>
+    /// Get/set option to determine whether bracket should
+    /// be highlighted in the code or not.
+    /// The two brackets "( .... )" are highlighted if answer is yes.
+    /// </summary>
+    [DefaultValue(true)]
+    public virtual bool EnableHighlightBrackets
+    {
+      get
+      {
+        return this.mEnableHighlightBrackets;
+      }
+
+      set
+      {
+        if (this.mEnableHighlightBrackets != value)
+        {
+          this.mEnableHighlightBrackets = value;
+          OnPropertyChanged("EnableHighlightBrackets");
+        }
+      }
+    }
     #endregion properties
 
     #region methods

@@ -164,7 +164,8 @@
             <pane:PanesTemplateSelector.FileViewTemplate>
               <DataTemplate>
                 <!-- Known problem: Options must be bound or the control will show a gray bar otherwise -->
-                <view:EdiView />
+                <view:EdiView
+                      Visibility="{Binding State,Converter={EdiViewsConv:DocumentStateToVisibilityConverter}, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <!-- TextEditor -->
               </DataTemplate>
             </pane:PanesTemplateSelector.FileViewTemplate>
@@ -218,7 +219,7 @@
                 <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
                 <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
                 <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
-              </Style>
+            </Style>
             </pane:PanesStyleSelector.FileStyle>
             <pane:PanesStyleSelector.Log4NetStyle>
               <Style TargetType="{x:Type avalonDock:LayoutItem}">

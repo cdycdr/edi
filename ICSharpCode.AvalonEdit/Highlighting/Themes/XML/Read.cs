@@ -49,11 +49,17 @@
                                              String fileName = @"AvalonEdit\HighLighting_Themes\DeepBlack.xshd",
                                              bool VerifySchema = true)
     {
+      if (string.IsNullOrEmpty(path) == true && string.IsNullOrEmpty(fileName) == true)
+        return null;
+
       HighlightingThemes HlThemeRoot = null;
 
       try
       {
-        string sPathfileName = System.IO.Path.Combine(path, fileName);
+        string sPathfileName = fileName;
+
+        if (string.IsNullOrEmpty( path ) == false)
+          sPathfileName = System.IO.Path.Combine(path, fileName);
 
         if (System.IO.File.Exists(sPathfileName) == false)
         {
@@ -127,7 +133,9 @@
       }
       catch (Exception e)
       {
-        logger.Error("An error occurred while reading project file:" + e.ToString());
+        logger.Error(string.Format("An error occurred while reading a highlighting theme file at path '{0}', filename '{1}':\n\n",
+                                   (path == null ? "(null)" : path),
+                                   (fileName == null ? "(null)" : fileName)) + "Details:" + e.ToString());
 
         return null;
       }

@@ -287,13 +287,19 @@ namespace ICSharpCode.AvalonEdit.Editing
 		static void OnCopy(object target, ExecutedRoutedEventArgs args)
 		{
 			TextArea textArea = GetTextArea(target);
-			if (textArea != null && textArea.Document != null) {
-				if (textArea.Selection.IsEmpty && textArea.Options.CutCopyWholeLine) {
+			
+      if (textArea != null && textArea.Document != null)
+      {
+				if (textArea.Selection.IsEmpty && textArea.Options.CutCopyWholeLine)
+        {
 					DocumentLine currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
 					CopyWholeLine(textArea, currentLine);
-				} else {
+				}
+        else
+        {
 					CopySelectedText(textArea);
 				}
+
 				args.Handled = true;
 			}
 		}
@@ -318,13 +324,20 @@ namespace ICSharpCode.AvalonEdit.Editing
 			}
 		}
 		
+    /// <summary>
+    /// Copies the currently selected text from the editor into the Windows clipboard.
+    /// </summary>
+    /// <param name="textArea"></param>
 		static void CopySelectedText(TextArea textArea)
 		{
 			var data = textArea.Selection.CreateDataObject(textArea);
 			
-			try {
+			try
+      {
 				Clipboard.SetDataObject(data, true);
-			} catch (ExternalException) {
+			}
+      catch (ExternalException)
+      {
 				// Apparently this exception sometimes happens randomly.
 				// The MS controls just ignore it, so we'll do the same.
 				return;

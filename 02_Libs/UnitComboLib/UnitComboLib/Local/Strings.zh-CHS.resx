@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Enter_Font_Size_InRange_Message" xml:space="preserve">
-    <value>输入 {0}-{1} 点的范围内的字体大小。</value>
+    <value>输入范围{0}-{1} 点之间的字体大小。</value>
   </data>
   <data name="Enter_Percent_Font_Size_InRange_Message" xml:space="preserve">
-    <value>{0}-{1} %或字体大小之间 {2}-{3} 点之间输入一个值。</value>
+    <value>在{0}-{1} %或字体大小 {2}-{3} 点之间输入一个值。</value>
   </data>
   <data name="Enter_Percent_Size_InRange_Message" xml:space="preserve">
     <value>在 {0}-{1} %的范围中输入一个百分比值。</value>

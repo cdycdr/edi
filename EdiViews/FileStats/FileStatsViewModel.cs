@@ -131,8 +131,8 @@
 
               this.mFilePathName = f.FilePath;
 
-              this.NotifyPropertyChanged(() => this.FileName);
-              this.NotifyPropertyChanged(() => this.FilePath);
+              this.RaisePropertyChanged(() => this.FileName);
+              this.RaisePropertyChanged(() => this.FilePath);
 
               FileSize = fi.Length;
               LastModified = fi.LastWriteTime;

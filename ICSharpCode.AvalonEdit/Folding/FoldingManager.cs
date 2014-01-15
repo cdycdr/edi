@@ -39,7 +39,7 @@ namespace ICSharpCode.AvalonEdit.Folding
         return;
       ////throw new ArgumentNullException("document");
 
-			document.VerifyAccess();
+////			document.VerifyAccess();
 			TextDocumentWeakEventManager.Changed.AddListener(document, this);
 		}
 		
@@ -165,7 +165,7 @@ namespace ICSharpCode.AvalonEdit.Folding
       if (document == null)
         return;
 
-      document.VerifyAccess();
+////      document.VerifyAccess();
 			foreach (FoldingSection s in foldings)
 				s.IsFolded = false;
 			foldings.Clear();
@@ -339,6 +339,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 				generator = new FoldingElementGenerator() { FoldingManager = this };
 				textArea.LeftMargins.Add(margin);
 				textArea.TextView.Services.AddService(typeof(FoldingManager), this);
+
 				// HACK: folding only works correctly when it has highest priority
 				textArea.TextView.ElementGenerators.Insert(0, generator);
 				textArea.Caret.PositionChanged += textArea_Caret_PositionChanged;
@@ -382,9 +383,9 @@ namespace ICSharpCode.AvalonEdit.Folding
 				}
 			}
 			
-			void textArea_Caret_PositionChanged(object sender, EventArgs e)
+			private void textArea_Caret_PositionChanged(object sender, EventArgs e)
 			{
-				// Expand Foldings when Caret is moved into them.
+        // Expand Foldings when Caret is moved into them.
 				int caretOffset = textArea.Caret.Offset;
 				foreach (FoldingSection s in GetFoldingsContaining(caretOffset)) {
 					if (s.IsFolded && s.StartOffset < caretOffset && caretOffset < s.EndOffset) {

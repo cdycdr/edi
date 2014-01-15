@@ -76,7 +76,7 @@ namespace ICSharpCode.AvalonEdit.Document
 			if (textDocument == null)
 				throw new ArgumentNullException("textDocument");
 			
-			textDocument.VerifyAccess();
+////			textDocument.VerifyAccess();
 			isConnectedToDocument = true;
 			TextDocumentWeakEventManager.Changed.AddListener(textDocument, this);
 		}

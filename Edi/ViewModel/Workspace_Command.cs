@@ -283,7 +283,10 @@
           if (this.ActiveDocument != null)
           {
             if (Workspace.This.OnSave(this.ActiveDocument, true))
+            {
               SettingsManager.Instance.SessionData.MruList.AddMRUEntry(this.ActiveDocument.FilePath);
+              SettingsManager.Instance.SessionData.LastActiveFile = this.ActiveDocument.FilePath;
+            }
           }
         }
         catch (Exception exp)
@@ -364,7 +367,7 @@
         }
       }));
 
-      // Execute a command to save all edited files and current program settings
+      // Execute a command to export UML editor content as image
       win.CommandBindings.Add(new CommandBinding(AppCommand.ExportUMLToImage,
       (s, e) =>
       {
@@ -385,10 +388,37 @@
                           App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
         }
       },
-      (s, e) =>  // Execute this comment only if an UML document is currently active
+      (s, e) =>  // Execute this command only if an UML document is currently active
       {
         if (this.vm_DocumentViewModel != null)
           e.CanExecute = (this.vm_DocumentViewModel.dm_DocumentDataModel.State == DataModel.ModelState.Ready);
+        else
+          e.CanExecute = false;
+      }      
+      ));
+
+      // Execute a command to export Text editor content as highlighted image content
+      win.CommandBindings.Add(new CommandBinding(AppCommand.ExportTextToHTML,
+      (s, e) =>
+      {
+        try
+        {
+          if (this.ActiveEdiDocument != null)
+            this.ActiveEdiDocument.ExportToHTML(this.ActiveDocument.FileName + ".html",
+                                                SettingsManager.Instance.SettingData.TextToHTML_ShowLineNumbers,
+                                                SettingsManager.Instance.SettingData.TextToHTML_AlternateLineBackground);
+        }
+        catch (Exception exp)
+        {
+          logger.Error(exp.Message, exp);
+          MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+                          App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
+        }
+      },
+      (s, e) =>  // Execute this command only if a Text document is currently active
+      {
+        if (this.ActiveEdiDocument != null)
+          e.CanExecute = true;
         else
           e.CanExecute = false;
       }      
