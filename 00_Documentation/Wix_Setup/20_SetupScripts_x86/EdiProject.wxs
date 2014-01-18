@@ -1,20 +1,35 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <!-- Platform='x64' -->
-  <Product Name='Edi 1.0.5.3' Id='4f533d35-a5ae-4978-aa83-6cfce20e1f71' UpgradeCode='1fd9dc9e-7bd5-4e56-978b-98632214a90e'
-    Language='1033' Codepage='1252' Version='1.0.5.3' Manufacturer='www.edi.codeplex.com'>
+  <Product Name='!(wix.Product)' Id='4f533d35-a5ae-4978-aa83-6cfce20e1f71' UpgradeCode='1fd9dc9e-7bd5-4e56-978b-98632214a90e'
+    Language='1033' Codepage='1252' Version='1.0.5.3' Manufacturer='!(wix.Manufacturer)'>
 
-    <Package Id='*' Keywords='Text Editor, UML' Description="Edit and highlight text"
-      Comments='Edi is open source and is build on C#/WPF' Manufacturer='www.edi.codeplex.com'
-      InstallerVersion='201' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+    <Package Id='*' Keywords='Text Editor, UML' Comments="text editor, uml, log4net"
+             Manufacturer="!(wix.Manufacturer)" Description="!(wix.ProductDesc)"
+             InstallerVersion='201' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
-    <Property Id='DiskPrompt' Value="Edi Installation [1]" />
+
+    <!-- WixVariable Id="UpgradeCode" Value="XXX"/ -->
+    <WixVariable Id="Manufacturer" Value="www.edi.codeplex.com"/>
+    <WixVariable Id="Product" Value="Edi 1.0.5.3"/>
+    <WixVariable Id="ProductDesc" Value="Open source text editor build on C#/WPF"/>
+    <WixVariable Id="ProductIcon" Value="Setup_EdiLogo.ico"/>
+    <WixVariable Id="WixSubFiles" Value=".\01_SetupResources"/>
+
+    <Icon Id="Setup_EdiLogo.ico" SourceFile="!(wix.WixSubFiles)\!(wix.ProductIcon)"/>
+
+   <!-- Property Id="ARPNOMODIFY" Value="0" / -->
+   <Property Id="ARPPRODUCTICON" Value="!(wix.ProductIcon)" />
+   <Property Id='DiskPrompt' Value="Edi Installation [1]" />
+
+   <!-- Property Id="INSTALLDIR">
+     <RegistrySearch Id="WixSubFeaturesSearch" Type="raw" Root="HKCU"
+                     Key="!(wix.Manufacturer)\!(wix.Product)" Name="InstallDir" />
+   </Property -->
 
     <Feature Id='Complete' Title='Edi Application' Description='The Editor (Complete Package)'>
       <Feature Id='Application' Title='Edi' Description='The Editor (Core Files)' Level='1'>
-        <ComponentGroupRef Id='EdiCore'>
-		</ComponentGroupRef>
+        <ComponentGroupRef Id='EdiCore' />
         <ComponentRef Id='ProgramMenuDir' />
       </Feature>
     </Feature>
@@ -37,7 +52,7 @@
 	    <!-- Directory Id="Edi" Name="Edi" -->
 	    <!-- Directory Id="INSTALLDIR" Name="Edi" -->
       
-	  	<Directory Id="TESTFILEPRODUCTDIR" Name="Edi" />
+	  	<Directory Id="INSTALLDIR" Name="Edi" />
       
 	  	<!-- Component Id="EdiCore" Guid="19685467-f935-4210-a585-a51f9beda693" KeyPath="yes"
 	  	  - TODO: Insert files, registry keys, and other resources here. -
@@ -51,8 +66,8 @@
 
 	  </Directory>
 
-      <Property Id="WIXUI_INSTALLDIR" Value="TESTFILEPRODUCTDIR" />
+      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
       <UIRef Id="WixUI_InstallDir" />
-  </Fragment>
+</Fragment>
 
 </Wix>

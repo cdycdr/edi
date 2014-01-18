@@ -11,6 +11,9 @@ REM "%WIX%heat.exe" dir Release -gg -cg EdiCore -out 10_SetupScripts\Edi.wxs
 
 "%WIX%candle.exe" 10_SetupScripts\Edi.wxs 10_SetupScripts\EdiProject.wxs -out .\30_temp_x64\
 
+REM
+REM -ext WixUIExtension enables Wix standard GUI dialogs (browse for setup location feature)
+REM 
 "%WIX%light.exe" .\30_temp_x64\Edi.wixobj .\30_temp_x64\EdiProject.wixobj -ext WixUIExtension -out Edi_x64.msi
 
 del Edi_x64.wixpdb
