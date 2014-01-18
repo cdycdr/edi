@@ -37,7 +37,7 @@
 	    <!-- Directory Id="Edi" Name="Edi" -->
 	    <!-- Directory Id="INSTALLDIR" Name="Edi" -->
       
-	  	<Directory Id="dir99DE416F55C8960850D5A4FCA3758AD4" Name="Edi" />
+	  	<Directory Id="TESTFILEPRODUCTDIR" Name="Edi" />
       
 	  	<!-- Component Id="EdiCore" Guid="19685467-f935-4210-a585-a51f9beda693" KeyPath="yes"
 	  	  - TODO: Insert files, registry keys, and other resources here. -
@@ -50,6 +50,9 @@
 	  </Directory>
 
 	  </Directory>
-  </Fragment>
+
+      <Property Id="WIXUI_INSTALLDIR" Value="TESTFILEPRODUCTDIR" />
+      <UIRef Id="WixUI_InstallDir" />
+</Fragment>
 
 </Wix>
