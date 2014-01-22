@@ -17,6 +17,7 @@
         xmlns:syswin="clr-namespace:System.Windows;assembly=PresentationCore"
              
         xmlns:behav="clr-namespace:EdiViews.Behaviour;assembly=EdiViews"
+        xmlns:AVBehav="clr-namespace:Edi.View.Behavior"
         xmlns:EdiViewsConv="clr-namespace:EdiViews.Converter;assembly=EdiViews"
              
         xmlns:EdiViewsStartP="clr-namespace:EdiViews.StartPage;assembly=EdiViews"
@@ -56,15 +57,17 @@
 
     <view:MainToolbar Grid.Row="2" SnapsToDevicePixels="True" Margin="3" />
 
-    <avalonDock:DockingManager x:Name="dockManager" 
-                               AnchorablesSource="{Binding Tools}" 
+    <avalonDock:DockingManager AnchorablesSource="{Binding Tools}" 
                                DocumentsSource="{Binding Files}"
                                ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}"
                                Grid.Row="3"
                                SnapsToDevicePixels="True"
 
                                AllowDrop="True"
-                               behav:DropFileCommand.DropCommand="cmd:AppCommand.LoadFile">
+                               behav:DropFileCommand.DropCommand="cmd:AppCommand.LoadFile"
+                               AVBehav:AvalonDockLayoutSerializer.LoadLayoutCommand="{Binding ADLayout.LoadLayoutCommand}"
+                               AVBehav:AvalonDockLayoutSerializer.SaveLayoutCommand="{Binding ADLayout.SaveLayoutCommand}"
+                               >
         <avalonDock:DockingManager.DocumentHeaderTemplate>
           <DataTemplate>
             <StackPanel Orientation="Horizontal">

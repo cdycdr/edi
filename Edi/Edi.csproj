@@ -106,7 +106,9 @@
     <Compile Include="MainWindowViewManager.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
     <Compile Include="ViewModel\Workspace_Editor.cs" />
+    <Compile Include="ViewModel\AvalonDockLayoutViewModel.cs" />
     <Compile Include="ViewModel\Workspace_Theming.cs" />
+    <Compile Include="View\Behavior\AvalonDockLayoutSerializer.cs" />
     <Compile Include="View\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -367,6 +369,7 @@
     <Resource Include="EdiLogo.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="EdiAppWindowLogo.ico" />
     <Content Include="MiniUML.Plugins\MiniUML.Plugins.UmlClassDiagram.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

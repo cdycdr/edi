@@ -121,12 +121,18 @@
         this.TextArea.TextEntered += TextEditorTextAreaTextEntered;
       }
 
-      this.Focus();
-      this.ForceCursor = true;
+      try
+      {
+        this.Focus();
+        this.ForceCursor = true;
 
-      // Restore cusor position for CTRL-TAB Support http://avalondock.codeplex.com/workitem/15079
-      this.ScrollToHorizontalOffset(this.EditorScrollOffsetX);
-      this.ScrollToVerticalOffset(this.EditorScrollOffsetY);
+        // Restore cusor position for CTRL-TAB Support http://avalondock.codeplex.com/workitem/15079
+        this.ScrollToHorizontalOffset(this.EditorScrollOffsetX);
+        this.ScrollToVerticalOffset(this.EditorScrollOffsetY);
+      }
+      catch
+      {
+      }
 
       try
       {

@@ -8,10 +8,6 @@ namespace Edi
   using System.Windows;
   using System.Windows.Threading;
   using Edi.ViewModel;
-  using EdiViews.Documents.StartPage;
-  using EdiViews.FileStats;
-  using EdiViews.Log4Net;
-  using EdiViews.ViewModel;
   using log4net;
   using log4net.Config;
   using MsgBox;
@@ -19,7 +15,6 @@ namespace Edi
   using Settings.UserProfile;
   using Util;
   using Util.ActivateWindow;
-  using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
   /// <summary>
   /// Interaction logic for App.xaml
@@ -423,130 +418,13 @@ namespace Edi
 
         MainWindow mainWin = win as MainWindow;
 
-        if (mainWin != null)
-          mainWin.Loaded += App.MainWindow_Loaded;
+        // if (mainWin != null)
+        //  mainWin.Loaded += App.MainWindow_Loaded;
       }
       catch (Exception exp)
       {
         Logger.Error(exp);
       }
-    }
-
-    /// <summary>
-    /// Re-load dockument tab and tool window layout.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private static void MainWindow_Loaded(object sender, RoutedEventArgs e)
-    {
-      MainWindow win = sender as MainWindow;
-
-      if (win == null)
-        return;
-
-      string lastActiveFile = SettingsManager.Instance.SessionData.LastActiveFile;
-      string layoutFileName = System.IO.Path.Combine(App.DirAppData, "Layout.config");
-
-      if (System.IO.File.Exists(layoutFileName) == true)
-      {
-        var layoutSerializer = new XmlLayoutSerializer(win.dockManager);
-
-        // Try to load the last active content first so user can see everything
-        // else being loaded in background while active document is there ASAP ;-)
-        object lastActiveDocumentViewModel = ReloadDocument(lastActiveFile);
-
-        layoutSerializer.LayoutSerializationCallback += (s, args) =>
-        {
-          // This can happen if the previous session was loading a file
-          // but was unable to initialize the view ...
-          if (args.Model.ContentId == null)
-          {
-            args.Cancel = true;
-            return;
-          }
-
-          Console.WriteLine("ReloadDocument {0}", args.Model.ContentId);
-
-          if (args.Model.ContentId == lastActiveFile)
-            args.Model.Content = lastActiveDocumentViewModel;
-          else
-            App.ReloadContentOnStartUp(args);
-        };
-
-        layoutSerializer.Deserialize(layoutFileName);
-
-        win.dockManager.Loaded +=  (s, args) =>
-        {
-          // Activate last content when dockmanager is loaded
-          // (do not do it through view model since threading and timing issues could undo this)
-          if (lastActiveDocumentViewModel != null)
-          {
-            win.dockManager.ActiveContent = lastActiveDocumentViewModel;            
-            ////Workspace.This.SetActiveDocument(lastActiveFile);
-          }
-        };
-      }
-    }
-
-    private static void ReloadContentOnStartUp(LayoutSerializationCallbackEventArgs args)
-    {
-      string sId = args.Model.ContentId;
-
-      // Empty Ids are invalid but possible if aaplication is closed with File>New without edits.
-      if (string.IsNullOrWhiteSpace(sId) == true)
-      {
-        args.Cancel = true;
-        return;
-      }
-
-      if (args.Model.ContentId == FileStatsViewModel.ToolContentId)
-        args.Content = Workspace.This.FileStats;
-      else
-        if (args.Model.ContentId == RecentFilesViewModel.ToolContentId)
-          args.Content = (object)Workspace.This.RecentFiles;
-        else
-          if (args.Model.ContentId == Log4NetToolViewModel.ToolContentId)
-            args.Content = (object)Workspace.This.Log4NetTool; // Re-create log4net tool window binding
-          else
-            if (args.Model.ContentId == Log4NetMessageToolViewModel.ToolContentId)
-              args.Content = (object)Workspace.This.Log4NetMessageTool; // Re-create log4net message tool window binding
-            else
-            {
-              if (SettingsManager.Instance.SettingData.ReloadOpenFilesOnAppStart == true)
-              {
-                args.Content = App.ReloadDocument(args.Model.ContentId);
-
-                if (args.Content == null)
-                  args.Cancel = true;
-              }
-              else
-                args.Cancel = true;
-            }
-    }
-
-    private static object ReloadDocument(string path)
-    {
-      object ret = null;
-
-      if (!string.IsNullOrWhiteSpace(path))
-      {
-        switch (path)
-        {
-          case StartPageViewModel.StartPageContentId: // Re-create start page content
-            if (Workspace.This.GetStartPage(false) == null)
-            {
-              ret = Workspace.This.GetStartPage(true);
-            }
-            break;
-
-          default:
-            // Re-create Edi document (text file or log4net document) content content
-            ret = Workspace.This.Open(path, CloseDocOnError.WithoutUserNotification);
-            break;
-        }
-      }
-
-      return ret;
     }
 
     /// <summary>

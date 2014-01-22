@@ -74,7 +74,7 @@
                       <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="6,0" >
                         <Image HorizontalAlignment="Left"
                                VerticalAlignment="Top"
-                               Source="/Edi;component/EdiLogo.ico"
+                               Source="/Edi;component/EdiAppWindowLogo.ico"
                                shell:WindowChrome.IsHitTestVisibleInChrome="True"
                                ToolTip="{Binding ApplicationTitle}"
                                Width="32" Height="32"

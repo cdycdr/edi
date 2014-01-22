@@ -26,7 +26,6 @@ namespace Edi.ViewModel
   using MsgBox;
   using Settings;
   using SimpleControls.MRU.ViewModel;
-  using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
   /// <summary>
   /// Determine whether an error on load file operation
@@ -83,6 +82,7 @@ namespace Edi.ViewModel
     private Log4NetToolViewModel mLog4NetTool = null;
     private Log4NetMessageToolViewModel mLog4NetMessageTool = null;
 
+    private AvalonDockLayoutViewModel mAVLayout = null;
     private FileBaseViewModel mActiveDocument = null;
     #endregion fields
 
@@ -293,6 +293,20 @@ namespace Edi.ViewModel
         }
 
         return this.mLog4NetMessageTool;
+      }
+    }
+
+    /// <summary>
+    /// Expose command to load/save AvalonDock layout on application startup and shut-down.
+    /// </summary>
+    public AvalonDockLayoutViewModel ADLayout
+    {
+      get
+      {
+        if (this.mAVLayout == null)
+          this.mAVLayout = new AvalonDockLayoutViewModel();
+
+        return this.mAVLayout;
       }
     }
     
@@ -1079,7 +1093,7 @@ namespace Edi.ViewModel
         try
         {
           App.CreateAppDataFolder();
-          this.SerializeLayout(sender);            // Store the current layout for later retrieval
+          ////this.SerializeLayout(sender);            // Store the current layout for later retrieval
         }
         catch
         {
@@ -1094,23 +1108,6 @@ namespace Edi.ViewModel
       }
 
       return true;
-    }
-
-    internal void SerializeLayout(object sender)
-    {
-      XmlLayoutSerializer xmlLayout = null;
-      MainWindow mainWin = null;
-
-      if (sender != null)
-        mainWin = sender as MainWindow;
-
-      // Create XML Layout, close documents, and save layout if closing went OK
-      if (mainWin != null)
-      {
-        xmlLayout = new XmlLayoutSerializer(mainWin.dockManager);
-
-        xmlLayout.Serialize(System.IO.Path.Combine(App.DirAppData, LayoutFileName));
-      }
     }
 
     /// <summary>
