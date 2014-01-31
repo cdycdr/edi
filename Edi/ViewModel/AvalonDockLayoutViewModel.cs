@@ -99,7 +99,7 @@ namespace Edi.ViewModel
     /// <param name="docManager"></param>
     private void LoadDockingManagerLayout(DockingManager docManager)
     {
-      string lastActiveFile = SettingsManager.Instance.SessionData.LastActiveFile;
+      ////string lastActiveFile = SettingsManager.Instance.SessionData.LastActiveFile;
       string layoutFileName = System.IO.Path.Combine(App.DirAppData, "Layout.config");
 
       if (System.IO.File.Exists(layoutFileName) == false)
@@ -109,7 +109,7 @@ namespace Edi.ViewModel
 
       // Try to load the last active content first so user can see everything
       // else being loaded in background while active document is there ASAP ;-)
-      object lastActiveDocumentViewModel = AvalonDockLayoutViewModel.ReloadDocument(lastActiveFile);
+      ////object lastActiveDocumentViewModel = AvalonDockLayoutViewModel.ReloadDocument(lastActiveFile);
 
       layoutSerializer.LayoutSerializationCallback += (s, args) =>
       {
@@ -123,10 +123,10 @@ namespace Edi.ViewModel
 
         ////Console.WriteLine("ReloadDocument {0}", args.Model.ContentId);
 
-        if (args.Model.ContentId == lastActiveFile)
-          args.Model.Content = lastActiveDocumentViewModel;
-        else
-          AvalonDockLayoutViewModel.ReloadContentOnStartUp(args);
+        ////if (args.Model.ContentId == lastActiveFile)
+        ////  args.Model.Content = lastActiveDocumentViewModel;
+        ////else
+        AvalonDockLayoutViewModel.ReloadContentOnStartUp(args);
       };
 
       layoutSerializer.Deserialize(layoutFileName);
@@ -135,11 +135,11 @@ namespace Edi.ViewModel
       //// {
       // Activate last content when dokmanager is loaded
       // (do not do it through view model since threading and timing issues could undo this)
-      if (lastActiveDocumentViewModel != null)
-      {
-        docManager.ActiveContent = lastActiveDocumentViewModel;
+      ////if (lastActiveDocumentViewModel != null)
+      ////{
+      ////  docManager.ActiveContent = lastActiveDocumentViewModel;
         ////Workspace.This.SetActiveDocument(lastActiveFile);
-      }
+      ////}
       //// };
     }
 
