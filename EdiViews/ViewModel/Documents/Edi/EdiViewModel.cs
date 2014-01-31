@@ -5,8 +5,10 @@ namespace EdiViews.ViewModel.Documents
   using System.Globalization;
   using System.IO;
   using System.Text;
+  using System.Threading;
   using System.Windows;
   using System.Windows.Input;
+  using System.Windows.Threading;
   using EdiViews.Process;
   using EdiViews.ViewModel.Documents.Edi;
   using ICSharpCode.AvalonEdit.Document;
@@ -546,7 +548,15 @@ namespace EdiViews.ViewModel.Documents
             {
               using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
               {
-                this.Document = new TextDocument(reader.ReadToEnd());
+                TextDocument doc = new TextDocument(reader.ReadToEnd());
+                doc.SetOwnerThread(Application.Current.Dispatcher.Thread);
+                Application.Current.Dispatcher.BeginInvoke(
+                      new Action(
+                          delegate
+                          {
+                            this.Document = doc;
+                          }), DispatcherPriority.Normal);
+
                 this.FileEncoding = reader.CurrentEncoding; // assign encoding after ReadToEnd() so that the StreamReader can autodetect the encoding
               }
             }
@@ -566,7 +576,14 @@ namespace EdiViews.ViewModel.Documents
               {
                 using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
                 {
-                  this.Document = new TextDocument(reader.ReadToEnd());
+                  TextDocument doc = new TextDocument(reader.ReadToEnd());
+                  doc.SetOwnerThread(Application.Current.Dispatcher.Thread);
+                  Application.Current.Dispatcher.BeginInvoke(
+                        new Action(
+                            delegate {
+                                this.Document = doc;
+                            }), DispatcherPriority.Normal);
+                            
                   this.FileEncoding = reader.CurrentEncoding; // assign encoding after ReadToEnd() so that the StreamReader can autodetect the encoding
                 }
               }
@@ -1126,6 +1143,7 @@ namespace EdiViews.ViewModel.Documents
                                                   try
                                                   {
                                                     this.OpenFile(path);
+
                                                   }
                                                   finally
                                                   {

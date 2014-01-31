@@ -612,7 +612,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		#region IList implementation
 		DocumentLine IList<DocumentLine>.this[int index] {
 			get {
-////				document.VerifyAccess();
+				document.VerifyAccess();
 				return GetByNumber(1 + index);
 			}
 			set {
@@ -622,7 +622,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		
 		int ICollection<DocumentLine>.Count {
 			get {
-////				document.VerifyAccess();
+				document.VerifyAccess();
 				return LineCount;
 			}
 		}
@@ -633,7 +633,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		
 		int IList<DocumentLine>.IndexOf(DocumentLine item)
 		{
-////			document.VerifyAccess();
+			document.VerifyAccess();
 			if (item == null || item.IsDeleted)
 				return -1;
 			int index = item.LineNumber - 1;
@@ -689,13 +689,13 @@ namespace ICSharpCode.AvalonEdit.Document
 		
 		public IEnumerator<DocumentLine> GetEnumerator()
 		{
-////			document.VerifyAccess();
+			document.VerifyAccess();
 			return Enumerate();
 		}
 		
 		IEnumerator<DocumentLine> Enumerate()
 		{
-////			document.VerifyAccess();
+			document.VerifyAccess();
 			DocumentLine line = root.LeftMost;
 			while (line != null) {
 				yield return line;

@@ -115,10 +115,13 @@
       this.mFoldingUpdateTimer.Start();
 
       // Connect CompletionWindow Listners
-      if (this.Options.EnableCodeCompletion == true)
+      try
       {
-        this.TextArea.TextEntering += TextEditorTextAreaTextEntering;
-        this.TextArea.TextEntered += TextEditorTextAreaTextEntered;
+        this.EdiTextEditor_OptionChanged(null, null);
+        this.OptionChanged += EdiTextEditor_OptionChanged;
+      }
+      catch
+      {
       }
 
       try
@@ -164,6 +167,26 @@
       // Attach mouse wheel CTRL-key zoom support
       this.PreviewMouseWheel += new System.Windows.Input.MouseWheelEventHandler(textEditor_PreviewMouseWheel);
       this.KeyDown += new KeyEventHandler(this.textEditor_KeyDown);
+    }
+
+    /// <summary>
+    /// Setup options and parameters that may depend on chnaging options.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void EdiTextEditor_OptionChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+      if (this.Options != null)
+      {
+        this.TextArea.TextEntering -= TextEditorTextAreaTextEntering;
+        this.TextArea.TextEntered -= TextEditorTextAreaTextEntered;
+
+        if (this.Options.EnableCodeCompletion == true)
+        {
+          this.TextArea.TextEntering += TextEditorTextAreaTextEntering;
+          this.TextArea.TextEntered += TextEditorTextAreaTextEntered;
+        }
+      }
     }
 
     /// <summary>

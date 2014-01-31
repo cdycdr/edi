@@ -25,8 +25,8 @@ namespace ICSharpCode.AvalonEdit.Document
     public sealed class TextDocument : ITextSource, INotifyPropertyChanged
     {
         #region Thread ownership
-        readonly object lockObject = new object();
-////        Thread owner = Thread.CurrentThread;
+        readonly object lockObject = new object(); 
+        Thread owner = Thread.CurrentThread;
         
         /// <summary>
         /// Verifies that the current thread is the documents owner thread.
@@ -37,11 +37,11 @@ namespace ICSharpCode.AvalonEdit.Document
         /// and will throw an <see cref="InvalidOperationException"/> when accessed from another thread.
         /// It is possible to change the owner thread using the <see cref="SetOwnerThread"/> method.</para>
         /// </remarks>
-////        public void VerifyAccess()
-////        {
-////            if (Thread.CurrentThread != owner)
-////                throw new InvalidOperationException("TextDocument can be accessed only from the thread that owns it.");
-////        }
+        public void VerifyAccess()
+        {
+            if (Thread.CurrentThread != owner)
+                throw new InvalidOperationException("TextDocument can be accessed only from the thread that owns it.");
+        }
         
         /// <summary>
         /// Transfers ownership of the document to another thread. This method can be used to load
@@ -55,17 +55,15 @@ namespace ICSharpCode.AvalonEdit.Document
         /// has no owner thread, any thread may take ownership by calling <see cref="SetOwnerThread"/>.
         /// </para>
         /// </remarks>
-////    public void SetOwnerThread(Thread newOwner)
-////    {
-////        // We need to lock here to ensure that in the null owner case,
-////        // only one thread succeeds in taking ownership.
-////        lock (lockObject) {
-////            if (owner != null) {
-////                    VerifyAccess();
-////            }
-////            owner = newOwner;
-////        }
-////    }
+        public void SetOwnerThread(Thread newOwner)
+        {
+            // We need to lock here to ensure that in the null owner case,
+            // only one thread succeeds in taking ownership.
+            if (owner != null) {
+                    VerifyAccess();
+            }
+            owner = newOwner;
+        }
         #endregion
         
         #region Fields + Constructor
@@ -142,11 +140,8 @@ namespace ICSharpCode.AvalonEdit.Document
         /// <inheritdoc/>
         public string GetText(int offset, int length)
         {
-            lock(lockObject)
-            {
-////                VerifyAccess();
-                return rope.ToString(offset, length);
-            }
+            VerifyAccess();
+            return rope.ToString(offset, length);
         }
         
         /// <summary>
@@ -154,28 +149,22 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </summary>
         public string GetText(ISegment segment)
         {
-            lock(lockObject)
-            {
-                if (segment == null)
-                    throw new ArgumentNullException("segment");
-                return GetText(segment.Offset, segment.Length);
-            }
+            if (segment == null)
+                throw new ArgumentNullException("segment");
+            return GetText(segment.Offset, segment.Length);
         }
         
         int ITextSource.IndexOfAny(char[] anyOf, int startIndex, int count)
         {
-////                DebugVerifyAccess(); // frequently called (NewLineFinder), so must be fast in release builds
+          DebugVerifyAccess(); // frequently called (NewLineFinder), so must be fast in release builds
           return rope.IndexOfAny(anyOf, startIndex, count);
         }
         
         /// <inheritdoc/>
         public char GetCharAt(int offset)
         {
-            lock(lockObject)
-            {
-////                DebugVerifyAccess(); // frequently called, so must be fast in release builds
-                return rope[offset];
-            }
+            DebugVerifyAccess(); // frequently called, so must be fast in release builds
+            return rope[offset];
         }
         
         WeakReference cachedText;
@@ -186,26 +175,20 @@ namespace ICSharpCode.AvalonEdit.Document
         public string Text
         {
             get {
-                    lock(lockObject)
-                    {
-////                        VerifyAccess();
-                        string completeText = cachedText != null ? (cachedText.Target as string) : null;
-                        if (completeText == null) {
-                            completeText = rope.ToString();
-                            cachedText = new WeakReference(completeText);
-                        }
-                        return completeText;
+                    VerifyAccess();
+                    string completeText = cachedText != null ? (cachedText.Target as string) : null;
+                    if (completeText == null) {
+                        completeText = rope.ToString();
+                        cachedText = new WeakReference(completeText);
                     }
+                    return completeText;
             }
 
             set {
-                    lock(lockObject)
-                    {
-////                        VerifyAccess();
-                        if (value == null)
-                            throw new ArgumentNullException("value");
-                        Replace(0, rope.Length, value);
-                    }
+                    VerifyAccess();
+                    if (value == null)
+                        throw new ArgumentNullException("value");
+                    Replace(0, rope.Length, value);
             }
         }
         
@@ -217,11 +200,8 @@ namespace ICSharpCode.AvalonEdit.Document
         public int TextLength
         {
             get {
-                    lock(lockObject)
-                    {
-////                        VerifyAccess();
-                        return rope.Length;
-                    }
+                    VerifyAccess();
+                    return rope.Length;
             }
         }
         
@@ -298,9 +278,7 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </remarks>
         public ITextSource CreateSnapshot()
         {
-            lock (lockObject) {
-                return new RopeTextSource(rope.Clone());
-            }
+            return new RopeTextSource(rope.Clone());
         }
         
         /// <summary>
@@ -311,21 +289,17 @@ namespace ICSharpCode.AvalonEdit.Document
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", Justification = "Need to return snapshot and checkpoint together to ensure thread-safety")]
         public ITextSource CreateSnapshot(out ChangeTrackingCheckpoint checkpoint)
         {
-            lock (lockObject) {
-                if (currentCheckpoint == null)
-                    currentCheckpoint = new ChangeTrackingCheckpoint(lockObject);
-                checkpoint = currentCheckpoint;
-                return new RopeTextSource(rope.Clone());
-            }
+            if (currentCheckpoint == null)
+                currentCheckpoint = new ChangeTrackingCheckpoint(lockObject);
+            checkpoint = currentCheckpoint;
+            return new RopeTextSource(rope.Clone());
         }
         
         internal ChangeTrackingCheckpoint CreateChangeTrackingCheckpoint()
         {
-            lock (lockObject) {
-                if (currentCheckpoint == null)
-                    currentCheckpoint = new ChangeTrackingCheckpoint(lockObject);
-                return currentCheckpoint;
-            }
+            if (currentCheckpoint == null)
+                currentCheckpoint = new ChangeTrackingCheckpoint(lockObject);
+            return currentCheckpoint;
         }
         
         /// <summary>
@@ -334,17 +308,13 @@ namespace ICSharpCode.AvalonEdit.Document
         /// <remarks><inheritdoc cref="CreateSnapshot()"/></remarks>
         public ITextSource CreateSnapshot(int offset, int length)
         {
-            lock (lockObject) {
-                return new RopeTextSource(rope.GetRange(offset, length));
-            }
+            return new RopeTextSource(rope.GetRange(offset, length));
         }
         
         /// <inheritdoc/>
         public System.IO.TextReader CreateReader()
         {
-            lock (lockObject) {
-                return new RopeTextReader(rope);
-            }
+            return new RopeTextReader(rope);
         }
         #endregion
         
@@ -359,7 +329,7 @@ namespace ICSharpCode.AvalonEdit.Document
             get {
                     lock(lockObject)
                     {
-////                        VerifyAccess();
+                        VerifyAccess();
                         return beginUpdateCount > 0;
                     }
             }
@@ -372,11 +342,8 @@ namespace ICSharpCode.AvalonEdit.Document
         /// <remarks><inheritdoc cref="BeginUpdate"/></remarks>
         public IDisposable RunUpdate()
         {
-            lock(lockObject)
-            {
-                BeginUpdate();
-                return new CallbackOnDispose(EndUpdate);
-            }
+            BeginUpdate();
+            return new CallbackOnDispose(EndUpdate);
         }
         
         /// <summary>
@@ -389,17 +356,14 @@ namespace ICSharpCode.AvalonEdit.Document
         /// <remarks><inheritdoc cref="Changing"/></remarks>
         public void BeginUpdate()
         {
-            lock(lockObject)
-            {
-////                VerifyAccess();
-                if (inDocumentChanging)
-                    throw new InvalidOperationException("Cannot change document within another document change.");
-                beginUpdateCount++;
-                if (beginUpdateCount == 1) {
-                    undoStack.StartUndoGroup();
-                    if (UpdateStarted != null)
-                        UpdateStarted(this, EventArgs.Empty);
-                }
+            VerifyAccess();
+            if (inDocumentChanging)
+                throw new InvalidOperationException("Cannot change document within another document change.");
+            beginUpdateCount++;
+            if (beginUpdateCount == 1) {
+                undoStack.StartUndoGroup();
+                if (UpdateStarted != null)
+                    UpdateStarted(this, EventArgs.Empty);
             }
         }
         
@@ -409,24 +373,21 @@ namespace ICSharpCode.AvalonEdit.Document
         /// <remarks><inheritdoc cref="Changing"/></remarks>
         public void EndUpdate()
         {
-            lock(lockObject)
-            {
-////                VerifyAccess();
-                if (inDocumentChanging)
-                    throw new InvalidOperationException("Cannot end update within document change.");
-                if (beginUpdateCount == 0)
-                    throw new InvalidOperationException("No update is active.");
-                if (beginUpdateCount == 1) {
-                    // fire change events inside the change group - event handlers might add additional
-                    // document changes to the change group
-                    FireChangeEvents();
-                    undoStack.EndUndoGroup();
-                    beginUpdateCount = 0;
-                    if (UpdateFinished != null)
-                        UpdateFinished(this, EventArgs.Empty);
-                } else {
-                    beginUpdateCount -= 1;
-                }
+            VerifyAccess();
+            if (inDocumentChanging)
+                throw new InvalidOperationException("Cannot end update within document change.");
+            if (beginUpdateCount == 0)
+                throw new InvalidOperationException("No update is active.");
+            if (beginUpdateCount == 1) {
+                // fire change events inside the change group - event handlers might add additional
+                // document changes to the change group
+                FireChangeEvents();
+                undoStack.EndUndoGroup();
+                beginUpdateCount = 0;
+                if (UpdateFinished != null)
+                    UpdateFinished(this, EventArgs.Empty);
+            } else {
+                beginUpdateCount -= 1;
             }
         }
         
@@ -453,41 +414,35 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </summary>
         internal void FireChangeEvents()
         {
-            lock(lockObject)
-            {
-                // it may be necessary to fire the event multiple times if the document is changed
-                // from inside the event handlers
-                while (fireTextChanged) {
-                    fireTextChanged = false;
-                    if (TextChanged != null)
-                        TextChanged(this, EventArgs.Empty);
-                    OnPropertyChanged("Text");
+            // it may be necessary to fire the event multiple times if the document is changed
+            // from inside the event handlers
+            while (fireTextChanged) {
+                fireTextChanged = false;
+                if (TextChanged != null)
+                    TextChanged(this, EventArgs.Empty);
+                OnPropertyChanged("Text");
                     
-                    int textLength = rope.Length;
-                    if (textLength != oldTextLength) {
-                        oldTextLength = textLength;
-                        if (TextLengthChanged != null)
-                            TextLengthChanged(this, EventArgs.Empty);
-                        OnPropertyChanged("TextLength");
-                    }
-                    int lineCount = lineTree.LineCount;
-                    if (lineCount != oldLineCount) {
-                        oldLineCount = lineCount;
-                        if (LineCountChanged != null)
-                            LineCountChanged(this, EventArgs.Empty);
-                        OnPropertyChanged("LineCount");
-                    }
+                int textLength = rope.Length;
+                if (textLength != oldTextLength) {
+                    oldTextLength = textLength;
+                    if (TextLengthChanged != null)
+                        TextLengthChanged(this, EventArgs.Empty);
+                    OnPropertyChanged("TextLength");
+                }
+                int lineCount = lineTree.LineCount;
+                if (lineCount != oldLineCount) {
+                    oldLineCount = lineCount;
+                    if (LineCountChanged != null)
+                        LineCountChanged(this, EventArgs.Empty);
+                    OnPropertyChanged("LineCount");
                 }
             }
         }
         
         void OnPropertyChanged(string propertyName)
         {
-            lock(lockObject)
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
         
@@ -497,10 +452,7 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </summary>
         public void Insert(int offset, string text)
         {
-            lock(lockObject)
-            {
-                Replace(offset, 0, text);
-            }
+            Replace(offset, 0, text);
         }
         
         /// <summary>
@@ -508,10 +460,7 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </summary>
         public void Remove(ISegment segment)
         {
-            lock(lockObject)
-            {
-                Replace(segment, string.Empty);
-            }
+            Replace(segment, string.Empty);
         }
         
         /// <summary>
@@ -519,10 +468,7 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </summary>
         public void Remove(int offset, int length)
         {
-            lock(lockObject)
-            {
-                Replace(offset, length, string.Empty);
-            }
+            Replace(offset, length, string.Empty);
         }
         
         internal bool inDocumentChanging;
@@ -532,12 +478,9 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </summary>
         public void Replace(ISegment segment, string text)
         {
-            lock(lockObject)
-            {
-                if (segment == null)
-                    throw new ArgumentNullException("segment");
-                Replace(segment.Offset, segment.Length, text, null);
-            }
+            if (segment == null)
+                throw new ArgumentNullException("segment");
+            Replace(segment.Offset, segment.Length, text, null);
         }
         
         /// <summary>
@@ -545,10 +488,7 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </summary>
         public void Replace(int offset, int length, string text)
         {
-            lock(lockObject)
-            {
-                Replace(offset, length, text, null);
-            }
+            Replace(offset, length, text, null);
         }
         
         /// <summary>
@@ -561,53 +501,50 @@ namespace ICSharpCode.AvalonEdit.Document
         /// This affects how the anchors and segments inside the replaced region behave.</param>
         public void Replace(int offset, int length, string text, OffsetChangeMappingType offsetChangeMappingType)
         {
-            lock(lockObject)
-            {
-                if (text == null)
-                    throw new ArgumentNullException("text");
+            if (text == null)
+                throw new ArgumentNullException("text");
 
-                // Please see OffsetChangeMappingType XML comments for details on how these modes work.
-                switch (offsetChangeMappingType) {
-                    case OffsetChangeMappingType.Normal:
+            // Please see OffsetChangeMappingType XML comments for details on how these modes work.
+            switch (offsetChangeMappingType) {
+                case OffsetChangeMappingType.Normal:
+                    Replace(offset, length, text, null);
+                    break;
+                case OffsetChangeMappingType.KeepAnchorBeforeInsertion:
+                    Replace(offset, length, text, OffsetChangeMap.FromSingleElement(
+                        new OffsetChangeMapEntry(offset, length, text.Length, false, true)));
+                    break;
+                case OffsetChangeMappingType.RemoveAndInsert:
+                    if (length == 0 || text.Length == 0) {
+                        // only insertion or only removal?
+                        // OffsetChangeMappingType doesn't matter, just use Normal.
                         Replace(offset, length, text, null);
-                        break;
-                    case OffsetChangeMappingType.KeepAnchorBeforeInsertion:
-                        Replace(offset, length, text, OffsetChangeMap.FromSingleElement(
-                            new OffsetChangeMapEntry(offset, length, text.Length, false, true)));
-                        break;
-                    case OffsetChangeMappingType.RemoveAndInsert:
-                        if (length == 0 || text.Length == 0) {
-                            // only insertion or only removal?
-                            // OffsetChangeMappingType doesn't matter, just use Normal.
-                            Replace(offset, length, text, null);
-                        } else {
-                            OffsetChangeMap map = new OffsetChangeMap(2);
-                            map.Add(new OffsetChangeMapEntry(offset, length, 0));
-                            map.Add(new OffsetChangeMapEntry(offset, 0, text.Length));
-                            map.Freeze();
-                            Replace(offset, length, text, map);
-                        }
-                        break;
-                    case OffsetChangeMappingType.CharacterReplace:
-                        if (length == 0 || text.Length == 0) {
-                            // only insertion or only removal?
-                            // OffsetChangeMappingType doesn't matter, just use Normal.
-                            Replace(offset, length, text, null);
-                        } else if (text.Length > length) {
-                            // look at OffsetChangeMappingType.CharacterReplace XML comments on why we need to replace
-                            // the last character
-                            OffsetChangeMapEntry entry = new OffsetChangeMapEntry(offset + length - 1, 1, 1 + text.Length - length);
-                            Replace(offset, length, text, OffsetChangeMap.FromSingleElement(entry));
-                        } else if (text.Length < length) {
-                            OffsetChangeMapEntry entry = new OffsetChangeMapEntry(offset + text.Length, length - text.Length, 0, true, false);
-                            Replace(offset, length, text, OffsetChangeMap.FromSingleElement(entry));
-                        } else {
-                            Replace(offset, length, text, OffsetChangeMap.Empty);
-                        }
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("offsetChangeMappingType", offsetChangeMappingType, "Invalid enum value");
-                }
+                    } else {
+                        OffsetChangeMap map = new OffsetChangeMap(2);
+                        map.Add(new OffsetChangeMapEntry(offset, length, 0));
+                        map.Add(new OffsetChangeMapEntry(offset, 0, text.Length));
+                        map.Freeze();
+                        Replace(offset, length, text, map);
+                    }
+                    break;
+                case OffsetChangeMappingType.CharacterReplace:
+                    if (length == 0 || text.Length == 0) {
+                        // only insertion or only removal?
+                        // OffsetChangeMappingType doesn't matter, just use Normal.
+                        Replace(offset, length, text, null);
+                    } else if (text.Length > length) {
+                        // look at OffsetChangeMappingType.CharacterReplace XML comments on why we need to replace
+                        // the last character
+                        OffsetChangeMapEntry entry = new OffsetChangeMapEntry(offset + length - 1, 1, 1 + text.Length - length);
+                        Replace(offset, length, text, OffsetChangeMap.FromSingleElement(entry));
+                    } else if (text.Length < length) {
+                        OffsetChangeMapEntry entry = new OffsetChangeMapEntry(offset + text.Length, length - text.Length, 0, true, false);
+                        Replace(offset, length, text, OffsetChangeMap.FromSingleElement(entry));
+                    } else {
+                        Replace(offset, length, text, OffsetChangeMap.Empty);
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("offsetChangeMappingType", offsetChangeMappingType, "Invalid enum value");
             }
         }
         
@@ -628,32 +565,29 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </param>
         public void Replace(int offset, int length, string text, OffsetChangeMap offsetChangeMap)
         {
-            lock(lockObject)
-            {
-                if (text == null)
-                    throw new ArgumentNullException("text");
+            if (text == null)
+                throw new ArgumentNullException("text");
                 
-                if (offsetChangeMap != null)
-                    offsetChangeMap.Freeze();
+            if (offsetChangeMap != null)
+                offsetChangeMap.Freeze();
                 
-                // Ensure that all changes take place inside an update group.
-                // Will also take care of throwing an exception if inDocumentChanging is set.
-                BeginUpdate();
+            // Ensure that all changes take place inside an update group.
+            // Will also take care of throwing an exception if inDocumentChanging is set.
+            BeginUpdate();
+            try {
+                // protect document change against corruption by other changes inside the event handlers
+                inDocumentChanging = true;
                 try {
-                    // protect document change against corruption by other changes inside the event handlers
-                    inDocumentChanging = true;
-                    try {
-                        // The range verification must wait until after the BeginUpdate() call because the document
-                        // might be modified inside the UpdateStarted event.
-                        ThrowIfRangeInvalid(offset, length);
+                    // The range verification must wait until after the BeginUpdate() call because the document
+                    // might be modified inside the UpdateStarted event.
+                    ThrowIfRangeInvalid(offset, length);
                         
-                        DoReplace(offset, length, text, offsetChangeMap);
-                    } finally {
-                        inDocumentChanging = false;
-                    }
+                    DoReplace(offset, length, text, offsetChangeMap);
                 } finally {
-                    EndUpdate();
+                    inDocumentChanging = false;
                 }
+            } finally {
+                EndUpdate();
             }
         }
         
@@ -731,10 +665,7 @@ namespace ICSharpCode.AvalonEdit.Document
         public IList<DocumentLine> Lines {
             get
             {
-                lock(lockObject)
-                {
-                    return lineTree;
-                }
+                return lineTree;
             }
         }
         
@@ -743,13 +674,10 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </summary>
         public DocumentLine GetLineByNumber(int number)
         {
-            lock(lockObject)
-            {
-////                VerifyAccess();
-                if (number < 1 || number > lineTree.LineCount)
-                    throw new ArgumentOutOfRangeException("number", number, "Value must be between 1 and " + lineTree.LineCount);
-                return lineTree.GetByNumber(number);
-            }
+            VerifyAccess();
+            if (number < 1 || number > lineTree.LineCount)
+                throw new ArgumentOutOfRangeException("number", number, "Value must be between 1 and " + lineTree.LineCount);
+            return lineTree.GetByNumber(number);
         }
         
         /// <summary>
@@ -759,14 +687,11 @@ namespace ICSharpCode.AvalonEdit.Document
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
         public DocumentLine GetLineByOffset(int offset)
         {
-            lock(lockObject)
-            {
-////                VerifyAccess();
-                if (offset < 0 || offset > rope.Length) {
-                    throw new ArgumentOutOfRangeException("offset", offset, "0 <= offset <= " + rope.Length.ToString());
-                }
-                return lineTree.GetByOffset(offset);
+            VerifyAccess();
+            if (offset < 0 || offset > rope.Length) {
+                throw new ArgumentOutOfRangeException("offset", offset, "0 <= offset <= " + rope.Length.ToString());
             }
+            return lineTree.GetByOffset(offset);
         }
         #endregion
         
@@ -776,10 +701,7 @@ namespace ICSharpCode.AvalonEdit.Document
         /// <seealso cref="GetLocation"/>
         public int GetOffset(TextLocation location)
         {
-            lock(lockObject)
-            {
-                return GetOffset(location.Line, location.Column);
-            }
+            return GetOffset(location.Line, location.Column);
         }
         
         /// <summary>
@@ -788,15 +710,12 @@ namespace ICSharpCode.AvalonEdit.Document
         /// <seealso cref="GetLocation"/>
         public int GetOffset(int line, int column)
         {
-            lock(lockObject)
-            {
-                DocumentLine docLine = GetLineByNumber(line);
-                if (column <= 0)
-                    return docLine.Offset;
-                if (column > docLine.Length)
-                    return docLine.EndOffset;
-                return docLine.Offset + column - 1;
-            }
+            DocumentLine docLine = GetLineByNumber(line);
+            if (column <= 0)
+                return docLine.Offset;
+            if (column > docLine.Length)
+                return docLine.EndOffset;
+            return docLine.Offset + column - 1;
         }
         
         /// <summary>
@@ -805,11 +724,8 @@ namespace ICSharpCode.AvalonEdit.Document
         /// <seealso cref="GetOffset(TextLocation)"/>
         public TextLocation GetLocation(int offset)
         {
-            lock(lockObject)
-            {
-                DocumentLine line = GetLineByOffset(offset);
-                return new TextLocation(line.LineNumber, offset - line.Offset + 1);
-            }
+            DocumentLine line = GetLineByOffset(offset);
+            return new TextLocation(line.LineNumber, offset - line.Offset + 1);
         }
         
         readonly ObservableCollection<ILineTracker> lineTrackers = new ObservableCollection<ILineTracker>();
@@ -820,11 +736,8 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </summary>
         public IList<ILineTracker> LineTrackers {
             get {
-                lock(lockObject)
-                {
-////                    VerifyAccess();
-                    return lineTrackers;
-                }
+                  VerifyAccess();
+                  return lineTrackers;
             }
         }
         
@@ -837,25 +750,19 @@ namespace ICSharpCode.AvalonEdit.Document
         public UndoStack UndoStack {
             get
             {
-                lock(lockObject)
-                {
-                    return undoStack;
-                }
+                return undoStack;
             }
 
             set {
-                lock(lockObject)
-                {
-                    if (value == null)
-                        throw new ArgumentNullException();
+                  if (value == null)
+                      throw new ArgumentNullException();
 
-                    if (value != undoStack) {
-                        undoStack.ClearAll(); // first clear old undo stack, so that it can't be used to perform unexpected changes on this document
-                        // ClearAll() will also throw an exception when it's not safe to replace the undo stack (e.g. update is currently in progress)
-                        undoStack = value;
-                        OnPropertyChanged("UndoStack");
-                    }
-                }
+                  if (value != undoStack) {
+                      undoStack.ClearAll(); // first clear old undo stack, so that it can't be used to perform unexpected changes on this document
+                      // ClearAll() will also throw an exception when it's not safe to replace the undo stack (e.g. update is currently in progress)
+                      undoStack = value;
+                      OnPropertyChanged("UndoStack");
+                  }
             }
         }
         
@@ -865,14 +772,11 @@ namespace ICSharpCode.AvalonEdit.Document
         /// <inheritdoc cref="TextAnchor" select="remarks|example"/>
         public TextAnchor CreateAnchor(int offset)
         {
-            lock(lockObject)
-            {
-////                VerifyAccess();
-                if (offset < 0 || offset > rope.Length) {
-                    throw new ArgumentOutOfRangeException("offset", offset, "0 <= offset <= " + rope.Length.ToString(CultureInfo.InvariantCulture));
-                }
-                return anchorTree.CreateAnchor(offset);
+            VerifyAccess();
+            if (offset < 0 || offset > rope.Length) {
+                throw new ArgumentOutOfRangeException("offset", offset, "0 <= offset <= " + rope.Length.ToString(CultureInfo.InvariantCulture));
             }
+            return anchorTree.CreateAnchor(offset);
         }
         
         #region LineCount
@@ -882,11 +786,8 @@ namespace ICSharpCode.AvalonEdit.Document
         /// </summary>
         public int LineCount {
             get {
-                lock(lockObject)
-                {
-////                    VerifyAccess();
-                    return lineTree.LineCount;
-                }
+                VerifyAccess();
+                return lineTree.LineCount;
             }
         }
         
@@ -898,11 +799,11 @@ namespace ICSharpCode.AvalonEdit.Document
         #endregion
         
         #region Debugging
-////        [Conditional("DEBUG")]
-////    internal void DebugVerifyAccess()
-////    {
-////            VerifyAccess();
-////    }
+        [Conditional("DEBUG")]
+        internal void DebugVerifyAccess()
+        {
+                VerifyAccess();
+        }
         
         /// <summary>
         /// Gets the document lines tree in string form.
@@ -911,14 +812,11 @@ namespace ICSharpCode.AvalonEdit.Document
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         internal string GetLineTreeAsString()
         {
-            lock(lockObject)
-            {
-                #if DEBUG
-                return lineTree.GetTreeAsString();
-                #else
-                return "Not available in release build.";
-                #endif
-            }
+            #if DEBUG
+            return lineTree.GetTreeAsString();
+            #else
+            return "Not available in release build.";
+            #endif
         }
         
         /// <summary>
@@ -928,14 +826,11 @@ namespace ICSharpCode.AvalonEdit.Document
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         internal string GetTextAnchorTreeAsString()
         {
-            lock(lockObject)
-            {
-                #if DEBUG
-                return anchorTree.GetTreeAsString();
-                #else
-                return "Not available in release build.";
-                #endif
-            }
+            #if DEBUG
+            return anchorTree.GetTreeAsString();
+            #else
+            return "Not available in release build.";
+            #endif
         }
         #endregion
     }
