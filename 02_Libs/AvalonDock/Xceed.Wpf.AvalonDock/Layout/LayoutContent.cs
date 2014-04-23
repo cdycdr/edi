@@ -1,18 +1,18 @@
-﻿/************************************************************************
+﻿/*************************************************************************************
 
-   AvalonDock
+   Extended WPF Toolkit
 
    Copyright (C) 2007-2013 Xceed Software Inc.
 
-   This program is provided to you under the terms of the New BSD
-   License (BSD) as published at http://avalondock.codeplex.com/license 
+   This program is provided to you under the terms of the Microsoft Public
+   License (Ms-PL) as published at http://wpftoolkit.codeplex.com/license 
 
    For more features, controls, and fast professional support,
-   pick up AvalonDock in Extended WPF Toolkit Plus at http://xceed.com/wpf_toolkit
+   pick up the Plus Edition at http://xceed.com/wpf_toolkit
 
-   Stay informed: follow @datagrid on Twitter or Like facebook.com/datagrids
+   Stay informed: follow @datagrid on Twitter or Like http://facebook.com/datagrids
 
-  **********************************************************************/
+  ***********************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -335,20 +335,22 @@ namespace Xceed.Wpf.AvalonDock.Layout
             return true;
         }
 
+        internal void CloseInternal()
+        {
+          var root = Root;
+          var parentAsContainer = Parent as ILayoutContainer;
+          parentAsContainer.RemoveChild( this );
+          if( root != null )
+            root.CollectGarbage();
+
+          OnClosed();
+        }
+
         /// <summary>
         /// Close the content
         /// </summary>
         /// <remarks>Please note that usually the anchorable is only hidden (not closed). By default when user click the X button it only hides the content.</remarks>
-        public void Close()
-        {
-            var root = Root;
-            var parentAsContainer = Parent as ILayoutContainer;
-            parentAsContainer.RemoveChild(this);
-            if (root != null)
-                root.CollectGarbage();
-
-            OnClosed();
-        }
+        public abstract void Close();
 
         /// <summary>
         /// Event fired when the content is closed (i.e. removed definitely from the layout)

@@ -195,7 +195,7 @@ namespace Edi.ViewModel
             break;
 
           default:
-            // Re-create Edi document (text file or log4net document) content content
+            // Re-create Edi document (text file or log4net document) content
             ret = Workspace.This.Open(path, CloseDocOnError.WithoutUserNotification);
             break;
         }

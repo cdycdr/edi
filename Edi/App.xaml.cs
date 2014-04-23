@@ -372,7 +372,7 @@ namespace Edi
           Workspace.This.RequestClose += delegate
           {
             // Save session data and close application
-            this.OnClosed(this.mMainWin.DataContext as ViewModel.Workspace, this.mMainWin);
+            this.OnClosed(this.mMainWin);
           };
 
           this.ConstructMainWindowSession(Workspace.This, this.mMainWin);
@@ -463,7 +463,7 @@ namespace Edi
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void OnClosed(ViewModel.Workspace appVM, Window win)
+    private void OnClosed(Window win)
     {
       try
       {
@@ -473,7 +473,7 @@ namespace Edi
                                (win.WindowState == WindowState.Maximized ? true : false));
 
         // Save/initialize program options that determine global programm behaviour
-        appVM.SaveConfigOnAppClosed();
+        Workspace.SaveConfigOnAppClosed();
       }
       catch (Exception exp)
       {

@@ -16,13 +16,13 @@ namespace Edi.ViewModel
   public partial class Workspace
   {
     /// <summary>
-    /// Change WPF theme to theme supplied in <paramref name="themeToSwitchTo"/>
+    /// Change WPF theme.
     /// 
     /// This method can be called when the theme is to be reseted by all means
     /// (eg.: when powering application up).
     /// 
-    /// !!! Use the <seealso cref="CurrentTheme"/> property to change !!!
-    /// !!! the theme when App is running                             !!!
+    /// !!! Use the CurrentTheme property to change !!!
+    /// !!! the theme when App is running           !!!
     /// </summary>
     public void ResetTheme()
     {
@@ -51,7 +51,7 @@ namespace Edi.ViewModel
       this.SwitchToSelectedTheme(nextThemeToSwitchTo);
 
       // Backup highlighting names (if any) and restore highlighting associations after reloading highlighting definitions
-      List<string> HlNames = new List<string>();
+      var HlNames = new List<string>();
 
       foreach (EdiViewModel f in this.Documents)
       {
@@ -87,7 +87,7 @@ namespace Edi.ViewModel
         }
       }
 
-      List<string> backupDynResources = new List<string>();
+      var backupDynResources = new List<string>();
 
       // Apply global styles to theming elements (dynamic resources in resource dictionary) of editor control
       if (HighlightingManager.Instance.HlThemes != null)
@@ -106,6 +106,7 @@ namespace Edi.ViewModel
     /// theme colors than thoses that are pre-defined.
     /// </summary>
     /// <param name="w"></param>
+    /// <param name="backupDynResources"></param>
     private void ApplyWidgetStyle(WidgetStyle w,
                                   List<string> backupDynResources)
     {
@@ -164,7 +165,7 @@ namespace Edi.ViewModel
         // Re-coloring works with SolidColorBrushs linked as DynamicResource
         if (Application.Current.Resources[ResourceName] is SolidColorBrush)
         {
-          SolidColorBrush oldBrush = Application.Current.Resources[ResourceName] as SolidColorBrush;
+          var oldBrush = Application.Current.Resources[ResourceName] as SolidColorBrush;
           backupDynResources.Add(ResourceName);
 
           Application.Current.Resources[ResourceName] = NewColor.Clone();
@@ -173,11 +174,10 @@ namespace Edi.ViewModel
     }
 
     /// <summary>
-    /// Attempt to switch to the theme as stated in <paramref name="sParameter"/>.
+    /// Attempt to switch to the theme stated in <paramref name="nextThemeToSwitchTo"/>.
     /// The given name must map into the <seealso cref="Themes.ThemesVM.EnTheme"/> enumeration.
     /// </summary>
-    /// <param name="sParameter"></param>
-    /// <param name="thisTheme"></param>
+    /// <param name="nextThemeToSwitchTo"></param>
     private bool SwitchToSelectedTheme(ThemeBase nextThemeToSwitchTo)
     {
       const string themesModul = "Themes.dll";
@@ -214,9 +214,9 @@ namespace Edi.ViewModel
           {
             try
             {
-              Uri Res = new Uri(item, UriKind.Relative);
+              var Res = new Uri(item, UriKind.Relative);
 
-              ResourceDictionary dictionary = Application.LoadComponent(Res) as ResourceDictionary;
+              var dictionary = Application.LoadComponent(Res) as ResourceDictionary;
 
               if (dictionary != null)
                 Application.Current.Resources.MergedDictionaries.Add(dictionary);

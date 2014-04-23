@@ -45,7 +45,7 @@ namespace Edi.ViewModel
       if (f.SearchIn == EdiViews.FindReplace.SearchScope.CurrentDocument)
         return f.GetCurrentEditor();
 
-      List<object> l = new List<object>(this.Files.Cast<object>());
+      var l = new List<object>(this.Files.Cast<object>());
 
       int idxStart = l.IndexOf(f.CurrentEditor);
       int i = idxStart;
@@ -64,7 +64,7 @@ namespace Edi.ViewModel
 
           //// i = (i + (previous ? l.Count - 1 : +1)) % l.Count;
 
-          EdiViewModel fTmp = l[i] as EdiViewModel; // Search text in document
+          var fTmp = l[i] as EdiViewModel; // Search text in document
           if (fTmp != null)
           {
             Regex r;
@@ -78,7 +78,7 @@ namespace Edi.ViewModel
         // Found a match so activate the corresponding document and select the text with scroll into view
         if (textSearchSuccess == true && m != null)
         {
-          EdiViewModel doc = l[i] as EdiViewModel;
+          var doc = l[i] as EdiViewModel;
 
           if (doc != null)
             this.ActiveDocument = doc;
@@ -232,7 +232,7 @@ namespace Edi.ViewModel
 
     private void ShowGotoLineDialog()
     {
-      EdiViewModel f = this.ActiveDocument as EdiViewModel;
+      var f = this.ActiveDocument as EdiViewModel;
 
       if (f != null)
       {
@@ -277,7 +277,7 @@ namespace Edi.ViewModel
 
     private void ShowFindReplaceDialog(bool ShowFind = true)
     {
-      EdiViewModel f = this.ActiveDocument as EdiViewModel;
+      var f = this.ActiveDocument as EdiViewModel;
 
       if (f != null)
       {

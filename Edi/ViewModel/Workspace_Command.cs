@@ -357,7 +357,7 @@
           }
 
           // Save program settings
-          this.SaveConfigOnAppClosed();
+          Workspace.SaveConfigOnAppClosed();
         }
         catch (Exception exp)
         {

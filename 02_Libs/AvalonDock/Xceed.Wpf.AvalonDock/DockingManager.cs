@@ -1,18 +1,18 @@
-﻿/************************************************************************
+﻿/*************************************************************************************
 
-   AvalonDock
+   Extended WPF Toolkit
 
    Copyright (C) 2007-2013 Xceed Software Inc.
 
-   This program is provided to you under the terms of the New BSD
-   License (BSD) as published at http://avalondock.codeplex.com/license 
+   This program is provided to you under the terms of the Microsoft Public
+   License (Ms-PL) as published at http://wpftoolkit.codeplex.com/license 
 
    For more features, controls, and fast professional support,
-   pick up AvalonDock in Extended WPF Toolkit Plus at http://xceed.com/wpf_toolkit
+   pick up the Plus Edition at http://xceed.com/wpf_toolkit
 
-   Stay informed: follow @datagrid on Twitter or Like facebook.com/datagrids
+   Stay informed: follow @datagrid on Twitter or Like http://facebook.com/datagrids
 
-  **********************************************************************/
+  ***********************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -41,6 +41,8 @@ namespace Xceed.Wpf.AvalonDock
     [TemplatePart(Name="PART_AutoHideArea")]
     public class DockingManager : Control, IOverlayWindowHost//, ILogicalChildrenContainer
     {
+        private ResourceDictionary currentThemeResourceDictionary; // = null
+
         static DockingManager()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DockingManager), new FrameworkPropertyMetadata(typeof(DockingManager)));
@@ -266,26 +268,24 @@ namespace Xceed.Wpf.AvalonDock
             SetupAutoHideWindow();
         }
 
-        protected override void OnInitialized(EventArgs e)
+        protected override void OnInitialized( EventArgs e )
         {
             base.OnInitialized(e);
-
-            if (Layout.Manager == this)
-            {
-                LayoutRootPanel = CreateUIElementForModel(Layout.RootPanel) as LayoutPanelControl;
-                LeftSidePanel = CreateUIElementForModel(Layout.LeftSide) as LayoutAnchorSideControl;
-                TopSidePanel = CreateUIElementForModel(Layout.TopSide) as LayoutAnchorSideControl;
-                RightSidePanel = CreateUIElementForModel(Layout.RightSide) as LayoutAnchorSideControl;
-                BottomSidePanel = CreateUIElementForModel(Layout.BottomSide) as LayoutAnchorSideControl;
-            }
-
-
         }
 
         void DockingManager_Loaded(object sender, RoutedEventArgs e)
         {
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
+                if( Layout.Manager == this )
+                {
+                  LayoutRootPanel = CreateUIElementForModel( Layout.RootPanel ) as LayoutPanelControl;
+                  LeftSidePanel = CreateUIElementForModel( Layout.LeftSide ) as LayoutAnchorSideControl;
+                  TopSidePanel = CreateUIElementForModel( Layout.TopSide ) as LayoutAnchorSideControl;
+                  RightSidePanel = CreateUIElementForModel( Layout.RightSide ) as LayoutAnchorSideControl;
+                  BottomSidePanel = CreateUIElementForModel( Layout.BottomSide ) as LayoutAnchorSideControl;
+                }
+
                 //load windows not already loaded!
                 foreach (var fw in Layout.FloatingWindows.Where(fw => !_fwList.Any(fwc => fwc.Model == fw)))
                     _fwList.Add(CreateUIElementForModel(fw) as LayoutFloatingWindowControl);
@@ -302,18 +302,21 @@ namespace Xceed.Wpf.AvalonDock
 
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
+              if( _autoHideWindowManager != null )
+              {
                 _autoHideWindowManager.HideAutoWindow();
+              }
 
-                foreach (var fw in _fwList.ToArray())
-                {
-                    //fw.Owner = null;
-                    fw.SetParentWindowToNull();
-                    fw.KeepContentVisibleOnClose = true;
-                    fw.Close();
-                }
+              foreach (var fw in _fwList.ToArray())
+              {
+                  //fw.Owner = null;
+                  fw.SetParentWindowToNull();
+                  fw.KeepContentVisibleOnClose = true;
+                  fw.Close();
+              }
 
-                DestroyOverlayWindow();
-                FocusElementManager.FinalizeFocusManagement(this);
+              DestroyOverlayWindow();
+              FocusElementManager.FinalizeFocusManagement(this);
             }
         }
 
@@ -2194,7 +2197,7 @@ namespace Xceed.Wpf.AvalonDock
             if (!document.TestCanClose())
                 return;
 
-            document.Close();
+            document.CloseInternal();
 
             if (DocumentClosed != null)
             { 
@@ -2683,16 +2686,35 @@ namespace Xceed.Wpf.AvalonDock
             var resources = this.Resources;
             if (oldTheme != null)
             {
+              if( oldTheme is DictionaryTheme )
+              {
+                if( currentThemeResourceDictionary != null )
+                {
+                  resources.MergedDictionaries.Remove( currentThemeResourceDictionary );
+                  currentThemeResourceDictionary = null;
+                }
+              }
+              else
+              {
                 var resourceDictionaryToRemove =
-                    resources.MergedDictionaries.FirstOrDefault(r => r.Source == oldTheme.GetResourceUri());
-                if (resourceDictionaryToRemove != null)
-                    resources.MergedDictionaries.Remove(
-                        resourceDictionaryToRemove);
+                   resources.MergedDictionaries.FirstOrDefault( r => r.Source == oldTheme.GetResourceUri() );
+                if( resourceDictionaryToRemove != null )
+                  resources.MergedDictionaries.Remove(
+                      resourceDictionaryToRemove );
+              }
             }
 
             if (newTheme != null)
             {
+              if( newTheme is DictionaryTheme )
+              {
+                currentThemeResourceDictionary = ( ( DictionaryTheme )newTheme ).ThemeResourceDictionary;
+                resources.MergedDictionaries.Add( currentThemeResourceDictionary );
+              }
+              else
+              {
                 resources.MergedDictionaries.Add(new ResourceDictionary() { Source = newTheme.GetResourceUri() });
+              }
             }
 
             foreach (var fwc in _fwList)

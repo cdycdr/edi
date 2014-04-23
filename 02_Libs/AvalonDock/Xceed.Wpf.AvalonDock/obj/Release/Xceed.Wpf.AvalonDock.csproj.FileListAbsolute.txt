@@ -1,0 +1,84 @@
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\Xceed.Wpf.AvalonDock.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\Xceed.Wpf.AvalonDock.pdb
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\bin\Release\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.csprojResolveAssemblyReference.cache
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock_MarkupCompile.cache
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock_MarkupCompile.lref
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Themes\generic.baml
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.g.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.hu.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.it.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.fr.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.es.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.pt-BR.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.ru.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.de.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.sv.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.zh-Hans.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.ro.resources
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.csproj.GenerateResource.Cache
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.dll
+C:\Users\Internet\Desktop\Downloaads\04 AvalonDock\wpftoolkit-106497\Main\Source\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.pdb
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\Xceed.Wpf.AvalonDock.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\Xceed.Wpf.AvalonDock.pdb
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\bin\Release\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.csprojResolveAssemblyReference.cache
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock_MarkupCompile.cache
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock_MarkupCompile.lref
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Themes\generic.baml
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.g.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.hu.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.it.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.fr.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.es.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.pt-BR.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.ru.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.de.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.sv.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.zh-Hans.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.Properties.Resources.ro.resources
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.csproj.GenerateResource.Cache
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.dll
+C:\Users\Internet\Desktop\Edi_Test\02_Libs\AvalonDock\Xceed.Wpf.AvalonDock\obj\Release\Xceed.Wpf.AvalonDock.pdb

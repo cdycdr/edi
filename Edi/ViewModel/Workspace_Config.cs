@@ -11,7 +11,7 @@
     /// <summary>
     /// Save application settings when the application is being closed down
     /// </summary>
-    public void SaveConfigOnAppClosed()
+    public static void SaveConfigOnAppClosed()
     {
       try
       {

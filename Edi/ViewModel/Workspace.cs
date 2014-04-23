@@ -406,7 +406,7 @@ namespace Edi.ViewModel
       this.mFiles.Add(fileViewModel);
 
       // reset viewmodel options in accordance to current program settings
-      EdiViewModel ediVM = fileViewModel as EdiViewModel;
+      var ediVM = fileViewModel as EdiViewModel;
 
       if (ediVM != null)
       {
@@ -415,13 +415,7 @@ namespace Edi.ViewModel
       }
       else
       {
-        if (fileViewModel is Log4NetViewModel)
-          this.SetActiveLog4NetDocument(fileViewModel as Log4NetViewModel);
-        else
-        {
-          if (fileViewModel is FileBaseViewModel)
-            this.SetActiveFileBaseDocument(fileViewModel as FileBaseViewModel);
-        }
+        this.SetActiveFileBaseDocument(fileViewModel);
       }
 
       if (AddIntoMRU == true)
@@ -578,7 +572,7 @@ namespace Edi.ViewModel
     {
       try
       {
-        AboutViewModel vm = new AboutViewModel();
+        var vm = new AboutViewModel();
         Window dlg = ViewSelector.GetDialogView(vm, Application.Current.MainWindow);
 
         dlg.ShowDialog();
@@ -598,7 +592,7 @@ namespace Edi.ViewModel
     {
       try
       {
-        MRUEntryVM cmdParam = o as MRUEntryVM;
+        var cmdParam = o as MRUEntryVM;
 
         if (cmdParam == null)
           return;
@@ -621,7 +615,7 @@ namespace Edi.ViewModel
     {
       try
       {
-        MRUEntryVM cmdParam = o as MRUEntryVM;
+        var cmdParam = o as MRUEntryVM;
 
         if (cmdParam == null)
           return;
@@ -644,7 +638,7 @@ namespace Edi.ViewModel
     {
       try
       {
-        MRUEntryVM cmdParam = o as MRUEntryVM;
+        var cmdParam = o as MRUEntryVM;
 
         if (cmdParam == null)
           return;
@@ -713,21 +707,6 @@ namespace Edi.ViewModel
       }
     }
     #endregion // RequestClose [event]
-
-    private void SetActiveLog4NetDocument(Log4NetViewModel vm)
-    {
-      try
-      {
-        this.ActiveDocument = vm;
-      }
-      catch (Exception exp)
-      {
-        logger.Error(exp.Message, exp);
-        MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_UnknownError_Caption,
-                        MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
-                        App.IssueTrackerLink, App.IssueTrackerLink, Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
-      }
-    }
 
     private void SetActiveFileBaseDocument(FileBaseViewModel vm)
     {
@@ -1158,7 +1137,7 @@ namespace Edi.ViewModel
           return null;
         else
         {
-          StartPageViewModel s = new StartPageViewModel(SettingsManager.Instance.SessionData.MruList);
+          var s = new StartPageViewModel(SettingsManager.Instance.SessionData.MruList);
 
           s.CloseDocument += new EventHandler(ProcessCloseDocumentEvent);
 
@@ -1178,7 +1157,7 @@ namespace Edi.ViewModel
     /// <param name="e"></param>
     private void ProcessCloseDocumentEvent(object sender, EventArgs e)
     {
-      FileBaseViewModel f = sender as FileBaseViewModel;
+      var f = sender as FileBaseViewModel;
 
       if (f != null)
         this.CloseDocument(f);
@@ -1191,7 +1170,7 @@ namespace Edi.ViewModel
         f.CloseDocument -= this.ProcessCloseDocumentEvent;
 
         // Detach EdiViewModel specific events
-        EdiViewModel eVM = f as EdiViewModel;
+        var eVM = f as EdiViewModel;
         if (eVM != null)
         {
           eVM.ProcessingResultEvent -= vm_ProcessingResultEvent;
@@ -1209,7 +1188,7 @@ namespace Edi.ViewModel
     /// <param name="e"></param>
     private void vm_ProcessingResultEvent(object sender, ProcessResultEvent e)
     {
-      EdiViewModel vm = sender as EdiViewModel;
+      var vm = sender as EdiViewModel;
 
       if (vm != null)
       {

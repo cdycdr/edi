@@ -1,18 +1,18 @@
-﻿/************************************************************************
+﻿/*************************************************************************************
 
-   AvalonDock
+   Extended WPF Toolkit
 
    Copyright (C) 2007-2013 Xceed Software Inc.
 
-   This program is provided to you under the terms of the New BSD
-   License (BSD) as published at http://avalondock.codeplex.com/license 
+   This program is provided to you under the terms of the Microsoft Public
+   License (Ms-PL) as published at http://wpftoolkit.codeplex.com/license 
 
    For more features, controls, and fast professional support,
-   pick up AvalonDock in Extended WPF Toolkit Plus at http://xceed.com/wpf_toolkit
+   pick up the Plus Edition at http://xceed.com/wpf_toolkit
 
-   Stay informed: follow @datagrid on Twitter or Like facebook.com/datagrids
+   Stay informed: follow @datagrid on Twitter or Like http://facebook.com/datagrids
 
-  **********************************************************************/
+  ***********************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -34,6 +34,8 @@ namespace Xceed.Wpf.AvalonDock.Controls
 {
     public abstract class LayoutFloatingWindowControl : Window, ILayoutControl
     {
+      private ResourceDictionary currentThemeResourceDictionary; // = null
+
         static LayoutFloatingWindowControl()
         {
             LayoutFloatingWindowControl.ContentProperty.OverrideMetadata(typeof(LayoutFloatingWindowControl), new FrameworkPropertyMetadata(null, null, new CoerceValueCallback(CoerceContentValue)));
@@ -177,17 +179,36 @@ namespace Xceed.Wpf.AvalonDock.Controls
         {
             if (oldTheme != null)
             {
+              if( oldTheme is DictionaryTheme )
+              {
+                if( currentThemeResourceDictionary != null )
+                {
+                  Resources.MergedDictionaries.Remove( currentThemeResourceDictionary );
+                  currentThemeResourceDictionary = null;
+                }
+              }
+              else
+              {
                 var resourceDictionaryToRemove =
-                    Resources.MergedDictionaries.FirstOrDefault(r => r.Source == oldTheme.GetResourceUri());
-                if (resourceDictionaryToRemove != null)
-                    Resources.MergedDictionaries.Remove(
-                        resourceDictionaryToRemove);
+                    Resources.MergedDictionaries.FirstOrDefault( r => r.Source == oldTheme.GetResourceUri() );
+                if( resourceDictionaryToRemove != null )
+                  Resources.MergedDictionaries.Remove(
+                      resourceDictionaryToRemove );
+              }
             }
 
             var manager = _model.Root.Manager;
             if (manager.Theme != null)
             {
+              if( manager.Theme is DictionaryTheme )
+              {
+                currentThemeResourceDictionary = ( ( DictionaryTheme )manager.Theme ).ThemeResourceDictionary;
+                Resources.MergedDictionaries.Add( currentThemeResourceDictionary );
+              }
+              else
+              {
                 Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = manager.Theme.GetResourceUri() });
+              }
             }
         }
 

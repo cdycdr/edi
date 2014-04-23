@@ -170,6 +170,9 @@
     <None Include="AvalonEdit\Highlighting\Log.xshd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="AvalonEdit\Highlighting\MarkDown-Mode.xshd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="AvalonEdit\Highlighting\PLSQL.xshd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
