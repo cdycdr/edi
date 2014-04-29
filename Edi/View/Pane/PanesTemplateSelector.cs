@@ -1,14 +1,15 @@
 ﻿namespace Edi.View.Pane
 {
-  using Xceed.Wpf.AvalonDock.Layout;
-  using EdiViews.Documents.Log4Net;
-  using EdiViews.Documents.StartPage;
-  using EdiViews.FileStats;
-  using EdiViews.Log4Net;
-  using EdiViews.ViewModel;
-  using EdiViews.ViewModel.Documents;
   using System.Windows;
   using System.Windows.Controls;
+  using EdiViews.Documents.Log4Net;
+  using EdiViews.Documents.StartPage;
+  using EdiViews.Tools.FileExplorer;
+  using EdiViews.Tools.FileStats;
+  using EdiViews.Tools.Log4Net;
+  using EdiViews.Tools.RecentFiles;
+  using EdiViews.ViewModel.Documents;
+  using Xceed.Wpf.AvalonDock.Layout;
 
   /// <summary>
   /// Select a corresponding <seealso cref="DataTemplate"/> to a given type of viewmodel.
@@ -32,6 +33,12 @@
     }
 
     public DataTemplate StartPageViewTemplate
+    {
+      get;
+      set;
+    }
+
+    public DataTemplate FileExplorerViewTemplate
     {
       get;
       set;
@@ -83,6 +90,9 @@
 
       if (item is StartPageViewModel)
         return this.StartPageViewTemplate;
+
+      if (item is FileExplorerViewModel)
+        return this.FileExplorerViewTemplate;
 
       if (item is Log4NetViewModel)
         return this.Log4NetViewTemplate;

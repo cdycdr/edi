@@ -51,11 +51,12 @@
 
       "/Themes;component/MetroDark/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Expression;component/DarkTheme.xaml",
-      "/Edi;component/Themes/MetroDark.xaml"
+      "/Edi;component/Themes/MetroDark.xaml",
+      "/FileListView;component/Images/MetroDarkIcons.xaml"
     };
     #endregion Expression Dark theme resources
 
-    #region Generic theme resources 
+    #region Generic theme resources
     const string GenericThemeName = "Generic";
     static readonly string[] GenericResources = 
     {
@@ -63,7 +64,8 @@
       "/EdiViews;component/Themes/ModernDialogEx.xaml",
 
       "/Themes;component/Generic/Theme.xaml",
-      "/Edi;component/Themes/MetroLight.xaml"
+      "/Edi;component/Themes/MetroLight.xaml",
+      "/FileListView;component/Images/GenericIcons.xaml"
     };
     #endregion Generic theme resources
 
@@ -99,7 +101,8 @@
 
       "/Themes;component/MetroLight/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml",
-      "/Edi;component/Themes/MetroLight.xaml"
+      "/Edi;component/Themes/MetroLight.xaml",
+      "/FileListView;component/Images/MetroLightIcons.xaml"
     };
     #endregion Light Metro theme resources
     #endregion WPF Themes

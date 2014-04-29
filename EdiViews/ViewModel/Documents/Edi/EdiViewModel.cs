@@ -5,7 +5,6 @@ namespace EdiViews.ViewModel.Documents
   using System.Globalization;
   using System.IO;
   using System.Text;
-  using System.Threading;
   using System.Windows;
   using System.Windows.Input;
   using System.Windows.Threading;
@@ -45,7 +44,7 @@ namespace EdiViews.ViewModel.Documents
   /// This viewmodel class represents the business logic of the text editor.
   /// Each text editor document instance is associated with a <seealso cref="EdiViewModel"/> instance.
   /// </summary>
-  public class EdiViewModel : EdiViews.ViewModel.Base.FileBaseViewModel, EdiViews.FindReplace.ViewModel.IEditor
+  public class EdiViewModel : EdiViews.ViewModel.Base.FileBaseViewModel, EdiViews.Dialogs.FindReplace.ViewModel.IEditor
   {
     #region Fields
     private static int iNewFileCounter = 0;
@@ -995,7 +994,7 @@ namespace EdiViews.ViewModel.Documents
         this.HighlightingDefinition = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(this.mFilePath));
       }
 
-      this.InsertBlocks = new ObservableCollection<BlockDefinition>(Config.ViewModel.ConfigViewModel.GetDefaultBlockDefinitions());
+      this.InsertBlocks = new ObservableCollection<BlockDefinition>(EdiViews.Dialogs.Config.ViewModel.ConfigViewModel.GetDefaultBlockDefinitions());
 
       this.WordWrap = SettingData.WordWarpText;
     }

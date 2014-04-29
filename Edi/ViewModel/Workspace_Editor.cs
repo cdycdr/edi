@@ -8,7 +8,7 @@ namespace Edi.ViewModel
   using System.Windows.Threading;
 
   using EdiViews;
-  using EdiViews.FindReplace.ViewModel;
+  using EdiViews.Dialogs.FindReplace.ViewModel;
   using EdiViews.ViewModel.Documents;
   using ICSharpCode.AvalonEdit.Document;
   using MsgBox;
@@ -42,7 +42,7 @@ namespace Edi.ViewModel
         return f.GetCurrentEditor();
 
       // There is no next open document If the user wants to search the current document only
-      if (f.SearchIn == EdiViews.FindReplace.SearchScope.CurrentDocument)
+      if (f.SearchIn == EdiViews.Dialogs.FindReplace.SearchScope.CurrentDocument)
         return f.GetCurrentEditor();
 
       var l = new List<object>(this.Files.Cast<object>());
@@ -161,7 +161,7 @@ namespace Edi.ViewModel
       }
       else
       {
-        if (f.SearchIn == EdiViews.FindReplace.SearchScope.CurrentDocument)
+        if (f.SearchIn == EdiViews.Dialogs.FindReplace.SearchScope.CurrentDocument)
         {
           MsgBox.Msg.Show(Util.Local.Strings.STR_MSG_FIND_NO_MORE_ITEMS_FOUND);
 
@@ -173,7 +173,7 @@ namespace Edi.ViewModel
         object OldEditor = f.CurrentEditor;
         do
         {
-          if (f.SearchIn == EdiViews.FindReplace.SearchScope.AllDocuments)
+          if (f.SearchIn == EdiViews.Dialogs.FindReplace.SearchScope.AllDocuments)
           {
             CE = this.GetNextEditor(f, r.Options.HasFlag(RegexOptions.RightToLeft));
             
@@ -237,13 +237,13 @@ namespace Edi.ViewModel
       if (f != null)
       {
         Window dlg = null;
-        EdiViews.GotoLine.GotoLineViewModel dlgVM = null;
+        EdiViews.Dialogs.GotoLine.GotoLineViewModel dlgVM = null;
 
         try
         {
           int iCurrLine = Workspace.GetCurrentEditorLine(f);
 
-          dlgVM = new EdiViews.GotoLine.GotoLineViewModel(1, f.Document.LineCount, iCurrLine);
+          dlgVM = new EdiViews.Dialogs.GotoLine.GotoLineViewModel(1, f.Document.LineCount, iCurrLine);
           dlg = ViewSelector.GetDialogView((object)dlgVM, Application.Current.MainWindow);
 
           dlg.Closing += dlgVM.OnClosing;
@@ -287,7 +287,7 @@ namespace Edi.ViewModel
         {
           if (this.FindReplaceVM == null)
           {
-            this.FindReplaceVM = new EdiViews.FindReplace.ViewModel.FindReplaceViewModel();
+            this.FindReplaceVM = new EdiViews.Dialogs.FindReplace.ViewModel.FindReplaceViewModel();
           }
 
           this.FindReplaceVM.FindNext = this.FindNext;

@@ -11,14 +11,15 @@ namespace Edi.ViewModel
   using System.Windows.Threading;
   using Edi.ViewModel.Base;
   using EdiViews;
-  using EdiViews.About;
-  using EdiViews.Config.ViewModel;
+  using EdiViews.Dialogs.About;
+  using EdiViews.Dialogs.Config.ViewModel;
   using EdiViews.Documents.Log4Net;
   using EdiViews.Documents.StartPage;
-  using EdiViews.FileStats;
-  using EdiViews.Log4Net;
   using EdiViews.Process;
-  using EdiViews.ViewModel;
+  using EdiViews.Tools.FileExplorer;
+  using EdiViews.Tools.FileStats;
+  using EdiViews.Tools.Log4Net;
+  using EdiViews.Tools.RecentFiles;
   using EdiViews.ViewModel.Base;
   using EdiViews.ViewModel.Documents;
   using Microsoft.Win32;
@@ -67,11 +68,11 @@ namespace Edi.ViewModel
 
     protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-    private bool? mDialogCloseResult;
+    private bool? mDialogCloseResult = null;
     private bool? mIsNotMaximized = null;
 
-    private bool mShutDownInProgress;
-    private bool mShutDownInProgress_Cancel;
+    private bool mShutDownInProgress = false;
+    private bool mShutDownInProgress_Cancel = false;
 
     private ObservableCollection<FileBaseViewModel> mFiles = null;
     private ReadOnlyObservableCollection<FileBaseViewModel> mReadonyFiles = null;
@@ -81,6 +82,7 @@ namespace Edi.ViewModel
     private RecentFilesViewModel mRecentFiles = null;
     private Log4NetToolViewModel mLog4NetTool = null;
     private Log4NetMessageToolViewModel mLog4NetMessageTool = null;
+    private FileExplorerViewModel mFileExplorer = null;
 
     private AvalonDockLayoutViewModel mAVLayout = null;
     private FileBaseViewModel mActiveDocument = null;
@@ -93,8 +95,6 @@ namespace Edi.ViewModel
     protected Workspace()
     {
       this.mFiles = new ObservableCollection<FileBaseViewModel>();
-      this.mDialogCloseResult = null;
-      this.mShutDownInProgress = mShutDownInProgress_Cancel = false;
     }
     #endregion constructor
 
@@ -214,17 +214,20 @@ namespace Edi.ViewModel
       }
     }
 
+    #region Tools
     /// <summary>
-    /// Principable data source for collection of tool windows managed in the the document manager (of AvalonDock).
+    /// Principable data source for collection of tool windows
+    /// managed in the the document manager (of AvalonDock).
     /// </summary>
     public IEnumerable<ToolViewModel> Tools
     {
       get
       {
         if (mTools == null)
-          mTools = new ToolViewModel[] { (EdiViews.ViewModel.Base.ToolViewModel)this.RecentFiles,
+          mTools = new ToolViewModel[] { this.RecentFiles,
                                          this.FileStats,
-                                         this.Log4NetTool, Log4NetMessageTool
+                                         this.Log4NetTool, Log4NetMessageTool,
+                                         this.FileExplorer
                                         };
 
         return mTools;
@@ -232,7 +235,7 @@ namespace Edi.ViewModel
     }
 
     /// <summary>
-    /// This property manages the data visible in the File States View
+    /// Gets the File States ToolWindow ViewModel.
     /// based on the <seealso cref="FileStatsViewModel"/>.
     /// </summary>
     public FileStatsViewModel FileStats
@@ -250,7 +253,7 @@ namespace Edi.ViewModel
     }
 
     /// <summary>
-    /// This property manages the data visible in the Recent Files View
+    /// Gets the data visible in the Recent Files ToolWindow ViewModel.
     /// based on the <seealso cref="RecentFilesViewModel"/>.
     /// </summary>
     public RecentFilesViewModel RecentFiles
@@ -265,7 +268,7 @@ namespace Edi.ViewModel
     }
 
     /// <summary>
-    /// This property manages the data visible in the Log4Net Tool Window View
+    /// Gets the Log4Net Tool Window ViewModel.
     /// based on the <seealso cref="Log4NetToolViewModel"/>.
     /// </summary>
     public Log4NetToolViewModel Log4NetTool
@@ -282,6 +285,9 @@ namespace Edi.ViewModel
       }
     }
 
+    /// <summary>
+    /// Gets the Log4NetMessageTool (toolwindow) viewmodel.
+    /// </summary>
     public Log4NetMessageToolViewModel Log4NetMessageTool
     {
       get
@@ -295,6 +301,25 @@ namespace Edi.ViewModel
         return this.mLog4NetMessageTool;
       }
     }
+
+    /// <summary>
+    /// Gets the File Explorer ToolWindow ViewModel.
+    /// based on the <seealso cref="FileExplorerViewModel"/>.
+    /// </summary>
+    public FileExplorerViewModel FileExplorer
+    {
+      get
+      {
+        if (this.mFileExplorer == null)
+        {
+          this.mFileExplorer = new FileExplorerViewModel(this.FileOpen);
+          Workspace.This.ActiveDocumentChanged += new DocumentChangedEventHandler(this.mFileExplorer.OnActiveDocumentChanged);
+        }
+
+        return this.mFileExplorer;
+      }
+    }
+    #endregion Tools
 
     /// <summary>
     /// Expose command to load/save AvalonDock layout on application startup and shut-down.
@@ -339,6 +364,18 @@ namespace Edi.ViewModel
     #endregion Properties
 
     #region methods
+    /// <summary>
+    /// Wrapper method for file open
+    /// - is executed when a file open is requested from external party such as tool window.
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    private bool FileOpen(string file)
+    {
+      this.Open(file);
+      return true;
+    }
+
     /// <summary>
     /// Open a file supplied in <paramref name="filePath"/> (without displaying a file open dialog).
     /// </summary>

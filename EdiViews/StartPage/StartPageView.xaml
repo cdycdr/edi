@@ -9,11 +9,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              
              xmlns:behav="clr-namespace:EdiViews.Behaviour"
-             xmlns:view="clr-namespace:EdiViews.RecentFilesView"
+             xmlns:view="clr-namespace:EdiViews.Tools.RecentFiles"
              xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="600" Background="{DynamicResource PinableListViewBackground}"
+             d:DesignHeight="450" d:DesignWidth="600" Background="{DynamicResource ToolViewBackground}"
 
              Focusable="True"
              KeyboardNavigation.IsTabStop="True"

@@ -13,11 +13,13 @@
   /// </summary>
   public class DocumentPaginatorWrapper : DocumentPaginator
   {
+    #region fields
     string m_Title;
     Margins m_Margins;
     Size m_PageSize;
     DocumentPaginator m_Paginator;
     Typeface m_Typeface;
+    #endregion fields
 
     #region Properties
     /// <summary>
@@ -28,30 +30,50 @@
       set { m_Title = value; }
     }
 
+    /// <summary>
+    /// Gets whether the current page count is valid or not.
+    /// </summary>
     public override bool IsPageCountValid
     {
 
       get { return m_Paginator.IsPageCountValid; }
     }
 
+    /// <summary>
+    /// Gets the number of pages to be printed.
+    /// </summary>
     public override int PageCount
     {
 
       get { return m_Paginator.PageCount; }
     }
 
+    /// <summary>
+    /// Gets/set page size of printed page.
+    /// </summary>
     public override Size PageSize
     {
       get { return m_Paginator.PageSize; }
       set { m_Paginator.PageSize = value; }
     }
 
+    /// <summary>
+    /// Gets the source object that performs actual content pagination.
+    /// </summary>
     public override IDocumentPaginatorSource Source
     {
       get { return m_Paginator.Source; }
     }
     #endregion
 
+    #region constructor
+    /// <summary>
+    /// Class constructor
+    /// </summary>
+    /// <param name="paginator"></param>
+    /// <param name="pageSettings"></param>
+    /// <param name="printTicket"></param>
+    /// <param name="headerFooterfontFamily"></param>
     public DocumentPaginatorWrapper(DocumentPaginator paginator, PageSettings pageSettings, PrintTicket printTicket, FontFamily headerFooterfontFamily)
     {
       m_Margins = ConvertMarginsToPx(pageSettings.Margins);
@@ -66,19 +88,14 @@
 
       m_Typeface = new Typeface(headerFooterfontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
     }
+    #endregion constructor
 
-    Rect Move(Rect rect)
-    {
-      if (rect.IsEmpty)
-      {
-        return rect;
-      }
-      else
-      {
-        return new Rect(rect.Left + m_Margins.Left, rect.Top + m_Margins.Top, rect.Width, rect.Height);
-      }
-    }
-
+    #region methods
+    /// <summary>
+    /// Get a page for printing layouted with header and footer.
+    /// </summary>
+    /// <param name="pageNumber"></param>
+    /// <returns></returns>
     public override DocumentPage GetPage(int pageNumber)
     {
       DocumentPage page = m_Paginator.GetPage(pageNumber);
@@ -92,9 +109,9 @@
 
       using (DrawingContext ctx = header.RenderOpen())
       {
-        DrawPath(ctx, m_Margins.Top - 20, m_Title, TextAlignment.Left);
-        DrawText(ctx, m_Margins.Top - 20, String.Format("{0}", DateTime.Now), TextAlignment.Right);
-        DrawLine(ctx, m_Margins.Top - 5, 0.5);
+        DrawPath(ctx, this.m_Margins.Top - 20, this.m_Title, TextAlignment.Left);
+        DrawText(ctx, this.m_Margins.Top - 20, String.Format("{0}", DateTime.Now), TextAlignment.Right);
+        DrawLine(ctx, this.m_Margins.Top - 5, 0.5);
       }
 
       //
@@ -118,10 +135,22 @@
       return new DocumentPage(newpage, m_PageSize, Move(page.BleedBox), Move(page.ContentBox));
     }
 
+    private Rect Move(Rect rect)
+    {
+      if (rect.IsEmpty)
+      {
+        return rect;
+      }
+      else
+      {
+        return new Rect(rect.Left + m_Margins.Left, rect.Top + m_Margins.Top, rect.Width, rect.Height);
+      }
+    }
+
     /// <summary>
     /// Draws a text at specified y-postion with specified text alignment.
     /// </summary>
-    void DrawText(DrawingContext ctx, double yPos, string text, TextAlignment alignment)
+    private void DrawText(DrawingContext ctx, double yPos, string text, TextAlignment alignment)
     {
       if (string.IsNullOrEmpty(text))
         return;
@@ -159,7 +188,7 @@
     /// <summary>
     /// Draws a path as document title.
     /// </summary>
-    void DrawPath(DrawingContext ctx, double yPos, string text, TextAlignment alignment)
+    private void DrawPath(DrawingContext ctx, double yPos, string text, TextAlignment alignment)
     {
       if (string.IsNullOrEmpty(text))
         return;
@@ -230,12 +259,10 @@
       ctx.DrawText(formattedText, new Point(m_Margins.Left + textWidth, yPos));
     }
 
-
-
     /// <summary>
     /// Draws a line from left to right margin at specified y-postion.
     /// </summary>
-    void DrawLine(DrawingContext ctx, double yPos, double thickness)
+    private void DrawLine(DrawingContext ctx, double yPos, double thickness)
     {
       ctx.DrawLine(new Pen(new SolidColorBrush(Colors.Black), thickness),
                     new Point(m_Margins.Left, yPos),
@@ -246,7 +273,7 @@
     /// <summary>
     /// Converts specified Margins (hundredths of an inch) to pixel margin (px).
     /// </summary>
-    Margins ConvertMarginsToPx(Margins margins)
+    private Margins ConvertMarginsToPx(Margins margins)
     {
 
       margins.Left = ConvertToPx(margins.Left);
@@ -261,10 +288,11 @@
     /// <summary>
     /// Converts specified inch (hundredths of an inch) to pixels (px).
     /// </summary>
-    int ConvertToPx(double inch)
+    private int ConvertToPx(double inch)
     {
 
       return (int)(inch * 0.96);
     }
+    #endregion methods
   }
 }

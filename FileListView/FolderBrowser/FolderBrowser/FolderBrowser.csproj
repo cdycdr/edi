@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0B8C3B19-940D-408D-9F6B-4AFEE7246642}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FolderBrowser</RootNamespace>
+    <AssemblyName>FolderBrowser</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behaviour\DialogCloser.cs" />
+    <Compile Include="BindingProxy.cs" />
+    <Compile Include="BrowseDirectoriesView.xaml.cs">
+      <DependentUpon>BrowseDirectoriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Events\SelectedDirectoryEventArgs.cs" />
+    <Compile Include="ViewModel\BrowserViewModel.cs" />
+    <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="FolderBrowserDialog.xaml.cs">
+      <DependentUpon>FolderBrowserDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\DialogViewModel.cs" />
+    <Compile Include="ViewModel\FolderViewModel.cs" />
+    <Compile Include="Behaviour\InputBindingsManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Behaviour\TreeViewItemBehaviour.cs" />
+    <Compile Include="ViewModel\Base\ViewModelBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="BrowseDirectoriesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FolderBrowserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Desktop.png" />
+    <Resource Include="Images\MyPictures.png" />
+    <Resource Include="Images\MyDocuments.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HardDisk.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FolderClosed.png" />
+    <Resource Include="Images\FolderOpen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MyVideos.png" />
+    <Resource Include="Images\ProgramFiles.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

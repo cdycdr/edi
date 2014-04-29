@@ -50,6 +50,9 @@
     #endregion properties
 
     #region methods
+    /// <summary>
+    /// Get a print dialog, defaulted to default printer and default printer's preferences.
+    /// </summary>
     protected override void OnPrintCommand()
     {
       // get a print dialog, defaulted to default printer and default printer's preferences.

@@ -12,8 +12,10 @@
   public partial class EdiTextEditor : TextEditor
   {
     #region fields
-    // InsertBlocks DependencyProperty is the backing store for InsertBlocks.
-    // These are text blocks user can insert at the beginning and/or end of a selection.
+    /// <summary>
+    /// InsertBlocks DependencyProperty is the backing store for InsertBlocks.
+    /// These are text blocks user can insert at the beginning and/or end of a selection.
+    /// </summary>
     public static readonly DependencyProperty InsertBlocksProperty =
         DependencyProperty.Register("InsertBlocks",
                                     typeof(ObservableCollection<BlockDefinition>),
@@ -287,9 +289,5 @@
       }
     }
     #endregion methods
-
-
-
-    
   }
 }

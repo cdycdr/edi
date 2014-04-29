@@ -48,6 +48,9 @@
     #endregion enum
 
     #region properties
+    /// <summary>
+    /// Get/set type of block selection/change
+    /// </summary>
     public BlockAt TypeOfBlock { get; set; }
 
     public string StartBlock { get; set; }

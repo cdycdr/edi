@@ -211,6 +211,9 @@
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Properties_TW}"
                   IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
 
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_FileExplorer_TW}"
+                  IsChecked="{Binding FileExplorer.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+
         <Separator />
 
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Log4Net_TW}"

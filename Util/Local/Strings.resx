@@ -307,6 +307,9 @@
   <data name="STR_CmdName_Properties_TW" xml:space="preserve">
     <value>Properties Tool Window</value>
   </data>
+  <data name="STR_CmdName_FileExplorer_TW" xml:space="preserve">
+    <value>File Explorer Tool Window</value>
+  </data>
   <data name="STR_CmdName_RecentFiles_TW" xml:space="preserve">
     <value>Recent Files Tool Window</value>
   </data>

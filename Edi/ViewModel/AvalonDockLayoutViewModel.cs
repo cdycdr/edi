@@ -3,9 +3,10 @@ namespace Edi.ViewModel
   using System.IO;
   using System.Windows.Input;
   using EdiViews.Documents.StartPage;
-  using EdiViews.FileStats;
-  using EdiViews.Log4Net;
-  using EdiViews.ViewModel;
+  using EdiViews.Tools.FileExplorer;
+  using EdiViews.Tools.FileStats;
+  using EdiViews.Tools.Log4Net;
+  using EdiViews.Tools.RecentFiles;
   using Settings;
   using SimpleControls.Command;
   using Xceed.Wpf.AvalonDock;
@@ -157,7 +158,10 @@ namespace Edi.ViewModel
       if (args.Model.ContentId == FileStatsViewModel.ToolContentId)
         args.Content = Workspace.This.FileStats;
       else
-        if (args.Model.ContentId == RecentFilesViewModel.ToolContentId)
+        if (args.Model.ContentId == FileExplorerViewModel.ToolContentId)
+          args.Content = Workspace.This.FileExplorer;
+        else
+          if (args.Model.ContentId == RecentFilesViewModel.ToolContentId)
           args.Content = (object)Workspace.This.RecentFiles;
         else
           if (args.Model.ContentId == Log4NetToolViewModel.ToolContentId)

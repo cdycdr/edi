@@ -153,7 +153,7 @@
                   BorderBrush="Transparent"
                   
                   Name="Bd"
-                  SnapsToDevicePixels="True"><!-- Background="{StaticResource PinableListViewBackground}" -->
+                  SnapsToDevicePixels="True"><!-- Background="{StaticResource ToolViewBackground}" -->
             <ScrollViewer Padding="0" Focusable="False">
               <ItemsPresenter SnapsToDevicePixels="True" />
             </ScrollViewer>

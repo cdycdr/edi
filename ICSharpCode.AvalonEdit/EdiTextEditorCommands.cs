@@ -23,6 +23,9 @@
       ////, new InputGestureCollection { new KeyGesture(Key.D, ModifierKeys.Control) }
       );
 
+    /// <summary>
+    /// Show Print Document Dialog and allow the user to print the current document.
+    /// </summary>
     public static readonly RoutedCommand PrintDocument = new RoutedCommand("PrintDocument", typeof(TextEditor)
       ////, new InputGestureCollection { new KeyGesture(Key.D, ModifierKeys.Control) }
       );

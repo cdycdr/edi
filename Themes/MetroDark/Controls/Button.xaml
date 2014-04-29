@@ -84,9 +84,9 @@
     <Border x:Name="ShineBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3" Background="{StaticResource ShineBrush}" Opacity="1" />
 
     <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        Margin="{TemplateBinding Padding}"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                        RecognizesAccessKey="True" />
+                      Margin="{TemplateBinding Padding}"
+                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                      RecognizesAccessKey="True" />
 
     <Border x:Name="FocusVisualElement" IsHitTestVisible="false" BorderBrush="{StaticResource KeyboardFocusBorderBrush}" BorderThickness="1" CornerRadius="3,3,3,3" Margin="1,1,1,1" Opacity="0" />
   </Grid>

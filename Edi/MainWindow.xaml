@@ -21,9 +21,10 @@
         xmlns:EdiViewsConv="clr-namespace:EdiViews.Converter;assembly=EdiViews"
              
         xmlns:EdiViewsStartP="clr-namespace:EdiViews.StartPage;assembly=EdiViews"
-        xmlns:EdiViewsRecent="clr-namespace:EdiViews.RecentFilesView;assembly=EdiViews"
-        xmlns:EdiViewsLog4Net="clr-namespace:EdiViews.Log4Net;assembly=EdiViews"
-        xmlns:EdiViewsFileStats="clr-namespace:EdiViews.FileStats;assembly=EdiViews"
+        xmlns:EdiViewsRecent="clr-namespace:EdiViews.Tools.RecentFiles;assembly=EdiViews"
+        xmlns:EdiViewsLog4Net="clr-namespace:EdiViews.Tools.Log4Net;assembly=EdiViews"
+        xmlns:EdiViewsFileStats="clr-namespace:EdiViews.Tools.FileStats;assembly=EdiViews"
+        xmlns:EdiViewsFileExplorer="clr-namespace:EdiViews.Tools.FileExplorer;assembly=EdiViews"
              
         xmlns:MiniUMLViews="clr-namespace:MiniUML.View.Views;assembly=MiniUML.View"
 
@@ -138,8 +139,9 @@
                 <EdiViewsStartP:StartPageView />
               </DataTemplate>
             </pane:PanesTemplateSelector.StartPageViewTemplate>
+
+            <!-- Log4Net Document Viewer and Tool Windows -->
             <pane:PanesTemplateSelector.Log4NetViewTemplate>
-              <!-- Log4Net Document Viewer -->
               <DataTemplate>
                 <Grid busi:BusyIndicatorBehavior.BusyState="{Binding Yalv.LogItems.LogFile.IsLoading}">
                   <yalvView:YalvView DataContext="{Binding Yalv}"
@@ -153,8 +155,8 @@
                 </Grid>
               </DataTemplate>
             </pane:PanesTemplateSelector.Log4NetViewTemplate>
+            <!-- Log4Net Tool Window -->
             <pane:PanesTemplateSelector.Log4NetToolViewTemplate>
-              <!-- Log4Net Tool Window -->
               <DataTemplate>
                 <EdiViewsLog4Net:Log4NetToolView />
               </DataTemplate>
@@ -164,6 +166,8 @@
                 <EdiViewsLog4Net:Log4NetMessageView />
               </DataTemplate>
             </pane:PanesTemplateSelector.Log4NetMessageToolViewTemplate>
+            <!-- End of Log$Net -->
+
             <pane:PanesTemplateSelector.FileViewTemplate>
               <DataTemplate>
                 <!-- Known problem: Options must be bound or the control will show a gray bar otherwise -->
@@ -200,8 +204,13 @@
                 <EdiViewsRecent:RecentFilesView />
               </DataTemplate>
             </pane:PanesTemplateSelector.RecentFilesViewTemplate>
+            <pane:PanesTemplateSelector.FileExplorerViewTemplate>
+                <DataTemplate>
+                <EdiViewsFileExplorer:FileExplorerView />
+                </DataTemplate>
+            </pane:PanesTemplateSelector.FileExplorerViewTemplate>
           </pane:PanesTemplateSelector>
-        </avalonDock:DockingManager.LayoutItemTemplateSelector>
+      </avalonDock:DockingManager.LayoutItemTemplateSelector>
 
         <avalonDock:DockingManager.LayoutItemContainerStyleSelector>
           <pane:PanesStyleSelector>

@@ -12,6 +12,9 @@
   using PrintEngine;
   using ICSharpCode.AvalonEdit;
 
+  /// <summary>
+  /// Print support class for Edi text editor control based ib AvalonEdit class.
+  /// </summary>
   public static class Printing
   {
     private static PageSettings mPageSettings;

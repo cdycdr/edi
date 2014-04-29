@@ -19,17 +19,17 @@
 
       Window win = null;
 
-      if (viewModel is EdiViews.Config.ViewModel.ConfigViewModel) // Return programm settings dialog instance
-        win = new EdiViews.Config.ConfigDlg(){ Title = "Settings..."};
+      if (viewModel is EdiViews.Dialogs.Config.ViewModel.ConfigViewModel) // Return programm settings dialog instance
+        win = new EdiViews.Dialogs.Config.ConfigDlg() { Title = "Settings..." };
       else
-      if (viewModel is EdiViews.About.AboutViewModel)             // Return about programm dialog instance
-        win = new EdiViews.About.AboutDlg();
+        if (viewModel is EdiViews.Dialogs.About.AboutViewModel)             // Return about programm dialog instance
+        win = new EdiViews.Dialogs.About.AboutDlg();
       else
-      if (viewModel is EdiViews.GotoLine.GotoLineViewModel)       // Return goto line dialog instance
-        win = new EdiViews.GotoLine.GotoLineDlg();
+          if (viewModel is EdiViews.Dialogs.GotoLine.GotoLineViewModel)       // Return goto line dialog instance
+            win = new EdiViews.Dialogs.GotoLine.GotoLineDlg();
       else
-      if (viewModel is EdiViews.FindReplace.ViewModel.FindReplaceViewModel) // Return find replace dialog instance
-        win = new EdiViews.FindReplace.FindReplaceDialog();
+        if (viewModel is EdiViews.Dialogs.FindReplace.ViewModel.FindReplaceViewModel) // Return find replace dialog instance
+          win = new EdiViews.Dialogs.FindReplace.FindReplaceDialog();
 
       if (win != null)
       {

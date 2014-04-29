@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/EdiViews;component/About/AboutView.xaml"/>
-    <ResourceDictionary Source="/EdiViews;component/GotoLine/GotoLineView.xaml"/>
-    <ResourceDictionary Source="/EdiViews;component/FindReplace/FindReplaceView.xaml"/>
-    <ResourceDictionary Source="/EdiViews;component/Config/AppConfigView.xaml" />
+    <ResourceDictionary Source="/EdiViews;component/Dialogs/About/AboutView.xaml"/>
+    <ResourceDictionary Source="/EdiViews;component/Dialogs/GotoLine/GotoLineView.xaml"/>
+    <ResourceDictionary Source="/EdiViews;component/Dialogs/FindReplace/FindReplaceView.xaml"/>
+    <ResourceDictionary Source="/EdiViews;component/Dialogs/Config/AppConfigView.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

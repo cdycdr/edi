@@ -19,6 +19,10 @@ ECHO Settings
 ECHO SimpleControls
 ECHO Util
 ECHO.
+ECHO FileListView\FileListView
+ECHO FileListView\FileListViewTest
+ECHO FileListView\FolderBrowser\FolderBrowser
+ECHO FileListView\FolderBrowser\TestFolderBrowser
 ECHO.
 REM Ask the user if hes really sure to continue beyond this point XXXXXXXX
 set /p choice=Are you sure to continue (Y/N)?
@@ -62,6 +66,8 @@ RMDIR /S /Q .\MiniUML\Plugins\src\MiniUML.Plugins.UmlClassDiagram\obj
 
 ECHO Deleting BIN and OBJ Folders in utilities
 ECHO.
+RMDIR /S /Q Util\bin
+RMDIR /S /Q Util\obj
 
 RMDIR /S /Q Settings\bin
 RMDIR /S /Q Settings\obj
@@ -69,8 +75,25 @@ RMDIR /S /Q Settings\obj
 RMDIR /S /Q SimpleControls\bin
 RMDIR /S /Q SimpleControls\obj
 
-RMDIR /S /Q Util\bin
-RMDIR /S /Q Util\obj
+ECHO Deleting BIN and OBJ Folders in FileListView
+ECHO.
+RMDIR /S /Q .\FileListView\FileListView\bin
+RMDIR /S /Q .\FileListView\FileListView\obj
+
+ECHO Deleting BIN and OBJ Folders in FileListViewTest
+ECHO.
+RMDIR /S /Q .\FileListView\FileListViewTest\bin
+RMDIR /S /Q .\FileListView\FileListViewTest\obj
+
+ECHO Deleting BIN and OBJ Folders in FolderBrowser
+ECHO.
+RMDIR /S /Q .\FileListView\FolderBrowser\FolderBrowser\bin
+RMDIR /S /Q .\FileListView\FolderBrowser\FolderBrowser\obj
+
+ECHO Deleting BIN and OBJ Folders in TestFolderBrowser
+ECHO.
+RMDIR /S /Q .\FileListView\FolderBrowser\TestFolderBrowser\bin
+RMDIR /S /Q .\FileListView\FolderBrowser\TestFolderBrowser\obj
 
 PAUSE
 
