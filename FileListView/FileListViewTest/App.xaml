@@ -6,6 +6,15 @@
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
         <!-- ResourceDictionary Source="/FileListView;component/Themes/Generic.xaml" / -->
+
+        <ResourceDictionary Source="/FileListView;component/Images/GenericIcons.xaml" />
+        <!-- ResourceDictionary Source="/FileListView;component/Images/MetroDarkIcons.xaml" / -->
+        <!-- ResourceDictionary Source="/FileListView;component/Images/MetroLightIcons.xaml" / -->
+
+        <ResourceDictionary Source="/FolderBrowser;component/Images/GenericIcons.xaml" />
+        <!-- ResourceDictionary Source="/FolderBrowser;component/Images/MetroDarkIcons.xaml" / -->
+        <!-- ResourceDictionary Source="/FolderBrowser;component/Images/MetroLightIcons.xaml" / -->
+
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>

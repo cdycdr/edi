@@ -23,6 +23,7 @@ ECHO FileListView\FileListView
 ECHO FileListView\FileListViewTest
 ECHO FileListView\FolderBrowser\FolderBrowser
 ECHO FileListView\FolderBrowser\TestFolderBrowser
+ECHO FileListView\FolderBrowser\FileSystemModels
 ECHO.
 REM Ask the user if hes really sure to continue beyond this point XXXXXXXX
 set /p choice=Are you sure to continue (Y/N)?
@@ -94,6 +95,11 @@ ECHO Deleting BIN and OBJ Folders in TestFolderBrowser
 ECHO.
 RMDIR /S /Q .\FileListView\FolderBrowser\TestFolderBrowser\bin
 RMDIR /S /Q .\FileListView\FolderBrowser\TestFolderBrowser\obj
+
+ECHO Deleting BIN and OBJ Folders in FileSystemModels
+ECHO.
+RMDIR /S /Q .\FileListView\FileSystemModels\bin
+RMDIR /S /Q .\FileListView\FileSystemModels\obj
 
 PAUSE
 

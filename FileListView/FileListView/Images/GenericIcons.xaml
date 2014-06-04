@@ -17,13 +17,14 @@
   <!-- 16 pixel refresh command icon -->
   <BitmapImage x:Key="FLV_Image_Refresh" UriSource="pack://application:,,,/FileListView;component/Images/Generic/refresh.png" />
 
-  <!-- 16 pixel IsFolders Visible command icon -->
+
+  <!-- 16 pixel Toggle folder Visible command -->
   <BitmapImage x:Key="FLV_Image_IsFoldersVisible" UriSource="pack://application:,,,/FileListView;component/Images/Generic/Folder/folderopened_yellow_16.png" />
 
-  <!-- 16 pixel refresh command icon -->
-  <BitmapImage x:Key="FLV_Image_IsIconVisible" UriSource="pack://application:,,,/FileListView;component/Images/Metro/Light/appbar.image.macro_16.png" />
+  <!-- 16 pixel Toggle icons visible command icon -->
+  <BitmapImage x:Key="FLV_Image_IsIconVisible" UriSource="pack://application:,,,/FileListView;component/Images/Generic/appbar.image.macro.png" />
 
-  <!-- 16 pixel refresh command icon -->
-  <BitmapImage x:Key="FLV_Image_IsHiddenFileVisible" UriSource="pack://application:,,,/FileListView;component/Images/Metro/Light/appbar.page.hidden_16.png" />
+  <!-- 16 pixel Toggle hidden items visible command icon -->
+  <BitmapImage x:Key="FLV_Image_IsHiddenFileVisible" UriSource="pack://application:,,,/FileListView;component/Images/Generic/IsHiddenVisible.png" />
 
 </ResourceDictionary>

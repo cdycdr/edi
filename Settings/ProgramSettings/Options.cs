@@ -4,8 +4,8 @@
   using System.Collections.Generic;
   using System.Collections.ObjectModel;
   using System.Xml.Serialization;
+  using FileSystemModels.Models;
   using ICSharpCode.AvalonEdit;
-  using ICSharpCode.AvalonEdit.Edi.BlockSurround;
   using ICSharpCode.AvalonEdit.Highlighting.Themes;
   using SimpleControls.MRU.ViewModel;
   using Themes;
@@ -76,6 +76,8 @@
       this.HighlightOnFileNew = true;
       this.FileNewDefaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
       this.FileNewDefaultFileExtension = ".txt";
+
+      this.ExplorerSettings = new ExplorerSettingsModel(true);
 
       this.mIsDirty = false;
     }
@@ -335,6 +337,9 @@
     [XmlElement("NewFile_DefaultFileExtension")]
     public string FileNewDefaultFileExtension { get; set; }
     #endregion New File Default options
+
+    [XmlElement(ElementName = "ExplorerSettings")]
+    public ExplorerSettingsModel ExplorerSettings { get; set; }
 
     /// <summary>
     /// Get/set whether the settings stored in this instance have been

@@ -313,6 +313,7 @@ namespace Edi.ViewModel
         if (this.mFileExplorer == null)
         {
           this.mFileExplorer = new FileExplorerViewModel(this.FileOpen);
+
           Workspace.This.ActiveDocumentChanged += new DocumentChangedEventHandler(this.mFileExplorer.OnActiveDocumentChanged);
         }
 

@@ -8,6 +8,12 @@ namespace EdiViews.Tools.FileExplorer
   using EdiViews.ViewModel.Base;
   using FileListView.Command;
   using FileListView.ViewModels;
+  using FileListView.ViewModels.Interfaces;
+  using FileSystemModels.Interfaces;
+  using FileSystemModels.Models;
+  using FolderBrowser.ViewModels;
+  using FolderBrowser.ViewModels.Interfaces;
+  using Settings;
 
   /// <summary>
   /// This class can be used to present file based information, such as,
@@ -35,42 +41,27 @@ namespace EdiViews.Tools.FileExplorer
 
       this.FolderView = new FolderListViewModel(this.FolderItemsView_OnFileOpen);
 
-      this.FolderView.AddRecentFolder( @"C:\temp\");
-      this.FolderView.AddRecentFolder( @"C:\windows\");
+      this.SynchronizedTreeBrowser = new BrowserViewModel();
+      this.SynchronizedTreeBrowser.SetSpecialFoldersVisibility(false);
 
-      this.FolderView.AddFilter("XML", "*.aml;*.xml;*.xsl;*.xslt;*.xsd;*.config;*.addin;*.wxs;*.wxi;*.wxl;*.build;*.xfrm;*.targets;*.xpt;*.xft;*.map;*.wsdl;*.disco;*.ps1xml;*.nuspec");
-      this.FolderView.AddFilter("C#", "*.cs;*.manifest;*.resx;*.xaml");
-      this.FolderView.AddFilter("Edi", "*.xshd");
-      this.FolderView.AddFilter("JavaScript", "*.js");
-      this.FolderView.AddFilter("HTML", "*.htm;*.html");
-      this.FolderView.AddFilter("ActionScript3", "*.as");
-      this.FolderView.AddFilter("ASP/XHTML", "*.asp;*.aspx;*.asax;*.asmx;*.ascx;*.master");
-      this.FolderView.AddFilter("Boo", "*.boo");
-      this.FolderView.AddFilter("Coco", "*.atg");
-      this.FolderView.AddFilter("C++", "*.c;*.h;*.cc;*.cpp;*.hpp;*.rc");
-      this.FolderView.AddFilter("CSS", "*.css");
-      this.FolderView.AddFilter("BAT", "*.bat;*.dos");
-      this.FolderView.AddFilter("F#", "*.fs");
-      this.FolderView.AddFilter("INI", "*.cfg;*.conf;*.ini;*.iss;");
-      this.FolderView.AddFilter("Java", "*.java");
-      this.FolderView.AddFilter("Scheme", "*.sls;*.sps;*.ss;*.scm");
-      this.FolderView.AddFilter("LOG", "*.log");
-      this.FolderView.AddFilter("MarkDown", "*.md");
-      this.FolderView.AddFilter("Patch", "*.patch;*.diff");
-      this.FolderView.AddFilter("PowerShell", "*.ps1;*.psm1;*.psd1");
-      this.FolderView.AddFilter("Projects", "*.proj;*.csproj;*.drproj;*.vbproj;*.ilproj;*.booproj");
-      this.FolderView.AddFilter("Python", "*.py");
-      this.FolderView.AddFilter("Ruby", "*.rb");
-      this.FolderView.AddFilter("Scheme", "*.sls;*.sps;*.ss;*.scm");
-      this.FolderView.AddFilter("StyleCop", "*.StyleCop");
-      this.FolderView.AddFilter("SQL", "*.sql");
-      this.FolderView.AddFilter("Squirrel", "*.nut");
-      this.FolderView.AddFilter("Tex", "*.tex");
-      this.FolderView.AddFilter("TXT", "*.txt");
-      this.FolderView.AddFilter("VBNET", "*.vb");
-      this.FolderView.AddFilter("VTL", "*.vtl;*.vm");
-      this.FolderView.AddFilter("All Files", "*.*", true);
+      // This must be done before calling configure since browser viewmodel is otherwise not available
+      this.FolderView.AttachFolderBrowser(this.SynchronizedTreeBrowser);
 
+      ExplorerSettingsModel settings = null;
+
+      settings = SettingsManager.Instance.SettingData.ExplorerSettings;
+
+      if (SettingsManager.Instance.SettingData.ExplorerSettings == null)
+      {
+        settings = new ExplorerSettingsModel();
+      }
+
+      if (SettingsManager.Instance.SessionData.LastActiveExplorer != null)
+        settings.UserProfile = SettingsManager.Instance.SessionData.LastActiveExplorer;
+      else
+        settings.UserProfile.SetCurrentPath(@"C:\");
+
+      this.FolderView.ConfigureExplorerSettings(settings);
       this.mFileOpenMethod = fileOpenMethod;
     }
     #endregion constructor
@@ -80,7 +71,23 @@ namespace EdiViews.Tools.FileExplorer
     /// Expose a viewmodel that controls the combobox folder drop down
     /// and the fodler/file list view.
     /// </summary>
-    public FolderListViewModel FolderView { get; set; }
+    public IFolderListViewModel FolderView { get; set; }
+
+    public IExplorerSettings Settings
+    {
+      get
+      {
+        if (this.FolderView == null)
+          return null;
+
+        return this.FolderView;
+      }
+    }
+
+    /// <summary>
+    /// Gets the viewmodel that drives the folder picker control.
+    /// </summary>
+    public IBrowserViewModel SynchronizedTreeBrowser { get; private set; }
 
     #region FileName
     public string FileName
@@ -152,6 +159,50 @@ namespace EdiViews.Tools.FileExplorer
     #endregion properties
 
     #region methods
+    /// <summary>
+    /// Save the current user profile settings into the
+    /// corresponding property of the SettingsManager.
+    /// </summary>
+    /// <param name="settingsManager"></param>
+    /// <param name="vm"></param>
+    public static void SaveSettings(SettingsManager settingsManager,
+                                    FileExplorerViewModel vm)
+    {
+      var settings = vm.Settings.GetExplorerSettings(settingsManager.SettingData.ExplorerSettings);
+
+      if (settings != null) // Explorer settings have changed
+      {
+        settingsManager.SettingData.IsDirty = true;
+        settingsManager.SettingData.ExplorerSettings = settings;
+
+        settingsManager.SessionData.LastActiveExplorer = settings.UserProfile;
+      }
+      else
+        settingsManager.SessionData.LastActiveExplorer = vm.Settings.GetExplorerSettings(null).UserProfile;
+    }
+
+    /// <summary>
+    /// Load Explorer (Tool Window) seetings from persistence.
+    /// </summary>
+    /// <param name="settingsManager"></param>
+    /// <param name="vm"></param>
+    public static void LoadSettings(SettingsManager settingsManager,
+                                    FileExplorerViewModel vm)
+    {
+      ExplorerSettingsModel settings = null;
+
+      settings = settingsManager.SettingData.ExplorerSettings;
+
+      if (settings == null)
+      {
+        settings = new ExplorerSettingsModel();
+      }
+
+      settings.UserProfile = settingsManager.SessionData.LastActiveExplorer;
+
+      vm.Settings.ConfigureExplorerSettings(settings);
+    }
+
     public void OnActiveDocumentChanged(object sender, DocumentChangedEventArgs e)
     {
       this.mFilePathName = string.Empty;
@@ -183,7 +234,7 @@ namespace EdiViews.Tools.FileExplorer
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    public void FolderItemsView_OnFileOpen(object sender, FileListView.Events.FileOpenEventArgs e)
+    public void FolderItemsView_OnFileOpen(object sender, FileSystemModels.Events.FileOpenEventArgs e)
     {
       if (this.mFileOpenMethod != null)
         this.mFileOpenMethod(e.FileName);

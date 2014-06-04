@@ -12,28 +12,18 @@
     <Converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
 
     <!--TextBox Style-->
-    <Style TargetType="{x:Type TextBox}"
-           x:Key="MetroTextBox">
+    <Style TargetType="{x:Type TextBox}"><!-- x:Key="MetroTextBox"-->
         <Setter Property="Controls:TextboxHelper.IsMonitoring"
                 Value="True" />
-        <Setter Property="SelectionBrush"
-                Value="{DynamicResource HighlightBrush}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource ContentFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource ContentFontSize}" />
-        <Setter Property="BorderThickness"
-                Value="1" />
-        <Setter Property="MinHeight"
-                Value="26" />
-        <Setter Property="Background"
-                Value="{DynamicResource ControlBackgroundBrush}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource TextBrush}" />
-        <Setter Property="Padding"
-                Value="0" />
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource TextBoxBorderBrush}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}" />
+        <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="MinHeight" Value="26" />
+        <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}" />
         <!-- change SnapsToDevicePixels to true to view a better border and validation error -->
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
@@ -292,8 +282,7 @@
 
     <Style TargetType="{x:Type TextBox}"
            x:Key="ButtonCommandMetroTextBox">
-        <Setter Property="Controls:TextboxHelper.IsMonitoring"
-                Value="True" />
+        <Setter Property="Controls:TextboxHelper.IsMonitoring" Value="True" />
         <Setter Property="SelectionBrush"
                 Value="{DynamicResource HighlightBrush}" />
         <Setter Property="FontFamily"

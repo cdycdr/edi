@@ -39,7 +39,31 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\00_Libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MsgBox">
+      <HintPath>..\..\00_Libs\MsgBox\MsgBox.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -52,49 +76,197 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviour\DialogCloser.cs" />
-    <Compile Include="BindingProxy.cs" />
-    <Compile Include="BrowseDirectoriesView.xaml.cs">
+    <Compile Include="Local\Strings.de-DE.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.de-DE.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.es-ES.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.es-ES.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.fr-FR.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.fr-FR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.hi-IN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.hi-IN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.it-IT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.it-IT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.ja-JP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.ru-RU.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.ru-RU.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.zh-CHS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.zh-CHS.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Interfaces\IBrowserViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IFolderViewModel.cs" />
+    <Compile Include="Views\Behaviours\DialogCloser.cs" />
+    <Compile Include="Converters\BrowseItemTypeToImageConverter .cs" />
+    <Compile Include="Converters\SpecialFolderToImageConverter .cs" />
+    <Compile Include="ViewModels\BrowseItemType.cs" />
+    <Compile Include="ViewModels\CustomFolderItemViewModel.cs" />
+    <Compile Include="Views\Behaviours\TextChangedCommand.cs" />
+    <Compile Include="Views\Behaviours\TreeViewSelectionChangedBehavior.cs" />
+    <Compile Include="Views\BindingProxy.cs" />
+    <Compile Include="Views\BrowseDirectoriesView.xaml.cs">
       <DependentUpon>BrowseDirectoriesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Events\SelectedDirectoryEventArgs.cs" />
-    <Compile Include="ViewModel\BrowserViewModel.cs" />
+    <Compile Include="ViewModels\BrowserViewModel.cs" />
     <Compile Include="Command\RelayCommand.cs" />
-    <Compile Include="FolderBrowserDialog.xaml.cs">
+    <Compile Include="Views\FolderBrowserDialog.xaml.cs">
       <DependentUpon>FolderBrowserDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\DialogViewModel.cs" />
-    <Compile Include="ViewModel\FolderViewModel.cs" />
-    <Compile Include="Behaviour\InputBindingsManager.cs" />
+    <Compile Include="ViewModels\DialogViewModel.cs" />
+    <Compile Include="ViewModels\FolderViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Behaviour\TreeViewItemBehaviour.cs" />
-    <Compile Include="ViewModel\Base\ViewModelBase.cs" />
+    <Compile Include="Views\Behaviours\TreeViewItemBehaviour.cs" />
+    <Compile Include="ViewModels\Base\ViewModelBase.cs" />
+    <Compile Include="Views\FolderBrowserView.xaml.cs">
+      <DependentUpon>FolderBrowserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpecialFolderMarkUpExtension.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="BrowseDirectoriesView.xaml">
+    <Page Include="Images\MetroDarkIcons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\MetroLightIcons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\GenericIcons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BrowseDirectoriesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FolderBrowserDialog.xaml">
+    <Page Include="Views\FolderBrowserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FolderBrowserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Desktop.png" />
-    <Resource Include="Images\MyPictures.png" />
-    <Resource Include="Images\MyDocuments.png" />
+    <Resource Include="Images\Generic\Desktop.png" />
+    <Resource Include="Images\Generic\MyPictures.png" />
+    <Resource Include="Images\Generic\MyDocuments.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\HardDisk.ico" />
+    <Resource Include="Images\Generic\HardDisk.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\FolderClosed.png" />
-    <Resource Include="Images\FolderOpen.png" />
+    <Resource Include="Images\Generic\FolderClosed.png" />
+    <Resource Include="Images\Generic\FolderOpen.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\MyVideos.png" />
-    <Resource Include="Images\ProgramFiles.png" />
+    <Resource Include="Images\Generic\MyVideos.png" />
+    <Resource Include="Images\Generic\ProgramFiles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Generic\Folder.png" />
+    <Resource Include="Images\Generic\Favourites.png" />
+    <Resource Include="Images\Generic\MyMusic.png" />
+    <None Include="Images\Metro\SVG\Desktop.svg" />
+    <None Include="Images\Metro\SVG\Favourites.svg" />
+    <None Include="Images\Metro\SVG\FolderClosed.svg" />
+    <None Include="Images\Metro\SVG\FolderOpen.svg" />
+    <None Include="Images\Metro\SVG\MyMusic.svg" />
+    <Resource Include="Images\Metro\Light\Desktop.png" />
+    <Resource Include="Images\Metro\Light\Favourites.png" />
+    <Resource Include="Images\Metro\Light\Folder.png" />
+    <Resource Include="Images\Metro\Light\FolderClosed.png" />
+    <Resource Include="Images\Metro\Light\FolderOpen.png" />
+    <Resource Include="Images\Metro\Light\HardDisk.png" />
+    <Resource Include="Images\Metro\Light\MyDocuments.png" />
+    <Resource Include="Images\Metro\Light\MyMusic.png" />
+    <Resource Include="Images\Metro\Light\MyPictures.png" />
+    <Resource Include="Images\Metro\Light\MyVideos.png" />
+    <Resource Include="Images\Metro\Light\ProgramFiles.png" />
+    <Resource Include="Images\Metro\Dark\Desktop.png" />
+    <Resource Include="Images\Metro\Dark\Favourites.png" />
+    <Resource Include="Images\Metro\Dark\Folder.png" />
+    <Resource Include="Images\Metro\Dark\FolderClosed.png" />
+    <Resource Include="Images\Metro\Dark\FolderOpen.png" />
+    <Resource Include="Images\Metro\Dark\HardDisk.png" />
+    <Resource Include="Images\Metro\Dark\MyDocuments.png" />
+    <Resource Include="Images\Metro\Dark\MyMusic.png" />
+    <Resource Include="Images\Metro\Dark\MyPictures.png" />
+    <Resource Include="Images\Metro\Dark\MyVideos.png" />
+    <Resource Include="Images\Metro\Dark\ProgramFiles.png" />
+    <Content Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FileSystemModels\FileSystemModels.csproj">
+      <Project>{c3eb23fd-78e7-4298-922c-48c254551cc9}</Project>
+      <Name>FileSystemModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Local\Strings.de-DE.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.de-DE.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.es-ES.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.es-ES.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.fr-FR.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.fr-FR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.hi-IN.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.hi-IN.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.it-IT.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.it-IT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.ja-JP.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.ja-JP.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.ru-RU.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.ru-RU.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.zh-CHS.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.zh-CHS.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

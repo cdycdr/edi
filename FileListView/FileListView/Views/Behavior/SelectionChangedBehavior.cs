@@ -72,8 +72,8 @@ namespace FileListView.Views.Behavior
       if (e == null)
         return;
 
-      // Forward key event only if user has hit the return or Escape key
-      if (e.Key != Key.Return && e.Key != Key.Escape)
+      // Forward key event only if user has hit the return, BackSlash, or Slash key
+      if (e.Key != Key.Return)
         return;
 
       ComboBox uiElement = sender as ComboBox;
@@ -88,22 +88,17 @@ namespace FileListView.Views.Behavior
       if (changedCommand == null)
         return;
 
-      string text = uiElement.Text;
-
-      // release current filter if user hits the escape key
-      if (e.Key == Key.Escape)
-        text = string.Empty;
 
       // Check whether this attached behaviour is bound to a RoutedCommand
       if (changedCommand is RoutedCommand)
       {
         // Execute the routed command
-        (changedCommand as RoutedCommand).Execute(text, uiElement);
+        (changedCommand as RoutedCommand).Execute(uiElement.Text, uiElement);
       }
       else
       {
         // Execute the Command as bound delegate
-        changedCommand.Execute(text);
+        changedCommand.Execute(uiElement.Text);
       }
     }
 

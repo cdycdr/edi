@@ -30,7 +30,33 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\00_Libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MsgBox, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\00_Libs\MsgBox\MsgBox.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -46,16 +72,64 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\RelayCommand.cs" />
-    <Compile Include="Events\FileOpenEventArgs.cs" />
-    <Compile Include="IconExtractor.cs" />
+    <Compile Include="Local\Strings.de-DE.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.de-DE.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Local\Strings.es-ES.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.es-ES.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.fr-FR.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.fr-FR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.hi-IN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.hi-IN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.it-IT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.it-IT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.ja-JP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.pt-PT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.pt-PT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.ru-RU.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.ru-RU.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.zh-CHS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.zh-CHS.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Events\FolderChangedEventArgs.cs" />
-    <Compile Include="Events\FilterChangedEventArgs.cs" />
+    <Compile Include="Utils\IconUtilities.cs" />
     <Compile Include="ViewModels\FileListViewViewModel.cs" />
-    <Compile Include="Models\DirectoryInfoExtension.cs" />
     <Compile Include="ViewModels\FolderListViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IFileListViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IFolderListViewModel.cs" />
     <Compile Include="ViewModels\SortableObservableCollection.cs" />
-    <Compile Include="ViewModels\Stack.cs" />
+    <Compile Include="Views\Behavior\DoubleClickSelectorItem.cs" />
     <Compile Include="Views\Behavior\SelectionChangedBehavior.cs" />
     <Compile Include="Views\BindingProxy.cs" />
     <Compile Include="Views\FListView.xaml.cs">
@@ -69,18 +143,16 @@
     </Compile>
     <Compile Include="ViewModels\FolderComboBoxViewModel.cs" />
     <Compile Include="ViewModels\FilterComboBoxViewModel.cs" />
-    <Compile Include="ViewModels\FSItemType.cs" />
     <Compile Include="ViewModels\FSItemVM.cs" />
     <Compile Include="ViewModels\FilterItemViewModel.cs" />
-    <Compile Include="Models\IconUtilities.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Images\MetroDarkIcons.xaml">
+    <Page Include="Images\GenericIcons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Images\GenericIcons.xaml">
+    <Page Include="Images\MetroDarkIcons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -112,19 +184,20 @@
   <ItemGroup>
     <Resource Include="Images\Generic\075b_UpFolder_16x16_72.png" />
     <Resource Include="Images\Generic\Back.png" />
+    <Resource Include="Images\Generic\Folder\folderopened_yellow_128.png" />
+    <Resource Include="Images\Generic\Folder\folderopened_yellow_16.png" />
+    <Resource Include="Images\Generic\Folder\folderopened_yellow_64.png" />
+    <Resource Include="Images\Generic\Folder\Folder_yellow_32.png" />
     <Resource Include="Images\Generic\forward.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Generic\refresh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Filter\" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Metro\Dark\appbar.arrow.up_16.png" />
     <Resource Include="Images\Metro\Dark\appbar.arrow.up_32.png" />
     <Resource Include="Images\Metro\Dark\appbar.folder_16.png" />
     <Resource Include="Images\Metro\Dark\appbar.folder_32.png" />
+    <Resource Include="Images\Metro\Dark\appbar.image.macro_16.png" />
+    <Resource Include="Images\Metro\Dark\appbar.image.macro_32.png" />
+    <Resource Include="Images\Metro\Dark\appbar.page.hidden_16.png" />
+    <Resource Include="Images\Metro\Dark\appbar.page.hidden_32.png" />
     <Resource Include="Images\Metro\Dark\appbar.refresh_16.png" />
     <Resource Include="Images\Metro\Dark\appbar.refresh_32.png" />
     <Resource Include="Images\Metro\Dark\File_16.png" />
@@ -137,6 +210,10 @@
     <Resource Include="Images\Metro\Light\appbar.arrow.up_32.png" />
     <Resource Include="Images\Metro\Light\appbar.folder_16.png" />
     <Resource Include="Images\Metro\Light\appbar.folder_32.png" />
+    <Resource Include="Images\Metro\Light\appbar.image.macro_16.png" />
+    <Resource Include="Images\Metro\Light\appbar.image.macro_32.png" />
+    <Resource Include="Images\Metro\Light\appbar.page.hidden_16.png" />
+    <Resource Include="Images\Metro\Light\appbar.page.hidden_32.png" />
     <Resource Include="Images\Metro\Light\appbar.refresh_16.png" />
     <Resource Include="Images\Metro\Light\appbar.refresh_32.png" />
     <Resource Include="Images\Metro\Light\File_16.png" />
@@ -145,18 +222,8 @@
     <Resource Include="Images\Metro\Light\MyBase.ArrowLeft_32.png" />
     <Resource Include="Images\Metro\Light\MyBase.ArrowRight_16.png" />
     <Resource Include="Images\Metro\Light\MyBase.ArrowRight_32.png" />
-    <Resource Include="Images\Generic\Folder\folderopened_yellow_128.png" />
-    <Resource Include="Images\Generic\Folder\folderopened_yellow_16.png" />
-    <Resource Include="Images\Generic\Folder\folderopened_yellow_64.png" />
-    <Resource Include="Images\Generic\Folder\Folder_yellow_32.png" />
-    <Resource Include="Images\Metro\Light\appbar.image.macro_16.png" />
-    <Resource Include="Images\Metro\Light\appbar.image.macro_32.png" />
-    <Resource Include="Images\Metro\Light\appbar.page.hidden_16.png" />
-    <Resource Include="Images\Metro\Light\appbar.page.hidden_32.png" />
-    <Resource Include="Images\Metro\Dark\appbar.image.macro_16.png" />
-    <Resource Include="Images\Metro\Dark\appbar.image.macro_32.png" />
-    <Resource Include="Images\Metro\Dark\appbar.page.hidden_16.png" />
-    <Resource Include="Images\Metro\Dark\appbar.page.hidden_32.png" />
+    <Resource Include="Images\Generic\IsHiddenVisible.png" />
+    <Resource Include="Images\Generic\appbar.image.macro.png" />
     <Content Include="Images\Metro\SVG\appbar.arrow.up.svg" />
     <Content Include="Images\Metro\SVG\appbar.folder.svg" />
     <Content Include="Images\Metro\SVG\appbar.image.macro.svg" />
@@ -175,6 +242,59 @@
     <Content Include="Images\Metro\SVG\Sketchup\appbar.navigate.next.svg" />
     <Content Include="Images\Metro\SVG\Sketchup\appbar.navigate.previous.svg" />
     <Content Include="Images\Metro\SVG\Sketchup\MyBase.svg" />
+    <Content Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FileSystemModels\FileSystemModels.csproj">
+      <Project>{c3eb23fd-78e7-4298-922c-48c254551cc9}</Project>
+      <Name>FileSystemModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FolderBrowser\FolderBrowser\FolderBrowser.csproj">
+      <Project>{0b8c3b19-940d-408d-9f6b-4afee7246642}</Project>
+      <Name>FolderBrowser</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Local\Strings.de-DE.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.de-DE.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.es-ES.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.es-ES.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.fr-FR.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.fr-FR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.hi-IN.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.hi-IN.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.it-IT.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.it-IT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.ja-JP.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.ja-JP.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.pt-PT.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.pt-PT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.ru-RU.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.ru-RU.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.zh-CHS.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.zh-CHS.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

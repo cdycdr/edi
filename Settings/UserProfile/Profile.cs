@@ -1,6 +1,7 @@
 ﻿namespace Settings.UserProfile
 {
   using System.Xml.Serialization;
+  using FileSystemModels.Models;
   using SimpleControls.MRU.ViewModel;
 
   /// <summary>
@@ -76,6 +77,9 @@
         }
       }
     }
+
+    [XmlElement(ElementName = "LastActiveExplorer")]
+    public ExplorerUserProfile LastActiveExplorer { get; set; }
     #endregion properties
 
     #region methods

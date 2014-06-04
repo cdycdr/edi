@@ -4,30 +4,27 @@ namespace FileListView.ViewModels
   using System.Collections;
   using System.Collections.ObjectModel;
   using System.Diagnostics;
+  using System.Globalization;
   using System.IO;
   using System.Windows.Input;
   using System.Windows.Media;
   using System.Windows.Media.Imaging;
   using FileListView.Command;
-  using FileListView.Events;
-  using FileListView.Models;
+  using FileListView.ViewModels.Interfaces;
+  using FileSystemModels.Events;
+  using FileSystemModels.Interfaces;
+  using FileSystemModels.Models;
+  using FileSystemModels.Utils;
+  using MsgBox;
 
   /// <summary>
-  /// Class implements a common ground class for organizing a filter combobox
-  /// view with a file list view.
+  /// Class implements a list of file items viewmodel for a given directory.
   /// </summary>
-  public class FileListViewViewModel : Base.ViewModelBase
+  public class FileListViewViewModel : Base.ViewModelBase, IFileListViewModel
   {
     #region fields
-    /// <summary>
-    /// Defines the delimitor for multiple regular expression filter statements.
-    /// eg: "*.txt;*.ini"
-    /// </summary>
-    private const char FilterSplitCharacter = ';';
+    protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-    /// <summary>
-    /// Determines whether the redo stack (FutureFolders) should be cleared when the CurrentFolder changes next time
-    /// </summary>
     private string mFilterString = string.Empty;
     private string[] mParsedFilter = null;
 
@@ -35,15 +32,19 @@ namespace FileListView.ViewModels
     private bool mShowHidden = true;
     private bool mShowIcons = true;
 
-    private RelayCommand<object> mDownCommand = null;
+    private IBrowseNavigation mBrowseNavigation = null;
 
-    private RelayCommand<object> mUpCommand = null;
-    private RelayCommand<object> mForwardCommand = null;
-    private RelayCommand<object> mBackCommand = null;
+    private RelayCommand<object> mNavigateForwardCommand = null;
+    private RelayCommand<object> mNavigateBackCommand = null;
+    private RelayCommand<object> mNavigateUpCommand = null;
+    private RelayCommand<object> mNavigateDownCommand = null;
     private RelayCommand<object> mRefreshCommand = null;
     private RelayCommand<object> mToggleIsFolderVisibleCommand = null;
     private RelayCommand<object> mToggleIsIconVisibleCommand = null;
     private RelayCommand<object> mToggleIsHiddenVisibleCommand = null;
+
+    private RelayCommand<object> mRecentFolderRemoveCommand = null;
+    private RelayCommand<object> mRecentFolderAddCommand = null;
 
     private RelayCommand<object> mOpenContainingFolderCommand = null;
     private RelayCommand<object> mOpenInWindowsCommand = null;
@@ -54,13 +55,13 @@ namespace FileListView.ViewModels
     /// <summary>
     /// Class constructor
     /// </summary>
-    public FileListViewViewModel()
+    public FileListViewViewModel(IBrowseNavigation browseNavigation)
     {
       this.CurrentItems = new ObservableCollection<FSItemVM>();
-      this.RecentFolders = new Stack<string>();
-      this.FutureFolders = new Stack<string>();
 
-      this.mParsedFilter = FileListViewViewModel.GetParsedFilters(this.mFilterString);
+      this.mBrowseNavigation = browseNavigation;
+
+      this.mParsedFilter = BrowseNavigation.GetParsedFilters(this.mFilterString);
     }
     #endregion constructor
 
@@ -74,13 +75,18 @@ namespace FileListView.ViewModels
     /// Event is fired whenever the path in the text portion of the combobox is changed.
     /// </summary>
     public event EventHandler<FolderChangedEventArgs> OnCurrentPathChanged;
+
+    /// <summary>
+    /// Generate an event to remove or add a recent folder to a collection.
+    /// </summary>
+    public event EventHandler<RecentFolderEvent> RequestEditRecentFolder;
     #endregion
 
     #region properties
     /// <summary>
     /// Gets/sets list of files and folders to be displayed in connected view.
     /// </summary>
-    public ObservableCollection<FSItemVM> CurrentItems { get; private set; }
+    public ObservableCollection<FSItemVM> CurrentItems { get; set; }
 
     /// <summary>
     /// Gets/sets whether the list of folders and files should include folders or not.
@@ -92,7 +98,7 @@ namespace FileListView.ViewModels
         return this.mShowFolders;
       }
 
-      private set
+      set
       {
         if (this.mShowFolders != value)
         {
@@ -112,7 +118,7 @@ namespace FileListView.ViewModels
         return this.mShowHidden;
       }
 
-      private set
+      set
       {
         if (this.mShowHidden != value)
         {
@@ -123,7 +129,7 @@ namespace FileListView.ViewModels
     }
 
     /// <summary>
-    /// Gets/sets whether file or directory icons should be shown or not.
+    /// Gets/sets whether the list of folders and files includes an icon or not.
     /// </summary>
     public bool ShowIcons
     {
@@ -132,7 +138,7 @@ namespace FileListView.ViewModels
         return this.mShowIcons;
       }
 
-      private set
+      set
       {
         if (this.mShowIcons != value)
         {
@@ -142,65 +148,144 @@ namespace FileListView.ViewModels
       }
     }
 
+    /// <summary>
+    /// Gets the current path this viewmodel assigned to look at.
+    /// This property is not updated (must be polled) so its not
+    /// a good idea to bind to it.
+    /// </summary>
+    public string CurrentFolder
+    {
+      get
+      {
+        if (this.mBrowseNavigation != null)
+        {
+          if (this.mBrowseNavigation.CurrentFolder != null)
+            return this.mBrowseNavigation.CurrentFolder.Path;
+        }
+
+        return null;
+      }
+    }
+
     #region commands
     /// <summary>
-    /// Gets the command to navigate downwards - to a child folder -
-    /// of the currently visited folder.
-    /// </summary>
-    public ICommand NavigateDownCommand
-    {
-      get
-      {
-        if (this.mDownCommand == null)
-          this.mDownCommand = new RelayCommand<object>((p) => this.DownCommand_Executed(p));
-
-        return this.mDownCommand;
-      }
-    }
-
-    /// <summary>
-    /// Gets the command to navigate upward - to parent folder -
-    /// of the currently visited folder.
-    /// </summary>
-    public ICommand NavigateUpCommand
-    {
-      get
-      {
-        if (this.mUpCommand == null)
-          this.mUpCommand = new RelayCommand<object>((p) => this.UpCommand_Executed());
-
-        return this.mUpCommand;
-      }
-    }
-
-    /// <summary>
-    /// Gets the command to navigate forward in the history of visited folders.
+    /// Navigates to a folder that was visited before navigating back (if any).
     /// </summary>
     public ICommand NavigateForwardCommand
     {
       get
       {
-        if (this.mForwardCommand == null)
-          this.mForwardCommand = new RelayCommand<object>((p) => this.ForwardCommand_Executed(),
-                                                          (p) => this.FutureFolders.Count > 0);
+        if (this.mNavigateForwardCommand == null)
+          this.mNavigateForwardCommand = new RelayCommand<object>((p) =>
+          {
+            var newFolder = this.mBrowseNavigation.BrowseForward();
 
-        return this.mForwardCommand;
+            if (newFolder != null)
+            {
+              this.UpdateView(newFolder.Path);
+
+              if (this.OnCurrentPathChanged != null)
+                this.OnCurrentPathChanged(this, new FolderChangedEventArgs(newFolder));
+            }
+          },
+          (p) => this.mBrowseNavigation.CanBrowseForward());
+
+        return this.mNavigateForwardCommand;
       }
     }
 
     /// <summary>
-    /// Gets the command to navigate back in the history of visited folders.
+    /// Navigates back to a folder that was visited before the current folder (if any).
     /// </summary>
     public ICommand NavigateBackCommand
     {
       get
       {
-        if (this.mBackCommand == null)
-          this.mBackCommand = new RelayCommand<object>((p) => this.BackCommand_Executed(),
-                                                       (p) => this.RecentFolders.Count > 0);
+        if (this.mNavigateBackCommand == null)
+          this.mNavigateBackCommand = new RelayCommand<object>((p) =>
+          {
+            var newFolder = this.mBrowseNavigation.BrowseBack();
+
+            if (newFolder != null)
+            {
+              this.UpdateView(newFolder.Path);
+
+              if (this.OnCurrentPathChanged != null)
+                this.OnCurrentPathChanged(this, new FolderChangedEventArgs(newFolder));
+            }
+          },
+          (p) => this.mBrowseNavigation.CanBrowseBack());
 
 
-        return this.mBackCommand;
+        return this.mNavigateBackCommand;
+      }
+    }
+
+    /// <summary>
+    /// Browse into the parent folder path of a given path.
+    /// </summary>
+    public ICommand NavigateUpCommand
+    {
+      get
+      {
+        if (this.mNavigateUpCommand == null)
+        this.mNavigateUpCommand = new RelayCommand<object>((p) =>
+        {
+          var newFolder = this.mBrowseNavigation.BrowseUp();
+
+          if (newFolder != null)
+          {
+            if (newFolder.DirectoryPathExists() == false)
+              return;
+
+            this.UpdateView(newFolder.Path);
+
+            if (this.OnCurrentPathChanged != null)
+              this.OnCurrentPathChanged(this, new FolderChangedEventArgs(newFolder));
+          }
+        },
+        (p) => this.mBrowseNavigation.CanBrowseUp());
+
+        return this.mNavigateUpCommand;
+      }
+    }
+
+    /// <summary>
+    /// Browse into a given a path.
+    /// </summary>
+    /// <param name="infoType"></param>
+    /// <param name="newPath"></param>
+    /// <returns></returns>
+    public ICommand NavigateDownCommand
+    {
+      get
+      {
+        if (this.mNavigateDownCommand == null)
+          this.mNavigateDownCommand = new RelayCommand<object>((p) =>
+          {
+            var info = p as FSItemVM;
+
+            if (info == null)
+              return;
+
+            FSItemType t = this.mBrowseNavigation.BrowseDown(info.Type, info.FullPath);
+
+            this.PopulateView();
+
+            if (this.OnCurrentPathChanged != null && t == FSItemType.Folder)
+                  this.OnCurrentPathChanged(this, new FolderChangedEventArgs(info.GetModel));
+              else
+              {
+                if (this.OnFileOpen != null && t == FSItemType.File )
+                  this.OnFileOpen(this, new FileOpenEventArgs() { FileName = info.FullPath });
+              }
+          },
+          (p) =>
+          {
+            return (p as FSItemVM) != null;          
+          });
+
+        return this.mNavigateDownCommand;
       }
     }
 
@@ -261,6 +346,40 @@ namespace FileListView.ViewModels
       }
     }
 
+    /// <summary>
+    /// Implements a command that adds a removes a folder location.
+    /// Expected parameter is of type <seealso cref="FSItemVM"/>.
+    /// </summary>
+    public ICommand RecentFolderRemoveCommand
+    {
+      get
+      {
+        if (this.mRecentFolderRemoveCommand == null)
+          this.mRecentFolderRemoveCommand = new RelayCommand<object>((p) => this.RecentFolderRemove_Executed(p));
+
+        return this.mRecentFolderRemoveCommand;
+      }
+    }
+
+    /// <summary>
+    /// Implements a command that adds a recent folder location.
+    /// Expected parameter is of type <seealso cref="FSItemVM"/>.
+    /// </summary>
+    public ICommand RecentFolderAddCommand
+    {
+      get
+      {
+        if (this.mRecentFolderAddCommand == null)
+          this.mRecentFolderAddCommand = new RelayCommand<object>((p) => this.RecentFolderAdd_Executed(p));
+
+        return this.mRecentFolderAddCommand;
+      }
+    }
+
+    /// <summary>
+    /// Gets a command that will open the folder in which an item is stored.
+    /// The item (path to a file) is expected as <seealso cref="FSItemVM"/> parameter.
+    /// </summary>
     public ICommand OpenContainingFolderCommand
     {
       get
@@ -284,6 +403,12 @@ namespace FileListView.ViewModels
       }
     }
 
+    /// <summary>
+    /// Gets a command that will open the selected item with the current default application
+    /// in Windows. The selected item (path to a file) is expected as <seealso cref="FSItemVM"/> parameter.
+    /// (eg: Item is HTML file -> Open in Windows starts the web browser for viewing the HTML
+    /// file if thats the currently associated Windows default application.
+    /// </summary>
     public ICommand OpenInWindowsCommand
     {
       get
@@ -307,6 +432,10 @@ namespace FileListView.ViewModels
       }
     }
 
+    /// <summary>
+    /// Gets a command that will copy the path of an item into the Windows Clipboard.
+    /// The item (path to a file) is expected as <seealso cref="FSItemVM"/> parameter.
+    /// </summary>
     public ICommand CopyPathCommand
     {
       get
@@ -328,29 +457,61 @@ namespace FileListView.ViewModels
 
         return this.mCopyPathCommand;
       }
-    }   
+    }
     #endregion commands
-
-    #region privates
-    /// <summary>
-    /// Gets/sets the current folder which is being
-    /// queried to list the current files and folders for display.
-    /// </summary>
-    private string CurrentFolder { get; set; }
-
-    /// <summary>
-    /// Gets/sets the undo stacks for navigation.
-    /// </summary>
-    private Stack<string> RecentFolders { get; set; }
-
-    /// <summary>
-    /// Gets/sets the redo stack for navigation.
-    /// </summary>
-    private Stack<string> FutureFolders { get; set; }
-    #endregion privates
     #endregion properties
 
     #region methods
+    /// <summary>
+    /// Updates the current display with the given filter string.
+    /// </summary>
+    /// <param name="p"></param>
+    public void UpdateView(string p)
+    {
+      if (string.IsNullOrEmpty(p) == true)
+        return;
+
+      this.mBrowseNavigation.SetCurrentFolder(p, false);
+      this.PopulateView();
+    }
+
+    /// <summary>
+    /// Fills the CurrentItems property for display in ItemsControl
+    /// </summary>
+    public void NavigateToThisFolder(string sFolder)
+    {
+      this.mBrowseNavigation.BrowseDown(FSItemType.Folder, sFolder);
+
+      ////this.RecentFolders.Push(this.CurrentFolder);
+      this.UpdateView(sFolder);
+    }
+
+    /// <summary>
+    /// Applies a filter string (which can contain multiple
+    /// alternative regular expression filter items) and updates
+    /// the current display.
+    /// </summary>
+    /// <param name="filterText"></param>
+    public void ApplyFilter(string filterText)
+    {
+      this.mFilterString = filterText;
+
+      string[] tempParsedFilter = BrowseNavigation.GetParsedFilters(this.mFilterString);
+
+      // Optimize nultiple requests for populating same view with unchanged filter away
+      if (tempParsedFilter != this.mParsedFilter)
+      {
+        this.mParsedFilter = tempParsedFilter;
+        this.PopulateView();
+      }
+    }
+
+    public void SetIsFolderVisible(bool IsFolderVisible)
+    {
+      this.ShowFolders = IsFolderVisible;
+      this.PopulateView();
+    }
+
     /// <summary>
     /// Fills the CurrentItems property for display in ItemsControl
     /// based view (ListBox, ListView etc.).
@@ -363,165 +524,110 @@ namespace FileListView.ViewModels
       this.PopulateView(this.mParsedFilter);
     }
 
+    #region FileSystem Commands
     /// <summary>
-    /// Methid is executed when a listview item is double clicked.
+    /// Convinience method to open Windows Explorer with a selected file (if it exists).
+    /// Otherwise, Windows Explorer is opened in the location where the file should be at.
     /// </summary>
-    /// <param name="p"></param>
-    protected void DownCommand_Executed(object p)
+    /// <param name="sFileName"></param>
+    /// <returns></returns>
+    private static bool OpenContainingFolderCommand_Executed(string sFileName)
     {
-      FSItemVM info = p as FSItemVM;
+      if (string.IsNullOrEmpty(sFileName) == true)
+        return false;
 
-      if (info != null)
+      try
       {
-        if (info.Type == FSItemType.Folder)
+        if (System.IO.File.Exists(sFileName) == true)
         {
-          this.RecentFolders.Push(this.CurrentFolder);
-          this.FutureFolders.Clear();
-          this.CurrentFolder = info.FullPath;
-          this.PopulateView();
+          // combine the arguments together it doesn't matter if there is a space after ','
+          string argument = @"/select, " + sFileName;
 
-          if (this.OnCurrentPathChanged != null)
-            this.OnCurrentPathChanged(this, new FolderChangedEventArgs() { FilePath = info.FullPath });
+          System.Diagnostics.Process.Start("explorer.exe", argument);
+          return true;
         }
         else
         {
-          if (info.Type == FSItemType.File && this.OnFileOpen != null)
-            this.OnFileOpen(this, new FileOpenEventArgs() { FileName = info.FullPath });
-        }
-      }
-    }
+          string sParentDir = string.Empty;
 
-    /// <summary>
-    /// Navigates towards the root of the current folder.
-    /// </summary>
-    protected void UpCommand_Executed()
-    {
-      string[] dirs = this.CurrentFolder.Split(new char[] { System.IO.Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
-      if (dirs.Length > 1)
-      {
-        string newf = string.Join(System.IO.Path.DirectorySeparatorChar.ToString(), dirs, 0, dirs.Length - 1);
+          if (System.IO.Directory.Exists(sFileName) == true)
+            sParentDir = sFileName;
+          else
+            sParentDir = System.IO.Directory.GetParent(sFileName).FullName;
 
-        if (dirs.Length == 2)
-          newf += System.IO.Path.DirectorySeparatorChar;
+          if (System.IO.Directory.Exists(sParentDir) == false)
+          {
+            Msg.Show(string.Format(Local.Strings.STR_MSG_DIRECTORY_DOES_NOT_EXIST, sParentDir),
+                 Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
+                     MsgBoxButtons.OK, MsgBoxImage.Error);
 
-        this.RecentFolders.Push(this.CurrentFolder);
-        this.FutureFolders.Clear();
-        this.CurrentFolder = newf;
-
-        if (this.OnCurrentPathChanged != null)
-          this.OnCurrentPathChanged(this, new FolderChangedEventArgs() { FilePath = this.CurrentFolder });
-      }
-    }
-
-    /// <summary>
-    /// Navigates to a previously visited folder (if any).
-    /// </summary>
-    protected void BackCommand_Executed()
-    {
-      if (this.RecentFolders.Count > 0)
-      {
-        // top of stack is always last valid folder
-        this.FutureFolders.Push(this.CurrentFolder);
-        this.CurrentFolder = this.RecentFolders.Pop();
-
-        if (this.OnCurrentPathChanged != null)
-          this.OnCurrentPathChanged(this, new FolderChangedEventArgs() { FilePath = this.CurrentFolder });
-      }
-    }
-
-    /// <summary>
-    /// Navigates to a folder that was visited before navigating back (if any).
-    /// </summary>
-    protected void ForwardCommand_Executed()
-    {
-      if (this.FutureFolders.Count > 0)
-      {
-        this.RecentFolders.Push(this.CurrentFolder);
-        this.CurrentFolder = this.FutureFolders.Pop();
-
-        if (this.OnCurrentPathChanged != null)
-          this.OnCurrentPathChanged(this, new FolderChangedEventArgs() { FilePath = this.CurrentFolder });
-      }
-    }
-
-    internal void NavigateToThisFolder(string sFolder)
-    {
-      this.RecentFolders.Push(this.CurrentFolder);
-      this.UpdateView(sFolder);
-    }
-
-    internal void ApplyFilter(string filterText)
-    {
-      this.mFilterString = filterText;
-
-      string[] tempParsedFilter = FileListViewViewModel.GetParsedFilters(this.mFilterString);
-
-      // Optimize nultiple requests for populating same view with unchanged filter away
-      if (tempParsedFilter != this.mParsedFilter)
-      {
-        this.mParsedFilter = tempParsedFilter;
-        this.PopulateView();
-      }
-    }
-
-    internal void UpdateView(string p)
-    {
-      if (string.IsNullOrEmpty(p) == true)
-        return;
-
-      this.CurrentFolder = p;
-      this.PopulateView();
-    }
-
-    private static string[] GetParsedFilters(string inputFilterString)
-    {
-      string[] filterString = { "*" };
-
-      try
-      {
-        if (string.IsNullOrEmpty(inputFilterString) == false)
-        {
-          if (inputFilterString.Split(FileListViewViewModel.FilterSplitCharacter).Length > 1)
-            filterString = inputFilterString.Split(FileListViewViewModel.FilterSplitCharacter);
+            return false;
+          }
           else
           {
-            // Add asterix at front and beginning if user is too non-technical to type it.
-            if (inputFilterString.Contains("*") == false)
-              filterString = new string[] { "*" + inputFilterString + "*" };
-            else
-              filterString = new string[] { inputFilterString };
+            // combine the arguments together it doesn't matter if there is a space after ','
+            string argument = @"/select, " + sParentDir;
+
+            System.Diagnostics.Process.Start("explorer.exe", argument);
+
+            return true;
           }
         }
       }
-      catch
+      catch (System.Exception ex)
       {
-      }
+        logger.Error(ex);
+        Msg.Show(string.Format("{0}\n'{1}'.", ex.Message, (sFileName == null ? string.Empty : sFileName)),
+                  Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
+                  MsgBoxButtons.OK, MsgBoxImage.Error);
 
-      return filterString;
+        return false;
+      }
     }
 
     /// <summary>
-    /// Determine whether a given path is an exeisting directory or not.
+    /// Process command when a hyperlink has been clicked.
+    /// Start a web browser and let it browse to where this points to...
     /// </summary>
-    /// <param name="path"></param>
-    /// <returns></returns>
-    private bool IsPathDirectory(string path)
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private static void OpenInWindowsCommand_Executed(string sFileName)
     {
-      if (string.IsNullOrEmpty(path) == true)
-        return false;
-
-      bool IsPath = false;
+      if (string.IsNullOrEmpty(sFileName) == true)
+        return;
 
       try
       {
-        IsPath = System.IO.Directory.Exists(path);
+        Process.Start(new ProcessStartInfo(sFileName));
+        ////OpenFileLocationInWindowsExplorer(whLink.NavigateUri.OriginalString);
+      }
+      catch (System.Exception ex)
+      {
+        Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}", ex.Message),
+                 Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
+                 MsgBoxButtons.OK, MsgBoxImage.Error);
+      }
+    }
+
+    /// <summary>
+    /// A hyperlink has been clicked. Start a web browser and let it browse to where this points to...
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private static void CopyPathCommand_Executed(string sFileName)
+    {
+      if (string.IsNullOrEmpty(sFileName) == true)
+        return;
+
+      try
+      {
+        System.Windows.Clipboard.SetText(sFileName);
       }
       catch
       {
       }
-
-      return IsPath;
     }
+    #endregion FileSystem Commands
 
     /// <summary>
     /// Fills the CurrentItems property for display in ItemsControl
@@ -535,12 +641,12 @@ namespace FileListView.ViewModels
     {
       this.CurrentItems.Clear();
 
-      if (this.IsPathDirectory(this.CurrentFolder) == false)
+      if (this.mBrowseNavigation.IsCurrentPathDirectory() == false)
         return;
 
       try
       {
-        DirectoryInfo cur = new DirectoryInfo(this.CurrentFolder);
+        DirectoryInfo cur = this.mBrowseNavigation.GetDirectoryInfoOnCurrentFolder();
         ImageSource dummy = new BitmapImage();
 
         // Retrieve and add (filtered) list of directories
@@ -564,15 +670,11 @@ namespace FileListView.ViewModels
               }
             }
 
-            FSItemVM info = new FSItemVM()
-            {
-              FullPath = dir.FullName,
-              DisplayName = dir.Name,
-              Type = FSItemType.Folder
-            };
+            FSItemVM info = new FSItemVM(dir.FullName, FSItemType.Folder, dir.Name);
 
+            // to prevent the icon from being loaded from file later
             if (this.ShowIcons == false)
-              info.DisplayIcon = dummy;  // to prevent the icon from being loaded from file later
+              info.SetDisplayIcon(dummy);
 
             this.CurrentItems.Add(info);
           }
@@ -590,15 +692,10 @@ namespace FileListView.ViewModels
             }
           }
 
-          FSItemVM info = new FSItemVM()
-          {
-            FullPath = f.FullName,
-            DisplayName = f.Name,   // System.IO.Path.GetFileName(s),
-            Type = FSItemType.File
-          };
+          FSItemVM info = new FSItemVM(f.FullName, FSItemType.File, f.Name);
 
           if (this.ShowIcons == false)
-            info.DisplayIcon = dummy;  // to prevent the icon from being loaded from file later
+            info.SetDisplayIcon(dummy);  // to prevent the icon from being loaded from file later
 
           this.CurrentItems.Add(info);
         }
@@ -630,107 +727,29 @@ namespace FileListView.ViewModels
       this.PopulateView();
     }
 
-    #region FileSystem Commands
-    /// <summary>
-    /// Convinience method to open Windows Explorer with a selected file (if it exists).
-    /// Otherwise, Windows Explorer is opened in the location where the file should be at.
-    /// </summary>
-    /// <param name="sFileName"></param>
-    /// <returns></returns>
-    public static bool OpenContainingFolderCommand_Executed(string sFileName)
+    private void RecentFolderRemove_Executed(object param)
     {
-      if (string.IsNullOrEmpty(sFileName) == true)
-        return false;
+      var item = param as FSItemVM;
 
-      try
-      {
-        if (System.IO.File.Exists(sFileName) == true)
-        {
-          // combine the arguments together it doesn't matter if there is a space after ','
-          string argument = @"/select, " + sFileName;
-
-          System.Diagnostics.Process.Start("explorer.exe", argument);
-          return true;
-        }
-        else
-        {
-          string sParentDir = string.Empty;
-
-          if (System.IO.Directory.Exists(sFileName) == true)
-            sParentDir = sFileName;
-          else
-            sParentDir = System.IO.Directory.GetParent(sFileName).FullName;
-
-          if (System.IO.Directory.Exists(sParentDir) == false)
-          {
-            return false;
-            ////Msg.Show(string.Format(Local.Strings.STR_MSG_DIRECTORY_DOES_NOT_EXIST, sParentDir),
-            ////     Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
-            ////         MsgBoxButtons.OK, MsgBoxImage.Error);
-          }
-          else
-          {
-            // combine the arguments together it doesn't matter if there is a space after ','
-            string argument = @"/select, " + sParentDir;
-
-            System.Diagnostics.Process.Start("explorer.exe", argument);
-
-            return true;
-          }
-        }
-      }
-      catch (System.Exception ex)
-      {
-        ////Msg.Show(string.Format("{0}\n'{1}'.", ex.Message, (sFileName == null ? string.Empty : sFileName)),
-        ////          Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
-        ////          MsgBoxButtons.OK, MsgBoxImage.Error);
-        return false;
-      }
-    }
-
-    /// <summary>
-    /// Process command when a hyperlink has been clicked.
-    /// Start a web browser and let it browse to where this points to...
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private static void OpenInWindowsCommand_Executed(string sFileName)
-    {
-      if (string.IsNullOrEmpty(sFileName) == true)
+      if (item == null)
         return;
 
-      try
-      {
-        Process.Start(new ProcessStartInfo(sFileName));
-        ////OpenFileLocationInWindowsExplorer(whLink.NavigateUri.OriginalString);
-      }
-      catch (System.Exception ex)
-      {
-        ////Msg.Show(string.Format(CultureInfo.CurrentCulture, "{0}\n'{1}'.", ex.Message, (whLink.NavigateUri == null ? string.Empty : whLink.NavigateUri.ToString())),
-        ////         Local.Strings.STR_MSG_ERROR_FINDING_RESOURCE,
-        ////         MsgBoxButtons.OK, MsgBoxImage.Error);
-      }
+      if (this.RequestEditRecentFolder != null)
+        this.RequestEditRecentFolder(this, new RecentFolderEvent(item.GetModel,
+                                                                 RecentFolderEvent.RecentFolderAction.Remove));
     }
 
-    /// <summary>
-    /// A hyperlink has been clicked. Start a web browser and let it browse to where this points to...
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private static void CopyPathCommand_Executed(string sFileName)
+    private void RecentFolderAdd_Executed(object param)
     {
-      if (string.IsNullOrEmpty(sFileName) == true)
+      var item = param as FSItemVM;
+
+      if (item == null)
         return;
 
-      try
-      {
-        System.Windows.Clipboard.SetText(sFileName);
-      }
-      catch
-      {
-      }
+      if (this.RequestEditRecentFolder != null)
+        this.RequestEditRecentFolder(this, new RecentFolderEvent(item.GetModel,
+                                                                 RecentFolderEvent.RecentFolderAction.Add));
     }
-    #endregion FileSystem Commands
     #endregion methods
   }
 }

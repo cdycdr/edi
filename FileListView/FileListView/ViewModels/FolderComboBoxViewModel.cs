@@ -1,16 +1,17 @@
 namespace FileListView.ViewModels
 {
   using System;
-  using System.Collections.Generic;
+  using System.Linq;
   using System.Collections.ObjectModel;
   using System.IO;
   using System.Windows.Input;
   using FileListView.Command;
-  using FileListView.Events;
-  using FileListView.Models;
+  using FileSystemModels.Events;
+  using FileSystemModels.Models;
 
   /// <summary>
-  /// Class implements ...
+  /// Class implements a viewmodel that can be used for a
+  /// combobox that can be used to browse to different folder locations.
   /// </summary>
   public class FolderComboBoxViewModel : Base.ViewModelBase
   {
@@ -20,6 +21,8 @@ namespace FileListView.ViewModels
 
     private RelayCommand<object> mSelectionChanged = null;
     private string mSelectedRecentLocation = string.Empty;
+
+    private object mLockObject = new object();
     #endregion fields
 
     #region constructor
@@ -61,7 +64,7 @@ namespace FileListView.ViewModels
     }
 
     #region RecentLocation properties
-    public ObservableCollection<string> RecentLocations { get; set; }
+    public ObservableCollection<string> RecentLocations { get; private set; }
 
     /// <summary>
     /// Gets/set the selected item of the RecentLocations property.
@@ -103,10 +106,23 @@ namespace FileListView.ViewModels
         {
           this.mCurrentFolder = value;
           this.NotifyPropertyChanged(() => this.CurrentFolder);
+          this.NotifyPropertyChanged(() => this.CurrentFolderToolTip);
         }
       }
     }
 
+    public string CurrentFolderToolTip
+    {
+      get
+      {
+        if (string.IsNullOrEmpty(this.mCurrentFolder) == false)
+          return string.Format("{0}\n{1}", this.mCurrentFolder,
+                                           Local.Strings.SelectLocationCommand_TT);
+        else
+          return Local.Strings.SelectLocationCommand_TT;
+      }
+    }
+    
     #region commands
     /// <summary>
     /// Command is invoked when the combobox view tells the viewmodel
@@ -136,131 +152,168 @@ namespace FileListView.ViewModels
     #endregion properties
 
     #region methods
+    /// <summary>
+    /// Add a recent folder location into the collection of recent folders.
+    /// This collection can then be used in the folder combobox drop down
+    /// list to store user specific customized folder short-cuts.
+    /// </summary>
+    /// <param name="folderPath"></param>
+    public void AddRecentFolder(string folderPath)
+    {
+      if((folderPath = PathModel.ExtractDirectoryRoot(folderPath)) == null)
+        return;
+
+      // select this path if its already there
+      var results = this.RecentLocations.Where<string>(folder => string.Compare(folder, folderPath, true) == 0);
+
+      // Do not add this twice
+      if (results != null)
+      {
+        if (results.Count() != 0)
+          return;
+      }
+
+      this.RecentLocations.Add(folderPath);
+      this.PopulateView();
+    }
+
+    /// <summary>
+    /// Remove a recent folder location from the collection of recent folders.
+    /// This collection can then be used in the folder combobox drop down
+    /// list to store user specific customized folder short-cuts.
+    /// </summary>
+    /// <param name="folderPath"></param>
+    public void RemoveRecentFolder(PathModel folderPath)
+    {
+      if (folderPath == null)
+        return;
+
+      this.RecentLocations.Remove(folderPath.Path);
+      this.PopulateView();
+    }
+
+    /// <summary>
+    /// Can be invoked to refresh the currently visible set of data.
+    /// </summary>
     public void PopulateView()
     {
-      ////CurrentItems.Clear();
-      string bak = this.CurrentFolder;
-      var currentItems = this.CurrentItems;
-
-      this.CurrentItems.Clear();
-      this.CurrentFolder = bak;
-
-      // add special folders
-      currentItems.Add(
-      new FSItemVM()
+      lock(this.mLockObject)
       {
-        FullPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
-        DisplayName = "Desktop",  ////System.IO.Path.GetFileName(s),
-        Type = FSItemType.Folder,
-        ////DisplayIcon = 
-        ////IconExtractor.GetFolderIcon(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)).ToImageSource()
-        ////new BitmapImage(new Uri(@"/FileListView;component/Images/Desktop.png", UriKind.Relative)) //((ShellObject)o).Thumbnail.SmallBitmapSource//Etier.IconHelper.IconReader.GetFolderIcon(s, Etier.IconHelper.IconReader.IconSize.Small, Etier.IconHelper.IconReader.FolderType.Closed).ToImageSource()
-      });
+        ////CurrentItems.Clear();
+        string bak = this.CurrentFolder;
 
-      currentItems.Add(
-      new FSItemVM()
-      {
-        FullPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-        DisplayName = "My Documents", ////System.IO.Path.GetFileName(s),
-        Type = FSItemType.Folder,
-        ////DisplayIcon = IconExtractor.GetFolderIcon(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), true).ToImageSource()
-        ////new BitmapImage(new Uri(@"/FileListView;component/Images/MyDocuments.png", UriKind.Relative)) //((ShellObject)o).Thumbnail.SmallBitmapSource//Etier.IconHelper.IconReader.GetFolderIcon(s, Etier.IconHelper.IconReader.IconSize.Small, Etier.IconHelper.IconReader.FolderType.Closed).ToImageSource()
-      });
+        this.CurrentItems.Clear();
+        this.CurrentFolder = bak;
 
-      // Add a seperator (this are templated via x:Null in ControlTemplate)
-      currentItems.Add(null);
+        // add special folders
+        this.CurrentItems.Add(new FSItemVM(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+                                          FSItemType.Folder, Local.Strings.FolderItem_Desktop));
 
-      // add drives
-      string pathroot = string.Empty;
+        this.CurrentItems.Add(new FSItemVM(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                                            FSItemType.Folder, Local.Strings.FolderItem_MyDocuments));
 
-      if (string.IsNullOrEmpty(this.CurrentFolder) == false)
-      {
-        try
+        // Add a seperator (this are templated via x:Null in ControlTemplate)
+        this.CurrentItems.Add(null);
+
+        // add drives
+        string pathroot = string.Empty;
+
+        if (string.IsNullOrEmpty(this.CurrentFolder) == false)
         {
-          pathroot = System.IO.Path.GetPathRoot(this.CurrentFolder);
-        }
-        catch
-        {
-          pathroot = string.Empty;
-        }
-      }
-
-      foreach (string s in Directory.GetLogicalDrives())
-      {
-        FSItemVM info = new FSItemVM()
-        {
-          FullPath = s,
-          DisplayName = s,
-          Type = FSItemType.Folder,
-          DisplayIcon = IconExtractor.GetFolderIcon(s).ToImageSource()
-        };
-        currentItems.Add(info);
-
-        // add items under current folder
-        if (string.Compare(pathroot, s, true) == 0)
-        {
-          string[] dirs = this.CurrentFolder.Split(new char[] { System.IO.Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
-          for (int i = 1; i < dirs.Length; i++)
+          try
           {
-            string curdir = string.Join(string.Empty + System.IO.Path.DirectorySeparatorChar, dirs, 0, i + 1);
-            info = new FSItemVM()
-            {
-              FullPath = curdir,
-              DisplayName = dirs[i],
-              Type = FSItemType.Folder,
-              DisplayIcon = IconExtractor.GetFolderIcon(curdir, true).ToImageSource(),
-              Indentation = i * 10
-            };
-
-            this.CurrentItems.Add(info);
+            pathroot = System.IO.Path.GetPathRoot(this.CurrentFolder);
           }
-
-          this.SelectedItem = this.CurrentItems[CurrentItems.Count - 1];
-
-          if (this.OnCurrentPathChanged != null)
-            this.OnCurrentPathChanged(this, new FolderChangedEventArgs() { FilePath = this.SelectedItem.FullPath });
-        }
-      }
-
-      // Force a selection on to the control when there is no selected item, yet
-      if (this.CurrentItems != null && this.SelectedItem == null)
-      {
-        if (this.CurrentItems.Count > 0)
-        {
-          this.CurrentFolder = this.CurrentItems[0].FullPath;
-          this.SelectedItem = this.CurrentItems[0];
-
-          if (this.OnCurrentPathChanged != null)
-            this.OnCurrentPathChanged(this, new FolderChangedEventArgs() { FilePath = this.SelectedItem.FullPath });
-        }
-      }
-
-      // Add a seperator (this are templated via x:Null in ControlTemplate)
-      currentItems.Add(null);
-
-      // add recent locations
-      if (this.RecentLocations != null)
-      {
-        List<string> fullpaths = new List<string>();    // remember paths to avoid adding duplicates
-        foreach (object o in this.RecentLocations)
-        {
-          string s = o.ToString();
-          s = System.IO.Path.GetDirectoryName(s);
-          if (!fullpaths.Contains(s))
+          catch
           {
-            fullpaths.Add(s);
-            FSItemVM it = new FSItemVM()
-            {
-              FullPath = s,
-              ShowToolTip = true,
-              DisplayName = System.IO.Path.GetFileName(s),
-              Type = FSItemType.Folder,
-              DisplayIcon = IconExtractor.GetFolderIcon(s).ToImageSource()
-            };
+            pathroot = string.Empty;
+          }
+        }
 
-            if (it.DisplayName.Trim() == string.Empty)
-              it.DisplayName = it.FullPath;
-            currentItems.Add(it);
+        foreach (string s in Directory.GetLogicalDrives())
+        {
+          FSItemVM info = new FSItemVM(s, FSItemType.Folder, s);
+          this.CurrentItems.Add(info);
+
+          // add items under current folder
+          if (string.Compare(pathroot, s, true) == 0)
+          {
+            string[] dirs = this.CurrentFolder.Split(new char[] { System.IO.Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 1; i < dirs.Length; i++)
+            {
+              string curdir = string.Join(string.Empty + System.IO.Path.DirectorySeparatorChar, dirs, 0, i + 1);
+
+              info = new FSItemVM(curdir, FSItemType.Folder, dirs[i], i * 10);
+
+              this.CurrentItems.Add(info);
+            }
+
+            // currently selected path was expanded in last for loop -> select the last expanded element 
+            if (this.SelectedItem == null)
+            {
+              this.SelectedItem = this.CurrentItems[CurrentItems.Count - 1];
+            
+              if (this.OnCurrentPathChanged != null)
+                this.OnCurrentPathChanged(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
+            }
+          }
+        }
+
+        // Force a selection on to the control when there is no selected item, yet
+        if (this.CurrentItems != null && this.SelectedItem == null)
+        {
+          if (this.CurrentItems.Count > 0)
+          {
+            this.CurrentFolder = this.CurrentItems[0].FullPath;
+            this.SelectedItem = this.CurrentItems[0];
+
+            if (this.OnCurrentPathChanged != null)
+              this.OnCurrentPathChanged(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
+          }
+        }
+
+        // Add a seperator (these are templated via x:Null in ControlTemplate)
+        this.CurrentItems.Add(null);
+
+        // add recent locations
+        if (this.RecentLocations != null)
+        {
+          ////List<string> fullpaths = new List<string>();    // remember paths to avoid adding duplicates
+          foreach (object o in this.RecentLocations)
+          {
+            string s = o.ToString();
+            s = System.IO.Path.GetDirectoryName(s);
+
+            ////if (!fullpaths.Contains(s))
+            ////{
+            ////  fullpaths.Add(s);
+              string displayName = string.Empty;
+
+              try
+              {
+                displayName = System.IO.Path.GetFileName(s);
+              }
+              catch
+              {
+              }
+
+              if (displayName.Trim() == string.Empty)
+                displayName = s;
+
+              FSItemVM it = new FSItemVM(s, FSItemType.Folder, displayName, true);
+              ////{
+              ////  FullPath = s,
+              ////  ShowToolTip = true,
+              ////  DisplayName = System.IO.Path.GetFileName(s),
+              ////  Type = FSItemType.Folder,
+              ////  DisplayIcon = IconExtractor.GetFolderIcon(s).ToImageSource()
+              ////};
+          
+              ////if (it.DisplayName.Trim() == string.Empty)
+              ////  it.DisplayName = it.FullPath;
+              ////
+              this.CurrentItems.Add(it);
+            ////}
           }
         }
       }
@@ -292,50 +345,33 @@ namespace FileListView.ViewModels
 
           if (item != null)
           {
-            if (IsPathDirectory(item.FullPath))
+            if (item.DirectoryPathExists() == true)
             {
               if (this.OnCurrentPathChanged != null)
-              {
-                this.OnCurrentPathChanged(this, new FolderChangedEventArgs() { FilePath = item.FullPath });
-              }
+                this.OnCurrentPathChanged(this, new FolderChangedEventArgs(item.GetModel));
             }
           }
         }
       }
 
-      // Check if the given parameter is a string and fire a corresponding event if so...
+      // Check if the given parameter is a string, fire a corresponding event if so...
       var paramString = p as string;
       if (paramString != null)
       {
-        if (IsPathDirectory(paramString))
+        var path = new PathModel(paramString, FSItemType.Folder);
+
+        if (path.DirectoryPathExists() == true)
         {
           if (this.OnCurrentPathChanged != null)
-            this.OnCurrentPathChanged(this, new FolderChangedEventArgs() { FilePath = paramString });
+            this.OnCurrentPathChanged(this, new FolderChangedEventArgs(path));
         }
       }
     }
 
-    /// <summary>
-    /// Determine whether a given path is an exeisting directory or not.
-    /// </summary>
-    /// <param name="path"></param>
-    /// <returns></returns>
-    private bool IsPathDirectory(string path)
+    internal void ClearRecentFolderCollection()
     {
-      if (string.IsNullOrEmpty(path) == true)
-        return false;
-
-      bool IsPath = false;
-
-      try
-      {
-        IsPath = System.IO.Directory.Exists(path);
-      }
-      catch
-      {
-      }
-
-      return IsPath;
+      if (this.RecentLocations != null)
+        this.RecentLocations.Clear();
     }
     #endregion methods
   }

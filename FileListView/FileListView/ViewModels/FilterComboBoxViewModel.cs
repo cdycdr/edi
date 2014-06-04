@@ -1,10 +1,12 @@
 namespace FileListView.ViewModels
 {
   using System;
+  using System.Linq;
   using System.ComponentModel;
   using System.Windows.Input;
   using FileListView.Command;
-  using FileListView.Events;
+  using FileSystemModels.Events;
+  using System.Collections.Generic;
 
   /// <summary>
   /// Class implements a viewmodel for a combo box like control that
@@ -59,6 +61,7 @@ namespace FileListView.ViewModels
         {
           this.mSelectedItem = value;
           this.NotifyPropertyChanged(() => this.SelectedItem);
+          this.NotifyPropertyChanged(() => this.CurrentFilterToolTip);
         }
       }
     }
@@ -81,10 +84,32 @@ namespace FileListView.ViewModels
           this.mCurrentFilter = value;
           this.SelectionChanged_Executed(value);
           this.NotifyPropertyChanged(() => this.CurrentFilter);
+          this.NotifyPropertyChanged(() => this.CurrentFilterToolTip);
         }
       }
     }
 
+    public string CurrentFilterToolTip
+    {
+      get
+      {
+        if (this.mSelectedItem != null)
+        {
+          if (string.IsNullOrEmpty(this.mSelectedItem.FilterText) == false)
+            return string.Format("{0} ({1})\n{2}", this.mSelectedItem.FilterDisplayName, 
+                                                   this.mSelectedItem.FilterText,
+                                                   Local.Strings.SelectFilterCommand_TT);
+        }
+
+        if (string.IsNullOrEmpty(this.mCurrentFilter) == false)
+          return string.Format("{0}\n{1}", this.mCurrentFilter,
+                                            Local.Strings.SelectFilterCommand_TT);
+        else
+          return Local.Strings.SelectFilterCommand_TT;
+      }
+    }
+
+    
     #region commands
     /// <summary>
     /// Command is invoked when the combobox view tells the viewmodel
@@ -114,6 +139,15 @@ namespace FileListView.ViewModels
     #endregion properties
 
     #region methods
+    public void ClearFilter()
+    {
+      if (this.CurrentItems != null)
+        this.CurrentItems.Clear();
+
+      this.SelectedItem = null;
+      this.CurrentFilter = null;
+    }
+
     /// <summary>
     /// Add a new filter argument to the list of filters and
     /// select this filter if <paramref name="bSelectNewFilter"/>
@@ -155,6 +189,53 @@ namespace FileListView.ViewModels
         this.SelectedItem = item;
         this.CurrentFilter = item.FilterText;
       }
+    }
+
+    public IEnumerable<FilterItemViewModel> FindFilter(string name, string filterString)
+    {
+      if (this.CurrentItems == null)
+        return null;
+
+      try
+      {
+        var vm = from item in this.CurrentItems
+                 where
+                 (
+                  string.Compare(item.FilterDisplayName, name, true) == 0 &&
+                  string.Compare(item.FilterText, filterString, true) == 0
+                 )
+                 select item;
+
+        return vm;
+      }
+      catch
+      {
+      }
+
+      return null;
+    }
+
+    public void SetCurrentFilter(string filterDisplayName, string filterText)
+    {
+      // Attempt to find this filter item
+      var similarFilter = this.FindFilter(filterDisplayName, filterText);
+
+      if (similarFilter != null)
+      {
+        var firstElement = similarFilter.First();
+
+        if (firstElement != null)
+        {
+          // we found this filter item aleady -> make this the currently selected item
+          this.CurrentFilter = firstElement.FilterText;
+          this.SelectedItem = firstElement;
+
+          return;
+        }
+      }
+
+      // Add this filter into the collection and mark it as currently selected item
+      this.AddFilter(filterDisplayName, filterText, true);
     }
 
     /// <summary>

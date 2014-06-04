@@ -4,6 +4,16 @@
                       
   xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
+  <!-- Color is applied to selection background of editable combobox -
+  <SolidColorBrush x:Key="HighlightBrush" Color="#FF1888b8" PresentationOptions:Freeze="True" / -->
+
+  <!-- This color is applied on the background color of a non-focused selected item in a treeview -->
+  <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#FF3f3f46" PresentationOptions:Freeze="True"/>
+
+  <!-- This color is applied on the background color of a focused selected item in a treeview -->
+  <!-- Source: http://stackoverflow.com/questions/17814308/treeview-shows-blue-for-selected-item      -
+  <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF1888b8" PresentationOptions:Freeze="True" / -->
+
   <!-- LEVEL COLORS -->
   <SolidColorBrush x:Key="DebugLevelColor" Color="LightBlue" PresentationOptions:Freeze="True" />
   <SolidColorBrush x:Key="InfoLevelColor" Color="LightGreen" PresentationOptions:Freeze="True" />

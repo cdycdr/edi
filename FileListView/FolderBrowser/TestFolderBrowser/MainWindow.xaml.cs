@@ -1,7 +1,7 @@
 ﻿namespace TestFolderBrowser
 {
   using System.Windows;
-  using FolderBrowser.ViewModel;
+  using FolderBrowser.ViewModels;
 
   /// <summary>
   /// Interaction logic for MainWindow.xaml
@@ -20,10 +20,10 @@
     /// <param name="e"></param>
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-      FolderBrowser.FolderBrowserDialog dlg = new FolderBrowser.FolderBrowserDialog();
+      var dlg = new FolderBrowser.Views.FolderBrowserDialog();
 
-      var dlgViewModel = new DialogViewModel();
-      dlgViewModel.TreeBrowser.SelectedFolder = @"C:\";
+      var dlgViewModel = new DialogViewModel(new BrowserViewModel());
+      dlgViewModel.TreeBrowser.SetSelectedFolder(@"C:\");
 
       dlg.DataContext = dlgViewModel;
 

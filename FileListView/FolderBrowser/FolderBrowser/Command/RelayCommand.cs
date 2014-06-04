@@ -13,7 +13,7 @@
   /// 
   /// Source: http://www.codeproject.com/Articles/31837/Creating-an-Internationalized-Wizard-in-WPF
   /// </summary>
-  public class RelayCommand<T> : ICommand
+  internal class RelayCommand<T> : ICommand
   {
     #region Fields
     private readonly Action<T> mExecute = null;
@@ -96,7 +96,7 @@
   /// default return value for the CanExecute
   /// method is 'true'.
   /// </summary>
-  public class RelayCommand : ICommand
+  internal class RelayCommand : ICommand
   {
     #region Fields
     private readonly Action mExecute;

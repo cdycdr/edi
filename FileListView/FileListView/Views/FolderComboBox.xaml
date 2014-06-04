@@ -87,7 +87,7 @@
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="{Binding Indentation}"/>
               <ColumnDefinition Width="20"/>
-              <ColumnDefinition Width="100"/>
+              <ColumnDefinition Width="*"/><!-- File/folder name should use up all remaining space -->
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
               <RowDefinition />

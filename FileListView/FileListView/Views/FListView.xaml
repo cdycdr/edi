@@ -32,14 +32,14 @@
                                  >
                 <Image.InputBindings>
                   <MouseBinding MouseAction="LeftDoubleClick"
-                                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ListView}}, Path=DataContext.NavigateDownCommand}"
+                                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ListView}}, Path=DataContext.BrowseDownCommand}"
                                 CommandParameter="{Binding .}"/>
                   </Image.InputBindings>
               </Image>
               <TextBlock Text="{Binding DisplayName}" Width="Auto" SnapsToDevicePixels="True">
                 <TextBlock.InputBindings>
                   <MouseBinding MouseAction="LeftDoubleClick"
-                                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ListView}}, Path=DataContext.NavigateDownCommand}"
+                                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ListView}}, Path=DataContext.BrowseDownCommand}"
                                 CommandParameter="{Binding .}"/>
                 </TextBlock.InputBindings></TextBlock>
             </DockPanel>

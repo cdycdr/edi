@@ -6,8 +6,7 @@ namespace FileListView.ViewModels
   public class FilterItemViewModel : Base.ViewModelBase
   {
     #region fields
-    private string mFilterText;
-    private string mFilterDisplayName;
+    private readonly FileSystemModels.Models.FilterItemModel mFilterItemModel;
     #endregion fields
 
     #region constructor
@@ -18,9 +17,7 @@ namespace FileListView.ViewModels
       : this()
     {
       if (string.IsNullOrEmpty(filter) == false)
-      {
-        this.mFilterText = filter;
-      }
+        this.FilterText = filter;
     }
 
     /// <summary>
@@ -39,8 +36,22 @@ namespace FileListView.ViewModels
     /// </summary>
     protected FilterItemViewModel()
     {
-      this.FilterDisplayName = string.Empty;
-      this.FilterText = "*";
+      this.mFilterItemModel = new FileSystemModels.Models.FilterItemModel();
+      //// this.FilterDisplayName = string.Empty;
+      //// this.FilterText = "*";
+    }
+
+    /// <summary>
+    /// Construct viewmodel from model
+    /// </summary>
+    /// <param name="filterItemModel"></param>
+    public FilterItemViewModel(FileSystemModels.Models.FilterItemModel filterItemModel)
+    : this()
+    {
+      if (filterItemModel == null)
+        return;
+
+      this.mFilterItemModel = new FileSystemModels.Models.FilterItemModel(filterItemModel);
     }
     #endregion constructor
     
@@ -52,14 +63,14 @@ namespace FileListView.ViewModels
     {
       get
       {
-        return this.mFilterText;
+        return this.mFilterItemModel.FilterText;
       }
 
       set
       {
-        if (this.mFilterText != value)
+        if (this.mFilterItemModel.FilterText != value)
         {
-          this.mFilterText = value;
+          this.mFilterItemModel.FilterText = value;
           this.NotifyPropertyChanged(() => this.FilterText);
         }
       }
@@ -73,14 +84,14 @@ namespace FileListView.ViewModels
     {
       get
       {
-        return this.mFilterDisplayName;
+        return this.mFilterItemModel.FilterDisplayName;
       }
 
       set
       {
-        if (this.mFilterDisplayName != value)
+        if (this.mFilterItemModel.FilterDisplayName != value)
         {
-          this.mFilterDisplayName = value;
+          this.mFilterItemModel.FilterDisplayName = value;
           this.NotifyPropertyChanged(() => this.FilterDisplayName);
         }
       }
