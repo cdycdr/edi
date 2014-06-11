@@ -73,7 +73,7 @@
                             Margin="3" IsDefault="True" HorizontalAlignment="Right"/>
                   </StackPanel>
                 </TabItem>
-                <TabItem Header="{x:Static cmdLabel:Strings.STR_REPLACE_BUTTON_CAPTION}" Name="tabReplace" Margin="3,0"
+                <TabItem Header="{x:Static cmdLabel:Strings.STR_REPLACE_BUTTON_CAPTION}" Name="tabReplace"
                          IsSelected="{Binding ShowAsFind, Converter={StaticResource InvertBooleanConv}}"
                          ContentTemplate="{StaticResource FindPageTemplate}"
                          Visibility="{Binding AllowReplace, Converter={StaticResource boolToVis}}">

@@ -1,0 +1,5 @@
+**/bin/*
+**/x86/*
+**/obj/*
+**/*.suo
+Edi/MiniUML.Plugins/MiniUML.Plugins.UmlClassDiagram.dll
