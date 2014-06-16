@@ -151,7 +151,7 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public static bool operator !=(TextViewPosition left, TextViewPosition right)
 		{
-			return !(left.Equals(right)); // use operator == and negate result
+			return !(left.Equals(right)); // use operator == and negate mResult
 		}
 		#endregion
 	}

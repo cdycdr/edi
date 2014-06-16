@@ -333,7 +333,10 @@
     #endregion properties
 
     #region methods
-
+    /// <summary>
+    /// Get default block definitions to add / remove surrounding selection blocks in text.
+    /// </summary>
+    /// <returns></returns>
     public static IEnumerable<BlockDefinition> GetDefaultBlockDefinitions()
     {
       List<BlockDefinition> ret = new List<BlockDefinition>();

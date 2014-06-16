@@ -27,7 +27,7 @@
     /// as the value of the target property for this markup extension.
     /// 
     /// When a XAML processor processes a type node and member value that is a markup extension,
-    /// it invokes the ProvideValue method of that markup extension and writes the result into the
+    /// it invokes the ProvideValue method of that markup extension and writes the mResult into the
     /// object graph or serialization stream. The XAML object writer passes service context to each
     /// such implementation through the serviceProvider parameter.
     /// </summary>

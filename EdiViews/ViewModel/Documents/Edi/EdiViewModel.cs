@@ -254,7 +254,7 @@ namespace EdiViews.ViewModel.Documents
     /// This property wraps the document class provided by AvalonEdit. The actual text is inside
     /// the document and can be accessed at save, load or other processing times.
     /// 
-    /// The Text property itself cannot be bound in AvalonEdit since binding this would result
+    /// The Text property itself cannot be bound in AvalonEdit since binding this would mResult
     /// in updating the text (via binding) each time a user enters a key on the keyboard
     /// (which would be a design error resulting in huge performance problems)
     /// </summary>

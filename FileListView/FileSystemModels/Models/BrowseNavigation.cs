@@ -10,8 +10,11 @@ namespace FileSystemModels.Models
   public class BrowseNavigation : IBrowseNavigation
   {
     #region fields
+    protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
     /// <summary>
-    /// Determines whether the redo stack (FutureFolders) should be cleared when the CurrentFolder changes next time
+    /// Determines whether the redo stack (FutureFolders) should be cleared when the
+    /// CurrentFolder changes next time
     /// </summary>
     private string mFilterString = string.Empty;
 
@@ -84,13 +87,21 @@ namespace FileSystemModels.Models
     /// </summary>
     PathModel IBrowseNavigation.BrowseBack()
     {
-      if (this.RecentFolders.Count > 0)
+      try
       {
-        // top of stack is always last valid folder
-        this.FutureFolders.Push(this.CurrentFolder);
-        this.CurrentFolder = this.RecentFolders.Pop();
-
-        return new PathModel(this.CurrentFolder);
+        if (this.RecentFolders.Count > 0)
+        {
+          // top of stack is always last valid folder
+          if (this.CurrentFolder != null)
+            this.FutureFolders.Push(this.CurrentFolder);
+        
+          this.CurrentFolder = this.RecentFolders.Pop();
+        
+          return new PathModel(this.CurrentFolder);
+        }
+      }
+      catch
+      {
       }
 
       return null;
@@ -112,7 +123,22 @@ namespace FileSystemModels.Models
     {
       if (this.FutureFolders.Count > 0)
       {
-        this.RecentFolders.Push(this.CurrentFolder);
+        bool pushRecentFolder = true;
+
+        if (this.CurrentFolder == null)
+          pushRecentFolder = false;
+        else
+        {
+          if (this.RecentFolders.Count > 0) // Don't push same folder twice
+          {
+            if (PathModel.Compare(this.RecentFolders.Peek(), this.CurrentFolder) == true)
+              pushRecentFolder = false;
+          }
+        }
+
+        if (pushRecentFolder == true)
+          this.RecentFolders.Push(this.CurrentFolder);
+
         this.CurrentFolder = this.FutureFolders.Pop();
 
         return new PathModel (this.CurrentFolder);
@@ -143,7 +169,22 @@ namespace FileSystemModels.Models
 
         var newDir = new PathModel(newf, FSItemType.Folder);
 
-        this.RecentFolders.Push(this.CurrentFolder);
+        bool pushRecentFolder = true;
+
+        if (this.CurrentFolder == null)
+          pushRecentFolder = false;
+        else
+        {
+          if (this.RecentFolders.Count > 0) // Don't push same folder twice
+          {
+            if (PathModel.Compare(this.RecentFolders.Peek(), this.CurrentFolder) == true)
+              pushRecentFolder = false;
+          }
+        }
+
+        if (pushRecentFolder == true)
+          this.RecentFolders.Push(this.CurrentFolder);
+
         this.FutureFolders.Clear();
         this.CurrentFolder = newDir;
 
@@ -159,6 +200,13 @@ namespace FileSystemModels.Models
     /// </summary>
     bool IBrowseNavigation.CanBrowseUp()
     {
+      if (this.CurrentFolder == null)
+      {
+        logger.Warn("CurrentFolder is (null) but it should always be available.");
+
+        return false;
+      }
+
       string[] dirs = PathModel.GetDirectories(this.CurrentFolder.Path);
 
       if (dirs != null)
@@ -247,7 +295,27 @@ namespace FileSystemModels.Models
     {
       if (bSetHistory == true)
       {
-        this.RecentFolders.Push(this.CurrentFolder);
+        bool pushRecentFolder = true;
+
+
+        if (this.CurrentFolder == null)
+          pushRecentFolder = false;
+        else
+        {
+          // Do not set the same location twice
+          if (PathModel.Compare(this.CurrentFolder, new PathModel(path, FSItemType.Folder)) == true)
+            return;
+
+          if (this.RecentFolders.Count > 0) // Don't push same folder twice
+          {
+            if (PathModel.Compare(this.RecentFolders.Peek(), this.CurrentFolder) == true)
+              pushRecentFolder = false;
+          }
+        }
+
+        if (pushRecentFolder == true)
+          this.RecentFolders.Push(this.CurrentFolder);
+
         this.FutureFolders.Clear();
         this.CurrentFolder = new PathModel(path, FSItemType.Folder);
       }

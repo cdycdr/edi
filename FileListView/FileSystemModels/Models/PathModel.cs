@@ -100,6 +100,23 @@ namespace FileSystemModels.Models
 
     #region methods
     #region static helper methods
+    public static bool Compare(PathModel m, PathModel m1)
+    {
+      if ((m == null && m1 != null) || (m != null && m1 == null))
+        return false;
+
+      if (m == m1)
+        return true;
+
+      if (string.Compare(m.Path, m1.Path, true) != 0)
+        return false;
+
+      if (m.PathType != m1.PathType)
+        return false;
+
+      return true;
+    }
+
     /// <summary>
     /// Check whether a string has basic properties that
     /// (not null, at least 2 characters) it could contain

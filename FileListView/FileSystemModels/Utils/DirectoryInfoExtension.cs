@@ -1,9 +1,9 @@
 namespace FileSystemModels.Utils
 {
+  using System;
+  using System.Collections.Generic;
   using System.IO;
   using System.Linq;
-  using System.Collections.Generic;
-  using System;
 
   /// <summary>
   /// Class implements an extension of the <seealso="DirectoryInfo"> class.
@@ -28,6 +28,7 @@ namespace FileSystemModels.Utils
       List<string> patterns = new List<string>(extensions);
 
       IEnumerable<FileSystemInfo> matches = new List<FileSystemInfo>();
+
       try
       {
         foreach (var pattern in patterns)
@@ -46,6 +47,25 @@ namespace FileSystemModels.Utils
         yield break;
       }
 
+/**
+      try
+      {
+        foreach (var pattern in patterns)
+        {
+          matches = matches.Concat(dir.EnumerateFiles(pattern, SearchOption.TopDirectoryOnly));
+        }
+      }
+      catch (UnauthorizedAccessException)
+      {
+        Console.WriteLine("Unable to access '{0}'. Skipping...", dir.FullName);
+        yield break;
+      }
+      catch (PathTooLongException ptle)
+      {
+        Console.WriteLine(@"Could not process path '{0}\{1} ({2})'.", dir.Parent.FullName, dir.Name, ptle.Message);
+        yield break;
+      }
+**/
       ////Console.WriteLine("Returning all objects that match the pattern(s) '{0}'", string.Join(",", patterns));
       foreach (var file in matches)
       {

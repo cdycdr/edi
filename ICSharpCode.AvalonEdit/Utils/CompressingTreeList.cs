@@ -344,7 +344,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 		
 		/// <summary>
-		/// Gets the the first index so that all values from the result index to <paramref name="index"/>
+		/// Gets the the first index so that all values from the mResult index to <paramref name="index"/>
 		/// are equal.
 		/// </summary>
 		public int GetStartOfRun(int index)
@@ -357,7 +357,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 
 		/// <summary>
-		/// Gets the first index after <paramref name="index"/> so that the value at the result index is not
+		/// Gets the first index after <paramref name="index"/> so that the value at the mResult index is not
 		/// equal to the value at <paramref name="index"/>.
 		/// That is, this method returns the exclusive end index of the run of equal values.
 		/// </summary>

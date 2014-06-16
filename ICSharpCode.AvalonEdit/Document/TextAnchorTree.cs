@@ -180,7 +180,7 @@ namespace ICSharpCode.AvalonEdit.Document
 			//Log("HandleTextChange(" + entry + ")");
 			if (entry.RemovalLength == 0) {
 				// This is a pure insertion.
-				// Unlike a replace with removal, a pure insertion can result in nodes at the same location
+				// Unlike a replace with removal, a pure insertion can mResult in nodes at the same location
 				// to split depending on their MovementType.
 				// Thus, we handle this case on a separate code path
 				// (the code below looks like it does something similar, but it can only split

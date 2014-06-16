@@ -1,6 +1,5 @@
 namespace FileListView.ViewModels
 {
-  using System.Linq;
   using System.Windows;
   using FileListView.ViewModels.Interfaces;
   using FileSystemModels.Interfaces;
@@ -57,37 +56,13 @@ namespace FileListView.ViewModels
       // This is fired when the current folder in the listview changes to another existing folder
       this.FolderItemsView.OnCurrentPathChanged += FolderItemsView_OnCurrentPathChanged;
 
+      // This is fired when the user requests to add a folder into the list of recently visited folders
       this.FolderItemsView.RequestEditRecentFolder += FolderItemsView_RequestEditRecentFolder;
 
       // This event is fired when a user opens a file
       this.FolderItemsView.OnFileOpen += FolderItemsView_OnFileOpen;
 
       this.FolderTextPath.PopulateView();
-    }
-
-    /// <summary>
-    /// The list view of folders and files requests to add or remove a folder
-    /// to/from the collection of recent folders.
-    /// -> Forward event to <seealso cref="FolderComboBoxViewModel"/> who manages
-    /// the actual list of recent folders.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    void FolderItemsView_RequestEditRecentFolder(object sender, FileSystemModels.Events.RecentFolderEvent e)
-    {
-      switch (e.Action)
-      {
-        case FileSystemModels.Events.RecentFolderEvent.RecentFolderAction.Remove:
-          this.FolderTextPath.RemoveRecentFolder(e.Folder);
-          break;
-
-        case FileSystemModels.Events.RecentFolderEvent.RecentFolderAction.Add:
-          this.FolderTextPath.AddRecentFolder(e.Folder.Path);
-          break;
-
-        default:
-          break;
-      }
     }
     #endregion constructor
 
@@ -183,7 +158,7 @@ namespace FileListView.ViewModels
     /// </summary>
     /// <param name="settings"></param>
     /// <returns></returns>
-    bool IExplorerSettings.ConfigureExplorerSettings(ExplorerSettingsModel settings)
+    bool IConfigExplorerSettings.ConfigureExplorerSettings(ExplorerSettingsModel settings)
     {
       if (settings == null)
         return false;
@@ -243,16 +218,13 @@ namespace FileListView.ViewModels
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    ExplorerSettingsModel IExplorerSettings.GetExplorerSettings(ExplorerSettingsModel input)
+    ExplorerSettingsModel IConfigExplorerSettings.GetExplorerSettings(ExplorerSettingsModel input)
     {
       var settings = new ExplorerSettingsModel();
 
       try
       {
         settings.UserProfile.SetCurrentPath(this.SelectedFolder);
-
-        foreach (var item in settings.RecentFolders)
-          this.AddRecentFolder(item);
 
         foreach (var item in settings.FilterCollection)
         {
@@ -294,8 +266,6 @@ namespace FileListView.ViewModels
       {
         throw;
       }
-
-      return settings;
     }
     #endregion Explorer settings model
 
@@ -357,17 +327,21 @@ namespace FileListView.ViewModels
     #endregion Change filter methods
 
     /// <summary>
-    /// Navigates to the folder indicated by <paramref name="sFolder"/>
-    /// and updates all related viewmodels.
+    /// Master controler interface method to navigate all views
+    /// to the folder indicated in <paramref name="folder"/>
+    /// - updates all related viewmodels.
     /// </summary>
-    /// <param name="sFolder"></param>
-    public void NavigateToFolder(string sFolder)
+    /// <param name="folder"></param>
+    public void NavigateToFolder(string folder)
     {
-      this.SelectedFolder = sFolder;
-      this.FolderItemsView.NavigateToThisFolder(sFolder);
+      this.SelectedFolder = folder;
+      this.FolderItemsView.NavigateToThisFolder(folder);
 
-      this.FolderTextPath.CurrentFolder = sFolder;
+      this.FolderTextPath.CurrentFolder = folder;
       this.FolderTextPath.PopulateView();
+
+      if (this.FolderBrowser != null)
+        this.FolderBrowser.SetSelectedFolder(folder);
     }
     
     /// <summary>
@@ -393,15 +367,17 @@ namespace FileListView.ViewModels
       {
         if (string.Compare(this.SelectedFolder, e.Folder.Path, true) != 0)
         {
-          this.SelectedFolder = e.Folder.Path;
+          this.NavigateToFolder(e.Folder.Path);
+          
+          ////this.SelectedFolder = e.Folder.Path;
 
-          if (e.Folder.Path != this.FolderItemsView.CurrentFolder && sender != this)
-            this.FolderItemsView.UpdateView(e.Folder.Path);
+          ////if (e.Folder.Path != this.FolderItemsView.CurrentFolder && sender != this)
+          ////  this.FolderItemsView.UpdateView(e.Folder.Path);
  
           if (this.FolderBrowser != null)
           {
             if (sender != this.FolderBrowser)
-              this.FolderBrowser.SetSelectedFolder(this.SelectedFolder);
+              this.FolderBrowser.SetSelectedFolder(e.Folder.Path);
           }
         }
       }
@@ -435,7 +411,7 @@ namespace FileListView.ViewModels
           if (this.FolderBrowser != null)
           {
             if (sender != this.FolderBrowser)
-              this.FolderBrowser.SetSelectedFolder(this.SelectedFolder);
+              this.FolderBrowser.SetSelectedFolder(e.Folder.Path);
           }
         }
       }
@@ -464,6 +440,30 @@ namespace FileListView.ViewModels
                   new FileSystemModels.Events.FolderChangedEventArgs(new PathModel(e.Folder)));
     }
 
+    /// <summary>
+    /// The list view of folders and files requests to add or remove a folder
+    /// to/from the collection of recent folders.
+    /// -> Forward event to <seealso cref="FolderComboBoxViewModel"/> who manages
+    /// the actual list of recent folders.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void FolderItemsView_RequestEditRecentFolder(object sender, FileSystemModels.Events.RecentFolderEvent e)
+    {
+      switch (e.Action)
+      {
+        case FileSystemModels.Events.RecentFolderEvent.RecentFolderAction.Remove:
+          this.FolderTextPath.RemoveRecentFolder(e.Folder);
+          break;
+
+        case FileSystemModels.Events.RecentFolderEvent.RecentFolderAction.Add:
+          this.FolderTextPath.AddRecentFolder(e.Folder.Path);
+          break;
+
+        default:
+          break;
+      }
+    }
 
     private void ConfigureCurrentFolder(string path)
     {

@@ -73,7 +73,7 @@ namespace EdiViews.Tools.FileExplorer
     /// </summary>
     public IFolderListViewModel FolderView { get; set; }
 
-    public IExplorerSettings Settings
+    public IConfigExplorerSettings Settings
     {
       get
       {
@@ -194,9 +194,7 @@ namespace EdiViews.Tools.FileExplorer
       settings = settingsManager.SettingData.ExplorerSettings;
 
       if (settings == null)
-      {
         settings = new ExplorerSettingsModel();
-      }
 
       settings.UserProfile = settingsManager.SessionData.LastActiveExplorer;
 

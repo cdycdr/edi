@@ -8,6 +8,7 @@ namespace FileListView.ViewModels
   using FileListView.Command;
   using FileSystemModels.Events;
   using FileSystemModels.Models;
+  using FileSystemModels.Utils;
 
   /// <summary>
   /// Class implements a viewmodel that can be used for a
@@ -160,21 +161,24 @@ namespace FileListView.ViewModels
     /// <param name="folderPath"></param>
     public void AddRecentFolder(string folderPath)
     {
-      if((folderPath = PathModel.ExtractDirectoryRoot(folderPath)) == null)
-        return;
-
-      // select this path if its already there
-      var results = this.RecentLocations.Where<string>(folder => string.Compare(folder, folderPath, true) == 0);
-
-      // Do not add this twice
-      if (results != null)
+      lock(this.mLockObject)
       {
-        if (results.Count() != 0)
+        if((folderPath = PathModel.ExtractDirectoryRoot(folderPath)) == null)
           return;
-      }
 
-      this.RecentLocations.Add(folderPath);
-      this.PopulateView();
+        // select this path if its already there
+        var results = this.RecentLocations.Where<string>(folder => string.Compare(folder, folderPath, true) == 0);
+
+        // Do not add this twice
+        if (results != null)
+        {
+          if (results.Count() != 0)
+            return;
+        }
+
+        this.RecentLocations.Add(folderPath);
+        this.PopulateView();
+      }
     }
 
     /// <summary>
@@ -185,11 +189,16 @@ namespace FileListView.ViewModels
     /// <param name="folderPath"></param>
     public void RemoveRecentFolder(PathModel folderPath)
     {
-      if (folderPath == null)
-        return;
+      lock(this.mLockObject)
+      {
+        if (folderPath == null)
+          return;
 
-      this.RecentLocations.Remove(folderPath.Path);
-      this.PopulateView();
+        // Find all items that satisfy the query match and remove them
+        this.RecentLocations.Remove(i => string.Compare(folderPath.Path, i, true) == 0);
+
+        this.PopulateView();
+      }
     }
 
     /// <summary>

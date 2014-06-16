@@ -7,7 +7,7 @@
   /// The Viewmodel for filter item displayed in list of filters
   /// </summary>
   [Serializable]
-  public class FilterItemModel
+  public class FilterItemModel : IComparable
   {
     #region fields
     private string mFilterText;
@@ -110,6 +110,43 @@
     {
       return string.Format("{0} ({1})", this.FilterDisplayName, this.FilterText);
     }
+
+    /// <inheritdoc/>
+    public override int GetHashCode()
+    {
+      return this.FilterDisplayName.GetHashCode() + this.FilterText.GetHashCode();
+    }
+
+		/// <inheritdoc/>
+    public override bool Equals(object obj)
+    {
+      var input = obj as FilterItemModel;
+
+      if (input == null)
+        return false;
+
+      if (string.Compare(this.FilterText, input.FilterText) == 0)
+      {
+        if (string.Compare(this.FilterDisplayName, input.FilterDisplayName) == 0)
+          return true;
+      }
+
+      return false;
+    }
+
+    /// <summary>
+    /// Implement <seealso cref="IComparable"/> interface method.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public int CompareTo(object obj)
+    {
+      if (this.Equals(obj) == true)
+        return 0;
+
+      return 1;
+    }
+
     #endregion methods
   }
 }

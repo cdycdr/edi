@@ -1220,7 +1220,7 @@ namespace Edi.ViewModel
 
     /// <summary>
     /// Handle Processing results from asynchronous tasks that are
-    /// executed in a viewmodel and return later with a result.
+    /// executed in a viewmodel and return later with a mResult.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -1234,7 +1234,7 @@ namespace Edi.ViewModel
         {
           switch (e.TypeOfResult)
           {
-            case TypeOfResult.FileLoad:      // Process an EdiViewModel file load event result
+            case TypeOfResult.FileLoad:      // Process an EdiViewModel file load event mResult
               if (e.InnerException != null)
               {
                 Exception error = vm.GetInnerMostException(e.InnerException);

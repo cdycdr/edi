@@ -1,8 +1,10 @@
 ﻿namespace FileSystemModels.Models
 {
   using System;
+  using System.Linq;
   using System.Collections.Generic;
   using System.Xml.Serialization;
+  using FileSystemModels.Interfaces;
 
   [Serializable]
   [XmlRoot(ElementName = "ExplorerSettings", IsNullable = true)]
@@ -232,10 +234,12 @@
     /// <summary>
     /// Compares 2 setting models and returns true if they are equal
     /// (data is same between both models) or otherwise false.
+    /// 
+    /// Attention: The UserProfile data property is ignored here.
     /// </summary>
     /// <param name="input"></param>
     /// <param name="settings"></param>
-    /// <returns></returns>
+    /// <returns>false if both collections differ, otherwise true</returns>
     public static bool CompareSettings(ExplorerSettingsModel input,
                                        ExplorerSettingsModel settings)
     {
@@ -246,6 +250,46 @@
       if (input == settings)
         return true;
 
+      // Compare file filter collections and return false if they differ
+      // Compare recentfolders collections and return false if they differ
+      if ((input.FilterCollection == null && settings.FilterCollection != null) ||
+          (input.FilterCollection != null && settings.FilterCollection == null))
+        return false;
+
+      if (input.FilterCollection == null && settings.FilterCollection == null)
+        return true;
+
+      if (input.FilterCollection.Count != settings.FilterCollection.Count)
+        return false;
+
+      foreach (var item in input.FilterCollection)
+      {
+        var found = settings.FilterCollection.Where(i => i.Equals(item) == true);
+
+        if (found.Count() == 0)
+          return false;
+      }
+
+      // Compare recentfolders collections and return false if they differ
+      if ((input.RecentFolders == null && settings.RecentFolders != null) ||
+          (input.RecentFolders != null && settings.RecentFolders == null))
+        return false;
+
+      if (input.RecentFolders == null && settings.RecentFolders == null)
+        return true;
+
+      if (input.RecentFolders.Count != settings.RecentFolders.Count)
+        return false;
+
+      foreach (var item in input.RecentFolders)
+      {
+        var found = settings.RecentFolders.Where(i => string.Compare(i, item, true) == 0);
+
+        if (found.Count() == 0)
+          return false;
+      }
+
+      // Compare Showfolder, Icons, and hidden files options
       if (input.ShowFolders != settings.ShowFolders)
         return false;
 

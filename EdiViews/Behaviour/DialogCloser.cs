@@ -43,7 +43,7 @@
           // Setting the DialogResult property invokes the close method of the corresponding dialog
           //// window.DialogResult = e.NewValue as bool?;
 
-          // Dialog result cannot be set on windows that are no shown as dialogs.
+          // Dialog mResult cannot be set on windows that are no shown as dialogs.
           // Therefore, we close directly via calling the corresponding close method of the view
           try
           {

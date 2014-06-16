@@ -27,9 +27,10 @@ Change Log in comparison to initial version
 
 - FileSystemModels.Models.ExplorerSettingsModel and
   FileSystemModels.Models.ExplorerUserProfile class and
-  FileSystemModels.Interfaces.IExplorerSettings
+  FileSystemModels.Interfaces.IConfigExplorerSettings
 
   to support persistence and reload of user defined settings (see edi.codeplex.com for more details)
 
 - Added Recent Folder Add/Remove commands in context menu
 
+- BugFixes in browse forward and backward history

@@ -96,7 +96,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		}
 		
 		/// <summary>
-		/// Escapes text and writes the result to the StringBuilder.
+		/// Escapes text and writes the mResult to the StringBuilder.
 		/// </summary>
 		internal static void EscapeHtml(StringWriter w, string text, HtmlOptions options)
 		{

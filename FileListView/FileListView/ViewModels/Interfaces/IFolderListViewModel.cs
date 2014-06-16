@@ -7,7 +7,7 @@
   /// Interface implements a folder/file view model class
   /// that can be used to dispaly filesystem related content in an <see cref="ItemsControl"/>.
   /// </summary>
-  public interface IFolderListViewModel : IExplorerSettings
+  public interface IFolderListViewModel : IConfigExplorerSettings
   {
     #region properties
     /// <summary>
@@ -75,11 +75,12 @@
                    bool bSelectNewFilter = false);
 
     /// <summary>
-    /// Navigates to the folder indicated by <paramref name="sFolder"/>
-    /// and updates all related viewmodels.
+    /// Master controler interface method to navigate all views
+    /// to the folder indicated in <paramref name="folder"/>
+    /// - updates all related viewmodels.
     /// </summary>
-    /// <param name="sFolder"></param>
-    void NavigateToFolder(string sFolder);
+    /// <param name="folder"></param>
+    void NavigateToFolder(string folder);
 
     #region Synchronize with IBrowserViewModel methods
     /// <summary>

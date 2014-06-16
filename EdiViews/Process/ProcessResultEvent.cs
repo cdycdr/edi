@@ -9,7 +9,7 @@
   }
 
   /// <summary>
-  /// Stores information about the result of a batch run.
+  /// Stores information about the mResult of a batch run.
   /// If an error occurs, Error is set to true and an exception may be stored in InnerException.
   /// </summary>
   public class ProcessResultEvent : EventArgs
@@ -104,7 +104,7 @@
     }
 
     /// <summary>
-    /// Dictionary of result objects from executing process
+    /// Dictionary of mResult objects from executing process
     /// </summary>
     public Dictionary<string, object> ResultObjects
     {

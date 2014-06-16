@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Collections.ObjectModel;
   using System.Xml.Serialization;
+  using FileSystemModels.Interfaces;
   using FileSystemModels.Models;
   using ICSharpCode.AvalonEdit;
   using ICSharpCode.AvalonEdit.Highlighting.Themes;

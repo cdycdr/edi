@@ -279,7 +279,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		internal RopeNode<T> StoreElements(int index, T[] array, int arrayIndex, int count)
 		{
 			RopeNode<T> result = this.CloneIfShared();
-			// result cannot be function node after a call to Clone()
+			// mResult cannot be function node after a call to Clone()
 			if (result.height == 0) {
 				// leaf node:
 				Array.Copy(array, arrayIndex, result.contents, index, count);
@@ -329,7 +329,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		internal RopeNode<T> SetElement(int offset, T value)
 		{
 			RopeNode<T> result = CloneIfShared();
-			// result of CloneIfShared() is leaf or concat node
+			// mResult of CloneIfShared() is leaf or concat node
 			if (result.height == 0) {
 				result.contents[offset] = value;
 			} else {
@@ -416,7 +416,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 			
 			if (this.length + count < RopeNode<char>.NodeSize) {
 				RopeNode<T> result = CloneIfShared();
-				// result must be leaf node (Clone never returns function nodes, too short for concat node)
+				// mResult must be leaf node (Clone never returns function nodes, too short for concat node)
 				int lengthAfterOffset = result.length - offset;
 				T[] resultContents = result.contents;
 				for (int i = lengthAfterOffset; i >= 0; i--) {
@@ -564,7 +564,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 					if (resultRope == null)
 						throw new InvalidOperationException("Rope initializer returned null.");
 					RopeNode<T> resultNode = resultRope.root;
-					resultNode.Publish(); // result is shared between returned rope and the rope containing this function node
+					resultNode.Publish(); // mResult is shared between returned rope and the rope containing this function node
 					if (resultNode.length != this.length)
 						throw new InvalidOperationException("Rope initializer returned rope with incorrect length.");
 					if (resultNode.height == 0 && resultNode.contents == null) {

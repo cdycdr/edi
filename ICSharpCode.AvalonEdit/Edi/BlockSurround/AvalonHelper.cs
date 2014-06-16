@@ -137,8 +137,8 @@
       int selectionLength = editor.SelectionLength;
       int caretOffset = editor.CaretOffset;
 
-      TextViewPosition startPos = new TextViewPosition(sel.StartPosition);
-      TextViewPosition endPos = new TextViewPosition(sel.EndPosition);
+      var startPos = new TextViewPosition(sel.StartPosition.Line, sel.StartPosition.Column, sel.StartPosition.VisualColumn);
+      var endPos = new TextViewPosition(sel.EndPosition.Line, sel.EndPosition.Column, sel.EndPosition.VisualColumn);
 
       TextReplaceBlockRegion[] region = new TextReplaceBlockRegion[sel.Segments.Count()];
       bool bFoundNoMatch = true;
@@ -148,7 +148,6 @@
         var item = sel.Segments.ElementAt(i);
 
         // Attempt to find the currently set comment before and after the current selection
-
         switch (block.TypeOfBlock)
         {
           case BlockDefinition.BlockAt.Start:

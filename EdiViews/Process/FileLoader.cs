@@ -58,7 +58,7 @@
     #endregion Constructor
 
     /// <summary>
-    /// This result is fired when the assigned processing task is finished.
+    /// This mResult is fired when the assigned processing task is finished.
     /// </summary>
     public event EventHandler<ResultEvent> ProcessingResultEvent;
 
@@ -129,7 +129,7 @@
             }
 
             return processResults;
-            // End of async task with summary list of result strings
+            // End of async task with summary list of mResult strings
           },
       cancelToken).ContinueWith(ant =>
                                       {
@@ -171,7 +171,7 @@
     }
 
     /// <summary>
-    /// Report a result to the attached eventhalders (if any) on whether execution succeded or not.
+    /// Report a mResult to the attached eventhalders (if any) on whether execution succeded or not.
     /// </summary>
     protected void ReportBatchResultEvent(bool bAsnc)
     {

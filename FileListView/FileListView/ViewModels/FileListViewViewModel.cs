@@ -657,7 +657,7 @@ namespace FileListView.ViewModels
           if (filterString != null)
             directoryFilter = new ArrayList(filterString).ToArray() as string[];
 
-          directoryFilter = null;
+          directoryFilter = new string[]{ "bin", "obj" };
 
           foreach (DirectoryInfo dir in cur.SelectDirectoriesByFilter(directoryFilter))
           {

@@ -49,6 +49,9 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\00_Libs\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -67,12 +70,13 @@
     <Compile Include="Events\FilterChangedEventArgs.cs" />
     <Compile Include="Events\FolderChangedEventArgs.cs" />
     <Compile Include="Events\RecentFolderEvent.cs" />
-    <Compile Include="Interfaces\IExplorerSettings.cs" />
+    <Compile Include="Interfaces\IConfigExplorerSettings.cs" />
     <Compile Include="Models\BrowseNavigation.cs" />
     <Compile Include="Models\CustomFolderItemModel.cs" />
     <Compile Include="Models\ExplorerSettingsModel.cs" />
     <Compile Include="Models\ExplorerUserProfile.cs" />
     <Compile Include="Models\FilterItemModel.cs" />
+    <Compile Include="Utils\LinqExtensions.cs" />
     <Compile Include="Utils\DirectoryInfoExtension.cs" />
     <Compile Include="Models\PathModel.cs" />
     <Compile Include="Models\FSItemType.cs" />

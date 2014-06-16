@@ -50,7 +50,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		// Add is O(lg n)
 		// Remove is O(lg n)
 		// DocumentChanged is O(m * lg n), with m the number of segments that intersect with the changed document section
-		// FindFirstSegmentWithStartAfter is O(m + lg n) with m being the number of segments at the same offset as the result segment
+		// FindFirstSegmentWithStartAfter is O(m + lg n) with m being the number of segments at the same offset as the mResult segment
 		// FindIntersectingSegments is O(m + lg n) with m being the number of intersecting segments.
 		
 		int count;
@@ -359,7 +359,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Segments are returned in the order given by GetNextSegment/GetPreviousSegment.
 		/// </summary>
 		/// <returns>Returns a new collection containing the results of the query.
-		/// This means it is safe to modify the TextSegmentCollection while iterating through the result collection.</returns>
+		/// This means it is safe to modify the TextSegmentCollection while iterating through the mResult collection.</returns>
 		public ReadOnlyCollection<T> FindSegmentsContaining(int offset)
 		{
 			return FindOverlappingSegments(offset, 0);
@@ -369,7 +369,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Finds all segments that overlap with the given segment (including touching segments).
 		/// </summary>
 		/// <returns>Returns a new collection containing the results of the query.
-		/// This means it is safe to modify the TextSegmentCollection while iterating through the result collection.</returns>
+		/// This means it is safe to modify the TextSegmentCollection while iterating through the mResult collection.</returns>
 		public ReadOnlyCollection<T> FindOverlappingSegments(ISegment segment)
 		{
 			if (segment == null)
@@ -382,7 +382,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Segments are returned in the order given by GetNextSegment/GetPreviousSegment.
 		/// </summary>
 		/// <returns>Returns a new collection containing the results of the query.
-		/// This means it is safe to modify the TextSegmentCollection while iterating through the result collection.</returns>
+		/// This means it is safe to modify the TextSegmentCollection while iterating through the mResult collection.</returns>
 		public ReadOnlyCollection<T> FindOverlappingSegments(int offset, int length)
 		{
 			ThrowUtil.CheckNotNegative(length, "length");
