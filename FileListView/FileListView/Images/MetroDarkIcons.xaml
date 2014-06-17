@@ -26,4 +26,6 @@
   <!-- 16 pixel refresh command icon -->
   <BitmapImage x:Key="FLV_Image_IsHiddenFileVisible" UriSource="pack://application:,,,/FileListView;component/Images/Metro/Dark/appbar.page.hidden_16.png" />
 
+  <BitmapImage x:Key="FLV_Image_IsFiltered" UriSource="pack://application:,,,/FileListView;component/Images/Metro/Dark/appbar.magnify.png" />
+
 </ResourceDictionary>

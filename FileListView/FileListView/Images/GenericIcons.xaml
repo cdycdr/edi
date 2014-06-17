@@ -27,4 +27,6 @@
   <!-- 16 pixel Toggle hidden items visible command icon -->
   <BitmapImage x:Key="FLV_Image_IsHiddenFileVisible" UriSource="pack://application:,,,/FileListView;component/Images/Generic/IsHiddenVisible.png" />
 
+  <BitmapImage x:Key="FLV_Image_IsFiltered" UriSource="pack://application:,,,/FileListView;component/Images/Generic/magnifying_glass.png" />
+  
 </ResourceDictionary>

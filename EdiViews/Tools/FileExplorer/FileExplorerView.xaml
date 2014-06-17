@@ -37,7 +37,7 @@
                           ToolTipService.IsEnabled="True"
 
                           fvbehav:SelectionChangedCommand.ChangedCommand="{Binding SelectionChanged}"
-                          VerticalAlignment="Top"
+                          VerticalAlignment="Center"
                           HorizontalAlignment="Stretch"
                           Grid.Row="0"
                           Margin="3"
@@ -145,66 +145,83 @@
       <Grid Grid.Row="0" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="6"/>
           <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <ToolBarTray Grid.Row="1" SnapsToDevicePixels="True" >
-          <ToolBar  VerticalAlignment="Stretch" ToolBarTray.IsLocked="True"
-                    SnapsToDevicePixels="True">
+        <ToggleButton DataContext="{Binding FolderView.FolderItemsView}"
+                      Command="{Binding ToggleIsFolderVisibleCommand}"
+                      IsChecked="{Binding ShowFolders, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                      ToolTip="{x:Static fvloc:Strings.CMD_ToggleIsFolderVisibleCommand_TT}"
+                      ToolTipService.ShowOnDisabled="True"
+                      Grid.Column="0" Margin="1" Padding="3"
+                      BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Stretch" MinHeight="16" MinWidth="16">
+          <Image Source="{DynamicResource FLV_Image_IsFoldersVisible}" Width="16" Margin="1,0" />
+        </ToggleButton>
+        <ToggleButton DataContext="{Binding FolderView.FolderItemsView}"
+                        Command="{Binding ToggleIsIconVisibleCommand}"
+                        IsChecked="{Binding ShowIcons, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                        ToolTip="{x:Static fvloc:Strings.CMD_ToggleIsIconVisibleCommand_TT}"
+                        ToolTipService.ShowOnDisabled="True"
+                        Grid.Column="1" Margin="1" Padding="3"
+                        BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Stretch" MinHeight="16" MinWidth="16">
+          <Image Source="{DynamicResource FLV_Image_IsIconVisible}" Width="16" Margin="1,0" />
+        </ToggleButton>
+        <ToggleButton DataContext="{Binding FolderView.FolderItemsView}"
+                        Command="{Binding ToggleIsHiddenVisibleCommand}"
+                        IsChecked="{Binding ShowHidden, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                        ToolTip="{x:Static fvloc:Strings.ToggleIsHiddenVisibleCommand_TT}"
+                        ToolTipService.ShowOnDisabled="True"
+                        Grid.Column="2" Margin="1" Padding="3"
+                        BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Stretch" MinHeight="16" MinWidth="16">
+          <Image Source="{DynamicResource FLV_Image_IsHiddenFileVisible}" Width="16" Margin="1,0" />
+        </ToggleButton>
 
-            <ToggleButton DataContext="{Binding FolderView.FolderItemsView}"
-                          Command="{Binding ToggleIsFolderVisibleCommand}"
-                          IsChecked="{Binding ShowFolders, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                          ToolTip="{x:Static fvloc:Strings.CMD_ToggleIsFolderVisibleCommand_TT}"
-                          ToolTipService.ShowOnDisabled="True"
-                          Grid.Column="4" Margin="1"
-                          BorderThickness="0" HorizontalAlignment="Left" MinHeight="16" MinWidth="16">
-                <Image Source="{DynamicResource FLV_Image_IsFoldersVisible}" Width="16" Margin="3,0" />
-              </ToggleButton>
-            <ToggleButton DataContext="{Binding FolderView.FolderItemsView}"
-                          Command="{Binding ToggleIsIconVisibleCommand}"
-                          IsChecked="{Binding ShowIcons, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                          ToolTip="{x:Static fvloc:Strings.CMD_ToggleIsIconVisibleCommand_TT}"
-                          ToolTipService.ShowOnDisabled="True"
-                          Grid.Column="5" Margin="1"
-                          BorderThickness="0" HorizontalAlignment="Left" MinHeight="16" MinWidth="16">
-                <Image Source="{DynamicResource FLV_Image_IsIconVisible}" Width="16" Margin="3,0" />
-              </ToggleButton>
-            <ToggleButton DataContext="{Binding FolderView.FolderItemsView}"
-                          Command="{Binding ToggleIsHiddenVisibleCommand}"
-                          IsChecked="{Binding ShowHidden, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                          ToolTip="{x:Static fvloc:Strings.ToggleIsHiddenVisibleCommand_TT}"
-                          ToolTipService.ShowOnDisabled="True"
-                          Grid.Column="6" Margin="1"
-                          BorderThickness="0" HorizontalAlignment="Left" MinHeight="16" MinWidth="16">
-                <Image Source="{DynamicResource FLV_Image_IsHiddenFileVisible}" Width="16" Margin="3,0" />
-              </ToggleButton>
-          </ToolBar>
-        </ToolBarTray>
+        <Separator Grid.Column="3" Margin="3"/>
 
-        <fview:FilterComboBox DataContext="{Binding FolderView.Filters}"
-                              ItemsSource="{Binding CurrentItems}"
-                              SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"
+        <fview:FilterComboBox ItemsSource="{Binding FolderView.Filters.CurrentItems}"
+                                SelectedItem="{Binding FolderView.Filters.SelectedItem, UpdateSourceTrigger=PropertyChanged}"
                               
-                              ToolTip="{Binding CurrentFilterToolTip, UpdateSourceTrigger=PropertyChanged}"
-                              ToolTipService.IsEnabled="True"
+                                ToolTip="{Binding FolderView.Filters.CurrentFilterToolTip, UpdateSourceTrigger=PropertyChanged}"
+                                ToolTipService.IsEnabled="True"
 
-                              fvbehav:SelectionChangedCommand.ChangedCommand="{Binding SelectionChanged}"
-                              VerticalAlignment="Top"
-                              HorizontalAlignment="Stretch"
-                              Grid.Column="4"
-                              Margin="3"
-                              TextSearch.TextPath="FilterText"
-                            >
+                                fvbehav:SelectionChangedCommand.ChangedCommand="{Binding FolderView.Filters.SelectionChanged}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                Grid.Column="4"
+                                Margin="1"
+                                TextSearch.TextPath="FilterText"
+                                IsEnabled="{Binding FolderView.FolderItemsView.IsFiltered}"
+                              >
           <!-- Format sample: 'All Files (*.*)' -->
           <fview:FilterComboBox.Text>
-            <Binding Path="CurrentFilter" UpdateSourceTrigger="PropertyChanged" />
+            <Binding Path="FolderView.Filters.CurrentFilter" UpdateSourceTrigger="PropertyChanged" />
           </fview:FilterComboBox.Text>
           <fview:FilterComboBox.Style>
-            <Style TargetType="{x:Type fview:FilterComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}" />
+            <Style TargetType="{x:Type fview:FilterComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+              <Setter Property="HorizontalAlignment" Value="Stretch" />
+              <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
           </fview:FilterComboBox.Style>
         </fview:FilterComboBox>
-    </Grid>
+        
+        <ToggleButton DataContext="{Binding FolderView.FolderItemsView}"
+                      Command="{Binding ToggleIsFilteredCommand}"
+                      IsChecked="{Binding IsFiltered, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                      ToolTip="{x:Static fvloc:Strings.ToggleIsFilteredCommand_TT}"
+                      ToolTipService.ShowOnDisabled="True"
+                      Grid.Column="5"
+                      Margin="1"
+                      Padding="3"
+                      HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                      BorderThickness="0" MinHeight="16" MinWidth="16">
+          <Image Source="{DynamicResource FLV_Image_IsFiltered}" Width="16" Margin="1,0" />
+        </ToggleButton>
+      </Grid>
 
       <!-- List files and folders here -->
       <ListBox DataContext="{Binding FolderView.FolderItemsView}"

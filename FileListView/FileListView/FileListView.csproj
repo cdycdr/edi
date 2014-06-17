@@ -224,9 +224,14 @@
     <Resource Include="Images\Metro\Light\MyBase.ArrowRight_32.png" />
     <Resource Include="Images\Generic\IsHiddenVisible.png" />
     <Resource Include="Images\Generic\appbar.image.macro.png" />
+    <Resource Include="Images\Generic\magnifying_glass.png" />
+    <Content Include="Images\Generic\magnifying_glass.svg" />
+    <Resource Include="Images\Metro\Light\appbar.magnify.png" />
+    <Resource Include="Images\Metro\Dark\appbar.magnify.png" />
     <Content Include="Images\Metro\SVG\appbar.arrow.up.svg" />
     <Content Include="Images\Metro\SVG\appbar.folder.svg" />
     <Content Include="Images\Metro\SVG\appbar.image.macro.svg" />
+    <Content Include="Images\Metro\SVG\appbar.magnify.svg" />
     <Content Include="Images\Metro\SVG\appbar.page.hidden.svg" />
     <Content Include="Images\Metro\SVG\appbar.refresh.svg" />
     <Content Include="Images\Metro\SVG\File.svg" />

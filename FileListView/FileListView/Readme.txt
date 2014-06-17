@@ -34,3 +34,6 @@ Change Log in comparison to initial version
 - Added Recent Folder Add/Remove commands in context menu
 
 - BugFixes in browse forward and backward history
+
+- Added ToggleIsFilteredCommand and IsFiltered property in FileListView.ViewModels.FileListViewViewModel
+

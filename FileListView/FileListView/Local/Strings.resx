@@ -211,4 +211,8 @@
   <data name="CMD_RecentFolderRemove_TT" xml:space="preserve">
     <value>Removes the selected folder from the list of recent folders.</value>
   </data>
+  <data name="ToggleIsFilteredCommand_TT" xml:space="preserve">
+    <value>Apply or remove the currently configured filter</value>
+    <comment>A tool tip string for a command that toggles between showing or hiding a filter application on files and folders.</comment>
+  </data>
 </root>

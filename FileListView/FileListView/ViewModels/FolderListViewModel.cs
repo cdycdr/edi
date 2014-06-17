@@ -190,6 +190,7 @@ namespace FileListView.ViewModels
         this.FolderItemsView.ShowIcons = settings.ShowIcons;
         this.FolderItemsView.SetIsFolderVisible(settings.ShowFolders);
         this.FolderItemsView.ShowHidden = settings.ShowHiddenFiles;
+        this.FolderItemsView.SetIsFiltered(settings.IsFiltered);
 
         if (this.FolderBrowser != null)
         {
@@ -248,6 +249,7 @@ namespace FileListView.ViewModels
         settings.ShowIcons = this.FolderItemsView.ShowIcons;
         settings.ShowFolders = this.FolderItemsView.ShowFolders;
         settings.ShowHiddenFiles = this.FolderItemsView.ShowHidden;
+        settings.IsFiltered = this.FolderItemsView.IsFiltered;
 
         if (this.FolderBrowser != null)
         {

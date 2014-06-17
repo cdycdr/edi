@@ -19,16 +19,31 @@ namespace FileSystemModels.Utils
     public static IEnumerable<FileInfo> SelectFilesByFilter(this DirectoryInfo dir,
                                                             params string[] extensions)
     {
-      if (extensions == null)
-        yield break;
-
       if (dir.Exists == false)
         yield break;
 
-      List<string> patterns = new List<string>(extensions);
-
       IEnumerable<FileSystemInfo> matches = new List<FileSystemInfo>();
+      if (extensions == null)
+      {
+        try
+        {
+          matches = dir.EnumerateFiles("*.*", SearchOption.TopDirectoryOnly);
+        }
+        catch
+        {
+          yield break;
+        }
 
+        foreach (var file in matches)
+        {
+          if (file as FileInfo != null)
+            yield return file as FileInfo;
+        }
+
+        yield break;
+      }
+
+      List<string> patterns = new List<string>(extensions);
       try
       {
         foreach (var pattern in patterns)

@@ -39,8 +39,7 @@
     /// </summary>
     bool ShowFolders
     {
-      get;
-      set;
+      get; set;
     }
 
     /// <summary>
@@ -48,9 +47,7 @@
     /// </summary>
     bool ShowHidden
     {
-      get;
-
-      set;
+      get; set;
     }
 
     /// <summary>
@@ -58,9 +55,15 @@
     /// </summary>
     bool ShowIcons
     {
-      get;
+      get; set;
+    }
 
-      set;
+    /// <summary>
+    /// Gets whether the list of folders and files is filtered or not.
+    /// </summary>
+    bool IsFiltered
+    {
+      get;
     }
 
     /// <summary>
@@ -190,7 +193,19 @@
     /// <param name="filterText"></param>
     void ApplyFilter(string filterText);
 
-    void SetIsFolderVisible(bool IsFolderVisible);
+    /// <summary>
+    /// Call this method to determine whether folders are part of the list of
+    /// files and folders or not (list only files without folders).
+    /// </summary>
+    /// <param name="isFolderVisible"></param>
+    void SetIsFolderVisible(bool isFolderVisible);
+
+    /// <summary>
+    /// Call this method to determine whether folders are part of the list of
+    /// files and folders or not (list only files without folders).
+    /// </summary>
+    /// <param name="isFiltered"></param>
+    void SetIsFiltered(bool isFolderVisible);
     #endregion methods
   }
 }

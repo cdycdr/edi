@@ -31,6 +31,7 @@ namespace FileListView.ViewModels
     private bool mShowFolders = true;
     private bool mShowHidden = true;
     private bool mShowIcons = true;
+    private bool mIsFiltered = false;
 
     private IBrowseNavigation mBrowseNavigation = null;
 
@@ -42,6 +43,7 @@ namespace FileListView.ViewModels
     private RelayCommand<object> mToggleIsFolderVisibleCommand = null;
     private RelayCommand<object> mToggleIsIconVisibleCommand = null;
     private RelayCommand<object> mToggleIsHiddenVisibleCommand = null;
+    private RelayCommand<object> mToggleIsFilteredCommand = null;
 
     private RelayCommand<object> mRecentFolderRemoveCommand = null;
     private RelayCommand<object> mRecentFolderAddCommand = null;
@@ -144,6 +146,26 @@ namespace FileListView.ViewModels
         {
           this.mShowIcons = value;
           this.NotifyPropertyChanged(() => this.ShowIcons);
+        }
+      }
+    }
+
+    /// <summary>
+    /// Gets whether the list of folders and files is filtered or not.
+    /// </summary>
+    public bool IsFiltered
+    {
+      get
+      {
+        return this.mIsFiltered;
+      }
+
+      private set
+      {
+        if (this.mIsFiltered != value)
+        {
+          this.mIsFiltered = value;
+          this.NotifyPropertyChanged(() => this.IsFiltered);
         }
       }
     }
@@ -458,6 +480,21 @@ namespace FileListView.ViewModels
         return this.mCopyPathCommand;
       }
     }
+
+    public ICommand ToggleIsFilteredCommand
+    {
+      get
+      {
+        if (this.mToggleIsFilteredCommand == null)
+          this.mToggleIsFilteredCommand = new RelayCommand<object>(
+            (p) =>
+            {
+              this.SetIsFiltered(!this.IsFiltered);
+            });
+
+        return this.mToggleIsFilteredCommand;
+      }
+    }
     #endregion commands
     #endregion properties
 
@@ -506,9 +543,25 @@ namespace FileListView.ViewModels
       }
     }
 
-    public void SetIsFolderVisible(bool IsFolderVisible)
+    /// <summary>
+    /// Call this method to determine whether folders are part of the list of
+    /// files and folders or not (list only files without folders).
+    /// </summary>
+    /// <param name="isFolderVisible"></param>
+    public void SetIsFolderVisible(bool isFolderVisible)
     {
-      this.ShowFolders = IsFolderVisible;
+      this.ShowFolders = isFolderVisible;
+      this.PopulateView();
+    }
+
+    /// <summary>
+    /// Call this method to determine whether folders are part of the list of
+    /// files and folders or not (list only files without folders).
+    /// </summary>
+    /// <param name="isFiltered"></param>
+    public void SetIsFiltered(bool isFiltered)
+    {
+      this.IsFiltered = isFiltered;
       this.PopulateView();
     }
 
@@ -654,10 +707,9 @@ namespace FileListView.ViewModels
         {
           string[] directoryFilter = null;
 
-          if (filterString != null)
-            directoryFilter = new ArrayList(filterString).ToArray() as string[];
-
-          directoryFilter = new string[]{ "bin", "obj" };
+          //// if (filterString != null)
+          ////  directoryFilter = new ArrayList(filterString).ToArray() as string[];
+          directoryFilter = null;
 
           foreach (DirectoryInfo dir in cur.SelectDirectoriesByFilter(directoryFilter))
           {
@@ -679,6 +731,9 @@ namespace FileListView.ViewModels
             this.CurrentItems.Add(info);
           }
         }
+
+        if (this.IsFiltered == false) // Do not apply the filter if it is not enabled
+          filterString = null;
 
         // Retrieve and add (filtered) list of files in current directory
         foreach (FileInfo f in cur.SelectFilesByFilter(filterString))

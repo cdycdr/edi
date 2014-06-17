@@ -110,6 +110,9 @@
     [XmlAttribute(AttributeName = "ShowHiddenFiles")]
     public bool ShowHiddenFiles { get; set; }
 
+    [XmlAttribute(AttributeName = "IsFiltered")]
+    public bool IsFiltered { get; set; }
+
     [XmlIgnore]
     public IEnumerable<CustomFolderItemModel> SpecialFolders
     {
@@ -130,6 +133,10 @@
     /// </summary>
     private void CreateDefaultSettings()
     {
+      this.ShowFolders = this.ShowHiddenFiles = this.ShowIcons = true;
+      this.IsFiltered = false;
+      this.UserProfile.CurrentFilter = new FilterItemModel( "Text files", "*.txt");
+
       this.AddRecentFolder(@"C:\temp\");
       this.AddRecentFolder(@"C:\windows\");
 
@@ -161,7 +168,7 @@
       this.AddFilter("SQL", "*.sql");
       this.AddFilter("Squirrel", "*.nut");
       this.AddFilter("Tex", "*.tex");
-      this.AddFilter("TXT", "*.txt");
+      this.AddFilter("Text files", "*.txt");
       this.AddFilter("VBNET", "*.vb");
       this.AddFilter("VTL", "*.vtl;*.vm");
       this.AddFilter("All Files", "*.*");
@@ -297,6 +304,9 @@
         return false;
 
       if (input.ShowHiddenFiles != settings.ShowHiddenFiles)
+        return false;
+
+      if (input.IsFiltered != settings.IsFiltered)
         return false;
 
       return true; // settings are the same
