@@ -308,7 +308,7 @@
     <value>Properties Tool Window</value>
   </data>
   <data name="STR_CmdName_FileExplorer_TW" xml:space="preserve">
-    <value>File Explorer Tool Window</value>
+    <value>Explorer Tool Window</value>
   </data>
   <data name="STR_CmdName_RecentFiles_TW" xml:space="preserve">
     <value>Recent Files Tool Window</value>
@@ -442,6 +442,12 @@ and a statement about the function/workflow you were using. Attach screenshots o
   </data>
   <data name="STR_AppCommand_OpenContainingFolder_TT" xml:space="preserve">
     <value>Open the folder that contains this document in Windows Explorer</value>
+  </data>
+  <data name="STR_AppCommand_SyncPathToExplorerCommand" xml:space="preserve">
+    <value>Set path in Explorer tool window</value>
+  </data>
+  <data name="STR_AppCommand_SyncPathToExplorerCommand_TT" xml:space="preserve">
+    <value>Display document in Explorer tool window</value>
   </data>
   <data name="STR_MSG_ErrorLoadingPlugin" xml:space="preserve">
     <value>An error occurred while initializing a plugin found in assembly '{0}'.</value>

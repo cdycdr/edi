@@ -2,7 +2,7 @@ namespace Edi.ViewModel
 {
   using System.IO;
   using System.Windows.Input;
-  using EdiViews.Documents.StartPage;
+  using EdiViews.ViewModel.Documents.StartPage;
   using EdiViews.Tools.FileExplorer;
   using EdiViews.Tools.FileStats;
   using EdiViews.Tools.Log4Net;

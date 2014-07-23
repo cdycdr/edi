@@ -380,17 +380,11 @@ namespace EdiViews.ViewModel.Documents
       get
       {
         if (_closeCommand == null)
-        {
-          _closeCommand = new RelayCommand<object>((p) => this.OnClose(), (p) => this.CanClose());
-        }
+          _closeCommand = new RelayCommand<object>((p) => this.OnClose(),
+                                                   (p) => this.CanClose());
 
         return _closeCommand;
       }
-    }
-
-    override public bool CanClose()
-    {
-      return true;
     }
     #endregion
     #endregion properties

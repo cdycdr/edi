@@ -167,16 +167,12 @@ namespace EdiViews.Documents.Log4Net
       {
         if (_closeCommand == null)
         {
-          _closeCommand = new RelayCommand<object>((p) => OnClose(), (p) => CanClose());
+          _closeCommand = new RelayCommand<object>((p) => this.OnClose(),
+                                                   (p) => base.CanClose());
         }
 
         return _closeCommand;
       }
-    }
-
-    override public bool CanClose()
-    {
-      return true;
     }
     #endregion
     #endregion DocumentCommands

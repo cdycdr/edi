@@ -18,7 +18,7 @@
       {
         App.CreateAppDataFolder();
 
-        // Save current file explorer settings and user profile data
+        // Save current explorer settings and user profile data
         FileExplorerViewModel.SaveSettings(SettingsManager.Instance, This.FileExplorer);
 
         // Save program options only if there are un-saved changes that need persistence

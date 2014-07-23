@@ -20,7 +20,7 @@
         xmlns:AVBehav="clr-namespace:Edi.View.Behavior"
         xmlns:EdiViewsConv="clr-namespace:EdiViews.Converter;assembly=EdiViews"
              
-        xmlns:EdiViewsStartP="clr-namespace:EdiViews.StartPage;assembly=EdiViews"
+        xmlns:EdiViewsStartP="clr-namespace:EdiViews.ViewModel.Documents.StartPage;assembly=EdiViews"
         xmlns:EdiViewsRecent="clr-namespace:EdiViews.Tools.RecentFiles;assembly=EdiViews"
         xmlns:EdiViewsLog4Net="clr-namespace:EdiViews.Tools.Log4Net;assembly=EdiViews"
         xmlns:EdiViewsFileStats="clr-namespace:EdiViews.Tools.FileStats;assembly=EdiViews"
@@ -92,39 +92,46 @@
         </avalonDock:DockingManager.DocumentHeaderTemplate>
         <avalonDock:DockingManager.DocumentContextMenu>
           <ContextMenu>
-            <MenuItem Header="{x:Static cmdLabel:Strings.STR_AppCommand_OpenContainingFolder}" 
-                    Command="{Binding Model.OpenContainingFolderCommand}"
-                    ToolTipService.ShowOnDisabled="True"
-                    ToolTip="{x:Static cmdLabel:Strings.STR_AppCommand_OpenContainingFolder_TT}"
-                    />
+            <MenuItem Header="{x:Static cmdLabel:Strings.STR_AppCommand_SyncPathToExplorerCommand}" 
+                      Command="{Binding Model.SyncPathToExplorerCommand}"
+                      ToolTipService.ShowOnDisabled="True"
+                      ToolTip="{x:Static cmdLabel:Strings.STR_AppCommand_SyncPathToExplorerCommand_TT}"
+                      />
 
-            <MenuItem Header="{x:Static cmdLabel:Strings.STR_AppCommand_CopyFileURLToClipboard}" 
-                    Command="{Binding Model.CopyFullPathtoClipboard}"
-                    ToolTipService.ShowOnDisabled="True"
-                    ToolTip="{x:Static cmdLabel:Strings.STR_AppCommand_CopyFileURLToClipboard_TT}"
-                    />
+            <MenuItem Header="{x:Static cmdLabel:Strings.STR_AppCommand_OpenContainingFolder}" 
+                      Command="{Binding Model.OpenContainingFolderCommand}"
+                      ToolTipService.ShowOnDisabled="True"
+                      ToolTip="{x:Static cmdLabel:Strings.STR_AppCommand_OpenContainingFolder_TT}"
+                      />
+
+              <MenuItem Header="{x:Static cmdLabel:Strings.STR_AppCommand_CopyFileURLToClipboard}" 
+                        Command="{Binding Model.CopyFullPathtoClipboard}"
+                        ToolTipService.ShowOnDisabled="True"
+                        ToolTip="{x:Static cmdLabel:Strings.STR_AppCommand_CopyFileURLToClipboard_TT}"
+                      />
+
             <Separator/>
 
             <MenuItem Header="{x:Static avalonDockProperties:Resources.Document_Close}" 
-                    Command="{Binding Path=CloseCommand}"
-                    Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                      Command="{Binding Path=CloseCommand}"
+                      Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
                     />
 
             <MenuItem Header="{x:Static avalonDockProperties:Resources.Document_CloseAllButThis}" 
-                    Command="{Binding Path=CloseAllButThisCommand}"
+                      Command="{Binding Path=CloseAllButThisCommand}"
                     />
 
             <MenuItem Header="{x:Static avalonDockProperties:Resources.Document_Float}" 
-                    Command="{Binding Path=FloatCommand}"
+                      Command="{Binding Path=FloatCommand}"
                     />
 
             <MenuItem Header="{x:Static avalonDockProperties:Resources.Document_DockAsDocument}" 
-                    Command="{Binding Path=DockAsDocumentCommand}"
+                      Command="{Binding Path=DockAsDocumentCommand}"
                     />
 
             <MenuItem Header="{x:Static avalonDockProperties:Resources.Document_NewHorizontalTabGroup}" 
-                    Command="{Binding Path=NewHorizontalTabGroupCommand}"
-                    Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                      Command="{Binding Path=NewHorizontalTabGroupCommand}"
+                      Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
                     >
               <!-- MenuItem.Icon>
               <Image Source="/Xceed.Wpf.AvalonDock.Themes.Aero;component/Images/HTabGroup.png" Stretch="Uniform" Width="14"/>

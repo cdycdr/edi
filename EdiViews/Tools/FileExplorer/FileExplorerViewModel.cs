@@ -35,7 +35,7 @@ namespace EdiViews.Tools.FileExplorer
     /// Class constructor
     /// </summary>
     public FileExplorerViewModel(Func<string, bool> fileOpenMethod = null)
-      : base("File Explorer")
+      : base("Explorer")
     {
       base.ContentId = ToolContentId;
 
@@ -73,6 +73,9 @@ namespace EdiViews.Tools.FileExplorer
     /// </summary>
     public IFolderListViewModel FolderView { get; set; }
 
+    /// <summary>
+    /// Gets an interface instance used for setting/getting settings of the Explorer (TW).
+    /// </summary>
     public IConfigExplorerSettings Settings
     {
       get
@@ -198,6 +201,7 @@ namespace EdiViews.Tools.FileExplorer
 
       settings.UserProfile = settingsManager.SessionData.LastActiveExplorer;
 
+      // (re-)configure previous explorer settings and (re-)activate current location
       vm.Settings.ConfigureExplorerSettings(settings);
     }
 
@@ -239,19 +243,17 @@ namespace EdiViews.Tools.FileExplorer
       else
         MessageBox.Show("File Open (method is to null):" + e.FileName);
     }
-    
-    private void SyncPathWithCurrentDocumentCommand_Executed()
-    {
-      if (string.IsNullOrEmpty(this.mFilePathName) == true)
-        return;
 
-      string directoryPath = string.Empty;
+    /// <summary>
+    /// Navigates to viewmodel to the <paramref name="directoryPath"/> folder.
+    /// </summary>
+    /// <param name="directoryPath"></param>
+    public void NavigateToFolder(string directoryPath)
+    {
       try
       {
-        if (System.IO.Directory.Exists(this.mFilePathName) == true)
-          directoryPath = this.mFilePathName;
-        else
-          directoryPath = System.IO.Directory.GetParent(this.mFilePathName).FullName;
+        if (System.IO.Directory.Exists(directoryPath) == false)
+          directoryPath = System.IO.Directory.GetParent(directoryPath).FullName;
 
         if (System.IO.Directory.Exists(directoryPath) == false)
           return;
@@ -261,6 +263,14 @@ namespace EdiViews.Tools.FileExplorer
       }
 
       this.FolderView.NavigateToFolder(directoryPath);
+    }
+    
+    private void SyncPathWithCurrentDocumentCommand_Executed()
+    {
+      if (string.IsNullOrEmpty(this.mFilePathName) == true)
+        return;
+
+      NavigateToFolder(this.mFilePathName);
     }
     #endregion methods
   }

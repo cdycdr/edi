@@ -47,6 +47,8 @@
 
     <ResourceDictionary Source="/Themes;component/MetroDark/EdiControls/DocumentViewer.xaml" />
 
+    <ResourceDictionary Source="/Themes;component/FileListView/Combobox.xaml" />
+
     <!-- Use dark brush definitions -->
     <ResourceDictionary Source="/MsgBox;component/Themes/DarkBrushes.xaml" />
     <ResourceDictionary Source="/MsgBox;component/Themes/DarkIcons.xaml" />

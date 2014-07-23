@@ -1,4 +1,4 @@
-﻿namespace Themes
+namespace Themes
 {
   using System.Collections.Generic;
   using System.Collections.ObjectModel;
@@ -49,6 +49,8 @@
       "/FirstFloor.ModernUI;component/Assets/ToolTip.xaml",
       "/FirstFloor.ModernUI;component/Assets/TreeView.xaml",
 
+      "/DropDownButtonLib;component/Themes/MetroDark.xaml",  // DropDownButtonLib theming
+
       "/Themes;component/MetroDark/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Expression;component/DarkTheme.xaml",
       "/Edi;component/Themes/MetroDark.xaml",
@@ -80,7 +82,7 @@
       "/FirstFloor.ModernUI;component/Assets/Calendar.xaml",
       "/FirstFloor.ModernUI;component/Assets/CheckBox.xaml",
       "/FirstFloor.ModernUI;component/Assets/ComboBox.xaml",
-      // "/FirstFloor.ModernUI;component/Assets/ContextMenu.xaml",
+      //// "/FirstFloor.ModernUI;component/Assets/ContextMenu.xaml",
       "/FirstFloor.ModernUI;component/Assets/DataGrid.xaml",
       "/FirstFloor.ModernUI;component/Assets/DatePicker.xaml",
       "/FirstFloor.ModernUI;component/Assets/GridSplitter.xaml",
@@ -98,6 +100,8 @@
       "/FirstFloor.ModernUI;component/Assets/TextBox.xaml",
       "/FirstFloor.ModernUI;component/Assets/ToolTip.xaml",
       "/FirstFloor.ModernUI;component/Assets/TreeView.xaml",
+
+      "/DropDownButtonLib;component/Themes/MetroLight.xaml",  // DropDownButtonLib theming
 
       "/Themes;component/MetroLight/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml",

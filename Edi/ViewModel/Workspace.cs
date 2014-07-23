@@ -14,13 +14,14 @@ namespace Edi.ViewModel
   using EdiViews.Dialogs.About;
   using EdiViews.Dialogs.Config.ViewModel;
   using EdiViews.Documents.Log4Net;
-  using EdiViews.Documents.StartPage;
+  using EdiViews.ViewModel.Documents.StartPage;
   using EdiViews.Process;
   using EdiViews.Tools.FileExplorer;
   using EdiViews.Tools.FileStats;
   using EdiViews.Tools.Log4Net;
   using EdiViews.Tools.RecentFiles;
   using EdiViews.ViewModel.Base;
+  using EdiViews.ViewModel.Base.Events;
   using EdiViews.ViewModel.Documents;
   using Microsoft.Win32;
   using MiniUML.Model.ViewModels.Document;
@@ -303,7 +304,7 @@ namespace Edi.ViewModel
     }
 
     /// <summary>
-    /// Gets the File Explorer ToolWindow ViewModel.
+    /// Gets the Explorer ToolWindow ViewModel.
     /// based on the <seealso cref="FileExplorerViewModel"/>.
     /// </summary>
     public FileExplorerViewModel FileExplorer
@@ -440,7 +441,7 @@ namespace Edi.ViewModel
         return null;
       }
 
-      fileViewModel.CloseDocument += new EventHandler(this.ProcessCloseDocumentEvent);
+      fileViewModel.DocumentEvent += this.ProcessDocumentEvent;
       this.mFiles.Add(fileViewModel);
 
       // reset viewmodel options in accordance to current program settings
@@ -475,7 +476,7 @@ namespace Edi.ViewModel
             vm.InitInstance(Settings.SettingsManager.Instance.SettingData);
 
             vm.IncreaseNewCounter();
-            vm.CloseDocument += new EventHandler(this.ProcessCloseDocumentEvent);
+            vm.DocumentEvent += this.ProcessDocumentEvent;
             vm.ProcessingResultEvent += vm_ProcessingResultEvent;
             vm.CreateNewDocument();
 
@@ -488,7 +489,7 @@ namespace Edi.ViewModel
           {
             var vm = new MiniUmlViewModel();
 
-            vm.CloseDocument += new EventHandler(this.ProcessCloseDocumentEvent);
+            vm.DocumentEvent += this.ProcessDocumentEvent;
             this.mFiles.Add(vm);
             this.SetActiveFileBaseDocument(vm);
           }
@@ -985,6 +986,8 @@ namespace Edi.ViewModel
           if (this.OnCloseSaveDirtyFile(doc) == false)
             return false;
 
+          doc.DocumentEvent -= this.ProcessDocumentEvent;
+
           int idx = this.mFiles.IndexOf(doc);
 
           this.mFiles.Remove(doc);
@@ -1177,7 +1180,7 @@ namespace Edi.ViewModel
         {
           var s = new StartPageViewModel(SettingsManager.Instance.SessionData.MruList);
 
-          s.CloseDocument += new EventHandler(ProcessCloseDocumentEvent);
+          s.DocumentEvent += ProcessDocumentEvent;
 
           this.mFiles.Add(s);
 
@@ -1193,26 +1196,38 @@ namespace Edi.ViewModel
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ProcessCloseDocumentEvent(object sender, EventArgs e)
+    private void ProcessDocumentEvent(object sender, FileBaseEvent e)
     {
       var f = sender as FileBaseViewModel;
 
-      if (f != null)
-        this.CloseDocument(f);
+      switch (e.TypeOfEvent)
+      {
+        case FileEventType.Unknown:
+          break;
+
+        case FileEventType.CloseDocument:
+          if (f != null)
+            this.CloseDocument(f);
+          break;
+
+        case FileEventType.AdjustCurrentPath:
+          if (f != null)
+            this.FileExplorer.NavigateToFolder(f.GetAlternativePath());
+          break;
+
+        default:
+          break;
+      }
     }
 
     private void CloseDocument(FileBaseViewModel f)
     {
       if (f != null)
       {
-        f.CloseDocument -= this.ProcessCloseDocumentEvent;
-
         // Detach EdiViewModel specific events
         var eVM = f as EdiViewModel;
         if (eVM != null)
-        {
           eVM.ProcessingResultEvent -= vm_ProcessingResultEvent;
-        }
 
         this.Close(f);
       }

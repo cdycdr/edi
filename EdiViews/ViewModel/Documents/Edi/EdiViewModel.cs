@@ -28,16 +28,20 @@ namespace EdiViews.ViewModel.Documents
   public enum DocumentState
   {
     /// <summary>
+    /// Identifies a state that was probably not fully initialized.
+    /// Getting of state can indicate a defect in the software.
+    /// </summary>
+    IsInvalid = -1,
+
+    /// <summary>
     /// Document is loading and cannot be view, yet
     /// </summary>
-    IsLoading,
+    IsLoading = 0,
 
     /// <summary>
     /// Document is loaded and can either be viewed (readonly) or edited
     /// </summary>
-    IsEditing,
-
-    IsInvalid
+    IsEditing = 1
   }
 
   /// <summary>
@@ -119,6 +123,9 @@ namespace EdiViews.ViewModel.Documents
     }
     #endregion constructor
 
+    /// <summary>
+    /// Supports asynchrone processing by implementing a result event when processing is done.
+    /// </summary>
     public event EventHandler<ProcessResultEvent> ProcessingResultEvent;
 
     #region properties
@@ -664,7 +671,8 @@ namespace EdiViews.ViewModel.Documents
       {
         if (mCloseCommand == null)
         {
-          mCloseCommand = new RelayCommand<object>((p) => this.OnClose(), (p) => this.CanClose());
+          mCloseCommand = new RelayCommand<object>((p) => this.OnClose(),
+                                                   (p) => this.CanClose());
         }
 
         return mCloseCommand;
@@ -675,12 +683,12 @@ namespace EdiViews.ViewModel.Documents
     /// Determine whether document can be closed or not.
     /// </summary>
     /// <returns></returns>
-    override public bool CanClose()
+    public new bool CanClose()
     {
       if (this.State == DocumentState.IsLoading)
         return false;
 
-      return true;
+      return base.CanClose();
     }
     #endregion
 

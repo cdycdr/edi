@@ -5,7 +5,7 @@
 
   using Edi.ViewModel;
   using EdiViews.Documents.Log4Net;
-  using EdiViews.Documents.StartPage;
+  using EdiViews.ViewModel.Documents.StartPage;
   using EdiViews.ViewModel.Base;
   using EdiViews.ViewModel.Documents;
 

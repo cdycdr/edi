@@ -1,4 +1,6 @@
 @ECHO OFF
+pushd "%~dp0"
+ECHO.
 ECHO.
 ECHO.
 ECHO This script deletes all temporary build files in their

@@ -1,4 +1,4 @@
-namespace EdiViews.Documents.StartPage
+namespace EdiViews.ViewModel.Documents.StartPage
 {
   using System;
   using System.Windows.Input;
@@ -46,15 +46,11 @@ namespace EdiViews.Documents.StartPage
       get
       {
         if (_closeCommand == null)
-          _closeCommand = new RelayCommand<object>((p) => this.OnClose(), (p) => this.CanClose());
+          _closeCommand = new RelayCommand<object>((p) => this.OnClose(),
+                                                   (p) => this.CanClose());
 
         return _closeCommand;
       }
-    }
-
-    override public bool CanClose()
-    {
-      return true;
     }
     #endregion
 
@@ -82,7 +78,7 @@ namespace EdiViews.Documents.StartPage
       try
       {
         // combine the arguments together it doesn't matter if there is a space after ','
-        string argument = @"/select, " + this.GetEntryAssemblyPath();
+        string argument = @"/select, " + this.GetAlternativePath();
 
         System.Diagnostics.Process.Start("explorer.exe", argument);
       }
@@ -117,7 +113,7 @@ namespace EdiViews.Documents.StartPage
     {
       try
       {
-        System.Windows.Clipboard.SetText(this.GetEntryAssemblyPath());
+        System.Windows.Clipboard.SetText(this.GetAlternativePath());
       }
       catch
       {
@@ -191,6 +187,16 @@ namespace EdiViews.Documents.StartPage
     #endregion properties
 
     #region methods
+    /// <summary>
+    /// Get a path that does not represent this document that indicates
+    /// a useful alternative representation (eg: StartPage -> Assembly Path).
+    /// </summary>
+    /// <returns></returns>
+    public new string GetAlternativePath()
+    {
+      return Assembly.GetEntryAssembly().Location;
+    }
+
     override public bool CanSave() { return false; }
 
     override public bool CanSaveAs() { return false; }
@@ -203,11 +209,6 @@ namespace EdiViews.Documents.StartPage
     override public string GetFilePath()
     {
       throw new NotSupportedException("Start Page does not have a valid file path.");
-    }
-
-    private string GetEntryAssemblyPath()
-    {
-      return Assembly.GetEntryAssembly().Location;
     }
     #endregion methods
   }

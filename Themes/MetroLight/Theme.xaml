@@ -30,6 +30,7 @@
     <ResourceDictionary Source="/Themes;component/MetroLight/UnitCombobox.xaml" />
 
     <ResourceDictionary Source="/MiniUML.View;component/SharedResources.xaml"/>
+    <ResourceDictionary Source="/Themes;component/FileListView/Combobox.xaml" />
 
     <!-- MsgBox brush definitions -->
     <ResourceDictionary Source="/MsgBox;component/Themes/LightBrushes.xaml" />

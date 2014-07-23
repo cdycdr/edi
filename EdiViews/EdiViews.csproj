@@ -55,8 +55,24 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DropDownButtonLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\02_Libs\00_bin\DropDownButtonLib.dll</HintPath>
+    </Reference>
+    <Reference Include="FileListView">
+      <HintPath>..\02_Libs\00_bin\MsgBox\FileListView.dll</HintPath>
+    </Reference>
+    <Reference Include="FileSystemModels">
+      <HintPath>..\02_Libs\00_bin\MsgBox\FileSystemModels.dll</HintPath>
+    </Reference>
     <Reference Include="FirstFloor.ModernUI">
       <HintPath>..\02_Libs\00_bin\Mui\FirstFloor.ModernUI.dll</HintPath>
+    </Reference>
+    <Reference Include="FolderBrowser">
+      <HintPath>..\02_Libs\00_bin\MsgBox\FolderBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="InplaceEditBoxLib">
+      <HintPath>..\02_Libs\00_bin\MsgBox\InplaceEditBoxLib.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\02_Libs\00_bin\log4net.dll</HintPath>
@@ -86,6 +102,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnitComboLib">
       <HintPath>..\02_Libs\00_bin\UnitComboLib\UnitComboLib.dll</HintPath>
+    </Reference>
+    <Reference Include="UserNotification">
+      <HintPath>..\02_Libs\00_bin\MsgBox\UserNotification.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="YalvLib">
@@ -166,6 +185,7 @@
     <Compile Include="Process\ProcessResultEvent.cs" />
     <Compile Include="Process\FileLoader.cs" />
     <Compile Include="Process\ResultEvent.cs" />
+    <Compile Include="ViewModel\Base\Events\FileBaseEvent.cs" />
     <Compile Include="ViewModel\Documents\Edi\EdiViewModel.cs" />
     <Compile Include="ViewModel\Documents\Edi\HtmlWriter.cs" />
     <Compile Include="ViewModel\Documents\Log4Net\Log4NetViewModel.cs" />
@@ -175,7 +195,7 @@
       <DependentUpon>RecentFilesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\RecentFiles\RecentFilesViewModel.cs" />
-    <Compile Include="StartPage\StartPageView.xaml.cs">
+    <Compile Include="ViewModel\Documents\StartPage\StartPageView.xaml.cs">
       <DependentUpon>StartPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Documents\MiniUml\MiniUmlViewModel.cs" />
@@ -189,18 +209,6 @@
     <Compile Include="ViewSelector.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FileListView\FileListView\FileListView.csproj">
-      <Project>{735cf8ec-a4ef-49a2-bc72-ec360a0185a4}</Project>
-      <Name>FileListView</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FileListView\FileSystemModels\FileSystemModels.csproj">
-      <Project>{c3eb23fd-78e7-4298-922c-48c254551cc9}</Project>
-      <Name>FileSystemModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FileListView\FolderBrowser\FolderBrowser\FolderBrowser.csproj">
-      <Project>{0b8c3b19-940d-408d-9f6b-4afee7246642}</Project>
-      <Name>FolderBrowser</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
       <Project>{6c55b776-26d4-4db3-a6ab-87e783b2f3d1}</Project>
       <Name>ICSharpCode.AvalonEdit</Name>
@@ -295,7 +303,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="StartPage\StartPageView.xaml">
+    <Page Include="ViewModel\Documents\StartPage\StartPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -316,8 +324,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>Copy /Y "$(TargetPath)" "$(SolutionDir)Edi\MiniUML.Plugins"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

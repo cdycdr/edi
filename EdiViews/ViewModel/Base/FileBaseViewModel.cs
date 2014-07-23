@@ -6,6 +6,7 @@ namespace EdiViews.ViewModel.Base
   using System.Globalization;
   using System.Windows;
   using System.Windows.Input;
+  using EdiViews.ViewModel.Base.Events;
 
   /// <summary>
   /// Base class that shares common properties, methods, and intefaces
@@ -16,6 +17,10 @@ namespace EdiViews.ViewModel.Base
   {
     #region Fields
     private bool mIsFilePathReal = false;
+    
+    private RelayCommand<object> _openContainingFolderCommand = null;
+    private RelayCommand<object> _copyFullPathtoClipboard = null;
+    private RelayCommand<object> _syncPathToExplorerCommand = null;
     #endregion Fields
 
     #region events
@@ -23,7 +28,7 @@ namespace EdiViews.ViewModel.Base
     /// This event is fired when a document tells the framework that is wants to be closed.
     /// The framework can then close it and clean-up whatever is left to clean-up.
     /// </summary>
-    virtual public event EventHandler CloseDocument;
+    virtual public event EventHandler<FileBaseEvent> DocumentEvent;
     #endregion events
 
     #region properties
@@ -80,7 +85,7 @@ namespace EdiViews.ViewModel.Base
     abstract public bool CanSaveData{ get; }
     #endregion CanSaveData
 
-    #region CloseCommand
+    #region Commands
     /// <summary>
     /// This command cloases a single file. The binding for this is in the AvalonDock LayoutPanel Style.
     /// </summary>
@@ -88,10 +93,6 @@ namespace EdiViews.ViewModel.Base
     {
       get;
     }
-    #endregion
-
-    #region OpenContainingFolder
-    private RelayCommand<object> _openContainingFolderCommand = null;
 
     /// <summary>
     /// Get open containing folder command which will open
@@ -109,6 +110,128 @@ namespace EdiViews.ViewModel.Base
       }
     }
 
+
+    /// <summary>
+    /// Get CopyFullPathtoClipboard command which will copy
+    /// the path of the executable into the windows clipboard.
+    /// </summary>
+    public ICommand CopyFullPathtoClipboard
+    {
+      get
+      {
+        if (_copyFullPathtoClipboard == null)
+          _copyFullPathtoClipboard = new SimpleControls.Command.RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand());
+
+        return _copyFullPathtoClipboard;
+      }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public ICommand SyncPathToExplorerCommand
+    {
+      get
+      {
+        if (this._syncPathToExplorerCommand == null)
+          this._syncPathToExplorerCommand = new SimpleControls.Command.RelayCommand<object>(
+                                                  (p) => this.OnSyncPathToExplorerCommand());
+
+        return this._syncPathToExplorerCommand;
+      }
+    }
+    #endregion commands
+  	#endregion properties
+
+    #region methods
+    #region abstract methods
+    /// <summary>
+    /// Indicate whether document can be saved in the currennt state.
+    /// </summary>
+    /// <returns></returns>
+    abstract public bool CanSave();
+
+    /// <summary>
+    /// Indicate whether document can be saved as.
+    /// </summary>
+    /// <returns></returns>
+    abstract public bool CanSaveAs();
+
+    /// <summary>
+    /// Save this document as.
+    /// </summary>
+    /// <returns></returns>
+    abstract public bool SaveFile(string filePath);
+
+    /// <summary>
+    /// Return the path of the file representation (if any).
+    /// </summary>
+    /// <returns></returns>
+    abstract public string GetFilePath();
+    #endregion abstract methods
+
+    /// <summary>
+    /// Search for most inner exceptions and return it to caller.
+    /// </summary>
+    /// <param name="exp"></param>
+    /// <param name="caption"></param>
+    /// <returns></returns>
+    public Exception GetInnerMostException(Exception exp)
+    {
+      if (exp != null)
+      {
+        while (exp.InnerException != null)
+          exp = exp.InnerException;
+      }
+
+      if (exp != null)
+        return exp;
+
+      return null;
+    }
+
+    /// <summary>
+    /// Get a path that does not represent this document that indicates
+    /// a useful alternative representation (eg: StartPage -> Assembly Path).
+    /// </summary>
+    /// <returns></returns>
+    public string GetAlternativePath()
+    {
+      return this.FilePath;
+    }
+
+    /// <summary>
+    /// This method is executed to tell the surrounding framework to close the document.
+    /// </summary>
+    protected virtual void OnClose()
+    {
+      if (this.DocumentEvent != null)
+        this.DocumentEvent(this, new FileBaseEvent(FileEventType.CloseDocument));
+    }
+
+    /// <summary>
+    /// Indicate whether document can be closed or not.
+    /// </summary>
+    /// <returns></returns>
+    public virtual bool CanClose()
+    {
+      return (this.DocumentEvent != null);
+    }
+    
+    private void OnCopyFullPathtoClipboardCommand()
+    {
+      try
+      {
+        System.Windows.Clipboard.SetText(this.FilePath);
+      }
+      catch
+      {
+      }
+    }
+
+    /// <summary>
+    /// Opens the folder in which this document is stored in the Windows Explorer.
+    /// </summary>
     private void OnOpenContainingFolderCommand()
     {
       try
@@ -143,97 +266,21 @@ namespace EdiViews.ViewModel.Base
                         MsgBoxButtons.OK, MsgBoxImage.Error);
       }
     }
-    #endregion OpenContainingFolder
-
-    #region CopyFullPathtoClipboard
-    private RelayCommand<object> _copyFullPathtoClipboard = null;
 
     /// <summary>
-    /// Get CopyFullPathtoClipboard command which will copy
-    /// the path of the executable into the windows clipboard.
+    /// Synchronizes the path of the Explorer Tool Window with
+    /// the path of this document.
     /// </summary>
-    public ICommand CopyFullPathtoClipboard
-    {
-      get
-      {
-        if (_copyFullPathtoClipboard == null)
-          _copyFullPathtoClipboard = new SimpleControls.Command.RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand());
-
-        return _copyFullPathtoClipboard;
-      }
-    }
-
-    private void OnCopyFullPathtoClipboardCommand()
+    private void OnSyncPathToExplorerCommand()
     {
       try
       {
-        System.Windows.Clipboard.SetText(this.FilePath);
+        if (this.DocumentEvent != null)
+          this.DocumentEvent(this, new FileBaseEvent(FileEventType.AdjustCurrentPath));
       }
       catch
       {
       }
-    }
-    #endregion CopyFullPathtoClipboard
-    #endregion properties
-
-    #region methods
-    /// <summary>
-    /// Search for most inner exceptions and return it to caller.
-    /// </summary>
-    /// <param name="exp"></param>
-    /// <param name="caption"></param>
-    /// <returns></returns>
-    public Exception GetInnerMostException(Exception exp)
-    {
-      if (exp != null)
-      {
-        while (exp.InnerException != null)
-          exp = exp.InnerException;
-      }
-
-      if (exp != null)
-        return exp;
-
-      return null;
-    }
-
-    /// <summary>
-    /// Indicate whether document can be closed.
-    /// </summary>
-    /// <returns></returns>
-    abstract public bool CanClose();
-
-    /// <summary>
-    /// Indicate whether document can be saved in the currennt state.
-    /// </summary>
-    /// <returns></returns>
-    abstract public bool CanSave();
-
-    /// <summary>
-    /// Indicate whether document can be saved as.
-    /// </summary>
-    /// <returns></returns>
-    abstract public bool CanSaveAs();
-
-    /// <summary>
-    /// Save this document as.
-    /// </summary>
-    /// <returns></returns>
-    abstract public bool SaveFile(string filePath);
-
-    /// <summary>
-    /// Return the path of the file representation (if any).
-    /// </summary>
-    /// <returns></returns>
-    abstract public string GetFilePath();
-
-    /// <summary>
-    /// This method is executed to tell the surrounding framework to close the document.
-    /// </summary>
-    protected void OnClose()
-    {
-      if (this.CloseDocument != null)
-        this.CloseDocument(this, EventArgs.Empty);
     }
     #endregion methods
   }

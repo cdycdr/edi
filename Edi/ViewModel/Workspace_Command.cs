@@ -6,7 +6,7 @@
   using System.Windows;
   using System.Windows.Input;
   using System.Windows.Threading;
-  using EdiViews.Documents.StartPage;
+  using EdiViews.ViewModel.Documents.StartPage;
   using EdiViews.ViewModel.Base;
   using EdiViews.ViewModel.Documents;
   using MiniUML.Framework;
