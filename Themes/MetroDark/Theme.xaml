@@ -1,4 +1,4 @@
-﻿<ResourceDictionary
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     
@@ -47,6 +47,7 @@
 
     <ResourceDictionary Source="/Themes;component/MetroDark/EdiControls/DocumentViewer.xaml" />
 
+    <!-- This is required to style the dropdown button and frame of the control -->
     <ResourceDictionary Source="/Themes;component/FileListView/Combobox.xaml" />
 
     <!-- Use dark brush definitions -->
