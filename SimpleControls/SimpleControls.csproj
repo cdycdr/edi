@@ -83,7 +83,6 @@
     </Compile>
     <Compile Include="Hyperlink\FileHyperlink.cs" />
     <Compile Include="Hyperlink\WebHyperlink.cs" />
-    <Compile Include="Image\ImageWithDoubleClickEvent.cs" />
     <Compile Include="Local\Strings.de-DE.Designer.cs">
       <DependentUpon>Strings.de-DE.resx</DependentUpon>
       <AutoGen>True</AutoGen>

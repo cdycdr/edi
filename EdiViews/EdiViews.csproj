@@ -93,6 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviour\DoubleClickImageToCommand.cs" />
     <Compile Include="Behaviour\DoubleClickSelectorItem.cs" />
     <Compile Include="Dialogs\About\AboutDlg.xaml.cs">
       <DependentUpon>AboutDlg.xaml</DependentUpon>
