@@ -61,12 +61,12 @@
                          ContentTemplate="{StaticResource FindPageTemplate}"
                          Visibility="{Binding AllowReplace, Converter={StaticResource boolToVis}}">
                   <StackPanel>
-                    <TextBox Text="{Binding TextToFind, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             Margin="3"
-                             Name="PART_TxtFind"
-                             AcceptsReturn="{Binding AcceptsReturn}"
-                             behav:FocusExtension.IsFocused="{Binding IsTextToFindFocused}"
-                             />
+                    <ComboBox Text="{Binding TextToFind, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEditable="True" 
+                            Margin="3"
+                            Name="PART_TxtFind"
+                            behav:FocusExtension.IsFocused="{Binding IsTextToFindFocused}"
+                            ItemsSource="{Binding FindHistory}"/>
                     <Button Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_FINDNEXT}"
                             MinHeight="27"
                             Command="{Binding FindCommand}"
@@ -78,15 +78,18 @@
                          ContentTemplate="{StaticResource FindPageTemplate}"
                          Visibility="{Binding AllowReplace, Converter={StaticResource boolToVis}}">
                   <StackPanel>
-                    <TextBox Text="{Binding TextToFind, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                           Margin="3"
-                           Name="PART_TxtFind2"
-                           AcceptsReturn="{Binding AcceptsReturn}"
-                           behav:FocusExtension.IsFocused="{Binding IsTextToFindInReplaceFocused}" />
-
+                    <ComboBox Text="{Binding TextToFind, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEditable="True" 
+                            Margin="3"
+                            Name="PART_TxtFind2"
+                            behav:FocusExtension.IsFocused="{Binding IsTextToFindInReplaceFocused}"
+                            ItemsSource="{Binding FindHistory}"/>
                     <TextBlock Margin="3" Text="{x:Static cmdLabel:Strings.STR_FINDREPLACE_ReplaceWith}" />
-                    <TextBox Text="{Binding ReplacementText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             Margin="3" Name="PART_txtReplace" AcceptsReturn="{Binding AcceptsReturn}" />
+                    <ComboBox Text="{Binding ReplacementText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEditable="True" 
+                            Margin="3"
+                            Name="PART_TxtReplace"
+                            ItemsSource="{Binding ReplaceHistory}"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                       <Button Content="{x:Static cmdLabel:Strings.STR_FINDREPLACE_FINDNEXT}"

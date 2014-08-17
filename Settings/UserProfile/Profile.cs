@@ -2,6 +2,8 @@
 {
   using System.Xml.Serialization;
   using SimpleControls.MRU.ViewModel;
+  using System.Collections.Generic;
+  using System.Collections.ObjectModel;
 
   /// <summary>
   /// This class implements the model of the user profile part
@@ -18,6 +20,9 @@
   {
     #region fields
     private MRUListVM mMruList;
+
+    private List<string> mFindHistoryList;
+    private List<string> mReplaceHistoryList;
 
     protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
     #endregion fields
@@ -76,6 +81,53 @@
         }
       }
     }
+
+    /// <summary>
+    /// List of find history
+    /// </summary>
+    /// <returns>list of string</returns>
+    public List<string> FindHistoryList
+    {
+      get 
+      {
+        if (this.mFindHistoryList == null)
+          this.mFindHistoryList = new List<string>();
+
+        return this.mFindHistoryList;
+      }
+
+      set
+      {
+        if (this.mFindHistoryList != value)
+        {
+          this.mFindHistoryList = value;
+        }
+      }
+    }
+
+    /// <summary>
+    /// List of replace history
+    /// </summary>
+    /// <returns>list of string</returns>
+    public List<string> ReplaceHistoryList
+    {
+      get
+      {
+        if (this.mReplaceHistoryList == null)
+          this.mReplaceHistoryList = new List<string>();
+
+        return this.mReplaceHistoryList;
+      }
+
+      set
+      {
+        if (this.mReplaceHistoryList != value)
+        {
+          this.mReplaceHistoryList = value;
+        }
+      }
+    }
+
     #endregion properties
 
     #region methods

@@ -95,6 +95,7 @@
                           BorderBrush="{TemplateBinding BorderBrush}"
                           BorderThickness="{TemplateBinding BorderThickness}"
                           IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                          Focusable="False"
                           Padding="0,0,0,10"/>
 
             <Path Name="Arrow"
@@ -136,7 +137,7 @@
                 <Setter TargetName="OpaqueRect" 
                         Property="Canvas.Left" 
                         Value="{Binding ElementName=DropDownScrollViewer, Path=HorizontalOffset}" />
-        </Trigger>
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 

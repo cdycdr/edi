@@ -95,6 +95,7 @@
                           BorderBrush="{TemplateBinding BorderBrush}"
                           BorderThickness="{TemplateBinding BorderThickness}"
                           IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                          Focusable="False"
                           Padding="0,0,0,10"/>
 
             <Path Name="Arrow"
@@ -104,14 +105,14 @@
                   Data="{DynamicResource DownArrowGeometry}"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Center" IsHitTestVisible="False"/>
-            <TextBox x:Name="PART_EditableTextBox"
+      <TextBox x:Name="PART_EditableTextBox"
                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                      IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
                      Margin="{TemplateBinding Padding}"
                      Padding="2,0,0,1"
                      Style="{StaticResource ComboBoxEditableTextBox}"
                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-        </Grid>
+    </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
                 <Setter TargetName="DropDownBorder" Property="Height" Value="95"/>
@@ -124,7 +125,7 @@
                 <Setter Property="BorderBrush" Value="{DynamicResource InputBorderHover}" />
             </Trigger>
             <Trigger Property="IsFocused" Value="true">
-                <Setter Property="BorderBrush" Value="{DynamicResource Accent}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Accent}" />                
             </Trigger>
             <Trigger Property="IsGrouping" Value="true">
                 <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
