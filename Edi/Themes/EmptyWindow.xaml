@@ -5,6 +5,7 @@
 
                     xmlns:syscmd="clr-namespace:Microsoft.Windows.Shell;assembly=Microsoft.Windows.Shell"
                     xmlns:local="clr-namespace:Edi"
+                    xmlns:behav="clr-namespace:EdiViews.Behaviour;assembly=EdiViews"
                     xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
                     >
   <ResourceDictionary.MergedDictionaries>
@@ -78,6 +79,8 @@
                                shell:WindowChrome.IsHitTestVisibleInChrome="True"
                                ToolTip="{Binding ApplicationTitle}"
                                Width="32" Height="32"
+                               behav:DoubleClickImageToCommand.DoubleClickItemCommand="{Binding Source={x:Static shell:SystemCommands.CloseWindowCommand}}"
+                               behav:DoubleClickImageToCommand.RightClickItemCommand="{Binding Source={x:Static shell:SystemCommands.ShowSystemMenuCommand}}"
                                />
                         <Border.Style>
                           <Style>
