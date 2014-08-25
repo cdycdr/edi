@@ -83,13 +83,13 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="TabItem">
-          <Grid x:Name="root">
+          <Border Name="root" BorderThickness="1,1,1,0" BorderBrush="Transparent" Margin="1,0">
             <!-- FontSize="16" -->
             <ContentPresenter ContentSource="Header"
                               RecognizesAccessKey="True"
                               d:LayoutOverrides="Width, Height"
                               HorizontalAlignment="Center" Margin="6,3" VerticalAlignment="Center" />
-          </Grid>
+          </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="true">
               <Setter TargetName="root" Property="Background">
