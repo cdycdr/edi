@@ -40,7 +40,7 @@
     </ControlTemplate.Triggers>
   </ControlTemplate>
 
-  <Style TargetType="{x:Type local:FilterComboBox}">
+  <Style TargetType="{x:Type local:FilterComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
     <Setter Property="SnapsToDevicePixels" Value="true"/>
     <Setter Property="OverridesDefaultStyle" Value="true"/>
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
@@ -181,7 +181,7 @@
     </Setter>
   </Style>
 
-  <Style TargetType="{x:Type local:FolderComboBox}">
+  <Style TargetType="{x:Type local:FolderComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
     <Setter Property="SnapsToDevicePixels" Value="true"/>
     <Setter Property="OverridesDefaultStyle" Value="true"/>
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>

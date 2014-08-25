@@ -29,6 +29,8 @@ namespace Themes
 
       "/FirstFloor.ModernUI;component/Assets/Calendar.xaml",
       "/FirstFloor.ModernUI;component/Assets/CheckBox.xaml",
+
+      // For some reason these are applied in the Explorer (TW) but nowhere else(?)
       "/FirstFloor.ModernUI;component/Assets/ComboBox.xaml",
       // "/FirstFloor.ModernUI;component/Assets/ContextMenu.xaml",
       "/FirstFloor.ModernUI;component/Assets/DataGrid.xaml",
@@ -51,6 +53,8 @@ namespace Themes
 
       "/DropDownButtonLib;component/Themes/MetroDark.xaml",  // DropDownButtonLib theming
 
+      // This is required to style the dropdown button and frame of the control
+      "/Themes;component/FileListView/Combobox.xaml",
       "/Themes;component/MetroDark/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Expression;component/DarkTheme.xaml",
       "/Edi;component/Themes/MetroDark.xaml",
@@ -81,6 +85,8 @@ namespace Themes
 
       "/FirstFloor.ModernUI;component/Assets/Calendar.xaml",
       "/FirstFloor.ModernUI;component/Assets/CheckBox.xaml",
+      
+      // For some reason these are applied in the Explorer (TW) but nowhere else(?)
       "/FirstFloor.ModernUI;component/Assets/ComboBox.xaml",
       //// "/FirstFloor.ModernUI;component/Assets/ContextMenu.xaml",
       "/FirstFloor.ModernUI;component/Assets/DataGrid.xaml",
@@ -103,6 +109,8 @@ namespace Themes
 
       "/DropDownButtonLib;component/Themes/MetroLight.xaml",  // DropDownButtonLib theming
 
+      // This is required to style the dropdown button and frame of the control
+      "/Themes;component/FileListView/Combobox.xaml",
       "/Themes;component/MetroLight/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml",
       "/Edi;component/Themes/MetroLight.xaml",

@@ -39,18 +39,18 @@
       </Grid.RowDefinitions>
 
       <fview:FolderComboBox DataContext="{Binding FolderView.FolderTextPath}"
-                          ItemsSource="{Binding CurrentItems}"
-                          SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"
+                            ItemsSource="{Binding CurrentItems}"
+                            SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"
 
-                          Text="{Binding CurrentFolder, UpdateSourceTrigger=PropertyChanged}"
-                          ToolTip="{Binding CurrentFolderToolTip, UpdateSourceTrigger=PropertyChanged}"
-                          ToolTipService.IsEnabled="True"
+                            Text="{Binding CurrentFolder, UpdateSourceTrigger=PropertyChanged}"
+                            ToolTip="{Binding CurrentFolderToolTip, UpdateSourceTrigger=PropertyChanged}"
+                            ToolTipService.IsEnabled="True"
 
-                          fvbehav:SelectionChangedCommand.ChangedCommand="{Binding SelectionChanged}"
-                          VerticalAlignment="Stretch"
-                          HorizontalAlignment="Stretch"
-                          Grid.Row="0"
-                          Margin="3" />
+                            fvbehav:SelectionChangedCommand.ChangedCommand="{Binding SelectionChanged}"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            Grid.Row="0"
+                            Margin="3" />
 
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="1">
         <Button DataContext="{Binding FolderView.FolderItemsView}"
