@@ -21,12 +21,6 @@ ECHO Settings
 ECHO SimpleControls
 ECHO Util
 ECHO.
-ECHO FileListView\FileListView
-ECHO FileListView\FileListViewTest
-ECHO FileListView\FolderBrowser\FolderBrowser
-ECHO FileListView\FolderBrowser\TestFolderBrowser
-ECHO FileListView\FolderBrowser\FileSystemModels
-ECHO.
 REM Ask the user if hes really sure to continue beyond this point XXXXXXXX
 set /p choice=Are you sure to continue (Y/N)?
 if not '%choice%'=='Y' Goto EndOfBatch
@@ -50,7 +44,7 @@ RMDIR /S /Q Themes\obj
 RMDIR /S /Q ICSharpCode.AvalonEdit\bin
 RMDIR /S /Q ICSharpCode.AvalonEdit\obj
 
-ECHO Deleting BIN and OBJ Folders in MiniUML folder
+ECHO Deleting BIN and OBJ Folders in MiniUML folders
 ECHO.
 RMDIR /S /Q .\MiniUML\MiniUML.Diagnostics\bin
 RMDIR /S /Q .\MiniUML\MiniUML.Diagnostics\obj
@@ -67,41 +61,20 @@ RMDIR /S /Q .\MiniUML\MiniUML.View\obj
 RMDIR /S /Q .\MiniUML\Plugins\src\MiniUML.Plugins.UmlClassDiagram\bin
 RMDIR /S /Q .\MiniUML\Plugins\src\MiniUML.Plugins.UmlClassDiagram\obj
 
-ECHO Deleting BIN and OBJ Folders in utilities
+ECHO Deleting BIN and OBJ Folders in Util
 ECHO.
 RMDIR /S /Q Util\bin
 RMDIR /S /Q Util\obj
 
+ECHO Deleting BIN and OBJ Folders in Settings
+ECHO.
 RMDIR /S /Q Settings\bin
 RMDIR /S /Q Settings\obj
 
+ECHO Deleting BIN and OBJ Folders in SimpleControls
+ECHO.
 RMDIR /S /Q SimpleControls\bin
 RMDIR /S /Q SimpleControls\obj
-
-ECHO Deleting BIN and OBJ Folders in FileListView
-ECHO.
-RMDIR /S /Q .\FileListView\FileListView\bin
-RMDIR /S /Q .\FileListView\FileListView\obj
-
-ECHO Deleting BIN and OBJ Folders in FileListViewTest
-ECHO.
-RMDIR /S /Q .\FileListView\FileListViewTest\bin
-RMDIR /S /Q .\FileListView\FileListViewTest\obj
-
-ECHO Deleting BIN and OBJ Folders in FolderBrowser
-ECHO.
-RMDIR /S /Q .\FileListView\FolderBrowser\FolderBrowser\bin
-RMDIR /S /Q .\FileListView\FolderBrowser\FolderBrowser\obj
-
-ECHO Deleting BIN and OBJ Folders in TestFolderBrowser
-ECHO.
-RMDIR /S /Q .\FileListView\FolderBrowser\TestFolderBrowser\bin
-RMDIR /S /Q .\FileListView\FolderBrowser\TestFolderBrowser\obj
-
-ECHO Deleting BIN and OBJ Folders in FileSystemModels
-ECHO.
-RMDIR /S /Q .\FileListView\FileSystemModels\bin
-RMDIR /S /Q .\FileListView\FileSystemModels\obj
 
 PAUSE
 

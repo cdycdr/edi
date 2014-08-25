@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Binaries", "Binaries", "{E3
 		02_Libs\00_bin\MsgBox\UserNotification.xml = 02_Libs\00_bin\MsgBox\UserNotification.xml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "File ListView", "File ListView", "{C7A9E1F8-38FD-4268-BFC5-473CF16471D9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UML Application", "UML Application", "{C7A9E1F8-38FD-4268-BFC5-473CF16471D8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UML Plugins", "UML Plugins", "{2D26ECAB-01CB-4A96-B34C-EA616F547227}"

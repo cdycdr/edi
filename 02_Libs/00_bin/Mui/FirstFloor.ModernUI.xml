@@ -9,6 +9,31 @@
             Provides various common helper methods.
             </summary>
         </member>
+        <member name="M:FirstFloor.ModernUI.ModernUIHelper.GetDpiAwereness">
+            <summary>
+            Gets the DPI awereness of the current process.
+            </summary>
+            <returns>
+            The DPI awareness of the current process
+            </returns>
+            <exception cref="T:System.ComponentModel.Win32Exception"></exception>
+        </member>
+        <member name="M:FirstFloor.ModernUI.ModernUIHelper.TrySetPerMonitorDpiAware">
+            <summary>
+            Attempts to set the DPI awareness of this process to PerMonitorDpiAware
+            </summary>
+            <returns>A value indicating whether the DPI awareness has been set to PerMonitorDpiAware.</returns>
+            <remarks>
+            <para>
+            For this operation to succeed the host OS must be Windows 8.1 or greater, and the initial
+            DPI awareness must be set to DpiUnaware (apply [assembly:DisableDpiAwareness] to application assembly).
+            </para>
+            <para>
+            When the host OS is Windows 8 or lower, an attempt is made to set the DPI awareness to SystemDpiAware (= WPF default). This
+            effectively revokes the [assembly:DisableDpiAwareness] attribute if set.
+            </para>
+            </remarks>
+        </member>
         <member name="P:FirstFloor.ModernUI.ModernUIHelper.IsInDesignMode">
             <summary>
             Determines whether the current code is executed in a design time environment such as Visual Studio or Blend.
@@ -214,11 +239,14 @@
             Represents a named group of links.
             </summary>
         </member>
-        <member name="P:FirstFloor.ModernUI.Presentation.LinkGroup.GroupName">
+        <member name="P:FirstFloor.ModernUI.Presentation.LinkGroup.GroupKey">
             <summary>
-            Gets or sets the name of the group.
+            Gets or sets the key of the group.
             </summary>
-            <value>The name of the group.</value>
+            <value>The key of the group.</value>
+            <remarks>
+            The group key is used to group link groups in a <see cref="T:FirstFloor.ModernUI.Windows.Controls.ModernMenu"/>.
+            </remarks>
         </member>
         <member name="P:FirstFloor.ModernUI.Presentation.LinkGroup.SelectedLink">
             <summary>
@@ -279,6 +307,361 @@
             Executes the command.
             </summary>
             <param name="parameter">The parameter.</param>
+        </member>
+        <member name="T:FirstFloor.ModernUI.ProcessDpiAwareness">
+            <summary>
+            Identifies dots per inch (dpi) awareness values.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.ProcessDpiAwareness.DpiUnaware">
+            <summary>
+            Process is not DPI aware.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.ProcessDpiAwareness.SystemDpiAware">
+            <summary>
+            Process is system DPI aware (= WPF default).
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.ProcessDpiAwareness.PerMonitorDpiAware">
+            <summary>
+            Process is per monitor DPI aware (Win81+ only).
+            </summary>
+        </member>
+        <member name="T:FirstFloor.ModernUI.Win32.OSVersionHelper">
+            <summary>
+            .NET wrapper for Version Helper functions.
+            http://msdn.microsoft.com/library/windows/desktop/dn424972.aspx
+            </summary>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Win32.OSVersionHelper.VerSetConditionMask(System.UInt64,System.UInt32,System.Byte)">
+            <summary>
+            <para>Wrapper for VerSetConditionMask function (
+            http://msdn.microsoft.com/library/windows/desktop/ms725493.aspx).
+            </para>
+            <para>
+            Sets the bits of a 64-bit value to indicate the comparison
+            operator to use for a specified operating system version
+            attribute. This method is used to build the dwlConditionMask
+            parameter of the <see cref="M:FirstFloor.ModernUI.Win32.OSVersionHelper.VerifyVersionInfo(FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx@,System.UInt32,System.UInt64)"/> method.
+            </para>
+            </summary>
+            <param name="dwlConditionMask">
+            <para>A value to be passed as the dwlConditionMask parameter of
+            the <see cref="M:FirstFloor.ModernUI.Win32.OSVersionHelper.VerifyVersionInfo(FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx@,System.UInt32,System.UInt64)"/> method. The function stores
+            the comparison information in the bits of this variable.
+            </para>
+            <para>
+            Before the first call to VerSetConditionMask, initialize this
+            variable to zero. For subsequent calls, pass in the variable used
+            in the previous call.
+            </para>
+            </param>
+            <param name="dwTypeBitMask">A mask that indicates the member of
+            the <see cref="T:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx"/> structure whose comparison
+            operator is being set.</param>
+            <param name="dwConditionMask">The operator to be used for the
+            comparison.</param>
+            <returns>Condition mask value.</returns>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Win32.OSVersionHelper.VerifyVersionInfo(FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx@,System.UInt32,System.UInt64)">
+            <summary>
+            <para>
+            Wrapper for VerifyVersionInfo function (
+            http://msdn.microsoft.com/library/windows/desktop/ms725492.aspx).
+            </para>
+            <para>
+            Compares a set of operating system version requirements to the
+            corresponding values for the currently running version of the
+            system.
+            </para>
+            </summary>
+            <param name="lpVersionInfo">A pointer to an
+            <see cref="T:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx"/> structure containing the operating
+            system version requirements to compare.</param>
+            <param name="dwTypeMask">A mask that indicates the members of the
+            <see cref="T:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx"/> structure to be tested.</param>
+            <param name="dwlConditionMask">The type of comparison to be used
+            for each lpVersionInfo member being compared. Can be constructed
+            with <see cref="M:FirstFloor.ModernUI.Win32.OSVersionHelper.VerSetConditionMask(System.UInt64,System.UInt32,System.Byte)"/> method.</param>
+            <returns>True if the current Windows OS satisfies the specified
+            requirements; otherwise, false.</returns>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Win32.OSVersionHelper.#cctor">
+            <summary>
+            Initializes dictionary of operating systems.
+            </summary>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindowsVersionOrGreater(System.UInt32,System.UInt32,System.UInt16)">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the provided version information. This method is useful in
+            confirming a version of Windows Server that doesn't share a
+            version number with a client release.
+            </summary>
+            <param name="majorVersion">The major OS version number.</param>
+            <param name="minorVersion">The minor OS version number.</param>
+            <param name="servicePackMajor">The major Service Pack version
+            number.</param>
+            <returns>True if the the running OS matches, or is greater
+            than, the specified version information; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindowsVersionOrGreater(FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS)">
+            <summary>
+            Indicates if the running OS version matches, or is greater than,
+            the provided OS.
+            </summary>
+            <param name="os">OS to compare running OS to.</param>
+            <returns>True if the the running OS matches, or is greater
+            than, the specified OS; otherwise, false.</returns>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindowsXPOrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows XP version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindowsXPSP1OrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows XP with Service Pack 1 (SP1) version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindowsXPSP2OrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows XP with Service Pack 2 (SP2) version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindowsXPSP3OrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows XP with Service Pack 3 (SP3) version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindowsVistaOrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows Vista version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindowsVistaSP1OrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows Vista with Service Pack 1 (SP1) version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindowsVistaSP2OrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows Vista with Service Pack 2 (SP2) version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindows7OrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows 7 version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindows7SP1OrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows 7 with Service Pack 1 (SP1) version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindows8OrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows 8 version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindows8Point1OrGreater">
+            <summary>
+            Indicates if the current OS version matches, or is greater than,
+            the Windows 8.1 version.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.IsWindowsServer">
+            <summary>
+            Indicates if the current OS is a Windows Server release.
+            </summary>
+        </member>
+        <member name="T:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS">
+            <summary>
+            Operating systems, the information which is stored within
+            the class <seealso cref="T:FirstFloor.ModernUI.Win32.OSVersionHelper"/>.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.WindowsXP">
+            <summary>
+            Windows XP.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.WindowsXPSP1">
+            <summary>
+            Windows XP SP1.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.WindowsXPSP2">
+            <summary>
+            Windows XP SP2.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.WindowsXPSP3">
+            <summary>
+            Windows XP SP3.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.WindowsVista">
+            <summary>
+            Windows Vista.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.WindowsVistaSP1">
+            <summary>
+            Windows Vista SP1.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.WindowsVistaSP2">
+            <summary>
+            Windows Vista SP2.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.Windows7">
+            <summary>
+            Windows 7.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.Windows7SP1">
+            <summary>
+            Windows 7 SP1.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.Windows8">
+            <summary>
+            Windows 8.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.KnownOS.Windows8Point1">
+            <summary>
+            Windows 8.1.
+            </summary>
+        </member>
+        <member name="T:FirstFloor.ModernUI.Win32.OSVersionHelper.OsEntry">
+            <summary>
+            Information about operating system.
+            </summary>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Win32.OSVersionHelper.OsEntry.#ctor(System.UInt32,System.UInt32,System.UInt16)">
+            <summary>
+            Creates a new entry of operating system.
+            </summary>
+            <param name="majorVersion">The major version number of the
+            operating system.</param>
+            <param name="minorVersion">The minor version number of the
+            operating system.</param>
+            <param name="servicePackMajor">The major version number of the
+            latest Service Pack installed on the system. For example, for
+            Service Pack 3, the major version number is 3. If no Service
+            Pack has been installed, the value is zero.</param>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.OsEntry.MajorVersion">
+            <summary>
+            The major version number of the operating system.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.OsEntry.MinorVersion">
+            <summary>
+            The minor version number of the operating system.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.OsEntry.ServicePackMajor">
+            <summary>
+            The major version number of the latest Service Pack installed
+            on the system. For example, for Service Pack 3, the major
+            version number is 3. If no Service Pack has been installed,
+            the value is zero.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Win32.OSVersionHelper.OsEntry.MatchesOrGreater">
+            <summary>
+            Flag indicating if the running OS matches, or is greater
+            than, the OS specified with this entry. Should be initialized
+            with <see cref="M:FirstFloor.ModernUI.Win32.OSVersionHelper.VerifyVersionInfo(FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx@,System.UInt32,System.UInt64)"/> method.
+            </summary>
+        </member>
+        <member name="T:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx">
+            <summary>
+            Wrapper for OSVERSIONINFOEX structure.
+            http://msdn.microsoft.com/library/windows/desktop/ms724833.aspx
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.OSVersionInfoSize">
+            <summary>
+            The size of this data structure, in bytes.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.MajorVersion">
+            <summary>
+            The major version number of the operating system.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.MinorVersion">
+            <summary>
+            The minor version number of the operating system.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.BuildNumber">
+            <summary>
+            The build number of the operating system.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.PlatformId">
+            <summary>
+            The operating system platform.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.CSDVersion">
+            <summary>
+            A null-terminated string, such as "Service Pack 3", that
+            indicates the latest Service Pack installed on the system. If
+            no Service Pack has been installed, the string is empty.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.ServicePackMajor">
+            <summary>
+            The major version number of the latest Service Pack installed
+            on the system. For example, for Service Pack 3, the major
+            version number is 3. If no Service Pack has been installed,
+            the value is zero.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.ServicePackMinor">
+            <summary>
+            The minor version number of the latest Service Pack installed
+            on the system. For example, for Service Pack 3, the minor
+            version number is 0.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.SuiteMask">
+            <summary>
+            A bit mask that identifies the product suites available on the
+            system, e.g., flags indicating if the operating system is
+            Datacenter Server or Windows XP Embedded.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.ProductType">
+            <summary>
+            Any additional information about the system, e.g., flags
+            indicating if the operating system is a domain controller,
+            a server or a workstation.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Win32.OSVersionHelper.OsVersionInfoEx.Reserved">
+            <summary>
+            Reserved for future use.
+            </summary>
         </member>
         <member name="T:FirstFloor.ModernUI.Windows.CommandDictionary">
             <summary>
@@ -747,6 +1130,83 @@
             Initializes a new instance of the <see cref="T:FirstFloor.ModernUI.Windows.Controls.DataGridTextColumn"/> class.
             </summary>
         </member>
+        <member name="T:FirstFloor.ModernUI.Windows.Controls.DpiAwareWindow">
+            <summary>
+            A window instance that is capable of per-monitor DPI awareness when supported.
+            </summary>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Windows.Controls.DpiAwareWindow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:FirstFloor.ModernUI.Windows.Controls.DpiAwareWindow"/> class.
+            </summary>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Windows.Controls.DpiAwareWindow.OnClosed(System.EventArgs)">
+            <summary>
+            Raises the System.Windows.Window.Closed event.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Windows.Controls.DpiAwareWindow.RefreshMonitorDpi">
+            <summary>
+            Refreshes the current monitor DPI settings and update the window size and layout scale accordingly.
+            </summary>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Windows.Controls.DpiAwareWindow.OnDpiChanged(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:DpiChanged"/> event.
+            </summary>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="E:FirstFloor.ModernUI.Windows.Controls.DpiAwareWindow.DpiChanged">
+            <summary>
+            Occurs when the system or monitor DPI for this window has changed.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.DpiAwareWindow.DpiInformation">
+            <summary>
+            Gets the DPI information for this window instance.
+            </summary>
+            <remarks>
+            DPI information is available after a window handle has been created.
+            </remarks>
+        </member>
+        <member name="T:FirstFloor.ModernUI.Windows.Controls.DpiInformation">
+            <summary>
+            Provides DPI information for a window.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.DpiInformation.WpfDpiX">
+            <summary>
+            Gets the horizontal resolution of the WPF rendering DPI.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.DpiInformation.WpfDpiY">
+            <summary>
+            Gets the vertical resolution of the WPF rendering DPI.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.DpiInformation.MonitorDpiX">
+            <summary>
+            Gets the horizontal resolution of the current monitor DPI.
+            </summary>
+            <remarks>Null when the process is not per monitor DPI aware.</remarks>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.DpiInformation.MonitorDpiY">
+            <summary>
+            Gets the vertical resolution of the current monitor DPI.
+            </summary>
+            <remarks>Null when the process is not per monitor DPI aware.</remarks>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.DpiInformation.ScaleX">
+            <summary>
+            Gets the x-axis scale factor.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.DpiInformation.ScaleY">
+            <summary>
+            Gets the y-axis scale factor.
+            </summary>
+        </member>
         <member name="T:FirstFloor.ModernUI.Windows.Controls.ModernButton">
             <summary>
             Adds icon content to a standard button.
@@ -836,13 +1296,14 @@
             Initializes a new instance of the <see cref="T:FirstFloor.ModernUI.Windows.Controls.ModernDialog"/> class.
             </summary>
         </member>
-        <member name="M:FirstFloor.ModernUI.Windows.Controls.ModernDialog.ShowMessage(System.String,System.String,System.Windows.MessageBoxButton)">
+        <member name="M:FirstFloor.ModernUI.Windows.Controls.ModernDialog.ShowMessage(System.String,System.String,System.Windows.MessageBoxButton,System.Windows.Window)">
             <summary>
             Displays a messagebox.
             </summary>
             <param name="text">The text.</param>
             <param name="title">The title.</param>
             <param name="button">The button.</param>
+            <param name="owner">The window owning the messagebox. The messagebox will be located at the center of the owner.</param>
             <returns></returns>
         </member>
         <member name="P:FirstFloor.ModernUI.Windows.Controls.ModernDialog.CloseCommand">
@@ -884,6 +1345,14 @@
             <summary>
             Gets or sets the dialog buttons.
             </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.ModernDialog.MessageBoxResult">
+            <summary>
+            Gets the message box result.
+            </summary>
+            <value>
+            The message box result.
+            </value>
         </member>
         <member name="T:FirstFloor.ModernUI.Windows.Controls.ModernFrame">
             <summary>
@@ -1027,9 +1496,9 @@
             Initializes a new instance of the <see cref="T:FirstFloor.ModernUI.Windows.Controls.ModernMenu"/> class.
             </summary>
         </member>
-        <member name="M:FirstFloor.ModernUI.Windows.Controls.ModernMenu.GetGroupName(FirstFloor.ModernUI.Presentation.LinkGroup)">
+        <member name="M:FirstFloor.ModernUI.Windows.Controls.ModernMenu.GetGroupKey(FirstFloor.ModernUI.Presentation.LinkGroup)">
             <summary>
-            Gets a non-null name for given group.
+            Gets a non-null key for given group.
             </summary>
             <param name="group"></param>
             <returns></returns>
@@ -1067,6 +1536,31 @@
             Gets the collection of link groups that are currently visible.
             </summary>
         </member>
+        <member name="T:FirstFloor.ModernUI.Windows.Controls.ModernProgressRing">
+            <summary>
+            Represents a control that indicates that an operation is ongoing. 
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Windows.Controls.ModernProgressRing.IsActiveProperty">
+            <summary>
+            Identifies the IsActive property.
+            </summary>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Windows.Controls.ModernProgressRing.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:FirstFloor.ModernUI.Windows.Controls.ModernProgressRing"/> class.
+            </summary>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Windows.Controls.ModernProgressRing.OnApplyTemplate">
+            <summary>
+            When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.ModernProgressRing.IsActive">
+            <summary>
+            Gets or sets a value that indicates whether the <see cref="T:FirstFloor.ModernUI.Windows.Controls.ModernProgressRing"/> is showing progress.
+            </summary>
+        </member>
         <member name="T:FirstFloor.ModernUI.Windows.Controls.ModernTab">
             <summary>
             Represents a control that contains multiple pages that share the same space on screen.
@@ -1080,6 +1574,11 @@
         <member name="F:FirstFloor.ModernUI.Windows.Controls.ModernTab.LayoutProperty">
             <summary>
             Identifies the Layout dependency property.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Windows.Controls.ModernTab.ListWidthProperty">
+            <summary>
+            Identifies the ListWidth dependency property.
             </summary>
         </member>
         <member name="F:FirstFloor.ModernUI.Windows.Controls.ModernTab.LinksProperty">
@@ -1121,6 +1620,14 @@
             <summary>
             Gets or sets the collection of links that define the available content in this tab.
             </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.ModernTab.ListWidth">
+            <summary>
+            Gets or sets the width of the list when Layout is set to List.
+            </summary>
+            <value>
+            The width of the list.
+            </value>
         </member>
         <member name="P:FirstFloor.ModernUI.Windows.Controls.ModernTab.SelectedSource">
             <summary>
@@ -1166,6 +1673,11 @@
         <member name="F:FirstFloor.ModernUI.Windows.Controls.ModernWindow.ContentLoaderProperty">
             <summary>
             Identifies the ContentLoader dependency property.
+            </summary>
+        </member>
+        <member name="F:FirstFloor.ModernUI.Windows.Controls.ModernWindow.LinkNavigatorProperty">
+            <summary>
+            Identifies the LinkNavigator dependency property.
             </summary>
         </member>
         <member name="M:FirstFloor.ModernUI.Windows.Controls.ModernWindow.#ctor">
@@ -1218,6 +1730,12 @@
             <summary>
             Gets or sets the content loader.
             </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Controls.ModernWindow.LinkNavigator">
+            <summary>
+            Gets or sets the link navigator.
+            </summary>
+            <value>The link navigator.</value>
         </member>
         <member name="T:FirstFloor.ModernUI.Windows.Controls.RelativeAnimatingContentControl">
             <summary>
@@ -2031,6 +2549,16 @@
             Gets the uniform resource identifier (URI) fragment.
             </summary>
         </member>
+        <member name="T:FirstFloor.ModernUI.Windows.Navigation.LinkCommands">
+            <summary>
+            The routed link commands.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Windows.Navigation.LinkCommands.NavigateLink">
+            <summary>
+            Gets the navigate link routed command.
+            </summary>
+        </member>
         <member name="T:FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs">
             <summary>
             Provides data for the <see cref="M:FirstFloor.ModernUI.Windows.IContent.OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs)"/> method and the <see cref="E:FirstFloor.ModernUI.Windows.Controls.ModernFrame.Navigating"/> event.
@@ -2142,6 +2670,33 @@
             <param name="fragment">The fragment, null if no fragment found</param>
             <returns>The uri without the fragment, or the uri itself if no fragment is found</returns>
         </member>
+        <member name="M:FirstFloor.ModernUI.Windows.Navigation.NavigationHelper.ToUri(System.Object)">
+            <summary>
+            Tries to cast specified value to a uri. Either a uri or string input is accepted.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Windows.Navigation.NavigationHelper.TryParseUriWithParameters(System.Object,System.Uri@,System.String@,System.String@)">
+            <summary>
+            Tries to parse a uri with parameters from given value.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="uri">The URI.</param>
+            <param name="parameter">The parameter.</param>
+            <param name="targetName">Name of the target.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FirstFloor.ModernUI.Windows.Navigation.NavigationHelper.TryParseUriWithParameters(System.String,System.Uri@,System.String@,System.String@)">
+            <summary>
+            Tries to parse a uri with parameters from given string value.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="uri">The URI.</param>
+            <param name="parameter">The parameter.</param>
+            <param name="targetName">Name of the target.</param>
+            <returns></returns>
+        </member>
         <member name="T:FirstFloor.ModernUI.Windows.Navigation.NavigationType">
             <summary>
             Identifies the types of navigation that are supported.
@@ -2178,6 +2733,11 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:FirstFloor.ModernUI.Resources.Back">
+            <summary>
+              Looks up a localized string similar to back.
+            </summary>
+        </member>
         <member name="P:FirstFloor.ModernUI.Resources.Cancel">
             <summary>
               Looks up a localized string similar to cancel.
@@ -2196,6 +2756,11 @@
         <member name="P:FirstFloor.ModernUI.Resources.Minimize">
             <summary>
               Looks up a localized string similar to minimize.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Resources.NavigateLink">
+            <summary>
+              Looks up a localized string similar to Navigate link.
             </summary>
         </member>
         <member name="P:FirstFloor.ModernUI.Resources.NavigationFailed">
@@ -2236,6 +2801,11 @@
         <member name="P:FirstFloor.ModernUI.Resources.UnexpectedToken">
             <summary>
               Looks up a localized string similar to Unexpected token.
+            </summary>
+        </member>
+        <member name="P:FirstFloor.ModernUI.Resources.UnknownOS">
+            <summary>
+              Looks up a localized string similar to Unknown operating system.
             </summary>
         </member>
         <member name="P:FirstFloor.ModernUI.Resources.UnknownTokenType">
