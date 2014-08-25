@@ -1,27 +1,18 @@
 ﻿namespace EdiViews.Dialogs.FindReplace
 {
   using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Text;
   using System.Windows;
   using System.Windows.Controls;
-  using System.Windows.Data;
-  using System.Windows.Documents;
-  using System.Windows.Input;
-  using System.Windows.Media;
-  using System.Windows.Media.Imaging;
-  using System.Windows.Navigation;
-  using System.Windows.Shapes;
+  using EdiViews.Behaviour;
 
   /// <summary>
   /// Implement a view that supports text Find/Replace functionality in an editor
   /// </summary>
   public class FindReplaceView : Control
   {
-    private TextBox mTxtFind = null;
-    private TextBox mTxtFind2 = null;
-    private TextBox mTxtReplace = null;
+    private ComboBox mTxtFind = null;
+    private ComboBox mTxtFind2 = null;
+    private ComboBox mTxtReplace = null;
 
     static FindReplaceView()
     {
@@ -34,39 +25,39 @@
 
       try
       {
-        this.mTxtFind = this.GetTemplateChild("PART_TxtFind") as TextBox;
-        this.mTxtFind2 = this.GetTemplateChild("PART_TxtFind2") as TextBox;
-        this.mTxtReplace = this.GetTemplateChild("PART_Replace") as TextBox; ; ;
+        this.mTxtFind = this.GetTemplateChild("PART_TxtFind") as ComboBox;
+        this.mTxtFind2 = this.GetTemplateChild("PART_TxtFind2") as ComboBox;
+        this.mTxtReplace = this.GetTemplateChild("PART_TxtReplace") as ComboBox;
 
         // Setting focus into each textbox control is controlled via viewmodel and attached property
         // Each textbox selects all content (by default) when it aquires the focus
-        if (this.mTxtFind != null)
-        {
-          this.mTxtFind.GotKeyboardFocus += (s, e) =>
-          {
-            this.mTxtFind.SelectAll();
-          };
-        }
-
-        if (this.mTxtFind2 != null)
-        {
-          this.mTxtFind2.GotKeyboardFocus += (s, e) =>
-          {
-            this.mTxtFind2.SelectAll();
-          };
-        }
-
-        if (this.mTxtReplace != null)
-        {
-          this.mTxtReplace.GotKeyboardFocus += (s, e) =>
-          {
-            this.mTxtReplace.SelectAll();
-          };
-        }
+        FocusEditableComboBox(this.mTxtFind);
+        FocusEditableComboBox(this.mTxtFind2);
+        FocusEditableComboBox(this.mTxtReplace);
       }
       catch (Exception e)
       {
         Console.WriteLine(e.ToString());
+      }
+    }
+
+    /// <summary>
+    /// Helper function to focus the textbox inside an editable combobox
+    /// </summary>
+    /// <param name="ediableComboBox"></param>
+    private static void FocusEditableComboBox(ComboBox ediableComboBox)
+    {
+      if (ediableComboBox != null)
+      {
+        ediableComboBox.GotKeyboardFocus += (s, e) =>
+        {
+          // focus the TextBox inside the ComboBox
+          var textBox = ediableComboBox.FindChild("PART_EditableTextBox") as TextBox;
+          if (textBox != null)
+          {
+            textBox.Focus();
+          }
+        };
       }
     }
   }

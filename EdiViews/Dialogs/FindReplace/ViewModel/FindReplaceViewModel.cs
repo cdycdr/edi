@@ -1,20 +1,20 @@
 namespace EdiViews.Dialogs.FindReplace.ViewModel
 {
+  using System;
   using System.Collections.Generic;
   using System.Text.RegularExpressions;
   using System.Windows.Input;
-  using System.Windows;
-  using System.Collections;
-  using System;
-
-  using SimpleControls.MRU.ViewModel;
   using EdiViews.ViewModel.Base;
-  using SimpleControls.Command;
   using MsgBox;
+  using Settings;
+  using SimpleControls.Command;
 
   public class FindReplaceViewModel : DialogViewModelBase
   {
     #region fields
+    /// Maximum of find/replace history list
+    private const int MaxCountFindReplaceHistory = 10;
+
     private RelayCommand<object> mFindCommand;
     private RelayCommand<object> mReplaceCommand;
     private RelayCommand<object> mReplaceAllCommand;
@@ -34,6 +34,8 @@ namespace EdiViews.Dialogs.FindReplace.ViewModel
     private bool mIsTextToFindInReplaceFocused = true;
     private EdiViews.Dialogs.FindReplace.SearchScope mSearchIn = EdiViews.Dialogs.FindReplace.SearchScope.CurrentDocument;
     private bool mShowSearchIn = true;
+    private List<string> listFindHistory;
+    private List<string> listReplaceHistory;
     #endregion fields
 
     #region constructor
@@ -41,10 +43,15 @@ namespace EdiViews.Dialogs.FindReplace.ViewModel
     /// Class constructor
     /// </summary>
     public FindReplaceViewModel()
-    :base()
+      : base()
     {
       this.CurrentEditor = null;
+
+      // load the find/replace history from user profile
+      listFindHistory = SettingsManager.Instance.SessionData.FindHistoryList;
+      listReplaceHistory = SettingsManager.Instance.SessionData.ReplaceHistoryList;
     }
+
     #endregion constructor
 
     #region properties
@@ -381,9 +388,22 @@ namespace EdiViews.Dialogs.FindReplace.ViewModel
           this.mFindCommand = new RelayCommand<object>((p) =>
           {
             if (this.FindNext != null)
+            {
+              // remember the searched text into search history
+              if (this.TextToFind.Length > 0)
+              {
+                this.FindHistory.Remove(this.TextToFind);
+                this.FindHistory.Insert(0, this.TextToFind);
+                if (this.FindHistory.Count > MaxCountFindReplaceHistory)
+                {
+                  this.FindHistory.RemoveRange(MaxCountFindReplaceHistory, this.FindHistory.Count - MaxCountFindReplaceHistory);
+                }
+              }
+
               this.FindNext(this, this.mSearchUp);
+            }
           });
-        
+
         return this.mFindCommand;
       }
     }
@@ -393,7 +413,11 @@ namespace EdiViews.Dialogs.FindReplace.ViewModel
       get
       {
         if (this.mReplaceCommand == null)
-          this.mReplaceCommand = new RelayCommand<object>((p) => this.Replace());
+          this.mReplaceCommand = new RelayCommand<object>((p) =>
+          {
+            addReplaceHistory();
+            this.Replace();
+          });
 
         return this.mReplaceCommand;
       }
@@ -404,11 +428,49 @@ namespace EdiViews.Dialogs.FindReplace.ViewModel
       get
       {
         if (this.mReplaceAllCommand == null)
-          this.mReplaceAllCommand = new RelayCommand<object>((p) => this.ReplaceAll());
+          this.mReplaceAllCommand = new RelayCommand<object>((p) =>
+          {
+            addReplaceHistory();
+            this.ReplaceAll();
+          });
 
         return this.mReplaceAllCommand;
       }
     }
+
+    public List<string> FindHistory
+    {
+      get
+      {
+        return this.listFindHistory;
+      }
+    }
+
+    public List<string> ReplaceHistory
+    {
+      get
+      {
+        return this.listReplaceHistory;
+      }
+    }
+
+    /// <summary>
+    /// Helper function to add replace history
+    /// </summary>
+    private void addReplaceHistory()
+    {
+      // remember the replacement text into replace history
+      if (this.ReplacementText.Length > 0)
+      {
+        this.ReplaceHistory.Remove(this.ReplacementText);
+        this.ReplaceHistory.Insert(0, this.ReplacementText);
+        if (this.ReplaceHistory.Count > MaxCountFindReplaceHistory)
+        {
+          this.ReplaceHistory.RemoveRange(MaxCountFindReplaceHistory, this.ReplaceHistory.Count - MaxCountFindReplaceHistory);
+        }
+      }
+    }
+
     #endregion properties
 
     #region methods
@@ -479,7 +541,7 @@ namespace EdiViews.Dialogs.FindReplace.ViewModel
       IEditor CE = GetCurrentEditor();
       if (CE == null) return;
 
-      if (!AskBefore || MsgBox.Msg.Show(string.Format(Util.Local.Strings.STR_FINDREPLACE_ASK_REALLY_REPLACEEVERYTHING,TextToFind, ReplacementText),
+      if (!AskBefore || MsgBox.Msg.Show(string.Format(Util.Local.Strings.STR_FINDREPLACE_ASK_REALLY_REPLACEEVERYTHING, TextToFind, ReplacementText),
                                         Util.Local.Strings.STR_FINDREPLACE_ReplaceAll_Caption,
                                         MsgBoxButtons.YesNoCancel, MsgBoxImage.Alert) == MsgBoxResult.Yes)
       {

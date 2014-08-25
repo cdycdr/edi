@@ -18,7 +18,9 @@
     <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Controls.TabControl.xaml" />
     <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Controls.Toolbar.xaml" />
 
+    <!-- This type of combobox is used in the toolbar of the MainWindow -->
     <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Combobox.xaml" />
+
     <ResourceDictionary Source="/Themes;component/MetroLight/Styles/GridSplitter.xaml" />
     <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Hyperlink.xaml" />
     <ResourceDictionary Source="/Themes;component/MetroLight/Styles/Label.xaml" />

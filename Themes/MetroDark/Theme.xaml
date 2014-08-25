@@ -19,7 +19,9 @@
 
     <ResourceDictionary Source="/Themes;component/MetroDark/MetroStyles/Controls.Toolbar.xaml" />
 
+    <!-- This type of combobox is used in the toolbar of the MainWindow -->
     <ResourceDictionary Source="/Themes;component/MetroDark/MetroStyles/ComboBox.xaml" />
+
     <ResourceDictionary Source="/Themes;component/MetroDark/MetroStyles/Controls.TextBox.xaml" />
     <!-- ResourceDictionary Source="/Themes;component/ExpressionDark/Controls/ScrollViewer.xaml" / -->
     

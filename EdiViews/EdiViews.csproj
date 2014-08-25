@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="Behaviour\DoubleClickImageToCommand.cs" />
     <Compile Include="Behaviour\DoubleClickSelectorItem.cs" />
+    <Compile Include="Behaviour\VisualTreeHelperExtension.cs" />
     <Compile Include="Dialogs\About\AboutDlg.xaml.cs">
       <DependentUpon>AboutDlg.xaml</DependentUpon>
     </Compile>

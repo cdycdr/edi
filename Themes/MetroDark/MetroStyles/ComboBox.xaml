@@ -96,6 +96,7 @@
                           BorderBrush="{TemplateBinding BorderBrush}"
                           BorderThickness="{TemplateBinding BorderThickness}"
                           IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                          Focusable="False" 
                           Padding="0,0,0,10"/>
 
             <Path Name="Arrow"
