@@ -139,6 +139,32 @@
             <Component Id="cmpB5788480AA236D37CF84F57D2A5DDCFD" Directory="INSTALLDIR" Guid="{6B40EF5D-7849-4E8B-B9E3-D65E06BC5822}">
                 <File Id="fil06E97A7D1F4C29A84DF8CF7B0FE339FA" KeyPath="yes" Source="00_Edi\YalvLib.xml" />
             </Component>
+            <!-- -->
+            <Component Id="cmpC43EAC81B77B99C399BF44209B3DE1DA" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3760}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DCD" KeyPath="yes" Source="00_Edi\DropDownButtonLib.dll" >
+                </File>
+            </Component>
+
+            <Component Id="cmpC43EAC81B77B99C399BF44209B3DE1DB" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3761}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DCE" KeyPath="yes" Source="00_Edi\FileListView.dll" >
+                </File>
+            </Component>
+            <Component Id="cmpC43EAC81B77B99C399BF44209B3DE1DC" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3762}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DCF" KeyPath="yes" Source="00_Edi\FileSystemModels.dll" >
+                </File>
+            </Component>
+            <Component Id="cmpC43EAC81B77B99C399BF44209B3DE1DD" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3763}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DD0" KeyPath="yes" Source="00_Edi\FolderBrowser.dll" >
+                </File>
+            </Component>
+            <Component Id="cmpC43EAC81B77B99C399BF44209B3DE1DE" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3764}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DD1" KeyPath="yes" Source="00_Edi\InplaceEditBoxLib.dll" >
+                </File>
+            </Component>
+	            <Component Id="cmpB5788480AA236D37CF84F57D2A5DDCFE" Directory="INSTALLDIR" Guid="{6B40EF5D-7849-4E8B-B9E3-D65E06BC5823}">
+                <File Id="fil06E97A7D1F4C29A84DF8CF7B0FE339FB" KeyPath="yes" Source="00_Edi\InplaceEditBoxLib.xml" />
+            </Component>            
+            <!-- -->
             <Component Id="cmp52EA3EFE44D9170A1396E2A51588C3A7" Directory="dir6545CCAFF7666E319AB282AB190D7B9E" Guid="{9BAF24AF-F501-4C52-9EA4-362C748A3B55}">
                 <File Id="fil7429E2E83FCC34E1D04DB5EC2AA44DD7" KeyPath="yes" Source="00_Edi\AvalonEdit\Highlighting\00_XmlDoc.xshd" />
             </Component>
@@ -235,6 +261,9 @@
             <Component Id="cmp59A8C7A1A3DEEA4ABDAFD7D6EC10AC7B" Directory="dir6545CCAFF7666E319AB282AB190D7B9E" Guid="{4AEA1355-511D-4D38-A859-8DB0E066E8CF}">
                 <File Id="fil088A0D9E06B772CD8F4A33526019F1D3" KeyPath="yes" Source="00_Edi\AvalonEdit\Highlighting\vtl.xshd" />
             </Component>
+            <Component Id="cmp59A8C7A1A3DEEA4ABDAFD7D6EC10AC7C" Directory="dir6545CCAFF7666E319AB282AB190D7B9E" Guid="{4AEA1355-511D-4D38-A859-8DB0E066E8D0}">
+                <File Id="fil088A0D9E06B772CD8F4A33526019F1D4" KeyPath="yes" Source="00_Edi\AvalonEdit\Highlighting\MarkDown-Mode.xshd" />
+            </Component>            
             <Component Id="cmpE55AB51897BC9F1A415485BD0BF3B2D4" Directory="dirA0076ACB592FACF4F8B2220282241684" Guid="{88D8B7FC-60AD-4D2E-9963-58D263491268}">
                 <File Id="fil90F6F0D5091F83D7A45C86AB98610EE1" KeyPath="yes" Source="00_Edi\AvalonEdit\HighLighting_Themes\BrightStandard.xshd" />
             </Component>
@@ -292,6 +321,9 @@
             <Component Id="cmp0A779401E762A4B05386C02117F28C22" Directory="dir2BFF99396F55A3B1A2D6B5973B246087" Guid="{AA12637B-0E74-4046-8B6B-8D3393CD4CCC}">
                 <File Id="fil98C49273B51715CD0423953ED3CF643D" KeyPath="yes" Source="00_Edi\es-ES\Util.resources.dll" />
             </Component>
+            <Component Id="cmp0A779401E762A4B05386C02117F28C23" Directory="dir2BFF99396F55A3B1A2D6B5973B246087" Guid="{AA12637B-0E74-4046-8B6B-8D3393CD4CCD}">
+                <File Id="fil98C49273B51715CD0423953ED3CF643E" KeyPath="yes" Source="00_Edi\es-ES\FileSystemModels.resources.dll" />
+            </Component>
             <Component Id="cmp5B3AFAE9C9389B6FA447C1DF264052DF" Directory="dirFD38E27812D3A1247DA368114606FAF1" Guid="{0763CE4D-8875-4459-8B95-62E6BB1D3FDC}">
                 <File Id="filC867F84B75385C3B10A5EAC2BB7DC23A" KeyPath="yes" Source="00_Edi\fr\Xceed.Wpf.AvalonDock.resources.dll" />
             </Component>
@@ -324,6 +356,9 @@
             </Component>
             <Component Id="cmp91EA953407340DCA1BE0E4C2596EFB41" Directory="dir89B9F40494FC662E4645FE284F8CC556" Guid="{7994B7E0-63AF-4E50-8168-3811AD9623D4}">
                 <File Id="fil975D0FD268586B6FBD83F5FD0AB4079A" KeyPath="yes" Source="00_Edi\hi-IN\Util.resources.dll" />
+            </Component>
+            <Component Id="cmp91EA953407340DCA1BE0E4C2596EFB42" Directory="dir89B9F40494FC662E4645FE284F8CC556" Guid="{7994B7E0-63AF-4E50-8168-3811AD9623D5}">
+                <File Id="fil975D0FD268586B6FBD83F5FD0AB4079B" KeyPath="yes" Source="00_Edi\hi-IN\FileSystemModels.resources.dll" />
             </Component>
             <Component Id="cmp1021F692E2DE50DEA69255565318469A" Directory="dirFCCD13F121B9255A412A1940924CEDCB" Guid="{15568AA2-3DDE-42E4-A1E4-4FC5B2C52A15}">
                 <File Id="filD2D01BCC26B09E7B11309A560BAA88B2" KeyPath="yes" Source="00_Edi\hu\Xceed.Wpf.AvalonDock.resources.dll" />
@@ -360,6 +395,9 @@
             </Component>
             <Component Id="cmp9193D96312624DD384E32A2096ADFEC8" Directory="dir387A71CBF1800118442E9F820EF0ADA1" Guid="{ABCC632C-6073-42D6-A140-425A4BA39A49}">
                 <File Id="fil41B67D99D7FFEA25280C6CB151CAD48C" KeyPath="yes" Source="00_Edi\ja-JP\Util.resources.dll" />
+            </Component>
+            <Component Id="cmp9193D96312624DD384E32A2096ADFEC9" Directory="dir387A71CBF1800118442E9F820EF0ADA1" Guid="{ABCC632C-6073-42D6-A140-425A4BA39A4A}">
+                <File Id="fil41B67D99D7FFEA25280C6CB151CAD48D" KeyPath="yes" Source="00_Edi\ja-JP\FileSystemModels.resources.dll" />
             </Component>
             <Component Id="cmp6D5B65723EDFB596DBD85FE6BF577F01" Directory="dir7A53C9A2853EE836087479C3120BF490" Guid="{06AF0F52-CAD0-421F-A688-EA754F425850}">
                 <File Id="filD0F094DEAE459CFD07CE3D3F0FBB473E" KeyPath="yes" Source="00_Edi\MiniUML.Plugins\MiniUML.Plugins.UmlClassDiagram.dll" />
@@ -400,6 +438,9 @@
             <Component Id="cmp7EAE61DF7E70A6454C9B4775DA9A1ED2" Directory="dir9602DB2954B8218EB403F0364D8346D3" Guid="{0E64C51E-0D03-4F81-A626-BEB3CD1C9EC7}">
                 <File Id="fil5AB35B2A8CE58185837F3944020BA8F2" KeyPath="yes" Source="00_Edi\ru-RU\Util.resources.dll" />
             </Component>
+            <Component Id="cmp7EAE61DF7E70A6454C9B4775DA9A1ED3" Directory="dir9602DB2954B8218EB403F0364D8346D3" Guid="{0E64C51E-0D03-4F81-A626-BEB3CD1C9EC8}">
+                <File Id="fil5AB35B2A8CE58185837F3944020BA8F3" KeyPath="yes" Source="00_Edi\ru-RU\FileSystemModels.resources.dll" />
+            </Component>
             <Component Id="cmp839F44FF60A2FE73AFAF397E6B1B765A" Directory="dir34F1B9E5EE0E587A498B9164D633786B" Guid="{17C9B743-B156-4A3E-BC94-5F35C8B6815B}">
                 <File Id="filAB9D8ADE9994729FE9DF48AB42B49E44" KeyPath="yes" Source="00_Edi\sv\Xceed.Wpf.AvalonDock.resources.dll" />
             </Component>
@@ -411,6 +452,9 @@
             </Component>
             <Component Id="cmp89C63783E0364BB8F57A7E27701474DD" Directory="dir2B056FE6351C074C9055B2D4C7512281" Guid="{6AF031D7-0AF0-42BB-BF5B-1A9C2C81A07A}">
                 <File Id="fil9803917CC6FD8609516178D67C98ADC4" KeyPath="yes" Source="00_Edi\zh-CHS\Util.resources.dll" />
+            </Component>
+            <Component Id="cmp89C63783E0364BB8F57A7E27701474DE" Directory="dir2B056FE6351C074C9055B2D4C7512281" Guid="{6AF031D7-0AF0-42BB-BF5B-1A9C2C81A07B}">
+                <File Id="fil9803917CC6FD8609516178D67C98ADC5" KeyPath="yes" Source="00_Edi\zh-CHS\FileSystemModels.resources.dll" />
             </Component>
             <Component Id="cmp2D4B05035599738D4FA73B875ABD4874" Directory="dir3B531D66026FD5C4F86F6B9E2581EBB2" Guid="{0A9C6A0F-9B9A-46CA-8EAC-D2BD4D87268C}">
                 <File Id="fil4FAD7817632BEEF852ABF8E0B4718EBE" KeyPath="yes" Source="00_Edi\zh-Hans\MsgBox.resources.dll" />

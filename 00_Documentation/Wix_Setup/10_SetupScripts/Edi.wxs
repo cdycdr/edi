@@ -12,7 +12,7 @@
                 <File Id="fil6582B51D08EA327F3A7985159937B8BF" KeyPath="yes" Source="00_Edi\Edi.exe">
 					<!-- Shortcut Id="startmenuEdi" Directory="ProgramMenuDir" Name="Edi" WorkingDirectory='INSTALLDIR' Icon="Setup_EdiLogo.ico" IconIndex="0" Advertise="yes" / -->
 					<Shortcut Id="desktopEdi" Directory="DesktopFolder" Name="Edi" WorkingDirectory='INSTALLDIR' Icon="Setup_EdiLogo.ico" IconIndex="0" Advertise="yes" />
-                    <netfx:NativeImage Id="ngen_MyApplication.exe" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
+                    <netfx:NativeImage Id="ngen_MyApplication.exe" Platform="64bit" Priority="0" Dependencies="yes" AppBaseDirectory="INSTALLDIR"/>
 				</File>
             </Component>
             <Component Win64="yes" Id="cmp88FA393E154C9638B7B828A6976A7B73" Directory="INSTALLDIR" Guid="{8386499A-1A79-4240-89A9-B3FCAFD8E8D1}">
@@ -20,12 +20,10 @@
             </Component>
             <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9004215" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF26C9E}">
                 <File Id="filCDE4F68603F7CE489E6ADED950F58CAA" KeyPath="yes" Source="00_Edi\EdiViews.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe1" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmpE199BAC219D8B18D3C6F0FA47038F951" Directory="INSTALLDIR" Guid="{F25F91CA-BE75-4DE7-867D-7B0D465722D9}">
                 <File Id="fil55ED3524BB5EC91CFC4F3ACB9D9C69E9" KeyPath="yes" Source="00_Edi\FirstFloor.ModernUI.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe3" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmpDFFD6D383190DC7B23D44F6619B99B14" Directory="INSTALLDIR" Guid="{6B553AB2-2C51-4D43-910F-ADDB04F92375}">
@@ -33,7 +31,6 @@
             </Component>
             <Component Win64="yes" Id="cmpCE4B58A9EF6EBFD604FAFCC7FF6B10E4" Directory="INSTALLDIR" Guid="{2295677F-B022-440A-AC16-27F4C456A96F}">
                 <File Id="filDA4C21BC7A1C31E9505ADF20F4D9ACEC" KeyPath="yes" Source="00_Edi\ICSharpCode.AvalonEdit.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe4" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp7EA0F168BF0238C4666C06F74009898E" Directory="INSTALLDIR" Guid="{3C2D190F-2B90-40F9-B830-0B9886E54AB8}">
@@ -41,7 +38,6 @@
             </Component>
             <Component Win64="yes" Id="cmp75C51DF10C0B5BDF2822D9EEEF27813C" Directory="INSTALLDIR" Guid="{570B273A-79A2-4BB8-9F4A-3AC8B6A87A8B}">
                 <File Id="fil4418F00EA37EF62D28148E7E7B42BC40" KeyPath="yes" Source="00_Edi\log4net.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe5" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp206CF24FB52772BB778A030551BAF8CB" Directory="INSTALLDIR" Guid="{0053843F-3DE4-4837-B332-3EEA1A653C06}">
@@ -49,27 +45,22 @@
             </Component>
             <Component Win64="yes" Id="cmpB4E6A11FB53BFA8546D773FD6CF165C4" Directory="INSTALLDIR" Guid="{6A0C973C-88A2-4F57-8B2F-354154568560}">
                 <File Id="fil97FCEADC00399CA8FFA554C1087D3B24" KeyPath="yes" Source="00_Edi\Microsoft.Windows.Shell.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe6" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp0640930C7FA8059C70D079E302A6E8A7" Directory="INSTALLDIR" Guid="{83D637B0-E555-4647-80CD-68619CB9552F}">
                 <File Id="fil880E2FB94422FDD350B9A2C3358B6938" KeyPath="yes" Source="00_Edi\MiniUML.Framework.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe7" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp83613BF1A3F9453D2CE76ED8BFF22441" Directory="INSTALLDIR" Guid="{F3692B9E-9221-4C37-821B-F8E8E276B569}">
                 <File Id="fil0DB73DCECB38390CD492605E8074111E" KeyPath="yes" Source="00_Edi\MiniUML.Model.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe8" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmpED1022DBABAFEBF30EB1D69390B2F796" Directory="INSTALLDIR" Guid="{F0BD265C-C6CC-49E1-8C79-BA2D1CD7E766}">
                 <File Id="filFFCEEED392D73CAD3A7D1036A34D864A" KeyPath="yes" Source="00_Edi\MiniUML.View.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe9" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmpE84F3E666D86A3AE1BEF36494AE5A2E9" Directory="INSTALLDIR" Guid="{694E4988-27A4-4282-947F-6A69DA7DE857}">
                 <File Id="filC38CA801071744897DAF6B3CBA7F63BC" KeyPath="yes" Source="00_Edi\MsgBox.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe10" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp88437D19D1444C61DDD1E90D9BA70D08" Directory="INSTALLDIR" Guid="{D7A676B4-50CA-4CBF-A15E-E3AA881562C6}">
@@ -77,27 +68,22 @@
             </Component>
             <Component Win64="yes" Id="cmp8C05535EFF0425447634727B2B9036B1" Directory="INSTALLDIR" Guid="{00FBC794-D5AC-4248-9897-EC9EAA8549FC}">
                 <File Id="fil41D4CCC2EC436FBA3EDB4E690BE8DC6A" KeyPath="yes" Source="00_Edi\NumericUpDownLib.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe11" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp0D43CB791CB844C7B4525311DBFEAEF3" Directory="INSTALLDIR" Guid="{F4147B33-0542-4261-9EBA-A51C43776742}">
                 <File Id="filFF0970474B0FB1C0E7A7FF584656E4EF" KeyPath="yes" Source="00_Edi\Settings.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe12" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp39FE7983BC71F565D02FA04AED9E1D0E" Directory="INSTALLDIR" Guid="{E951149B-501C-4D8A-B769-7666AA6C1591}">
                 <File Id="filAA71EF3EAB2731A637822773FA29C5C0" KeyPath="yes" Source="00_Edi\SimpleControls.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe13" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmpC039B902E8820765BE196123D30092CC" Directory="INSTALLDIR" Guid="{7F9B93A9-483B-4CA8-8E0D-7721875D1F3E}">
                 <File Id="fil241F48DC448D4A53BDD0D809BA7E3078" KeyPath="yes" Source="00_Edi\Themes.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe14" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp198D537220CAB9327B210294CDDCF2FC" Directory="INSTALLDIR" Guid="{AED585CB-AC24-4102-B9D0-AC14487E2849}">
                 <File Id="fil72ABCBD61B2E074F75508D0165823FDF" KeyPath="yes" Source="00_Edi\UnitComboLib.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe15" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp70771A230F3F310E06DBADC144271B94" Directory="INSTALLDIR" Guid="{FD358E27-F23F-4732-9B4E-912DEBE319BF}">
@@ -105,7 +91,6 @@
             </Component>
             <Component Win64="yes" Id="cmp2CBF78CB86D1FE864B2E514FF308DE3A" Directory="INSTALLDIR" Guid="{0178003F-2BA1-43E9-8333-D541726F5A07}">
                 <File Id="fil1CED15343F4E7E5021B9A0E7FE345779" KeyPath="yes" Source="00_Edi\UserNotification.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe16" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp4FE23B637CA1B6C60782EFD24B09AE01" Directory="INSTALLDIR" Guid="{7C57AB53-80C3-4973-9F84-998BB50277AC}">
@@ -113,32 +98,53 @@
             </Component>
             <Component Win64="yes" Id="cmpC43EAC81B77B99C399BF44209B3DE1D9" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3759}">
                 <File Id="filDEC8A182B6B6AA50B056296F8F226DCC" KeyPath="yes" Source="00_Edi\Util.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe17" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmpF8A56BFABA1424EA4226ABBF24F46BAF" Directory="INSTALLDIR" Guid="{BF126558-1C13-4867-8E06-9D04F45C50AB}">
                 <File Id="fil30BABFF7CA22E8455B4299682D82E462" KeyPath="yes" Source="00_Edi\Xceed.Wpf.AvalonDock.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe18" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp0E7F844F9D78FA02FC4F7B5F1176DEF5" Directory="INSTALLDIR" Guid="{97F62C92-416F-4A89-8050-E01DD8AE5AB7}">
                 <File Id="fil7797EDC8A821DAD9D071B4D767CE59D9" KeyPath="yes" Source="00_Edi\Xceed.Wpf.AvalonDock.Themes.Expression.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe19" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmpD1E6199331100B53A0D6859D46F776B9" Directory="INSTALLDIR" Guid="{9502C224-CC57-4B41-840D-97AD7F773493}">
                 <File Id="fil0FE464C8A9244704AA9A7121051843D5" KeyPath="yes" Source="00_Edi\Xceed.Wpf.AvalonDock.Themes.Metro.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe20" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmp913ABF408CCB889F19EB481F36670CCE" Directory="INSTALLDIR" Guid="{C4C93D1C-6E3B-455A-BAAE-264F2A494F9A}">
                 <File Id="filD286F2E64CC0D726528D0828CE497E7E" KeyPath="yes" Source="00_Edi\YalvLib.dll" >
-                    <netfx:NativeImage Id="ngen_MyApplication.exe21" Platform="64bit" Priority="0" AppBaseDirectory="INSTALLDIR"/>
                 </File>
             </Component>
             <Component Win64="yes" Id="cmpB5788480AA236D37CF84F57D2A5DDCFD" Directory="INSTALLDIR" Guid="{6B40EF5D-7849-4E8B-B9E3-D65E06BC5822}">
                 <File Id="fil06E97A7D1F4C29A84DF8CF7B0FE339FA" KeyPath="yes" Source="00_Edi\YalvLib.xml" />
             </Component>
+            <!-- -->
+            <Component Win64="yes" Id="cmpC43EAC81B77B99C399BF44209B3DE1DA" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3760}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DCD" KeyPath="yes" Source="00_Edi\DropDownButtonLib.dll" >
+                </File>
+            </Component>
+
+            <Component Win64="yes" Id="cmpC43EAC81B77B99C399BF44209B3DE1DB" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3761}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DCE" KeyPath="yes" Source="00_Edi\FileListView.dll" >
+                </File>
+            </Component>
+            <Component Win64="yes" Id="cmpC43EAC81B77B99C399BF44209B3DE1DC" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3762}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DCF" KeyPath="yes" Source="00_Edi\FileSystemModels.dll" >
+                </File>
+            </Component>
+            <Component Win64="yes" Id="cmpC43EAC81B77B99C399BF44209B3DE1DD" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3763}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DD0" KeyPath="yes" Source="00_Edi\FolderBrowser.dll" >
+                </File>
+            </Component>
+            <Component Win64="yes" Id="cmpC43EAC81B77B99C399BF44209B3DE1DE" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3764}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DD1" KeyPath="yes" Source="00_Edi\InplaceEditBoxLib.dll" >
+                </File>
+            </Component>
+	            <Component Win64="yes" Id="cmpB5788480AA236D37CF84F57D2A5DDCFE" Directory="INSTALLDIR" Guid="{6B40EF5D-7849-4E8B-B9E3-D65E06BC5823}">
+                <File Id="fil06E97A7D1F4C29A84DF8CF7B0FE339FB" KeyPath="yes" Source="00_Edi\InplaceEditBoxLib.xml" />
+            </Component>            
+            <!-- -->
             <Component Win64="yes" Id="cmp52EA3EFE44D9170A1396E2A51588C3A7" Directory="dir6545CCAFF7666E319AB282AB190D7B9E" Guid="{9BAF24AF-F501-4C52-9EA4-362C748A3B55}">
                 <File Id="fil7429E2E83FCC34E1D04DB5EC2AA44DD7" KeyPath="yes" Source="00_Edi\AvalonEdit\Highlighting\00_XmlDoc.xshd" />
             </Component>
@@ -235,6 +241,9 @@
             <Component Win64="yes" Id="cmp59A8C7A1A3DEEA4ABDAFD7D6EC10AC7B" Directory="dir6545CCAFF7666E319AB282AB190D7B9E" Guid="{4AEA1355-511D-4D38-A859-8DB0E066E8CF}">
                 <File Id="fil088A0D9E06B772CD8F4A33526019F1D3" KeyPath="yes" Source="00_Edi\AvalonEdit\Highlighting\vtl.xshd" />
             </Component>
+            <Component Win64="yes" Id="cmp59A8C7A1A3DEEA4ABDAFD7D6EC10AC7C" Directory="dir6545CCAFF7666E319AB282AB190D7B9E" Guid="{4AEA1355-511D-4D38-A859-8DB0E066E8D0}">
+                <File Id="fil088A0D9E06B772CD8F4A33526019F1D4" KeyPath="yes" Source="00_Edi\AvalonEdit\Highlighting\MarkDown-Mode.xshd" />
+            </Component>            
             <Component Win64="yes" Id="cmpE55AB51897BC9F1A415485BD0BF3B2D4" Directory="dirA0076ACB592FACF4F8B2220282241684" Guid="{88D8B7FC-60AD-4D2E-9963-58D263491268}">
                 <File Id="fil90F6F0D5091F83D7A45C86AB98610EE1" KeyPath="yes" Source="00_Edi\AvalonEdit\HighLighting_Themes\BrightStandard.xshd" />
             </Component>
@@ -292,6 +301,9 @@
             <Component Win64="yes" Id="cmp0A779401E762A4B05386C02117F28C22" Directory="dir2BFF99396F55A3B1A2D6B5973B246087" Guid="{AA12637B-0E74-4046-8B6B-8D3393CD4CCC}">
                 <File Id="fil98C49273B51715CD0423953ED3CF643D" KeyPath="yes" Source="00_Edi\es-ES\Util.resources.dll" />
             </Component>
+            <Component Win64="yes" Id="cmp0A779401E762A4B05386C02117F28C23" Directory="dir2BFF99396F55A3B1A2D6B5973B246087" Guid="{AA12637B-0E74-4046-8B6B-8D3393CD4CCD}">
+                <File Id="fil98C49273B51715CD0423953ED3CF643E" KeyPath="yes" Source="00_Edi\es-ES\FileSystemModels.resources.dll" />
+            </Component>
             <Component Win64="yes" Id="cmp5B3AFAE9C9389B6FA447C1DF264052DF" Directory="dirFD38E27812D3A1247DA368114606FAF1" Guid="{0763CE4D-8875-4459-8B95-62E6BB1D3FDC}">
                 <File Id="filC867F84B75385C3B10A5EAC2BB7DC23A" KeyPath="yes" Source="00_Edi\fr\Xceed.Wpf.AvalonDock.resources.dll" />
             </Component>
@@ -325,6 +337,10 @@
             <Component Win64="yes" Id="cmp91EA953407340DCA1BE0E4C2596EFB41" Directory="dir89B9F40494FC662E4645FE284F8CC556" Guid="{7994B7E0-63AF-4E50-8168-3811AD9623D4}">
                 <File Id="fil975D0FD268586B6FBD83F5FD0AB4079A" KeyPath="yes" Source="00_Edi\hi-IN\Util.resources.dll" />
             </Component>
+            <Component Win64="yes" Id="cmp91EA953407340DCA1BE0E4C2596EFB42" Directory="dir89B9F40494FC662E4645FE284F8CC556" Guid="{7994B7E0-63AF-4E50-8168-3811AD9623D5}">
+                <File Id="fil975D0FD268586B6FBD83F5FD0AB4079B" KeyPath="yes" Source="00_Edi\hi-IN\FileSystemModels.resources.dll" />
+            </Component>
+
             <Component Win64="yes" Id="cmp1021F692E2DE50DEA69255565318469A" Directory="dirFCCD13F121B9255A412A1940924CEDCB" Guid="{15568AA2-3DDE-42E4-A1E4-4FC5B2C52A15}">
                 <File Id="filD2D01BCC26B09E7B11309A560BAA88B2" KeyPath="yes" Source="00_Edi\hu\Xceed.Wpf.AvalonDock.resources.dll" />
             </Component>
@@ -360,6 +376,9 @@
             </Component>
             <Component Win64="yes" Id="cmp9193D96312624DD384E32A2096ADFEC8" Directory="dir387A71CBF1800118442E9F820EF0ADA1" Guid="{ABCC632C-6073-42D6-A140-425A4BA39A49}">
                 <File Id="fil41B67D99D7FFEA25280C6CB151CAD48C" KeyPath="yes" Source="00_Edi\ja-JP\Util.resources.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmp9193D96312624DD384E32A2096ADFEC9" Directory="dir387A71CBF1800118442E9F820EF0ADA1" Guid="{ABCC632C-6073-42D6-A140-425A4BA39A4A}">
+                <File Id="fil41B67D99D7FFEA25280C6CB151CAD48D" KeyPath="yes" Source="00_Edi\ja-JP\FileSystemModels.resources.dll" />
             </Component>
             <Component Win64="yes" Id="cmp6D5B65723EDFB596DBD85FE6BF577F01" Directory="dir7A53C9A2853EE836087479C3120BF490" Guid="{06AF0F52-CAD0-421F-A688-EA754F425850}">
                 <File Id="filD0F094DEAE459CFD07CE3D3F0FBB473E" KeyPath="yes" Source="00_Edi\MiniUML.Plugins\MiniUML.Plugins.UmlClassDiagram.dll" />
@@ -400,6 +419,9 @@
             <Component Win64="yes" Id="cmp7EAE61DF7E70A6454C9B4775DA9A1ED2" Directory="dir9602DB2954B8218EB403F0364D8346D3" Guid="{0E64C51E-0D03-4F81-A626-BEB3CD1C9EC7}">
                 <File Id="fil5AB35B2A8CE58185837F3944020BA8F2" KeyPath="yes" Source="00_Edi\ru-RU\Util.resources.dll" />
             </Component>
+            <Component Win64="yes" Id="cmp7EAE61DF7E70A6454C9B4775DA9A1ED3" Directory="dir9602DB2954B8218EB403F0364D8346D3" Guid="{0E64C51E-0D03-4F81-A626-BEB3CD1C9EC8}">
+                <File Id="fil5AB35B2A8CE58185837F3944020BA8F3" KeyPath="yes" Source="00_Edi\ru-RU\FileSystemModels.resources.dll" />
+            </Component>
             <Component Win64="yes" Id="cmp839F44FF60A2FE73AFAF397E6B1B765A" Directory="dir34F1B9E5EE0E587A498B9164D633786B" Guid="{17C9B743-B156-4A3E-BC94-5F35C8B6815B}">
                 <File Id="filAB9D8ADE9994729FE9DF48AB42B49E44" KeyPath="yes" Source="00_Edi\sv\Xceed.Wpf.AvalonDock.resources.dll" />
             </Component>
@@ -411,6 +433,9 @@
             </Component>
             <Component Win64="yes" Id="cmp89C63783E0364BB8F57A7E27701474DD" Directory="dir2B056FE6351C074C9055B2D4C7512281" Guid="{6AF031D7-0AF0-42BB-BF5B-1A9C2C81A07A}">
                 <File Id="fil9803917CC6FD8609516178D67C98ADC4" KeyPath="yes" Source="00_Edi\zh-CHS\Util.resources.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmp89C63783E0364BB8F57A7E27701474DE" Directory="dir2B056FE6351C074C9055B2D4C7512281" Guid="{6AF031D7-0AF0-42BB-BF5B-1A9C2C81A07B}">
+                <File Id="fil9803917CC6FD8609516178D67C98ADC5" KeyPath="yes" Source="00_Edi\zh-CHS\FileSystemModels.resources.dll" />
             </Component>
             <Component Win64="yes" Id="cmp2D4B05035599738D4FA73B875ABD4874" Directory="dir3B531D66026FD5C4F86F6B9E2581EBB2" Guid="{0A9C6A0F-9B9A-46CA-8EAC-D2BD4D87268C}">
                 <File Id="fil4FAD7817632BEEF852ABF8E0B4718EBE" KeyPath="yes" Source="00_Edi\zh-Hans\MsgBox.resources.dll" />
