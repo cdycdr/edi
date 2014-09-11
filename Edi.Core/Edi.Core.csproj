@@ -78,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCommand.cs" />
+    <Compile Include="Interfaces\ILayoutableWindow.cs" />
+    <Compile Include="Interfaces\IViewModelResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ResourceLocator.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />

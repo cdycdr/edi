@@ -6,6 +6,8 @@
         xmlns:view="clr-namespace:Edi.View"
         xmlns:conv="clr-namespace:Edi.Converter"
 
+        xmlns:coreconv="clr-namespace:Edi.Core.App.Converters;assembly=Edi.Core.App"
+
         xmlns:avalonDockProperties="clr-namespace:Xceed.Wpf.AvalonDock.Properties;assembly=Xceed.Wpf.AvalonDock"
         xmlns:AvalondockConv="clr-namespace:Xceed.Wpf.AvalonDock.Converters;assembly=Xceed.Wpf.AvalonDock"
         xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
@@ -43,7 +45,7 @@
         >
     <Grid>
       <Grid.Resources>
-        <conv:ActiveDocumentConverter x:Key="ActiveDocumentConverter"/>
+        <coreconv:ActiveDocumentConverter x:Key="ActiveDocumentConverter"/>
         <AvalondockConv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
       </Grid.Resources>
     <Grid.RowDefinitions>
