@@ -1,15 +1,13 @@
-namespace EdiViews.Documents.Log4Net
+namespace EdiViews.ViewModels.Document.Log4Net
 {
   using System;
   using System.Globalization;
-  using System.Windows.Input;
-  using MsgBox.Commands;
   using System.IO;
+  using System.Windows.Input;
   using MsgBox;
-  using ICSharpCode.AvalonEdit.Utils;
-  using System.Text;
+  using MsgBox.Commands;
 
-  public class Log4NetViewModel : EdiViews.ViewModel.Base.FileBaseViewModel
+  public class Log4NetViewModel : Edi.Core.ViewModels.FileBaseViewModel
   {
     #region fields
     private static int iNewFileCounter             = 1;
@@ -273,6 +271,5 @@ namespace EdiViews.Documents.Log4Net
 
       return true;
     }
-
   }
 }

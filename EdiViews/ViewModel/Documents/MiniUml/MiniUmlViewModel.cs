@@ -1,23 +1,15 @@
-namespace EdiViews.ViewModel.Documents
+namespace EdiViews.ViewModels.Document.MiniUml
 {
   using System;
-  using System.Collections.ObjectModel;
+  using System.ComponentModel;
   using System.Globalization;
   using System.IO;
-  using System.Text;
   using System.Windows.Input;
-
+  using MiniUML.Model.ViewModels.Document;
   using MsgBox;
   using SimpleControls.Command;
-  using UnitComboLib.Unit;
-  using UnitComboLib.Unit.Screen;
-  using UnitComboLib.ViewModel;
-  using MiniUML.Model.ViewModels;
-  using System.ComponentModel;
-  using ICSharpCode.AvalonEdit.Highlighting;
-  using MiniUML.Model.ViewModels.Document;
 
-  public class MiniUmlViewModel : EdiViews.ViewModel.Base.FileBaseViewModel
+  public class MiniUmlViewModel : Edi.Core.ViewModels.FileBaseViewModel
   {
     #region Fields
     private MiniUML.Model.ViewModels.Document.RibbonViewModel mRibbonViewModel;

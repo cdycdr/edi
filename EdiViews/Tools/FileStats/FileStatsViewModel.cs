@@ -2,8 +2,7 @@ namespace EdiViews.Tools.FileStats
 {
   using System;
   using System.IO;
-  using Edi.ViewModel.Base;
-  using EdiViews.ViewModel.Base;
+  using Edi.Core.ViewModels;
 
   /// <summary>
   /// This class can be used to present file based information, such as,

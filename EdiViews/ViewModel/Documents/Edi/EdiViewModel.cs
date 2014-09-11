@@ -1,4 +1,4 @@
-namespace EdiViews.ViewModel.Documents
+namespace EdiViews.ViewModels.Document
 {
   using System;
   using System.Collections.ObjectModel;
@@ -9,7 +9,7 @@ namespace EdiViews.ViewModel.Documents
   using System.Windows.Input;
   using System.Windows.Threading;
   using EdiViews.Process;
-  using EdiViews.ViewModel.Documents.Edi;
+  using EdiViews.ViewModels.Documents.Edi;
   using ICSharpCode.AvalonEdit.Document;
   using ICSharpCode.AvalonEdit.Edi.BlockSurround;
   using ICSharpCode.AvalonEdit.Edi.TextBoxControl;
@@ -48,7 +48,7 @@ namespace EdiViews.ViewModel.Documents
   /// This viewmodel class represents the business logic of the text editor.
   /// Each text editor document instance is associated with a <seealso cref="EdiViewModel"/> instance.
   /// </summary>
-  public class EdiViewModel : EdiViews.ViewModel.Base.FileBaseViewModel, EdiViews.Dialogs.FindReplace.ViewModel.IEditor
+  public class EdiViewModel : Edi.Core.ViewModels.FileBaseViewModel, EdiViews.Dialogs.FindReplace.ViewModel.IEditor
   {
     #region Fields
     private static int iNewFileCounter = 0;

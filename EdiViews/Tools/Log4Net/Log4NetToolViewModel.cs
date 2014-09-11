@@ -1,8 +1,8 @@
 namespace EdiViews.Tools.Log4Net
 {
   using System;
-  using Edi.ViewModel.Base;
-  using EdiViews.Documents.Log4Net;
+  using Edi.Core.ViewModels;
+  using EdiViews.ViewModels.Document.Log4Net;
 
   /// <summary>
   /// This viewmodel manages the functions of the Log4Net Tool Window which contains

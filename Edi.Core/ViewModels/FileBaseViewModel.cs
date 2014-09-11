@@ -1,13 +1,11 @@
-namespace EdiViews.ViewModel.Base
+namespace Edi.Core.ViewModels
 {
-  using MsgBox;
-  using SimpleControls.Command;
   using System;
   using System.Globalization;
-  using System.Windows;
   using System.Windows.Input;
+  using Command;
   using Edi.Core.ViewModels.Events;
-  using Edi.Core.ViewModels;
+  using MsgBox;
 
   /// <summary>
   /// Base class that shares common properties, methods, and intefaces
@@ -121,7 +119,7 @@ namespace EdiViews.ViewModel.Base
       get
       {
         if (_copyFullPathtoClipboard == null)
-          _copyFullPathtoClipboard = new SimpleControls.Command.RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand());
+          _copyFullPathtoClipboard = new RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand());
 
         return _copyFullPathtoClipboard;
       }
@@ -135,8 +133,7 @@ namespace EdiViews.ViewModel.Base
       get
       {
         if (this._syncPathToExplorerCommand == null)
-          this._syncPathToExplorerCommand = new SimpleControls.Command.RelayCommand<object>(
-                                                  (p) => this.OnSyncPathToExplorerCommand());
+          this._syncPathToExplorerCommand = new RelayCommand<object>((p) => this.OnSyncPathToExplorerCommand());
 
         return this._syncPathToExplorerCommand;
       }

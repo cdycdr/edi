@@ -4,8 +4,7 @@ namespace EdiViews.Tools.FileExplorer
   using System.IO;
   using System.Windows;
   using System.Windows.Input;
-  using Edi.ViewModel.Base;
-  using EdiViews.ViewModel.Base;
+  using Edi.Core.ViewModels;
   using FileListView.Command;
   using FileListView.ViewModels;
   using FileListView.ViewModels.Interfaces;

@@ -3,9 +3,10 @@
   using System.Windows;
   using System.Windows.Controls;
   using Edi.Core.ViewModels;
-  using EdiViews.Documents.Log4Net;
-  using EdiViews.ViewModel.Documents;
-  using EdiViews.ViewModel.Documents.StartPage;
+  using EdiViews.ViewModels.Document;
+  using EdiViews.ViewModels.Document.Log4Net;
+  using EdiViews.ViewModels.Document.MiniUml;
+  using EdiViews.ViewModels.Document.StartPage;
 
   /// <summary>
   /// Select a corresponding style for a given viewmodel.

@@ -1,7 +1,5 @@
-﻿namespace Edi.ViewModel.Base
+﻿namespace Edi.Core.ViewModels
 {
-  using EdiViews.ViewModel.Base;
-
   public delegate void DocumentChangedEventHandler(object sender, DocumentChangedEventArgs e);
 
   /// <summary>

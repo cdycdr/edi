@@ -2,11 +2,11 @@ namespace Edi.ViewModel
 {
   using System.IO;
   using System.Windows.Input;
-  using EdiViews.ViewModel.Documents.StartPage;
   using EdiViews.Tools.FileExplorer;
   using EdiViews.Tools.FileStats;
   using EdiViews.Tools.Log4Net;
   using EdiViews.Tools.RecentFiles;
+  using EdiViews.ViewModels.Document.StartPage;
   using Settings;
   using SimpleControls.Command;
   using Xceed.Wpf.AvalonDock;

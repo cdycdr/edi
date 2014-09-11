@@ -6,10 +6,9 @@ namespace Edi.ViewModel
   using System.Text.RegularExpressions;
   using System.Windows;
   using System.Windows.Threading;
-
   using EdiViews;
   using EdiViews.Dialogs.FindReplace.ViewModel;
-  using EdiViews.ViewModel.Documents;
+  using EdiViews.ViewModels.Document;
   using ICSharpCode.AvalonEdit.Document;
   using MsgBox;
 

@@ -1,9 +1,6 @@
 namespace Edi.Core.ViewModels.Events
 {
   using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Text;
 
   /// <summary>
   /// Identifies a document event by a typed collection of enumerators.

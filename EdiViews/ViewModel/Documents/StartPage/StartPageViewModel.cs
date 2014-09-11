@@ -1,15 +1,14 @@
-namespace EdiViews.ViewModel.Documents.StartPage
+namespace EdiViews.ViewModels.Document.StartPage
 {
   using System;
+  using System.Globalization;
+  using System.Reflection;
   using System.Windows.Input;
+  using MsgBox;
   using SimpleControls.Command;
   using SimpleControls.MRU.ViewModel;
-  using EdiViews.ViewModel;
-  using System.Reflection;
-  using System.Globalization;
-  using MsgBox;
 
-  public class StartPageViewModel : EdiViews.ViewModel.Base.FileBaseViewModel
+  public class StartPageViewModel : Edi.Core.ViewModels.FileBaseViewModel
   {
     #region fields
     public const string StartPageContentId = "{StartPage}";

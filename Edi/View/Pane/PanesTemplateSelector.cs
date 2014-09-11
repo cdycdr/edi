@@ -2,13 +2,14 @@
 {
   using System.Windows;
   using System.Windows.Controls;
-  using EdiViews.Documents.Log4Net;
-  using EdiViews.ViewModel.Documents.StartPage;
   using EdiViews.Tools.FileExplorer;
   using EdiViews.Tools.FileStats;
   using EdiViews.Tools.Log4Net;
   using EdiViews.Tools.RecentFiles;
-  using EdiViews.ViewModel.Documents;
+  using EdiViews.ViewModels.Document;
+  using EdiViews.ViewModels.Document.Log4Net;
+  using EdiViews.ViewModels.Document.MiniUml;
+  using EdiViews.ViewModels.Document.StartPage;
   using Xceed.Wpf.AvalonDock.Layout;
 
   /// <summary>

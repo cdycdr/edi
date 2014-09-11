@@ -1,9 +1,6 @@
 ﻿namespace Edi.Core.ViewModels
 {
   using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Text;
 
   /// <summary>
   /// AvalonDock base class viewm-model to support document pane views

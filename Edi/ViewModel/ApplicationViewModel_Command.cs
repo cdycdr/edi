@@ -6,15 +6,15 @@
   using System.Windows;
   using System.Windows.Input;
   using System.Windows.Threading;
-  using EdiViews.ViewModel.Documents.StartPage;
-  using EdiViews.ViewModel.Base;
-  using EdiViews.ViewModel.Documents;
+  using Edi.Core;
+  using Edi.Core.ViewModels;
+  using EdiViews.ViewModels.Document;
+  using EdiViews.ViewModels.Document.StartPage;
   using MiniUML.Framework;
   using MsgBox;
   using MsgBox.Commands;
   using Settings;
   using Themes;
-	using Edi.Core;
 
   /// <summary>
   /// Base enumeration to determine the kind of command option
