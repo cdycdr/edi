@@ -77,6 +77,10 @@
     <Compile Include="AppCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ResourceLocator.cs" />
+    <Compile Include="ViewModels\Base\ViewModelBase.cs" />
+    <Compile Include="ViewModels\Events\FileBaseEvent.cs" />
+    <Compile Include="ViewModels\PaneViewModel.cs" />
+    <Compile Include="ViewModels\ToolViewModel.cs" />
     <Compile Include="View\Pane\LayoutInitializer.cs" />
     <Compile Include="View\Pane\PanesStyleSelector.cs" />
     <Compile Include="View\Pane\PanesTemplateSelector.cs" />

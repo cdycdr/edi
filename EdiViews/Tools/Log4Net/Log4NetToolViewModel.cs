@@ -1,7 +1,6 @@
 namespace EdiViews.Tools.Log4Net
 {
   using System;
-  using Edi.ViewModel;
   using Edi.ViewModel.Base;
   using EdiViews.Documents.Log4Net;
 
@@ -9,7 +8,7 @@ namespace EdiViews.Tools.Log4Net
   /// This viewmodel manages the functions of the Log4Net Tool Window which contains
   /// filter function to adjust the display of log4net information.
   /// </summary>
-  public class Log4NetToolViewModel : EdiViews.ViewModel.Base.ToolViewModel
+  public class Log4NetToolViewModel : Edi.Core.ViewModels.ToolViewModel
   {
     #region fields
     public const string ToolContentId = "Log4NetTool";

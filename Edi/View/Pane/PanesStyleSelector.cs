@@ -2,12 +2,10 @@
 {
   using System.Windows;
   using System.Windows.Controls;
-
-  using Edi.ViewModel;
+  using Edi.Core.ViewModels;
   using EdiViews.Documents.Log4Net;
-  using EdiViews.ViewModel.Documents.StartPage;
-  using EdiViews.ViewModel.Base;
   using EdiViews.ViewModel.Documents;
+  using EdiViews.ViewModel.Documents.StartPage;
 
   /// <summary>
   /// Select a corresponding style for a given viewmodel.

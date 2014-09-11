@@ -6,14 +6,15 @@ namespace EdiViews.ViewModel.Base
   using System.Globalization;
   using System.Windows;
   using System.Windows.Input;
-  using EdiViews.ViewModel.Base.Events;
+  using Edi.Core.ViewModels.Events;
+  using Edi.Core.ViewModels;
 
   /// <summary>
   /// Base class that shares common properties, methods, and intefaces
   /// among viewmodels that represent documents in Edi
   /// (text file edits, Start Page, Prgram Settings).
   /// </summary>
-  public abstract class FileBaseViewModel : EdiViews.ViewModel.Base.PaneViewModel
+  public abstract class FileBaseViewModel : PaneViewModel
   {
     #region Fields
     private bool mIsFilePathReal = false;

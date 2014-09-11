@@ -9,7 +9,7 @@ namespace EdiViews.Tools.FileStats
   /// This class can be used to present file based information, such as,
   /// Size, Path etc to the user.
   /// </summary>
-  public class FileStatsViewModel : EdiViews.ViewModel.Base.ToolViewModel
+  public class FileStatsViewModel : Edi.Core.ViewModels.ToolViewModel
   {
     #region fields
     public const string ToolContentId = "FileStatsTool";

@@ -1,7 +1,6 @@
 ﻿namespace EdiViews.Tools.Log4Net
 {
   using System;
-  using Edi.ViewModel;
   using Edi.ViewModel.Base;
   using EdiViews.Documents.Log4Net;
 
@@ -9,7 +8,7 @@
   /// This viewmodel manages the functions of the Log4Net Message Tool Window    
   /// which contains controls that display details on the Message and Throwable log4net fields.
   /// </summary>
-  public class Log4NetMessageToolViewModel : EdiViews.ViewModel.Base.ToolViewModel
+  public class Log4NetMessageToolViewModel : Edi.Core.ViewModels.ToolViewModel
   {
     #region fields
     public const string ToolContentId = "Log4NetMessageTool";

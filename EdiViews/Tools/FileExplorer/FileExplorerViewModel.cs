@@ -19,7 +19,7 @@ namespace EdiViews.Tools.FileExplorer
   /// This class can be used to present file based information, such as,
   /// Size, Path etc to the user.
   /// </summary>
-  public class FileExplorerViewModel : EdiViews.ViewModel.Base.ToolViewModel
+  public class FileExplorerViewModel : Edi.Core.ViewModels.ToolViewModel
   {
     #region fields
     public const string ToolContentId = "FileExplorerTool";

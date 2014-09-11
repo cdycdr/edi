@@ -1,4 +1,4 @@
-﻿namespace EdiViews.ViewModel.Base
+﻿namespace Edi.Core.ViewModels
 {
   using System;
   using System.Collections.Generic;
@@ -8,7 +8,7 @@
   /// <summary>
   /// AvalonDock base class viewm-model to support document pane views
   /// </summary>
-  public class PaneViewModel : EdiViews.ViewModel.Base.ViewModelBase
+  public class PaneViewModel : Base.ViewModelBase
   {
     public PaneViewModel()
     { }

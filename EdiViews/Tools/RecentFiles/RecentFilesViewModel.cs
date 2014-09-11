@@ -1,12 +1,10 @@
 namespace EdiViews.Tools.RecentFiles
 {
   using System;
-  using System.IO;
 
-  using SimpleControls.MRU.Model;
   using SimpleControls.MRU.ViewModel;
 
-  public class RecentFilesViewModel : EdiViews.ViewModel.Base.ToolViewModel
+  public class RecentFilesViewModel : Edi.Core.ViewModels.ToolViewModel
   {
     public const string ToolContentId = "RecentFilesTool";
 

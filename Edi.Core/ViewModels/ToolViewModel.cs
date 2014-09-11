@@ -1,4 +1,4 @@
-﻿namespace EdiViews.ViewModel.Base
+﻿namespace Edi.Core.ViewModels
 {
   using System;
   using System.Collections.Generic;
@@ -26,7 +26,6 @@
       private set;
     }
 
-
     #region IsVisible
 
     private bool _isVisible = true;
@@ -44,7 +43,5 @@
     }
 
     #endregion
-
-
   }
 }

@@ -1,4 +1,4 @@
-namespace EdiViews.ViewModel.Base.Events
+namespace Edi.Core.ViewModels.Events
 {
   using System;
   using System.Collections.Generic;
