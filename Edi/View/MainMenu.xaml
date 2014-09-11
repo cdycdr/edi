@@ -8,7 +8,7 @@
              
             xmlns:theme="clr-namespace:Themes;assembly=Themes"
             xmlns:EdiViewsConv="clr-namespace:EdiViews.Converter;assembly=EdiViews"
-            xmlns:cmd="clr-namespace:Util.Command;assembly=Util"
+            xmlns:cmd="clr-namespace:Edi.Core;assembly=Edi.Core"
             xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
             xmlns:behav="clr-namespace:EdiViews.Behaviour;assembly=EdiViews"
             xmlns:vm="clr-namespace:Edi.ViewModel"

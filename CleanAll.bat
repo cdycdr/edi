@@ -7,6 +7,8 @@ ECHO This script deletes all temporary build files in their
 ECHO corresponding BIN and OBJ Folder contained in the following projects
 ECHO.
 ECHO Edi
+ECHO Edi.App.Core
+ECHO Edi.Core
 ECHO EdiViews
 ECHO Themes
 ECHO ICSharpCode.AvalonEdit
@@ -75,6 +77,16 @@ ECHO Deleting BIN and OBJ Folders in SimpleControls
 ECHO.
 RMDIR /S /Q SimpleControls\bin
 RMDIR /S /Q SimpleControls\obj
+
+ECHO Deleting BIN and OBJ Folders in Edi.App.Core
+ECHO.
+RMDIR /S /Q Edi.App.Core\bin
+RMDIR /S /Q Edi.App.Core\obj
+
+ECHO Deleting BIN and OBJ Folders in Edi.Core
+ECHO.
+RMDIR /S /Q Edi.Core\bin
+RMDIR /S /Q Edi.Core\obj
 
 PAUSE
 

@@ -33,7 +33,7 @@
         xmlns:yalvView="clr-namespace:YalvLib.View;assembly=YalvLib"
         xmlns:busi="clr-namespace:YalvLib.Behaviour.BusyIndicatorBehavior;assembly=YalvLib"
      
-        xmlns:cmd="clr-namespace:Util.Command;assembly=Util"
+        xmlns:cmd="clr-namespace:Edi.Core;assembly=Edi.Core"
         xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
 
         Title="{Binding ApplicationTitle}"

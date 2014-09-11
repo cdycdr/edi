@@ -43,6 +43,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniUML.Framework", "MiniUM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Settings", "Settings\Settings.csproj", "{2807B493-CC2E-402E-901A-EB138698FEDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edi.Core", "Edi.Core\Edi.Core.csproj", "{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edi.App.Core", "Edi.App.Core\Edi.App.Core.csproj", "{712120B2-6021-48F9-9548-20CB8A3D2429}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{561C049C-B2A4-4820-A352-20DC78835C21}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -259,6 +270,34 @@ Global
 		{2807B493-CC2E-402E-901A-EB138698FEDC}.Release|x64.ActiveCfg = Release|x64
 		{2807B493-CC2E-402E-901A-EB138698FEDC}.Release|x64.Build.0 = Release|x64
 		{2807B493-CC2E-402E-901A-EB138698FEDC}.Release|x86.ActiveCfg = Release|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Debug|Mixed.ActiveCfg = Debug|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Release|Mixed.ActiveCfg = Release|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Release|x64.ActiveCfg = Release|Any CPU
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7}.Release|x86.ActiveCfg = Release|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Debug|Mixed.ActiveCfg = Debug|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Release|Mixed.ActiveCfg = Release|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Release|x64.ActiveCfg = Release|Any CPU
+		{712120B2-6021-48F9-9548-20CB8A3D2429}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -275,5 +314,7 @@ Global
 		{9584C00E-7FE9-428A-9770-0A8AF6969B68} = {2D26ECAB-01CB-4A96-B34C-EA616F547227}
 		{99941EFE-69B0-4618-B130-6D6FC1B43EB3} = {C7A9E1F8-38FD-4268-BFC5-473CF16471D8}
 		{2807B493-CC2E-402E-901A-EB138698FEDC} = {39FEC70F-8F35-4A04-B770-59F12A0CE83F}
+		{F17E5E06-F28C-4E91-964F-CDB9F8589BB7} = {39FEC70F-8F35-4A04-B770-59F12A0CE83F}
+		{712120B2-6021-48F9-9548-20CB8A3D2429} = {39FEC70F-8F35-4A04-B770-59F12A0CE83F}
 	EndGlobalSection
 EndGlobal

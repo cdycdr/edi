@@ -1,8 +1,4 @@
 
-Todo
--> Visibility of AvalonEdit via Converter
--> Thread owner exception ???
-
 1 Version
 
 This Readme file has the Version 1.0.14.
@@ -444,7 +440,7 @@ Program Settings   | Programmeinstellungen   | Refers to those options that can 
                    |                         | adjust a program to a user's needs.
 -------------------+-------------------------+----------------------------------------------------
 
-3.1.1 Typical XAML Constructs to Localic
+3.1.1 Typical XAML Constructs to Localize
 
 Perform regular expression search with:
 Header="[A-Z]
@@ -454,7 +450,7 @@ Text="[A-Z]
 
 4 Licensing
 
-This editor is published under the LGPL license.
+This editor is published under the MIT license.
 
 5 Credits
 

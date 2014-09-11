@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Controls="clr-namespace:MahApps.Metro.Controls"
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
@@ -102,7 +102,7 @@
                         <Rectangle x:Name="FocusRectangle"
                                    StrokeThickness="{TemplateBinding BorderThickness, Converter={StaticResource ThicknessToDoubleConverter}}"
                                    Opacity="0"
-                                   Stroke="{DynamicResource BlackBrush}" />
+                                   Stroke="{DynamicResource Accent}" />
                         <Grid Margin="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -207,9 +207,7 @@
                         </DataTrigger>
                         <Trigger Property="IsMouseOver"
                                  Value="True">
-                            <Setter TargetName="FocusRectangle"
-                                    Property="Opacity"
-                                    Value="1" />
+                            <Setter TargetName="FocusRectangle" Property="Opacity" Value="1" />
                         </Trigger>
                         <Trigger Property="IsEnabled"
                                  Value="False">

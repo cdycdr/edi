@@ -15,6 +15,13 @@
 
 ---
 
+* Updated .Net frame version of most assemblies to .Net 4.5
+  Minor improvements:
+  - Fixed color of focus rectangle of textbox with accent color
+  - Fixed background color of unfocused treeview item
+
+* Added Markdown highlighting pattern with .md file extension
+
 * Updated MsgBox sub-system to incorporate bug fix for showing dialogs without MainWindow
   which has previously killed error messages in very first start-up of application
 

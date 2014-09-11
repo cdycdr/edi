@@ -7,7 +7,7 @@
   /// <summary>
   /// This converter is invoked when a new ActiveDocument (ActiveContent) is being selected and breught into view.
   /// Return the corresponding ViewModel or Binding.DoNothing (if the document type should not be selected and brought
-  /// into view via ActiveDocument property in <seealso cref="Workspace"/>.
+  /// into view via ActiveDocument property in <seealso cref="ApplicationViewModel"/>.
   /// </summary>
   class ActiveDocumentConverter : IValueConverter
   {

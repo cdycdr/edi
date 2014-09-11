@@ -166,7 +166,7 @@ namespace Edi
           Logger.InfoFormat("TRACE Processing CMD param: '{0}'", sPath);
 
           // Command may not be bound yet so we do this via direct call
-          Workspace.This.Open(sPath);
+          ApplicationViewModel.This.Open(sPath);
         }
       }
       else
@@ -271,13 +271,13 @@ namespace Edi
 
         if (this.mMainWin != null)
         {
-          if (this.mMainWin.DataContext != null && Workspace.This.Files != null)
+          if (this.mMainWin.DataContext != null && ApplicationViewModel.This.Files != null)
           {
             // Close all open files and check whether application is ready to close
-            if (Workspace.This.Exit_CheckConditions(this.mMainWin) == true)
+            if (ApplicationViewModel.This.Exit_CheckConditions(this.mMainWin) == true)
               e.Cancel = false;
             else
-              e.Cancel = Workspace.This.ShutDownInProgress_Cancel = true;
+              e.Cancel = ApplicationViewModel.This.ShutDownInProgress_Cancel = true;
           }
         }
       }
@@ -337,7 +337,7 @@ namespace Edi
 
       try
       {
-        Workspace.This.LoadConfigOnAppStartup();
+        ApplicationViewModel.This.LoadConfigOnAppStartup();
 
         Thread.CurrentThread.CurrentCulture = new CultureInfo(SettingsManager.Instance.SettingData.LanguageSelected);
         Thread.CurrentThread.CurrentUICulture = new CultureInfo(SettingsManager.Instance.SettingData.LanguageSelected);
@@ -356,7 +356,7 @@ namespace Edi
       try
       {
         // Attempt to load a MiniUML plugin via the model class
-        MiniUML.Model.MiniUmlPluginLoader.LoadPlugins(App.AssemblyEntryLocation + @"\MiniUML.Plugins\", Workspace.This);
+        MiniUML.Model.MiniUmlPluginLoader.LoadPlugins(App.AssemblyEntryLocation + @"\MiniUML.Plugins\", ApplicationViewModel.This);
 
         Application.Current.MainWindow = this.mMainWin = new MainWindow();
         this.ShutdownMode = System.Windows.ShutdownMode.OnLastWindowClose;
@@ -369,13 +369,13 @@ namespace Edi
 
           // When the ViewModel asks to be closed, close the window.
           // Source: http://msdn.microsoft.com/en-us/magazine/dd419663.aspx
-          Workspace.This.RequestClose += delegate
+          ApplicationViewModel.This.RequestClose += delegate
           {
             // Save session data and close application
             this.OnClosed(this.mMainWin);
           };
 
-          this.ConstructMainWindowSession(Workspace.This, this.mMainWin);
+          this.ConstructMainWindowSession(ApplicationViewModel.This, this.mMainWin);
           this.mMainWin.Show();
 
           if (e != null)
@@ -393,7 +393,7 @@ namespace Edi
     /// </summary>
     /// <param name="workSpace"></param>
     /// <param name="win"></param>
-    private void ConstructMainWindowSession(Workspace workSpace, Window win)
+    private void ConstructMainWindowSession(ApplicationViewModel workSpace, Window win)
     {
       try
       {
@@ -436,7 +436,7 @@ namespace Edi
     {
       try
       {
-        Workspace wsVM = Workspace.This;
+        ApplicationViewModel wsVM = ApplicationViewModel.This;
 
         if (wsVM != null)
         {
@@ -473,7 +473,7 @@ namespace Edi
                                (win.WindowState == WindowState.Maximized ? true : false));
 
         // Save/initialize program options that determine global programm behaviour
-        Workspace.SaveConfigOnAppClosed();
+        ApplicationViewModel.SaveConfigOnAppClosed();
       }
       catch (Exception exp)
       {

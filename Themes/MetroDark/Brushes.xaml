@@ -9,6 +9,11 @@
 
   <!-- This color is applied on the background color of a non-focused selected item in a treeview -->
   <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#FF3f3f46" PresentationOptions:Freeze="True"/>
+  
+  <!-- This color is applied on the background color of a non-focused selected item in a treeview .Net 4.5
+       http://stackoverflow.com/questions/17814308/treeview-shows-blue-for-selected-item
+  -->
+  <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FF3f3f46" />
 
   <!-- This color is applied on the background color of a focused selected item in a treeview -->
   <!-- Source: http://stackoverflow.com/questions/17814308/treeview-shows-blue-for-selected-item      -

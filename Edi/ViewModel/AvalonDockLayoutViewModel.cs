@@ -156,19 +156,19 @@ namespace Edi.ViewModel
       }
 
       if (args.Model.ContentId == FileStatsViewModel.ToolContentId)
-        args.Content = Workspace.This.FileStats;
+        args.Content = ApplicationViewModel.This.FileStats;
       else
         if (args.Model.ContentId == FileExplorerViewModel.ToolContentId)
-          args.Content = Workspace.This.FileExplorer;
+          args.Content = ApplicationViewModel.This.FileExplorer;
         else
           if (args.Model.ContentId == RecentFilesViewModel.ToolContentId)
-          args.Content = (object)Workspace.This.RecentFiles;
+          args.Content = (object)ApplicationViewModel.This.RecentFiles;
         else
           if (args.Model.ContentId == Log4NetToolViewModel.ToolContentId)
-            args.Content = (object)Workspace.This.Log4NetTool; // Re-create log4net tool window binding
+            args.Content = (object)ApplicationViewModel.This.Log4NetTool; // Re-create log4net tool window binding
           else
             if (args.Model.ContentId == Log4NetMessageToolViewModel.ToolContentId)
-              args.Content = (object)Workspace.This.Log4NetMessageTool; // Re-create log4net message tool window binding
+              args.Content = (object)ApplicationViewModel.This.Log4NetMessageTool; // Re-create log4net message tool window binding
             else
             {
               if (SettingsManager.Instance.SettingData.ReloadOpenFilesOnAppStart == true)
@@ -192,15 +192,15 @@ namespace Edi.ViewModel
         switch (path)
         {
           case StartPageViewModel.StartPageContentId: // Re-create start page content
-            if (Workspace.This.GetStartPage(false) == null)
+            if (ApplicationViewModel.This.GetStartPage(false) == null)
             {
-              ret = Workspace.This.GetStartPage(true);
+              ret = ApplicationViewModel.This.GetStartPage(true);
             }
             break;
 
           default:
             // Re-create Edi document (text file or log4net document) content
-            ret = Workspace.This.Open(path, CloseDocOnError.WithoutUserNotification);
+            ret = ApplicationViewModel.This.Open(path, CloseDocOnError.WithoutUserNotification);
             break;
         }
       }
@@ -216,7 +216,7 @@ namespace Edi.ViewModel
       if (xmlLayout == null)
         return;
 
-      string fileName = System.IO.Path.Combine(App.DirAppData, Workspace.LayoutFileName);
+      string fileName = System.IO.Path.Combine(App.DirAppData, ApplicationViewModel.LayoutFileName);
 
       File.WriteAllText(fileName, xmlLayout);
     }

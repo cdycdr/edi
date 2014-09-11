@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
                           
             xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit.Highlighting;assembly=ICSharpCode.AvalonEdit"
-            xmlns:cmd="clr-namespace:Util.Command;assembly=Util"
+            xmlns:cmd="clr-namespace:Edi.Core;assembly=Edi.Core"
             xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
 
             xmlns:behav="clr-namespace:EdiViews.Behaviour;assembly=EdiViews"
