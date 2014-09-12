@@ -1,6 +1,5 @@
 ﻿namespace Edi.View.Pane
 {
-/***
   using System.Windows;
   using System.Windows.Controls;
   using Edi.Core.ViewModels;
@@ -54,5 +53,4 @@
       return base.SelectStyle(item, container);
     }
   }
- ***/
 }
