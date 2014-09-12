@@ -93,6 +93,10 @@
     <Reference Include="log4net">
       <HintPath>..\02_Libs\00_bin\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Blend.Interactivity.Wpf.1.0.1340.0\lib\net\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism.Composition">
       <HintPath>..\packages\Prism.Composition.5.0.0\lib\NET45\Microsoft.Practices.Prism.Composition.dll</HintPath>
     </Reference>
@@ -127,6 +131,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Blend.Interactivity.Wpf.1.0.1340.0\lib\net\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -140,9 +147,6 @@
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>..\02_Libs\00_bin\Xceed.Wpf.AvalonDock\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
-    <Reference Include="YalvLib">
-      <HintPath>..\02_Libs\00_bin\YalvLib\YalvLib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -153,9 +157,10 @@
     <Compile Include="Bootstapper.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
     <Compile Include="ViewModel\ApplicationViewModel_Editor.cs" />
-    <Compile Include="ViewModel\AvalonDockLayoutViewModel.cs" />
     <Compile Include="ViewModel\ApplicationViewModel_Theming.cs" />
+    <Compile Include="View\Behavior\ActionCommand.cs" />
     <Compile Include="View\Behavior\AvalonDockLayoutSerializer.cs" />
+    <Compile Include="View\Behavior\EventToCommandBehavior.cs" />
     <Compile Include="View\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -183,9 +188,6 @@
     </Compile>
     <Compile Include="ViewModel\ApplicationViewModel_Command.cs" />
     <Compile Include="ViewModel\ApplicationViewModel_Config.cs" />
-    <Compile Include="View\EdiView.xaml.cs">
-      <DependentUpon>EdiView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
     <Compile Include="View\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
@@ -344,10 +346,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\EmptyWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\EdiView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

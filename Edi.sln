@@ -4,6 +4,8 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Binaries", "Binaries", "{E3D8DFD4-4299-4FE0-9BE8-0CB41F189489}"
 	ProjectSection(SolutionItems) = preProject
+		02_Libs\00_bin\DropDownButtonLib.dll = 02_Libs\00_bin\DropDownButtonLib.dll
+		02_Libs\00_bin\MsgBox\InplaceEditBoxLib.dll = 02_Libs\00_bin\MsgBox\InplaceEditBoxLib.dll
 		02_Libs\00_bin\log4net.dll = 02_Libs\00_bin\log4net.dll
 		02_Libs\00_bin\log4net.xml = 02_Libs\00_bin\log4net.xml
 		02_Libs\00_bin\MsgBox\MsgBox.dll = 02_Libs\00_bin\MsgBox\MsgBox.dll
@@ -13,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Binaries", "Binaries", "{E3
 		02_Libs\00_bin\UnitComboLib.xml = 02_Libs\00_bin\UnitComboLib.xml
 		02_Libs\00_bin\MsgBox\UserNotification.dll = 02_Libs\00_bin\MsgBox\UserNotification.dll
 		02_Libs\00_bin\MsgBox\UserNotification.xml = 02_Libs\00_bin\MsgBox\UserNotification.xml
+		02_Libs\00_bin\YalvLib\YalvLib.dll = 02_Libs\00_bin\YalvLib\YalvLib.dll
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UML Application", "UML Application", "{C7A9E1F8-38FD-4268-BFC5-473CF16471D8}"

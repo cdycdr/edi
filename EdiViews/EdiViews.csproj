@@ -153,6 +153,9 @@
       <HintPath>..\02_Libs\00_bin\MsgBox\UserNotification.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\02_Libs\00_bin\Xceed.Wpf.AvalonDock\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
     <Reference Include="YalvLib">
       <HintPath>..\02_Libs\00_bin\YalvLib\YalvLib.dll</HintPath>
     </Reference>
@@ -161,6 +164,7 @@
     <Compile Include="Behaviour\DoubleClickImageToCommand.cs" />
     <Compile Include="Behaviour\DoubleClickSelectorItem.cs" />
     <Compile Include="Behaviour\VisualTreeHelperExtension.cs" />
+    <Compile Include="DataTemplates\Loader.cs" />
     <Compile Include="Dialogs\About\AboutDlg.xaml.cs">
       <DependentUpon>AboutDlg.xaml</DependentUpon>
     </Compile>
@@ -168,7 +172,6 @@
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\About\AboutViewModel.cs" />
-    <Compile Include="Behaviour\WindowMaximized.cs" />
     <Compile Include="Behaviour\HideToolbarOverflowButton.cs" />
     <Compile Include="Behaviour\KeyboardFocus.cs" />
     <Compile Include="Behaviour\OffLineIndicator.cs" />
@@ -178,7 +181,6 @@
     <Compile Include="Dialogs\Config\AppConfigView.xaml.cs">
       <DependentUpon>AppConfigView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Behaviour\DialogCloser.cs" />
     <Compile Include="Behaviour\DropFileCommand.cs" />
     <Compile Include="Behaviour\FocusExtension.cs" />
     <Compile Include="Behaviour\MergeStyleBehaviour.cs" />
@@ -233,6 +235,11 @@
     <Compile Include="Process\ProcessResultEvent.cs" />
     <Compile Include="Process\FileLoader.cs" />
     <Compile Include="Process\ResultEvent.cs" />
+    <Compile Include="ViewModel\AvalonDockLayoutViewModel.cs" />
+    <Compile Include="ViewModel\AvalonDockProperties.cs" />
+    <Compile Include="ViewModel\Documents\Edi\EdiView.xaml.cs">
+      <DependentUpon>EdiView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Documents\Edi\EdiViewModel.cs" />
     <Compile Include="ViewModel\Documents\Edi\HtmlWriter.cs" />
     <Compile Include="ViewModel\Documents\Log4Net\Log4NetViewModel.cs" />
@@ -252,6 +259,10 @@
     <Compile Include="ViewSelector.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Edi.Core.App\Edi.Core.App.csproj">
+      <Project>{712120b2-6021-48f9-9548-20cb8a3d2429}</Project>
+      <Name>Edi.Core.App</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Edi.Core\Edi.Core.csproj">
       <Project>{f17e5e06-f28c-4e91-964f-cdb9f8589bb7}</Project>
       <Name>Edi.Core</Name>
@@ -290,6 +301,34 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="DataTemplates\RecentFilesViewDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\FileExplorerViewDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\MiniUMLViewDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\Log4NetViewDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\EdiViewDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\StartPageViewDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\FileStatsViewDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dialogs\About\AboutDlg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -347,6 +386,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Tools\RecentFiles\RecentFilesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\Documents\Edi\EdiView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,33 +1,35 @@
 namespace Edi.ViewModel
 {
-  using System;
-  using System.Collections.Generic;
-  using System.Collections.ObjectModel;
-  using System.Globalization;
-  using System.IO;
-  using System.Linq;
-  using System.Windows;
-  using System.Windows.Input;
-  using System.Windows.Threading;
-  using Edi.Core.ViewModels;
-  using Edi.Core.ViewModels.Events;
-  using EdiViews;
-  using EdiViews.Dialogs.About;
-  using EdiViews.Dialogs.Config.ViewModel;
-  using EdiViews.Process;
-  using EdiViews.Tools.FileExplorer;
-  using EdiViews.Tools.FileStats;
-  using EdiViews.Tools.Log4Net;
-  using EdiViews.Tools.RecentFiles;
-  using EdiViews.ViewModels.Document;
-  using EdiViews.ViewModels.Document.Log4Net;
-  using EdiViews.ViewModels.Document.MiniUml;
-  using EdiViews.ViewModels.Document.StartPage;
-  using Microsoft.Win32;
-  using MiniUML.Model.ViewModels.Document;
-  using MsgBox;
-  using Settings;
-  using SimpleControls.MRU.ViewModel;
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
+	using System.Globalization;
+	using System.IO;
+	using System.Linq;
+	using System.Windows;
+	using System.Windows.Input;
+	using System.Windows.Threading;
+	using Edi.Core.Interfaces;
+	using Edi.Core.ViewModels;
+	using Edi.Core.ViewModels.Base;
+	using Edi.Core.ViewModels.Events;
+	using EdiViews;
+	using EdiViews.Dialogs.About;
+	using EdiViews.Dialogs.Config.ViewModel;
+	using EdiViews.Process;
+	using EdiViews.Tools.FileExplorer;
+	using EdiViews.Tools.FileStats;
+	using EdiViews.Tools.Log4Net;
+	using EdiViews.Tools.RecentFiles;
+	using EdiViews.ViewModels.Document;
+	using EdiViews.ViewModels.Document.Log4Net;
+	using EdiViews.ViewModels.Document.MiniUml;
+	using EdiViews.ViewModels.Document.StartPage;
+	using Microsoft.Win32;
+	using MiniUML.Model.ViewModels.Document;
+	using MsgBox;
+	using Settings;
+	using SimpleControls.MRU.ViewModel;
 
   /// <summary>
   /// Determine whether an error on load file operation
@@ -46,7 +48,9 @@ namespace Edi.ViewModel
     WithUserNotification
   }
 
-  public partial class ApplicationViewModel : Edi.ViewModel.Base.ViewModelBase, IMiniUMLDocument
+  public partial class ApplicationViewModel : Edi.ViewModel.Base.ViewModelBase,
+	                                            IMiniUMLDocument,
+																							IViewModelResolver
   {
     #region fields
     public const string Log4netFileExtension = "log4j";
@@ -330,8 +334,10 @@ namespace Edi.ViewModel
     {
       get
       {
-        if (this.mAVLayout == null)
-          this.mAVLayout = new AvalonDockLayoutViewModel();
+				if (this.mAVLayout == null)
+				{
+					this.mAVLayout = new AvalonDockLayoutViewModel(ApplicationViewModel.LayoutFileName, App.DirAppData);
+				}
 
         return this.mAVLayout;
       }
@@ -1296,5 +1302,64 @@ namespace Edi.ViewModel
       }
     }
     #endregion methods
-  }
+
+		public Guid LayoutID
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public ViewModelBase ContentViewModelFromID(string content_id)
+		{
+			if (content_id == FileStatsViewModel.ToolContentId)
+				return ApplicationViewModel.This.FileStats;
+			else
+				if (content_id == FileExplorerViewModel.ToolContentId)
+					return ApplicationViewModel.This.FileExplorer;
+				else
+					if (content_id == RecentFilesViewModel.ToolContentId)
+						return ApplicationViewModel.This.RecentFiles;
+					else
+						if (content_id == Log4NetToolViewModel.ToolContentId)
+							return ApplicationViewModel.This.Log4NetTool; // Re-create log4net tool window binding
+						else
+							if (content_id == Log4NetMessageToolViewModel.ToolContentId)
+								return ApplicationViewModel.This.Log4NetMessageTool; // Re-create log4net message tool window binding
+							else
+							{
+								if (SettingsManager.Instance.SettingData.ReloadOpenFilesOnAppStart == true)
+								{
+									return this.ReloadDocument(content_id);
+								}
+							}
+
+			return null;
+		}
+
+
+		private ViewModelBase ReloadDocument(string path)
+		{
+			ViewModelBase ret = null;
+
+			if (!string.IsNullOrWhiteSpace(path))
+			{
+				switch (path)
+				{
+					case StartPageViewModel.StartPageContentId: // Re-create start page content
+						if (ApplicationViewModel.This.GetStartPage(false) == null)
+						{
+							ret = ApplicationViewModel.This.GetStartPage(true);
+						}
+						break;
+
+					default:
+						// Re-create Edi document (text file or log4net document) content
+						ret = ApplicationViewModel.This.Open(path, CloseDocOnError.WithoutUserNotification);
+						break;
+				}
+			}
+
+			return ret;
+		}
+
+	}
 }

@@ -1,5 +1,6 @@
 ﻿namespace Edi.View.Pane
 {
+/***
   using System.Windows;
   using System.Windows.Controls;
   using EdiViews.Tools.FileExplorer;
@@ -15,9 +16,9 @@
   /// <summary>
   /// Select a corresponding <seealso cref="DataTemplate"/> to a given type of viewmodel.
   /// </summary>
-  class PanesTemplateSelector : DataTemplateSelector
+  class SelectPanesTemplate : DataTemplateSelector
   {
-    public PanesTemplateSelector()
+    public SelectPanesTemplate()
     {
     }
 
@@ -113,4 +114,5 @@
       return base.SelectTemplate(item, container);
     }
   }
+ ***/
 }
