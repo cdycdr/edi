@@ -1,4 +1,4 @@
-﻿namespace Edi.View
+﻿namespace EdiViews.ViewModels.Document
 {
   using System.Windows.Controls;
 

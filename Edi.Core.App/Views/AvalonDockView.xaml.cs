@@ -44,6 +44,7 @@
     public AvalonDockView()
     {
       //// this.InitializeComponent();
+			this.LayoutID = Guid.NewGuid();
     }
     #endregion constructor
 
@@ -117,7 +118,8 @@
                               DataTemplate documentHeaderTemplate,
                               StyleSelector panesStyleSelector,
                               ILayoutUpdateStrategy layoutInitializer,
-                              Guid layoutID)
+                              Guid layoutID
+                              )
     {
       this.mLayoutItemTemplateSelector = paneSel;
       this.mDocumentHeaderTemplate = documentHeaderTemplate;
@@ -214,7 +216,7 @@
           return;
 
         // Get a matching viewmodel for a view through DataContext of this view
-        BindableBase content_view_model = resolver.ContentViewModelFromID(args.Model.ContentId);
+        var content_view_model = resolver.ContentViewModelFromID(args.Model.ContentId);
 
         if (content_view_model == null)
           args.Cancel = true;

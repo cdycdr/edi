@@ -1,8 +1,9 @@
 namespace Edi.Core.Interfaces
 {
-  using System;
-  using Microsoft.Practices.Prism.Mvvm;
-  using Microsoft.Practices.Prism.ViewModel;
+	using System;
+	using Edi.Core.ViewModels.Base;
+	using Microsoft.Practices.Prism.Mvvm;
+	using Microsoft.Practices.Prism.ViewModel;
 
   /// <summary>
   /// Interface to resolve string id into a
@@ -17,6 +18,6 @@ namespace Edi.Core.Interfaces
     /// </summary>
     /// <param name="content_id"></param>
     /// <returns>viewmodel for a content_id or null</returns>
-    BindableBase ContentViewModelFromID(string content_id);
+    ViewModelBase ContentViewModelFromID(string content_id);
   }
 }

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
 
+        xmlns:ADBehav="clr-namespace:Edi.Core.App.Behaviors;assembly=Edi.Core.App"
         xmlns:behav="clr-namespace:EdiViews.Behaviour"
         xmlns:views="clr-namespace:EdiViews.Dialogs.GotoLine"
         xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
@@ -16,7 +17,7 @@
         MinHeight="100"
         MinWidth="300"
 
-        behav:DialogCloser.DialogResult="{Binding WindowCloseResult}"
+        ADBehav:DialogCloser.DialogResult="{Binding WindowCloseResult}"
         >
   <Grid Margin="9,3">
     <Grid.RowDefinitions>
