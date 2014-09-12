@@ -22,7 +22,6 @@ ECHO Deleting BIN and OBJ Folders in AvalonDock
 ECHO.
 RMDIR /S /Q Xceed.Wpf.AvalonDock\bin
 RMDIR /S /Q Xceed.Wpf.AvalonDock\obj
-
 REM DEL /F /Q /S /A:H Automation.Tasks.Core\StyleCop.Cache >> C:\TEMP\CleanFiles.txt
 
 RMDIR /S /Q Xceed.Wpf.AvalonDock.Themes.Expression\bin

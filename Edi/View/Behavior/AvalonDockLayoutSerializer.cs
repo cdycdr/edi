@@ -1,6 +1,5 @@
 ﻿namespace Edi.View.Behavior
 {
-/***
   using System.IO;
   using System.Windows;
   using System.Windows.Input;
@@ -218,5 +217,4 @@
     #endregion Save Layout
     #endregion methods
   }
- ***/
 }

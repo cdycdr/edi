@@ -5,7 +5,6 @@
 
         xmlns:view="clr-namespace:EdiViews.Dialogs.FindReplace"
         xmlns:behav="clr-namespace:EdiViews.Behaviour"
-        xmlns:ADBehav="clr-namespace:Edi.Core.App.Behaviors;assembly=Edi.Core.App"
 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -25,7 +24,7 @@
 
         Style="{DynamicResource EmptyDialog}"
 
-        ADBehav:DialogCloser.DialogResult="{Binding WindowCloseResult}"
+        behav:DialogCloser.DialogResult="{Binding WindowCloseResult}"
         behav:RemoveIcon.Remove="true"
 
         KeyDown="Window_KeyDown"

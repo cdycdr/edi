@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
 
-        xmlns:ADBehav="clr-namespace:Edi.Core.App.Behaviors;assembly=Edi.Core.App"
         xmlns:behav="clr-namespace:EdiViews.Behaviour"
         xmlns:views="clr-namespace:EdiViews.Dialogs.About"
         xmlns:vm="clr-namespace:EdiViews.Dialogs.About"
@@ -19,7 +18,7 @@
 
         Style="{DynamicResource EmptyDialog}"
 
-        ADBehav:DialogCloser.DialogResult="{Binding WindowCloseResult}"
+        behav:DialogCloser.DialogResult="{Binding WindowCloseResult}"
         behav:RemoveIcon.Remove="true"
 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

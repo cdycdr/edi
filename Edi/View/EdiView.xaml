@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="EdiViews.ViewModels.Document.EdiView"
+﻿<UserControl x:Class="Edi.View.EdiView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              
@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
              xmlns:ae="clr-namespace:ICSharpCode.AvalonEdit.Edi;assembly=ICSharpCode.AvalonEdit"
-             xmlns:vm="clr-namespace:EdiViews.ViewModel.Documents"
+             xmlns:vm="clr-namespace:EdiViews.ViewModel.Documents;assembly=EdiViews"
 
              xmlns:aedit_cmd="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
              xmlns:edi_cmd="clr-namespace:ICSharpCode.AvalonEdit.Edi;assembly=ICSharpCode.AvalonEdit"

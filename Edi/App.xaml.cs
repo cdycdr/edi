@@ -7,10 +7,7 @@ namespace Edi
   using System.Threading;
   using System.Windows;
   using System.Windows.Threading;
-  using Edi.Core.View;
   using Edi.ViewModel;
-  using EdiViews.DataTemplates;
-  using EdiViews.ViewModels;
   using log4net;
   using log4net.Config;
   using MsgBox;
@@ -361,9 +358,7 @@ namespace Edi
         // Attempt to load a MiniUML plugin via the model class
         MiniUML.Model.MiniUmlPluginLoader.LoadPlugins(App.AssemblyEntryLocation + @"\MiniUML.Plugins\", ApplicationViewModel.This);
 
-        Loader.RegisterDataTemplates(ApplicationViewModel.This.ADLayout.ViewProperties.SelectPanesTemplate);
-
-				Application.Current.MainWindow = this.mMainWin = new MainWindow(ApplicationViewModel.This.ADLayout);
+        Application.Current.MainWindow = this.mMainWin = new MainWindow();
         this.ShutdownMode = System.Windows.ShutdownMode.OnLastWindowClose;
 
         App.CreateAppDataFolder();

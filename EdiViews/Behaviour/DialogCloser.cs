@@ -1,4 +1,4 @@
-﻿namespace Edi.Core.App.Behaviors
+﻿namespace EdiViews.Behaviour
 {
   using System.Windows;
 
