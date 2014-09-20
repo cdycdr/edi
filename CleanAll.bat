@@ -7,9 +7,12 @@ ECHO This script deletes all temporary build files in their
 ECHO corresponding BIN and OBJ Folder contained in the following projects
 ECHO.
 ECHO Edi
-ECHO Edi.Core.App
 ECHO Edi.Core
+ECHO EdiApp
+ECHO EdiDialogs
+ECHO EdiDocuments
 ECHO EdiViews
+ECHO EdiTools
 ECHO Themes
 ECHO ICSharpCode.AvalonEdit
 ECHO.
@@ -20,6 +23,7 @@ ECHO MiniUML.View
 ECHO MiniUML.Plugins.UmlClassDiagram
 ECHO.
 ECHO Settings
+ECHO SettingsView
 ECHO SimpleControls
 ECHO Util
 ECHO.
@@ -37,8 +41,14 @@ ECHO.
 RMDIR /S /Q Edi\bin
 RMDIR /S /Q Edi\obj
 
-RMDIR /S /Q EdiViews\bin
-RMDIR /S /Q EdiViews\obj
+RMDIR /S /Q EdiDialogs\bin
+RMDIR /S /Q EdiDialogs\obj
+
+RMDIR /S /Q EdiDocuments\bin
+RMDIR /S /Q EdiDocuments\obj
+
+RMDIR /S /Q EdiTools\bin
+RMDIR /S /Q EdiTools\obj
 
 RMDIR /S /Q Themes\bin
 RMDIR /S /Q Themes\obj
@@ -73,15 +83,20 @@ ECHO.
 RMDIR /S /Q Settings\bin
 RMDIR /S /Q Settings\obj
 
+ECHO Deleting BIN and OBJ Folders in SettingsView
+ECHO.
+RMDIR /S /Q SettingsView\bin
+RMDIR /S /Q SettingsView\obj
+
 ECHO Deleting BIN and OBJ Folders in SimpleControls
 ECHO.
 RMDIR /S /Q SimpleControls\bin
 RMDIR /S /Q SimpleControls\obj
 
-ECHO Deleting BIN and OBJ Folders in Edi.App.Core
+ECHO Deleting BIN and OBJ Folders in EdiApp
 ECHO.
-RMDIR /S /Q Edi.Core.App\bin
-RMDIR /S /Q Edi.Core.App\obj
+RMDIR /S /Q EdiApp\bin
+RMDIR /S /Q EdiApp\obj
 
 ECHO Deleting BIN and OBJ Folders in Edi.Core
 ECHO.

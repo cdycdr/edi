@@ -1,5 +1,0 @@
-﻿namespace Edi.View.Pane
-{
-  /**
-   ***/
-}

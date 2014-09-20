@@ -37,6 +37,9 @@
       if (this.mStyleDirectory == null)
         return null;
 
+      if (item == null)
+        return null;
+
       Style o;
       Type t = item.GetType();
       this.mStyleDirectory.TryGetValue(t, out o);

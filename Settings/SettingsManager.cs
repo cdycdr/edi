@@ -98,48 +98,62 @@
     /// </summary>
     /// <param name="settingsFileName"></param>
     /// <returns></returns>
-    public void LoadOptions(string settingsFileName)
+		public void LoadOptions(string settingsFileName, Options programSettings = null)
     {
-      Options loadedModel = null;
+			Options loadedModel = null;
 
-      try
-      {
-        if (System.IO.File.Exists(settingsFileName))
-        {
-          // Create a new file stream for reading the XML file
-          using (FileStream readFileStream = new System.IO.FileStream(settingsFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-          {
-            try
-            {
-              // Create a new XmlSerializer instance with the type of the test class
-              XmlSerializer serializerObj = new XmlSerializer(typeof(Options));
-
-              // Load the object saved above by using the Deserialize function
-              loadedModel = (Options)serializerObj.Deserialize(readFileStream);
-            }
-            catch (Exception e)
-            {
-              logger.Error(e);
-            }
-
-            // Cleanup
-            readFileStream.Close();
-          }
-        }
-      }
-      catch (Exception exp)
-      {
-        logger.Error(exp);
-      }
-      finally
-      {
-        if (loadedModel == null)
-          loadedModel = new Options();  // Just get the defaults if serilization wasn't working here...
-      }
+			if (programSettings != null)
+				loadedModel = programSettings;
+			else
+			 loadedModel = SettingsManager.LoadOptions(settingsFileName); // Get a fresh copy from persistence
 
       loadedModel.SetDirtyFlag(false);  // Data has just been loaded from persistence (or default) so its not dirty for sure
       this.SettingData = loadedModel;
     }
+
+		public static Options LoadOptions(string settingsFileName)
+		{
+			Options loadedModel = null;
+
+			try
+			{
+				if (System.IO.File.Exists(settingsFileName))
+				{
+					// Create a new file stream for reading the XML file
+					using (FileStream readFileStream = new System.IO.FileStream(settingsFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+					{
+						try
+						{
+							// Create a new XmlSerializer instance with the type of the test class
+							XmlSerializer serializerObj = new XmlSerializer(typeof(Options));
+
+							// Load the object saved above by using the Deserialize function
+							loadedModel = (Options)serializerObj.Deserialize(readFileStream);
+						}
+						catch (Exception e)
+						{
+							logger.Error(e);
+						}
+
+						// Cleanup
+						readFileStream.Close();
+					}
+				}
+			}
+			catch (Exception exp)
+			{
+				logger.Error(exp);
+			}
+			finally
+			{
+				if (loadedModel == null)
+					loadedModel = new Options();  // Just get the defaults if serilization wasn't working here...
+			}
+
+			loadedModel.SetDirtyFlag(false);  // Data has just been loaded from persistence (or default) so its not dirty for sure
+
+			return loadedModel;
+		}
 
     /// <summary>
     /// Save program options into persistence.
@@ -276,5 +290,9 @@
       public new static readonly DefaultSettingsManager Instance = new DefaultSettingsManager();
     }
     #endregion internal classes
+
+    public string LayoutFileName { get; set; }
+
+    public string AppDir { get; set; }
   }
 }

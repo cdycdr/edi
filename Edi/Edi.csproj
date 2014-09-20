@@ -87,15 +87,29 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DropDownButtonLib">
+      <HintPath>..\02_Libs\00_bin\DropDownButtonLib.dll</HintPath>
+    </Reference>
+    <Reference Include="FileListView">
+      <HintPath>..\02_Libs\00_bin\MsgBox\FileListView.dll</HintPath>
+    </Reference>
+    <Reference Include="FileSystemModels">
+      <HintPath>..\02_Libs\00_bin\MsgBox\FileSystemModels.dll</HintPath>
+    </Reference>
     <Reference Include="FirstFloor.ModernUI">
       <HintPath>..\02_Libs\00_bin\Mui\FirstFloor.ModernUI.dll</HintPath>
+    </Reference>
+    <Reference Include="FolderBrowser">
+      <HintPath>..\02_Libs\00_bin\MsgBox\FolderBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="InplaceEditBoxLib">
+      <HintPath>..\02_Libs\00_bin\MsgBox\InplaceEditBoxLib.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\02_Libs\00_bin\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Expression.Interactions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Blend.Interactivity.Wpf.1.0.1340.0\lib\net\Microsoft.Expression.Interactions.dll</HintPath>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Prism.Composition">
       <HintPath>..\packages\Prism.Composition.5.0.0\lib\NET45\Microsoft.Practices.Prism.Composition.dll</HintPath>
@@ -128,11 +142,14 @@
     <Reference Include="MsgBox">
       <HintPath>..\02_Libs\00_bin\MsgBox\MsgBox.dll</HintPath>
     </Reference>
+    <Reference Include="NumericUpDownLib">
+      <HintPath>..\02_Libs\00_bin\NumericUpDownLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Blend.Interactivity.Wpf.1.0.1340.0\lib\net\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -141,38 +158,73 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UnitComboLib">
+      <HintPath>..\02_Libs\00_bin\UnitComboLib\UnitComboLib.dll</HintPath>
+    </Reference>
+    <Reference Include="UserNotification">
+      <HintPath>..\02_Libs\00_bin\MsgBox\UserNotification.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>..\02_Libs\00_bin\Xceed.Wpf.AvalonDock\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
+    <Reference Include="YalvLib">
+      <HintPath>..\02_Libs\00_bin\YalvLib\YalvLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converter\ActiveDocumentToVisibilityConverter.cs" />
-    <Compile Include="MainWindowViewManager.cs" />
     <Compile Include="Bootstapper.cs" />
-    <Compile Include="ViewModel\Base\ViewModelBase.cs" />
-    <Compile Include="ViewModel\ApplicationViewModel_Editor.cs" />
-    <Compile Include="ViewModel\ApplicationViewModel_Theming.cs" />
-    <Compile Include="View\Behavior\ActionCommand.cs" />
-    <Compile Include="View\Behavior\AvalonDockLayoutSerializer.cs" />
-    <Compile Include="View\Behavior\EventToCommandBehavior.cs" />
-    <Compile Include="View\MainMenu.xaml.cs">
-      <DependentUpon>MainMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\MainToolbar.xaml.cs">
-      <DependentUpon>MainToolbar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Pane\LayoutInitializer.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="EdiViews\Behaviour\DialogCloser.cs" />
+    <Compile Include="EdiViews\Behaviour\DoubleClickImageToCommand.cs" />
+    <Compile Include="EdiViews\Behaviour\DoubleClickSelectorItem.cs" />
+    <Compile Include="EdiViews\Behaviour\DropFileCommand.cs" />
+    <Compile Include="EdiViews\Behaviour\FocusExtension.cs" />
+    <Compile Include="EdiViews\Behaviour\HideToolbarOverflowButton.cs" />
+    <Compile Include="EdiViews\Behaviour\KeyboardFocus.cs" />
+    <Compile Include="EdiViews\Behaviour\MergeStyleBehaviour.cs" />
+    <Compile Include="EdiViews\Behaviour\RemoveIcon.cs" />
+    <Compile Include="EdiViews\Behaviour\TextBoxHelper.cs" />
+    <Compile Include="EdiViews\Behaviour\VisualTreeHelperExtension.cs" />
+    <Compile Include="EdiViews\Behaviour\WindowMaximized.cs" />
+    <Compile Include="EdiViews\Converter\ActiveDocumentToVisibilityConverter.cs" />
+    <Compile Include="EdiViews\Converter\BooleanToTypeModeStringConverter.cs" />
+    <Compile Include="EdiViews\Converter\DocumentStateToVisibilityConverter.cs" />
+    <Compile Include="EdiViews\Converter\EnumToBooleanConverter.cs" />
+    <Compile Include="EdiViews\Converter\MessageType\CountToVisibilityHiddenConverter.cs" />
+    <Compile Include="EdiViews\Converter\MessageType\MsgTypeToResourceConverter.cs" />
+    <Compile Include="EdiViews\Converter\NullToVisibilityConverter.cs" />
+    <Compile Include="EdiViews\Converter\ZeroToVisibilityConverter.cs" />
+    <Compile Include="EdiViews\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Pane\PanesStyleSelector.cs" />
-    <Compile Include="View\Pane\PanesTemplateSelector.cs" />
+    <Compile Include="EdiViews\MainWindowViewManager.cs" />
+    <Compile Include="EdiViews\ViewModel\ApplicationViewModel.cs" />
+    <Compile Include="EdiViews\ViewModel\ApplicationViewModel_Command.cs" />
+    <Compile Include="EdiViews\ViewModel\ApplicationViewModel_Config.cs" />
+    <Compile Include="EdiViews\ViewModel\ApplicationViewModel_Editor.cs" />
+    <Compile Include="EdiViews\ViewModel\ApplicationViewModel_Theming.cs" />
+    <Compile Include="EdiViews\ViewModel\Base\ViewModelBase.cs" />
+    <Compile Include="EdiViews\ViewModel\IApplicationViewModel.cs" />
+    <Compile Include="EdiViews\ViewModel\ToggleEditorOption.cs" />
+    <Compile Include="EdiViews\ViewModel\TypeOfDocument.cs" />
+    <Compile Include="EdiViews\ViewSelector.cs" />
+    <Compile Include="EdiViews\View\Behavior\ActionCommand.cs" />
+    <Compile Include="EdiViews\View\Behavior\AvalonDockLayoutSerializer.cs" />
+    <Compile Include="EdiViews\View\Behavior\EventToCommandBehavior.cs" />
+    <Compile Include="EdiViews\View\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EdiViews\View\MainToolbar.xaml.cs">
+      <DependentUpon>MainToolbar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EdiViews\View\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -185,12 +237,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="ViewModel\ApplicationViewModel_Command.cs" />
-    <Compile Include="ViewModel\ApplicationViewModel_Config.cs" />
-    <Compile Include="ViewModel\ApplicationViewModel.cs" />
-    <Compile Include="View\StatusBar.xaml.cs">
-      <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -316,6 +362,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
+    <None Include="EdiViews\packages.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -333,47 +380,25 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\MetroLight.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\MetroDark.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\EmptyWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\MainMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MainToolbar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\StatusBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Edi.Core.App\Edi.Core.App.csproj">
+    <ProjectReference Include="..\EdiDialogs\EdiDialogs.csproj">
+      <Project>{3b4c1d92-08d4-4d52-ae20-23a0bf882fcd}</Project>
+      <Name>EdiDialogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdiApp\EdiApp.csproj">
       <Project>{712120b2-6021-48f9-9548-20cb8a3d2429}</Project>
-      <Name>Edi.Core.App</Name>
+      <Name>EdiApp</Name>
     </ProjectReference>
     <ProjectReference Include="..\Edi.Core\Edi.Core.csproj">
       <Project>{f17e5e06-f28c-4e91-964f-cdb9f8589bb7}</Project>
       <Name>Edi.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EdiViews\EdiViews.csproj">
-      <Project>{8D6363BB-DDEE-48A9-9D33-4BC412434428}</Project>
-      <Name>EdiViews</Name>
+    <ProjectReference Include="..\EdiDocuments\EdiDocuments.csproj">
+      <Project>{253edd78-bb04-4916-ad09-90f10fbb9803}</Project>
+      <Name>EdiDocuments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdiTools\EdiTools.csproj">
+      <Project>{a915e17c-3859-4852-9115-4ca63add135c}</Project>
+      <Name>EdiTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
       <Project>{6c55b776-26d4-4db3-a6ab-87e783b2f3d1}</Project>
@@ -390,6 +415,10 @@
     <ProjectReference Include="..\MiniUML\MiniUML.View\MiniUML.View.csproj">
       <Project>{aad6b1d6-f529-40f8-9786-dc8e2fdf0ad6}</Project>
       <Name>MiniUML.View</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SettingsView\SettingsView.csproj">
+      <Project>{972e4948-c781-4cf9-a13e-ac3146ab0ad1}</Project>
+      <Name>SettingsView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Settings\Settings.csproj">
       <Project>{2807b493-cc2e-402e-901a-eb138698fedc}</Project>
@@ -430,6 +459,40 @@
     <Content Include="MiniUML.Plugins\MiniUML.Plugins.UmlClassDiagram.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="EdiViews\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EdiViews\Themes\EmptyWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EdiViews\Themes\MetroDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EdiViews\Themes\MetroLight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EdiViews\View\MainMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EdiViews\View\MainToolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EdiViews\View\StatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

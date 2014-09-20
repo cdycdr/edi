@@ -12,7 +12,9 @@ namespace Edi.Core.Resources
   /// </summary>
   public static class ResourceLocator
   {
-    /// <summary>
+		private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		
+		/// <summary>
     /// Gets the first matching resource of the type.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -58,7 +60,9 @@ namespace Edi.Core.Resources
       }
       catch (Exception exp)
       {
-        Console.WriteLine("Error Loading resource '{0}': {1}\n{2}", exp.Message, exp.ToString());
+				logger.Error(string.Format("Error Loading resource '{0}': {1}", "Exception:", exp.Message, exp));
+
+				MsgBox.Msg.Show(exp, "Error loading internal resource.", MsgBox.MsgBoxButtons.OK);
       }
 
       return default(T);

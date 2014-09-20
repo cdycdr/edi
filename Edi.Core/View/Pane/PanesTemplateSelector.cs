@@ -36,6 +36,9 @@
       if (this.mTemplateDirectory == null)
         return null;
 
+      if (item == null)
+        return null;
+
       DataTemplate o;
       this.mTemplateDirectory.TryGetValue(item.GetType(), out o);
 

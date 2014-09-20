@@ -134,9 +134,6 @@
       <HintPath>..\02_Libs\00_bin\MsgBox\UserNotification.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
-    <Reference Include="Xceed.Wpf.AvalonDock">
-      <HintPath>..\02_Libs\00_bin\Xceed.Wpf.AvalonDock\Xceed.Wpf.AvalonDock.dll</HintPath>
-    </Reference>
     <Reference Include="YalvLib">
       <HintPath>..\02_Libs\00_bin\YalvLib\YalvLib.dll</HintPath>
     </Reference>
@@ -550,6 +547,9 @@
     <Resource Include="MetroIcons\Light\appbar.saveall.png" />
     <Resource Include="MetroIcons\Light\ShowTab.png" />
     <Resource Include="MetroIcons\Light\ShowEndOfLine.png" />
+    <Resource Include="Images\Documents\document.png" />
+    <Resource Include="Images\Documents\Log4net.png" />
+    <Resource Include="Images\Documents\MiniUml.png" />
     <Content Include="MetroIcons\SVG\appbar.clipboard.paste.svg" />
     <Content Include="MetroIcons\SVG\appbar.disk.download.svg" />
     <Content Include="MetroIcons\SVG\appbar.disk.svg" />

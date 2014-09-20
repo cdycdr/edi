@@ -23,7 +23,7 @@ namespace Themes
     const string MetroDarkThemeName = "Metro Dark";
     static readonly string[] MetroDarkResources = 
     {
-      "/EdiViews;component/Themes/ModernDialogEx.xaml",
+      "/EdiDialogs;component/Themes/ModernDialogEx.xaml",
 
       // "/FirstFloor.ModernUI;component/Assets/Button.xaml",
 
@@ -57,7 +57,7 @@ namespace Themes
       "/Themes;component/FileListView/Combobox.xaml",
       "/Themes;component/MetroDark/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Expression;component/DarkTheme.xaml",
-      "/Edi;component/Themes/MetroDark.xaml",
+      "/Edi;component/EdiViews/Themes/MetroDark.xaml",
       "/FileListView;component/Images/MetroDarkIcons.xaml"
     };
     #endregion Expression Dark theme resources
@@ -67,7 +67,7 @@ namespace Themes
     static readonly string[] GenericResources = 
     {
       "/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml",
-      "/EdiViews;component/Themes/ModernDialogEx.xaml",
+      "/EdiDialogs;component/Themes/ModernDialogEx.xaml",
 
       "/Themes;component/Generic/Theme.xaml",
       "/Edi;component/Themes/MetroLight.xaml",
@@ -79,7 +79,7 @@ namespace Themes
     const string MetroLightThemeName = "Metro Light";
     static readonly string[] MetroResources = 
     {
-      "/EdiViews;component/Themes/ModernDialogEx.xaml",
+      "/EdiDialogs;component/Themes/ModernDialogEx.xaml",
 
       // "/FirstFloor.ModernUI;component/Assets/Button.xaml",
 
@@ -113,7 +113,7 @@ namespace Themes
       "/Themes;component/FileListView/Combobox.xaml",
       "/Themes;component/MetroLight/Theme.xaml",
       "/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml",
-      "/Edi;component/Themes/MetroLight.xaml",
+      "/Edi;component/EdiViews/Themes/MetroLight.xaml",
       "/FileListView;component/Images/MetroLightIcons.xaml"
     };
     #endregion Light Metro theme resources

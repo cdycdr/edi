@@ -1,0 +1,235 @@
+﻿<UserControl x:Class="EdiViews.View.MainMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="500"
+             
+            xmlns:theme="clr-namespace:Themes;assembly=Themes"
+            xmlns:EdiViewsConv="clr-namespace:EdiViews.Converter"
+            xmlns:cmd="clr-namespace:Edi.Core;assembly=Edi.Core"
+            xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
+            xmlns:behav="clr-namespace:EdiViews.Behaviour"
+            xmlns:vm="clr-namespace:EdiViews.ViewModel"
+             >
+  <Grid>
+    <Menu Grid.Row="0" ToolTipService.ShowOnDisabled="True">
+      <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_File}">
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_New}"
+                  >
+          <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_New_Text}"
+                    Command="New"
+                    CommandParameter="{x:Static vm:TypeOfDocument.EdiTextEditor}"
+                    ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_New_Text_TT}"
+                    ToolTipService.ShowOnDisabled="True" />
+
+          <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_New_UML}"
+                    Command="New"
+                    CommandParameter="{x:Static vm:TypeOfDocument.UMLEditor}"
+                    ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_New_UML_TT}"
+                    ToolTipService.ShowOnDisabled="True" />
+        </MenuItem>
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Open}">
+          <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Open_Text}"
+                    Command="Open"
+                    CommandParameter="{x:Static vm:TypeOfDocument.EdiTextEditor}"
+                    ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Open_Text_TT}"
+                    ToolTipService.ShowOnDisabled="True" />
+
+          <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Open_UML}"
+                    Command="Open"
+                    CommandParameter="{x:Static vm:TypeOfDocument.UMLEditor}"
+                    ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Open_UML_TT}"
+                    ToolTipService.ShowOnDisabled="True" />
+
+          <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Open_Log4Net}"
+                    Command="Open"
+                    CommandParameter="{x:Static vm:TypeOfDocument.Log4NetView}"
+                    ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Open_Log4Net_TT}"
+                    ToolTipService.ShowOnDisabled="True" />
+        </MenuItem>
+
+        <MenuItem ItemsSource="{Binding RecentFiles.MruList.ListOfMRUEntries}"
+                  Header="{x:Static cmdLabel:Strings.STR_CmdName_RecentFiles}"
+                  Visibility="{Binding Path=RecentFiles.MruList.ListOfMRUEntries, Mode=OneWay, Converter={EdiViewsConv:ZeroToVisibilityConverter}}">
+          <MenuItem.ItemContainerStyle>
+            <Style TargetType="MenuItem">
+              <Setter Property="Header" Value="{Binding DisplayPathFileName, Mode=OneWay}" />
+              <Setter Property="Command" Value="cmd:AppCommand.LoadFile" />
+              <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+              <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
+              <Setter Property="CommandParameter" Value="{Binding PathFileName, Mode=OneWay}" />
+            </Style>
+          </MenuItem.ItemContainerStyle>
+        </MenuItem>
+
+        <Separator/>
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Save}"
+                  Command="Save"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Save_TT}"
+                  ToolTipService.ShowOnDisabled="True" />
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs}"
+                  Command="SaveAs"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs_TT}"
+                  ToolTipService.ShowOnDisabled="True"/>
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Export}"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Export_TT}"
+                  ToolTipService.ShowOnDisabled="True">
+
+          <MenuItem Command="cmd:AppCommand.ExportUMLToImage" />
+          <MenuItem Command="cmd:AppCommand.ExportTextToHTML" />
+
+        </MenuItem>
+        <Separator/>
+        
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Close}"
+                  Command="cmd:AppCommand.CloseFile"
+                  CommandParameter="{Binding ActiveDocument}"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
+        <Separator/>
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Exit}"
+                  Command="cmd:AppCommand.Exit"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
+      </MenuItem>
+      <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Edit}">
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Undo}"
+                  Command="Undo"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Undo_TT}">
+          <MenuItem.Icon>
+            <Image Source="{DynamicResource Image_Undo}" Height="16" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Redo}"
+                  Command="Redo"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Redo_TT}">
+          <MenuItem.Icon>
+            <Image Source="{DynamicResource Image_Redo}" Height="16" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <Separator />
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Cut}"
+                  Command="Cut"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Cut_TT}"
+                  ToolTipService.ShowOnDisabled="True"
+                  >
+          <MenuItem.Icon>
+            <Image Source="{DynamicResource Image_Cut}" Height="16" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Copy}"
+                  Command="Copy"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Copy_TT}"
+                  ToolTipService.ShowOnDisabled="True">
+          <MenuItem.Icon>
+            <Image Source="{DynamicResource Image_Copy}" Height="16" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Paste}"
+                  Command="Paste"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Paste_TT}"
+                  ToolTipService.ShowOnDisabled="True">
+          <MenuItem.Icon>
+            <Image Source="{DynamicResource Image_Paste}" Height="16"/>
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Delete}" Command="Delete"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Delete_TT}"
+                  ToolTipService.ShowOnDisabled="True">
+          <MenuItem.Icon>
+            <Image Source="{DynamicResource Image_Delete}" Height="16"/>
+          </MenuItem.Icon>
+        </MenuItem>
+        <Separator />
+        <MenuItem Command="SelectAll"
+                  Header="{x:Static cmdLabel:Strings.STR_CmdName_SelectAll}"
+                  ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SelectAll_TT}"
+                  ToolTipService.ShowOnDisabled="True"/>
+        <Separator/>
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_GotoLine}"
+                  Command="cmd:AppCommand.GotoLine"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" >
+          <MenuItem.Icon>
+            <Image Source="{DynamicResource Image_EditFind}" Width="16" />
+          </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Find}"
+                  Command="cmd:AppCommand.FindText"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Replace}"
+                  Command="cmd:AppCommand.ReplaceText"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
+      </MenuItem>
+      <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_View}">
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Themes}"
+                  ItemsSource="{Binding Source={x:Static theme:ThemesManager.Instance}, Path=ListAllThemes}">
+          <MenuItem.ItemContainerStyle>
+            <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+              <Setter Property="Header" Value="{Binding HlThemeName}" />
+              <!-- Setter Property="IsCheckable" Value="True" / -->
+              <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=OneWay}" />
+              <Setter Property="Command" Value="cmd:AppCommand.ViewTheme" />
+              <Setter Property="CommandParameter" Value="{Binding HlThemeName}" />
+              <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+              <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+              <Setter Property="Margin" Value="3,3,3,0" />
+
+              <!-- http://social.msdn.microsoft.com/Forums/en-US/wpf/thread/63696841-0358-4f7a-abe1-e6062518e3d6 -->
+              <Setter Property="behav:MergeStyleBehaviour.AutoMergeStyle" Value="True"/>
+            </Style>
+          </MenuItem.ItemContainerStyle>
+        </MenuItem>
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_View_Start_Page}"
+                  Command="cmd:AppCommand.ShowStartPage"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"  />
+      </MenuItem>
+
+      <!-- XXXXXXXXXXXXXXXXXXXX -->
+      <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Tools}">
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Settings}"
+                  Command="cmd:AppCommand.ProgramSettings"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
+        <Separator />
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_RecentFiles_TW}"
+                  IsChecked="{Binding RecentFiles.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Properties_TW}"
+                  IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_FileExplorer_TW}"
+                  IsChecked="{Binding FileExplorer.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+
+        <Separator />
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Log4Net_TW}"
+                  IsChecked="{Binding Log4NetTool.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Log4Net_Message_TW}"
+                  IsChecked="{Binding Log4NetMessageTool.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+
+      </MenuItem>
+
+      <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Help}">
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Help_About}"
+                  Command="cmd:AppCommand.About"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
+      </MenuItem>
+    </Menu>
+  </Grid>
+</UserControl>
