@@ -173,7 +173,7 @@ namespace EdiDocuments.ViewModels.StartPage
         return this.ContentId;
       }
 
-      protected set
+			protected set
       {
         throw new NotSupportedException();
       }

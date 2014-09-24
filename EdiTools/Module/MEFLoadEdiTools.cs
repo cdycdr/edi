@@ -28,22 +28,38 @@
 	[ModuleExport(typeof(MEFLoadEdiTools), InitializationMode = InitializationMode.WhenAvailable)]
 	public class MEFLoadEdiTools : IModule
 	{
+		#region fields
 		IAvalonDockLayoutViewModel mAvLayout = null;
+		IToolWindowRegistry mToolRegistry = null;
+		#endregion fields
 
 		/// <summary>
 		/// Class constructor
 		/// </summary>
 		/// <param name="avLayout"></param>
 		[ImportingConstructor]
-		public MEFLoadEdiTools(IAvalonDockLayoutViewModel avLayout)
+		public MEFLoadEdiTools(IAvalonDockLayoutViewModel avLayout,
+		                       IToolWindowRegistry toolRegistry)
 		{
 			this.mAvLayout = avLayout;
+			this.mToolRegistry = toolRegistry;
 		}
 
 		#region methods
+		/// <summary>
+		/// Initialize this module via standard PRISM MEF procedure
+		/// </summary>
 		void IModule.Initialize()
 		{
-			this.RegisterDataTemplates(this.mAvLayout.ViewProperties.SelectPanesTemplate);
+			if (this.mAvLayout != null)
+			{
+				this.RegisterDataTemplates(this.mAvLayout.ViewProperties.SelectPanesTemplate);
+			}
+
+			if (this.mToolRegistry != null)
+			{
+				this.mToolRegistry.RegisterTool(new FileStatsViewModel());
+			}
 		}
 
 		/// <summary>

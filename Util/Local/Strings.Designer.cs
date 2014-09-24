@@ -2491,6 +2491,15 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tool Windows.
+        /// </summary>
+        public static string STR_VIEW_TOOLWINDOWS {
+            get {
+                return ResourceManager.GetString("STR_VIEW_TOOLWINDOWS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Columns.
         /// </summary>
         public static string STR_YALVLIb_Columns_MenuLabel {

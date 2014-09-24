@@ -9,6 +9,7 @@
     private static RoutedUICommand exit;
     private static RoutedUICommand about;
     private static RoutedUICommand programSettings;
+		private static RoutedUICommand showToolWindow;
 
     private static RoutedUICommand loadFile;
     private static RoutedUICommand saveAll;
@@ -54,6 +55,9 @@
 
       inputs = new InputGestureCollection();
       AppCommand.programSettings = new RoutedUICommand("Edit or Review your program settings", "ProgramSettings", typeof(AppCommand), inputs);
+
+			inputs = new InputGestureCollection();
+			AppCommand.showToolWindow = new RoutedUICommand("Hide or display toolwindow", "ShowToolWindow", typeof(AppCommand), inputs);
 
       // Execute file open command (without user interaction)
       inputs = new InputGestureCollection();
@@ -142,6 +146,14 @@
       get
       {
         return AppCommand.programSettings;
+      }
+    }
+
+		public static RoutedUICommand ShowToolWindow
+    {
+      get
+      {
+        return AppCommand.showToolWindow;
       }
     }
 

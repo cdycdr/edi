@@ -991,4 +991,8 @@ All Files (*.*)|*.*</value>
   <data name="STR_Settings_Text2HTML_ShowLineNumbers" xml:space="preserve">
     <value>Show line numbers</value>
   </data>
+  <data name="STR_VIEW_TOOLWINDOWS" xml:space="preserve">
+    <value>Tool Windows</value>
+    <comment>Menu entry to toggle visibility of tool windows </comment>
+  </data>
 </root>

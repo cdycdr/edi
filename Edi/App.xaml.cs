@@ -40,8 +40,18 @@ namespace Edi
 		public App()
 		{
 			this.InitializeComponent();
+			this.AppIsShuttingDown = false;
+
+			this.SessionEnding += App_SessionEnding;
+		}
+
+		void App_SessionEnding(object sender, SessionEndingCancelEventArgs e)
+		{
+			this.AppIsShuttingDown = true;
 		}
 		#endregion constructor
+
+		public bool AppIsShuttingDown { get; set; }
 
 		#region methods
 		/// <summary>
@@ -121,7 +131,13 @@ namespace Edi
 				if (options.RunSingleInstance == true)
 				{
 					if (enforcer.ShouldApplicationExit() == true)
-						this.Shutdown();
+					{
+						if (this.AppIsShuttingDown == false)
+						{
+							this.AppIsShuttingDown = true;
+							this.Shutdown();
+						}
+					}
 				}
 			}
 			catch (Exception exp)
@@ -138,11 +154,24 @@ namespace Edi
 			{
 				Logger.Error(exp);
 
-				////this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-				////Application.Current.MainWindow = null;
+				// Cannot set shutdown mode when application is already shuttong down
+				if (this.AppIsShuttingDown == false)
+					this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+				// 1) Application hangs when this is set to null while MainWindow is visible
+				// 2) Application throws exception when this is set as owner of window when it
+				//    was never visible.
+				//
+				if (Application.Current.MainWindow != null)
+				{
+					if (Application.Current.MainWindow.IsVisible == false)
+						Application.Current.MainWindow = null;
+				}
+				
 				MsgBox.Msg.Show(exp, Strings.STR_MSG_ERROR_FINDING_RESOURCE, MsgBoxButtons.OKCopy);
 
-				////this.Shutdown();
+				if (this.AppIsShuttingDown == false)
+					this.Shutdown();
 			}
 		}
 

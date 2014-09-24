@@ -7,6 +7,7 @@
 	using System.Windows.Input;
 	using System.Windows.Threading;
 	using Edi.Core;
+	using Edi.Core.Interfaces;
 	using Edi.Core.ViewModels;
 	using Edi.Core.ViewModels.Command;
 	using EdiDocuments.ViewModels.EdiDoc;
@@ -55,6 +56,26 @@
 				this.AppProgramSettings_CommandExecuted();
 			}));
 
+			win.CommandBindings.Add(new CommandBinding(AppCommand.ShowToolWindow,
+			(s, e) =>
+			{
+				if (e == null)
+				 return;
+
+				var toolwindowviewmodel = e.Parameter as IToolWindow;
+
+				if (toolwindowviewmodel == null)
+					return;
+
+				var registerTW = toolwindowviewmodel as IRegisterableToolWindow;
+
+				if (registerTW != null)
+					registerTW.SetToolWindowVisibility(this, !toolwindowviewmodel.IsVisible);
+				else
+					toolwindowviewmodel.SetToolWindowVisibility(!toolwindowviewmodel.IsVisible);
+
+				e.Handled = true;
+			}));
 
 			// Standard File New command binding via ApplicationCommands enumeration
 			win.CommandBindings.Add(new CommandBinding(ApplicationCommands.New,
@@ -317,13 +338,13 @@
 					// Save all edited documents
 					if (this.mFiles != null)               // Close all open files and make sure there are no unsaved edits
 					{                                     // If there are any: Ask user if edits should be saved
-						FileBaseViewModel activeDoc = this.ActiveDocument;
+						IDocument activeDoc = this.ActiveDocument;
 
 						try
 						{
 							for (int i = 0; i < this.Files.Count; i++)
 							{
-								FileBaseViewModel f = this.Files[i];
+								IDocument f = this.Files[i];
 
 								if (f != null)
 								{

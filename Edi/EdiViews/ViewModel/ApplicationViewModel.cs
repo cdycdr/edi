@@ -51,7 +51,8 @@ namespace EdiViews.ViewModel
 	[Export(typeof(IApplicationViewModel))]
 	public partial class ApplicationViewModel : Base.ViewModelBase,
 																							IViewModelResolver,
-																							IApplicationViewModel
+																							IApplicationViewModel,
+																							IDocumentParent
 	{
 		#region fields
 		public const string Log4netFileExtension = "log4j";
@@ -76,20 +77,18 @@ namespace EdiViews.ViewModel
 		private bool mShutDownInProgress = false;
 		private bool mShutDownInProgress_Cancel = false;
 
-		private ObservableCollection<FileBaseViewModel> mFiles = null;
-		private ReadOnlyObservableCollection<FileBaseViewModel> mReadonyFiles = null;
-		private ToolViewModel[] mTools = null;
+		private ObservableCollection<IDocument> mFiles = null;
+		private ReadOnlyObservableCollection<IDocument> mReadonyFiles = null;
+		private ObservableCollection<ToolViewModel> mTools = null;
 
-		private FileStatsViewModel mFileStats = null;      // Tool Window Properties
 		private RecentFilesViewModel mRecentFiles = null;
-		private Log4NetToolViewModel mLog4NetTool = null;
-		private Log4NetMessageToolViewModel mLog4NetMessageTool = null;
 		private FileExplorerViewModel mFileExplorer = null;
 
 		private IAppCoreModel mAppCore = null;
 		private IAvalonDockLayoutViewModel mAVLayout = null;
+		private IToolWindowRegistry mToolRegistry = null;
 
-		private FileBaseViewModel mActiveDocument = null;
+		private IDocument mActiveDocument = null;
 		#endregion fields
 
 		#region constructor
@@ -98,24 +97,26 @@ namespace EdiViews.ViewModel
 		/// </summary>
 		[ImportingConstructor]
 		public ApplicationViewModel(IAppCoreModel appCore,
-		                            IAvalonDockLayoutViewModel avLayout,
+																IAvalonDockLayoutViewModel avLayout,
+																IToolWindowRegistry toolRegistry,
 																IModuleManager moduleManager)
 			: this()
 		{
 			this.mAppCore = appCore;
 			this.mAVLayout = avLayout;
+			this.mToolRegistry = toolRegistry;
 		}
 
 		public ApplicationViewModel()
 		{
 			this.mAVLayout = null;
-			this.mFiles = new ObservableCollection<FileBaseViewModel>();
+			this.mFiles = new ObservableCollection<IDocument>();
 		}
 		#endregion constructor
 
 		#region Properties
 		#region ActiveDocument
-		public FileBaseViewModel ActiveDocument
+		public IDocument ActiveDocument
 		{
 			get
 			{
@@ -195,12 +196,12 @@ namespace EdiViews.ViewModel
 		/// <summary>
 		/// Principable data source for collection of documents managed in the the document manager (of AvalonDock).
 		/// </summary>
-		public ReadOnlyObservableCollection<FileBaseViewModel> Files
+		public ReadOnlyObservableCollection<IDocument> Files
 		{
 			get
 			{
 				if (mReadonyFiles == null)
-					mReadonyFiles = new ReadOnlyObservableCollection<FileBaseViewModel>(this.mFiles);
+					mReadonyFiles = new ReadOnlyObservableCollection<IDocument>(this.mFiles);
 
 				return mReadonyFiles;
 			}
@@ -226,36 +227,19 @@ namespace EdiViews.ViewModel
 		/// Principable data source for collection of tool windows
 		/// managed in the the document manager (of AvalonDock).
 		/// </summary>
-		public IEnumerable<ToolViewModel> Tools
+		public ObservableCollection<ToolViewModel> Tools
 		{
 			get
 			{
 				if (mTools == null)
-					mTools = new ToolViewModel[] { this.RecentFiles,
-                                         this.FileStats,
-                                         this.Log4NetTool, Log4NetMessageTool,
-                                         this.FileExplorer
-                                        };
-
-				return mTools;
-			}
-		}
-
-		/// <summary>
-		/// Gets the File States ToolWindow ViewModel.
-		/// based on the <seealso cref="FileStatsViewModel"/>.
-		/// </summary>
-		public FileStatsViewModel FileStats
-		{
-			get
-			{
-				if (this.mFileStats == null)
 				{
-					this.mFileStats = new FileStatsViewModel();
-					this.ActiveDocumentChanged += new DocumentChangedEventHandler(this.mFileStats.OnActiveDocumentChanged);
+					this.mTools = new ObservableCollection<ToolViewModel>();
+
+					this.mToolRegistry.Tools.Add(this.FileExplorer);
+					this.mToolRegistry.Tools.Add(this.RecentFiles);
 				}
 
-				return this.mFileStats;
+				return this.mToolRegistry.Tools;
 			}
 		}
 
@@ -271,41 +255,6 @@ namespace EdiViews.ViewModel
 					this.mRecentFiles = new RecentFilesViewModel(SettingsManager.Instance.SessionData.MruList);
 
 				return this.mRecentFiles;
-			}
-		}
-
-		/// <summary>
-		/// Gets the Log4Net Tool Window ViewModel.
-		/// based on the <seealso cref="Log4NetToolViewModel"/>.
-		/// </summary>
-		public Log4NetToolViewModel Log4NetTool
-		{
-			get
-			{
-				if (this.mLog4NetTool == null)
-				{
-					this.mLog4NetTool = new Log4NetToolViewModel();
-					this.ActiveDocumentChanged += new DocumentChangedEventHandler(this.mLog4NetTool.OnActiveDocumentChanged);
-				}
-
-				return mLog4NetTool;
-			}
-		}
-
-		/// <summary>
-		/// Gets the Log4NetMessageTool (toolwindow) viewmodel.
-		/// </summary>
-		public Log4NetMessageToolViewModel Log4NetMessageTool
-		{
-			get
-			{
-				if (this.mLog4NetMessageTool == null)
-				{
-					this.mLog4NetMessageTool = new Log4NetMessageToolViewModel();
-					this.ActiveDocumentChanged += new DocumentChangedEventHandler(this.mLog4NetMessageTool.OnActiveDocumentChanged);
-				}
-
-				return this.mLog4NetMessageTool;
 			}
 		}
 
@@ -464,6 +413,32 @@ namespace EdiViews.ViewModel
 				this.RecentFiles.AddNewEntryIntoMRU(filePath);
 
 			return fileViewModel;
+		}
+
+		/// <summary>
+		/// <seealso cref="IViewModelResolver"/> method for resolving
+		/// AvalonDock contentid's against a specific viewmodel.
+		/// </summary>
+		/// <param name="content_id"></param>
+		/// <returns></returns>
+		public ViewModelBase ContentViewModelFromID(string content_id)
+		{
+			// Query for a tool window and return it
+			var anchorable_vm = this.Tools.FirstOrDefault(d => d.ContentId == content_id);
+
+			var registerTW = anchorable_vm as IRegisterableToolWindow;
+
+			if (registerTW != null)
+				registerTW.SetDocumentParent(this);
+
+			if (anchorable_vm != null)
+				return anchorable_vm;
+
+			// Query for a matching document and return it
+			if (SettingsManager.Instance.SettingData.ReloadOpenFilesOnAppStart == true)
+				return this.ReloadDocument(content_id);
+
+			return null;
 		}
 
 		#region NewCommand
@@ -879,7 +854,7 @@ namespace EdiViews.ViewModel
 		/// <param name="doc"></param>
 		/// <param name="saveAsFlag"></param>
 		/// <returns></returns>
-		internal bool OnSave(FileBaseViewModel doc, bool saveAsFlag = false)
+		internal bool OnSave(IDocument doc, bool saveAsFlag = false)
 		{
 			if (doc == null)
 				return false;
@@ -898,7 +873,7 @@ namespace EdiViews.ViewModel
 		/// </summary>
 		/// <param name="f"></param>
 		/// <returns></returns>
-		internal static string GetDefaultFileFilter(FileBaseViewModel f)
+		internal static string GetDefaultFileFilter(IDocument f)
 		{
 			if (f == null)
 				return string.Empty;
@@ -915,7 +890,7 @@ namespace EdiViews.ViewModel
 			return string.Empty;
 		}
 
-		internal bool OnSaveDocumentFile(FileBaseViewModel fileToSave,
+		internal bool OnSaveDocumentFile(IDocument fileToSave,
 																		 bool saveAsFlag = false,
 																		 string FileExtensionFilter = "")
 		{
@@ -975,7 +950,7 @@ namespace EdiViews.ViewModel
 			return false;
 		}
 
-		internal bool OnCloseSaveDirtyFile(FileBaseViewModel fileToClose)
+		internal bool OnCloseSaveDirtyFile(IDocument fileToClose)
 		{
 			if (fileToClose.IsDirty == true &&
 					fileToClose.CanSaveData == true)
@@ -1005,7 +980,7 @@ namespace EdiViews.ViewModel
 		/// </summary>
 		/// <param name="fileToClose"></param>
 		/// <returns></returns>
-		internal bool Close(FileBaseViewModel doc)
+		internal bool Close(IDocument doc)
 		{
 			try
 			{
@@ -1127,7 +1102,7 @@ namespace EdiViews.ViewModel
 				{                                     // If there are any: Ask user if edits should be saved
 					for (int i = 0; i < this.Files.Count; i++)
 					{
-						FileBaseViewModel f = this.Files[i];
+						IDocument f = this.Files[i];
 
 						if (this.OnCloseSaveDirtyFile(f) == false)
 						{
@@ -1328,40 +1303,14 @@ namespace EdiViews.ViewModel
 				}
 			}
 		}
-		#endregion methods
 
-		public Guid LayoutID
-		{
-			get { throw new NotImplementedException(); }
-		}
-
-		public ViewModelBase ContentViewModelFromID(string content_id)
-		{
-			if (content_id == FileStatsViewModel.ToolContentId)
-				return this.FileStats;
-			else
-				if (content_id == FileExplorerViewModel.ToolContentId)
-					return this.FileExplorer;
-				else
-					if (content_id == RecentFilesViewModel.ToolContentId)
-						return this.RecentFiles;
-					else
-						if (content_id == Log4NetToolViewModel.ToolContentId)
-							return this.Log4NetTool; // Re-create log4net tool window binding
-						else
-							if (content_id == Log4NetMessageToolViewModel.ToolContentId)
-								return this.Log4NetMessageTool; // Re-create log4net message tool window binding
-							else
-							{
-								if (SettingsManager.Instance.SettingData.ReloadOpenFilesOnAppStart == true)
-								{
-									return this.ReloadDocument(content_id);
-								}
-							}
-
-			return null;
-		}
-
+		/// <summary>
+		/// Helper method for viewmodel resolution for avalondock contentids
+		/// and specific document viewmodels. Careful: the Start Page is also
+		/// a document but cannot be loaded, saved, or edit as other documents can.
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
 		private ViewModelBase ReloadDocument(string path)
 		{
 			ViewModelBase ret = null;
@@ -1386,5 +1335,6 @@ namespace EdiViews.ViewModel
 
 			return ret;
 		}
+		#endregion methods
 	}
 }

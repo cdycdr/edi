@@ -1,37 +1,38 @@
-﻿namespace Edi.Core.ViewModels
+﻿using Edi.Core.Interfaces;
+namespace Edi.Core.ViewModels
 {
-  public delegate void DocumentChangedEventHandler(object sender, DocumentChangedEventArgs e);
+	public delegate void DocumentChangedEventHandler(object sender, DocumentChangedEventArgs e);
 
-  /// <summary>
-  /// This kind of event should be fired by the document container when a new document becomes active.
-  /// 
-  /// The initial design follows this article:
-  /// http://www.codeproject.com/Articles/5043/Step-by-Step-Event-handling-in-C
-  /// </summary>
-  public class DocumentChangedEventArgs : System.EventArgs
-  {
-    #region fields
-    private FileBaseViewModel mActiveDocument;
-    #endregion fields
+	/// <summary>
+	/// This kind of event should be fired by the document container when a new document becomes active.
+	/// 
+	/// The initial design follows this article:
+	/// http://www.codeproject.com/Articles/5043/Step-by-Step-Event-handling-in-C
+	/// </summary>
+	public class DocumentChangedEventArgs : System.EventArgs
+	{
+		#region fields
+		private IDocument mActiveDocument;
+		#endregion fields
 
-    #region constrcutor
-    public DocumentChangedEventArgs(FileBaseViewModel activeDocument)
-    {
-      this.mActiveDocument = activeDocument;
-    }
-    #endregion constrcutor
+		#region constrcutor
+		public DocumentChangedEventArgs(IDocument activeDocument)
+		{
+			this.mActiveDocument = activeDocument;
+		}
+		#endregion constrcutor
 
-    #region methods
-    /// <summary>
-    /// Get the active document that is active now (as of this event).
-    /// </summary>
-    public FileBaseViewModel ActiveDocument
-    {
-      get
-      {
-        return this.mActiveDocument;
-      }
-    }
-    #endregion methods
-  }
+		#region methods
+		/// <summary>
+		/// Get the active document that is active now (as of this event).
+		/// </summary>
+		public IDocument ActiveDocument
+		{
+			get
+			{
+				return this.mActiveDocument;
+			}
+		}
+		#endregion methods
+	}
 }

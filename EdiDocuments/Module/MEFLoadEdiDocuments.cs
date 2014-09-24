@@ -31,23 +31,40 @@
 	[ModuleExport(typeof(MEFLoadEdiDocuments))]
 	public class MEFLoadEdiDocuments : IModule
 	{
+		#region fields
 		IAvalonDockLayoutViewModel mAvLayout = null;
+		IToolWindowRegistry mToolRegistry = null;
+		#endregion fields
 
 		/// <summary>
 		/// Class constructor
 		/// </summary>
 		/// <param name="avLayout"></param>
 		[ImportingConstructor]
-		public MEFLoadEdiDocuments(IAvalonDockLayoutViewModel avLayout)
+		public MEFLoadEdiDocuments(IAvalonDockLayoutViewModel avLayout,
+													     IToolWindowRegistry toolRegistry)
 		{
 			this.mAvLayout = avLayout;
+			this.mToolRegistry = toolRegistry;
 		}
 
 		#region methods
+		/// <summary>
+		/// Initialize this module via standard PRISM MEF procedure
+		/// </summary>
 		void IModule.Initialize()
 		{
-			this.RegisterDataTemplates(this.mAvLayout.ViewProperties.SelectPanesTemplate);
-			this.RegisterStyles(this.mAvLayout.ViewProperties.SelectPanesStyle);
+			if (this.mAvLayout != null)
+			{
+				this.RegisterDataTemplates(this.mAvLayout.ViewProperties.SelectPanesTemplate);
+				this.RegisterStyles(this.mAvLayout.ViewProperties.SelectPanesStyle);
+			}
+
+			if (this.mToolRegistry != null)
+			{
+				this.mToolRegistry.RegisterTool(new Log4NetMessageToolViewModel());
+				this.mToolRegistry.RegisterTool(new Log4NetToolViewModel());
+			}
 		}
 
 		/// <summary>

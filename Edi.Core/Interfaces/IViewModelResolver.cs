@@ -11,7 +11,7 @@ namespace Edi.Core.Interfaces
   /// </summary>
   public interface IViewModelResolver
   {
-    Guid LayoutID { get; }
+    //Guid LayoutID { get; }
 
     /// <summary>
     /// Get a matching viewmodel for a view through its content_id.

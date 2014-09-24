@@ -172,6 +172,23 @@
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
       </MenuItem>
       <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_View}">
+
+        <MenuItem ItemsSource="{Binding Tools}"
+                  Header="{x:Static cmdLabel:Strings.STR_VIEW_TOOLWINDOWS}"
+                  Visibility="{Binding Path=Tools, Mode=OneWay, Converter={EdiViewsConv:ZeroToVisibilityConverter}}">
+          <MenuItem.ItemContainerStyle>
+            <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+              <Setter Property="IsCheckable" Value="True" />
+              <Setter Property="IsChecked" Value="{Binding IsVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+              <Setter Property="Header" Value="{Binding Name, Mode=OneWay}" />
+              <Setter Property="Command" Value="cmd:AppCommand.ShowToolWindow" />
+              <Setter Property="CommandParameter" Value="{Binding Path=., Mode=OneWay}" />
+              <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+              <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
+            </Style>
+          </MenuItem.ItemContainerStyle>
+        </MenuItem>
+
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Themes}"
                   ItemsSource="{Binding Source={x:Static theme:ThemesManager.Instance}, Path=ListAllThemes}">
           <MenuItem.ItemContainerStyle>
@@ -204,24 +221,6 @@
                   Command="cmd:AppCommand.ProgramSettings"
                   ToolTipService.ShowOnDisabled="True"
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
-        <Separator />
-        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_RecentFiles_TW}"
-                  IsChecked="{Binding RecentFiles.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
-
-        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Properties_TW}"
-                  IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
-
-        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_FileExplorer_TW}"
-                  IsChecked="{Binding FileExplorer.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
-
-        <Separator />
-
-        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Log4Net_TW}"
-                  IsChecked="{Binding Log4NetTool.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
-
-        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Log4Net_Message_TW}"
-                  IsChecked="{Binding Log4NetMessageTool.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
-
       </MenuItem>
 
       <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Help}">

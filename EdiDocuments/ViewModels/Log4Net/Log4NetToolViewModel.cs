@@ -1,17 +1,19 @@
 namespace EdiDocuments.ViewModels.Log4Net
 {
-  using System;
-  using Edi.Core.ViewModels;
+	using System;
+	using Edi.Core.Interfaces;
+	using Edi.Core.ViewModels;
 
   /// <summary>
   /// This viewmodel manages the functions of the Log4Net Tool Window which contains
   /// filter function to adjust the display of log4net information.
   /// </summary>
-  public class Log4NetToolViewModel : Edi.Core.ViewModels.ToolViewModel
+	public class Log4NetToolViewModel : Edi.Core.ViewModels.ToolViewModel, IRegisterableToolWindow
   {
     #region fields
     public const string ToolContentId = "Log4NetTool";
     private Log4NetViewModel mLog4NetVM = null;
+		private IDocumentParent mParent = null;
     #endregion fields
 
     #region constructor
@@ -22,7 +24,7 @@ namespace EdiDocuments.ViewModels.Log4Net
       : base("Log4Net")
     {
       // Check if active document is a log4net document to display data for...
-      this.OnActiveDocumentChanged(null, null);
+			this.OnActiveDocumentChanged(null, null);
 
       ////Workspace.This.ActiveDocumentChanged += new EventHandler(OnActiveDocumentChanged);
       this.ContentId = ToolContentId;
@@ -66,6 +68,43 @@ namespace EdiDocuments.ViewModels.Log4Net
     #endregion properties
 
     #region methods
+		/// <summary>
+		/// Set the document parent handling object to deactivation and activation
+		/// of documents with content relevant to this tool window viewmodel.
+		/// </summary>
+		/// <param name="parent"></param>
+		public void SetDocumentParent(IDocumentParent parent)
+		{
+			if (parent != null)
+				parent.ActiveDocumentChanged -= this.OnActiveDocumentChanged;
+
+			this.mParent = parent;
+
+			// Check if active document is a log4net document to display data for...
+			if (this.mParent != null)
+				parent.ActiveDocumentChanged += new DocumentChangedEventHandler(this.OnActiveDocumentChanged);
+			else
+				this.OnActiveDocumentChanged(null, null);
+		}
+
+		/// <summary>
+		/// Set the document parent handling object and visibility
+		/// to enable tool window to react on deactivation and activation
+		/// of documents with content relevant to this tool window viewmodel.
+		/// </summary>
+		/// <param name="parent"></param>
+		/// <param name="isVisible"></param>
+		public void SetToolWindowVisibility(IDocumentParent parent,
+																				bool isVisible = true)
+		{
+			if (IsVisible == true)
+				this.SetDocumentParent(parent);
+			else
+				this.SetDocumentParent(null);
+
+			base.SetToolWindowVisibility(isVisible);
+		}
+
     /// <summary>
     /// Executes event based when the active (AvalonDock) document changes.
     /// Determine whether tool window can show corresponding state or not
@@ -73,7 +112,7 @@ namespace EdiDocuments.ViewModels.Log4Net
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    public void OnActiveDocumentChanged(object sender, DocumentChangedEventArgs e)
+    private void OnActiveDocumentChanged(object sender, DocumentChangedEventArgs e)
     {
       if (e != null)
       {

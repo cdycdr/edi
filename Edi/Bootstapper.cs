@@ -6,8 +6,6 @@ namespace Edi
 	using System.Windows;
 	using Edi.Core.Interfaces;
 	using EdiApp.ViewModels;
-	using EdiDocuments.ViewModels.StartPage;
-	using EdiTools.ViewModels.FileStats;
 	using EdiViews.ViewModel;
 	using Microsoft.Practices.Prism.MefExtensions;
 	using Microsoft.Practices.Prism.Modularity;
@@ -107,12 +105,25 @@ namespace Edi
 			catch (Exception exp)
 			{
 				logger.Error(exp);
-				this.mApp.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-				Application.Current.MainWindow = null;
+
+				// Cannot set shutdown mode when application is already shuttong down
+				if (this.mApp.AppIsShuttingDown == false)
+					this.mApp.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+				// 1) Application hangs when this is set to null while MainWindow is visible
+				// 2) Application throws exception when this is set as owner of window when it
+				//    was never visible.
+				//
+				if (Application.Current.MainWindow != null)
+				{
+					if (Application.Current.MainWindow.IsVisible == false)
+						Application.Current.MainWindow = null;
+				}
 
 				MsgBox.Msg.Show(exp, Strings.STR_MSG_ERROR_FINDING_RESOURCE, MsgBoxButtons.OKCopy);
 
-				this.mApp.Shutdown();
+				if (this.mApp.AppIsShuttingDown == false)
+					this.mApp.Shutdown();
 			}
 
 			return this.mMainWin;

@@ -1,18 +1,22 @@
 namespace EdiTools.ViewModels.FileStats
 {
-  using System;
-  using System.IO;
-  using Edi.Core.ViewModels;
+	using System;
+	using System.IO;
+	using Edi.Core.Interfaces;
+	using Edi.Core.ViewModels;
 
   /// <summary>
   /// This class can be used to present file based information, such as,
   /// Size, Path etc to the user.
   /// </summary>
-  public class FileStatsViewModel : Edi.Core.ViewModels.ToolViewModel
+	public class FileStatsViewModel : Edi.Core.ViewModels.ToolViewModel, IRegisterableToolWindow
   {
     #region fields
     public const string ToolContentId = "FileStatsTool";
-    private string mFilePathName;
+		public const string ToolName = "File Info";
+		private string mFilePathName;
+
+		private IDocumentParent mParent = null;
     #endregion fields
 
     #region constructor
@@ -20,9 +24,11 @@ namespace EdiTools.ViewModels.FileStats
     /// Class constructor
     /// </summary>
     public FileStatsViewModel()
-      : base("File Info")
+			: base(FileStatsViewModel.ToolName)
     {
-      ContentId = ToolContentId;
+			ContentId = FileStatsViewModel.ToolContentId;
+
+			this.OnActiveDocumentChanged(null, null);
     }
     #endregion constructor
 
@@ -113,7 +119,44 @@ namespace EdiTools.ViewModels.FileStats
     #endregion properties
 
     #region methods
-    public void OnActiveDocumentChanged(object sender, DocumentChangedEventArgs e)
+		/// <summary>
+		/// Set the document parent handling object to deactivation and activation
+		/// of documents with content relevant to this tool window viewmodel.
+		/// </summary>
+		/// <param name="parent"></param>
+		public void SetDocumentParent(IDocumentParent parent)
+		{
+			if (parent != null)
+				parent.ActiveDocumentChanged -= this.OnActiveDocumentChanged;
+
+			this.mParent = parent;
+
+			// Check if active document is a log4net document to display data for...
+			if (this.mParent != null)
+				parent.ActiveDocumentChanged += new DocumentChangedEventHandler(this.OnActiveDocumentChanged);
+			else
+				this.OnActiveDocumentChanged(null, null);
+		}
+
+		/// <summary>
+		/// Set the document parent handling object and visibility
+		/// to enable tool window to react on deactivation and activation
+		/// of documents with content relevant to this tool window viewmodel.
+		/// </summary>
+		/// <param name="parent"></param>
+		/// <param name="isVisible"></param>
+		public void SetToolWindowVisibility(IDocumentParent parent,
+																				bool isVisible = true)
+		{
+			if (IsVisible == true)
+				this.SetDocumentParent(parent);
+			else
+				this.SetDocumentParent(null);
+
+			base.SetToolWindowVisibility(isVisible);
+		}
+		
+		private void OnActiveDocumentChanged(object sender, DocumentChangedEventArgs e)
     {
       this.mFilePathName = string.Empty;
       FileSize = 0;
