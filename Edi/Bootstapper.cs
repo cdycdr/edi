@@ -2,17 +2,21 @@ namespace Edi
 {
 	using System;
 	using System.Collections.Generic;
+	using System.ComponentModel.Composition;
 	using System.ComponentModel.Composition.Hosting;
 	using System.Windows;
 	using Edi.Core.Interfaces;
+	using EdiApp.Interfaces.ViewModel;
 	using EdiApp.ViewModels;
-	using EdiViews.ViewModel;
+	using EdiApp.Views.Shell;
 	using Microsoft.Practices.Prism.MefExtensions;
 	using Microsoft.Practices.Prism.Modularity;
 	using MsgBox;
 	using Settings;
+	using Settings.Interfaces;
 	using Settings.ProgramSettings;
 	using SimpleControls.Local;
+	using Themes.Interfaces;
 
 	public class Bootstapper : MefBootstrapper
 	{
@@ -22,17 +26,26 @@ namespace Edi
 		private MainWindow mMainWin = null;
 		private IApplicationViewModel appVM = null;
 
-		private StartupEventArgs mEventArgs;
-		private App mApp = null;
-		private readonly Options mProgramSettings = null;
+		private readonly StartupEventArgs mEventArgs;
+		private readonly App mApp = null;
+
+		private readonly Options mOptions = null;
+		private readonly IThemesManager mThemes = null;
+		private readonly ISettingsManager mProgramSettingsManager = null;
 		#endregion fields
 
 		#region constructors
-		public Bootstapper(App app, StartupEventArgs eventArgs, Options programSettings)
+		public Bootstapper(App app,
+											 StartupEventArgs eventArgs,
+											 Options programSettings,
+											 IThemesManager themesManager)
 		{
+			this.mThemes = themesManager;
+			this.mProgramSettingsManager = new SettingsManager(this.mThemes);
+
 			this.mEventArgs = eventArgs;
 			this.mApp = app;
-			this.mProgramSettings = programSettings;
+			this.mOptions = programSettings;
 		}
 		#endregion constructors
 
@@ -58,6 +71,7 @@ namespace Edi
 		protected override void ConfigureAggregateCatalog()
 		{
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IAppCoreModel).Assembly));
+			////this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(SettingsManager).Assembly));
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AvalonDockLayoutViewModel).Assembly));
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstapper).Assembly));
 
@@ -71,16 +85,14 @@ namespace Edi
 			{
 				var appCore = this.Container.GetExportedValue<IAppCoreModel>();
 
-				var settings = SettingsManager.Instance;
-
 				// Setup localtion of config files
-				settings.AppDir = appCore.DirAppData;
-				settings.LayoutFileName = appCore.LayoutFileName;
+				this.mProgramSettingsManager.AppDir = appCore.DirAppData;
+				this.mProgramSettingsManager.LayoutFileName = appCore.LayoutFileName;
 
 				var avLayout = this.Container.GetExportedValue<IAvalonDockLayoutViewModel>();
 				this.appVM = this.Container.GetExportedValue<IApplicationViewModel>();
 
-				appVM.LoadConfigOnAppStartup(this.mProgramSettings);
+				appVM.LoadConfigOnAppStartup(this.mOptions, this.mProgramSettingsManager, this.mThemes);
 
 				// Attempt to load a MiniUML plugin via the model class
 				MiniUML.Model.MiniUmlPluginLoader.LoadPlugins(appCore.AssemblyEntryLocation + @"\MiniUML.Plugins\", this.AppViewModel);
@@ -91,7 +103,7 @@ namespace Edi
 
 				if (this.mMainWin != null)
 				{
-					this.ConstructMainWindowSession(this.appVM, this.mMainWin);
+					this.ConstructMainWindowSession(this.appVM, this.mMainWin, this.mProgramSettingsManager);
 
 					this.mApp.ShutdownMode = System.Windows.ShutdownMode.OnLastWindowClose;
 					////this.mMainWin.Show();
@@ -156,6 +168,19 @@ namespace Edi
 			// Configure Prism ModuleCatalog via app.config configuration file
 			return new ConfigurationModuleCatalog();
 		}
+
+		protected override void ConfigureContainer()
+		{
+			base.ConfigureContainer();
+
+			// Because we created the SettingsManager and it needs to be used immediately
+			// we compose it to satisfy any imports it has.
+			//
+			// http://msdn.microsoft.com/en-us/library/ff921140%28v=pandp.40%29.aspx
+			//
+			this.Container.ComposeExportedValue<ISettingsManager>(this.mProgramSettingsManager);
+			this.Container.ComposeExportedValue<IThemesManager>(this.mThemes);
+		}
 		#endregion Methods
 
 		#region shell handling methods
@@ -186,38 +211,30 @@ namespace Edi
 		/// </summary>
 		/// <param name="workSpace"></param>
 		/// <param name="win"></param>
-		private void ConstructMainWindowSession(IApplicationViewModel workSpace, Window win)
+		private void ConstructMainWindowSession(IApplicationViewModel workSpace,
+																						Window win,
+																						ISettingsManager settings)
 		{
-			try
-			{
-				win.DataContext = workSpace;
+			win.DataContext = workSpace;
 
-				// Establish command binding to accept user input via commanding framework
-				workSpace.InitCommandBinding(win);
+			// Establish command binding to accept user input via commanding framework
+			workSpace.InitCommandBinding(win);
 
-				win.Left = SettingsManager.Instance.SessionData.MainWindowPosSz.X;
-				win.Top = SettingsManager.Instance.SessionData.MainWindowPosSz.Y;
-				win.Width = SettingsManager.Instance.SessionData.MainWindowPosSz.Width;
-				win.Height = SettingsManager.Instance.SessionData.MainWindowPosSz.Height;
-				win.WindowState = (SettingsManager.Instance.SessionData.MainWindowPosSz.IsMaximized == true ? WindowState.Maximized : WindowState.Normal);
+			win.Left = settings.SessionData.MainWindowPosSz.X;
+			win.Top = settings.SessionData.MainWindowPosSz.Y;
+			win.Width = settings.SessionData.MainWindowPosSz.Width;
+			win.Height = settings.SessionData.MainWindowPosSz.Height;
+			win.WindowState = (settings.SessionData.MainWindowPosSz.IsMaximized == true ? WindowState.Maximized : WindowState.Normal);
 
-				// Initialize Window State in viewmodel to show resize grip when window is not maximized
-				if (win.WindowState == WindowState.Maximized)
-					workSpace.IsNotMaximized = false;
-				else
-					workSpace.IsNotMaximized = true;
+			// Initialize Window State in viewmodel to show resize grip when window is not maximized
+			if (win.WindowState == WindowState.Maximized)
+				workSpace.IsNotMaximized = false;
+			else
+				workSpace.IsNotMaximized = true;
 
-				string lastActiveFile = SettingsManager.Instance.SessionData.LastActiveFile;
+			string lastActiveFile = settings.SessionData.LastActiveFile;
 
-				MainWindow mainWin = win as MainWindow;
-
-				// if (mainWin != null)
-				//  mainWin.Loaded += App.MainWindow_Loaded;
-			}
-			catch
-			{
-				throw;
-			}
+			MainWindow mainWin = win as MainWindow;
 		}
 		#endregion shell handling methods
 	}

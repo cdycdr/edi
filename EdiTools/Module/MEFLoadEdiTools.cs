@@ -8,8 +8,10 @@
 	using Edi.Core.View.Pane;
 	using EdiTools.ViewModels.FileExplorer;
 	using EdiTools.ViewModels.FileStats;
+	using FileSystemModels.Models;
 	using Microsoft.Practices.Prism.MefExtensions.Modularity;
 	using Microsoft.Practices.Prism.Modularity;
+	using Settings.Interfaces;
 
 	/// <summary>
 	/// PRISM MEF Loader/Initializer class
@@ -29,8 +31,10 @@
 	public class MEFLoadEdiTools : IModule
 	{
 		#region fields
-		IAvalonDockLayoutViewModel mAvLayout = null;
-		IToolWindowRegistry mToolRegistry = null;
+		private readonly IAvalonDockLayoutViewModel mAvLayout;
+		private readonly IToolWindowRegistry mToolRegistry;
+		private readonly ISettingsManager mSettingsManager;
+		private readonly IFileOpenService mFileOpenService;
 		#endregion fields
 
 		/// <summary>
@@ -39,10 +43,14 @@
 		/// <param name="avLayout"></param>
 		[ImportingConstructor]
 		public MEFLoadEdiTools(IAvalonDockLayoutViewModel avLayout,
-		                       IToolWindowRegistry toolRegistry)
+													 ISettingsManager programSettings,
+													 IToolWindowRegistry toolRegistry,
+													 IFileOpenService fileOpenService)
 		{
 			this.mAvLayout = avLayout;
+			this.mSettingsManager = programSettings;
 			this.mToolRegistry = toolRegistry;
+			this.mFileOpenService = fileOpenService;
 		}
 
 		#region methods
@@ -59,7 +67,27 @@
 			if (this.mToolRegistry != null)
 			{
 				this.mToolRegistry.RegisterTool(new FileStatsViewModel());
+				RegisterFileExplorerViewModel();
 			}
+		}
+
+		private void RegisterFileExplorerViewModel()
+		{
+			var FileExplorer = new FileExplorerViewModel(this.mSettingsManager, this.mFileOpenService);
+
+			ExplorerSettingsModel settings = null;
+
+			settings = this.mSettingsManager.SettingData.ExplorerSettings;
+
+			if (settings == null)
+				settings = new ExplorerSettingsModel();
+
+			settings.UserProfile = this.mSettingsManager.SessionData.LastActiveExplorer;
+
+			// (re-)configure previous explorer settings and (re-)activate current location
+			FileExplorer.Settings.ConfigureExplorerSettings(settings);
+
+			this.mToolRegistry.RegisterTool(FileExplorer);
 		}
 
 		/// <summary>

@@ -7,13 +7,16 @@ namespace Edi
 	using System.Windows;
 	using System.Windows.Threading;
 	using Edi.Core.Models;
-	using EdiViews.ViewModel;
+	using EdiApp.ViewModels;
+	using EdiApp.Views.Shell;
 	using log4net;
 	using log4net.Config;
 	using MsgBox;
 	using Settings;
 	using Settings.ProgramSettings;
 	using SimpleControls.Local;
+	using Themes;
+	using Themes.Interfaces;
 	using Util;
 	using Util.ActivateWindow;
 
@@ -120,10 +123,11 @@ namespace Edi
 			}
 
 			Options options = null;
+			IThemesManager themesManager = new ThemesManager();
 
 			try
 			{
-				options = SettingsManager.LoadOptions(AppHelpers.DirFileAppSettingsData);
+				options = SettingsManager.LoadOptions(AppHelpers.DirFileAppSettingsData, themesManager);
 
 				Thread.CurrentThread.CurrentCulture = new CultureInfo(options.LanguageSelected);
 				Thread.CurrentThread.CurrentUICulture = new CultureInfo(options.LanguageSelected);
@@ -147,7 +151,7 @@ namespace Edi
 
 			try
 			{
-				this.mBoot = new Bootstapper(this, e, options);
+				this.mBoot = new Bootstapper(this, e, options, themesManager);
 				this.mBoot.Run();
 			}
 			catch (Exception exp)

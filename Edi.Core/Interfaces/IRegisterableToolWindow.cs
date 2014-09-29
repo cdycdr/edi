@@ -17,6 +17,6 @@
 		/// <param name="parent"></param>
 		/// <param name="isVisible"></param>
 		void SetToolWindowVisibility(IDocumentParent parent,
-                                        bool isVisible = true);
+																				bool isVisible = true);
 	}
 }

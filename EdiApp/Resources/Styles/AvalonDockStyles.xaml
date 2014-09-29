@@ -40,12 +40,4 @@
     <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
   </Style>
 
-  <Style TargetType="{x:Type avalonDock:LayoutItem}" x:Key="Log4NetStyle">
-    <Setter Property="Title" Value="{Binding Model.Title}"/>
-    <Setter Property="ToolTip" Value="{Binding Model.ScreenTip}"/>
-    <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
-    <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
-    <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
-  </Style>
-
 </ResourceDictionary>

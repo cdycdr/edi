@@ -1,12 +1,12 @@
 ﻿namespace Edi.Core.Interfaces
 {
-  /// <summary>
+	/// <summary>
 	/// Interface to a class that maintains and helps access to core facts of this application.
 	/// Core facts are installation directory, name of application etc.
 	/// </summary>
 	public interface IAppCoreModel
 	{
-    
+
 		#region properties
 		string IssueTrackerLink { get; }
 
@@ -16,17 +16,17 @@
 		/// Get a path to the directory where the application
 		/// can persist/load user data on session exit and re-start.
 		/// </summary>
-		string DirAppData{ get; }
+		string DirAppData { get; }
 
 		/// <summary>
 		/// Get a path to the directory where the user store his documents
 		/// </summary>
-		string MyDocumentsUserDir{ get; }
+		string MyDocumentsUserDir { get; }
 
 		/// <summary>
 		/// Get the name of the executing assembly (usually name of *.exe file)
 		/// </summary>
-		string AssemblyTitle{ get; }
+		string AssemblyTitle { get; }
 
 		//
 		// Summary:
@@ -37,21 +37,21 @@
 		//     file was shadow-copied, the location is that of the file after being shadow-copied.
 		//     If the assembly is loaded from a byte array, such as when using the System.Reflection.Assembly.Load(System.Byte[])
 		//     method overload, the value returned is an empty string ("").
-		string AssemblyEntryLocation{ get; }
+		string AssemblyEntryLocation { get; }
 
-		string Company{ get; }
+		string Company { get; }
 
 		/// <summary>
 		/// Get path and file name to application specific session file
 		/// </summary>
-		string DirFileAppSessionData{ get; }
+		string DirFileAppSessionData { get; }
 
 		/// <summary>
 		/// Get path and file name to application specific settings file
 		/// </summary>
-		string DirFileAppSettingsData{ get; }
+		string DirFileAppSettingsData { get; }
 		#endregion properties
-	    
+
 		#region methods
 		/// <summary>
 		/// Create a dedicated directory to store program settings and session data

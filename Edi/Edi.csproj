@@ -179,52 +179,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bootstapper.cs" />
-    <Compile Include="EdiViews\Behaviour\DialogCloser.cs" />
-    <Compile Include="EdiViews\Behaviour\DoubleClickImageToCommand.cs" />
-    <Compile Include="EdiViews\Behaviour\DoubleClickSelectorItem.cs" />
-    <Compile Include="EdiViews\Behaviour\DropFileCommand.cs" />
-    <Compile Include="EdiViews\Behaviour\FocusExtension.cs" />
-    <Compile Include="EdiViews\Behaviour\HideToolbarOverflowButton.cs" />
-    <Compile Include="EdiViews\Behaviour\KeyboardFocus.cs" />
-    <Compile Include="EdiViews\Behaviour\MergeStyleBehaviour.cs" />
-    <Compile Include="EdiViews\Behaviour\RemoveIcon.cs" />
-    <Compile Include="EdiViews\Behaviour\TextBoxHelper.cs" />
-    <Compile Include="EdiViews\Behaviour\VisualTreeHelperExtension.cs" />
-    <Compile Include="EdiViews\Behaviour\WindowMaximized.cs" />
-    <Compile Include="EdiViews\Converter\ActiveDocumentToVisibilityConverter.cs" />
-    <Compile Include="EdiViews\Converter\BooleanToTypeModeStringConverter.cs" />
-    <Compile Include="EdiViews\Converter\DocumentStateToVisibilityConverter.cs" />
-    <Compile Include="EdiViews\Converter\EnumToBooleanConverter.cs" />
-    <Compile Include="EdiViews\Converter\MessageType\CountToVisibilityHiddenConverter.cs" />
-    <Compile Include="EdiViews\Converter\MessageType\MsgTypeToResourceConverter.cs" />
-    <Compile Include="EdiViews\Converter\NullToVisibilityConverter.cs" />
-    <Compile Include="EdiViews\Converter\ZeroToVisibilityConverter.cs" />
-    <Compile Include="EdiViews\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EdiViews\MainWindowViewManager.cs" />
-    <Compile Include="EdiViews\ViewModel\ApplicationViewModel.cs" />
-    <Compile Include="EdiViews\ViewModel\ApplicationViewModel_Command.cs" />
-    <Compile Include="EdiViews\ViewModel\ApplicationViewModel_Config.cs" />
-    <Compile Include="EdiViews\ViewModel\ApplicationViewModel_Editor.cs" />
-    <Compile Include="EdiViews\ViewModel\ApplicationViewModel_Theming.cs" />
-    <Compile Include="EdiViews\ViewModel\Base\ViewModelBase.cs" />
-    <Compile Include="EdiViews\ViewModel\IApplicationViewModel.cs" />
-    <Compile Include="EdiViews\ViewModel\ToggleEditorOption.cs" />
-    <Compile Include="EdiViews\ViewModel\TypeOfDocument.cs" />
-    <Compile Include="EdiViews\ViewSelector.cs" />
-    <Compile Include="EdiViews\View\Behavior\ActionCommand.cs" />
-    <Compile Include="EdiViews\View\Behavior\AvalonDockLayoutSerializer.cs" />
-    <Compile Include="EdiViews\View\Behavior\EventToCommandBehavior.cs" />
-    <Compile Include="EdiViews\View\MainMenu.xaml.cs">
-      <DependentUpon>MainMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EdiViews\View\MainToolbar.xaml.cs">
-      <DependentUpon>MainToolbar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EdiViews\View\StatusBar.xaml.cs">
-      <DependentUpon>StatusBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -362,16 +316,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
-    <None Include="EdiViews\packages.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\property-blue.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -449,9 +399,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\EdiLogo.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="EdiLogo.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -459,40 +406,6 @@
     <Content Include="MiniUML.Plugins\MiniUML.Plugins.UmlClassDiagram.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="EdiViews\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="EdiViews\Themes\EmptyWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="EdiViews\Themes\MetroDark.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="EdiViews\Themes\MetroLight.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="EdiViews\View\MainMenu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="EdiViews\View\MainToolbar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="EdiViews\View\StatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

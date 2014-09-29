@@ -1,14 +1,14 @@
 ﻿namespace Util
 {
-  using System;
-  using System.Collections.Generic;
-  using System.Diagnostics;
-  using System.IO;
-  using System.IO.MemoryMappedFiles;
-  using System.Threading;
+	using System;
+	using System.Collections.Generic;
+	using System.Diagnostics;
+	using System.IO;
+	using System.IO.MemoryMappedFiles;
+	using System.Threading;
 
-  #region File and License Information
-  /*
+	#region File and License Information
+	/*
 <File>
 	<Copyright>Copyright © 2010, Daniel Vaughan. All rights reserved.</Copyright>
 	<License>
@@ -38,165 +38,165 @@
 	<CreationDate>2010-08-01 18:23:33Z</CreationDate>
 </File>
 */
-  #endregion
+	#endregion
 
-  /// <summary>
-  /// This class allows restricting the number of executables in execution, to one.
-  /// </summary>
-  public sealed class SingletonApplicationEnforcer
-  {
-    #region fields
-    readonly Action<IEnumerable<string>> processArgsFunc;
-    readonly Action<string> processActivateFunc;
-    readonly string applicationId;
+	/// <summary>
+	/// This class allows restricting the number of executables in execution, to one.
+	/// </summary>
+	public sealed class SingletonApplicationEnforcer
+	{
+		#region fields
+		readonly Action<IEnumerable<string>> processArgsFunc;
+		readonly Action<string> processActivateFunc;
+		readonly string applicationId;
 
-    Thread thread;
-    Thread windowActivationThread;
-    string argDelimiter = "_;;_";
-    #endregion fields
+		Thread thread;
+		Thread windowActivationThread;
+		string argDelimiter = "_;;_";
+		#endregion fields
 
-    #region properties
-    /// <summary>
-    /// Gets or sets the string that is used to join 
-    /// the string array of arguments in memory.
-    /// </summary>
-    /// <value>The arg delimeter.</value>
-    public string ArgDelimeter
-    {
-      get
-      {
-        return argDelimiter;
-      }
-      set
-      {
-        argDelimiter = value;
-      }
-    }
+		#region properties
+		/// <summary>
+		/// Gets or sets the string that is used to join 
+		/// the string array of arguments in memory.
+		/// </summary>
+		/// <value>The arg delimeter.</value>
+		public string ArgDelimeter
+		{
+			get
+			{
+				return argDelimiter;
+			}
+			set
+			{
+				argDelimiter = value;
+			}
+		}
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SingletonApplicationEnforcer"/> class.
-    /// </summary>
-    /// <param name="processArgsFunc">A handler for processing command line args 
-    /// when they are received from another application instance.</param>
-    /// <param name="applicationId">The application id used 
-    /// for naming the <seealso cref="EventWaitHandle"/>.</param>
-    public SingletonApplicationEnforcer(Action<IEnumerable<string>> processArgsFunc, Action<string> processArgsFunc1,
-                                        string applicationId = "DisciplesRock")
-    {
-      if (processArgsFunc == null)
-      {
-        throw new ArgumentNullException("processArgsFunc");
-      }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SingletonApplicationEnforcer"/> class.
+		/// </summary>
+		/// <param name="processArgsFunc">A handler for processing command line args 
+		/// when they are received from another application instance.</param>
+		/// <param name="applicationId">The application id used 
+		/// for naming the <seealso cref="EventWaitHandle"/>.</param>
+		public SingletonApplicationEnforcer(Action<IEnumerable<string>> processArgsFunc, Action<string> processArgsFunc1,
+																				string applicationId = "DisciplesRock")
+		{
+			if (processArgsFunc == null)
+			{
+				throw new ArgumentNullException("processArgsFunc");
+			}
 
-      if (processArgsFunc == null)
-      {
-        throw new ArgumentNullException("processArgsFunc1");
-      }
+			if (processArgsFunc == null)
+			{
+				throw new ArgumentNullException("processArgsFunc1");
+			}
 
-      this.processArgsFunc = processArgsFunc;
-      this.processActivateFunc = processArgsFunc1;
-      this.applicationId = applicationId;
-    }
-    #endregion properties
+			this.processArgsFunc = processArgsFunc;
+			this.processActivateFunc = processArgsFunc1;
+			this.applicationId = applicationId;
+		}
+		#endregion properties
 
-    #region methods
-    /// <summary>
-    /// Determines if this application instance is not the singleton instance.
-    /// If this application is not the singleton, then it should exit.
-    /// </summary>
-    /// <returns><c>true</c> if the application should shutdown, 
-    /// otherwise <c>false</c>.</returns>
-    public bool ShouldApplicationExit()
-    {
-      bool createdNew;
-      string argsWaitHandleName = "ArgsWaitHandle_" + applicationId;
-      string memoryFileName = "ArgFile_" + applicationId;
+		#region methods
+		/// <summary>
+		/// Determines if this application instance is not the singleton instance.
+		/// If this application is not the singleton, then it should exit.
+		/// </summary>
+		/// <returns><c>true</c> if the application should shutdown, 
+		/// otherwise <c>false</c>.</returns>
+		public bool ShouldApplicationExit()
+		{
+			bool createdNew;
+			string argsWaitHandleName = "ArgsWaitHandle_" + applicationId;
+			string memoryFileName = "ArgFile_" + applicationId;
 
-      EventWaitHandle argsWaitHandle = new EventWaitHandle(
-        false, EventResetMode.AutoReset, argsWaitHandleName, out createdNew);
+			EventWaitHandle argsWaitHandle = new EventWaitHandle(
+				false, EventResetMode.AutoReset, argsWaitHandleName, out createdNew);
 
-      GC.KeepAlive(argsWaitHandle);
+			GC.KeepAlive(argsWaitHandle);
 
 
-      if (createdNew)
-      {
-        /* This is the main, or singleton application. 
-         * A thread is created to service the MemoryMappedFile. 
-         * We repeatedly examine this file each time the argsWaitHandle 
-         * is Set by a non-singleton application instance. */
-        thread = new Thread(() =>
-        {
-          try
-          {
-            using (MemoryMappedFile file = MemoryMappedFile.CreateOrOpen(memoryFileName, 10000))
-            {
-              while (true)
-              {
-                argsWaitHandle.WaitOne();
-                using (MemoryMappedViewStream stream = file.CreateViewStream())
-                {
-                  var reader = new BinaryReader(stream);
-                  string args;
-                  try
-                  {
-                    args = reader.ReadString();
-                  }
-                  catch (Exception ex)
-                  {
-                    Debug.WriteLine("Unable to retrieve string. " + ex);
-                    continue;
-                  }
-                  string[] argsSplit = args.Split(new string[] { argDelimiter },
-                                                  StringSplitOptions.RemoveEmptyEntries);
-                  processArgsFunc(argsSplit);
-                }
+			if (createdNew)
+			{
+				/* This is the main, or singleton application. 
+				 * A thread is created to service the MemoryMappedFile. 
+				 * We repeatedly examine this file each time the argsWaitHandle 
+				 * is Set by a non-singleton application instance. */
+				thread = new Thread(() =>
+				{
+					try
+					{
+						using (MemoryMappedFile file = MemoryMappedFile.CreateOrOpen(memoryFileName, 10000))
+						{
+							while (true)
+							{
+								argsWaitHandle.WaitOne();
+								using (MemoryMappedViewStream stream = file.CreateViewStream())
+								{
+									var reader = new BinaryReader(stream);
+									string args;
+									try
+									{
+										args = reader.ReadString();
+									}
+									catch (Exception ex)
+									{
+										Debug.WriteLine("Unable to retrieve string. " + ex);
+										continue;
+									}
+									string[] argsSplit = args.Split(new string[] { argDelimiter },
+																									StringSplitOptions.RemoveEmptyEntries);
+									processArgsFunc(argsSplit);
+								}
 
-              }
-            }
-          }
-          catch (Exception ex)
-          {
-            Debug.WriteLine("Unable to monitor memory file. " + ex);
-          }
-        });
+							}
+						}
+					}
+					catch (Exception ex)
+					{
+						Debug.WriteLine("Unable to monitor memory file. " + ex);
+					}
+				});
 
-        thread.IsBackground = true;
-        thread.Start();
-      }
-      else
-      {
-        windowActivationThread = new Thread(() =>
-        {
-          try
-          {
-            processActivateFunc(this.applicationId);
-          }
-          catch (Exception ex)
-          {
-            Debug.WriteLine("Error activating window: " + ex);
-          }
-        });
+				thread.IsBackground = true;
+				thread.Start();
+			}
+			else
+			{
+				windowActivationThread = new Thread(() =>
+				{
+					try
+					{
+						processActivateFunc(this.applicationId);
+					}
+					catch (Exception ex)
+					{
+						Debug.WriteLine("Error activating window: " + ex);
+					}
+				});
 
-        windowActivationThread.Start();
+				windowActivationThread.Start();
 
-        /* Non singleton application instance. 
-         * Should exit, after passing command line args to singleton process, 
-         * via the MemoryMappedFile. */
-        using (MemoryMappedFile mmf = MemoryMappedFile.OpenExisting(memoryFileName))
-        {
-          using (MemoryMappedViewStream stream = mmf.CreateViewStream())
-          {
-            var writer = new BinaryWriter(stream);
-            string[] args = Environment.GetCommandLineArgs();
-            string joined = string.Join(argDelimiter, args);
-            writer.Write(joined);
-          }
-        }
-        argsWaitHandle.Set();
-      }
+				/* Non singleton application instance. 
+				 * Should exit, after passing command line args to singleton process, 
+				 * via the MemoryMappedFile. */
+				using (MemoryMappedFile mmf = MemoryMappedFile.OpenExisting(memoryFileName))
+				{
+					using (MemoryMappedViewStream stream = mmf.CreateViewStream())
+					{
+						var writer = new BinaryWriter(stream);
+						string[] args = Environment.GetCommandLineArgs();
+						string joined = string.Join(argDelimiter, args);
+						writer.Write(joined);
+					}
+				}
+				argsWaitHandle.Set();
+			}
 
-      return !createdNew;
-    }
-    #endregion properties
-  }
+			return !createdNew;
+		}
+		#endregion properties
+	}
 }

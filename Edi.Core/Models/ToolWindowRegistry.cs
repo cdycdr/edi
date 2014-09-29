@@ -18,7 +18,7 @@
 		public ObservableCollection<ToolViewModel> Tools
 		{
 			get
-			{ 
+			{
 				return this.mItems;
 			}
 		}

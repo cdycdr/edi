@@ -42,7 +42,7 @@
 				return "Layout.config";
 			}
 		}
-		
+
 		/// <summary>
 		/// Get a path to the directory where the application
 		/// can persist/load user data on session exit and re-start.

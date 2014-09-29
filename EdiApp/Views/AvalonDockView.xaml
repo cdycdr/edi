@@ -8,6 +8,7 @@
 
                     xmlns:avalonDockProperties="clr-namespace:Xceed.Wpf.AvalonDock.Properties;assembly=Xceed.Wpf.AvalonDock"
                     xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
+										xmlns:cmd="clr-namespace:Edi.Core;assembly=Edi.Core"
                    >
 
   <Style TargetType="{x:Type local:AvalonDockView}">
@@ -34,6 +35,7 @@
                                        Visibility="{Binding IsBusy,Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                        ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}"
                                        behav:AvalonDockLayoutSerializer.LoadLayoutCommand="{Binding ADLayout.LoadLayoutCommand}"
+																			 behav:DropFileCommand.DropCommand="cmd:AppCommand.LoadFile"
                                        > <!-- CanToolsDockInDocumentPane="False" -->
         <avalonDock:DockingManager.DocumentContextMenu>
           <ContextMenu xmlns:AvalondockConv="clr-namespace:Xceed.Wpf.AvalonDock.Converters;assembly=Xceed.Wpf.AvalonDock"

@@ -7,12 +7,12 @@
 	using Edi.Core.Resources;
 	using Edi.Core.View.Pane;
 	using EdiDocuments.ViewModels.EdiDoc;
-	using EdiDocuments.ViewModels.Log4Net;
 	using EdiDocuments.ViewModels.MiniUml;
 	using EdiDocuments.ViewModels.RecentFiles;
 	using EdiDocuments.ViewModels.StartPage;
 	using Microsoft.Practices.Prism.MefExtensions.Modularity;
 	using Microsoft.Practices.Prism.Modularity;
+	using Settings.Interfaces;
 
 	/// <summary>
 	/// PRISM MEF Loader/Initializer class
@@ -32,8 +32,9 @@
 	public class MEFLoadEdiDocuments : IModule
 	{
 		#region fields
-		IAvalonDockLayoutViewModel mAvLayout = null;
-		IToolWindowRegistry mToolRegistry = null;
+		private readonly IAvalonDockLayoutViewModel mAvLayout = null;
+		private readonly IToolWindowRegistry mToolRegistry = null;
+		private readonly ISettingsManager mSettingsManager;
 		#endregion fields
 
 		/// <summary>
@@ -42,10 +43,12 @@
 		/// <param name="avLayout"></param>
 		[ImportingConstructor]
 		public MEFLoadEdiDocuments(IAvalonDockLayoutViewModel avLayout,
-													     IToolWindowRegistry toolRegistry)
+															 IToolWindowRegistry toolRegistry,
+															 ISettingsManager settingsManager)
 		{
 			this.mAvLayout = avLayout;
 			this.mToolRegistry = toolRegistry;
+			this.mSettingsManager = settingsManager;
 		}
 
 		#region methods
@@ -62,8 +65,7 @@
 
 			if (this.mToolRegistry != null)
 			{
-				this.mToolRegistry.RegisterTool(new Log4NetMessageToolViewModel());
-				this.mToolRegistry.RegisterTool(new Log4NetToolViewModel());
+				this.mToolRegistry.RegisterTool(new RecentFilesViewModel(this.mSettingsManager));
 			}
 		}
 
@@ -75,15 +77,6 @@
 		/// <returns></returns>
 		private PanesTemplateSelector RegisterDataTemplates(PanesTemplateSelector paneSel)
 		{
-			/* FileStatsView
-			var template = ResourceLocator.GetResource<DataTemplate>(
-											Assembly.GetAssembly(typeof(FileStatsViewModel)).GetName().Name,
-											"DataTemplates/FileStatsViewDataTemplate.xaml",
-											"FileStatsViewTemplate") as DataTemplate;
-
-			paneSel.RegisterDataTemplate(typeof(FileStatsViewModel), template);
-*/
-
 			// StartPageView
 			var template = ResourceLocator.GetResource<DataTemplate>(
 									Assembly.GetAssembly(typeof(StartPageViewModel)).GetName().Name,
@@ -91,28 +84,6 @@
 									"StartPageViewDataTemplate") as DataTemplate;
 
 			paneSel.RegisterDataTemplate(typeof(StartPageViewModel), template);
-
-			// Register Log4Net DataTemplates     
-			template = ResourceLocator.GetResource<DataTemplate>(
-									Assembly.GetAssembly(typeof(Log4NetViewModel)).GetName().Name,
-									"DataTemplates/Log4NetViewDataTemplate.xaml",
-									"Log4NetDocViewDataTemplate") as DataTemplate;
-
-			paneSel.RegisterDataTemplate(typeof(Log4NetViewModel), template);
-
-			template = ResourceLocator.GetResource<DataTemplate>(
-									Assembly.GetAssembly(typeof(Log4NetMessageToolViewModel)).GetName().Name,
-									"DataTemplates/Log4NetViewDataTemplate.xaml",
-									"Log4NetMessageViewDataTemplate") as DataTemplate;
-
-			paneSel.RegisterDataTemplate(typeof(Log4NetMessageToolViewModel), template);
-
-			template = ResourceLocator.GetResource<DataTemplate>(
-									Assembly.GetAssembly(typeof(Log4NetToolViewModel)).GetName().Name,
-									"DataTemplates/Log4NetViewDataTemplate.xaml",
-									"Log4NetToolViewDataTemplate") as DataTemplate;
-
-			paneSel.RegisterDataTemplate(typeof(Log4NetToolViewModel), template);
 
 			//EdiView
 			template = ResourceLocator.GetResource<DataTemplate>(
@@ -138,14 +109,6 @@
 
 			paneSel.RegisterDataTemplate(typeof(RecentFilesViewModel), template);
 
-			/* FileExplorer
-			template = ResourceLocator.GetResource<DataTemplate>(
-									Assembly.GetAssembly(typeof(FileExplorerViewModel)).GetName().Name,
-									"DataTemplates/FileExplorerViewDataTemplate.xaml",
-									"FileExplorerViewDataTemplate") as DataTemplate;
-
-			paneSel.RegisterDataTemplate(typeof(FileExplorerViewModel), template);
-*/
 			return paneSel;
 		}
 
@@ -157,13 +120,6 @@
 									"StartPageStyle") as Style;
 
 			selectPanesStyle.RegisterStyle(typeof(StartPageViewModel), newStyle);
-
-			newStyle = ResourceLocator.GetResource<Style>(
-									"EdiApp",
-									"Resources/Styles/AvalonDockStyles.xaml",
-									"Log4NetStyle") as Style;
-
-			selectPanesStyle.RegisterStyle(typeof(Log4NetViewModel), newStyle);
 
 			return selectPanesStyle;
 		}

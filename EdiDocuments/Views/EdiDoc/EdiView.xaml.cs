@@ -1,15 +1,15 @@
 ﻿namespace EdiDocuments.Views.EdiDoc
 {
-  using System.Windows.Controls;
+	using System.Windows.Controls;
 
-  /// <summary>
-  /// Interaction logic for Document.xaml
-  /// </summary>
-  public partial class EdiView : UserControl
-  {
-    public EdiView()
-    {
-      this.InitializeComponent();
-    }
-  }
+	/// <summary>
+	/// Interaction logic for Document.xaml
+	/// </summary>
+	public partial class EdiView : UserControl
+	{
+		public EdiView()
+		{
+			this.InitializeComponent();
+		}
+	}
 }

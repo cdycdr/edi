@@ -1,472 +1,472 @@
 ﻿namespace SettingsView.Config.ViewModels
 {
-  using System.Collections.Generic;
-  using System.Collections.ObjectModel;
-  using System.Linq;
-  using Edi.Core.ViewModels.Base;
-  using ICSharpCode.AvalonEdit;
-  using ICSharpCode.AvalonEdit.Edi.BlockSurround;
-  using Settings.ProgramSettings;
-  using SimpleControls.MRU.ViewModel;
-  using UnitComboLib.Unit.Screen;
-  using UnitComboLib.ViewModel;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
+	using System.Linq;
+	using Edi.Core.ViewModels.Base;
+	using ICSharpCode.AvalonEdit;
+	using ICSharpCode.AvalonEdit.Edi.BlockSurround;
+	using Settings.ProgramSettings;
+	using SimpleControls.MRU.ViewModel;
+	using UnitComboLib.Unit.Screen;
+	using UnitComboLib.ViewModel;
 
-  public class ConfigViewModel :  DialogViewModelBase
-  {
-    #region fields
-    private bool mWordWrapText;
-    private bool mReloadOpenFilesOnAppStart;
-    private MRUSortMethod mPinSortMode;
-    private bool mRunSingleInstance;
+	public class ConfigViewModel : DialogViewModelBase
+	{
+		#region fields
+		private bool mWordWrapText;
+		private bool mReloadOpenFilesOnAppStart;
+		private MRUSortMethod mPinSortMode;
+		private bool mRunSingleInstance;
 
-    private LanguageCollection mLanguageSelected;
-    
-    private bool mTextToHTML_ShowLineNumbers = true;
-    private bool mTextToHTML_TextToHTML_AlternateLineBackground = true;
+		private LanguageCollection mLanguageSelected;
 
-    private bool mHighlightOnFileNew = true;
-    private string mFileNewDefaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
-    private string mFileNewDefaultFileExtension = ".txt";
-    #endregion fields
+		private bool mTextToHTML_ShowLineNumbers = true;
+		private bool mTextToHTML_TextToHTML_AlternateLineBackground = true;
 
-    #region constructor
-    /// <summary>
-    /// Class constructor
-    /// </summary>
-    public ConfigViewModel()
-    : base()
-    {
-      // Setup default values here - real values are loaded in a specific method of this class (!)
-      this.mWordWrapText = false;
-      this.mReloadOpenFilesOnAppStart = false;
-      this.mRunSingleInstance = true;
-      this.mPinSortMode = MRUSortMethod.PinnedEntriesFirst;
+		private bool mHighlightOnFileNew = true;
+		private string mFileNewDefaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
+		private string mFileNewDefaultFileExtension = ".txt";
+		#endregion fields
 
-      this.WordWrapText = false;
+		#region constructor
+		/// <summary>
+		/// Class constructor
+		/// </summary>
+		public ConfigViewModel()
+			: base()
+		{
+			// Setup default values here - real values are loaded in a specific method of this class (!)
+			this.mWordWrapText = false;
+			this.mReloadOpenFilesOnAppStart = false;
+			this.mRunSingleInstance = true;
+			this.mPinSortMode = MRUSortMethod.PinnedEntriesFirst;
 
-      // Get default list of units from settings manager
-      var unitList = new ObservableCollection<ListItem>(Options.GenerateScreenUnitList());
-      this.SizeUnitLabel = new UnitViewModel(unitList, new ScreenConverter(), (int)ZoomUnit.Percentage, 100);
+			this.WordWrapText = false;
 
-      this.EditorTextOptions = new TextEditorOptions();
+			// Get default list of units from settings manager
+			var unitList = new ObservableCollection<ListItem>(Options.GenerateScreenUnitList());
+			this.SizeUnitLabel = new UnitViewModel(unitList, new ScreenConverter(), (int)ZoomUnit.Percentage, 100);
 
-      // Initialize localization settings
-      this.Languages = new List<LanguageCollection>(Options.GetSupportedLanguages());
+			this.EditorTextOptions = new TextEditorOptions();
 
-      // Set default language to make sure app neutral is selected and available for sure
-      // (this is a fallback if all else fails)
-      try
-      {
-        this.LanguageSelected = this.Languages.FirstOrDefault(lang => lang.BCP47 == Options.DefaultLocal);
-      }
-      catch
-      {
-      }
-    }
-    #endregion constructor
+			// Initialize localization settings
+			this.Languages = new List<LanguageCollection>(Options.GetSupportedLanguages());
 
-    #region properties
-    /// <summary>
-    /// Get/set whether WordWarp should be applied in editor (by default) or not.
-    /// </summary>
-    public bool WordWrapText
-    {
-      get
-      {
-        return this.mWordWrapText;
-      }
+			// Set default language to make sure app neutral is selected and available for sure
+			// (this is a fallback if all else fails)
+			try
+			{
+				this.LanguageSelected = this.Languages.FirstOrDefault(lang => lang.BCP47 == Options.DefaultLocal);
+			}
+			catch
+			{
+			}
+		}
+		#endregion constructor
 
-      set
-      {
-        if (this.mWordWrapText != value)
-        {
-          this.mWordWrapText = value;
-          this.RaisePropertyChanged(() => this.WordWrapText);
-        }
-      }
-    }
+		#region properties
+		/// <summary>
+		/// Get/set whether WordWarp should be applied in editor (by default) or not.
+		/// </summary>
+		public bool WordWrapText
+		{
+			get
+			{
+				return this.mWordWrapText;
+			}
 
-    /// <summary>
-    /// Expose AvalonEdit Text Editing options for editing in program settings view.
-    /// </summary>
-    public TextEditorOptions EditorTextOptions { get; set; }
+			set
+			{
+				if (this.mWordWrapText != value)
+				{
+					this.mWordWrapText = value;
+					this.RaisePropertyChanged(() => this.WordWrapText);
+				}
+			}
+		}
 
-    /// <summary>
-    /// Get/set MRU pin sort mode to determine MRU pin behaviour.
-    /// </summary>
-    public MRUSortMethod MruPinSortMode
-    {
-      get
-      {
-        return this.mPinSortMode;
-      }
+		/// <summary>
+		/// Expose AvalonEdit Text Editing options for editing in program settings view.
+		/// </summary>
+		public TextEditorOptions EditorTextOptions { get; set; }
 
-      set
-      {
-        if (this.mPinSortMode != value)
-        {
-          this.mPinSortMode = value;
-          this.RaisePropertyChanged(() => this.MruPinSortMode);
-        }
-      }
-    }
+		/// <summary>
+		/// Get/set MRU pin sort mode to determine MRU pin behaviour.
+		/// </summary>
+		public MRUSortMethod MruPinSortMode
+		{
+			get
+			{
+				return this.mPinSortMode;
+			}
 
-    #region Application Behaviour
-    /// <summary>
-    /// Get/set whether application re-loads files open in last sesssion or not
-    /// </summary>
-    public bool ReloadOpenFilesOnAppStart
-    {
-      get
-      {
-        return this.mReloadOpenFilesOnAppStart;
-      }
+			set
+			{
+				if (this.mPinSortMode != value)
+				{
+					this.mPinSortMode = value;
+					this.RaisePropertyChanged(() => this.MruPinSortMode);
+				}
+			}
+		}
 
-      set
-      {
-        if (this.mReloadOpenFilesOnAppStart != value)
-        {
-          this.mReloadOpenFilesOnAppStart = value;
-          this.RaisePropertyChanged(() => this.ReloadOpenFilesOnAppStart);
-        }
-      }
-    }
+		#region Application Behaviour
+		/// <summary>
+		/// Get/set whether application re-loads files open in last sesssion or not
+		/// </summary>
+		public bool ReloadOpenFilesOnAppStart
+		{
+			get
+			{
+				return this.mReloadOpenFilesOnAppStart;
+			}
 
-    /// <summary>
-    /// Get/set whether application can be started more than once.
-    /// </summary>
-    public bool RunSingleInstance
-    {
-      get
-      {
-        return this.mRunSingleInstance;
-      }
+			set
+			{
+				if (this.mReloadOpenFilesOnAppStart != value)
+				{
+					this.mReloadOpenFilesOnAppStart = value;
+					this.RaisePropertyChanged(() => this.ReloadOpenFilesOnAppStart);
+				}
+			}
+		}
 
-      set
-      {
-        if (this.mRunSingleInstance != value)
-        {
-          this.mRunSingleInstance = value;
-          this.RaisePropertyChanged(() => this.RunSingleInstance);
-        }
-      }
-    }
-    #endregion Application Behaviour
+		/// <summary>
+		/// Get/set whether application can be started more than once.
+		/// </summary>
+		public bool RunSingleInstance
+		{
+			get
+			{
+				return this.mRunSingleInstance;
+			}
 
-    #region ScaleView
-    /// <summary>
-    /// Scale view of text in percentage of font size
-    /// </summary>
-    public UnitViewModel SizeUnitLabel { get; set; }
+			set
+			{
+				if (this.mRunSingleInstance != value)
+				{
+					this.mRunSingleInstance = value;
+					this.RaisePropertyChanged(() => this.RunSingleInstance);
+				}
+			}
+		}
+		#endregion Application Behaviour
 
-    /// <summary>
-    /// Get/set unit of document zoom unit.
-    /// </summary>
-    public ZoomUnit DocumentZoomUnit
-    {
-      get
-      {
-        if (this.SizeUnitLabel.SelectedItem.Key == UnitComboLib.Unit.Itemkey.ScreenFontPoints)
-          return ZoomUnit.Points;
+		#region ScaleView
+		/// <summary>
+		/// Scale view of text in percentage of font size
+		/// </summary>
+		public UnitViewModel SizeUnitLabel { get; set; }
 
-        return ZoomUnit.Percentage;
-      }
+		/// <summary>
+		/// Get/set unit of document zoom unit.
+		/// </summary>
+		public ZoomUnit DocumentZoomUnit
+		{
+			get
+			{
+				if (this.SizeUnitLabel.SelectedItem.Key == UnitComboLib.Unit.Itemkey.ScreenFontPoints)
+					return ZoomUnit.Points;
 
-      set
-      {
-        if (ConvertZoomUnit(value) != this.SizeUnitLabel.SelectedItem.Key)
-        {
-          if (value == ZoomUnit.Points)
-            this.SizeUnitLabel.SetSelectedItemCommand.Execute(UnitComboLib.Unit.Itemkey.ScreenFontPoints);
-          else
-            this.SizeUnitLabel.SetSelectedItemCommand.Execute(UnitComboLib.Unit.Itemkey.ScreenPercent);
+				return ZoomUnit.Percentage;
+			}
 
-          this.RaisePropertyChanged(() => this.DocumentZoomUnit);
-        }
-      }
-    }
+			set
+			{
+				if (ConvertZoomUnit(value) != this.SizeUnitLabel.SelectedItem.Key)
+				{
+					if (value == ZoomUnit.Points)
+						this.SizeUnitLabel.SetSelectedItemCommand.Execute(UnitComboLib.Unit.Itemkey.ScreenFontPoints);
+					else
+						this.SizeUnitLabel.SetSelectedItemCommand.Execute(UnitComboLib.Unit.Itemkey.ScreenPercent);
 
-    /// <summary>
-    /// Get the title string of the view - to be displayed in the associated view
-    /// (e.g. as dialog title)
-    /// </summary>
-    public string WindowTitle
-    {
-      get
-      {
-        return Util.Local.Strings.STR_ProgramSettings_Caption;
-      }
-    }
-    #endregion ScaleView
+					this.RaisePropertyChanged(() => this.DocumentZoomUnit);
+				}
+			}
+		}
 
-    #region Language Localization Support
-    /// <summary>
-    /// Get list of GUI languages supported in this application.
-    /// </summary>
-    public List<LanguageCollection> Languages { get; private set; }
+		/// <summary>
+		/// Get the title string of the view - to be displayed in the associated view
+		/// (e.g. as dialog title)
+		/// </summary>
+		public string WindowTitle
+		{
+			get
+			{
+				return Util.Local.Strings.STR_ProgramSettings_Caption;
+			}
+		}
+		#endregion ScaleView
 
-    /// <summary>
-    /// Get/set language of message box buttons for display in localized form.
-    /// </summary>
-    public LanguageCollection LanguageSelected
-    {
-      get
-      {
-        return this.mLanguageSelected;
-      }
+		#region Language Localization Support
+		/// <summary>
+		/// Get list of GUI languages supported in this application.
+		/// </summary>
+		public List<LanguageCollection> Languages { get; private set; }
 
-      set
-      {
-        if (this.mLanguageSelected != value)
-        {
-          this.mLanguageSelected = value;
-          this.RaisePropertyChanged(() => this.LanguageSelected);
-        }
-      }
-    }
-    #endregion Language Localization Support
+		/// <summary>
+		/// Get/set language of message box buttons for display in localized form.
+		/// </summary>
+		public LanguageCollection LanguageSelected
+		{
+			get
+			{
+				return this.mLanguageSelected;
+			}
 
-    #region Text To HTML Export
-    /// <summary>
-    /// Get/set whether Text to HTML should contain line numbers or not.
-    /// </summary>
-    public bool TextToHTML_ShowLineNumbers
-    {
-      get
-      {
-        return this.mTextToHTML_ShowLineNumbers;
-      }
+			set
+			{
+				if (this.mLanguageSelected != value)
+				{
+					this.mLanguageSelected = value;
+					this.RaisePropertyChanged(() => this.LanguageSelected);
+				}
+			}
+		}
+		#endregion Language Localization Support
 
-      set
-      {
-        if (this.mTextToHTML_ShowLineNumbers != value)
-        {
-          this.mTextToHTML_ShowLineNumbers = value;
-          this.RaisePropertyChanged(() => this.TextToHTML_ShowLineNumbers);
-        }
-      }
-    }
+		#region Text To HTML Export
+		/// <summary>
+		/// Get/set whether Text to HTML should contain line numbers or not.
+		/// </summary>
+		public bool TextToHTML_ShowLineNumbers
+		{
+			get
+			{
+				return this.mTextToHTML_ShowLineNumbers;
+			}
 
-    /// <summary>
-    /// Get/set whether Text to HTML should contain an alternating background.
-    /// </summary>
-    public bool TextToHTML_AlternateLineBackground
-    {
-      get
-      {
-        return this.mTextToHTML_TextToHTML_AlternateLineBackground;
-      }
+			set
+			{
+				if (this.mTextToHTML_ShowLineNumbers != value)
+				{
+					this.mTextToHTML_ShowLineNumbers = value;
+					this.RaisePropertyChanged(() => this.TextToHTML_ShowLineNumbers);
+				}
+			}
+		}
 
-      set
-      {
-        if (this.mTextToHTML_TextToHTML_AlternateLineBackground != value)
-        {
-          this.mTextToHTML_TextToHTML_AlternateLineBackground = value;
-          this.RaisePropertyChanged(() => this.TextToHTML_AlternateLineBackground);
-        }
-      }
-    }
-    #endregion Text To HTML Export
+		/// <summary>
+		/// Get/set whether Text to HTML should contain an alternating background.
+		/// </summary>
+		public bool TextToHTML_AlternateLineBackground
+		{
+			get
+			{
+				return this.mTextToHTML_TextToHTML_AlternateLineBackground;
+			}
 
-    #region NewFileDefaults
-    /// <summary>
-    /// Determine whether a file created with File>New should be highlighted or not.
-    /// </summary>
-    public bool HighlightOnFileNew
-    {
-      get
-      {
-        return this.mHighlightOnFileNew;
-      }
+			set
+			{
+				if (this.mTextToHTML_TextToHTML_AlternateLineBackground != value)
+				{
+					this.mTextToHTML_TextToHTML_AlternateLineBackground = value;
+					this.RaisePropertyChanged(() => this.TextToHTML_AlternateLineBackground);
+				}
+			}
+		}
+		#endregion Text To HTML Export
 
-      set
-      {
-        if (this.mHighlightOnFileNew != value)
-        {
-          this.mHighlightOnFileNew = value;
-          this.RaisePropertyChanged(() => this.HighlightOnFileNew);
-        }
-      }
-    }
+		#region NewFileDefaults
+		/// <summary>
+		/// Determine whether a file created with File>New should be highlighted or not.
+		/// </summary>
+		public bool HighlightOnFileNew
+		{
+			get
+			{
+				return this.mHighlightOnFileNew;
+			}
 
-    /// <summary>
-    /// Get/set default name of file that is created via File>New.
-    /// </summary>
-    public string FileNewDefaultFileName
-    {
-      get
-      {
-        return this.mFileNewDefaultFileName;
-      }
+			set
+			{
+				if (this.mHighlightOnFileNew != value)
+				{
+					this.mHighlightOnFileNew = value;
+					this.RaisePropertyChanged(() => this.HighlightOnFileNew);
+				}
+			}
+		}
 
-      set
-      {
-        if (this.mFileNewDefaultFileName != value)
-        {
-          this.mFileNewDefaultFileName = value;
-          this.RaisePropertyChanged(() => this.FileNewDefaultFileName);
-        }
-      }
-    }
+		/// <summary>
+		/// Get/set default name of file that is created via File>New.
+		/// </summary>
+		public string FileNewDefaultFileName
+		{
+			get
+			{
+				return this.mFileNewDefaultFileName;
+			}
 
-    /// <summary>
-    /// Get/set default string of file extension (including '.' character)
-    /// that is created via File>New.
-    /// </summary>
-    public string FileNewDefaultFileExtension
-    {
-      get
-      {
-        return this.mFileNewDefaultFileExtension;
-      }
+			set
+			{
+				if (this.mFileNewDefaultFileName != value)
+				{
+					this.mFileNewDefaultFileName = value;
+					this.RaisePropertyChanged(() => this.FileNewDefaultFileName);
+				}
+			}
+		}
 
-      set
-      {
-        if (this.mFileNewDefaultFileExtension != value)
-        {
-          this.mFileNewDefaultFileExtension = value;
-          this.RaisePropertyChanged(() => this.FileNewDefaultFileExtension);
-        }
-      }
-    }
-    #endregion NewFileDefaults
-    #endregion properties
+		/// <summary>
+		/// Get/set default string of file extension (including '.' character)
+		/// that is created via File>New.
+		/// </summary>
+		public string FileNewDefaultFileExtension
+		{
+			get
+			{
+				return this.mFileNewDefaultFileExtension;
+			}
 
-    #region methods
-    /// <summary>
-    /// Get default block definitions to add / remove surrounding selection blocks in text.
-    /// </summary>
-    /// <returns></returns>
-    public static IEnumerable<BlockDefinition> GetDefaultBlockDefinitions()
-    {
-      List<BlockDefinition> ret = new List<BlockDefinition>();
+			set
+			{
+				if (this.mFileNewDefaultFileExtension != value)
+				{
+					this.mFileNewDefaultFileExtension = value;
+					this.RaisePropertyChanged(() => this.FileNewDefaultFileExtension);
+				}
+			}
+		}
+		#endregion NewFileDefaults
+		#endregion properties
 
-      ret.Add(new BlockDefinition("/**", "**/", BlockDefinition.BlockAt.StartAndEnd,
-                                  string.Empty,   // Default BlockSurrond
-                                  System.Windows.Input.Key.D1,
-                                  System.Windows.Input.ModifierKeys.Control
-                                ));
+		#region methods
+		/// <summary>
+		/// Get default block definitions to add / remove surrounding selection blocks in text.
+		/// </summary>
+		/// <returns></returns>
+		public static IEnumerable<BlockDefinition> GetDefaultBlockDefinitions()
+		{
+			List<BlockDefinition> ret = new List<BlockDefinition>();
 
-      ret.Add(new BlockDefinition("////", string.Empty, BlockDefinition.BlockAt.Start,
-                                  string.Empty,   // Default BlockSurrond
-                                  System.Windows.Input.Key.D2,
-                                  System.Windows.Input.ModifierKeys.Control
-                                ));
+			ret.Add(new BlockDefinition("/**", "**/", BlockDefinition.BlockAt.StartAndEnd,
+																	string.Empty,   // Default BlockSurrond
+																	System.Windows.Input.Key.D1,
+																	System.Windows.Input.ModifierKeys.Control
+																));
 
-      ret.Add(new BlockDefinition(string.Empty, "<<<<", BlockDefinition.BlockAt.End,
-                                  string.Empty,   // Default BlockSurrond
-                                  System.Windows.Input.Key.D3,
-                                  System.Windows.Input.ModifierKeys.Control
-                                ));
+			ret.Add(new BlockDefinition("////", string.Empty, BlockDefinition.BlockAt.Start,
+																	string.Empty,   // Default BlockSurrond
+																	System.Windows.Input.Key.D2,
+																	System.Windows.Input.ModifierKeys.Control
+																));
 
-      ret.Add(new BlockDefinition("/**", "**/", BlockDefinition.BlockAt.StartAndEnd,
-                                  "*.txt",
-                                  System.Windows.Input.Key.D1,
-                                  System.Windows.Input.ModifierKeys.Control
-                                ));
+			ret.Add(new BlockDefinition(string.Empty, "<<<<", BlockDefinition.BlockAt.End,
+																	string.Empty,   // Default BlockSurrond
+																	System.Windows.Input.Key.D3,
+																	System.Windows.Input.ModifierKeys.Control
+																));
 
-      ret.Add(new BlockDefinition("/**", "**/", BlockDefinition.BlockAt.StartAndEnd,
-                                  "*.cs",
-                                  System.Windows.Input.Key.D1,
-                                  System.Windows.Input.ModifierKeys.Control
-                                ));
+			ret.Add(new BlockDefinition("/**", "**/", BlockDefinition.BlockAt.StartAndEnd,
+																	"*.txt",
+																	System.Windows.Input.Key.D1,
+																	System.Windows.Input.ModifierKeys.Control
+																));
 
-      ret.Add(new BlockDefinition("<!--", "-->", BlockDefinition.BlockAt.StartAndEnd,
-                                  "*.xml;*.html;*.htm",
-                                  System.Windows.Input.Key.D1,
-                                  System.Windows.Input.ModifierKeys.Control
-                                ));
+			ret.Add(new BlockDefinition("/**", "**/", BlockDefinition.BlockAt.StartAndEnd,
+																	"*.cs",
+																	System.Windows.Input.Key.D1,
+																	System.Windows.Input.ModifierKeys.Control
+																));
 
-      return ret;
-    }
+			ret.Add(new BlockDefinition("<!--", "-->", BlockDefinition.BlockAt.StartAndEnd,
+																	"*.xml;*.html;*.htm",
+																	System.Windows.Input.Key.D1,
+																	System.Windows.Input.ModifierKeys.Control
+																));
 
-    /// <summary>
-    /// Reset the view model to those options that are going to be presented for editing.
-    /// </summary>
-    /// <param name="settingData"></param>
-    public void LoadOptionsFromModel(Options settingData)
-    {
-      // Load Mru Options from model
-      this.MruPinSortMode = settingData.MRU_SortMethod;
+			return ret;
+		}
 
-      this.ReloadOpenFilesOnAppStart = settingData.ReloadOpenFilesOnAppStart;
-      this.RunSingleInstance = settingData.RunSingleInstance;
+		/// <summary>
+		/// Reset the view model to those options that are going to be presented for editing.
+		/// </summary>
+		/// <param name="settingData"></param>
+		public void LoadOptionsFromModel(Options settingData)
+		{
+			// Load Mru Options from model
+			this.MruPinSortMode = settingData.MRU_SortMethod;
 
-      this.WordWrapText = settingData.WordWarpText;
+			this.ReloadOpenFilesOnAppStart = settingData.ReloadOpenFilesOnAppStart;
+			this.RunSingleInstance = settingData.RunSingleInstance;
 
-      this.EditorTextOptions = new TextEditorOptions(settingData.EditorTextOptions);
-      this.SizeUnitLabel = new UnitViewModel(new ObservableCollection<ListItem>(Options.GenerateScreenUnitList()),
-                                             new ScreenConverter(),
-                                            (int)settingData.DocumentZoomUnit, settingData.DocumentZoomView);
+			this.WordWrapText = settingData.WordWarpText;
 
-      try
-      {
-        this.LanguageSelected = this.Languages.FirstOrDefault(lang => lang.BCP47 == settingData.LanguageSelected);
-      }
-      catch
-      {
-      }
+			this.EditorTextOptions = new TextEditorOptions(settingData.EditorTextOptions);
+			this.SizeUnitLabel = new UnitViewModel(new ObservableCollection<ListItem>(Options.GenerateScreenUnitList()),
+																						 new ScreenConverter(),
+																						(int)settingData.DocumentZoomUnit, settingData.DocumentZoomView);
 
-      this.TextToHTML_ShowLineNumbers = settingData.TextToHTML_ShowLineNumbers;
-      this.TextToHTML_AlternateLineBackground = settingData.TextToHTML_AlternateLineBackground;
+			try
+			{
+				this.LanguageSelected = this.Languages.FirstOrDefault(lang => lang.BCP47 == settingData.LanguageSelected);
+			}
+			catch
+			{
+			}
 
-      this.HighlightOnFileNew = settingData.HighlightOnFileNew;
-      this.FileNewDefaultFileName = settingData.FileNewDefaultFileName;
-      this.FileNewDefaultFileExtension = settingData.FileNewDefaultFileExtension;
-    }
+			this.TextToHTML_ShowLineNumbers = settingData.TextToHTML_ShowLineNumbers;
+			this.TextToHTML_AlternateLineBackground = settingData.TextToHTML_AlternateLineBackground;
 
-    /// <summary>
-    /// Save changed settings back to model for further
-    /// application and persistence in file system.
-    /// </summary>
-    /// <param name="settingData"></param>
-    public void SaveOptionsToModel(Options settingData)
-    {
-      settingData.MRU_SortMethod = this.MruPinSortMode;
-      settingData.ReloadOpenFilesOnAppStart = this.ReloadOpenFilesOnAppStart;
-      settingData.RunSingleInstance = this.RunSingleInstance;
+			this.HighlightOnFileNew = settingData.HighlightOnFileNew;
+			this.FileNewDefaultFileName = settingData.FileNewDefaultFileName;
+			this.FileNewDefaultFileExtension = settingData.FileNewDefaultFileExtension;
+		}
 
-      settingData.WordWarpText = this.WordWrapText;
+		/// <summary>
+		/// Save changed settings back to model for further
+		/// application and persistence in file system.
+		/// </summary>
+		/// <param name="settingData"></param>
+		public void SaveOptionsToModel(Options settingData)
+		{
+			settingData.MRU_SortMethod = this.MruPinSortMode;
+			settingData.ReloadOpenFilesOnAppStart = this.ReloadOpenFilesOnAppStart;
+			settingData.RunSingleInstance = this.RunSingleInstance;
 
-      settingData.EditorTextOptions = new TextEditorOptions(this.EditorTextOptions);
-      if (this.SizeUnitLabel.SelectedItem.Key == UnitComboLib.Unit.Itemkey.ScreenFontPoints)
-        settingData.DocumentZoomUnit = ZoomUnit.Points;
-      else
-        settingData.DocumentZoomUnit = ZoomUnit.Percentage;
+			settingData.WordWarpText = this.WordWrapText;
 
-      settingData.DocumentZoomView = (int)this.SizeUnitLabel.Value;
+			settingData.EditorTextOptions = new TextEditorOptions(this.EditorTextOptions);
+			if (this.SizeUnitLabel.SelectedItem.Key == UnitComboLib.Unit.Itemkey.ScreenFontPoints)
+				settingData.DocumentZoomUnit = ZoomUnit.Points;
+			else
+				settingData.DocumentZoomUnit = ZoomUnit.Percentage;
 
-      settingData.LanguageSelected = this.LanguageSelected.BCP47;
+			settingData.DocumentZoomView = (int)this.SizeUnitLabel.Value;
 
-      settingData.TextToHTML_ShowLineNumbers = this.TextToHTML_ShowLineNumbers;
-      settingData.TextToHTML_AlternateLineBackground = this.TextToHTML_AlternateLineBackground;
+			settingData.LanguageSelected = this.LanguageSelected.BCP47;
 
-      settingData.HighlightOnFileNew = this.HighlightOnFileNew;
-      settingData.FileNewDefaultFileName = this.FileNewDefaultFileName;
-      settingData.FileNewDefaultFileExtension = this.FileNewDefaultFileExtension;
+			settingData.TextToHTML_ShowLineNumbers = this.TextToHTML_ShowLineNumbers;
+			settingData.TextToHTML_AlternateLineBackground = this.TextToHTML_AlternateLineBackground;
 
-      settingData.IsDirty = true;
-    }
+			settingData.HighlightOnFileNew = this.HighlightOnFileNew;
+			settingData.FileNewDefaultFileName = this.FileNewDefaultFileName;
+			settingData.FileNewDefaultFileExtension = this.FileNewDefaultFileExtension;
 
-    /// <summary>
-    /// Convert between local zoom unit enumeration and remote zoom unit enumeration.
-    /// </summary>
-    /// <param name="unit"></param>
-    /// <returns></returns>
-    private UnitComboLib.Unit.Itemkey ConvertZoomUnit(ZoomUnit unit)
-    {
-      switch (unit)
-      {
-        case ZoomUnit.Percentage:
-          return UnitComboLib.Unit.Itemkey.ScreenPercent;
+			settingData.IsDirty = true;
+		}
 
-        case ZoomUnit.Points:
-          return UnitComboLib.Unit.Itemkey.ScreenFontPoints;
+		/// <summary>
+		/// Convert between local zoom unit enumeration and remote zoom unit enumeration.
+		/// </summary>
+		/// <param name="unit"></param>
+		/// <returns></returns>
+		private UnitComboLib.Unit.Itemkey ConvertZoomUnit(ZoomUnit unit)
+		{
+			switch (unit)
+			{
+				case ZoomUnit.Percentage:
+					return UnitComboLib.Unit.Itemkey.ScreenPercent;
 
-        default:
-          throw new System.NotImplementedException(unit.ToString());
-      }
-    }
-    #endregion methods
-  }
+				case ZoomUnit.Points:
+					return UnitComboLib.Unit.Itemkey.ScreenFontPoints;
+
+				default:
+					throw new System.NotImplementedException(unit.ToString());
+			}
+		}
+		#endregion methods
+	}
 }

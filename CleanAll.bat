@@ -16,6 +16,8 @@ ECHO EdiTools
 ECHO Themes
 ECHO ICSharpCode.AvalonEdit
 ECHO.
+ECHO Log4NetTools
+ECHO.
 ECHO MiniUML.Diagnostics
 ECHO MiniUML.Framework
 ECHO MiniUML.Model
@@ -55,6 +57,11 @@ RMDIR /S /Q Themes\obj
 
 RMDIR /S /Q ICSharpCode.AvalonEdit\bin
 RMDIR /S /Q ICSharpCode.AvalonEdit\obj
+
+ECHO Deleting BIN and OBJ Folders in Log4NetTools folders
+ECHO.
+RMDIR /S /Q .\Tools\Log4NetTools\bin
+RMDIR /S /Q .\Tools\Log4NetTools\obj
 
 ECHO Deleting BIN and OBJ Folders in MiniUML folders
 ECHO.

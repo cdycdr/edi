@@ -11,6 +11,7 @@ namespace EdiApp.ViewModels
 	using Edi.Core.ViewModels.Command;
 	using EdiApp.Events;
 	using Settings;
+	using Settings.Interfaces;
 	using Xceed.Wpf.AvalonDock;
 
 	/// <summary>
@@ -30,6 +31,8 @@ namespace EdiApp.ViewModels
 		private readonly Guid mLayoutID;
 		private string mLayoutFileName;
 		private string mAppDir;
+
+		private readonly ISettingsManager mProgramSettings = null;
 		#endregion fields
 
 		#region properties
@@ -37,17 +40,16 @@ namespace EdiApp.ViewModels
 		/// Hidden class constructor
 		/// </summary>
 		[ImportingConstructor]
-		public AvalonDockLayoutViewModel()
+		public AvalonDockLayoutViewModel(ISettingsManager programSettings)
 		{
-			var settings = SettingsManager.Instance;
+			this.mProgramSettings = programSettings;
 
-			this.mAppDir = settings.AppDir;
-			this.mLayoutFileName = settings.LayoutFileName;
+			this.mAppDir = this.mProgramSettings.AppDir;
+			this.mLayoutFileName = this.mProgramSettings.LayoutFileName;
+
 			this.mLayoutID = Guid.NewGuid();
 			this.ViewProperties = new AvalonDockViewProperties();
 			this.ViewProperties.InitialzeInstance();
-
-
 		}
 
 		/// <summary>
