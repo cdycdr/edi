@@ -15,6 +15,7 @@
   <!-- additional ModernWindow styles -->
   <Style x:Key="EdiViewsSystemButton" TargetType="ButtonBase" BasedOn="{StaticResource SystemButtonBase}">
     <Setter Property="Foreground" Value="{DynamicResource LinkButtonText}"/>
+		<Setter Property="Focusable" Value="False"/>
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
         <Setter Property="Foreground" Value="{DynamicResource LinkButtonTextHover}"/>
@@ -96,7 +97,8 @@
                       <StackPanel x:Name="MinimizeFrame">
                         <Button Command="{Binding Source={x:Static shell:SystemCommands.MinimizeWindowCommand}}"
                                 ToolTip="{x:Static modernui:Resources.Minimize}"
-                                Style="{StaticResource EdiViewsSystemButton}">
+                                Style="{StaticResource EdiViewsSystemButton}"
+																Focusable="False">
                           <Button.Content>
                             <Grid Width="32" Height="30"
                                   VerticalAlignment="Center" HorizontalAlignment="Center"
