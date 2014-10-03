@@ -97,8 +97,7 @@
                       <StackPanel x:Name="MinimizeFrame">
                         <Button Command="{Binding Source={x:Static shell:SystemCommands.MinimizeWindowCommand}}"
                                 ToolTip="{x:Static modernui:Resources.Minimize}"
-                                Style="{StaticResource EdiViewsSystemButton}"
-																Focusable="False">
+                                Style="{StaticResource EdiViewsSystemButton}">
                           <Button.Content>
                             <Grid Width="32" Height="30"
                                   VerticalAlignment="Center" HorizontalAlignment="Center"
