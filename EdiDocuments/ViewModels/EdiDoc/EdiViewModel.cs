@@ -51,6 +51,11 @@ namespace EdiDocuments.ViewModels.EdiDoc
 	public class EdiViewModel : Edi.Core.ViewModels.FileBaseViewModel, EdiDialogs.FindReplace.ViewModel.IEditor
 	{
 		#region Fields
+		public const string DocumentKey = "EdiTextEditor";
+		public const string Description = "Text files";
+		public const string FileFilterName = "All Files";
+		public const string DefaultFilter = "*";
+
 		private static int iNewFileCounter = 0;
 		private string mDefaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
 		private string mDefaultFileType = ".txt";
@@ -97,6 +102,7 @@ namespace EdiDocuments.ViewModels.EdiDoc
 		/// for construction from file saved on disk.
 		/// </summary>
 		public EdiViewModel()
+		 : base (EdiViewModel.DocumentKey)
 		{
 			this.CloseOnErrorWithoutMessage = false;
 
@@ -505,6 +511,12 @@ namespace EdiDocuments.ViewModels.EdiDoc
 		#endregion State
 
 		#region LoadFile
+		public static EdiViewModel LoadFile(string filePath,
+																				object o)
+		{
+			return EdiViewModel.LoadFile(filePath, o as ISettingsManager);
+		}
+
 		/// <summary>
 		/// Load a files contents into the viewmodel for viewing and editing.
 		/// </summary>

@@ -11,7 +11,7 @@ namespace Log4NetTools.ViewModels
 	public class Log4NetToolViewModel : Edi.Core.ViewModels.ToolViewModel, IRegisterableToolWindow
 	{
 		#region fields
-		public const string ToolContentId = "Log4NetTool";
+		public const string ToolContentId = "<Log4NetTool>";
 		private Log4NetViewModel mLog4NetVM = null;
 		private IDocumentParent mParent = null;
 		#endregion fields

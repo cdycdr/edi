@@ -86,7 +86,7 @@
 		FileBaseViewModel Open(string filePath,
 													 CloseDocOnError closeDocumentWithoutMessageOnError = CloseDocOnError.WithUserNotification,
 													 bool AddIntoMRU = true,
-													 TypeOfDocument t = TypeOfDocument.EdiTextEditor);
+													 string typeOfDocument = "EdiTextEditor");
 		#endregion methods
 	}
 }

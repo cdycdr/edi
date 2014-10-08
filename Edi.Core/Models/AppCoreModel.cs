@@ -2,9 +2,6 @@
 {
 	using System;
 	using System.ComponentModel.Composition;
-	using System.Globalization;
-	using System.Reflection;
-	using System.Windows;
 	using Edi.Core.Interfaces;
 
 	/// <summary>
@@ -27,6 +24,10 @@
 		#endregion constructors
 
 		#region properties
+		/// <summary>
+		/// Gets a string that denotes an internet link to
+		/// a web site where users can enter their issues.
+		/// </summary>
 		public string IssueTrackerLink
 		{
 			get
@@ -35,6 +36,9 @@
 			}
 		}
 
+		/// <summary>
+		/// Gets the file name of the layout file that is useful for AvalonDock.
+		/// </summary>
 		public string LayoutFileName
 		{
 			get
@@ -94,6 +98,9 @@
 			}
 		}
 
+		/// <summary>
+		/// Gets the company string of this application.
+		/// </summary>
 		public string Company
 		{
 			get

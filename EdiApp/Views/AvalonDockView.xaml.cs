@@ -138,6 +138,8 @@
 		/// Is executed when PRISM sends an Xml layout string notification
 		/// via a sender which could be a viewmodel that wants to receive
 		/// the load the <seealso cref="LoadLayoutEvent"/>.
+		/// 
+		/// Save layout is triggered by the containing window onClosed event.
 		/// </summary>
 		/// <param name="args"></param>
 		public void OnLoadLayout(LoadLayoutEventArgs args)
@@ -183,16 +185,6 @@
 			{
 				Console.Write("Error Loading Layout: {0}\n\n{1}", exp.Message, xmlLayout);
 			}
-		}
-
-		/// <summary>
-		/// Is executed when PRISM sends a <seealso cref="SynchronousEvent"/> notification
-		/// that was initiallized by a third party (viewmodel).
-		/// </summary>
-		/// <param name="param">Can be used to return a result of this event</param>
-		public void OnSaveLayout(SaveLayoutEventArgs param)
-		{
-			param.XmlLayout = this.CurrentADLayout;
 		}
 
 		/// <summary>

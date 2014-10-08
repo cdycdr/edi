@@ -1,5 +1,6 @@
 ﻿namespace EdiApp.Enums
 {
+
 	public enum TypeOfDocument
 	{
 		EdiTextEditor = 0,

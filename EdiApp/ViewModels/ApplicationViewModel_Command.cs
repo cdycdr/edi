@@ -106,20 +106,19 @@
 			win.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open,
 			(s, e) =>
 			{
-				TypeOfDocument t = TypeOfDocument.EdiTextEditor;
+				string t = string.Empty;
 
 				if (e != null)
 				{
-					e.Handled = true;
-
 					if (e.Parameter != null)
 					{
-						if (e.Parameter is TypeOfDocument)
-							t = (TypeOfDocument)e.Parameter;
+						if (e.Parameter is string)
+							t = (string)e.Parameter;
 					}
 				}
 
 				this.OnOpen(t);
+				e.Handled = true;
 			},
 			(s, e) =>
 			{

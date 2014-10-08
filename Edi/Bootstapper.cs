@@ -68,8 +68,24 @@ namespace Edi
 		#endregion properties
 
 		#region Methods
+		/// <summary>
+		/// Executes the processing necessary to bootstrap the application
+		/// including module detection, registration, and loading.
+		/// http://stackoverflow.com/questions/10466304/event-upon-initialization-complete-in-wpf-prism-app
+		/// </summary>
+		public override void Run(bool runWithDefaultConfiguration)
+		{
+			base.Run(runWithDefaultConfiguration);
+
+			// modules (and everything else) have been initialized when you get here
+			var output = this.Container.GetExportedValue<IMessageManager>();
+
+			output.Output.AppendLine("Get involved at: https://edi.codeplex.com/");
+		}
+
 		protected override void ConfigureAggregateCatalog()
 		{
+			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog("Output.dll"));
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IAppCoreModel).Assembly));
 			////this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(SettingsManager).Assembly));
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AvalonDockLayoutViewModel).Assembly));
@@ -95,7 +111,7 @@ namespace Edi
 				appVM.LoadConfigOnAppStartup(this.mOptions, this.mProgramSettingsManager, this.mThemes);
 
 				// Attempt to load a MiniUML plugin via the model class
-				MiniUML.Model.MiniUmlPluginLoader.LoadPlugins(appCore.AssemblyEntryLocation + @"\MiniUML.Plugins\", this.AppViewModel);
+				MiniUML.Model.MiniUmlPluginLoader.LoadPlugins(appCore.AssemblyEntryLocation + @".\Plugins\UML\", this.AppViewModel);
 
 				this.mMainWin = this.Container.GetExportedValue<MainWindow>();
 

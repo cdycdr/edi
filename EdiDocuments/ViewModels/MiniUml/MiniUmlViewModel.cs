@@ -12,6 +12,11 @@ namespace EdiDocuments.ViewModels.MiniUml
 	public class MiniUmlViewModel : Edi.Core.ViewModels.FileBaseViewModel
 	{
 		#region Fields
+		public const string DocumentKey = "UMLEditor";
+		public const string Description = "Unified Modeling Language (UML)";
+		public const string FileFilterName = "Unified Modeling Language";
+		public const string DefaultFilter = "uml";
+
 		private MiniUML.Model.ViewModels.Document.RibbonViewModel mRibbonViewModel;
 		private MiniUML.Model.ViewModels.Document.AbstractDocumentViewModel mDocumentMiniUML;
 
@@ -28,6 +33,7 @@ namespace EdiDocuments.ViewModels.MiniUml
 		/// for construction from file saved on disk.
 		/// </summary>
 		public MiniUmlViewModel()
+			: base(MiniUmlViewModel.DocumentKey)
 		{
 			this.FilePath = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}",
 																		MiniUmlViewModel.defaultFileName,
@@ -252,6 +258,11 @@ namespace EdiDocuments.ViewModels.MiniUml
 		#endregion CanSaveData
 
 		#region LoadFile
+		public static MiniUmlViewModel LoadFile(string filePath, object o)
+		{
+			return MiniUmlViewModel.LoadFile(filePath);
+		}
+
 		/// <summary>
 		/// Load the content of a MiniUML file and store it for
 		/// presentation and manipulation in the returned viewmodel.

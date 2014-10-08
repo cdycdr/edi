@@ -18,10 +18,31 @@ namespace Edi.Core.ViewModels
 		#region Fields
 		private bool mIsFilePathReal = false;
 
-		private RelayCommand<object> _openContainingFolderCommand = null;
-		private RelayCommand<object> _copyFullPathtoClipboard = null;
-		private RelayCommand<object> _syncPathToExplorerCommand = null;
+		private RelayCommand<object> mOpenContainingFolderCommand = null;
+		private RelayCommand<object> mCopyFullPathtoClipboard = null;
+		private RelayCommand<object> mSyncPathToExplorerCommand = null;
+
+		private readonly string mDocumentTypeKey = string.Empty;
 		#endregion Fields
+
+		#region Constructors
+		/// <summary>
+		/// Class constructor.
+		/// </summary>
+		/// <param name="documentTypeKey"></param>
+		public FileBaseViewModel(string documentTypeKey)
+			: this()
+		{
+			this.mDocumentTypeKey = documentTypeKey;
+		}
+
+		/// <summary>
+		/// Standard class constructor.
+		/// </summary>
+		protected FileBaseViewModel()
+		{
+		}
+		#endregion Constructors
 
 		#region events
 		/// <summary>
@@ -32,6 +53,19 @@ namespace Edi.Core.ViewModels
 		#endregion events
 
 		#region properties
+		/// <summary>
+		/// Gets the key that is associated with the type of this document.
+		/// This key is relevant for the framework to implement the correct
+		/// file open/save filter settings etc...
+		/// </summary>
+		public string  DocumentTypeKey
+		{
+			get
+			{ 
+				return this.mDocumentTypeKey;
+			}
+		}
+
 		#region IsFilePathReal
 		/// <summary>
 		/// Get/set whether a given file path is a real existing path or not.
@@ -103,10 +137,10 @@ namespace Edi.Core.ViewModels
 		{
 			get
 			{
-				if (_openContainingFolderCommand == null)
-					_openContainingFolderCommand = new RelayCommand<object>((p) => this.OnOpenContainingFolderCommand());
+				if (mOpenContainingFolderCommand == null)
+					mOpenContainingFolderCommand = new RelayCommand<object>((p) => this.OnOpenContainingFolderCommand());
 
-				return _openContainingFolderCommand;
+				return mOpenContainingFolderCommand;
 			}
 		}
 
@@ -119,10 +153,10 @@ namespace Edi.Core.ViewModels
 		{
 			get
 			{
-				if (_copyFullPathtoClipboard == null)
-					_copyFullPathtoClipboard = new RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand());
+				if (mCopyFullPathtoClipboard == null)
+					mCopyFullPathtoClipboard = new RelayCommand<object>((p) => this.OnCopyFullPathtoClipboardCommand());
 
-				return _copyFullPathtoClipboard;
+				return mCopyFullPathtoClipboard;
 			}
 		}
 
@@ -133,10 +167,10 @@ namespace Edi.Core.ViewModels
 		{
 			get
 			{
-				if (this._syncPathToExplorerCommand == null)
-					this._syncPathToExplorerCommand = new RelayCommand<object>((p) => this.OnSyncPathToExplorerCommand());
+				if (this.mSyncPathToExplorerCommand == null)
+					this.mSyncPathToExplorerCommand = new RelayCommand<object>((p) => this.OnSyncPathToExplorerCommand());
 
-				return this._syncPathToExplorerCommand;
+				return this.mSyncPathToExplorerCommand;
 			}
 		}
 		#endregion commands

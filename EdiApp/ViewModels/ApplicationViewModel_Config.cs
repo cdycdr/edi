@@ -3,7 +3,7 @@
 	using System;
 	using System.Windows;
 	using Edi.Core.Interfaces;
-	using EdiTools.ViewModels.FileExplorer;
+	using Files.ViewModels.FileExplorer;
 	using MsgBox;
 	using Settings.Interfaces;
 	using Settings.ProgramSettings;

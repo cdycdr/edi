@@ -9,7 +9,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              
              xmlns:behav="clr-namespace:Edi.Core.Behaviour;assembly=Edi.Core"
-             xmlns:view="clr-namespace:EdiDocuments.Views.RecentFiles"
+             xmlns:view="clr-namespace:Files.Views.RecentFiles;assembly=Files"
              xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
 
              mc:Ignorable="d" 

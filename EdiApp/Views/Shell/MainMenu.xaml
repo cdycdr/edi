@@ -21,34 +21,48 @@
                     Command="New"
                     CommandParameter="{x:Static vm:TypeOfDocument.EdiTextEditor}"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_New_Text_TT}"
-                    ToolTipService.ShowOnDisabled="True" />
+                     />
 
           <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_New_UML}"
                     Command="New"
                     CommandParameter="{x:Static vm:TypeOfDocument.UMLEditor}"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_New_UML_TT}"
-                    ToolTipService.ShowOnDisabled="True" />
+                     />
         </MenuItem>
 
-        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Open}">
+				<!-- DocumentTypes -->
+				<MenuItem ItemsSource="{Binding DocumentTypes}"
+				          Header="{x:Static cmdLabel:Strings.STR_CmdName_Open}">
+					<MenuItem.ItemContainerStyle>
+						<Style TargetType="MenuItem">
+							<Setter Property="Header" Value="{Binding Description, Mode=OneWay}" />
+							<Setter Property="Command" Value="Open" />
+							<Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+							<Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
+							<Setter Property="CommandParameter" Value="{Binding Key, Mode=OneWay}" />
+						</Style>
+					</MenuItem.ItemContainerStyle>
+				</MenuItem>
+
+				<!-- MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Open}">
           <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Open_Text}"
                     Command="Open"
-                    CommandParameter="{x:Static vm:TypeOfDocument.EdiTextEditor}"
+                    CommandParameter="EdiTextEditor"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Open_Text_TT}"
-                    ToolTipService.ShowOnDisabled="True" />
+                     />
 
           <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Open_UML}"
                     Command="Open"
-                    CommandParameter="{x:Static vm:TypeOfDocument.UMLEditor}"
+                    CommandParameter="UMLEditor"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Open_UML_TT}"
-                    ToolTipService.ShowOnDisabled="True" />
+                     />
 
           <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Open_Log4Net}"
                     Command="Open"
-                    CommandParameter="{x:Static vm:TypeOfDocument.Log4NetView}"
+                    CommandParameter="Log4NetView"
                     ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Open_Log4Net_TT}"
-                    ToolTipService.ShowOnDisabled="True" />
-        </MenuItem>
+                     />
+        </MenuItem -->
 
         <MenuItem ItemsSource="{Binding RecentFiles.MruList.ListOfMRUEntries}"
                   Header="{x:Static cmdLabel:Strings.STR_CmdName_RecentFiles}"
@@ -68,16 +82,16 @@
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Save}"
                   Command="Save"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Save_TT}"
-                  ToolTipService.ShowOnDisabled="True" />
+                   />
 
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs}"
                   Command="SaveAs"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SaveAs_TT}"
-                  ToolTipService.ShowOnDisabled="True"/>
+                  />
 
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Export}"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Export_TT}"
-                  ToolTipService.ShowOnDisabled="True">
+                  >
 
           <MenuItem Command="cmd:AppCommand.ExportUMLToImage" />
           <MenuItem Command="cmd:AppCommand.ExportTextToHTML" />
@@ -88,18 +102,18 @@
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Close}"
                   Command="cmd:AppCommand.CloseFile"
                   CommandParameter="{Binding ActiveDocument}"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
         <Separator/>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Exit}"
                   Command="cmd:AppCommand.Exit"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
       </MenuItem>
       <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Edit}">
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Undo}"
                   Command="Undo"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Undo_TT}">
           <MenuItem.Icon>
             <Image Source="{DynamicResource Image_Undo}" Height="16" />
@@ -107,7 +121,7 @@
         </MenuItem>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Redo}"
                   Command="Redo"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Redo_TT}">
           <MenuItem.Icon>
             <Image Source="{DynamicResource Image_Redo}" Height="16" />
@@ -117,7 +131,7 @@
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Cut}"
                   Command="Cut"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Cut_TT}"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   >
           <MenuItem.Icon>
             <Image Source="{DynamicResource Image_Cut}" Height="16" />
@@ -126,7 +140,7 @@
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Copy}"
                   Command="Copy"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Copy_TT}"
-                  ToolTipService.ShowOnDisabled="True">
+                  >
           <MenuItem.Icon>
             <Image Source="{DynamicResource Image_Copy}" Height="16" />
           </MenuItem.Icon>
@@ -134,14 +148,14 @@
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Paste}"
                   Command="Paste"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Paste_TT}"
-                  ToolTipService.ShowOnDisabled="True">
+                  >
           <MenuItem.Icon>
             <Image Source="{DynamicResource Image_Paste}" Height="16"/>
           </MenuItem.Icon>
         </MenuItem>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Delete}" Command="Delete"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_Delete_TT}"
-                  ToolTipService.ShowOnDisabled="True">
+                  >
           <MenuItem.Icon>
             <Image Source="{DynamicResource Image_Delete}" Height="16"/>
           </MenuItem.Icon>
@@ -150,11 +164,11 @@
         <MenuItem Command="SelectAll"
                   Header="{x:Static cmdLabel:Strings.STR_CmdName_SelectAll}"
                   ToolTip="{x:Static cmdLabel:Strings.STR_CmdName_SelectAll_TT}"
-                  ToolTipService.ShowOnDisabled="True"/>
+                  />
         <Separator/>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_GotoLine}"
                   Command="cmd:AppCommand.GotoLine"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" >
           <MenuItem.Icon>
             <Image Source="{DynamicResource Image_EditFind}" Width="16" />
@@ -162,12 +176,12 @@
         </MenuItem>
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Find}"
                   Command="cmd:AppCommand.FindText"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
 
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Replace}"
                   Command="cmd:AppCommand.ReplaceText"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
       </MenuItem>
       <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_View}">
@@ -177,14 +191,18 @@
                   Visibility="{Binding Path=Tools, Mode=OneWay, Converter={EdiViewsConv:ZeroToVisibilityConverter}}">
           <MenuItem.ItemContainerStyle>
             <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
-              <Setter Property="IsCheckable" Value="True" />
-              <Setter Property="IsChecked" Value="{Binding IsVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-              <Setter Property="Header" Value="{Binding Name, Mode=OneWay}" />
+							<Setter Property="Header" Value="{Binding Name, Mode=OneWay}" />
+							<!-- Setter Property="IsCheckable" Value="True" / -->
+							<Setter Property="IsChecked" Value="{Binding IsVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
               <Setter Property="Command" Value="cmd:AppCommand.ShowToolWindow" />
               <Setter Property="CommandParameter" Value="{Binding Path=., Mode=OneWay}" />
               <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
               <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
-            </Style>
+							<Setter Property="Margin" Value="3,3,3,0" />
+
+							<!-- http://social.msdn.microsoft.com/Forums/en-US/wpf/thread/63696841-0358-4f7a-abe1-e6062518e3d6 -->
+							<Setter Property="ThemeBehav:MergeStyleBehaviour.AutoMergeStyle" Value="True"/>
+						</Style>
           </MenuItem.ItemContainerStyle>
         </MenuItem>
 
@@ -209,7 +227,7 @@
 
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_View_Start_Page}"
                   Command="cmd:AppCommand.ShowStartPage"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"  />
       </MenuItem>
 
@@ -218,14 +236,14 @@
 
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Settings}"
                   Command="cmd:AppCommand.ProgramSettings"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
       </MenuItem>
 
       <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Help}">
         <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_Help_About}"
                   Command="cmd:AppCommand.About"
-                  ToolTipService.ShowOnDisabled="True"
+                  
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}" />
       </MenuItem>
     </Menu>

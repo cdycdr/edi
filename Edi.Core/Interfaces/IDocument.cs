@@ -1,9 +1,6 @@
 ﻿namespace Edi.Core.Interfaces
 {
 	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
 	using Edi.Core.ViewModels.Events;
 
 	/// <summary>
@@ -20,6 +17,13 @@
 		#endregion events
 
 		#region properties
+		/// <summary>
+		/// Gets the key that is associated with the type of this document.
+		/// This key is relevant for the framework to implement the correct
+		/// file open/save filter settings etc...
+		/// </summary>
+		string DocumentTypeKey { get; }
+
 		string FilePath
 		{
 			get;

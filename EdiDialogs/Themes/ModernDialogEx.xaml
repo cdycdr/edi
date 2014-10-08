@@ -15,7 +15,6 @@
   <!-- additional ModernWindow styles -->
   <Style x:Key="EdiViewsSystemButton" TargetType="ButtonBase" BasedOn="{StaticResource SystemButtonBase}">
     <Setter Property="Foreground" Value="{DynamicResource LinkButtonText}"/>
-		<Setter Property="Focusable" Value="False"/>
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
         <Setter Property="Foreground" Value="{DynamicResource LinkButtonTextHover}"/>

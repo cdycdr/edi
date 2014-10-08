@@ -346,10 +346,6 @@
       <Project>{253edd78-bb04-4916-ad09-90f10fbb9803}</Project>
       <Name>EdiDocuments</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EdiTools\EdiTools.csproj">
-      <Project>{a915e17c-3859-4852-9115-4ca63add135c}</Project>
-      <Name>EdiTools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
       <Project>{6c55b776-26d4-4db3-a6ab-87e783b2f3d1}</Project>
       <Name>ICSharpCode.AvalonEdit</Name>
@@ -382,6 +378,10 @@
       <Project>{957A91E6-91DD-4C13-B1D1-F06D66EC6D55}</Project>
       <Name>Themes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools\BuiltIn\Output\Output.csproj">
+      <Project>{d14d8609-693c-475d-a4a4-5a7f6188d633}</Project>
+      <Name>Output</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Util\Util.csproj">
       <Project>{D96F59C4-A727-47D9-84AD-508B04DF2714}</Project>
       <Name>Util</Name>
@@ -403,7 +403,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="EdiAppWindowLogo.ico" />
-    <Content Include="MiniUML.Plugins\MiniUML.Plugins.UmlClassDiagram.dll">
+    <Content Include="Plugins\Log4NetTools.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Plugins\UML\MiniUML.Plugins.UmlClassDiagram.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

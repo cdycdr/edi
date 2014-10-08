@@ -127,12 +127,8 @@
     <Compile Include="ViewModels\EdiDoc\EdiViewModel.cs" />
     <Compile Include="ViewModels\EdiDoc\HtmlWriter.cs" />
     <Compile Include="ViewModels\MiniUml\MiniUmlViewModel.cs" />
-    <Compile Include="ViewModels\RecentFiles\RecentFilesViewModel.cs" />
     <Compile Include="Views\EdiDoc\EdiView.xaml.cs">
       <DependentUpon>EdiView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RecentFiles\RecentFilesView.xaml.cs">
-      <DependentUpon>RecentFilesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StartPage\StartPageView.xaml.cs">
       <DependentUpon>StartPageView.xaml</DependentUpon>
@@ -176,6 +172,10 @@
       <Project>{0e69be38-78c0-4662-a0e1-56c5913b5c3a}</Project>
       <Name>SimpleControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools\BuiltIn\Files\Files.csproj">
+      <Project>{ef9b7e8d-b722-48e0-a941-e21f4f7cc2df}</Project>
+      <Name>Files</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Util\Util.csproj">
       <Project>{d96f59c4-a727-47d9-84ad-508b04df2714}</Project>
       <Name>Util</Name>
@@ -190,19 +190,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="DataTemplates\RecentFilesViewDataTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="DataTemplates\StartPageViewDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EdiDoc\EdiView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\RecentFiles\RecentFilesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

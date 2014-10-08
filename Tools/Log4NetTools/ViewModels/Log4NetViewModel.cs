@@ -10,6 +10,11 @@ namespace Log4NetTools.ViewModels
 	public class Log4NetViewModel : Edi.Core.ViewModels.FileBaseViewModel
 	{
 		#region fields
+		public const string DocumentKey = "Log4NetView";
+		public const string Description = "Log4Net";
+		public const string FileFilterName = "Log4Net";
+		public const string DefaultFilter = "log4j";
+
 		private static int iNewFileCounter = 1;
 		private string defaultFileType = "log4j";
 		private readonly static string defaultFileName = Util.Local.Strings.STR_FILE_DEFAULTNAME;
@@ -19,6 +24,7 @@ namespace Log4NetTools.ViewModels
 
 		#region constructor
 		public Log4NetViewModel()
+			: base(Log4NetViewModel.DocumentKey)
 		{
 			this.ScreenTip = Util.Local.Strings.STR_LOG4NET_DOCUMENTTAB_TT;
 			this.ContentId = string.Empty;
@@ -201,6 +207,11 @@ namespace Log4NetTools.ViewModels
 			}
 
 			return string.Empty;
+		}
+
+		public static Log4NetViewModel LoadFile(string filePath, object o)
+		{ 
+			return Log4NetViewModel.LoadFile(filePath);
 		}
 
 		/// <summary>

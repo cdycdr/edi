@@ -1,5 +1,11 @@
 ﻿namespace Edi.Core.Interfaces
 {
+	/// <summary>
+	/// Tool windows that implement this interface want to know
+	/// when/if the active document changes since the tool window
+	/// may display some properties related to the currently active
+	/// document.
+	/// </summary>
 	public interface IRegisterableToolWindow
 	{
 		/// <summary>
@@ -16,7 +22,6 @@
 		/// </summary>
 		/// <param name="parent"></param>
 		/// <param name="isVisible"></param>
-		void SetToolWindowVisibility(IDocumentParent parent,
-																				bool isVisible = true);
+		void SetToolWindowVisibility(IDocumentParent parent, bool isVisible = true);
 	}
 }

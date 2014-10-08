@@ -3,6 +3,10 @@
 	using System.Collections.ObjectModel;
 	using Edi.Core.ViewModels;
 
+	/// <summary>
+	/// Defines an interface for a class that can register
+	/// and manage tool window viemodels.
+	/// </summary>
 	public interface IToolWindowRegistry
 	{
 		ObservableCollection<ToolViewModel> Tools { get; }

@@ -12,11 +12,12 @@ ECHO EdiApp
 ECHO EdiDialogs
 ECHO EdiDocuments
 ECHO EdiViews
-ECHO EdiTools
 ECHO Themes
 ECHO ICSharpCode.AvalonEdit
 ECHO.
 ECHO Log4NetTools
+ECHO Tools-BuiltIn-Output
+ECHO Tools-BuiltIn-Files
 ECHO.
 ECHO MiniUML.Diagnostics
 ECHO MiniUML.Framework
@@ -49,9 +50,6 @@ RMDIR /S /Q EdiDialogs\obj
 RMDIR /S /Q EdiDocuments\bin
 RMDIR /S /Q EdiDocuments\obj
 
-RMDIR /S /Q EdiTools\bin
-RMDIR /S /Q EdiTools\obj
-
 RMDIR /S /Q Themes\bin
 RMDIR /S /Q Themes\obj
 
@@ -62,6 +60,15 @@ ECHO Deleting BIN and OBJ Folders in Log4NetTools folders
 ECHO.
 RMDIR /S /Q .\Tools\Log4NetTools\bin
 RMDIR /S /Q .\Tools\Log4NetTools\obj
+
+ECHO Deleting BIN and OBJ Folders in Output project folders
+ECHO.
+RMDIR /S /Q .\Tools\BuiltIn\Output\bin
+RMDIR /S /Q .\Tools\BuiltIn\Output\obj
+
+ECHO Deleting BIN and OBJ Folders in Files project folders
+RMDIR /S /Q .\Tools\BuiltIn\Files\bin
+RMDIR /S /Q .\Tools\BuiltIn\Files\obj
 
 ECHO Deleting BIN and OBJ Folders in MiniUML folders
 ECHO.

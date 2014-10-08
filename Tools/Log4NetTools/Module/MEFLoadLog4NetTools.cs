@@ -1,9 +1,11 @@
 ﻿namespace Log4NetTools.Module
 {
+	using System.Collections.Generic;
 	using System.ComponentModel.Composition;
 	using System.Reflection;
 	using System.Windows;
 	using Edi.Core.Interfaces;
+	using Edi.Core.Interfaces.DocType;
 	using Edi.Core.Resources;
 	using Edi.Core.View.Pane;
 	using Log4NetTools.ViewModels;
@@ -29,9 +31,10 @@
 	public class MEFLoadLog4NetTools : IModule
 	{
 		#region fields
-		private readonly IAvalonDockLayoutViewModel mAvLayout = null;
-		private readonly IToolWindowRegistry mToolRegistry = null;
+		private readonly IAvalonDockLayoutViewModel mAvLayout;
+		private readonly IToolWindowRegistry mToolRegistry;
 		private readonly ISettingsManager mSettingsManager;
+		private readonly IDocumentTypeManager mDocumentTypeManager;
 		#endregion fields
 
 		/// <summary>
@@ -41,11 +44,13 @@
 		[ImportingConstructor]
 		public MEFLoadLog4NetTools(IAvalonDockLayoutViewModel avLayout,
 															 IToolWindowRegistry toolRegistry,
-															 ISettingsManager settingsManager)
+															 ISettingsManager settingsManager,
+															 IDocumentTypeManager documentTypeManager)
 		{
 			this.mAvLayout = avLayout;
 			this.mToolRegistry = toolRegistry;
 			this.mSettingsManager = settingsManager;
+			this.mDocumentTypeManager = documentTypeManager;
 		}
 
 		#region methods
@@ -54,16 +59,22 @@
 		/// </summary>
 		void IModule.Initialize()
 		{
-			if (this.mAvLayout != null)
-			{
-				this.RegisterDataTemplates(this.mAvLayout.ViewProperties.SelectPanesTemplate);
-				this.RegisterStyles(this.mAvLayout.ViewProperties.SelectPanesStyle);
-			}
+			this.RegisterDataTemplates(this.mAvLayout.ViewProperties.SelectPanesTemplate);
+			this.RegisterStyles(this.mAvLayout.ViewProperties.SelectPanesStyle);
 
-			if (this.mToolRegistry != null)
+			this.mToolRegistry.RegisterTool(new Log4NetMessageToolViewModel());
+			this.mToolRegistry.RegisterTool(new Log4NetToolViewModel());
+
+			var docType = this.mDocumentTypeManager.RegisterDocumentType(Log4NetViewModel.DocumentKey,
+			                                                             Log4NetViewModel.Description,
+			                                                             Log4NetViewModel.FileFilterName,
+																																	 Log4NetViewModel.DefaultFilter,
+																																	 Log4NetViewModel.LoadFile, typeof(Log4NetViewModel), 40);
+
+			if (docType != null)
 			{
-				this.mToolRegistry.RegisterTool(new Log4NetMessageToolViewModel());
-				this.mToolRegistry.RegisterTool(new Log4NetToolViewModel());
+				var t = docType.CreateItem("log4net XML output", new List<string>() { "log4j", "log", "txt", "xml" }, 35);
+				docType.RegisterFileTypeItem(t);
 			}
 		}
 

@@ -1,12 +1,16 @@
 ﻿namespace Edi.Core.ViewModels
 {
 	/// <summary>
-	/// AvalonDock base class viewm-model to support tool window views
+	/// AvalonDock base class viewmmodel to support tool window views.
 	/// </summary>
 	public class ToolViewModel : PaneViewModel, IToolWindow
 	{
+		#region fields
 		private bool mIsVisible = true;
+		private bool mCanHide = true;
+		#endregion fields
 
+		#region constructors
 		/// <summary>
 		/// Base constructor from nam of tool window item
 		/// </summary>
@@ -16,14 +20,21 @@
 			Name = name;
 			Title = name;
 		}
+		#endregion constructors
 
+		#region properties
+		/// <summary>
+		/// Gets a displayable name of this item.
+		/// </summary>
 		public string Name
 		{
 			get;
 			private set;
 		}
 
-		#region IsVisible
+		/// <summary>
+		/// Gets/sets property to determine whether this item is visible or not.
+		/// </summary>
 		public bool IsVisible
 		{
 			get
@@ -36,13 +47,37 @@
 				if (this.mIsVisible != value)
 				{
 					this.mIsVisible = value;
+
+					if (value == true)         // Switching visibility on should switch hide mode off
+						this.mCanHide = false;
+
 					RaisePropertyChanged(() => this.IsVisible);
 				}
 			}
 		}
 
-		#endregion
+		/// <summary>
+		/// Gets/sets whether this item can hide or not.
+		/// </summary>
+		public bool CanHide
+		{
+			get
+			{
+				return this.mCanHide;
+			}
 
+			set
+			{
+				if (this.mCanHide != value)
+				{
+					this.mCanHide = value;
+					RaisePropertyChanged(() => this.CanHide);
+				}
+			}
+		}
+		#endregion properties
+
+		#region methods
 		/// <summary>
 		/// Ensures the visibility of this toolwindow.
 		/// </summary>
@@ -51,5 +86,6 @@
 		{
 			this.IsVisible = isVisible;
 		}
+		#endregion methods
 	}
 }

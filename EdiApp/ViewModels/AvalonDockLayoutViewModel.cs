@@ -25,24 +25,27 @@ namespace EdiApp.ViewModels
 	public class AvalonDockLayoutViewModel : IAvalonDockLayoutViewModel
 	{
 		#region fields
-		private RelayCommand<object> mLoadLayoutCommand = null;
-		private RelayCommand<object> mSaveLayoutCommand = null;
+		private RelayCommand<object> mLoadLayoutCommand;
+		private RelayCommand<object> mSaveLayoutCommand;
 
 		private readonly Guid mLayoutID;
 		private string mLayoutFileName;
 		private string mAppDir;
 
-		private readonly ISettingsManager mProgramSettings = null;
+		private readonly ISettingsManager mProgramSettings;
+		private IMessageManager mMessageManager;
 		#endregion fields
 
-		#region properties
+		#region constructors
 		/// <summary>
-		/// Hidden class constructor
+		/// Class constructor
 		/// </summary>
 		[ImportingConstructor]
-		public AvalonDockLayoutViewModel(ISettingsManager programSettings)
+		public AvalonDockLayoutViewModel(ISettingsManager programSettings,
+																		 IMessageManager messageManager)
 		{
 			this.mProgramSettings = programSettings;
+			this.mMessageManager = messageManager;
 
 			this.mAppDir = this.mProgramSettings.AppDir;
 			this.mLayoutFileName = this.mProgramSettings.LayoutFileName;
@@ -51,7 +54,9 @@ namespace EdiApp.ViewModels
 			this.ViewProperties = new AvalonDockViewProperties();
 			this.ViewProperties.InitialzeInstance();
 		}
+		#endregion constructors
 
+		#region properties
 		/// <summary>
 		/// Gets the layout id for the AvalonDock Layout that is associated with this viewmodel.
 		/// This layout id is a form of identification between viewmodel and view to identify whether
@@ -90,6 +95,7 @@ namespace EdiApp.ViewModels
 						if (docManager == null)
 							return;
 
+						this.mMessageManager.Output.AppendLine("Loading document and tool window layout...");
 						this.LoadDockingManagerLayout(docManager);
 					});
 				}
@@ -100,7 +106,9 @@ namespace EdiApp.ViewModels
 
 		/// <summary>
 		/// Implements a command to save the layout of an AvalonDock-DockingManager instance.
-		/// This layout defines the position and shape of each document and tool window
+		/// This command can be executed in an OnClosed Window event.
+		/// 
+		/// This AvalonDock layout defines the position and shape of each document and tool window
 		/// displayed in the application.
 		/// 
 		/// Parameter:
@@ -188,6 +196,8 @@ namespace EdiApp.ViewModels
 								xmlWorkspaces = this.GetResourceTextFile(defaultLayoutAssembly, defaultLayout);
 							else
 							{
+								this.mMessageManager.Output.AppendLine(string.Format(" from file: '{0}'", layoutFileName));
+
 								using (FileStream fs = new FileStream(layoutFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
 								{
 									using (StreamReader reader = ICSharpCode.AvalonEdit.Utils.FileReader.OpenStream(fs, Encoding.Default))
@@ -219,6 +229,7 @@ namespace EdiApp.ViewModels
 					}
 					finally
 					{
+						this.mMessageManager.Output.AppendLine("Loading layout done.\n");
 					}
 
 					return xmlWorkspaces;                     // End of async task
@@ -239,6 +250,7 @@ namespace EdiApp.ViewModels
 		public string GetResourceTextFile(string assemblyNameSpace, string filename)
 		{
 			string result = string.Empty;
+			this.mMessageManager.Output.AppendLine(string.Format("Layout from Resource '{0}', '{1}'", assemblyNameSpace, filename));
 
 			using (Stream stream = this.GetType().Assembly.
 						 GetManifestResourceStream(assemblyNameSpace + filename))

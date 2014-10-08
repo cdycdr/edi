@@ -11,7 +11,7 @@ namespace EdiDocuments.ViewModels.StartPage
 	public class StartPageViewModel : Edi.Core.ViewModels.FileBaseViewModel
 	{
 		#region fields
-		public const string StartPageContentId = "{StartPage}";
+		public const string StartPageContentId = ">StartPage<";
 
 		private MRUListVM mRecent;
 		#endregion fields

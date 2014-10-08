@@ -1,14 +1,15 @@
 ﻿namespace EdiDocuments.Module
 {
+	using System.Collections.Generic;
 	using System.ComponentModel.Composition;
 	using System.Reflection;
 	using System.Windows;
 	using Edi.Core.Interfaces;
+	using Edi.Core.Interfaces.DocType;
 	using Edi.Core.Resources;
 	using Edi.Core.View.Pane;
 	using EdiDocuments.ViewModels.EdiDoc;
 	using EdiDocuments.ViewModels.MiniUml;
-	using EdiDocuments.ViewModels.RecentFiles;
 	using EdiDocuments.ViewModels.StartPage;
 	using Microsoft.Practices.Prism.MefExtensions.Modularity;
 	using Microsoft.Practices.Prism.Modularity;
@@ -32,11 +33,13 @@
 	public class MEFLoadEdiDocuments : IModule
 	{
 		#region fields
-		private readonly IAvalonDockLayoutViewModel mAvLayout = null;
-		private readonly IToolWindowRegistry mToolRegistry = null;
+		private readonly IAvalonDockLayoutViewModel mAvLayout;
+		private readonly IToolWindowRegistry mToolRegistry;
 		private readonly ISettingsManager mSettingsManager;
+		private readonly IDocumentTypeManager mDocumentTypeManager;
 		#endregion fields
 
+		#region constructors
 		/// <summary>
 		/// Class constructor
 		/// </summary>
@@ -44,12 +47,15 @@
 		[ImportingConstructor]
 		public MEFLoadEdiDocuments(IAvalonDockLayoutViewModel avLayout,
 															 IToolWindowRegistry toolRegistry,
-															 ISettingsManager settingsManager)
+															 ISettingsManager settingsManager,
+															 IDocumentTypeManager documentTypeManager)
 		{
 			this.mAvLayout = avLayout;
 			this.mToolRegistry = toolRegistry;
 			this.mSettingsManager = settingsManager;
+			this.mDocumentTypeManager = documentTypeManager;
 		}
+		#endregion constructors
 
 		#region methods
 		/// <summary>
@@ -57,15 +63,60 @@
 		/// </summary>
 		void IModule.Initialize()
 		{
-			if (this.mAvLayout != null)
-			{
-				this.RegisterDataTemplates(this.mAvLayout.ViewProperties.SelectPanesTemplate);
-				this.RegisterStyles(this.mAvLayout.ViewProperties.SelectPanesStyle);
-			}
+			this.RegisterDataTemplates(this.mAvLayout.ViewProperties.SelectPanesTemplate);
+			this.RegisterStyles(this.mAvLayout.ViewProperties.SelectPanesStyle);
 
-			if (this.mToolRegistry != null)
+			this.RegisterEdiTextEditor(this.mDocumentTypeManager);
+			this.RegisterMiniUml(this.mDocumentTypeManager);
+		}
+
+		private void RegisterEdiTextEditor(IDocumentTypeManager documentTypeManager)
+		{
+			// Register these patterns for the build in AvalonEdit text editor
+			// All Files (*.*)|*.*
+			var docType = documentTypeManager.RegisterDocumentType(EdiViewModel.DocumentKey,
+			                                                       EdiViewModel.Description,
+																														 EdiViewModel.FileFilterName,
+																														 EdiViewModel.DefaultFilter,
+																															EdiViewModel.LoadFile,
+																															typeof(EdiViewModel),
+																															10);
+
+			if (docType != null) // Lets register some sub-types for editing with Edi's text editor
 			{
-				this.mToolRegistry.RegisterTool(new RecentFilesViewModel(this.mSettingsManager));
+				// Text Files (*.txt)|*.txt
+				// C# Files (*.cs)|*.cs
+				// HTML Files (*.htm,*.html,*.css,*.js)|*.htm;*.html;*.css;*.js
+				// Structured Query Language (*.sql) |*.sql
+				var t = docType.CreateItem("Text Files", new List<string>() { "txt" }, 12);
+				docType.RegisterFileTypeItem(t);
+
+				t = docType.CreateItem("C# Files", new List<string>() { "cs", "xaml", "config" }, 14);
+				docType.RegisterFileTypeItem(t);
+
+				t = docType.CreateItem("HTML Files", new List<string>() { "htm", "html", "css", "js" }, 16);
+				docType.RegisterFileTypeItem(t);
+
+				t = docType.CreateItem("Structured Query Language", new List<string>() { "sql" }, 18);
+				docType.RegisterFileTypeItem(t);
+			}
+		}
+
+		private void RegisterMiniUml(IDocumentTypeManager documentTypeManager)
+		{
+			// Unified Modeling Language (*.uml,*.xml)|*.uml;*.xml
+			var docType = documentTypeManager.RegisterDocumentType(MiniUmlViewModel.DocumentKey,
+			                                                      MiniUmlViewModel.Description,
+																														MiniUmlViewModel.FileFilterName,
+																														MiniUmlViewModel.DefaultFilter,
+																														MiniUmlViewModel.LoadFile,
+																														typeof(MiniUmlViewModel),
+																														90);
+
+			if (docType != null) // Lets register some sub-types for editing with Edi's text editor
+			{
+				var t = docType.CreateItem("UML Files", new List<string>() { "uml", "xml" }, 92);
+				docType.RegisterFileTypeItem(t);
 			}
 		}
 
@@ -100,14 +151,6 @@
 									"MiniUMLViewDataTemplate") as DataTemplate;
 
 			paneSel.RegisterDataTemplate(typeof(MiniUmlViewModel), template);
-
-			// RecentFiles
-			template = ResourceLocator.GetResource<DataTemplate>(
-									Assembly.GetAssembly(typeof(RecentFilesViewModel)).GetName().Name,
-									"DataTemplates/RecentFilesViewDataTemplate.xaml",
-									"RecentFilesViewDataTemplate") as DataTemplate;
-
-			paneSel.RegisterDataTemplate(typeof(RecentFilesViewModel), template);
 
 			return paneSel;
 		}

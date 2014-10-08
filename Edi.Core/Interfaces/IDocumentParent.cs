@@ -1,9 +1,11 @@
 ﻿namespace Edi.Core.Interfaces
 {
-	using System;
 	using Edi.Core.ViewModels;
-	using Edi.Core.ViewModels.Base;
 
+	/// <summary>
+	/// A document parent is a viewmodel that holds the collection of documents
+	/// and can inform other objects when the active document changes.
+	/// </summary>
 	public interface IDocumentParent
 	{
 		/// <summary>

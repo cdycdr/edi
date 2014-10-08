@@ -11,19 +11,21 @@ namespace EdiApp.ViewModels
 	using System.Windows.Input;
 	using System.Windows.Threading;
 	using Edi.Core.Interfaces;
+	using Edi.Core.Interfaces.DocType;
 	using Edi.Core.ViewModels;
 	using Edi.Core.ViewModels.Base;
 	using Edi.Core.ViewModels.Events;
 	using EdiApp.Enums;
+	using EdiApp.Events;
 	using EdiApp.Interfaces.ViewModel;
 	using EdiDialogs.About;
 	using EdiDocuments.Process;
 	using EdiDocuments.ViewModels.EdiDoc;
 	using EdiDocuments.ViewModels.MiniUml;
-	using EdiDocuments.ViewModels.RecentFiles;
+	using Files.ViewModels.RecentFiles;
 	using EdiDocuments.ViewModels.StartPage;
-	using Log4NetTools.ViewModels;
 	using Microsoft.Practices.Prism.Modularity;
+	using Microsoft.Practices.Prism.PubSubEvents;
 	using Microsoft.Win32;
 	using MsgBox;
 	using Settings.Interfaces;
@@ -46,13 +48,12 @@ namespace EdiApp.ViewModels
 		public const string MiniUMLFileExtension = "uml";
 		public static readonly string UMLFileFilter = Util.Local.Strings.STR_FileType_FileFilter_UML;
 
-		public static readonly string EdiTextEditorFileFilter =
+		private static string EdiTextEditorFileFilter =
 									Util.Local.Strings.STR_FileType_FileFilter_AllFiles +
 									"|" + Util.Local.Strings.STR_FileType_FileFilter_TextFiles +
 									"|" + Util.Local.Strings.STR_FileType_FileFilter_CSharp +
 									"|" + Util.Local.Strings.STR_FileType_FileFilter_HTML +
-									"|" + Util.Local.Strings.STR_FileType_FileFilter_SQL +
-									"|" + Util.Local.Strings.STR_FileType_FileFilter_Log4NetPlusText;
+									"|" + Util.Local.Strings.STR_FileType_FileFilter_SQL;
 
 		protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -65,15 +66,16 @@ namespace EdiApp.ViewModels
 		private ObservableCollection<IDocument> mFiles = null;
 		private ReadOnlyObservableCollection<IDocument> mReadonyFiles = null;
 
-		private RecentFilesViewModel mRecentFiles = null;
-
 		private IDocument mActiveDocument = null;
 
+		private readonly IModuleManager mModuleManager = null;
 		private readonly IAppCoreModel mAppCore = null;
 		private readonly IAvalonDockLayoutViewModel mAVLayout = null;
 		private readonly IToolWindowRegistry mToolRegistry = null;
 		private readonly ISettingsManager mSettingsManager = null;
 		private readonly IThemesManager mThemesManager = null;
+		private readonly IMessageManager mMessageManager = null;
+		private readonly IDocumentTypeManager mDocumentTypeManager;
 		#endregion fields
 
 		#region constructor
@@ -84,22 +86,33 @@ namespace EdiApp.ViewModels
 		public ApplicationViewModel(IAppCoreModel appCore,
 																IAvalonDockLayoutViewModel avLayout,
 																IToolWindowRegistry toolRegistry,
+																IMessageManager messageManager,
 																IModuleManager moduleManager,
 																ISettingsManager programSettings,
-																IThemesManager themesManager)
+																IThemesManager themesManager,
+																IDocumentTypeManager documentTypeManager)
 			: this()
 		{
 			this.mAppCore = appCore;
 			this.mAVLayout = avLayout;
+			this.mModuleManager = moduleManager;
+			this.mMessageManager = messageManager;
 			this.mToolRegistry = toolRegistry;
 			this.mSettingsManager = programSettings;
 			this.mThemesManager = themesManager;
+			this.mDocumentTypeManager = documentTypeManager;
+
+			this.mModuleManager.LoadModuleCompleted += this.ModuleManager_LoadModuleCompleted;
 		}
 
 		public ApplicationViewModel()
 		{
 			this.mAVLayout = null;
 			this.mFiles = new ObservableCollection<IDocument>();
+
+			// Subscribe to publsihers who relay the fact that a new tool window has been registered
+      // Register this methods to receive PRISM event notifications
+			RegisterToolWindowEvent.Instance.Subscribe(this.OnRegisterToolWindow, ThreadOption.BackgroundThread);
 		}
 		#endregion constructor
 
@@ -206,6 +219,32 @@ namespace EdiApp.ViewModels
 		}
 		#endregion
 
+		private IDocumentType mSelectedOpenDocumentType = null;
+		public IDocumentType SelectedOpenDocumentType
+		{
+			get
+			{
+				return this.mSelectedOpenDocumentType;
+			}
+			
+			private set
+			{
+				if (this.mSelectedOpenDocumentType != value)
+				{
+					this.mSelectedOpenDocumentType = value;
+					this.RaisePropertyChanged(() => this.SelectedOpenDocumentType);
+				}
+			}
+	  }
+
+		public ObservableCollection<IDocumentType> DocumentTypes
+		{
+			get
+			{
+				return this.mDocumentTypeManager.DocumentTypes;
+			}
+		}
+
 		/// <summary>
 		/// Principable data source for collection of documents managed in the the document manager (of AvalonDock).
 		/// </summary>
@@ -217,21 +256,6 @@ namespace EdiApp.ViewModels
 					mReadonyFiles = new ReadOnlyObservableCollection<IDocument>(this.mFiles);
 
 				return mReadonyFiles;
-			}
-		}
-
-		/// <summary>
-		/// Convienance property to filter (cast) documents that represent
-		/// actual text documents out of the general documents collection.
-		/// 
-		/// Items such as start page or program settings are not considered
-		/// documents in this collection.
-		/// </summary>
-		private List<EdiViewModel> Documents
-		{
-			get
-			{
-				return this.mFiles.OfType<EdiViewModel>().ToList();
 			}
 		}
 
@@ -294,6 +318,21 @@ namespace EdiApp.ViewModels
 			}
 		}
 		#endregion ApplicationName
+
+		/// <summary>
+		/// Convienance property to filter (cast) documents that represent
+		/// actual text documents out of the general documents collection.
+		/// 
+		/// Items such as start page or program settings are not considered
+		/// documents in this collection.
+		/// </summary>
+		private List<EdiViewModel> Documents
+		{
+			get
+			{
+				return this.mFiles.OfType<EdiViewModel>().ToList();
+			}
+		}
 		#endregion Properties
 
 		#region methods
@@ -318,9 +357,11 @@ namespace EdiApp.ViewModels
 		public FileBaseViewModel Open(string filePath,
 																	CloseDocOnError closeDocumentWithoutMessageOnError = CloseDocOnError.WithUserNotification,
 																	bool AddIntoMRU = true,
-																	TypeOfDocument t = TypeOfDocument.EdiTextEditor)
+																	string typeOfDoc = "EdiTextEditor")
 		{
 			logger.InfoFormat("TRACE EdiViewModel.Open param: '{0}', AddIntoMRU {1}", filePath, AddIntoMRU);
+
+			this.SelectedOpenDocumentType = this.DocumentTypes[0];
 
 			// Verify whether file is already open in editor, and if so, show it
 			FileBaseViewModel fileViewModel = this.Documents.FirstOrDefault(fm => fm.FilePath == filePath);
@@ -334,14 +375,18 @@ namespace EdiApp.ViewModels
 
 			string fileExtension = System.IO.Path.GetExtension(filePath);
 
-			if ((fileExtension == string.Format(".{0}", ApplicationViewModel.Log4netFileExtension) && t == TypeOfDocument.EdiTextEditor) || t == TypeOfDocument.Log4NetView)
+			var docType = this.mDocumentTypeManager.FindDocumentTypeByExtension(fileExtension, true);
+
+			if (docType == null)
+				docType = this.mDocumentTypeManager.FindDocumentTypeByKey(typeOfDoc);
+
+			if (docType != null)
 			{
-				// try to load a standard log4net XML file from the file system
-				fileViewModel = Log4NetViewModel.LoadFile(filePath);
+				fileViewModel = docType.FileOpenMethod(filePath, this.mSettingsManager);
 			}
 			else
 			{
-				if ((fileExtension == string.Format(".{0}", ApplicationViewModel.MiniUMLFileExtension) && t == TypeOfDocument.EdiTextEditor) || t == TypeOfDocument.UMLEditor)
+				if ((fileExtension == string.Format(".{0}", ApplicationViewModel.MiniUMLFileExtension) && typeOfDoc == "EdiTextEditor") || typeOfDoc == "UMLEditor")
 				{
 					fileViewModel = MiniUmlViewModel.LoadFile(filePath);
 				}
@@ -354,11 +399,18 @@ namespace EdiApp.ViewModels
 
 					// try to load a standard text file from the file system
 					fileViewModel = EdiViewModel.LoadFile(filePath,
-																								this.mSettingsManager,
-																								closeOnErrorWithoutMessage);
+					                                      this.mSettingsManager,
+					                                      closeOnErrorWithoutMessage);
 				}
 			}
 
+			return IntegrateDocumentVM(fileViewModel,filePath, AddIntoMRU);
+		}
+
+		private FileBaseViewModel IntegrateDocumentVM(FileBaseViewModel fileViewModel,
+		                                              string filePath,
+																									bool AddIntoMRU)
+		{
 			if (fileViewModel == null)
 			{
 
@@ -472,38 +524,37 @@ namespace EdiApp.ViewModels
 		#endregion NewCommand
 
 		#region OpenCommand
-		private void OnOpen(TypeOfDocument t = TypeOfDocument.EdiTextEditor)
+		/// <summary>
+		/// Open a type of document from file persistence with dialog
+		/// and user interaction.
+		/// </summary>
+		/// <param name="typeOfDocument"></param>
+		private void OnOpen(string typeOfDocument = "")
 		{
 			try
 			{
 				var dlg = new OpenFileDialog();
+				IFileFilterEntries fileEntries = null;
 
-				switch (t)
-				{
-					case TypeOfDocument.EdiTextEditor:
-						dlg.Filter = ApplicationViewModel.EdiTextEditorFileFilter;
-						break;
-
-					case TypeOfDocument.Log4NetView:
-						dlg.Filter = ApplicationViewModel.Log4netFileFilter;
-						break;
-
-					case TypeOfDocument.UMLEditor:
-						dlg.Filter = ApplicationViewModel.UMLFileFilter;
-						break;
-
-					default:
-						throw new NotImplementedException(t.ToString());
-				}
+				// Get filter strings for document specific filters or all filters
+				// depending on whether type of document is set to a key or not.
+				fileEntries = this.mDocumentTypeManager.GetFileFilterEntries(typeOfDocument);
+				dlg.Filter = fileEntries.GetFilterString();
 
 				dlg.Multiselect = true;
 				dlg.InitialDirectory = this.GetDefaultPath();
 
 				if (dlg.ShowDialog().GetValueOrDefault())
 				{
+					// Smallest value in filterindex is 1
+					FileOpenDelegate fo = fileEntries.GetFileOpenMethod(dlg.FilterIndex - 1);
+
 					foreach (string fileName in dlg.FileNames)
 					{
-						this.Open(fileName, CloseDocOnError.WithUserNotification, true, t);
+						// Execute file open method from delegate and integrate new viewmodel instance
+						var vm = fo(fileName, this.mSettingsManager);
+
+						IntegrateDocumentVM(vm, fileName, true);
 					}
 				}
 			}
@@ -835,7 +886,11 @@ namespace EdiApp.ViewModels
 				return false;
 
 			if (doc.CanSaveData == true)
-				return this.OnSaveDocumentFile(doc, saveAsFlag, ApplicationViewModel.GetDefaultFileFilter(doc));
+			{
+				var defaultFilter = ApplicationViewModel.GetDefaultFileFilter(doc, this.mDocumentTypeManager);
+
+				return this.OnSaveDocumentFile(doc, saveAsFlag, defaultFilter);
+			}
 
 			throw new NotSupportedException((doc != null ? doc.ToString() : Util.Local.Strings.STR_MSG_UnknownDocumentType));
 		}
@@ -848,19 +903,15 @@ namespace EdiApp.ViewModels
 		/// </summary>
 		/// <param name="f"></param>
 		/// <returns></returns>
-		internal static string GetDefaultFileFilter(IDocument f)
+		internal static string GetDefaultFileFilter(IDocument f, IDocumentTypeManager docManager)
 		{
 			if (f == null)
 				return string.Empty;
 
-			if (f is EdiViewModel)
-				return ApplicationViewModel.EdiTextEditorFileFilter;
+			var filefilter = docManager.GetFileFilterEntries(f.DocumentTypeKey);
 
-			if (f is MiniUmlViewModel)
-				return ApplicationViewModel.UMLFileFilter;
-
-			if (f is Log4NetViewModel)
-				return ApplicationViewModel.Log4netFileExtension;
+			if (filefilter != null)
+				return filefilter.GetFilterString();
 
 			return string.Empty;
 		}
@@ -1308,6 +1359,17 @@ namespace EdiApp.ViewModels
 						break;
 
 					default:
+						if (path.Contains("<") == true && path.Contains(">") == true)
+						{
+							this.mMessageManager.Output.AppendLine(
+								string.Format("Warning: Cannot resolve tool window or document page: '{0}'.", path));
+
+							this.mMessageManager.Output.AppendLine(
+								string.Format("Check the current program configuration to make that it is present.", path));
+
+							return null;
+						}
+
 						// Re-create Edi document (text file or log4net document) content
 						ret = this.Open(path, CloseDocOnError.WithoutUserNotification);
 						break;
@@ -1326,6 +1388,46 @@ namespace EdiApp.ViewModels
 		{
 			// Query for a RecentFiles tool window and return it
 			return this.Tools.FirstOrDefault(d => d as T != null) as T;
+		}
+
+		/// <summary>
+		/// Method executes when tool window registration publishers
+		/// relay the fact that a new tool window has been registered
+		/// via PRISM event aggregator notification.
+		/// </summary>
+		/// <param name="args"></param>
+		private void OnRegisterToolWindow(RegisterToolWindowEventArgs args)
+		{
+			if (args != null)
+			{
+				// This particular event is needed since the build in RecentFiles
+				// property is otherwise without content since it may be queried
+				// for the menu entry - before the tool window is registered
+				if (args.Tool is RecentFilesViewModel)
+					this.RaisePropertyChanged(() => this.RecentFiles);
+			}
+		}
+
+		/// <summary>
+		/// Is invoked when PRISM registers a module.
+		/// The output should be visible in the output tool window.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ModuleManager_LoadModuleCompleted(object sender, LoadModuleCompletedEventArgs e)
+		{
+			if (this.mMessageManager.Output != null)
+			{
+				this.mMessageManager.Output.AppendLine(
+				string.Format("Loading MEF Module: {0},\n" +
+											"                    Type: {1},\n" +
+											"     Initialization Mode: {2},\n" +
+											"                   State: {3}, Ref: '{4}'\n", e.ModuleInfo.ModuleName,
+																																		 e.ModuleInfo.ModuleType,
+																																		 e.ModuleInfo.InitializationMode,
+																																		 e.ModuleInfo.State,
+																																		 e.ModuleInfo.Ref));
+			}
 		}
 		#endregion methods
 	}
