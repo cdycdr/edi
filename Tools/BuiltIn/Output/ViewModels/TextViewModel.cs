@@ -494,7 +494,7 @@
 					delegate
 					{
 						if (text != null)
-							this.mDocument.Text += text;
+							this.mDocument.Insert(mDocument.TextLength, text);
 					}
 			));
 		}
