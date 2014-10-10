@@ -42,18 +42,21 @@
 			(s, e) =>
 			{
 				this.AppExit_CommandExecuted();
+				e.Handled = true;
 			}));
 
 			win.CommandBindings.Add(new CommandBinding(AppCommand.About,
 			(s, e) =>
 			{
 				this.AppAbout_CommandExecuted();
+				e.Handled = true;
 			}));
 
 			win.CommandBindings.Add(new CommandBinding(AppCommand.ProgramSettings,
 			(s, e) =>
 			{
 				this.AppProgramSettings_CommandExecuted();
+				e.Handled = true;
 			}));
 
 			win.CommandBindings.Add(new CommandBinding(AppCommand.ShowToolWindow,
@@ -95,10 +98,6 @@
 				}
 
 				this.OnNew(t);
-			},
-			(s, e) =>
-			{
-				e.CanExecute = true;
 			}
 			));
 
@@ -119,11 +118,8 @@
 
 				this.OnOpen(t);
 				e.Handled = true;
-			},
-			(s, e) =>
-			{
-				e.CanExecute = true;
-			}));
+			}
+			));
 
 			// Close Document command
 			// Closes the FileViewModel document supplied in e.parameter

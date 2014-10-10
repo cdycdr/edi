@@ -71,7 +71,7 @@ namespace Themes
       "/EdiDialogs;component/Themes/ModernDialogEx.xaml",
 
       "/Themes;component/Generic/Theme.xaml",
-      "/Edi;component/Themes/MetroLight.xaml",
+      "/EdiApp;component/Themes/MetroLight.xaml",
       "/FileListView;component/Images/GenericIcons.xaml"
     };
 		#endregion Generic theme resources
