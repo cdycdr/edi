@@ -12,6 +12,7 @@ namespace Edi
 	using Microsoft.Practices.Prism.MefExtensions;
 	using Microsoft.Practices.Prism.Modularity;
 	using MsgBox;
+	using Output.Views;
 	using Settings;
 	using Settings.Interfaces;
 	using Settings.ProgramSettings;
@@ -85,7 +86,7 @@ namespace Edi
 
 		protected override void ConfigureAggregateCatalog()
 		{
-			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog("Output.dll"));
+			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IOutputView).Assembly));
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IAppCoreModel).Assembly));
 			////this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(SettingsManager).Assembly));
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AvalonDockLayoutViewModel).Assembly));
