@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Name='!(wix.Product)' Id='4f533d35-a5ae-4978-aa83-6cfce20e1f71' UpgradeCode='1fd9dc9e-7bd5-4e56-978b-98632214a90e'
-    Language='1033' Codepage='1252' Version='1.0.5.3' Manufacturer='!(wix.Manufacturer)'>
+    Language='1033' Codepage='1252' Version='1.0.5.5' Manufacturer='!(wix.Manufacturer)'>
 
     <Package Id='*' Keywords='Text Editor, UML' Comments="text editor, uml, log4net"
              Manufacturer="!(wix.Manufacturer)" Description="!(wix.ProductDesc)"
@@ -12,7 +12,7 @@
 
     <!-- WixVariable Id="UpgradeCode" Value="XXX"/ -->
     <WixVariable Id="Manufacturer" Value="www.edi.codeplex.com"/>
-    <WixVariable Id="Product" Value="Edi 1.0.5.3"/>
+    <WixVariable Id="Product" Value="Edi 1.0.5.5"/>
     <WixVariable Id="ProductDesc" Value="Open source text editor build on C#/WPF"/>
     <WixVariable Id="ProductIcon" Value="Setup_EdiLogo.ico"/>
     <WixVariable Id="WixSubFiles" Value=".\01_SetupResources"/>
