@@ -82,6 +82,9 @@ namespace Edi
 			var output = this.Container.GetExportedValue<IMessageManager>();
 
 			output.Output.AppendLine("Get involved at: https://edi.codeplex.com/");
+
+			if (this.mEventArgs != null)
+				ProcessCmdLine(this.mEventArgs.Args, this.appVM);
 		}
 
 		protected override void ConfigureAggregateCatalog()
@@ -124,9 +127,6 @@ namespace Edi
 
 					this.mApp.ShutdownMode = System.Windows.ShutdownMode.OnLastWindowClose;
 					////this.mMainWin.Show();
-
-					if (this.mEventArgs != null)
-						ProcessCmdLine(this.mEventArgs.Args, this.appVM);
 				}
 				else
 					throw new Exception("Main Window construction failed in application boot strapper class.");
