@@ -19,9 +19,72 @@
                 <File Id="filEBF6C131744918BFB21C53E0BB181A35" KeyPath="yes" Source="00_Edi\Edi.exe.config" />
             </Component>
             <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9004215" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF26C9E}">
-                <File Id="filCDE4F68603F7CE489E6ADED950F58CAA" KeyPath="yes" Source="00_Edi\EdiViews.dll" >
+                <File Id="filCDE4F68603F7CE489E6ADED950F58CAA" KeyPath="yes" Source="00_Edi\Edi.Core.dll" >
                 </File>
             </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9004216" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF26C9F}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F58CAB" KeyPath="yes" Source="00_Edi\EdiApp.dll" >
+                </File>
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9004217" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF26CA0}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F58CAC" KeyPath="yes" Source="00_Edi\EdiDialogs.dll" >
+                </File>
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9004218" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF26CA1}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F58CAD" KeyPath="yes" Source="00_Edi\EdiDocuments.dll" >
+                </File>
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9004219" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF27CA1}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F58CAE" KeyPath="yes" Source="00_Edi\Files.dll" >
+                </File>
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB900421B" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF26CA3}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F58CB0" KeyPath="yes" Source="00_Edi\Output.dll" >
+                </File>
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB900421C" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF26CA4}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F58CB1" KeyPath="yes" Source="00_Edi\SettingsView.dll" >
+                </File>
+            </Component>
+			<!-- Microsoft.Expression.Interactions -->
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB900421D" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF26CA5}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F58CB2" KeyPath="yes" Source="00_Edi\Microsoft.Expression.Interactions.dll" >
+                </File>
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB900421E" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF26CA6}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F58CB3" KeyPath="yes" Source="00_Edi\Microsoft.Expression.Interactions.xml" >
+                </File>
+            </Component>
+			<!-- Microsoft.Practices.Prism -->
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005000" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25000}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55000" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.Composition.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005002" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25002}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55002" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.Interactivity.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005004" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25004}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55004" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.MefExtensions.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005006" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25006}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55006" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.Mvvm.Desktop.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005007" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25007}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55007" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.Mvvm.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005009" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25009}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55009" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.PubSubEvents.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB900500A" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF2500A}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F5500A" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.SharedInterfaces.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB900500C" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF2500C}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F5500C" KeyPath="yes" Source="00_Edi\Microsoft.Practices.ServiceLocation.dll" />
+            </Component>
+			<!-- Microsoft.Practices.Prism -->
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB900500E" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF2500E}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F5500E" KeyPath="yes" Source="00_Edi\System.Windows.Interactivity.dll" />
+            </Component>
+			
             <Component Win64="yes" Id="cmpE199BAC219D8B18D3C6F0FA47038F951" Directory="INSTALLDIR" Guid="{F25F91CA-BE75-4DE7-867D-7B0D465722D9}">
                 <File Id="fil55ED3524BB5EC91CFC4F3ACB9D9C69E9" KeyPath="yes" Source="00_Edi\FirstFloor.ModernUI.dll" >
                 </File>
@@ -122,6 +185,10 @@
             <!-- -->
             <Component Win64="yes" Id="cmpC43EAC81B77B99C399BF44209B3DE1DA" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3760}">
                 <File Id="filDEC8A182B6B6AA50B056296F8F226DCD" KeyPath="yes" Source="00_Edi\DropDownButtonLib.dll" >
+                </File>
+            </Component>
+            <Component Win64="yes" Id="cmpC43EAC81B77B99C399BF44209B3DE1DF" Directory="INSTALLDIR" Guid="{0E4E6913-0C52-4BC5-9D48-D31C32EC3765}">
+                <File Id="filDEC8A182B6B6AA50B056296F8F226DD2" KeyPath="yes" Source="00_Edi\DropDownButtonLib.xml" >
                 </File>
             </Component>
 
@@ -380,8 +447,11 @@
             <Component Win64="yes" Id="cmp9193D96312624DD384E32A2096ADFEC9" Directory="dir387A71CBF1800118442E9F820EF0ADA1" Guid="{ABCC632C-6073-42D6-A140-425A4BA39A4A}">
                 <File Id="fil41B67D99D7FFEA25280C6CB151CAD48D" KeyPath="yes" Source="00_Edi\ja-JP\FileSystemModels.resources.dll" />
             </Component>
-            <Component Win64="yes" Id="cmp6D5B65723EDFB596DBD85FE6BF577F01" Directory="dir7A53C9A2853EE836087479C3120BF490" Guid="{06AF0F52-CAD0-421F-A688-EA754F425850}">
-                <File Id="filD0F094DEAE459CFD07CE3D3F0FBB473E" KeyPath="yes" Source="00_Edi\MiniUML.Plugins\MiniUML.Plugins.UmlClassDiagram.dll" />
+            <Component Win64="yes" Id="cmp6D5B65723EDFB596DBD85FE6BF577F01" Directory="dir7A53C9A2853EE836087479C3120BF491" Guid="{06AF0F52-CAD0-421F-A688-EA754F425850}">
+                <File Id="filD0F094DEAE459CFD07CE3D3F0FBB473E" KeyPath="yes" Source="00_Edi\Plugins\UML\MiniUML.Plugins.UmlClassDiagram.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmp6D5B65723EDFB596DBD85FE6BF577F02" Directory="dir7A53C9A2853EE836087479C3120BF490" Guid="{06AF0F52-CAD0-421F-A688-EA754F425851}">
+                <File Id="filD0F094DEAE459CFD07CE3D3F0FBB473F" KeyPath="yes" Source="00_Edi\Plugins\Log4NetTools.dll" />
             </Component>
             <Component Win64="yes" Id="cmp656785F3C28A57AB29F05A68092DFEE8" Directory="dir9D7ED5769F7675368AE8DD122A422692" Guid="{97BF8FBF-7D7C-4909-8A53-BC1E3CF62A78}">
                 <File Id="filA0C654F28997923F16E45972321409FB" KeyPath="yes" Source="00_Edi\nl-NL\MsgBox.resources.dll" />
@@ -510,7 +580,12 @@
     </Fragment>
     <Fragment>
         <DirectoryRef Id="INSTALLDIR">
-            <Directory Id="dir7A53C9A2853EE836087479C3120BF490" Name="MiniUML.Plugins" />
+            <Directory Id="dir7A53C9A2853EE836087479C3120BF490" Name="Plugins" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir7A53C9A2853EE836087479C3120BF490">
+            <Directory Id="dir7A53C9A2853EE836087479C3120BF491" Name="UML" />
         </DirectoryRef>
     </Fragment>
     <Fragment>
