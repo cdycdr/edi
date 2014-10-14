@@ -80,9 +80,35 @@
             <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB900500C" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF2500C}">
                 <File Id="filCDE4F68603F7CE489E6ADED950F5500C" KeyPath="yes" Source="00_Edi\Microsoft.Practices.ServiceLocation.dll" />
             </Component>
+
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005010" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25010}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55010" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.Composition.xml" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005011" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25011}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55011" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.Interactivity.xml" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005012" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25012}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55012" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.MefExtensions.xml" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005013" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25013}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55013" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.Mvvm.xml" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005014" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25014}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55014" KeyPath="yes" Source="00_Edi\Microsoft.Practices.Prism.SharedInterfaces.xml" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005015" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25015}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55015" KeyPath="yes" Source="00_Edi\Microsoft.Practices.ServiceLocation.xml" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB9005016" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF25016}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F55016" KeyPath="yes" Source="00_Edi\NumericUpDownLib.xml" />
+            </Component>
+
 			<!-- Microsoft.Practices.Prism -->
             <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB900500E" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF2500E}">
                 <File Id="filCDE4F68603F7CE489E6ADED950F5500E" KeyPath="yes" Source="00_Edi\System.Windows.Interactivity.dll" />
+            </Component>
+            <Component Win64="yes" Id="cmpE41B814FDEA2478D66810EECB900500F" Directory="INSTALLDIR" Guid="{19BD61B8-A64A-4CAB-983B-7A84CCF2500F}">
+                <File Id="filCDE4F68603F7CE489E6ADED950F5500F" KeyPath="yes" Source="00_Edi\System.Windows.Interactivity.xml" />
             </Component>
 			
             <Component Win64="yes" Id="cmpE199BAC219D8B18D3C6F0FA47038F951" Directory="INSTALLDIR" Guid="{F25F91CA-BE75-4DE7-867D-7B0D465722D9}">

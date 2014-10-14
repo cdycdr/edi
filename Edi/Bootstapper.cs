@@ -91,12 +91,13 @@ namespace Edi
 		{
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IOutputView).Assembly));
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IAppCoreModel).Assembly));
-			////this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(SettingsManager).Assembly));
+
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(AvalonDockLayoutViewModel).Assembly));
 			this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstapper).Assembly));
 
-			////this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(FileStatsViewModel).Assembly));
-			////this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(StartPageViewModel).Assembly));
+			////Scan directory for content
+			////DirectoryCatalog catalog = new DirectoryCatalog("Plugins");
+			////this.AggregateCatalog.Catalogs.Add(catalog);
 		}
 
 		protected override DependencyObject CreateShell()
