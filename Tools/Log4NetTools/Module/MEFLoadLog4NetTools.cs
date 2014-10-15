@@ -62,8 +62,8 @@
 			this.RegisterDataTemplates(this.mAvLayout.ViewProperties.SelectPanesTemplate);
 			this.RegisterStyles(this.mAvLayout.ViewProperties.SelectPanesStyle);
 
-			this.mToolRegistry.RegisterTool(new Log4NetMessageToolViewModel());
 			this.mToolRegistry.RegisterTool(new Log4NetToolViewModel());
+			this.mToolRegistry.RegisterTool(new Log4NetMessageToolViewModel());
 
 			var docType = this.mDocumentTypeManager.RegisterDocumentType(Log4NetViewModel.DocumentKey,
 			                                                             Log4NetViewModel.Description,

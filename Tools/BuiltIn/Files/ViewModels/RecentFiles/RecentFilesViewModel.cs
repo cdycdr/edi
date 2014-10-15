@@ -1,6 +1,7 @@
 namespace Files.ViewModels.RecentFiles
 {
 	using System;
+	using Edi.Core.Interfaces.Enums;
 	using Settings.Interfaces;
 	using SimpleControls.MRU.ViewModel;
 
@@ -74,6 +75,11 @@ namespace Files.ViewModels.RecentFiles
 							}
 						}
 			 ***/
+		}
+
+		public override PaneLocation PreferredLocation
+		{
+			get { return PaneLocation.Right; }
 		}
 		#endregion properties
 

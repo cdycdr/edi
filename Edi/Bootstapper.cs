@@ -83,6 +83,11 @@ namespace Edi
 
 			output.Output.AppendLine("Get involved at: https://edi.codeplex.com/");
 
+		
+			var toolWindowRegistry = this.Container.GetExportedValue<IToolWindowRegistry>();
+
+			toolWindowRegistry.PublishTools();
+
 			if (this.mEventArgs != null)
 				ProcessCmdLine(this.mEventArgs.Args, this.appVM);
 		}

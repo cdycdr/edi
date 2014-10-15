@@ -2,6 +2,7 @@ namespace Log4NetTools.ViewModels
 {
 	using System;
 	using Edi.Core.Interfaces;
+	using Edi.Core.Interfaces.Enums;
 	using Edi.Core.ViewModels;
 
 	/// <summary>
@@ -64,6 +65,11 @@ namespace Log4NetTools.ViewModels
 			{
 				return (this.Log4NetVM != null);
 			}
+		}
+
+		public override PaneLocation PreferredLocation
+		{
+			get { return PaneLocation.Right; }
 		}
 		#endregion properties
 

@@ -1,10 +1,12 @@
 ﻿namespace Edi.Core.Models
 {
-	using System.Collections.ObjectModel;
-	using System.ComponentModel.Composition;
-	using Edi.Core.Interfaces;
-	using Edi.Core.ViewModels;
-	using EdiApp.Events;
+	using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using Edi.Core.Interfaces;
+using Edi.Core.ViewModels;
+using EdiApp.Events;
 
 	/// <summary>
 	/// Class to register and manage all tool windows in one common place.
@@ -14,12 +16,15 @@
 	{
 		#region fields
 		private readonly ObservableCollection<ToolViewModel> mItems = null;
+
+		private readonly List<ToolViewModel> mTodoTools = null;
 		#endregion fields
 
 		#region contructors
 		public ToolWindowRegistry()
 		{
 			this.mItems = new ObservableCollection<ToolViewModel>();
+			this.mTodoTools = new List<ToolViewModel>();
 		}
 		#endregion contructors
 
@@ -36,12 +41,29 @@
 		#endregion properties
 
 		#region methods
+		public void PublishTools()
+		{
+			foreach (var item in this.mTodoTools)
+			{
+				this.mItems.Add(item);
+			}
+
+			this.mTodoTools.Clear();
+		}
+
 		public void RegisterTool(ToolViewModel newTool)
 		{
-			this.mItems.Add(newTool);
+			try
+			{
+				this.mTodoTools.Add(newTool);
 
-			// Publish the fact that we have registered a new tool window instance
-			RegisterToolWindowEvent.Instance.Publish(new RegisterToolWindowEventArgs(newTool));
+				// Publish the fact that we have registered a new tool window instance
+				RegisterToolWindowEvent.Instance.Publish(new RegisterToolWindowEventArgs(newTool));
+			}
+			catch (Exception exp)
+			{
+				//throw new Exception("Tool window registration failed in ToolWindowRegistry.", exp);
+			}
 		}
 		#endregion methods
 	}

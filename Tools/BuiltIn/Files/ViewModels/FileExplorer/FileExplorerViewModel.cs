@@ -5,6 +5,7 @@ namespace Files.ViewModels.FileExplorer
 	using System.Windows;
 	using System.Windows.Input;
 	using Edi.Core.Interfaces;
+	using Edi.Core.Interfaces.Enums;
 	using Edi.Core.Models;
 	using Edi.Core.ViewModels;
 	using FileListView.Command;
@@ -179,6 +180,11 @@ namespace Files.ViewModels.FileExplorer
 		public ExplorerSettingsModel GetExplorerSettings(ExplorerSettingsModel input)
 		{
 			return this.Settings.GetExplorerSettings(input);
+		}
+
+		public override PaneLocation PreferredLocation
+		{
+			get { return PaneLocation.Right; }
 		}
 		#endregion properties
 

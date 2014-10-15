@@ -12,5 +12,6 @@
 		ObservableCollection<ToolViewModel> Tools { get; }
 
 		void RegisterTool(ToolViewModel newTool);
+		void PublishTools();
 	}
 }

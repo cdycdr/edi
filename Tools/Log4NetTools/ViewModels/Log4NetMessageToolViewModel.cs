@@ -2,13 +2,14 @@
 {
 	using System;
 	using Edi.Core.Interfaces;
+	using Edi.Core.Interfaces.Enums;
 	using Edi.Core.ViewModels;
 
 	/// <summary>
 	/// This viewmodel manages the functions of the Log4Net Message Tool Window    
 	/// which contains controls that display details on the Message and Throwable log4net fields.
 	/// </summary>
-	public class Log4NetMessageToolViewModel : Edi.Core.ViewModels.ToolViewModel, IRegisterableToolWindow
+	public class Log4NetMessageToolViewModel : ToolViewModel, IRegisterableToolWindow
 	{
 		#region fields
 		public const string ToolContentId = "<Log4NetMessageTool>";
@@ -65,6 +66,11 @@
 			{
 				return (this.Log4NetVM != null);
 			}
+		}
+
+		public override PaneLocation PreferredLocation
+		{
+			get { return PaneLocation.Bottom; }
 		}
 		#endregion properties
 

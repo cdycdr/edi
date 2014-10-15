@@ -4,6 +4,7 @@
 	using System.ComponentModel.Composition;
 	using System.IO;
 	using Edi.Core.Interfaces;
+	using Edi.Core.Interfaces.Enums;
 	using Edi.Core.ViewModels;
 
 	/// <summary>
@@ -55,6 +56,11 @@
 			{
 				return this.mText;
 			}
+		}
+
+		public override PaneLocation PreferredLocation
+		{
+			get { return PaneLocation.Bottom; }
 		}
 		#endregion properties
 
