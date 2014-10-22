@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Windows.Input;
+	using Edi.Core.Models.Enums;
 	using Edi.Core.ViewModels;
 
 	/// <summary>
@@ -42,6 +43,11 @@
 		/// results in not saving a layout (silent return).
 		/// </summary>
 		ICommand SaveLayoutCommand { get; }
+
+		/// <summary>
+		/// Verify whether a custom AvalonDock layout was loaded from persistence or not.
+		/// </summary>
+		LayoutLoaded LayoutSoure { get; }
 
 		/// <summary>
 		/// (Re-)Assigns the internal parent layout property to the new parent <paramref name="parent"/>.

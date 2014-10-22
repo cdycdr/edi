@@ -159,6 +159,7 @@
     <Compile Include="Models\DocTypes\DocumentTypeItem.cs" />
     <Compile Include="Models\DocTypes\FileFilterEntries.cs" />
     <Compile Include="Models\DocTypes\FileFilterEntry.cs" />
+    <Compile Include="Models\Enums\LayoutLoaded.cs" />
     <Compile Include="Models\Events\RegisterToolWindowEvent.cs" />
     <Compile Include="Models\Events\RegisterToolWindowEventArgs.cs" />
     <Compile Include="Models\DocTypes\DocumentTypeManager.cs" />

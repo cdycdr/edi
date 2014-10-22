@@ -7,10 +7,10 @@ namespace EdiApp.ViewModels
 	using System.Threading.Tasks;
 	using System.Windows.Input;
 	using Edi.Core.Interfaces;
+	using Edi.Core.Models.Enums;
 	using Edi.Core.ViewModels;
 	using Edi.Core.ViewModels.Command;
 	using EdiApp.Events;
-	using Settings;
 	using Settings.Interfaces;
 	using Xceed.Wpf.AvalonDock;
 
@@ -44,6 +44,8 @@ namespace EdiApp.ViewModels
 		public AvalonDockLayoutViewModel(ISettingsManager programSettings,
 																		 IMessageManager messageManager)
 		{
+			this.LayoutSoure = LayoutLoaded.FromDefault;
+
 			this.mProgramSettings = programSettings;
 			this.mMessageManager = messageManager;
 
@@ -71,6 +73,8 @@ namespace EdiApp.ViewModels
 		}
 
 		public AvalonDockViewProperties ViewProperties { get; set; }
+
+		public LayoutLoaded LayoutSoure { get; private set; }
 
 		#region command properties
 		/// <summary>
@@ -168,33 +172,14 @@ namespace EdiApp.ViewModels
 				taskToProcess = Task.Factory.StartNew<string>((stateObj) =>
 				{
 					// Begin Aysnc Task
-					////this.mParent.IsBusy = true;
-
-					////string lastActiveFile = SettingsManager.Instance.SessionData.LastActiveFile;
 					string layoutFileName = System.IO.Path.Combine(this.mAppDir, this.mLayoutFileName);
-					string defaultLayoutAssembly = "EdiApp.AvalonDockDefaults.";
-					string defaultLayout = "Layout.config";
 					string xmlWorkspaces = string.Empty;
-
-
-					////WorkspaceItemsCollection workcoll = null;
 
 					try
 					{
-						////layoutFileName = System.IO.Path.Combine(this.mParent.DirAppData, AvalonDockLayoutViewModel.WorkspaceLayoutFileName);
-						////
-						////if (System.IO.File.Exists(layoutFileName) == false)
-						////{
-						////	workcoll = new WorkspaceItemsCollection(this.LoadWorkspaceDefaultDefinition());
-						////	this.mParent.AvailableWorkspaces.ReloadWorkspaces(workcoll);
-						////
-						////	return string.Empty;
-						////}
 						try
 						{
-							if (System.IO.File.Exists(layoutFileName) == false)
-								xmlWorkspaces = this.GetResourceTextFile(defaultLayoutAssembly, defaultLayout);
-							else
+							if (System.IO.File.Exists(layoutFileName) == true)
 							{
 								this.mMessageManager.Output.AppendLine(string.Format(" from file: '{0}'", layoutFileName));
 
@@ -207,17 +192,15 @@ namespace EdiApp.ViewModels
 								}
 							}
 						}
-						catch (Exception)
+						catch
 						{
-							xmlWorkspaces = this.GetResourceTextFile(defaultLayoutAssembly, defaultLayout);
 						}
 
-						if (string.IsNullOrEmpty(xmlWorkspaces) == true)
-							xmlWorkspaces = this.GetResourceTextFile(defaultLayoutAssembly, defaultLayout);
-
-						//// workcoll = WorkspaceItemsCollection.DecodeXmlWorkspaceLayout(xmlWorkspaces);
-						//// this.mParent.AvailableWorkspaces.ReloadWorkspaces(workcoll);
-						LoadLayoutEvent.Instance.Publish(new LoadLayoutEventArgs(xmlWorkspaces, layoutID));
+						if (string.IsNullOrEmpty(xmlWorkspaces) == false)
+						{
+							this.LayoutSoure = LayoutLoaded.FromStorage;
+							LoadLayoutEvent.Instance.Publish(new LoadLayoutEventArgs(xmlWorkspaces, layoutID));
+						}
 					}
 					catch (OperationCanceledException exp)
 					{
@@ -252,14 +235,14 @@ namespace EdiApp.ViewModels
 			string result = string.Empty;
 			this.mMessageManager.Output.AppendLine(string.Format("Layout from Resource '{0}', '{1}'", assemblyNameSpace, filename));
 
-			using (Stream stream = this.GetType().Assembly.
-						 GetManifestResourceStream(assemblyNameSpace + filename))
-			{
-				using (StreamReader sr = new StreamReader(stream))
-				{
-					result = sr.ReadToEnd();
-				}
-			}
+			////using (Stream stream = this.GetType().Assembly.
+			////			 GetManifestResourceStream(assemblyNameSpace + filename))
+			////{
+			////	using (StreamReader sr = new StreamReader(stream))
+			////	{
+			////		result = sr.ReadToEnd();
+			////	}
+			////}
 
 			return result;
 		}

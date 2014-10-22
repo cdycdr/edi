@@ -21,11 +21,11 @@
           </ControlTemplate.Resources>
 
           <avalonDock:DockingManager AnchorablesSource="{Binding Tools}" Name="PART_DockView"
-                                      DocumentsSource="{Binding Files}"
-                                      ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}"
-                                      behav:AvalonDockLayoutSerializer.LoadLayoutCommand="{Binding ADLayout.LoadLayoutCommand}"
-																			behav:DropFileCommand.DropCommand="cmd:AppCommand.LoadFile"
-                                      AllowDrop="True"
+                                     DocumentsSource="{Binding Files}"
+                                     ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}"
+                                     behav:AvalonDockLayoutSerializer.LoadLayoutCommand="{Binding ADLayout.LoadLayoutCommand}"
+																		 behav:DropFileCommand.DropCommand="cmd:AppCommand.LoadFile"
+                                     AllowDrop="True"
                                       >
             <avalonDock:DockingManager.DocumentContextMenu>
               <ContextMenu xmlns:AvalondockConv="clr-namespace:Xceed.Wpf.AvalonDock.Converters;assembly=Xceed.Wpf.AvalonDock"
@@ -81,13 +81,15 @@
               </ContextMenu>
             </avalonDock:DockingManager.DocumentContextMenu>
 
-						<avalonDock:LayoutRoot>
-							<avalonDock:LayoutPanel x:Name="VerticalPanel" Orientation="Vertical">
-								<avalonDock:LayoutPanel x:Name="HorizontalPanel" Orientation="Horizontal">
-									<avalonDock:LayoutDocumentPane />
-								</avalonDock:LayoutPanel>
-							</avalonDock:LayoutPanel>
-						</avalonDock:LayoutRoot>
+            <avalonDock:LayoutRoot>
+              <avalonDock:LayoutPanel Orientation="Horizontal">
+                <avalonDock:LayoutDocumentPaneGroup>
+                  <avalonDock:LayoutDocumentPane>
+                    <avalonDock:LayoutDocument IsSelected="True" ContentId=">StartPage&lt;" />
+                  </avalonDock:LayoutDocumentPane>
+                </avalonDock:LayoutDocumentPaneGroup>
+              </avalonDock:LayoutPanel>
+            </avalonDock:LayoutRoot>
 
 					</avalonDock:DockingManager>
         </ControlTemplate>

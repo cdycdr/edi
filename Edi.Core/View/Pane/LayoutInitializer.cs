@@ -12,106 +12,100 @@
 	/// <summary>
 	/// Initialize the AvalonDock Layout. Methods in this class
 	/// are called before and after the layout is changed.
-	/// 
-	/// See Source:
-	/// https://github.com/tgjones/gemini/blob/master/src/Gemini/Modules/Shell/Controls/LayoutInitializer.cs
 	/// </summary>
 	public class LayoutInitializer : ILayoutUpdateStrategy
 	{
+		/// <summary>
+		/// Method is called when a completely new layout item is
+		/// to be inserted into the current avalondock layout.
+		/// </summary>
+		/// <param name="layout"></param>
+		/// <param name="anchorableToShow"></param>
+		/// <param name="destinationContainer"></param>
+		/// <returns></returns>
 		public bool BeforeInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableToShow, ILayoutContainer destinationContainer)
 		{
 			var tool = anchorableToShow.Content as IToolWindow;
 			if (tool != null)
 			{
 				var preferredLocation = tool.PreferredLocation;
-				string paneName = GetPaneName(preferredLocation);
 
-				var toolsPane = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(d => d.Name == paneName);
+				LayoutAnchorGroup layoutGroup = null;
 
-				if (toolsPane == null)
+				switch (preferredLocation)
 				{
-					switch (preferredLocation)
-					{
-						case PaneLocation.Left:
-							toolsPane = CreateAnchorablePane(layout, Orientation.Horizontal, paneName, InsertPosition.Start);
-							break;
+					case PaneLocation.Left:
+						layoutGroup = FindAnchorableGroup(layout, preferredLocation);
+						break;
 
-						case PaneLocation.Right:
-							toolsPane = CreateAnchorablePane(layout, Orientation.Horizontal, paneName, InsertPosition.End);
-							break;
+					case PaneLocation.Right:
+						layoutGroup = FindAnchorableGroup(layout, preferredLocation);
+						break;
 
-						case PaneLocation.Bottom:
-							toolsPane = CreateAnchorablePane(layout, Orientation.Vertical, paneName, InsertPosition.End);
-							break;
+					case PaneLocation.Bottom:
+						layoutGroup = FindAnchorableGroup(layout, preferredLocation);
+						break;
 
-						default:
-							throw new ArgumentOutOfRangeException();
-					}
+					default:
+						throw new ArgumentOutOfRangeException();
 				}
 
-				toolsPane.Children.Add(anchorableToShow);
+				if (layoutGroup != null)
+				{
+					////group.InsertChildAt(0, anchorableToShow);
+					layoutGroup.Children.Add(anchorableToShow);
+				}
+
 				return true;
 			}
 
 			return false;
 		}
 
-		private static string GetPaneName(PaneLocation location)
-		{
-			switch (location)
-			{
-				case PaneLocation.Left:
-					return "LeftPane";
-
-				case PaneLocation.Right:
-					return "RightPane";
-
-				case PaneLocation.Bottom:
-					return "BottomPane";
-
-				default:
-					throw new ArgumentOutOfRangeException("location");
-			}
-		}
-
-		private static LayoutAnchorablePane CreateAnchorablePane(LayoutRoot layout,
-																														 Orientation orientation,
-																														 string paneName,
-																														 InsertPosition position)
+		private static LayoutAnchorGroup FindAnchorableGroup(LayoutRoot layout,
+		                                                     PaneLocation location)
 		{
 			try
 			{
-				LayoutPanel parent = null;
+				LayoutAnchorSide panelGroupParent = null;
 
-				try
+				switch (location)
 				{
-					parent = layout.Descendents().OfType<LayoutPanel>().First(d => d.Orientation == orientation);
+					case PaneLocation.Left:
+						panelGroupParent = layout.LeftSide;
+					break;
+
+					case PaneLocation.Right:
+						panelGroupParent = layout.RightSide;
+					break;
+
+					case PaneLocation.Bottom:
+						panelGroupParent = layout.BottomSide;
+					break;
+
+					default:
+						throw new ArgumentOutOfRangeException("location:" + location);
 				}
-				catch (Exception)
+
+				if (panelGroupParent.Children.Count == 0)
 				{
-					parent = layout.GetRoot().RootPanel;
+					var layoutAnchorGroup = new LayoutAnchorGroup();
+
+					panelGroupParent.Children.Add(layoutAnchorGroup);
+
+					return layoutAnchorGroup;
 				}
-
-				var toolsPane = new LayoutAnchorablePane { Name = paneName };
-
-				if (position == InsertPosition.Start)
-					parent.InsertChildAt(0, toolsPane);
 				else
-					parent.Children.Add(toolsPane);
+				{
+					return panelGroupParent.Children[0];
+				}
 
-				return toolsPane;
 			}
 			catch (Exception exp)
 			{
-				throw new Exception(string.Format("Failed to initialize layout for: {0}, {1}, {2}",
-																														orientation, paneName, position), exp);
 			}
-		}
 
-		private enum InsertPosition
-		{
-			Start,
-			End
+			return null;
 		}
 
 		public void AfterInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableShown)

@@ -58,7 +58,7 @@
 
         <Directory Id="INSTALLDIR" Name="Edi">
 
-          <Component Id="EdiConfig" Guid="19685467-f935-4210-a585-a51f9beda693" KeyPath="yes">
+          <Component Id="EdiConfig" Guid="19685467-f935-4210-a585-a51f9beda693" KeyPath="yes" Win64="yes">
             <!-- Insert files, registry keys, and other resources here. -->
 
             <!-- Adjust module path for standard PRISM/MEF modules with XmlFile utility

@@ -31,6 +31,17 @@
 																			 int sortPriority = 0
 																			 );
 
+		/// <summary>
+		/// Finds a document type that can handle a file
+		/// with the given file extension eg ".txt" or "txt"
+		/// when the original file name was "Readme.txt".
+		/// 
+		/// Always returns the 1st document type handler that matches the extension.
+		/// </summary>
+		/// <param name="fileExtension"></param>
+		/// <param name="trimPeriod">Determines if an additional '.' character is removed
+		/// from the given extension string or not.</param>
+		/// <returns></returns>
 		IDocumentType FindDocumentTypeByExtension(string fileExtension,
 																							bool trimPeriod = false);
 

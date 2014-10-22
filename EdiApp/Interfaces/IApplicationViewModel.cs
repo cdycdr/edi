@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Windows;
+	using Edi.Core.Interfaces;
 	using Edi.Core.ViewModels;
 	using EdiApp.Enums;
 	using MiniUML.Model.ViewModels.Document;
@@ -30,6 +31,11 @@
 		bool? IsNotMaximized { get; set; }
 
 		bool ShutDownInProgress_Cancel { get; set; }
+
+		/// <summary>
+		/// Expose command to load/save AvalonDock layout on application startup and shut-down.
+		/// </summary>
+		IAvalonDockLayoutViewModel ADLayout{ get; }
 		#endregion properties
 
 		#region methods

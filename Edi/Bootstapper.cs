@@ -5,6 +5,7 @@ namespace Edi
 	using System.ComponentModel.Composition;
 	using System.ComponentModel.Composition.Hosting;
 	using System.Windows;
+	using Edi.Core;
 	using Edi.Core.Interfaces;
 	using EdiApp.Interfaces.ViewModel;
 	using EdiApp.ViewModels;
@@ -78,18 +79,20 @@ namespace Edi
 		{
 			base.Run(runWithDefaultConfiguration);
 
-			// modules (and everything else) have been initialized when you get here
-			var output = this.Container.GetExportedValue<IMessageManager>();
-
-			output.Output.AppendLine("Get involved at: https://edi.codeplex.com/");
-
-		
+			// Register imported tool window definitions with Avalondock
 			var toolWindowRegistry = this.Container.GetExportedValue<IToolWindowRegistry>();
-
 			toolWindowRegistry.PublishTools();
+
+			// Show the startpage if application starts for the very first time
+			if (this.appVM.ADLayout.LayoutSoure == Core.Models.Enums.LayoutLoaded.FromDefault)
+				AppCommand.ShowStartPage.Execute(null, null);
 
 			if (this.mEventArgs != null)
 				ProcessCmdLine(this.mEventArgs.Args, this.appVM);
+
+			// modules (and everything else) have been initialized when you get here
+			var output = this.Container.GetExportedValue<IMessageManager>();
+			output.Output.AppendLine("Get involved at: https://edi.codeplex.com/");
 		}
 
 		protected override void ConfigureAggregateCatalog()

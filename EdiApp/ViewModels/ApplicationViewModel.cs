@@ -556,6 +556,11 @@ namespace EdiApp.ViewModels
 
 						IntegrateDocumentVM(vm, fileName, true);
 					}
+
+					// Pre-select this document type in collection of document types that can be opened and viewed
+					var typeOfDocKey = this.mDocumentTypeManager.FindDocumentTypeByKey(typeOfDocument);
+					if (typeOfDocKey != null)
+						this.SelectedOpenDocumentType = typeOfDocKey;
 				}
 			}
 			catch (Exception exp)

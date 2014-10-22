@@ -1,4 +1,6 @@
 @ECHO OFF
+pushd "%~dp0"
+ECHO.
 
 ECHO.
 ECHO Generating MSI file please wait...
@@ -18,4 +20,6 @@ REM
 
 del Edi_x64.wixpdb
 
+IF "%1"=="continue" GOTO Continue
 PAUSE
+:Continue
