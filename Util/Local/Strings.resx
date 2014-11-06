@@ -995,4 +995,12 @@ All Files (*.*)|*.*</value>
     <value>Tool Windows</value>
     <comment>Menu entry to toggle visibility of tool windows </comment>
   </data>
+  <data name="CMD_APP_ToggleOptimizeWorkspace_Description" xml:space="preserve">
+    <value>Toggle display of optional elements like statusbar and toolbar.</value>
+    <comment>Description of command to toggle display of optional elements like statusbar and toolbar.</comment>
+  </data>
+  <data name="STR_CmdName_View_OptimizedWorkSpace" xml:space="preserve">
+    <value>Optimize Workspace</value>
+    <comment>Command name shown in menu</comment>
+  </data>
 </root>

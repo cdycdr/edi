@@ -30,6 +30,17 @@
 		/// </summary>
 		bool? IsNotMaximized { get; set; }
 
+		/// <summary>
+		/// Gets/sets whether the workspace area is optimized or not.
+		/// The optimized workspace is distructive free and does not
+		/// show optional stuff like toolbar and status bar.
+		/// </summary>
+		bool IsWorkspaceAreaOptimized { get; set; }
+
+		/// <summary>
+		/// Gets/sets whether the current application shut down process
+		/// is cancelled or not.
+		/// </summary>
 		bool ShutDownInProgress_Cancel { get; set; }
 
 		/// <summary>

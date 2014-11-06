@@ -108,6 +108,8 @@
 					new ViewPosSizeModel(win.Left, win.Top, win.Width, win.Height,
 															 (win.WindowState == WindowState.Maximized ? true : false));
 
+				this.mSettingsManager.SessionData.IsWorkspaceAreaOptimized = this.IsWorkspaceAreaOptimized;
+
 				// Save/initialize program options that determine global programm behaviour
 				this.SaveConfigOnAppClosed();
 			}

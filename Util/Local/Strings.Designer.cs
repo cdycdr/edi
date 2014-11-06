@@ -142,6 +142,15 @@ namespace Util.Local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle display of optional elements like statusbar and toolbar..
+        /// </summary>
+        public static string CMD_APP_ToggleOptimizeWorkspace_Description {
+            get {
+                return ResourceManager.GetString("CMD_APP_ToggleOptimizeWorkspace_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change theme.
         /// </summary>
         public static string CMD_APP_ViewTheme_Description {
@@ -1011,6 +1020,15 @@ namespace Util.Local {
         public static string STR_CmdName_View {
             get {
                 return ResourceManager.GetString("STR_CmdName_View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimize Workspace.
+        /// </summary>
+        public static string STR_CmdName_View_OptimizedWorkSpace {
+            get {
+                return ResourceManager.GetString("STR_CmdName_View_OptimizedWorkSpace", resourceCulture);
             }
         }
         

@@ -25,6 +25,8 @@
 		private static RoutedUICommand browseURL;
 		private static RoutedUICommand showStartPage;
 
+		private static RoutedUICommand toggleOptimizeWorkspace;
+
 		#region Text Edit Commands
 		private static RoutedUICommand gotoLine;
 		private static RoutedUICommand findText;
@@ -99,6 +101,9 @@
 
 			inputs = new InputGestureCollection();
 			AppCommand.showStartPage = new RoutedUICommand(Strings.CMD_APP_ShowStartPage_Description, "StartPage", typeof(AppCommand), inputs);
+
+			inputs = new InputGestureCollection();
+			AppCommand.toggleOptimizeWorkspace = new RoutedUICommand(Strings.CMD_APP_ToggleOptimizeWorkspace_Description, "ToggleOptimizeWorkspace", typeof(AppCommand), inputs);
 
 			#region Text Edit Commands
 			inputs = new InputGestureCollection();
@@ -242,6 +247,14 @@
 		public static RoutedUICommand ShowStartPage
 		{
 			get { return AppCommand.showStartPage; }
+		}
+
+		/// <summary>
+		/// Static property of the correspondong <seealso cref="System.Windows.Input.RoutedUICommand"/>
+		/// </summary>
+		public static RoutedUICommand ToggleOptimizeWorkspace
+		{
+			get { return AppCommand.toggleOptimizeWorkspace; }
 		}
 
 		#region Text Edit Commands

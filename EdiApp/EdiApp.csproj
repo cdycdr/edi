@@ -130,9 +130,6 @@
     <Compile Include="Behaviors\DropFileCommand.cs" />
     <Compile Include="Behaviors\GetADLayoutOnWindowClosedCommand.cs" />
     <Compile Include="Converters\ActiveDocumentConverter.cs" />
-    <Compile Include="Converters\BooleanConverter.cs" />
-    <Compile Include="Converters\BooleanNotConverter.cs" />
-    <Compile Include="Converters\BooleanToVisibilityConverter .cs" />
     <Compile Include="Enums\CloseDocOnError.cs" />
     <Compile Include="Enums\ToggleEditorOption.cs" />
     <Compile Include="Enums\TypeOfDocument.cs" />

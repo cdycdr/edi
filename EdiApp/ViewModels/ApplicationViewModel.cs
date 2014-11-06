@@ -11,7 +11,7 @@ namespace EdiApp.ViewModels
 	using System.Windows.Input;
 	using System.Windows.Threading;
 	using Edi.Core.Interfaces;
-	using Edi.Core.Interfaces.DocType;
+	using Edi.Core.Interfaces.DocumentTypes;
 	using Edi.Core.ViewModels;
 	using Edi.Core.ViewModels.Base;
 	using Edi.Core.ViewModels.Events;
@@ -32,6 +32,8 @@ namespace EdiApp.ViewModels
 	using SettingsView.Config.ViewModels;
 	using SimpleControls.MRU.ViewModel;
 	using Themes.Interfaces;
+	using Edi.Core.Interfaces.Documents;
+	using Edi.Core.Models.Documents;
 
 	[Export(typeof(IApplicationViewModel))]
 	[Export(typeof(IFileOpenService))]
@@ -59,6 +61,7 @@ namespace EdiApp.ViewModels
 
 		private bool? mDialogCloseResult = null;
 		private bool? mIsNotMaximized = null;
+		private bool mIsWorkspaceAreaOptimized = false;
 
 		private bool mShutDownInProgress = false;
 		private bool mShutDownInProgress_Cancel = false;
@@ -111,7 +114,7 @@ namespace EdiApp.ViewModels
 			this.mFiles = new ObservableCollection<IDocument>();
 
 			// Subscribe to publsihers who relay the fact that a new tool window has been registered
-      // Register this methods to receive PRISM event notifications
+			// Register this methods to receive PRISM event notifications
 			RegisterToolWindowEvent.Instance.Subscribe(this.OnRegisterToolWindow, ThreadOption.BackgroundThread);
 		}
 		#endregion constructor
@@ -226,7 +229,7 @@ namespace EdiApp.ViewModels
 			{
 				return this.mSelectedOpenDocumentType;
 			}
-			
+
 			private set
 			{
 				if (this.mSelectedOpenDocumentType != value)
@@ -235,7 +238,7 @@ namespace EdiApp.ViewModels
 					this.RaisePropertyChanged(() => this.SelectedOpenDocumentType);
 				}
 			}
-	  }
+		}
 
 		public ObservableCollection<IDocumentType> DocumentTypes
 		{
@@ -366,49 +369,50 @@ namespace EdiApp.ViewModels
 			// Verify whether file is already open in editor, and if so, show it
 			FileBaseViewModel fileViewModel = this.Documents.FirstOrDefault(fm => fm.FilePath == filePath);
 
-			if (fileViewModel != null)
+			if (fileViewModel != null) // File is already open so show it to the user
 			{
-				this.ActiveDocument = fileViewModel; // File is already open so show it to the user
-
+				this.ActiveDocument = fileViewModel;
 				return fileViewModel;
 			}
 
-			string fileExtension = System.IO.Path.GetExtension(filePath);
+			IDocumentModel dm = new DocumentModel();
+			dm.SetFileNamePath(filePath, true);
 
-			var docType = this.mDocumentTypeManager.FindDocumentTypeByExtension(fileExtension, true);
+			// 1st try to find a document type handler based on the supplied extension
+			var docType = this.mDocumentTypeManager.FindDocumentTypeByExtension(dm.FileExtension, true);
 
+			// 2nd try to find a document type handler based on the name of the prefered viewer
+			// (Defaults to EdiTextEditor if no name is given)
 			if (docType == null)
 				docType = this.mDocumentTypeManager.FindDocumentTypeByKey(typeOfDoc);
 
 			if (docType != null)
 			{
-				fileViewModel = docType.FileOpenMethod(filePath, this.mSettingsManager);
+				fileViewModel = docType.FileOpenMethod(dm, this.mSettingsManager);
 			}
 			else
 			{
-				if ((fileExtension == string.Format(".{0}", ApplicationViewModel.MiniUMLFileExtension) && typeOfDoc == "EdiTextEditor") || typeOfDoc == "UMLEditor")
-				{
-					fileViewModel = MiniUmlViewModel.LoadFile(filePath);
-				}
-				else
-				{
+				////if ((dm.FileExtension == string.Format(".{0}", ApplicationViewModel.MiniUMLFileExtension) && typeOfDoc == "EdiTextEditor") || typeOfDoc == "UMLEditor")
+				////{
+				////	fileViewModel = MiniUmlViewModel.LoadFile(filePath);
+				////}
+				////else
+				////{
 					bool closeOnErrorWithoutMessage = false;
 
 					if (closeDocumentWithoutMessageOnError == CloseDocOnError.WithoutUserNotification)
 						closeOnErrorWithoutMessage = true;
 
-					// try to load a standard text file from the file system
-					fileViewModel = EdiViewModel.LoadFile(filePath,
-					                                      this.mSettingsManager,
-					                                      closeOnErrorWithoutMessage);
-				}
+					// try to load a standard text file from the file system as a fallback method
+					fileViewModel = EdiViewModel.LoadFile(filePath, this.mSettingsManager, closeOnErrorWithoutMessage);
+				////}
 			}
 
-			return IntegrateDocumentVM(fileViewModel,filePath, AddIntoMRU);
+			return IntegrateDocumentVM(fileViewModel, filePath, AddIntoMRU);
 		}
 
 		private FileBaseViewModel IntegrateDocumentVM(FileBaseViewModel fileViewModel,
-		                                              string filePath,
+																									string filePath,
 																									bool AddIntoMRU)
 		{
 			if (fileViewModel == null)
@@ -551,8 +555,11 @@ namespace EdiApp.ViewModels
 
 					foreach (string fileName in dlg.FileNames)
 					{
+						var dm = new DocumentModel();
+						dm.SetFileNamePath(fileName, true);
+
 						// Execute file open method from delegate and integrate new viewmodel instance
-						var vm = fo(fileName, this.mSettingsManager);
+						var vm = fo(dm, this.mSettingsManager);
 
 						IntegrateDocumentVM(vm, fileName, true);
 					}
@@ -1113,6 +1120,28 @@ namespace EdiApp.ViewModels
 				{
 					this.mIsNotMaximized = value;
 					this.RaisePropertyChanged(() => this.IsNotMaximized);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Gets/sets whether the workspace area is optimized or not.
+		/// The optimized workspace is distructive free and does not
+		/// show optional stuff like toolbar and status bar.
+		/// </summary>
+		public bool IsWorkspaceAreaOptimized
+		{
+			get
+			{
+				return this.mIsWorkspaceAreaOptimized;
+			}
+
+			set
+			{
+				if (this.mIsWorkspaceAreaOptimized != value)
+				{
+					this.mIsWorkspaceAreaOptimized = value;
+					this.RaisePropertyChanged(() => this.IsWorkspaceAreaOptimized);
 				}
 			}
 		}

@@ -229,6 +229,13 @@
                   Command="cmd:AppCommand.ShowStartPage"
                   
                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"  />
+
+        <MenuItem Header="{x:Static cmdLabel:Strings.STR_CmdName_View_OptimizedWorkSpace}"
+                  Command="cmd:AppCommand.ToggleOptimizeWorkspace"
+                  IsCheckable="False"
+                  IsChecked="{Binding IsWorkspaceAreaOptimized}"
+                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"  />
+        
       </MenuItem>
 
       <!-- XXXXXXXXXXXXXXXXXXXX -->

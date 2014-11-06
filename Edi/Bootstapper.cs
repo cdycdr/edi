@@ -84,6 +84,7 @@ namespace Edi
 			toolWindowRegistry.PublishTools();
 
 			// Show the startpage if application starts for the very first time
+			// (This requires that command binding was succesfully done before this line)
 			if (this.appVM.ADLayout.LayoutSoure == Core.Models.Enums.LayoutLoaded.FromDefault)
 				AppCommand.ShowStartPage.Execute(null, null);
 
@@ -257,6 +258,8 @@ namespace Edi
 				workSpace.IsNotMaximized = false;
 			else
 				workSpace.IsNotMaximized = true;
+
+			workSpace.IsWorkspaceAreaOptimized = settings.SessionData.IsWorkspaceAreaOptimized;
 
 			string lastActiveFile = settings.SessionData.LastActiveFile;
 

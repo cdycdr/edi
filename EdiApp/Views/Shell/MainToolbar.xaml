@@ -1,23 +1,29 @@
 <UserControl x:Class="EdiApp.Views.Shell.MainToolbar"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
 
-            xmlns:vm="clr-namespace:EdiApp.Enums"
+    xmlns:vm="clr-namespace:EdiApp.Enums"
 
-            xmlns:adconv="clr-namespace:EdiDocuments.Converter;assembly=EdiDocuments"
-            xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit.Highlighting;assembly=ICSharpCode.AvalonEdit"
-            xmlns:cmd="clr-namespace:Edi.Core;assembly=Edi.Core"
-            xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
-            xmlns:behav="clr-namespace:Edi.Core.Behaviour;assembly=Edi.Core"
+    xmlns:conv="clr-namespace:Edi.Core.Converters;assembly=Edi.Core"
+    xmlns:adconv="clr-namespace:EdiDocuments.Converter;assembly=EdiDocuments"
+    xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit.Highlighting;assembly=ICSharpCode.AvalonEdit"
+    xmlns:cmd="clr-namespace:Edi.Core;assembly=Edi.Core"
+    xmlns:cmdLabel="clr-namespace:Util.Local;assembly=Util"
+    xmlns:behav="clr-namespace:Edi.Core.Behaviour;assembly=Edi.Core"
 
-             xmlns:ctrls="clr-namespace:DropDownButtonLib.Controls;assembly=DropDownButtonLib"
-             xmlns:themes="clr-namespace:DropDownButtonLib.Core.Themes;assembly=DropDownButtonLib"
-                          >  <!--d:DesignHeight="300" d:DesignWidth="300"-->
-  <Grid>
-    <ToolBarTray Grid.Row="1" SnapsToDevicePixels="True" >
+    xmlns:ctrls="clr-namespace:DropDownButtonLib.Controls;assembly=DropDownButtonLib"
+    xmlns:themes="clr-namespace:DropDownButtonLib.Core.Themes;assembly=DropDownButtonLib"
+  
+		Visibility="{Binding IsWorkspaceAreaOptimized, Converter={conv:BoolToVisibilityConverter}, ConverterParameter=true}">
+  <!--d:DesignHeight="300" d:DesignWidth="300"-->
+  <UserControl.Resources>
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+  </UserControl.Resources>
+	<Grid>
+    <ToolBarTray Grid.Row="1" SnapsToDevicePixels="True">
       <ToolBar  VerticalAlignment="Stretch" ToolBarTray.IsLocked="True"
                 SnapsToDevicePixels="True"
                 behav:HideToolbarOverflowButton.HideGrip="True">
@@ -179,7 +185,7 @@
           <Image Source="{DynamicResource Image_Tabs}" Height="32"/>
         </ToggleButton>
 
-				<Separator Visibility="{Binding Path=ActiveDocument, Mode=OneWay, Converter={adconv:ActiveDocumentToVisibilityConverter}}"
+        <Separator Visibility="{Binding Path=ActiveDocument, Mode=OneWay, Converter={adconv:ActiveDocumentToVisibilityConverter}}"
                    Margin="9,3" />
 
         <!-- Select Highlighting pattern combobox is visible only if there is an active document (otherwise there ain't much to highlight) -->

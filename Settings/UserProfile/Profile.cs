@@ -34,8 +34,10 @@
 		/// </summary>
 		public Profile()
 		{
-			// Session Data
+			// Set default session data
 			this.MainWindowPosSz = new ViewPosSizeModel(100, 100, 1000, 700);
+
+			this.IsWorkspaceAreaOptimized = false;
 
 			this.LastActiveFile = string.Empty;
 
@@ -51,6 +53,14 @@
 		/// </summary>
 		[XmlElement(ElementName = "MainWindowPos")]
 		public ViewPosSizeModel MainWindowPosSz { get; set; }
+
+		/// <summary>
+		/// Gets/sets whether the workspace area is optimized or not.
+		/// The optimized workspace is distructive free and does not
+		/// show optional stuff like toolbar and status bar.
+		/// </summary>
+		[XmlAttribute(AttributeName = "IsWorkspaceAreaOptimized")]
+		public bool IsWorkspaceAreaOptimized { get; set; }
 
 		/// <summary>
 		/// Remember the last active path and name of last active document.
@@ -83,9 +93,13 @@
 			}
 		}
 
+		/// <summary>
+		/// Get/set settings for explorer tool window.
+		/// </summary>
 		[XmlElement(ElementName = "LastActiveExplorer")]
 		public ExplorerUserProfile LastActiveExplorer { get; set; }
 
+		#region Find and Replace
 		/// <summary>
 		/// List of find history
 		/// </summary>
@@ -131,6 +145,7 @@
 				}
 			}
 		}
+		#endregion Find and Replace
 		#endregion properties
 
 		#region methods

@@ -4,6 +4,7 @@
 	using System.IO;
 	using System.Windows;
 	using System.Windows.Controls;
+	using System.Windows.Input;
 	using System.Windows.Threading;
 	using EdiApp.Events;
 	using Microsoft.Practices.Prism.Mvvm;
@@ -244,5 +245,10 @@
 				this.mDockManager.LayoutUpdateStrategy = this.mLayoutUpdateStrategy;
 		}
 		#endregion methods
+
+		protected override void OnKeyDown(KeyEventArgs e)
+		{
+			base.OnKeyDown(e);
+		}
 	}
 }

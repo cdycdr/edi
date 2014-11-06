@@ -8,6 +8,7 @@ namespace EdiDocuments.ViewModels.EdiDoc
 	using System.Windows;
 	using System.Windows.Input;
 	using System.Windows.Threading;
+	using Edi.Core.Interfaces.Documents;
 	using Edi.Core.ViewModels.Command;
 	using EdiDocuments.Process;
 	using ICSharpCode.AvalonEdit.Document;
@@ -511,10 +512,10 @@ namespace EdiDocuments.ViewModels.EdiDoc
 		#endregion State
 
 		#region LoadFile
-		public static EdiViewModel LoadFile(string filePath,
+		public static EdiViewModel LoadFile(IDocumentModel dm,
 																				object o)
 		{
-			return EdiViewModel.LoadFile(filePath, o as ISettingsManager);
+			return EdiViewModel.LoadFile(dm.FileNamePath, o as ISettingsManager);
 		}
 
 		/// <summary>

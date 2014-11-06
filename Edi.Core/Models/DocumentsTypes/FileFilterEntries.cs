@@ -1,7 +1,7 @@
-﻿namespace Edi.Core.Models.DocTypes
+﻿namespace Edi.Core.Models.DocumentTypes
 {
 	using System.Collections.Generic;
-	using Edi.Core.Interfaces.DocType;
+	using Edi.Core.Interfaces.DocumentTypes;
 
 	internal class FileFilterEntries : IFileFilterEntries
 	{

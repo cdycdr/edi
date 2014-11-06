@@ -1,4 +1,4 @@
-﻿namespace Edi.Core.Interfaces.DocType
+﻿namespace Edi.Core.Interfaces.DocumentTypes
 {
 	public interface IFileFilterEntries
 	{

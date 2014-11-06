@@ -1,6 +1,7 @@
 ﻿namespace EdiApp.Views.Shell
 {
   using System.Windows.Controls;
+	using System.Windows.Input;
 
   /// <summary>
   /// Interaction logic for MainMenu.xaml

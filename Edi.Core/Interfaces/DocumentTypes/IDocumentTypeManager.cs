@@ -1,10 +1,19 @@
-﻿namespace Edi.Core.Interfaces.DocType
+﻿namespace Edi.Core.Interfaces.DocumentTypes
 {
 	using System;
 	using System.Collections.ObjectModel;
+	using Edi.Core.Interfaces.Documents;
 	using Edi.Core.ViewModels;
 
-	public delegate ViewModels.FileBaseViewModel FileOpenDelegate(string pathFilename, object settingsManager);
+	/// <summary>
+	/// Delegates the file open method to a method that can be registered in a module.
+	/// The registered methid should return a viewmodel which in turn has registered a
+	/// view and/or tool window viewmodels and views...
+	/// </summary>
+	/// <param name="fileModel"></param>
+	/// <param name="settingsManager"></param>
+	/// <returns></returns>
+	public delegate ViewModels.FileBaseViewModel FileOpenDelegate(IDocumentModel fileModel, object settingsManager);
 
 	public interface IDocumentTypeManager
 	{

@@ -213,6 +213,26 @@
 				}
 			}));
 
+			win.CommandBindings.Add(new CommandBinding(AppCommand.ToggleOptimizeWorkspace,
+			(s, e) =>
+			{
+				logger.InfoFormat("TRACE AppCommand.ToggleOptimizeWorkspace parameter is {0}.", (e == null ? "(null)" : e.ToString()));
+
+				try
+				{
+					var newViewSetting = !this.IsWorkspaceAreaOptimized;
+					this.IsWorkspaceAreaOptimized = newViewSetting;
+				}
+				catch (Exception exp)
+				{
+					logger.Error(exp.Message, exp);
+					MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+													this.mAppCore.IssueTrackerLink,
+													this.mAppCore.IssueTrackerLink,
+													Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
+				}
+			}));
+
 			win.CommandBindings.Add(new CommandBinding(AppCommand.LoadFile,
 			(s, e) =>
 			{

@@ -1,12 +1,11 @@
-﻿namespace Edi.Core.Models.DocType
+﻿namespace Edi.Core.Models.DocumentTypes
 {
 	using System;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using System.ComponentModel.Composition;
 	using System.Linq;
-	using Edi.Core.Interfaces.DocType;
-	using Edi.Core.Models.DocTypes;
+	using Edi.Core.Interfaces.DocumentTypes;
 	using Edi.Core.Utillities;
 
 	/// <summary>
@@ -60,7 +59,7 @@
 																							 Type t,
 																							 int sortPriority = 0)
 		{
-			var newFileType = new FileTypes(Key, Description, FileFilterName, DefaultFilter, FileOpenMethod, t, sortPriority);
+			var newFileType = new DocumentType(Key, Description, FileFilterName, DefaultFilter, FileOpenMethod, t, sortPriority);
 
 			this.mDocumentTypes.Add(newFileType);
 			this.mDocumentTypes.Sort(i => i.SortPriority, System.ComponentModel.ListSortDirection.Ascending );
@@ -131,7 +130,7 @@
 				{
 					if (key == string.Empty || key == item.Key)
 					{
-						// Structured Query Language (*.sql) |*.sql
+						// format filter entry like "Structured Query Language (*.sql) |*.sql"
 						var s = new FileFilterEntry(string.Format("{0} (*.{1}) |*.{2}",
 																											item.FileFilterName, item.DefaultFilter, item.DefaultFilter),
 																											item.FileOpenMethod);

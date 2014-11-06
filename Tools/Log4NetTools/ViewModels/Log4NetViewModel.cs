@@ -1,11 +1,12 @@
 namespace Log4NetTools.ViewModels
 {
 	using System;
-	using System.Globalization;
-	using System.IO;
-	using System.Windows.Input;
-	using Edi.Core.ViewModels.Command;
-	using MsgBox;
+using System.Globalization;
+using System.IO;
+using System.Windows.Input;
+using Edi.Core.Interfaces.Documents;
+using Edi.Core.ViewModels.Command;
+using MsgBox;
 
 	public class Log4NetViewModel : Edi.Core.ViewModels.FileBaseViewModel
 	{
@@ -209,9 +210,9 @@ namespace Log4NetTools.ViewModels
 			return string.Empty;
 		}
 
-		public static Log4NetViewModel LoadFile(string filePath, object o)
+		public static Log4NetViewModel LoadFile(IDocumentModel dm, object o)
 		{ 
-			return Log4NetViewModel.LoadFile(filePath);
+			return Log4NetViewModel.LoadFile(dm.FileNamePath);
 		}
 
 		/// <summary>

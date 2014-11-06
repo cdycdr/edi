@@ -5,6 +5,7 @@ namespace EdiDocuments.ViewModels.MiniUml
 	using System.Globalization;
 	using System.IO;
 	using System.Windows.Input;
+	using Edi.Core.Interfaces.Documents;
 	using Edi.Core.ViewModels.Command;
 	using MiniUML.Model.ViewModels.Document;
 	using MsgBox;
@@ -258,9 +259,9 @@ namespace EdiDocuments.ViewModels.MiniUml
 		#endregion CanSaveData
 
 		#region LoadFile
-		public static MiniUmlViewModel LoadFile(string filePath, object o)
+		public static MiniUmlViewModel LoadFile(IDocumentModel dm, object o)
 		{
-			return MiniUmlViewModel.LoadFile(filePath);
+			return MiniUmlViewModel.LoadFile(dm.FileNamePath);
 		}
 
 		/// <summary>

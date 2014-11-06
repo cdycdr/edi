@@ -5,7 +5,7 @@
 	using System.Reflection;
 	using System.Windows;
 	using Edi.Core.Interfaces;
-	using Edi.Core.Interfaces.DocType;
+	using Edi.Core.Interfaces.DocumentTypes;
 	using Edi.Core.Resources;
 	using Edi.Core.View.Pane;
 	using EdiDocuments.ViewModels.EdiDoc;
