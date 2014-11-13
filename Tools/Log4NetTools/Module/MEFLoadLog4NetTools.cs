@@ -69,7 +69,9 @@
 			                                                             Log4NetViewModel.Description,
 			                                                             Log4NetViewModel.FileFilterName,
 																																	 Log4NetViewModel.DefaultFilter,
-																																	 Log4NetViewModel.LoadFile, typeof(Log4NetViewModel), 40);
+																																	 Log4NetViewModel.LoadFile,
+																																	 null,                          // Log4Net Grid Viewer is a readonly viewer
+																																	 typeof(Log4NetViewModel), 40);
 
 			if (docType != null)
 			{

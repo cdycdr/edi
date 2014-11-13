@@ -103,6 +103,8 @@
 		{
 			try
 			{
+				this.EnableMainWindowActivated(false);
+
 				// Persist window position, width and height from this session
 				this.mSettingsManager.SessionData.MainWindowPosSz =
 					new ViewPosSizeModel(win.Left, win.Top, win.Width, win.Height,
@@ -112,6 +114,8 @@
 
 				// Save/initialize program options that determine global programm behaviour
 				this.SaveConfigOnAppClosed();
+
+				this.DisposeResources();
 			}
 			catch (Exception exp)
 			{
@@ -119,6 +123,32 @@
 				MsgBox.Msg.Show(exp.ToString(),
 												Util.Local.Strings.STR_MSG_UnknownError_InShutDownProcess,
 												MsgBoxButtons.OK, MsgBoxImage.Error);
+			}
+		}
+
+		/// <summary>
+		/// Disposes all reserved resources when the application is in its last phase of shuttng down.
+		/// </summary>
+		private void DisposeResources()
+		{
+			try
+			{
+				foreach (var item in this.Files)
+				{
+					try
+					{
+						item.Dispose();
+					}
+					catch (Exception exp)
+					{
+						logger.ErrorFormat("Error disposing file; {0}", item.FileName);
+						logger.Error(exp);
+					}
+				}
+			}
+			catch (Exception exp)
+			{
+				logger.Error(exp);
 			}
 		}
 	}

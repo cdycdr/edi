@@ -5,7 +5,9 @@ namespace EdiDocuments.ViewModels.MiniUml
 	using System.Globalization;
 	using System.IO;
 	using System.Windows.Input;
+	using Edi.Core.Interfaces;
 	using Edi.Core.Interfaces.Documents;
+	using Edi.Core.Models.Documents;
 	using Edi.Core.ViewModels.Command;
 	using MiniUML.Model.ViewModels.Document;
 	using MsgBox;
@@ -17,6 +19,8 @@ namespace EdiDocuments.ViewModels.MiniUml
 		public const string Description = "Unified Modeling Language (UML)";
 		public const string FileFilterName = "Unified Modeling Language";
 		public const string DefaultFilter = "uml";
+
+		private IDocumentModel mDocumentModel = null;
 
 		private MiniUML.Model.ViewModels.Document.RibbonViewModel mRibbonViewModel;
 		private MiniUML.Model.ViewModels.Document.AbstractDocumentViewModel mDocumentMiniUML;
@@ -30,10 +34,21 @@ namespace EdiDocuments.ViewModels.MiniUml
 
 		#region constructor
 		/// <summary>
+		/// Class constructor from <seealso cref="IDocumentModel"/> parameter.
+		/// </summary>
+		/// <param name="documentModel"></param>
+		public MiniUmlViewModel(IDocumentModel documentModel)
+		: this ()
+		{
+			this.mDocumentModel = documentModel;
+			this.mDocumentModel.SetFileNamePath(this.FilePath, this.IsFilePathReal);
+		}
+
+		/// <summary>
 		/// Standard constructor. See also static <seealso cref="LoadFile"/> method
 		/// for construction from file saved on disk.
 		/// </summary>
-		public MiniUmlViewModel()
+		protected MiniUmlViewModel()
 			: base(MiniUmlViewModel.DocumentKey)
 		{
 			this.FilePath = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}",
@@ -258,81 +273,6 @@ namespace EdiDocuments.ViewModels.MiniUml
 		}
 		#endregion CanSaveData
 
-		#region LoadFile
-		public static MiniUmlViewModel LoadFile(IDocumentModel dm, object o)
-		{
-			return MiniUmlViewModel.LoadFile(dm.FileNamePath);
-		}
-
-		/// <summary>
-		/// Load the content of a MiniUML file and store it for
-		/// presentation and manipulation in the returned viewmodel.
-		/// </summary>
-		/// <param name="filePath"></param>
-		/// <returns></returns>
-		public static MiniUmlViewModel LoadFile(string filePath)
-		{
-			bool IsFilePathReal = false;
-
-			try
-			{
-				IsFilePathReal = File.Exists(filePath);
-			}
-			catch
-			{
-			}
-
-			if (IsFilePathReal == false)
-				return null;
-
-			MiniUmlViewModel vm = new MiniUmlViewModel();
-
-			if (vm.OpenFile(filePath) == true)
-				return vm;
-
-			return null;
-		}
-
-		/// <summary>
-		/// Attempt to open a file and load it into the viewmodel if it exists.
-		/// </summary>
-		/// <param name="filePath"></param>
-		/// <returns>True if file exists and was succesfully loaded. Otherwise false.</returns>
-		protected bool OpenFile(string filePath)
-		{
-			try
-			{
-				if ((this.IsFilePathReal = File.Exists(filePath)) == true)
-				{
-					this.FilePath = filePath;
-					this.ContentId = this.mFilePath;
-					IsDirty = false; // Mark document loaded from persistence as unedited copy (display without dirty mark '*' in name)
-
-					try
-					{
-						this.mDocumentMiniUML.LoadFile(this.mFilePath);
-					}
-					catch (Exception ex)
-					{
-						MsgBox.Msg.Show(ex, ex.Message, "An error has occurred", MsgBoxButtons.OK);
-
-						return false;
-					}
-				}
-				else
-					return false;
-			}
-			catch (Exception exp)
-			{
-				MsgBox.Msg.Show(exp, exp.Message, "An error has occurred", MsgBoxButtons.OK);
-
-				return false;
-			}
-
-			return true;
-		}
-		#endregion LoadFile
-
 		#region SaveCommand
 		/// <summary>
 		/// Save the document viewed in this viewmodel.
@@ -352,7 +292,10 @@ namespace EdiDocuments.ViewModels.MiniUml
 			{
 				this.mDocumentMiniUML.ExecuteSave(filePath);
 
-				this.IsFilePathReal = true;
+				if (this.mDocumentModel == null)
+					this.mDocumentModel = new DocumentModel();
+
+				this.mDocumentModel.SetFileNamePath(filePath, true);
 				this.FilePath = filePath;
 				this.ContentId = filePath;
 				this.IsDirty = false;
@@ -394,6 +337,94 @@ namespace EdiDocuments.ViewModels.MiniUml
 		#endregion properties
 
 		#region methods
+		/// <summary>
+		/// Create a new default document based on the given document model.
+		/// </summary>
+		/// <param name="documentModel"></param>
+		/// <returns></returns>
+		public static IDocument CreateNewDocument(IDocumentModel documentModel)
+		{
+			return new MiniUmlViewModel(documentModel);
+		}
+
+		#region LoadFile
+		/// <summary>
+		/// Load a UML editor file based on an <seealso cref="IDocumentModel"/>
+		/// representation and an <seealso cref="ISettingsManager"/> instance.
+		/// </summary>
+		/// <param name="dm"></param>
+		/// <param name="o">Should point to a <seealso cref="ISettingsManager"/> instance.</param>
+		/// <returns></returns>
+		public static MiniUmlViewModel LoadFile(IDocumentModel dm, object o)
+		{
+			return MiniUmlViewModel.LoadFile(dm.FileNamePath);
+		}
+
+		/// <summary>
+		/// Load the content of a MiniUML file and store it for
+		/// presentation and manipulation in the returned viewmodel.
+		/// </summary>
+		/// <param name="filePath"></param>
+		/// <returns></returns>
+		private static MiniUmlViewModel LoadFile(string filePath)
+		{
+			MiniUmlViewModel vm = new MiniUmlViewModel();
+
+			if (vm.OpenFile(filePath) == true)
+				return vm;
+
+			return null;
+		}
+
+		/// <summary>
+		/// Attempt to open a file and load it into the viewmodel if it exists.
+		/// </summary>
+		/// <param name="filePath"></param>
+		/// <returns>True if file exists and was succesfully loaded. Otherwise false.</returns>
+		protected bool OpenFile(string filePath)
+		{
+			try
+			{
+				var isReal = File.Exists(filePath);
+
+				if (isReal == true)
+				{
+					if (this.mDocumentModel == null)
+						this.mDocumentModel = new DocumentModel();
+
+					this.mDocumentModel.SetFileNamePath(filePath, isReal);
+
+					this.FilePath = filePath;
+					this.ContentId = this.mFilePath;
+
+					// Mark document loaded from persistence as unedited copy (display without dirty mark '*' in name)
+					IsDirty = false;
+
+					try
+					{
+						this.mDocumentMiniUML.LoadFile(this.mFilePath);
+					}
+					catch (Exception ex)
+					{
+						MsgBox.Msg.Show(ex, ex.Message, "An error has occurred", MsgBoxButtons.OK);
+
+						return false;
+					}
+				}
+				else
+					return false;
+			}
+			catch (Exception exp)
+			{
+				MsgBox.Msg.Show(exp, exp.Message, "An error has occurred", MsgBoxButtons.OK);
+
+				return false;
+			}
+
+			return true;
+		}
+		#endregion LoadFile
+
 		/// <summary>
 		/// Get the path of the file or empty string if file does not exists on disk.
 		/// </summary>

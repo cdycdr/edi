@@ -11,6 +11,7 @@
 	using Edi.Core.ViewModels;
 	using Edi.Core.ViewModels.Command;
 	using EdiApp.Enums;
+	using EdiDocuments.ViewModels;
 	using EdiDocuments.ViewModels.EdiDoc;
 	using EdiDocuments.ViewModels.StartPage;
 	using MiniUML.Framework;

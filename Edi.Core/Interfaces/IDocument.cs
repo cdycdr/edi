@@ -1,12 +1,13 @@
 ﻿namespace Edi.Core.Interfaces
 {
 	using System;
+	using System.Windows.Input;
 	using Edi.Core.ViewModels.Events;
 
 	/// <summary>
 	/// Inteface that is supported by document related viewmodels.
 	/// </summary>
-	public interface IDocument
+	public interface IDocument : ILayoutItem, IDisposable
 	{
 		#region events
 		/// <summary>
@@ -24,28 +25,21 @@
 		/// </summary>
 		string DocumentTypeKey { get; }
 
-		string FilePath
-		{
-			get;
-		}
+		/// <summary>
+		/// File path of the current document.
+		/// </summary>
+		string FilePath{ get; }
 
 		/// <summary>
 		/// Gets/sets whether a given document has been changed since loading
 		/// from filesystem, or not.
 		/// </summary>
-		bool IsDirty
-		{
-			get;
-			set;
-		}
+		bool IsDirty{ get; set; }
 
 		/// <summary>
 		/// Gets the currently assigned name of the file in the file system.
 		/// </summary>
-		string FileName
-		{
-			get;
-		}
+		string FileName{ get; }
 
 		/// <summary>
 		/// Get/set whether a given file path is a real existing path or not.
@@ -53,11 +47,7 @@
 		/// This is used to identify files that have never been saved and can
 		/// those not be remembered in an MRU etc...
 		/// </summary>
-		bool IsFilePathReal
-		{
-			get;
-			set;
-		}
+		bool IsFilePathReal{ get; }
 
 		/// <summary>
 		/// Get whether edited data can be saved or not.
@@ -66,9 +56,26 @@
 		/// (this is document specific and should always be overriden by descendents)
 		/// </summary>
 		bool CanSaveData { get; }
+
+		ICommand CloseCommand { get; }
+
+		/// <summary>
+		/// Gets/sets a property to indicate whether this
+		/// file was changed externally (by another editor) or not.
+		/// 
+		/// Setter can be used to override re-loading (keep current content)
+		/// at the time of detection.
+		/// </summary>
+		bool WasChangedExternally { get; }
 		#endregion properties
 
 		#region methods
+		/// <summary>
+		/// Is executed when the user wants to refresh/re-load
+		/// the current content with the currently stored inforamtion.
+		/// </summary>
+		void ReOpen();
+
 		/// <summary>
 		/// Indicate whether document can be closed or not.
 		/// </summary>

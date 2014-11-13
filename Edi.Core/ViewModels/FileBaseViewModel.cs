@@ -3,15 +3,17 @@ namespace Edi.Core.ViewModels
 	using System;
 	using System.Globalization;
 	using System.Windows.Input;
-	using Command;
 	using Edi.Core.Interfaces;
+	using Edi.Core.Interfaces.Documents;
+	using Edi.Core.Models.Documents;
+	using Edi.Core.ViewModels.Command;
 	using Edi.Core.ViewModels.Events;
 	using MsgBox;
 
 	/// <summary>
 	/// Base class that shares common properties, methods, and intefaces
 	/// among viewmodels that represent documents in Edi
-	/// (text file edits, Start Page, Prgram Settings).
+	/// (text file edits, Start Page, Program Settings).
 	/// </summary>
 	public abstract class FileBaseViewModel : PaneViewModel, IDocument
 	{
@@ -23,6 +25,8 @@ namespace Edi.Core.ViewModels
 		private RelayCommand<object> mSyncPathToExplorerCommand = null;
 
 		private readonly string mDocumentTypeKey = string.Empty;
+
+		protected IDocumentModel mDocumentModel = null;
 		#endregion Fields
 
 		#region Constructors
@@ -33,6 +37,7 @@ namespace Edi.Core.ViewModels
 		public FileBaseViewModel(string documentTypeKey)
 			: this()
 		{
+			this.mDocumentModel = new DocumentModel();
 			this.mDocumentTypeKey = documentTypeKey;
 		}
 
@@ -77,13 +82,13 @@ namespace Edi.Core.ViewModels
 		{
 			get
 			{
-				return this.mIsFilePathReal;
+				return this.mDocumentModel.IsReal;
 			}
 
-			set
-			{
-				this.mIsFilePathReal = value;
-			}
+			////set
+			////{
+			////	this.mIsFilePathReal = value;
+			////}
 		}
 		#endregion IsFilePathReal
 
@@ -174,6 +179,33 @@ namespace Edi.Core.ViewModels
 			}
 		}
 		#endregion commands
+
+		/// <summary>
+		/// Gets/sets a property to indicate whether this
+		/// file was changed externally (by another editor) or not.
+		/// 
+		/// Setter can be used to override re-loading (keep current content)
+		/// at the time of detection.
+		/// </summary>
+		public bool WasChangedExternally
+		{
+			get
+			{
+				if (this.mDocumentModel == null)
+					return false;
+
+				return this.mDocumentModel.WasChangedExternally;
+			}
+
+			private set
+			{
+				if (this.mDocumentModel == null)
+					return;
+
+				if (this.mDocumentModel.WasChangedExternally != value)
+					this.mDocumentModel.WasChangedExternally = value;
+			}
+		}
 		#endregion properties
 
 		#region methods
@@ -202,6 +234,15 @@ namespace Edi.Core.ViewModels
 		/// <returns></returns>
 		abstract public string GetFilePath();
 		#endregion abstract methods
+
+		/// <summary>
+		/// Is executed when the user wants to refresh/re-load
+		/// the current content with the currently stored inforamtion.
+		/// </summary>
+		virtual public void ReOpen()
+		{
+			this.WasChangedExternally = false;
+		}
 
 		/// <summary>
 		/// Search for most inner exceptions and return it to caller.
@@ -313,6 +354,15 @@ namespace Edi.Core.ViewModels
 			}
 			catch
 			{
+			}
+		}
+
+		public void Dispose()
+		{
+			if (this.mDocumentModel != null)
+			{
+				this.mDocumentModel.Dispose();
+				this.mDocumentModel = null;
 			}
 		}
 		#endregion methods

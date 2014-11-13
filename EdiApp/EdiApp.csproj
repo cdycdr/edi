@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\AvalonDockLayoutSerializer.cs" />
+    <Compile Include="Behaviors\ActivatedCommand.cs" />
     <Compile Include="Behaviors\DropFileCommand.cs" />
     <Compile Include="Behaviors\GetADLayoutOnWindowClosedCommand.cs" />
     <Compile Include="Converters\ActiveDocumentConverter.cs" />

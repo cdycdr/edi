@@ -45,9 +45,11 @@
 		/// arrival of the new document type.
 		/// </summary>
 		/// <param name="Key"></param>
+		/// <param name="Description"></param>
 		/// <param name="FileFilterName"></param>
 		/// <param name="DefaultFilter"></param>
 		/// <param name="FileOpenMethod"></param>
+		/// <param name="CreateDocumentMethod"></param>
 		/// <param name="t"></param>
 		/// <param name="sortPriority"></param>
 		/// <returns></returns>
@@ -56,10 +58,13 @@
 																							 string FileFilterName,
 																							 string DefaultFilter,
 																							 FileOpenDelegate FileOpenMethod,
+																							 CreateNewDocumentDelegate CreateDocumentMethod,
 																							 Type t,
 																							 int sortPriority = 0)
 		{
-			var newFileType = new DocumentType(Key, Description, FileFilterName, DefaultFilter, FileOpenMethod, t, sortPriority);
+			var newFileType = new DocumentType(Key, Description, FileFilterName, DefaultFilter,
+																				 FileOpenMethod, CreateDocumentMethod,
+																				 t, sortPriority);
 
 			this.mDocumentTypes.Add(newFileType);
 			this.mDocumentTypes.Sort(i => i.SortPriority, System.ComponentModel.ListSortDirection.Ascending );

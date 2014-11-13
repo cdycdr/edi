@@ -15,23 +15,17 @@
         behav:DialogCloser.DialogResult="{Binding DialogCloseResult}"        
         behav:WindowMaximized.IsNotMaximized="{Binding IsNotMaximized,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
         ADBehav:GetADLayoutOnWindowClosedCommand.SendLayoutCommand="{Binding ADLayout.SaveLayoutCommand}"
+        ADBehav:ActivatedCommand.Command="{Binding MainWindowActivated}"
         >
     <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="32"/>
-      <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
-      <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
-      <!-- view:MainMenu Grid.Row="1" VerticalAlignment="Bottom"/ -->
+    <view:MainToolbar Grid.Row="0" SnapsToDevicePixels="True" Margin="3,0" />
 
-    <view:MainToolbar Grid.Row="2" SnapsToDevicePixels="True" Margin="3" />
-
-    <ADView:AvalonDockView  Grid.Row="3" x:Name="dockView" x:FieldModifier="private" />
-
-    <!-- view:StatusBar  Grid.Row="5" / -->
+    <ADView:AvalonDockView  Grid.Row="1" x:Name="dockView" x:FieldModifier="private" />
   </Grid>
 
 </mui:ModernWindow>

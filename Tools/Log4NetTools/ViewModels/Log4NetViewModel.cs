@@ -1,12 +1,13 @@
 namespace Log4NetTools.ViewModels
 {
 	using System;
-using System.Globalization;
-using System.IO;
-using System.Windows.Input;
-using Edi.Core.Interfaces.Documents;
-using Edi.Core.ViewModels.Command;
-using MsgBox;
+	using System.Globalization;
+	using System.IO;
+	using System.Windows.Input;
+	using Edi.Core.Interfaces.Documents;
+	using Edi.Core.Models.Documents;
+	using Edi.Core.ViewModels.Command;
+	using MsgBox;
 
 	public class Log4NetViewModel : Edi.Core.ViewModels.FileBaseViewModel
 	{
@@ -211,7 +212,7 @@ using MsgBox;
 		}
 
 		public static Log4NetViewModel LoadFile(IDocumentModel dm, object o)
-		{ 
+		{
 			return Log4NetViewModel.LoadFile(dm.FileNamePath);
 		}
 
@@ -220,7 +221,7 @@ using MsgBox;
 		/// </summary>
 		/// <param name="filePath"></param>
 		/// <returns></returns>
-		public static Log4NetViewModel LoadFile(string filePath)
+		private static Log4NetViewModel LoadFile(string filePath)
 		{
 			bool IsFilePathReal = false;
 
@@ -252,8 +253,11 @@ using MsgBox;
 		{
 			try
 			{
-				if ((this.IsFilePathReal = File.Exists(filePath)) == true)
+				var isReal = File.Exists(filePath);
+
+				if (isReal == true)
 				{
+					this.mDocumentModel.SetFileNamePath(filePath, isReal);
 					this.FilePath = filePath;
 					this.ContentId = this.mFilePath;
 
@@ -281,6 +285,24 @@ using MsgBox;
 			}
 
 			return true;
+		}
+
+		/// <summary>
+		/// Reloads/Refresh's the current document content with the content
+		/// of the from disc.
+		/// </summary>
+		public override void ReOpen()
+		{
+			try
+			{
+				base.ReOpen();
+
+				this.OpenFile(this.FilePath);
+			}
+			catch (Exception exp)
+			{
+				MsgBox.Msg.Show(exp.Message, Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, MsgBoxButtons.OK);
+			}
 		}
 		#endregion
 	}

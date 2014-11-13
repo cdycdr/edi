@@ -1,6 +1,7 @@
 ﻿namespace Edi.Core.ViewModels
 {
 	using Edi.Core.Interfaces.Enums;
+	using Edi.Core.ViewModels;
 
 	/// <summary>
 	/// AvalonDock base class viewmmodel to support tool window views.

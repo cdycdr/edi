@@ -34,7 +34,14 @@ namespace EdiApp.ViewModels
 	using Themes.Interfaces;
 	using Edi.Core.Interfaces.Documents;
 	using Edi.Core.Models.Documents;
+	using Edi.Core.ViewModels.Command;
+	using EdiDocuments.ViewModels;
 
+	/// <summary>
+	/// This class manages the complete application life cyle from start to end.
+	/// It publishes the methodes, properties, and events necessary to integrate
+	/// the application into a given shell (BootStrapper, App.xaml.cs etc).
+	/// </summary>
 	[Export(typeof(IApplicationViewModel))]
 	[Export(typeof(IFileOpenService))]
 	public partial class ApplicationViewModel : ViewModelBase,
@@ -70,6 +77,7 @@ namespace EdiApp.ViewModels
 		private ReadOnlyObservableCollection<IDocument> mReadonyFiles = null;
 
 		private IDocument mActiveDocument = null;
+		private RelayCommand<object> mMainWindowActivated = null;
 
 		private readonly IModuleManager mModuleManager = null;
 		private readonly IAppCoreModel mAppCore = null;
@@ -140,6 +148,80 @@ namespace EdiApp.ViewModels
 			get
 			{
 				return this.mThemesManager;
+			}
+		}
+
+		private object mLock = new object();
+		private bool mIsMainWindowActivationProcessed = false;
+		private bool mIsMainWindowActivationProcessingEnabled = false;
+
+		/// <summary>
+		/// Activates/deactivates processing of the mainwindow activated event.
+		/// </summary>
+		/// <param name="bActivate"></param>
+		public void EnableMainWindowActivated(bool bActivate)
+		{
+			this.mIsMainWindowActivationProcessingEnabled = bActivate;
+		}
+
+		/// <summary>
+		/// Gets a property to a <seealso cref="ICommand"/> that executes
+		/// when the user activates the mainwindow (eg: does ALT+TAB between applications).
+		/// This event is used to check whether a file has chnaged in the meantime or not.
+		/// </summary>
+		public ICommand MainWindowActivated
+		{
+			get
+			{
+				if (this.mMainWindowActivated == null)
+					this.mMainWindowActivated = new RelayCommand<object>((p) =>
+					{
+						// Is processing of this event currently enabled?
+						if (this.mIsMainWindowActivationProcessingEnabled == false)
+							return;
+
+						// Is this event already currently being processed?
+						if (this.mIsMainWindowActivationProcessed == true)
+							return;
+
+						lock (this.mLock)
+						{
+							try
+							{
+								if (this.mIsMainWindowActivationProcessed == true)
+									return;
+
+								this.mIsMainWindowActivationProcessed = true;
+
+								foreach (var item in this.Files)
+								{
+									if (item.WasChangedExternally == true)
+									{
+										var result = MsgBox.Msg.Show(string.Format("File '{0}' was changed externally. Click OK to reload or Cancel to keep current content.", item.FileName),
+										                             "File changed externally", MsgBoxButtons.OKCancel);
+
+										if (result == MsgBoxResult.OK)
+										{
+											item.ReOpen();
+										}
+									}
+								}
+							}
+							catch (Exception exp)
+							{
+								logger.Error(exp.Message, exp);
+								MsgBox.Msg.Show(exp, Util.Local.Strings.STR_MSG_IssueTrackerTitle, MsgBoxButtons.OK, MsgBoxImage.Error, MsgBoxResult.NoDefaultButton,
+																this.mAppCore.IssueTrackerLink, this.mAppCore.IssueTrackerLink,
+																Util.Local.Strings.STR_MSG_IssueTrackerText, null, true);
+							}
+							finally
+							{
+								this.mIsMainWindowActivationProcessed = false;
+							}
+						}
+					});
+
+				return this.mMainWindowActivated;
 			}
 		}
 
@@ -357,17 +439,17 @@ namespace EdiApp.ViewModels
 		/// <param name="filePath">file to open</param>
 		/// <param name="AddIntoMRU">indicate whether file is to be added into MRU or not</param>
 		/// <returns></returns>
-		public FileBaseViewModel Open(string filePath,
-																	CloseDocOnError closeDocumentWithoutMessageOnError = CloseDocOnError.WithUserNotification,
-																	bool AddIntoMRU = true,
-																	string typeOfDoc = "EdiTextEditor")
+		public IDocument Open(string filePath,
+													CloseDocOnError closeDocumentWithoutMessageOnError = CloseDocOnError.WithUserNotification,
+													bool AddIntoMRU = true,
+													string typeOfDoc = "EdiTextEditor")
 		{
 			logger.InfoFormat("TRACE EdiViewModel.Open param: '{0}', AddIntoMRU {1}", filePath, AddIntoMRU);
 
 			this.SelectedOpenDocumentType = this.DocumentTypes[0];
 
 			// Verify whether file is already open in editor, and if so, show it
-			FileBaseViewModel fileViewModel = this.Documents.FirstOrDefault(fm => fm.FilePath == filePath);
+			IDocument fileViewModel = this.Documents.FirstOrDefault(fm => fm.FilePath == filePath);
 
 			if (fileViewModel != null) // File is already open so show it to the user
 			{
@@ -398,22 +480,22 @@ namespace EdiApp.ViewModels
 				////}
 				////else
 				////{
-					bool closeOnErrorWithoutMessage = false;
+				bool closeOnErrorWithoutMessage = false;
 
-					if (closeDocumentWithoutMessageOnError == CloseDocOnError.WithoutUserNotification)
-						closeOnErrorWithoutMessage = true;
+				if (closeDocumentWithoutMessageOnError == CloseDocOnError.WithoutUserNotification)
+					closeOnErrorWithoutMessage = true;
 
-					// try to load a standard text file from the file system as a fallback method
-					fileViewModel = EdiViewModel.LoadFile(filePath, this.mSettingsManager, closeOnErrorWithoutMessage);
+				// try to load a standard text file from the file system as a fallback method
+				fileViewModel = EdiViewModel.LoadFile(dm, this.mSettingsManager, closeOnErrorWithoutMessage);
 				////}
 			}
 
 			return IntegrateDocumentVM(fileViewModel, filePath, AddIntoMRU);
 		}
 
-		private FileBaseViewModel IntegrateDocumentVM(FileBaseViewModel fileViewModel,
-																									string filePath,
-																									bool AddIntoMRU)
+		private IDocument IntegrateDocumentVM(IDocument fileViewModel,
+																						string filePath,
+																						bool AddIntoMRU)
 		{
 			if (fileViewModel == null)
 			{
@@ -434,7 +516,7 @@ namespace EdiApp.ViewModels
 			this.mFiles.Add(fileViewModel);
 
 			// reset viewmodel options in accordance to current program settings
-			var ediVM = fileViewModel as EdiViewModel;
+			var ediVM = fileViewModel as IDocumentEdi;
 
 			if (ediVM != null)
 			{
@@ -458,7 +540,7 @@ namespace EdiApp.ViewModels
 		/// </summary>
 		/// <param name="content_id"></param>
 		/// <returns></returns>
-		public ViewModelBase ContentViewModelFromID(string content_id)
+		public object ContentViewModelFromID(string content_id)
 		{
 			// Query for a tool window and return it
 			var anchorable_vm = this.Tools.FirstOrDefault(d => d.ContentId == content_id);
@@ -483,36 +565,48 @@ namespace EdiApp.ViewModels
 		{
 			try
 			{
-				switch (t)
+				var typeOfDocKey = this.mDocumentTypeManager.FindDocumentTypeByKey(t.ToString());
+				if (typeOfDocKey != null)
 				{
-					case TypeOfDocument.EdiTextEditor:
+					var dm = new DocumentModel();
+
+					// Does this document type support creation of new documents?
+					if (typeOfDocKey.CreateDocumentMethod != null)
+					{
+						IDocument vm = typeOfDocKey.CreateDocumentMethod(dm);
+
+						if (vm is IDocumentEdi)              // Process Edi ViewModel specific items
 						{
-							var vm = new EdiViewModel();
-							vm.InitInstance(this.mSettingsManager.SettingData);
+							var ediVM = vm as IDocumentEdi;
 
-							vm.IncreaseNewCounter();
-							vm.DocumentEvent += this.ProcessDocumentEvent;
-							vm.ProcessingResultEvent += vm_ProcessingResultEvent;
-							vm.CreateNewDocument();
+							ediVM.InitInstance(this.mSettingsManager.SettingData);
 
-							this.mFiles.Add(vm);
-							this.SetActiveDocumentOnNewFileOrOpenFile(vm);
+							ediVM.IncreaseNewCounter();
+							ediVM.DocumentEvent += this.ProcessDocumentEvent;
+
+							ediVM.ProcessingResultEvent += vm_ProcessingResultEvent;
+							ediVM.CreateNewDocument();
+
+							this.mFiles.Add(ediVM);
+							this.SetActiveDocumentOnNewFileOrOpenFile(ediVM);
 						}
-						break;
-
-					case TypeOfDocument.UMLEditor:
+						else
+							throw new NotSupportedException(string.Format("Creating Documents of type: '{0}'", t.ToString()));
+					}
+					else
+					{
+						// Modul registration with PRISM is missing here
+						if (t == TypeOfDocument.UMLEditor)
 						{
-							var vm = new MiniUmlViewModel();
+							var umlVM = new MiniUmlViewModel(dm);
 
-							vm.DocumentEvent += this.ProcessDocumentEvent;
-							this.mFiles.Add(vm);
-							this.SetActiveFileBaseDocument(vm);
+							umlVM.DocumentEvent += this.ProcessDocumentEvent;
+							this.mFiles.Add(umlVM);
+							this.SetActiveFileBaseDocument(umlVM);
 						}
-						break;
-
-					case TypeOfDocument.Log4NetView:
-					default:
-						throw new NotImplementedException(t.ToString());
+						else
+							throw new NotSupportedException(string.Format("Creating Documents of type: '{0}'", t.ToString()));
+					}
 				}
 			}
 			catch (Exception exp)
@@ -760,10 +854,8 @@ namespace EdiApp.ViewModels
 
 						CommandManager.InvalidateRequerySuggested();
 
-						EventHandler handler = this.RequestClose;
-
-						if (handler != null)
-							handler(this, EventArgs.Empty);
+						if (this.RequestClose != null)
+							this.RequestClose(this, EventArgs.Empty);
 					}
 				}
 			}
@@ -781,7 +873,7 @@ namespace EdiApp.ViewModels
 		}
 		#endregion // RequestClose [event]
 
-		private void SetActiveFileBaseDocument(FileBaseViewModel vm)
+		private void SetActiveFileBaseDocument(IDocument vm)
 		{
 			try
 			{
@@ -803,7 +895,7 @@ namespace EdiApp.ViewModels
 		/// whenever a new file is internally created (on File Open or New File)
 		/// </summary>
 		/// <param name="vm"></param>
-		private void SetActiveDocumentOnNewFileOrOpenFile(EdiViewModel vm)
+		private void SetActiveDocumentOnNewFileOrOpenFile(IDocumentEdi vm)
 		{
 			try
 			{
@@ -1028,9 +1120,17 @@ namespace EdiApp.ViewModels
 
 					doc.DocumentEvent -= this.ProcessDocumentEvent;
 
+					if (doc is IDocumentEdi)
+					{
+						var ediDoc = doc as IDocumentEdi;
+
+						ediDoc.ProcessingResultEvent -= this.vm_ProcessingResultEvent;
+					}
+
 					int idx = this.mFiles.IndexOf(doc);
 
 					this.mFiles.Remove(doc);
+					doc.Dispose();
 
 					if (this.Documents.Count > idx)
 						this.ActiveDocument = this.mFiles[idx];
@@ -1377,9 +1477,9 @@ namespace EdiApp.ViewModels
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
-		private ViewModelBase ReloadDocument(string path)
+		private IDocument ReloadDocument(string path)
 		{
-			ViewModelBase ret = null;
+			IDocument ret = null;
 
 			if (!string.IsNullOrWhiteSpace(path))
 			{

@@ -28,6 +28,13 @@
 		FileOpenDelegate FileOpenMethod { get; }
 
 		/// <summary>
+		/// Gets the file new method that can be used to read a document of this type from disk.
+		/// This property can be null indicating that this type of document cannot be created
+		/// with this module (this document type can only be read and viewed from disk).
+		/// </summary>
+		CreateNewDocumentDelegate CreateDocumentMethod { get; }
+
+		/// <summary>
 		/// Gets the key of this document type.
 		/// </summary>
 		string Key { get; }

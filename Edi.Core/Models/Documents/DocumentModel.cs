@@ -2,12 +2,19 @@
 {
 	using System;
 	using Edi.Core.Interfaces.Documents;
+	using Edi.Core.Models.Utillities.FileSystem;
 
 	/// <summary>
 	/// Class models the basic properties and behaviours of a low level file stored on harddisk.
 	/// </summary>
-	public class DocumentModel : IDocumentModel
+	public class DocumentModel : IDocumentModel, IDisposable
 	{
+		#region fields
+		private FileName mFileName;
+
+		private FileChangeWatcher mFileChangeWatcher = null;
+		#endregion fields
+
 		#region constructors
 		/// <summary>
 		/// Hidden standard class constructor
@@ -28,9 +35,14 @@
 
 			this.IsReadonly = copyThis.IsReadonly;
 			this.IsReal = copyThis.IsReal;
-			this.FileNamePath = copyThis.FileNamePath;
+			this.mFileName = new FileName(copyThis.mFileName);
 		}
 		#endregion constructors
+
+		/// <summary>
+		/// Occurs when the file name has changed.
+		/// </summary>
+		public event EventHandler FileNameChanged;
 
 		#region properties
 		/// <summary>
@@ -49,7 +61,16 @@
 		/// <summary>
 		/// Gets the complete path and file name for this document.
 		/// </summary>
-		public string FileNamePath { get; private set; }
+		public string FileNamePath
+		{
+			get
+			{
+				if (this.mFileName == null)
+					return null;
+
+				return this.mFileName.ToString();
+			}
+		}
 
 		/// <summary>
 		/// Gets the name of a file.
@@ -58,6 +79,9 @@
 		{
 			get
 			{
+				if (this.mFileName == null)
+					return null;
+
 				return System.IO.Path.GetFileName(this.FileNamePath);
 			}
 		}
@@ -80,12 +104,43 @@
 		{
 			get
 			{
-				return System.IO.Path.GetExtension(this.FileNamePath);
+				return this.mFileName.GetExtension();
+			}
+		}
+
+		public bool WasChangedExternally
+		{
+			get
+			{
+				if (this.mFileChangeWatcher == null)
+					return false;
+
+				return this.mFileChangeWatcher.WasChangedExternally;
+			}
+
+			set
+			{
+				if (this.mFileChangeWatcher == null)
+					return;
+
+				if (this.mFileChangeWatcher.WasChangedExternally != value)
+					this.mFileChangeWatcher.WasChangedExternally = value;
 			}
 		}
 		#endregion properties
 
 		#region methods
+		protected virtual void ChangeFileName(FileName newValue)
+		{
+			////SD.MainThread.VerifyAccess();
+
+			//// Already done by caller
+			////this.fileName = newValue;
+
+			if (FileNameChanged != null)
+				FileNameChanged(this, EventArgs.Empty);
+		}
+
 		/// <summary>
 		/// Assigns a filename and path to this document model. This will also
 		/// refresh all properties (IsReadOnly etc..) that can be queried for this document.
@@ -96,11 +151,16 @@
 		/// (properties are reset to default).</param>
 		public void SetFileNamePath(string fileNamePath, bool isReal)
 		{
-			this.FileNamePath = fileNamePath;
+			if (fileNamePath != null)
+				this.mFileName = new FileName(fileNamePath);
+			
 			this.IsReal = isReal;
 
-			if (this.IsReal == true)
+			if (this.IsReal == true && fileNamePath != null)
+			{ 
 				this.QueryFileProperies();
+				this.ChangeFileName(this.mFileName);
+			}
 		}
 
 		/// <summary>
@@ -123,8 +183,23 @@
 		/// </summary>
 		private void QueryFileProperies()
 		{
-			System.IO.FileInfo f = new System.IO.FileInfo(this.FileNamePath);
-			this.IsReadonly = f.IsReadOnly;
+			try
+			{
+				System.IO.FileInfo f = new System.IO.FileInfo(this.FileNamePath);
+				this.IsReadonly = f.IsReadOnly;
+
+				if (this.mFileChangeWatcher != null)
+				{
+					this.mFileChangeWatcher.Dispose();
+					this.mFileChangeWatcher = null;
+				}
+
+				this.mFileChangeWatcher = new FileChangeWatcher(this);
+			}
+			catch (Exception exp)
+			{
+				throw new Exception("Error in QueryFileProperies", exp);
+			}
 		}
 
 		/// <summary>
@@ -134,7 +209,16 @@
 		{
 			this.IsReadonly = true;
 			this.IsReal = false;
-			this.FileNamePath = string.Empty;
+			this.mFileName = null;
+		}
+
+		public void Dispose()
+		{
+			if (this.mFileChangeWatcher != null)
+			{
+				this.mFileChangeWatcher.Dispose();
+				this.mFileChangeWatcher = null;
+			}
 		}
 		#endregion methods
 	}

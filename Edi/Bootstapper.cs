@@ -94,6 +94,8 @@ namespace Edi
 			// modules (and everything else) have been initialized when you get here
 			var output = this.Container.GetExportedValue<IMessageManager>();
 			output.Output.AppendLine("Get involved at: https://edi.codeplex.com/");
+
+			this.appVM.EnableMainWindowActivated(true);
 		}
 
 		protected override void ConfigureAggregateCatalog()

@@ -7,7 +7,6 @@
 	using System.Windows.Input;
 	using System.Windows.Threading;
 	using EdiApp.Events;
-	using Microsoft.Practices.Prism.Mvvm;
 	using Xceed.Wpf.AvalonDock;
 	using Xceed.Wpf.AvalonDock.Layout;
 	using Xceed.Wpf.AvalonDock.Layout.Serialization;
@@ -19,6 +18,8 @@
 	public partial class AvalonDockView : UserControl
 	{
 		#region fields
+		protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 		private DockingManager mDockManager = null;
 
 		private DataTemplateSelector mLayoutItemTemplateSelector = null;
@@ -177,14 +178,14 @@
 					}
 					catch (Exception exp)
 					{
-						Console.Write("Error Loading Layout: {0}\n\n{1}", exp.Message, xmlLayout);
+						logger.ErrorFormat("Error Loading Layout: {0}\n\n{1}", exp.Message, xmlLayout);
 					}
 
 				}), DispatcherPriority.Background);
 			}
 			catch (Exception exp)
 			{
-				Console.Write("Error Loading Layout: {0}\n\n{1}", exp.Message, xmlLayout);
+				logger.ErrorFormat("Error Loading Layout: {0}\n\n{1}", exp.Message, xmlLayout);
 			}
 		}
 

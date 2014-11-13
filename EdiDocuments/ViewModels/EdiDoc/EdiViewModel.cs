@@ -8,7 +8,9 @@ namespace EdiDocuments.ViewModels.EdiDoc
 	using System.Windows;
 	using System.Windows.Input;
 	using System.Windows.Threading;
+	using Edi.Core.Interfaces;
 	using Edi.Core.Interfaces.Documents;
+	using Edi.Core.Models.Documents;
 	using Edi.Core.ViewModels.Command;
 	using EdiDocuments.Process;
 	using ICSharpCode.AvalonEdit.Document;
@@ -22,6 +24,46 @@ namespace EdiDocuments.ViewModels.EdiDoc
 	using Settings.ProgramSettings;
 	using UnitComboLib.Unit.Screen;
 	using UnitComboLib.ViewModel;
+
+	public interface IDocumentEdi : IDocument
+	{
+		/// <summary>
+		/// Supports asynchrone processing by implementing a result event when processing is done.
+		/// </summary>
+		event EventHandler<ProcessResultEvent> ProcessingResultEvent;
+
+		#region properties
+
+		#endregion properties
+
+		#region methods
+		/// <summary>
+		/// Initialize viewmodel with data that should not be initialized in constructor
+		/// but is usually necessary after creating default object.
+		/// </summary>
+		/// <param name="SettingData"></param>
+		void InitInstance(Options SettingData);
+
+		/// <summary>
+		/// Increase the document counter for new documents created via New command.
+		/// </summary>
+		void IncreaseNewCounter();
+
+		/// <summary>
+		/// Can be called when executing File>New for this document type.
+		/// The method changes all document states such that users can start
+		/// editing and be creating new content.
+		/// </summary>
+		void CreateNewDocument();
+
+		/// <summary>
+		/// Initialize scale view of content to indicated value and unit.
+		/// </summary>
+		/// <param name="unit"></param>
+		/// <param name="defaultValue"></param>
+		void InitScaleView(ZoomUnit unit, double defaultValue);
+		#endregion methods
+	}
 
 	/// <summary>
 	/// Enumerate the state of the document to enable a corresponding dynamic display.
@@ -49,7 +91,9 @@ namespace EdiDocuments.ViewModels.EdiDoc
 	/// This viewmodel class represents the business logic of the text editor.
 	/// Each text editor document instance is associated with a <seealso cref="EdiViewModel"/> instance.
 	/// </summary>
-	public class EdiViewModel : Edi.Core.ViewModels.FileBaseViewModel, EdiDialogs.FindReplace.ViewModel.IEditor
+	public class EdiViewModel : Edi.Core.ViewModels.FileBaseViewModel,
+                              EdiDialogs.FindReplace.ViewModel.IEditor,
+                              IDocumentEdi
 	{
 		#region Fields
 		public const string DocumentKey = "EdiTextEditor";
@@ -94,16 +138,25 @@ namespace EdiDocuments.ViewModels.EdiDoc
 		private FileLoader mAsyncProcessor;
 
 		RelayCommand<object> mCloseCommand = null;
-
 		#endregion Fields
 
 		#region constructor
 		/// <summary>
+		/// Class constructor from <seealso cref="IDocumentModel"/> parameter.
+		/// </summary>
+		/// <param name="documentModel"></param>
+		public EdiViewModel(IDocumentModel documentModel)
+			: this()
+		{
+			this.mDocumentModel.SetFileNamePath(documentModel.FileNamePath, documentModel.IsReal);
+		}
+
+		/// <summary>
 		/// Standard constructor. See also static <seealso cref="LoadFile"/> method
 		/// for construction from file saved on disk.
 		/// </summary>
-		public EdiViewModel()
-		 : base (EdiViewModel.DocumentKey)
+		protected EdiViewModel()
+			: base(EdiViewModel.DocumentKey)
 		{
 			this.CloseOnErrorWithoutMessage = false;
 
@@ -219,8 +272,9 @@ namespace EdiDocuments.ViewModels.EdiDoc
 
 		#region IsReadOnly
 		/// <summary>
-		/// Get/set whether document can currently be edit by user
-		/// (through attached UI) or not.
+		/// Gets/sets whether document can currently be edit by user
+		/// (through attached UI) or not. Also resets IsReadOnlyReason
+		/// to string.empty if value set is false.
 		/// </summary>
 		public bool IsReadOnly
 		{
@@ -238,6 +292,9 @@ namespace EdiDocuments.ViewModels.EdiDoc
 				{
 					if (this.mIsReadOnly != value)
 					{
+						if (value == false)
+							this.IsReadOnlyReason = string.Empty;
+
 						this.mIsReadOnly = value;
 						this.RaisePropertyChanged(() => this.IsReadOnly);
 					}
@@ -511,125 +568,6 @@ namespace EdiDocuments.ViewModels.EdiDoc
 		}
 		#endregion State
 
-		#region LoadFile
-		public static EdiViewModel LoadFile(IDocumentModel dm,
-																				object o)
-		{
-			return EdiViewModel.LoadFile(dm.FileNamePath, o as ISettingsManager);
-		}
-
-		/// <summary>
-		/// Load a files contents into the viewmodel for viewing and editing.
-		/// </summary>
-		/// <param name="filePath"></param>
-		/// <param name="closeOnErrorWithoutMessage"></param>
-		/// <returns></returns>
-		public static EdiViewModel LoadFile(string filePath,
-																				ISettingsManager settings,
-																				bool closeOnErrorWithoutMessage = false)
-		{
-			EdiViewModel vm = new EdiViewModel();
-			vm.InitInstance(settings.SettingData);
-			vm.FilePath = filePath;
-			vm.CloseOnErrorWithoutMessage = closeOnErrorWithoutMessage;
-
-			vm.LoadFileAsync(filePath);
-			////vm.OpenFile(filePath);   // Non-async file open version
-
-			return vm;
-		}
-
-		/// <summary>
-		/// Attempt to open a file and load it into the viewmodel if it exists.
-		/// </summary>
-		/// <param name="filePath"></param>
-		/// <returns>True if file exists and was succesfully loaded. Otherwise false.</returns>
-		protected bool OpenFile(string filePath)
-		{
-			try
-			{
-				this.IsFilePathReal = File.Exists(filePath);
-
-				if (this.IsFilePathReal == true)
-				{
-					this.FilePath = filePath;
-					this.ContentId = this.mFilePath;
-					this.IsDirty = false; // Mark document loaded from persistence as unedited copy (display without dirty mark '*' in name)
-
-					// Check file attributes and set to read-only if file attributes indicate that
-					if ((System.IO.File.GetAttributes(filePath) & FileAttributes.ReadOnly) != 0)
-					{
-						this.IsReadOnly = true;
-						this.IsReadOnlyReason = Util.Local.Strings.STR_FILE_READONLY_REASON_NO_WRITE_PERMISSION;
-					}
-
-					try
-					{
-						using (FileStream fs = new FileStream(this.mFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-						{
-							using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
-							{
-								TextDocument doc = new TextDocument(reader.ReadToEnd());
-								doc.SetOwnerThread(Application.Current.Dispatcher.Thread);
-								Application.Current.Dispatcher.BeginInvoke(
-											new Action(
-													delegate
-													{
-														this.Document = doc;
-													}), DispatcherPriority.Normal);
-
-								this.FileEncoding = reader.CurrentEncoding; // assign encoding after ReadToEnd() so that the StreamReader can autodetect the encoding
-							}
-						}
-
-						this.IsReadOnly = false;
-						this.IsReadOnlyReason = string.Empty;
-						this.State = DocumentState.IsEditing;
-					}
-					catch                 // File may be blocked by another process
-					{                    // Try read-only shared method and set file access to read-only
-						try
-						{
-							this.IsReadOnly = true;  // Open file in readonly mode
-							this.IsReadOnlyReason = Util.Local.Strings.STR_FILE_READONLY_REASON_USED_BY_OTHER_PROCESS;
-
-							using (FileStream fs = new FileStream(this.mFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-							{
-								using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
-								{
-									TextDocument doc = new TextDocument(reader.ReadToEnd());
-									doc.SetOwnerThread(Application.Current.Dispatcher.Thread);
-									Application.Current.Dispatcher.BeginInvoke(
-												new Action(
-														delegate
-														{
-															this.Document = doc;
-														}), DispatcherPriority.Normal);
-
-									this.FileEncoding = reader.CurrentEncoding; // assign encoding after ReadToEnd() so that the StreamReader can autodetect the encoding
-								}
-							}
-
-							this.State = DocumentState.IsEditing;
-						}
-						catch (Exception ex)
-						{
-							throw new Exception(Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, ex);
-						}
-					}
-				}
-				else
-					throw new FileNotFoundException(filePath);   // File does not exist
-			}
-			catch (Exception exp)
-			{
-				throw new Exception(Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, exp);
-			}
-
-			return true;
-		}
-		#endregion LoadFile
-
 		#region SaveCommand SaveAsCommand
 		/// <summary>
 		/// Indicate whether there is something to save in the document
@@ -653,7 +591,7 @@ namespace EdiDocuments.ViewModels.EdiDoc
 			{
 				File.WriteAllText(filePath, this.Document.Text);
 
-				this.IsFilePathReal = true;
+				this.mDocumentModel.SetIsReal(true);
 				this.FilePath = filePath;
 				this.ContentId = filePath;
 				this.IsDirty = false;
@@ -1002,6 +940,141 @@ namespace EdiDocuments.ViewModels.EdiDoc
 		#endregion properties
 
 		#region methods
+		public static IDocument CreateNewDocument(IDocumentModel documentModel)
+		{
+			return new EdiViewModel(documentModel);
+		}
+
+		#region LoadFile
+		/// <summary>
+		/// Load an Edi text editor file based on an <seealso cref="IDocumentModel"/>
+		/// representation and a <seealso cref="ISettingsManager"/> instance.
+		/// </summary>
+		/// <param name="dm"></param>
+		/// <param name="o">Should point to a <seealso cref="ISettingsManager"/> instance.</param>
+		/// <returns></returns>
+		public static EdiViewModel LoadFile(IDocumentModel dm,
+																				object o)
+		{
+			return EdiViewModel.LoadFile(dm, o as ISettingsManager);
+		}
+
+		/// <summary>
+		/// Load a files contents into the viewmodel for viewing and editing.
+		/// </summary>
+		/// <param name="dm"></param>
+		/// <param name="closeOnErrorWithoutMessage"></param>
+		/// <returns></returns>
+		public static EdiViewModel LoadFile(IDocumentModel dm,
+																				ISettingsManager settings,
+																				bool closeOnErrorWithoutMessage = false)
+		{
+			EdiViewModel vm = new EdiViewModel();
+			vm.InitInstance(settings.SettingData);
+			vm.FilePath = dm.FileNamePath;
+			vm.CloseOnErrorWithoutMessage = closeOnErrorWithoutMessage;
+
+			vm.LoadFileAsync(vm.FilePath);
+			////vm.OpenFile(filePath);   // Non-async file open version
+
+			return vm;
+		}
+
+		/// <summary>
+		/// Attempt to open a file and load it into the viewmodel if it exists.
+		/// </summary>
+		/// <param name="filePath"></param>
+		/// <returns>True if file exists and was succesfully loaded. Otherwise false.</returns>
+		protected bool OpenFile(string filePath)
+		{
+			try
+			{
+				var isReal = File.Exists(filePath);
+				this.mDocumentModel.SetFileNamePath(filePath, isReal);
+
+				if (this.IsFilePathReal == true)
+				{
+					this.mDocumentModel.SetIsReal(this.IsFilePathReal);
+					this.FilePath = filePath;
+					this.ContentId = this.mFilePath;
+					this.IsDirty = false; // Mark document loaded from persistence as unedited copy (display without dirty mark '*' in name)
+
+					// Check file attributes and set to read-only if file attributes indicate that
+					if ((System.IO.File.GetAttributes(filePath) & FileAttributes.ReadOnly) != 0)
+					{
+						this.IsReadOnly = true;
+						this.IsReadOnlyReason = Util.Local.Strings.STR_FILE_READONLY_REASON_NO_WRITE_PERMISSION;
+					}
+
+					try
+					{
+						using (FileStream fs = new FileStream(this.mFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+						{
+							using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
+							{
+								TextDocument doc = new TextDocument(reader.ReadToEnd());
+								doc.SetOwnerThread(Application.Current.Dispatcher.Thread);
+								Application.Current.Dispatcher.BeginInvoke(
+											new Action(
+													delegate
+													{
+														this.Document = doc;
+													}), DispatcherPriority.Normal);
+
+								this.FileEncoding = reader.CurrentEncoding; // assign encoding after ReadToEnd() so that the StreamReader can autodetect the encoding
+							}
+						}
+
+						// Set the correct actualy state of the model into the viewmodel
+						// to either allow editing or continue to block editing depending on what the model says
+						this.IsReadOnly = this.mDocumentModel.IsReadonly;
+
+						this.State = DocumentState.IsEditing;
+					}
+					catch                 // File may be blocked by another process
+					{                    // Try read-only shared method and set file access to read-only
+						try
+						{
+							this.IsReadOnly = true;  // Open file in readonly mode
+							this.IsReadOnlyReason = Util.Local.Strings.STR_FILE_READONLY_REASON_USED_BY_OTHER_PROCESS;
+
+							using (FileStream fs = new FileStream(this.mFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+							{
+								using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
+								{
+									TextDocument doc = new TextDocument(reader.ReadToEnd());
+									doc.SetOwnerThread(Application.Current.Dispatcher.Thread);
+									Application.Current.Dispatcher.BeginInvoke(
+												new Action(
+														delegate
+														{
+															this.Document = doc;
+														}), DispatcherPriority.Normal);
+
+									this.FileEncoding = reader.CurrentEncoding; // assign encoding after ReadToEnd() so that the StreamReader can autodetect the encoding
+								}
+							}
+
+							this.State = DocumentState.IsEditing;
+						}
+						catch (Exception ex)
+						{
+							throw new Exception(Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, ex);
+						}
+					}
+				}
+				else
+					throw new FileNotFoundException(filePath);   // File does not exist
+			}
+			catch (Exception exp)
+			{
+				throw new Exception(Util.Local.Strings.STR_FILE_OPEN_ERROR_MSG_CAPTION, exp);
+			}
+
+			return true;
+		}
+		#endregion LoadFile
+
 		/// <summary>
 		/// Initialize viewmodel with data that should not be initialized in constructor
 		/// but is usually necessary after creating default object.
@@ -1025,6 +1098,17 @@ namespace EdiDocuments.ViewModels.EdiDoc
 		}
 
 		/// <summary>
+		/// Reloads/Refresh's the current document content with the content
+		/// of the from disc.
+		/// </summary>
+		public override void ReOpen()
+		{
+			base.ReOpen();
+
+			this.LoadFileAsync(this.FilePath);
+		}
+
+		/// <summary>
 		/// Can be called when executing File>New for this document type.
 		/// The method changes all document states such that users can start
 		/// editing and be creating new content.
@@ -1034,7 +1118,6 @@ namespace EdiDocuments.ViewModels.EdiDoc
 			this.Document = new TextDocument();
 			this.State = DocumentState.IsEditing;
 			this.IsReadOnly = false;
-			this.IsReadOnlyReason = string.Empty;
 		}
 
 		/// <summary>

@@ -1,13 +1,18 @@
 ﻿namespace Edi.Core.ViewModels
 {
+	using Edi.Core.Interfaces;
 	using Edi.Core.Interfaces.Enums;
 
-	public interface IToolWindow
+	public interface IToolWindow : ILayoutItem
 	{
 		#region properties
 		string Name	{ get; }
 
 		bool IsVisible { get; }
+
+		bool IsActive { get; }
+
+		bool CanHide { get; }
 
 		PaneLocation PreferredLocation { get; }
 		double PreferredWidth { get; }

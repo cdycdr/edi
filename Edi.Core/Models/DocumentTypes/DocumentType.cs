@@ -29,6 +29,7 @@
 										 string fileFilterName,
 										 string defaultFilter,
 										 FileOpenDelegate fileOpenMethod,
+										 CreateNewDocumentDelegate createDocumentMethod,
 										 Type classType,
 										 int sortPriority = 0)
 		{
@@ -38,6 +39,7 @@
 			this.SortPriority = sortPriority;
 			this.DefaultFilter = defaultFilter;
 			this.FileOpenMethod = fileOpenMethod;
+			this.CreateDocumentMethod = createDocumentMethod;
 			this.ClassType = classType;
 
 			this.FileTypeExtensions = null;
@@ -67,6 +69,13 @@
 		public FileOpenDelegate FileOpenMethod { get; private set; }
 
 		/// <summary>
+		/// Gets the file new method that can be used to read a document of this type from disk.
+		/// This property can be null indicating that this type of document cannot be created
+		/// with this module (this document type can only be read and viewed from disk).
+		/// </summary>
+		public CreateNewDocumentDelegate CreateDocumentMethod { get; private set; }
+
+		/// <summary>
 		/// Gets the key of this document type.
 		/// </summary>
 		public string Key { get; private set; }
@@ -88,6 +97,7 @@
 		public Type ClassType { get; private set; }
 		#endregion properties
 
+		#region method
 		/// <summary>
 		/// Convinience methode to create an item for the collection of
 		/// <seealso cref="IDocumentTypeItem"/> items managed in this class.
@@ -167,5 +177,6 @@
 				ret.Add(item.SortPriority, filterString);
 			}
 		}
+		#endregion method
 	}
 }

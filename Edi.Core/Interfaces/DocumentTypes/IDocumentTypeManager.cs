@@ -13,8 +13,23 @@
 	/// <param name="fileModel"></param>
 	/// <param name="settingsManager"></param>
 	/// <returns></returns>
-	public delegate ViewModels.FileBaseViewModel FileOpenDelegate(IDocumentModel fileModel, object settingsManager);
+	public delegate IDocument FileOpenDelegate(IDocumentModel fileModel, object settingsManager);
 
+	/// <summary>
+	/// Delegates the file new method to a method that can be registered in a module.
+	/// The registered method should return a viewmodel which in turn has registered a
+	/// view for document display.
+	/// 
+	/// Create a new default document based on the given document model.
+	/// </summary>
+	/// <param name="documentModel"></param>
+	/// <returns></returns>
+	public delegate IDocument CreateNewDocumentDelegate(IDocumentModel documentModel);
+
+	/// <summary>
+	/// Interface specification for the document management service that drives
+	/// creation, loading and saving of documents in the low level backend.
+	/// </summary>
 	public interface IDocumentTypeManager
 	{
 		#region properties
@@ -36,6 +51,7 @@
 																			 string FileFilterName,
 																			 string DefaultFilter,               // eg: 'log4j'
 																			 FileOpenDelegate FileOpenMethod,
+																			 CreateNewDocumentDelegate CreateDocumentMethod,
 																			 Type t,
 																			 int sortPriority = 0
 																			 );

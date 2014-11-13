@@ -46,7 +46,7 @@
 		/// <summary>
 		/// Expose command to load/save AvalonDock layout on application startup and shut-down.
 		/// </summary>
-		IAvalonDockLayoutViewModel ADLayout{ get; }
+		IAvalonDockLayoutViewModel ADLayout { get; }
 		#endregion properties
 
 		#region methods
@@ -100,10 +100,16 @@
 		/// <param name="filePath">file to open</param>
 		/// <param name="AddIntoMRU">indicate whether file is to be added into MRU or not</param>
 		/// <returns></returns>
-		FileBaseViewModel Open(string filePath,
-													 CloseDocOnError closeDocumentWithoutMessageOnError = CloseDocOnError.WithUserNotification,
-													 bool AddIntoMRU = true,
-													 string typeOfDocument = "EdiTextEditor");
+		IDocument Open(string filePath,
+										CloseDocOnError closeDocumentWithoutMessageOnError = CloseDocOnError.WithUserNotification,
+										bool AddIntoMRU = true,
+										string typeOfDocument = "EdiTextEditor");
+
+		/// <summary>
+		/// Activates/deactivates processing of the mainwindow activated event.
+		/// </summary>
+		/// <param name="bActivate"></param>
+		void EnableMainWindowActivated(bool bActivate);
 		#endregion methods
 	}
 }

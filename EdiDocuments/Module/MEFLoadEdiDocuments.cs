@@ -75,10 +75,11 @@
 			// Register these patterns for the build in AvalonEdit text editor
 			// All Files (*.*)|*.*
 			var docType = documentTypeManager.RegisterDocumentType(EdiViewModel.DocumentKey,
-			                                                       EdiViewModel.Description,
+																														 EdiViewModel.Description,
 																														 EdiViewModel.FileFilterName,
 																														 EdiViewModel.DefaultFilter,
-																															EdiViewModel.LoadFile,
+																														 EdiViewModel.LoadFile,
+																														 EdiViewModel.CreateNewDocument,
 																															typeof(EdiViewModel),
 																															10);
 
@@ -106,10 +107,11 @@
 		{
 			// Unified Modeling Language (*.uml,*.xml)|*.uml;*.xml
 			var docType = documentTypeManager.RegisterDocumentType(MiniUmlViewModel.DocumentKey,
-			                                                      MiniUmlViewModel.Description,
+																														MiniUmlViewModel.Description,
 																														MiniUmlViewModel.FileFilterName,
 																														MiniUmlViewModel.DefaultFilter,
 																														MiniUmlViewModel.LoadFile,
+																														null,
 																														typeof(MiniUmlViewModel),
 																														90);
 

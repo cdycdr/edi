@@ -1,11 +1,17 @@
-﻿namespace Edi.Core.Interfaces.Documents
+﻿using System;
+namespace Edi.Core.Interfaces.Documents
 {
 	/// <summary>
 	/// Interface defines properties and methods of a base class for modelling
 	/// file access on persistent storage.
 	/// </summary>
-	public interface IDocumentModel
+	public interface IDocumentModel : IDisposable
 	{
+		/// <summary>
+		/// Occurs when the file name has changed.
+		/// </summary>
+		event EventHandler FileNameChanged;
+
 		#region properties
 		/// <summary>
 		/// Gets whether the file content on storake (harddisk) can be changed
@@ -39,6 +45,15 @@
 		/// Gets the file extension of the document represented by this path.
 		/// </summary>
 		string FileExtension { get; }
+
+		/// <summary>
+		/// Gets/sets a property to indicate whether this
+		/// file was changed externally (by another editor) or not.
+		/// 
+		/// Setter can be used to override re-loading (keep current content)
+		/// at the time of detection.
+		/// </summary>
+		bool WasChangedExternally { get; set; }
 		#endregion properties
 
 		#region methods
