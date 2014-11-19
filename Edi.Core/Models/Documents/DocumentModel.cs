@@ -1,6 +1,7 @@
 ﻿namespace Edi.Core.Models.Documents
 {
 	using System;
+	using System.Windows;
 	using Edi.Core.Interfaces.Documents;
 	using Edi.Core.Models.Utillities.FileSystem;
 
@@ -112,10 +113,12 @@
 		{
 			get
 			{
-				if (this.mFileChangeWatcher == null)
-					return false;
+				bool changedExternally = false;
 
-				return this.mFileChangeWatcher.WasChangedExternally;
+				if (this.mFileChangeWatcher != null)
+					changedExternally = this.mFileChangeWatcher.WasChangedExternally;
+
+				return changedExternally;
 			}
 
 			set
@@ -153,11 +156,11 @@
 		{
 			if (fileNamePath != null)
 				this.mFileName = new FileName(fileNamePath);
-			
+
 			this.IsReal = isReal;
 
 			if (this.IsReal == true && fileNamePath != null)
-			{ 
+			{
 				this.QueryFileProperies();
 				this.ChangeFileName(this.mFileName);
 			}
@@ -188,13 +191,17 @@
 				System.IO.FileInfo f = new System.IO.FileInfo(this.FileNamePath);
 				this.IsReadonly = f.IsReadOnly;
 
-				if (this.mFileChangeWatcher != null)
-				{
-					this.mFileChangeWatcher.Dispose();
-					this.mFileChangeWatcher = null;
-				}
+				/*** Todo XXX System hangs if fileWatcher is armed(?)
+									Wrapping calls to this.mFileChangeWatcher into Application.Current.Disptcher.Invoke did not solve the problem(!)
 
-				this.mFileChangeWatcher = new FileChangeWatcher(this);
+								if (this.mFileChangeWatcher != null)
+								{
+									this.mFileChangeWatcher.Dispose();
+									this.mFileChangeWatcher = null;
+								}
+
+								this.mFileChangeWatcher = new FileChangeWatcher(this);
+				 ***/
 			}
 			catch (Exception exp)
 			{

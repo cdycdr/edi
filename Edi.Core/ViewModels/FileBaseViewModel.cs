@@ -82,6 +82,9 @@ namespace Edi.Core.ViewModels
 		{
 			get
 			{
+				if (this.mDocumentModel == null)
+					return false;
+
 				return this.mDocumentModel.IsReal;
 			}
 
