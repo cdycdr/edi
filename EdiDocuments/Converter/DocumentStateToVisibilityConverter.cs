@@ -4,7 +4,7 @@
 	using System.Windows;
 	using System.Windows.Data;
 	using System.Windows.Markup;
-	using EdiDocuments.ViewModels.EdiDoc;
+	using Edi.Core.Interfaces.Enums;
 
 	/// <summary>
 	/// XAML mark up extension to convert a null value into a visibility value.
@@ -95,5 +95,4 @@
 		}
 		#endregion IValueConverter
 	}
-
 }

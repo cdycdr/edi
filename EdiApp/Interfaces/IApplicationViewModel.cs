@@ -100,7 +100,7 @@
 		/// <param name="filePath">file to open</param>
 		/// <param name="AddIntoMRU">indicate whether file is to be added into MRU or not</param>
 		/// <returns></returns>
-		IDocument Open(string filePath,
+		IFileBaseViewModel Open(string filePath,
 										CloseDocOnError closeDocumentWithoutMessageOnError = CloseDocOnError.WithUserNotification,
 										bool AddIntoMRU = true,
 										string typeOfDocument = "EdiTextEditor");

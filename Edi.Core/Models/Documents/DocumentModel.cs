@@ -1,7 +1,6 @@
 ﻿namespace Edi.Core.Models.Documents
 {
 	using System;
-	using System.Windows;
 	using Edi.Core.Interfaces.Documents;
 	using Edi.Core.Models.Utillities.FileSystem;
 
@@ -113,12 +112,10 @@
 		{
 			get
 			{
-				bool changedExternally = false;
+				if (this.mFileChangeWatcher == null)
+					return false;
 
-				if (this.mFileChangeWatcher != null)
-					changedExternally = this.mFileChangeWatcher.WasChangedExternally;
-
-				return changedExternally;
+				return this.mFileChangeWatcher.WasChangedExternally;
 			}
 
 			set
@@ -156,11 +153,11 @@
 		{
 			if (fileNamePath != null)
 				this.mFileName = new FileName(fileNamePath);
-
+			
 			this.IsReal = isReal;
 
 			if (this.IsReal == true && fileNamePath != null)
-			{
+			{ 
 				this.QueryFileProperies();
 				this.ChangeFileName(this.mFileName);
 			}
@@ -178,7 +175,10 @@
 			this.IsReal = isReal;
 
 			if (this.IsReal == true)
-				this.QueryFileProperies();
+			{
+				if(this.mFileChangeWatcher == null)
+					this.QueryFileProperies();
+			}
 		}
 
 		/// <summary>
@@ -188,24 +188,68 @@
 		{
 			try
 			{
-				System.IO.FileInfo f = new System.IO.FileInfo(this.FileNamePath);
-				this.IsReadonly = f.IsReadOnly;
+				if (this.IsReal == true)
+				{
+					System.IO.FileInfo f = new System.IO.FileInfo(this.FileNamePath);
+					this.IsReadonly = f.IsReadOnly;
 
-				/*** Todo XXX System hangs if fileWatcher is armed(?)
-									Wrapping calls to this.mFileChangeWatcher into Application.Current.Disptcher.Invoke did not solve the problem(!)
+					if (this.mFileChangeWatcher != null)
+					{
+						this.mFileChangeWatcher.Dispose();
+						this.mFileChangeWatcher = null;
+					}
 
-								if (this.mFileChangeWatcher != null)
-								{
-									this.mFileChangeWatcher.Dispose();
-									this.mFileChangeWatcher = null;
-								}
-
-								this.mFileChangeWatcher = new FileChangeWatcher(this);
-				 ***/
+					this.mFileChangeWatcher = new FileChangeWatcher(this);
+				}
 			}
 			catch (Exception exp)
 			{
 				throw new Exception("Error in QueryFileProperies", exp);
+			}
+		}
+
+		/// <summary>
+		/// Set a file specific value to determine whether file
+		/// watching is enabled/disabled for this file.
+		/// </summary>
+		/// <param name="isEnabled"></param>
+		/// <returns></returns>
+		public bool EnableDocumentFileWatcher(bool isEnabled)
+		{
+			try
+			{
+				if (isEnabled == true)
+				{
+					// Enable file watcher for this file
+					if (this.IsReal == false)
+						return false;
+
+					if (this.mFileChangeWatcher == null)
+						this.QueryFileProperies();
+
+					if (this.mFileChangeWatcher == null)
+						return false;
+
+					if (this.mFileChangeWatcher.Enabled == false)
+						this.mFileChangeWatcher.Enabled = true;
+
+					return true;
+				}
+				else
+				{
+					// Disable file watcher for this file
+					if (this.mFileChangeWatcher == null)
+						return false;
+
+					if (this.mFileChangeWatcher.Enabled == true)
+						this.mFileChangeWatcher.Enabled = false;
+
+					return false;
+				}
+			}
+			catch (Exception)
+			{
+				return false;
 			}
 		}
 

@@ -17,7 +17,7 @@
 		/// <summary>
 		/// Gets the viewmodel of the currently selected document.
 		/// </summary>
-		IDocument ActiveDocument
+		IFileBaseViewModel ActiveDocument
 		{
 			get;
 			set;

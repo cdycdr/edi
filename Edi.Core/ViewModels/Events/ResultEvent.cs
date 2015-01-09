@@ -1,10 +1,10 @@
-﻿namespace EdiDocuments.Process
+﻿namespace Edi.Core.ViewModels.Events
 {
 	using System;
 	using System.Collections.Generic;
 
 	/// <summary>
-	/// Stores information about the mResult of a batch run.
+	/// Stores information about the result of an asynchron task processing.
 	/// If an error occurs, Error is set to true and an exception may be stored in InnerException.
 	/// </summary>
 	public class ResultEvent : EventArgs

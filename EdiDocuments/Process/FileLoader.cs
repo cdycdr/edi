@@ -6,6 +6,7 @@
 	using System.Threading;
 	using System.Threading.Tasks;
 	using System.Windows.Threading;
+	using Edi.Core.ViewModels.Events;
 
 	/// <summary>
 	/// This class implements a task based log4net loader

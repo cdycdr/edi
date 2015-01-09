@@ -15,6 +15,8 @@
 	/// </summary>
 	public class LayoutInitializer : ILayoutUpdateStrategy
 	{
+		protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 		/// <summary>
 		/// Method is called when a completely new layout item is
 		/// to be inserted into the current avalondock layout.
@@ -103,6 +105,7 @@
 			}
 			catch (Exception exp)
 			{
+				logger.Error(exp);
 			}
 
 			return null;

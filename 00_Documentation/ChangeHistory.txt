@@ -1,6 +1,16 @@
 
 1 Major Changes in Edi
 
+- This version is a branch from the 2014, Nov 13 commit
+  It fixes some small issues + the deadlock race condition that appeared when
+  installing/enabling file watchers via constructor
+  (FIX: file watcher is now enabled ONLY if file is loaded succesfully)
+  
+  Todo
+  Reloading file on change should be based on high level File>Close and File>Open
+  since low level exceptions are otherwise thrown
+  (for example from AvalonEdi>Folding Manager, Highlighting Manager etc)
+
 - ToDo
   Write currently configured highlighting theme as HTML output into a new file tab (configured with HTML Highlighting)
   YalvLib supports customizable column display (via context menu on columns -> make this configurable in program settings)

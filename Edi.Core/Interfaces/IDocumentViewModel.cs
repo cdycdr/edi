@@ -2,19 +2,25 @@
 {
 	using System;
 	using System.Windows.Input;
+	using Edi.Core.Interfaces.Enums;
 	using Edi.Core.ViewModels.Events;
 
 	/// <summary>
 	/// Inteface that is supported by document related viewmodels.
 	/// </summary>
-	public interface IDocument : ILayoutItem, IDisposable
+	public interface IFileBaseViewModel : ILayoutItem, IDisposable
 	{
 		#region events
 		/// <summary>
-		/// This event is fired when a document tells the framework that is wants to be closed.
+		/// This event is fired when a document tells, for example, the framework that it wants to be closed.
 		/// The framework can then close it and clean-up whatever is left to clean-up.
 		/// </summary>
 		event EventHandler<FileBaseEvent> DocumentEvent;
+
+		/// <summary>
+		/// Supports asynchrone processing by implementing a result event when processing is done.
+		/// </summary>
+		event EventHandler<ProcessResultEvent> ProcessingResultEvent;
 		#endregion events
 
 		#region properties
@@ -24,6 +30,12 @@
 		/// file open/save filter settings etc...
 		/// </summary>
 		string DocumentTypeKey { get; }
+
+		/// <summary>
+		/// Gets the current state of the document. States may differ during
+		/// initialization, loading, and other asynchron processings...
+		/// </summary>
+		DocumentState State { get; }
 
 		/// <summary>
 		/// File path of the current document.

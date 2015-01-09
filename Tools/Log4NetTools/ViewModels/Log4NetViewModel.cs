@@ -265,6 +265,7 @@ namespace Log4NetTools.ViewModels
 					// Try read-only shared method and set file access to read-only
 					try
 					{
+						// XXX TODO Extend log4net FileOpen method to support base.FireFileProcessingResultEvent(...);
 						this.mYalvVM.LoadFile(filePath);
 					}
 					catch (Exception ex)

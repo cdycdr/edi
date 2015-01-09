@@ -13,7 +13,7 @@
 	/// <param name="fileModel"></param>
 	/// <param name="settingsManager"></param>
 	/// <returns></returns>
-	public delegate IDocument FileOpenDelegate(IDocumentModel fileModel, object settingsManager);
+	public delegate IFileBaseViewModel FileOpenDelegate(IDocumentModel fileModel, object settingsManager);
 
 	/// <summary>
 	/// Delegates the file new method to a method that can be registered in a module.
@@ -24,7 +24,7 @@
 	/// </summary>
 	/// <param name="documentModel"></param>
 	/// <returns></returns>
-	public delegate IDocument CreateNewDocumentDelegate(IDocumentModel documentModel);
+	public delegate IFileBaseViewModel CreateNewDocumentDelegate(IDocumentModel documentModel);
 
 	/// <summary>
 	/// Interface specification for the document management service that drives

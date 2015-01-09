@@ -10,8 +10,9 @@ namespace EdiDocuments.ViewModels.EdiDoc
 	using System.Windows.Threading;
 	using Edi.Core.Interfaces;
 	using Edi.Core.Interfaces.Documents;
-	using Edi.Core.Models.Documents;
+	using Edi.Core.Interfaces.Enums;
 	using Edi.Core.ViewModels.Command;
+	using Edi.Core.ViewModels.Events;
 	using EdiDocuments.Process;
 	using ICSharpCode.AvalonEdit.Document;
 	using ICSharpCode.AvalonEdit.Edi.BlockSurround;
@@ -25,17 +26,8 @@ namespace EdiDocuments.ViewModels.EdiDoc
 	using UnitComboLib.Unit.Screen;
 	using UnitComboLib.ViewModel;
 
-	public interface IDocumentEdi : IDocument
+	public interface IDocumentEdi : IFileBaseViewModel
 	{
-		/// <summary>
-		/// Supports asynchrone processing by implementing a result event when processing is done.
-		/// </summary>
-		event EventHandler<ProcessResultEvent> ProcessingResultEvent;
-
-		#region properties
-
-		#endregion properties
-
 		#region methods
 		/// <summary>
 		/// Initialize viewmodel with data that should not be initialized in constructor
@@ -66,34 +58,13 @@ namespace EdiDocuments.ViewModels.EdiDoc
 	}
 
 	/// <summary>
-	/// Enumerate the state of the document to enable a corresponding dynamic display.
-	/// </summary>
-	public enum DocumentState
-	{
-		/// <summary>
-		/// Identifies a state that was probably not fully initialized.
-		/// Getting of state can indicate a defect in the software.
-		/// </summary>
-		IsInvalid = -1,
-
-		/// <summary>
-		/// Document is loading and cannot be view, yet
-		/// </summary>
-		IsLoading = 0,
-
-		/// <summary>
-		/// Document is loaded and can either be viewed (readonly) or edited
-		/// </summary>
-		IsEditing = 1
-	}
-
-	/// <summary>
 	/// This viewmodel class represents the business logic of the text editor.
 	/// Each text editor document instance is associated with a <seealso cref="EdiViewModel"/> instance.
 	/// </summary>
 	public class EdiViewModel : Edi.Core.ViewModels.FileBaseViewModel,
                               EdiDialogs.FindReplace.ViewModel.IEditor,
-                              IDocumentEdi
+															IDocumentEdi,
+															IDocumentFileWatcher
 	{
 		#region Fields
 		public const string DocumentKey = "EdiTextEditor";
@@ -117,7 +88,6 @@ namespace EdiDocuments.ViewModels.EdiDoc
 		private bool mWordWrap = false;            // Toggle state command
 		private bool mShowLineNumbers = true;     // Toggle state command
 		private Encoding mFileEncoding = Encoding.UTF8;
-		private DocumentState mState = DocumentState.IsLoading;
 
 		private int mLine = 0;      // These properties are used to display the current column/line
 		private int mColumn = 0;    // of the cursor in the user interface
@@ -182,11 +152,6 @@ namespace EdiDocuments.ViewModels.EdiDoc
 			this.InsertBlocks = null;
 		}
 		#endregion constructor
-
-		/// <summary>
-		/// Supports asynchrone processing by implementing a result event when processing is done.
-		/// </summary>
-		public event EventHandler<ProcessResultEvent> ProcessingResultEvent;
 
 		#region properties
 		/// <summary>
@@ -540,34 +505,6 @@ namespace EdiDocuments.ViewModels.EdiDoc
 		}
 		#endregion AvalonEdit properties
 
-		#region State
-		/// <summary>
-		/// </summary>
-		public DocumentState State
-		{
-			get
-			{
-				lock (this.lockThis)
-				{
-					return this.mState;
-				}
-			}
-
-			set
-			{
-				lock (this.lockThis)
-				{
-					if (this.mState != value)
-					{
-						this.mState = value;
-
-						this.RaisePropertyChanged(() => this.State);
-					}
-				}
-			}
-		}
-		#endregion State
-
 		#region SaveCommand SaveAsCommand
 		/// <summary>
 		/// Indicate whether there is something to save in the document
@@ -591,9 +528,11 @@ namespace EdiDocuments.ViewModels.EdiDoc
 			{
 				File.WriteAllText(filePath, this.Document.Text);
 
-				this.mDocumentModel.SetIsReal(true);
+				// Set new file name in viewmodel and model
 				this.FilePath = filePath;
 				this.ContentId = filePath;
+				this.mDocumentModel.SetFileNamePath(filePath, true);
+
 				this.IsDirty = false;
 
 				return true;
@@ -940,7 +879,7 @@ namespace EdiDocuments.ViewModels.EdiDoc
 		#endregion properties
 
 		#region methods
-		public static IDocument CreateNewDocument(IDocumentModel documentModel)
+		public static IFileBaseViewModel CreateNewDocument(IDocumentModel documentModel)
 		{
 			return new EdiViewModel(documentModel);
 		}
@@ -1194,6 +1133,18 @@ namespace EdiDocuments.ViewModels.EdiDoc
 			EdiViewModel.iNewFileCounter += 1;
 		}
 
+		/// <summary>
+		/// Set a file specific value to determine whether file
+		/// watching is enabled/disabled for this file.
+		/// </summary>
+		/// <param name="IsEnabled"></param>
+		/// <returns></returns>
+		public bool EnableDocumentFileWatcher(bool IsEnabled)
+		{
+			// Activate file watcher for this document
+			return this.mDocumentModel.EnableDocumentFileWatcher(true);
+		}
+
 		#region ScaleView methods
 		/// <summary>
 		/// Initialize scale view of content to indicated value and unit.
@@ -1283,12 +1234,7 @@ namespace EdiDocuments.ViewModels.EdiDoc
 			}
 
 			// Continue processing in parent of this viewmodel if there is any such requested
-			if (this.ProcessingResultEvent != null)
-			{
-				this.ProcessingResultEvent(this, new ProcessResultEvent(e.Message, e.Error, e.Cancel,
-																																TypeOfResult.FileLoad,
-																																e.ResultObjects, e.InnerException));
-			}
+			base.FireFileProcessingResultEvent(e, TypeOfResult.FileLoad);
 		}
 
 		/// <summary>

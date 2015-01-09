@@ -5,6 +5,7 @@ namespace Edi.Core.ViewModels
 	using System.Windows.Input;
 	using Edi.Core.Interfaces;
 	using Edi.Core.Interfaces.Documents;
+	using Edi.Core.Interfaces.Enums;
 	using Edi.Core.Models.Documents;
 	using Edi.Core.ViewModels.Command;
 	using Edi.Core.ViewModels.Events;
@@ -15,10 +16,12 @@ namespace Edi.Core.ViewModels
 	/// among viewmodels that represent documents in Edi
 	/// (text file edits, Start Page, Program Settings).
 	/// </summary>
-	public abstract class FileBaseViewModel : PaneViewModel, IDocument
+	public abstract class FileBaseViewModel : PaneViewModel, IFileBaseViewModel
 	{
 		#region Fields
-		private bool mIsFilePathReal = false;
+		private object lockObject = new object();
+
+		private DocumentState mState = DocumentState.IsLoading;
 
 		private RelayCommand<object> mOpenContainingFolderCommand = null;
 		private RelayCommand<object> mCopyFullPathtoClipboard = null;
@@ -55,6 +58,11 @@ namespace Edi.Core.ViewModels
 		/// The framework can then close it and clean-up whatever is left to clean-up.
 		/// </summary>
 		virtual public event EventHandler<FileBaseEvent> DocumentEvent;
+
+		/// <summary>
+		/// Supports asynchrone processing by implementing a result event when processing is done.
+		/// </summary>
+		public event EventHandler<ProcessResultEvent> ProcessingResultEvent;
 		#endregion events
 
 		#region properties
@@ -71,7 +79,6 @@ namespace Edi.Core.ViewModels
 			}
 		}
 
-		#region IsFilePathReal
 		/// <summary>
 		/// Get/set whether a given file path is a real existing path or not.
 		/// 
@@ -82,10 +89,10 @@ namespace Edi.Core.ViewModels
 		{
 			get
 			{
-				if (this.mDocumentModel == null)
-					return false;
+				if (this.mDocumentModel != null)
+					return this.mDocumentModel.IsReal;
 
-				return this.mDocumentModel.IsReal;
+				return false;
 			}
 
 			////set
@@ -93,11 +100,36 @@ namespace Edi.Core.ViewModels
 			////	this.mIsFilePathReal = value;
 			////}
 		}
-		#endregion IsFilePathReal
 
-		#region FilePath
+		/// <summary>
+		/// Gets the current state of the document. States may differ during
+		/// initialization, loading, and other asynchron processings...
+		/// </summary>
+		public DocumentState State
+		{
+			get
+			{
+				lock (this.lockObject)
+				{
+					return this.mState;
+				}
+			}
+
+			protected set
+			{
+				lock (this.lockObject)
+				{
+					if (this.mState != value)
+					{
+						this.mState = value;
+
+						this.RaisePropertyChanged(() => this.State);
+					}
+				}
+			}
+		}
+
 		public virtual string FilePath { get; protected set; }
-		#endregion FilePath
 
 		#region FileName
 		/// <summary>
@@ -358,6 +390,20 @@ namespace Edi.Core.ViewModels
 			catch
 			{
 			}
+		}
+
+		public bool FireFileProcessingResultEvent(ResultEvent e, TypeOfResult typeOfResult)
+		{
+			// Continue processing in parent of this viewmodel if there is any such requested
+			if (this.ProcessingResultEvent != null)
+			{
+				this.ProcessingResultEvent(this, new ProcessResultEvent(e.Message, e.Error, e.Cancel, typeOfResult,
+																																e.ResultObjects, e.InnerException));
+
+				return true;
+			}
+
+			return false;
 		}
 
 		public void Dispose()

@@ -46,9 +46,11 @@
 	public sealed class SingletonApplicationEnforcer
 	{
 		#region fields
-		readonly Action<IEnumerable<string>> processArgsFunc;
-		readonly Action<string> processActivateFunc;
-		readonly string applicationId;
+		static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		private readonly Action<IEnumerable<string>> processArgsFunc;
+		private readonly Action<string> processActivateFunc;
+		private readonly string applicationId;
 
 		Thread thread;
 		Thread windowActivationThread;
@@ -143,7 +145,7 @@
 									}
 									catch (Exception ex)
 									{
-										Debug.WriteLine("Unable to retrieve string. " + ex);
+										logger.Error("Unable to retrieve string. ", ex);
 										continue;
 									}
 									string[] argsSplit = args.Split(new string[] { argDelimiter },
@@ -156,7 +158,7 @@
 					}
 					catch (Exception ex)
 					{
-						Debug.WriteLine("Unable to monitor memory file. " + ex);
+						logger.Error("Unable to monitor memory file. ", ex);
 					}
 				});
 
@@ -165,34 +167,42 @@
 			}
 			else
 			{
-				windowActivationThread = new Thread(() =>
+				try
 				{
-					try
+					windowActivationThread = new Thread(() =>
 					{
-						processActivateFunc(this.applicationId);
-					}
-					catch (Exception ex)
-					{
-						Debug.WriteLine("Error activating window: " + ex);
-					}
-				});
+						try
+						{
+							processActivateFunc(this.applicationId);
+						}
+						catch (Exception ex)
+						{
+							logger.Error("Error activating window", ex);
+						}
+					});
 
-				windowActivationThread.Start();
+					windowActivationThread.Start();
 
-				/* Non singleton application instance. 
-				 * Should exit, after passing command line args to singleton process, 
-				 * via the MemoryMappedFile. */
-				using (MemoryMappedFile mmf = MemoryMappedFile.OpenExisting(memoryFileName))
-				{
-					using (MemoryMappedViewStream stream = mmf.CreateViewStream())
+					/* Non singleton application instance. 
+					 * Should exit, after passing command line args to singleton process, 
+					 * via the MemoryMappedFile. */
+					using (MemoryMappedFile mmf = MemoryMappedFile.OpenExisting(memoryFileName))
 					{
-						var writer = new BinaryWriter(stream);
-						string[] args = Environment.GetCommandLineArgs();
-						string joined = string.Join(argDelimiter, args);
-						writer.Write(joined);
+						using (MemoryMappedViewStream stream = mmf.CreateViewStream())
+						{
+							var writer = new BinaryWriter(stream);
+							string[] args = Environment.GetCommandLineArgs();
+							string joined = string.Join(argDelimiter, args);
+							writer.Write(joined);
+						}
 					}
+					argsWaitHandle.Set();
+
 				}
-				argsWaitHandle.Set();
+				catch (Exception ex)
+				{
+					logger.Error("Error on OpenExisting memory mapped file", ex);
+				}
 			}
 
 			return !createdNew;

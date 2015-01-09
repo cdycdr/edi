@@ -1,6 +1,7 @@
-﻿using System;
 namespace Edi.Core.Interfaces.Documents
 {
+	using System;
+
 	/// <summary>
 	/// Interface defines properties and methods of a base class for modelling
 	/// file access on persistent storage.
@@ -14,13 +15,13 @@ namespace Edi.Core.Interfaces.Documents
 
 		#region properties
 		/// <summary>
-		/// Gets whether the file content on storake (harddisk) can be changed
+		/// Gets whether the file content on storage (harddisk) can be changed
 		/// or whether file is readonly through file properties.
 		/// </summary>
 		bool IsReadonly { get; }
 
 		/// <summary>
-		/// Determines whether a document has ever been stored on disk or whether
+		/// Determines whether a document has ever been stored on disc or whether
 		/// the current path and other file properties are currently just initialized
 		/// in-memory with defaults.
 		/// </summary>
@@ -75,6 +76,14 @@ namespace Edi.Core.Interfaces.Documents
 		/// (file open -> properties are refreshed from persistence) or not
 		/// (properties are reset to default).</param>
 		void SetIsReal(bool isReal);
+
+		/// <summary>
+		/// Set a file specific value to determine whether file
+		/// watching is enabled/disabled for this file.
+		/// </summary>
+		/// <param name="IsEnabled"></param>
+		/// <returns></returns>
+		bool EnableDocumentFileWatcher(bool IsEnabled);
 		#endregion methods
 	}
 }

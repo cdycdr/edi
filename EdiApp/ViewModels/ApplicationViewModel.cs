@@ -73,10 +73,10 @@ namespace EdiApp.ViewModels
 		private bool mShutDownInProgress = false;
 		private bool mShutDownInProgress_Cancel = false;
 
-		private ObservableCollection<IDocument> mFiles = null;
-		private ReadOnlyObservableCollection<IDocument> mReadonyFiles = null;
+		private ObservableCollection<IFileBaseViewModel> mFiles = null;
+		private ReadOnlyObservableCollection<IFileBaseViewModel> mReadonyFiles = null;
 
-		private IDocument mActiveDocument = null;
+		private IFileBaseViewModel mActiveDocument = null;
 		private RelayCommand<object> mMainWindowActivated = null;
 
 		private readonly IModuleManager mModuleManager = null;
@@ -119,7 +119,7 @@ namespace EdiApp.ViewModels
 		public ApplicationViewModel()
 		{
 			this.mAVLayout = null;
-			this.mFiles = new ObservableCollection<IDocument>();
+			this.mFiles = new ObservableCollection<IFileBaseViewModel>();
 
 			// Subscribe to publsihers who relay the fact that a new tool window has been registered
 			// Register this methods to receive PRISM event notifications
@@ -229,7 +229,7 @@ namespace EdiApp.ViewModels
 		/// <summary>
 		/// Gets/sets the dcoument that is currently active (has input focus) - if any.
 		/// </summary>
-		public IDocument ActiveDocument
+		public IFileBaseViewModel ActiveDocument
 		{
 			get
 			{
@@ -333,12 +333,12 @@ namespace EdiApp.ViewModels
 		/// <summary>
 		/// Principable data source for collection of documents managed in the the document manager (of AvalonDock).
 		/// </summary>
-		public ReadOnlyObservableCollection<IDocument> Files
+		public ReadOnlyObservableCollection<IFileBaseViewModel> Files
 		{
 			get
 			{
 				if (mReadonyFiles == null)
-					mReadonyFiles = new ReadOnlyObservableCollection<IDocument>(this.mFiles);
+					mReadonyFiles = new ReadOnlyObservableCollection<IFileBaseViewModel>(this.mFiles);
 
 				return mReadonyFiles;
 			}
@@ -439,7 +439,7 @@ namespace EdiApp.ViewModels
 		/// <param name="filePath">file to open</param>
 		/// <param name="AddIntoMRU">indicate whether file is to be added into MRU or not</param>
 		/// <returns></returns>
-		public IDocument Open(string filePath,
+		public IFileBaseViewModel Open(string filePath,
 													CloseDocOnError closeDocumentWithoutMessageOnError = CloseDocOnError.WithUserNotification,
 													bool AddIntoMRU = true,
 													string typeOfDoc = "EdiTextEditor")
@@ -449,7 +449,7 @@ namespace EdiApp.ViewModels
 			this.SelectedOpenDocumentType = this.DocumentTypes[0];
 
 			// Verify whether file is already open in editor, and if so, show it
-			IDocument fileViewModel = this.Documents.FirstOrDefault(fm => fm.FilePath == filePath);
+			IFileBaseViewModel fileViewModel = this.Documents.FirstOrDefault(fm => fm.FilePath == filePath);
 
 			if (fileViewModel != null) // File is already open so show it to the user
 			{
@@ -493,7 +493,7 @@ namespace EdiApp.ViewModels
 			return IntegrateDocumentVM(fileViewModel, filePath, AddIntoMRU);
 		}
 
-		private IDocument IntegrateDocumentVM(IDocument fileViewModel,
+		private IFileBaseViewModel IntegrateDocumentVM(IFileBaseViewModel fileViewModel,
 																						string filePath,
 																						bool AddIntoMRU)
 		{
@@ -513,6 +513,7 @@ namespace EdiApp.ViewModels
 			}
 
 			fileViewModel.DocumentEvent += this.ProcessDocumentEvent;
+			fileViewModel.ProcessingResultEvent += this.vm_ProcessingResultEvent;
 			this.mFiles.Add(fileViewModel);
 
 			// reset viewmodel options in accordance to current program settings
@@ -520,7 +521,6 @@ namespace EdiApp.ViewModels
 
 			if (ediVM != null)
 			{
-				ediVM.ProcessingResultEvent += this.vm_ProcessingResultEvent;
 				this.SetActiveDocumentOnNewFileOrOpenFile(ediVM);
 			}
 			else
@@ -573,7 +573,7 @@ namespace EdiApp.ViewModels
 					// Does this document type support creation of new documents?
 					if (typeOfDocKey.CreateDocumentMethod != null)
 					{
-						IDocument vm = typeOfDocKey.CreateDocumentMethod(dm);
+						IFileBaseViewModel vm = typeOfDocKey.CreateDocumentMethod(dm);
 
 						if (vm is IDocumentEdi)              // Process Edi ViewModel specific items
 						{
@@ -873,7 +873,7 @@ namespace EdiApp.ViewModels
 		}
 		#endregion // RequestClose [event]
 
-		private void SetActiveFileBaseDocument(IDocument vm)
+		private void SetActiveFileBaseDocument(IFileBaseViewModel vm)
 		{
 			try
 			{
@@ -984,7 +984,7 @@ namespace EdiApp.ViewModels
 		/// <param name="doc"></param>
 		/// <param name="saveAsFlag"></param>
 		/// <returns></returns>
-		internal bool OnSave(IDocument doc, bool saveAsFlag = false)
+		internal bool OnSave(IFileBaseViewModel doc, bool saveAsFlag = false)
 		{
 			if (doc == null)
 				return false;
@@ -1007,7 +1007,7 @@ namespace EdiApp.ViewModels
 		/// </summary>
 		/// <param name="f"></param>
 		/// <returns></returns>
-		internal static string GetDefaultFileFilter(IDocument f, IDocumentTypeManager docManager)
+		internal static string GetDefaultFileFilter(IFileBaseViewModel f, IDocumentTypeManager docManager)
 		{
 			if (f == null)
 				return string.Empty;
@@ -1020,7 +1020,7 @@ namespace EdiApp.ViewModels
 			return string.Empty;
 		}
 
-		internal bool OnSaveDocumentFile(IDocument fileToSave,
+		internal bool OnSaveDocumentFile(IFileBaseViewModel fileToSave,
 																		 bool saveAsFlag = false,
 																		 string FileExtensionFilter = "")
 		{
@@ -1074,13 +1074,13 @@ namespace EdiApp.ViewModels
 				else
 					sMsg = string.Format(CultureInfo.CurrentCulture, Util.Local.Strings.STR_MSG_ErrorWhileSavingAFile, Exp.Message);
 
-				MsgBox.Msg.Show(sMsg, Util.Local.Strings.STR_MSG_ErrorSavingFile, MsgBoxButtons.OK);
+				MsgBox.Msg.Show(Exp, sMsg, Util.Local.Strings.STR_MSG_ErrorSavingFile, MsgBoxButtons.OK);
 			}
 
 			return false;
 		}
 
-		internal bool OnCloseSaveDirtyFile(IDocument fileToClose)
+		internal bool OnCloseSaveDirtyFile(IFileBaseViewModel fileToClose)
 		{
 			if (fileToClose.IsDirty == true &&
 					fileToClose.CanSaveData == true)
@@ -1110,7 +1110,7 @@ namespace EdiApp.ViewModels
 		/// </summary>
 		/// <param name="fileToClose"></param>
 		/// <returns></returns>
-		internal bool Close(IDocument doc)
+		internal bool Close(IFileBaseViewModel doc)
 		{
 			try
 			{
@@ -1119,6 +1119,7 @@ namespace EdiApp.ViewModels
 						return false;
 
 					doc.DocumentEvent -= this.ProcessDocumentEvent;
+					doc.ProcessingResultEvent -= this.vm_ProcessingResultEvent;
 
 					if (doc is IDocumentEdi)
 					{
@@ -1262,7 +1263,7 @@ namespace EdiApp.ViewModels
 				{                                     // If there are any: Ask user if edits should be saved
 					for (int i = 0; i < this.Files.Count; i++)
 					{
-						IDocument f = this.Files[i];
+						IFileBaseViewModel f = this.Files[i];
 
 						if (this.OnCloseSaveDirtyFile(f) == false)
 						{
@@ -1409,16 +1410,28 @@ namespace EdiApp.ViewModels
 
 		/// <summary>
 		/// Handle Processing results from asynchronous tasks that are
-		/// executed in a viewmodel and return later with a mResult.
+		/// executed in a viewmodel and return later with a Result (eg.: Async load of document)
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void vm_ProcessingResultEvent(object sender, ProcessResultEvent e)
 		{
-			var vm = sender as EdiViewModel;
+			var watcher = sender as IDocumentFileWatcher;
 
-			if (vm != null)
+			if (watcher != null)
 			{
+				try
+				{
+					// Activate file watcher for this document
+					watcher.EnableDocumentFileWatcher(true);
+				}
+				catch (Exception ex)
+				{
+					MsgBox.Msg.Show(ex, "An unexpected error occured", MsgBoxButtons.OK, MsgBoxImage.Alert);
+				}
+
+				var vm = sender as EdiViewModel;
+
 				try
 				{
 					switch (e.TypeOfResult)
@@ -1458,10 +1471,11 @@ namespace EdiApp.ViewModels
 							throw new NotImplementedException(e.TypeOfResult.ToString());
 					}
 				}
-				catch (Exception)
+				catch (Exception exp)
 				{
+					logger.Error(exp);
 
-					throw;
+					MsgBox.Msg.Show(exp, "An unexpected error occured", MsgBoxButtons.OK, MsgBoxImage.Alert);
 				}
 				finally
 				{
@@ -1477,9 +1491,9 @@ namespace EdiApp.ViewModels
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
-		private IDocument ReloadDocument(string path)
+		private IFileBaseViewModel ReloadDocument(string path)
 		{
-			IDocument ret = null;
+			IFileBaseViewModel ret = null;
 
 			if (!string.IsNullOrWhiteSpace(path))
 			{

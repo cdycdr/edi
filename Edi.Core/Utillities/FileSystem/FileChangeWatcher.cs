@@ -17,11 +17,10 @@
 	// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 	// DEALINGS IN THE SOFTWARE.
-
+	
 	using System;
 	using System.Collections.Generic;
 	using System.IO;
-	using System.Windows;
 	using Edi.Core.Interfaces.Documents;
 
 	/// <summary>
@@ -34,9 +33,9 @@
 		////static HashSet<FileChangeWatcher> activeWatchers = new HashSet<FileChangeWatcher>();
 		////static int globalDisableCount;
 
-		private FileSystemWatcher mWatcher;
+		private FileSystemWatcher mWatcher = null;
 		private bool mWasChangedExternally = false;
-		private bool mEnabled = true;
+		private bool mEnabled = false;
 
 		private IDocumentModel mFile = null;
 		#endregion fields
@@ -57,39 +56,39 @@
 
 			this.mFile.FileNameChanged += file_FileNameChanged;
 			////FileChangeWatcher.activeWatchers.Add(this);
-
-			this.SetWatcher();
+			
+			////Bugfix: Watching files by default can cause application file load deadlock situations(?)
+			////this.SetWatcher();
 		}
 		#endregion constructors
 
 		#region properties
-		////public static bool DetectExternalChangesOption
-		////{
-		////	get
-		////	{
-		////		return true;
-		////		////return PropertyService.Get("SharpDevelop.FileChangeWatcher.DetectExternalChanges", true);
-		////	}
-		////
-		////	set
-		////	{
-		////		// Activate/deactivate file watchers when application setting is changed
-		////		//// SD.MainThread.VerifyAccess();
-		////		//// PropertyService.Set("SharpDevelop.FileChangeWatcher.DetectExternalChanges", value);
-		////		//// foreach (FileChangeWatcher watcher in activeWatchers)
-		////		//// {
-		////		//// 	watcher.SetWatcher();
-		////		//// }
-		////	}
-		////}
+		public static bool DetectExternalChangesOption
+		{
+			get
+			{
+				return true;
+				////return PropertyService.Get("SharpDevelop.FileChangeWatcher.DetectExternalChanges", true);
+			}
+
+			set
+			{
+				// Activate/deactivate file watchers when application setting is changed
+				//// SD.MainThread.VerifyAccess();
+				//// PropertyService.Set("SharpDevelop.FileChangeWatcher.DetectExternalChanges", value);
+				//// foreach (FileChangeWatcher watcher in activeWatchers)
+				//// {
+				//// 	watcher.SetWatcher();
+				//// }
+			}
+		}
 
 		public bool Enabled
 		{
-			get { return this.mEnabled; }
+			get { return mEnabled; }
 			set
 			{
 				this.mEnabled = value;
-
 				this.SetWatcher();
 			}
 		}
@@ -167,16 +166,11 @@
 		private void SetWatcher()
 		{
 			////SD.MainThread.VerifyAccess();
-			////Application.Current.Dispatcher.VerifyAccess();
-			// Execute this in UI Thread
 
-			//// Application.Current.Dispatcher.BeginInvoke(new Action(delegate
-			//// {
-					if (this.mWatcher != null)
-					{
-						this.mWatcher.EnableRaisingEvents = false;
-					}
-			//// }));
+			if (this.mWatcher != null)
+			{
+				this.mWatcher.EnableRaisingEvents = false;
+			}
 
 			if (this.mEnabled == false)
 				return;
@@ -184,8 +178,8 @@
 			////if (globalDisableCount > 0)
 			////	return;
 
-			////	if (FileChangeWatcher.DetectExternalChangesOption == false)
-			////		return;
+			if (FileChangeWatcher.DetectExternalChangesOption == false)
+				return;
 
 			string fileName = mFile.FileNamePath;
 			if (string.IsNullOrEmpty(fileName))

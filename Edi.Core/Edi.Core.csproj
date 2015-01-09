@@ -144,10 +144,12 @@
     <Compile Include="Interfaces\DocumentTypes\IDocumentTypeItem.cs" />
     <Compile Include="Interfaces\DocumentTypes\IFileFilterEntries.cs" />
     <Compile Include="Interfaces\DocumentTypes\IFileFilterEntry.cs" />
+    <Compile Include="Interfaces\Enums\DocumentState.cs" />
     <Compile Include="Interfaces\Enums\PaneLocation.cs" />
     <Compile Include="Interfaces\IAppCoreModel.cs" />
     <Compile Include="Interfaces\IAvalonDockLayoutViewModel.cs" />
-    <Compile Include="Interfaces\IDocument.cs" />
+    <Compile Include="Interfaces\IDocumentFileWatcher.cs" />
+    <Compile Include="Interfaces\IDocumentViewModel.cs" />
     <Compile Include="Interfaces\IDocumentParent.cs" />
     <Compile Include="Interfaces\IExplorer.cs" />
     <Compile Include="Interfaces\IFileOpenService.cs" />
@@ -189,6 +191,8 @@
     <Compile Include="ViewModels\DocumentChangedEventArgs.cs" />
     <Compile Include="ViewModels\Events\FileBaseEvent.cs" />
     <Compile Include="Interfaces\IToolWindow.cs" />
+    <Compile Include="ViewModels\Events\ProcessResultEvent.cs" />
+    <Compile Include="ViewModels\Events\ResultEvent.cs" />
     <Compile Include="ViewModels\FileBaseViewModel.cs" />
     <Compile Include="ViewModels\PaneViewModel.cs" />
     <Compile Include="ViewModels\ToolViewModel.cs" />

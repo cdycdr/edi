@@ -13,7 +13,7 @@ namespace EdiApp.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{
-			if (value is IDocument)
+			if (value is IFileBaseViewModel)
 				return value;
 
 			return Binding.DoNothing;
@@ -21,7 +21,7 @@ namespace EdiApp.Converters
 
 		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{
-			if (value is IDocument)
+			if (value is IFileBaseViewModel)
 				return value;
 
 			return Binding.DoNothing;

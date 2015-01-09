@@ -354,13 +354,13 @@
 					// Save all edited documents
 					if (this.mFiles != null)               // Close all open files and make sure there are no unsaved edits
 					{                                     // If there are any: Ask user if edits should be saved
-						IDocument activeDoc = this.ActiveDocument;
+						IFileBaseViewModel activeDoc = this.ActiveDocument;
 
 						try
 						{
 							for (int i = 0; i < this.Files.Count; i++)
 							{
-								IDocument f = this.Files[i];
+								IFileBaseViewModel f = this.Files[i];
 
 								if (f != null)
 								{

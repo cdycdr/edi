@@ -20,8 +20,6 @@ namespace EdiDocuments.ViewModels.MiniUml
 		public const string FileFilterName = "Unified Modeling Language";
 		public const string DefaultFilter = "uml";
 
-		private IDocumentModel mDocumentModel = null;
-
 		private MiniUML.Model.ViewModels.Document.RibbonViewModel mRibbonViewModel;
 		private MiniUML.Model.ViewModels.Document.AbstractDocumentViewModel mDocumentMiniUML;
 
@@ -342,7 +340,7 @@ namespace EdiDocuments.ViewModels.MiniUml
 		/// </summary>
 		/// <param name="documentModel"></param>
 		/// <returns></returns>
-		public static IDocument CreateNewDocument(IDocumentModel documentModel)
+		public static IFileBaseViewModel CreateNewDocument(IDocumentModel documentModel)
 		{
 			return new MiniUmlViewModel(documentModel);
 		}
@@ -402,6 +400,7 @@ namespace EdiDocuments.ViewModels.MiniUml
 
 					try
 					{
+						// XXX TODO Extend log4net FileOpen method to support base.FireFileProcessingResultEvent(...);
 						this.mDocumentMiniUML.LoadFile(this.mFilePath);
 					}
 					catch (Exception ex)

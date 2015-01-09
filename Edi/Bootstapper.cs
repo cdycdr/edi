@@ -137,7 +137,8 @@ namespace Edi
 				{
 					this.ConstructMainWindowSession(this.appVM, this.mMainWin, this.mProgramSettingsManager);
 
-					this.mApp.ShutdownMode = System.Windows.ShutdownMode.OnLastWindowClose;
+					if (this.mApp.AppIsShuttingDown == false)
+						this.mApp.ShutdownMode = System.Windows.ShutdownMode.OnLastWindowClose;
 					////this.mMainWin.Show();
 				}
 				else
@@ -147,18 +148,32 @@ namespace Edi
 			{
 				logger.Error(exp);
 
-				// Cannot set shutdown mode when application is already shuttong down
-				if (this.mApp.AppIsShuttingDown == false)
-					this.mApp.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
-				// 1) Application hangs when this is set to null while MainWindow is visible
-				// 2) Application throws exception when this is set as owner of window when it
-				//    was never visible.
-				//
-				if (Application.Current.MainWindow != null)
+				try
 				{
-					if (Application.Current.MainWindow.IsVisible == false)
-						Application.Current.MainWindow = null;
+					// Cannot set shutdown mode when application is already shuttong down
+					if (this.mApp.AppIsShuttingDown == false)
+						this.mApp.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+				}
+				catch (Exception exp1)
+				{
+					logger.Error(exp1);
+				}
+
+				try
+				{
+					// 1) Application hangs when this is set to null while MainWindow is visible
+					// 2) Application throws exception when this is set as owner of window when it
+					//    was never visible.
+					//
+					if (Application.Current.MainWindow != null)
+					{
+						if (Application.Current.MainWindow.IsVisible == false)
+							Application.Current.MainWindow = null;
+					}
+				}
+				catch (Exception exp2)
+				{
+					logger.Error(exp2);
 				}
 
 				MsgBox.Msg.Show(exp, Strings.STR_MSG_ERROR_FINDING_RESOURCE, MsgBoxButtons.OKCopy);

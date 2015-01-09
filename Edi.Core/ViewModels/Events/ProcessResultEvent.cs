@@ -1,4 +1,4 @@
-﻿namespace EdiDocuments.Process
+﻿namespace Edi.Core.ViewModels.Events
 {
 	using System;
 	using System.Collections.Generic;
