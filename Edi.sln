@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Binaries", "Binaries", "{E3D8DFD4-4299-4FE0-9BE8-0CB41F189489}"
 	ProjectSection(SolutionItems) = preProject
@@ -420,5 +420,8 @@ Global
 		{4530577A-5458-4B84-A65D-71BC145624A4} = {934FDC62-E522-4B23-A328-E774C550FF3B}
 		{D14D8609-693C-475D-A4A4-5A7F6188D633} = {4530577A-5458-4B84-A65D-71BC145624A4}
 		{EF9B7E8D-B722-48E0-A941-E21F4F7CC2DF} = {4530577A-5458-4B84-A65D-71BC145624A4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_NeutralResourcesLanguage = en-US
 	EndGlobalSection
 EndGlobal

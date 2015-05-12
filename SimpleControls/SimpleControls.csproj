@@ -234,6 +234,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.hi-IN.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.id-ID.resx" />
     <EmbeddedResource Include="Local\Strings.it-IT.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.it-IT.Designer.cs</LastGenOutput>
