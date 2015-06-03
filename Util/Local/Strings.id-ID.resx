@@ -117,201 +117,112 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="STR_FileType_FileFilter_Log4j" xml:space="preserve">
-    <value>"log4net berkas XML(*.log4j,*.xml)|*.log4j;*.xml|All Files (*.*)|*.*"</value>
+  <data name="CMD_APP_About_Description" xml:space="preserve">
+    <value>Menampilkan informasi tentang EDI</value>
   </data>
-  <data name="STR_SCALE_VIEW_PERCENT_SHORT" xml:space="preserve">
-    <value>%</value>
+  <data name="CMD_APP_CloseDoc_Description" xml:space="preserve">
+    <value>Dekat dokumen</value>
   </data>
-  <data name="STR_GOTOLINE_CANCEL_BUTTON" xml:space="preserve">
-    <value>_Batal</value>
-  </data>
-  <data name="STR_CmdName_Edit" xml:space="preserve">
-    <value>_Sunting</value>
-  </data>
-  <data name="STR_CmdName_File" xml:space="preserve">
-    <value>_Berkas</value>
-  </data>
-  <data name="STR_CmdName_Help" xml:space="preserve">
-    <value>_Bantuan</value>
-  </data>
-  <data name="STR_ABOUT_OK_BUTTON" xml:space="preserve">
-    <value>_OK</value>
-  </data>
-  <data name="STR_GOTOLINE_OK_BUTTON" xml:space="preserve">
-    <value>_OK</value>
-  </data>
-  <data name="STR_FINDREPLACE_Replace" xml:space="preserve">
-    <value>_Gantikan</value>
-  </data>
-  <data name="STR_CmdName_Themes" xml:space="preserve">
-    <value>_Tema</value>
-  </data>
-  <data name="STR_CmdName_Tools" xml:space="preserve">
-    <value>_Alat</value>
-  </data>
-  <data name="STR_CmdName_View" xml:space="preserve">
-    <value>_Tampilan</value>
-  </data>
-  <data name="STR_CmdName_New_Text_TT" xml:space="preserve">
-    <value>Buat berkas teks</value>
-  </data>
-  <data name="STR_CmdName_New_UML_TT" xml:space="preserve">
-    <value>Buat berkas UML</value>
-  </data>
-  <data name="STR_FINDREPLACE_CURRENTDOC" xml:space="preserve">
-    <value>Dokumen terkini</value>
-  </data>
-  <data name="STR_CmdName_Cut" xml:space="preserve">
-    <value>Potong</value>
-  </data>
-  <data name="STR_Settings_Editor_CutCopyWholeLine" xml:space="preserve">
-    <value>Potong dan salin baris pada teks</value>
-  </data>
-  <data name="STR_CmdName_Cut_TT" xml:space="preserve">
-    <value>Potong item terpilih</value>
-  </data>
-  <data name="STR_LOG4NET_FILTER_DEBUG_TT" xml:space="preserve">
-    <value>Debug</value>
-  </data>
-  <data name="STR_LOG4NET_FILTER_DEBUG" xml:space="preserve">
-    <value>DEBUG</value>
-  </data>
-  <data name="STR_CmdName_Delete" xml:space="preserve">
-    <value>Hapus</value>
-  </data>
-  <data name="STR_CmdName_DeleteLine" xml:space="preserve">
-    <value>Hapus baris</value>
-  </data>
-  <data name="STR_CmdName_Delete_TT" xml:space="preserve">
-    <value>Hapus item terpilih</value>
-  </data>
-  <data name="STR_CmdName_DeleteLine_TT" xml:space="preserve">
-    <value>Hapus baris terkini</value>
-  </data>
-  <data name="STR_LOG4NET_DELTATIME" xml:space="preserve">
-    <value>Delta t;</value>
-  </data>
-  <data name="STR_AppCommand_SyncPathToExplorerCommand_TT" xml:space="preserve">
-    <value>Tampilkan dokumen di jendela telusur</value>
-  </data>
-  <data name="STR_StatusBar_X_Coord_Label" xml:space="preserve">
-    <value>X:</value>
-  </data>
-  <data name="STR_StatusBar_Y_Coord_Label" xml:space="preserve">
-    <value>Y:</value>
-  </data>
-  <data name="STR_Category_Warning" xml:space="preserve">
-    <value>Peringatan</value>
-  </data>
-  <data name="STR_LOG4NET_FILTER_WARN_TT" xml:space="preserve">
-    <value>Peringatan</value>
-  </data>
-  <data name="STR_STARTPAGE_WELCOME_TT" xml:space="preserve">
-    <value>Selamat datang di Edi. lihat halaman ini untuk memulai menjalankan editor</value>
-  </data>
-  <data name="STR_Label_WhiteSpaces" xml:space="preserve">
-    <value>Spasi Putih</value>
-  </data>
-  <data name="STR_FINDREPLACE_Wildcards" xml:space="preserve">
-    <value>Wildcards</value>
-  </data>
-  <data name="STR_REPLACE_BUTTON_CAPTION" xml:space="preserve">
-    <value>Gantikan</value>
-  </data>
-  <data name="STR_CmdName_Replace" xml:space="preserve">
-    <value>Gantikan</value>
-  </data>
-  <data name="STR_FINDREPLACE_ReplaceAll" xml:space="preserve">
-    <value>Gantikan _Semua</value>
-  </data>
-  <data name="STR_FINDREPLACE_ReplaceAll_Caption" xml:space="preserve">
-    <value>Gantikan Semua</value>
-  </data>
-  <data name="STR_FINDREPLACE_ReplaceWith" xml:space="preserve">
-    <value>Gantikan dengan:</value>
-  </data>
-  <data name="STR_CmdName_Save" xml:space="preserve">
-    <value>Simpan</value>
-  </data>
-  <data name="CMD_APP_SaveAll_Description" xml:space="preserve">
-    <value>Simpan Semua</value>
-  </data>
-  <data name="STR_CmdName_SaveAs" xml:space="preserve">
-    <value>Simpan Sebagai</value>
-  </data>
-  <data name="STR_MSG_SaveChangesForFile" xml:space="preserve">
-    <value>Simpan perubahan untuk '{0}' ?</value>
-  </data>
-  <data name="STR_CmdName_Save_TT" xml:space="preserve">
-    <value>Simpan berkas terkini</value>
-  </data>
-  <data name="STR_MSG_FIND_Caption" xml:space="preserve">
-    <value>Cari</value>
-  </data>
-  <data name="STR_FINDREPLACE_SearchInLABEL" xml:space="preserve">
-    <value>Cari di:</value>
-  </data>
-  <data name="STR_CmdName_SelectAll" xml:space="preserve">
-    <value>Pilih Semua</value>
-  </data>
-  <data name="STR_CmdName_Settings" xml:space="preserve">
-    <value>Pengaturan</value>
-  </data>
-  <data name="STR_CmdName_Redo" xml:space="preserve">
-    <value>Redo</value>
-  </data>
-  <data name="STR_MRU_MENUITEM_Remove" xml:space="preserve">
-    <value>Hapus</value>
-  </data>
-  <data name="STR_StatusBar_Ready" xml:space="preserve">
-    <value>Siap</value>
-  </data>
-  <data name="STR_SCALE_VIEW_POINT_SHORT" xml:space="preserve">
-    <value>pt</value>
-  </data>
-  <data name="STR_CmdName_Paste" xml:space="preserve">
-    <value>Timpa</value>
-  </data>
-  <data name="STR_SCALE_VIEW_PERCENT" xml:space="preserve">
-    <value>persen</value>
-  </data>
-  <data name="STR_Settings_Editor_CharacterSizeInPercent" xml:space="preserve">
-    <value>Persen</value>
+  <data name="CMD_App_Exit_Describtion" xml:space="preserve">
+    <value>Keluar aplikasi</value>
   </data>
   <data name="CMD_APP_OpenURL_Description" xml:space="preserve">
     <value>Buka URL ...</value>
   </data>
-  <data name="STR_MRU_MENUITEM_OpenWithWindowsApp" xml:space="preserve">
-    <value>Buka dengan Aplikasi Windows</value>
+  <data name="CMD_APP_Open_Description" xml:space="preserve">
+    <value>Buka berkas...</value>
   </data>
-  <data name="STR_CmdName_View_OptimizedWorkSpace" xml:space="preserve">
-    <value>Optimalkan Ruang Kerja</value>
+  <data name="CMD_APP_SaveAll_Description" xml:space="preserve">
+    <value>Simpan Semua</value>
   </data>
-  <data name="STR_FINDREPLACE_Options" xml:space="preserve">
-    <value>Opsi</value>
+  <data name="CMD_APP_ShowStartPage_Description" xml:space="preserve">
+    <value>Tampilkan halaman awal</value>
   </data>
-  <data name="STR_EDIT_MODE_TYPEOVER" xml:space="preserve">
-    <value>OVR</value>
+  <data name="CMD_APP_ViewTheme_Description" xml:space="preserve">
+    <value>Ganti theme</value>
+  </data>
+  <data name="CMD_MRU_AddEntry_Description" xml:space="preserve">
+    <value>Menambahkan entri MRU</value>
+  </data>
+  <data name="CMD_MRU_Pin_Description" xml:space="preserve">
+    <value>PIN atau melepas sematan entri MRU</value>
+  </data>
+  <data name="CMD_MRU_RemoveEntry_Description" xml:space="preserve">
+    <value>Menghapus entri MRU</value>
+  </data>
+  <data name="CMD_TXT_DisableHighlighting_Description" xml:space="preserve">
+    <value>Matikan penyorotan sintaks untuk file saat ini</value>
+  </data>
+  <data name="CMD_TXT_FindNextText_Description" xml:space="preserve">
+    <value>Menemukan berikutnya terjadinya teks spesifik dalam dokumen</value>
+  </data>
+  <data name="CMD_TXT_FindNext_Description" xml:space="preserve">
+    <value>Cari teks spesifik dalam dokumen</value>
+  </data>
+  <data name="CMD_TXT_FindPreviousText_Description" xml:space="preserve">
+    <value>Menemukan sebelumnya terjadinya teks spesifik dalam dokumen</value>
+  </data>
+  <data name="CMD_TXT_FindReplaceText_Description" xml:space="preserve">
+    <value>Mencari dan mengganti teks tertentu dalam dokumen</value>
+  </data>
+  <data name="CMD_TXT_GotoLine_Description" xml:space="preserve">
+    <value>Pergi ke baris tertentu dalam dokumen</value>
+  </data>
+  <data name="STR_Category_Error" xml:space="preserve">
+    <value>Kesalahan</value>
+    <comment>Textual message level classification</comment>
+  </data>
+  <data name="STR_Category_Information" xml:space="preserve">
+    <value>Informasi</value>
+    <comment>Textual message level classification</comment>
+  </data>
+  <data name="STR_Category_InternalError" xml:space="preserve">
+    <value>Kesalahan internal</value>
+    <comment>Textual message level classification</comment>
+  </data>
+  <data name="STR_Category_UnknownError" xml:space="preserve">
+    <value>Error tidak diketahui</value>
+    <comment>Textual message level classification</comment>
+  </data>
+  <data name="STR_Category_Warning" xml:space="preserve">
+    <value>Peringatan</value>
+  </data>
+  <data name="STR_Category_Unknown_Internal_Error" xml:space="preserve">
+    <value>Kesalahan Internal yang tidak diketahui</value>
+    <comment>Textual message level classification</comment>
+  </data>
+  <data name="STR_CmdName_File" xml:space="preserve">
+    <value>_Berkas</value>
   </data>
   <data name="STR_CmdName_New" xml:space="preserve">
     <value>Baru</value>
   </data>
+  <data name="STR_CmdName_New_Text" xml:space="preserve">
+    <value>Dokumen Teks</value>
+  </data>
+  <data name="STR_CmdName_New_UML" xml:space="preserve">
+    <value>Dokumen UML</value>
+  </data>
   <data name="STR_CmdName_Open" xml:space="preserve">
     <value>Buka</value>
   </data>
-  <data name="CMD_APP_Open_Description" xml:space="preserve">
-    <value>Buka berkas...</value>
+  <data name="STR_CmdName_Open_Log4Net" xml:space="preserve">
+    <value>Dokumen Log4Net</value>
   </data>
-  <data name="STR_STARTPAGE_FILEOPEN_TT" xml:space="preserve">
-    <value>Buka berkas...</value>
+  <data name="STR_CmdName_Open_Text" xml:space="preserve">
+    <value>Dokumen Teks</value>
   </data>
-  <data name="STR_ExportHTMLFileFilter" xml:space="preserve">
-    <value>Berkas HTML(*.html, *.htm)|*.html;*.htm|
-Semua berkas (*.*)|*.*</value>
+  <data name="STR_CmdName_Open_UML" xml:space="preserve">
+    <value>Dokumen UML</value>
   </data>
-  <data name="STR_FileType_FileFilter_HTML" xml:space="preserve">
-    <value>Berkas HTML(*.html, *.htm)|*.html;*.htm</value>
+  <data name="STR_CmdName_RecentFiles" xml:space="preserve">
+    <value>Dokumen Terbaru</value>
+  </data>
+  <data name="STR_CmdName_Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="STR_CmdName_SaveAs" xml:space="preserve">
+    <value>Simpan Sebagai</value>
   </data>
   <data name="STR_CmdName_Close" xml:space="preserve">
     <value>Tutup</value>
@@ -322,17 +233,23 @@ Semua berkas (*.*)|*.*</value>
   <data name="STR_CmdName_Copy_TT" xml:space="preserve">
     <value>Salin item terpilih</value>
   </data>
+  <data name="STR_CmdName_Cut" xml:space="preserve">
+    <value>Potong</value>
+  </data>
+  <data name="STR_CmdName_Cut_TT" xml:space="preserve">
+    <value>Potong item terpilih</value>
+  </data>
+  <data name="STR_CmdName_Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="STR_CmdName_Delete_TT" xml:space="preserve">
+    <value>Hapus item terpilih</value>
+  </data>
+  <data name="STR_CmdName_Edit" xml:space="preserve">
+    <value>_Sunting</value>
+  </data>
   <data name="STR_CmdName_Exit" xml:space="preserve">
     <value>Keluar</value>
-  </data>
-  <data name="STR_CmdName_Export" xml:space="preserve">
-    <value>Ekspor</value>
-  </data>
-  <data name="STR_CmdName_Export_TT" xml:space="preserve">
-    <value>Konversikan data ke format berkas yang mendukung aplikasi lain</value>
-  </data>
-  <data name="STR_CmdName_FileExplorer_TW" xml:space="preserve">
-    <value>Jendela Telusur</value>
   </data>
   <data name="STR_CmdName_Find" xml:space="preserve">
     <value>Cari</value>
@@ -340,32 +257,35 @@ Semua berkas (*.*)|*.*</value>
   <data name="STR_CmdName_GotoLine" xml:space="preserve">
     <value>Pergi ke baris...</value>
   </data>
+  <data name="STR_CmdName_Help" xml:space="preserve">
+    <value>_Bantuan</value>
+  </data>
   <data name="STR_CmdName_Help_About" xml:space="preserve">
     <value>Tentang</value>
   </data>
-  <data name="STR_CmdName_New_Text" xml:space="preserve">
-    <value>Dokumen Teks</value>
+  <data name="STR_CmdName_Log4Net_Message_TW" xml:space="preserve">
+    <value>Jendela alat pesan Log4Net</value>
   </data>
-  <data name="STR_CmdName_New_UML" xml:space="preserve">
-    <value>Dokumen UML</value>
+  <data name="STR_CmdName_Log4Net_TW" xml:space="preserve">
+    <value>Log4Net alat jendela</value>
   </data>
-  <data name="STR_CmdName_Open_Log4Net" xml:space="preserve">
-    <value>Dokumen Log4Net</value>
+  <data name="STR_CmdName_New_Text_TT" xml:space="preserve">
+    <value>Buat berkas teks</value>
+  </data>
+  <data name="STR_CmdName_New_UML_TT" xml:space="preserve">
+    <value>Buat berkas UML</value>
   </data>
   <data name="STR_CmdName_Open_Log4Net_TT" xml:space="preserve">
     <value>Buka berkas Log4Net</value>
   </data>
-  <data name="STR_CmdName_Open_Text" xml:space="preserve">
-    <value>Dokumen Teks</value>
-  </data>
   <data name="STR_CmdName_Open_Text_TT" xml:space="preserve">
     <value>Buka berkas Teks</value>
   </data>
-  <data name="STR_CmdName_Open_UML" xml:space="preserve">
-    <value>Dokumen UML</value>
-  </data>
   <data name="STR_CmdName_Open_UML_TT" xml:space="preserve">
     <value>Buka berkas UML</value>
+  </data>
+  <data name="STR_CmdName_Paste" xml:space="preserve">
+    <value>Timpa</value>
   </data>
   <data name="STR_CmdName_Paste_TT" xml:space="preserve">
     <value>Timpa item dari papan klip Windows</value>
@@ -373,20 +293,38 @@ Semua berkas (*.*)|*.*</value>
   <data name="STR_CmdName_Properties_TW" xml:space="preserve">
     <value>Jendela Properti</value>
   </data>
-  <data name="STR_CmdName_RecentFiles" xml:space="preserve">
-    <value>Dokumen Terbaru</value>
+  <data name="STR_CmdName_FileExplorer_TW" xml:space="preserve">
+    <value>Jendela Telusur</value>
   </data>
   <data name="STR_CmdName_RecentFiles_TW" xml:space="preserve">
     <value>Jendela Dokumen Terakhir</value>
   </data>
+  <data name="STR_CmdName_Redo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
   <data name="STR_CmdName_Redo_TT" xml:space="preserve">
     <value>Batalkan Undo</value>
+  </data>
+  <data name="STR_CmdName_Replace" xml:space="preserve">
+    <value>Gantikan</value>
   </data>
   <data name="STR_CmdName_SaveAs_TT" xml:space="preserve">
     <value>Simpan berkas dengan tipe lain dan lokasi lain</value>
   </data>
+  <data name="STR_CmdName_Save_TT" xml:space="preserve">
+    <value>Simpan berkas terkini</value>
+  </data>
+  <data name="STR_CmdName_SelectAll" xml:space="preserve">
+    <value>Pilih Semua</value>
+  </data>
   <data name="STR_CmdName_SelectAll_TT" xml:space="preserve">
     <value>Pilih semua item</value>
+  </data>
+  <data name="STR_CmdName_Themes" xml:space="preserve">
+    <value>_Tema</value>
+  </data>
+  <data name="STR_CmdName_Tools" xml:space="preserve">
+    <value>_Alat</value>
   </data>
   <data name="STR_CmdName_Undo" xml:space="preserve">
     <value>Undo</value>
@@ -394,20 +332,284 @@ Semua berkas (*.*)|*.*</value>
   <data name="STR_CmdName_Undo_TT" xml:space="preserve">
     <value>Batalkan perubahan</value>
   </data>
+  <data name="STR_CmdName_View" xml:space="preserve">
+    <value>_Tampilan</value>
+  </data>
   <data name="STR_CmdName_View_Start_Page" xml:space="preserve">
     <value>Halaman Awal</value>
   </data>
-  <data name="STR_Contributors_Label" xml:space="preserve">
-    <value>Kontributor</value>
+  <data name="STR_ToggleEditorOptionCmd_HighlightingDefinition_TT" xml:space="preserve">
+    <value>Pilih teks yang menyoroti pola</value>
   </data>
-  <data name="STR_DIALOG_INPUT_PROBLEM_CAPTION" xml:space="preserve">
-    <value>Masukan anda tidak benar. perbaiki kesalahan berikut atau batalkan.</value>
+  <data name="STR_ToggleEditorOptionCmd_ShowEndOfLine" xml:space="preserve">
+    <value>Menunjukkan akhir baris</value>
+  </data>
+  <data name="STR_ToggleEditorOptionCmd_ShowEndOfLine_TT" xml:space="preserve">
+    <value>Menunjukkan akhir baris</value>
+  </data>
+  <data name="STR_ToggleEditorOptionCmd_ShowLineNumbers" xml:space="preserve">
+    <value>Tampilkan nomor baris</value>
+  </data>
+  <data name="STR_ToggleEditorOptionCmd_ShowLineNumbers_TT" xml:space="preserve">
+    <value>Tampilkan nomor baris</value>
+  </data>
+  <data name="STR_ToggleEditorOptionCmd_ShowSpaces" xml:space="preserve">
+    <value>Ruang Tampilkan</value>
+  </data>
+  <data name="STR_ToggleEditorOptionCmd_ShowSpaces_TT" xml:space="preserve">
+    <value>Menunjukkan karakter Ruang</value>
+  </data>
+  <data name="STR_ToggleEditorOptionCmd_ShowTabs" xml:space="preserve">
+    <value>Tampilkan Tab</value>
+  </data>
+  <data name="STR_ToggleEditorOptionCmd_ShowTabs_TT" xml:space="preserve">
+    <value>Menunjukkan karakter tabulator</value>
+  </data>
+  <data name="STR_ToggleEditorOptionCmd_WordWrap" xml:space="preserve">
+    <value>Kata pembungkus</value>
+  </data>
+  <data name="STR_ToggleEditorOptionCmd_WordWrap_TT" xml:space="preserve">
+    <value>Membungkus teks di sekitar dokumen view</value>
+  </data>
+  <data name="STR_Insert_Overtype_Mode_TT" xml:space="preserve">
+    <value>Sisipkan atau overtype mode teks (switch/dari dengan memasukkan kunci)</value>
+  </data>
+  <data name="STR_StatusBar_Ready" xml:space="preserve">
+    <value>Siap</value>
+  </data>
+  <data name="STR_StatusBar_Textencoding_TT" xml:space="preserve">
+    <value>Penyandian teks dalam dokumen saat ini</value>
+  </data>
+  <data name="STR_StatusBar_X_Coord_Label" xml:space="preserve">
+    <value>X:</value>
+  </data>
+  <data name="STR_StatusBar_X_Coord_Label_TT" xml:space="preserve">
+    <value>Kolom kursor dalam dokumen saat ini</value>
+  </data>
+  <data name="STR_StatusBar_Y_Coord_Label" xml:space="preserve">
+    <value>Y:</value>
+  </data>
+  <data name="STR_StatusBar_Y_Coord_Label_TT" xml:space="preserve">
+    <value>Baris dalam dokumen saat ini</value>
+  </data>
+  <data name="STR_MSG_IssueTrackerText" xml:space="preserve">
+    <value>Silakan klik pada link di bawah untuk memeriksa jika ini adalah masalah yang diketahui.
+
+Laporkan masalah ini jika tidak diketahui, namun.
+
+Laporan masalah harus berisi pesan kesalahan di bawah ini (Anda dapat menggunakan tombol Salin)
+dan pernyataan tentang Anda menggunakan alur kerja/fungsi. Lampirkan file screenshot atau sampel jika berlaku.</value>
+    <comment>Issue tracker multi-line message asking user to report unknown problems</comment>
+  </data>
+  <data name="STR_MSG_IssueTrackerTitle" xml:space="preserve">
+    <value>Error yang tidak tertangani</value>
+  </data>
+  <data name="STR_Msg_UnknownError" xml:space="preserve">
+    <value>Terjadi kesalahan yang tidak dikenal.</value>
+  </data>
+  <data name="STR_MSG_UnknownError_Caption" xml:space="preserve">
+    <value>Error yang tidak tertangani</value>
+  </data>
+  <data name="STR_MSG_UnknownError_InErrorDispatcher" xml:space="preserve">
+    <value>Terjadi kesalahan pada saat pengiriman eksepsi tidak tertangani</value>
+  </data>
+  <data name="STR_MSG_UnknownError_InShutDownProcess" xml:space="preserve">
+    <value>Kesalahan dalam proses menutup-down.</value>
+  </data>
+  <data name="STR_AppCommand_CopyFileURLToClipboard" xml:space="preserve">
+    <value>Path copy ke clipboard</value>
+  </data>
+  <data name="STR_AppCommand_CopyFileURLToClipboard_TT" xml:space="preserve">
+    <value>Copy path dari dokumen ini ke Windows Clipboard</value>
+  </data>
+  <data name="STR_AppCommand_OpenContainingFolder" xml:space="preserve">
+    <value>Buka mengandung folder...</value>
+  </data>
+  <data name="STR_AppCommand_OpenContainingFolder_TT" xml:space="preserve">
+    <value>Buka folder yang berisi dokumen ini di Windows Explorer</value>
+  </data>
+  <data name="STR_AppCommand_SyncPathToExplorerCommand" xml:space="preserve">
+    <value>Jalan yang ditetapkan dalam jendela Explorer alat</value>
+  </data>
+  <data name="STR_AppCommand_SyncPathToExplorerCommand_TT" xml:space="preserve">
+    <value>Tampilkan dokumen di jendela telusur</value>
+  </data>
+  <data name="STR_MSG_ErrorLoadingPlugin" xml:space="preserve">
+    <value>Terjadi kesalahan saat inisialisasi sebuah plugin yang ditemukan di Majelis '{0}'.</value>
+  </data>
+  <data name="STR_MSG_ErrorRegisteringHighlighting" xml:space="preserve">
+    <value>Kesalahan mendaftar menyoroti: '{0}'</value>
+  </data>
+  <data name="STR_MSG_ErrorSavingFile" xml:space="preserve">
+    <value>Masalah yang tak terduga telah terjadi sementara menyimpan file.</value>
+  </data>
+  <data name="STR_MSG_ErrorWhileLoadingPlugin" xml:space="preserve">
+    <value>Terjadi kesalahan saat memuat plugin perakitan '{0}'.</value>
+  </data>
+  <data name="STR_MSG_ErrorWhileSavingAFile" xml:space="preserve">
+    <value>Galat '{0}'
+telah terjadi sementara menyimpan file.</value>
+  </data>
+  <data name="STR_MSG_ErrorWhileSavingFileX" xml:space="preserve">
+    <value>Galat '{0}'
+telah terjadi sementara menyimpan file:
+'{1}'</value>
+  </data>
+  <data name="STR_MSG_PluginNotLoaded" xml:space="preserve">
+    <value>Plugin tidak dimuat.</value>
+  </data>
+  <data name="STR_MSG_SaveChangesForFile" xml:space="preserve">
+    <value>Simpan perubahan untuk '{0}' ?</value>
+  </data>
+  <data name="STR_MSG_Unexpected_Error" xml:space="preserve">
+    <value>Kesalahan yang tidak terduga</value>
+  </data>
+  <data name="STR_MSG_UnknownDocumentType" xml:space="preserve">
+    <value>Jenis dokumen yang tidak diketahui</value>
+  </data>
+  <data name="STR_CmdName_DeleteLine" xml:space="preserve">
+    <value>Hapus baris</value>
+  </data>
+  <data name="STR_CmdName_DeleteLine_TT" xml:space="preserve">
+    <value>Hapus baris terkini</value>
+  </data>
+  <data name="STR_Cmd_CollapseTextFoldings" xml:space="preserve">
+    <value>Runtuhnya teks foldings</value>
+  </data>
+  <data name="STR_Cmd_ConvertLeadingSpaces" xml:space="preserve">
+    <value>Mengkonversi menuju ruang tab</value>
+  </data>
+  <data name="STR_Cmd_ConvertLeadingTabsToSpaces" xml:space="preserve">
+    <value>Mengkonversi tab menuju ruang</value>
+  </data>
+  <data name="STR_CMD_ConvertSpacesToTabs" xml:space="preserve">
+    <value>Mengkonversi ruang ke tab</value>
+  </data>
+  <data name="STR_CMD_ConvertTabsToSpaces" xml:space="preserve">
+    <value>Mengkonversi tab ke ruang</value>
+  </data>
+  <data name="STR_Cmd_ConvertTextToUpperCase" xml:space="preserve">
+    <value>Mengkonversi teks ke huruf</value>
+  </data>
+  <data name="STR_Cmd_ExpandTextFoldings" xml:space="preserve">
+    <value>Memperluas foldings teks</value>
+  </data>
+  <data name="STR_CMD_RemoveLeadingWhiteSpace" xml:space="preserve">
+    <value>Menghapus terkemuka ruang putih</value>
+  </data>
+  <data name="STR_CMD_RemoveTrailingWhiteSpace" xml:space="preserve">
+    <value>Menghapus Trailing spasi</value>
+  </data>
+  <data name="STR_Cmd__ApplyTextIndentationStrategy" xml:space="preserve">
+    <value>Menerapkan strategi indentasi</value>
+  </data>
+  <data name="STR_Cmd__ConvertTextToLowerCase" xml:space="preserve">
+    <value>Mengkonversi teks ke huruf</value>
+  </data>
+  <data name="STR_Cmd__ConvertTextToTitleCase" xml:space="preserve">
+    <value>Mengkonversi ke kasus judul</value>
+  </data>
+  <data name="STR_Cmd__InvertTextCase" xml:space="preserve">
+    <value>Balikkan kasus</value>
+  </data>
+  <data name="STR_Label_TextCase" xml:space="preserve">
+    <value>Teks kasus</value>
+  </data>
+  <data name="STR_Label_WhiteSpaces" xml:space="preserve">
+    <value>Spasi Putih</value>
+  </data>
+  <data name="STR_FileType_FileFilter_Log4j" xml:space="preserve">
+    <value>"log4net berkas XML(*.log4j,*.xml)|*.log4j;*.xml|All Files (*.*)|*.*"</value>
+  </data>
+  <data name="STR_FileType_FileFilter_UML" xml:space="preserve">
+    <value>Unified Modeling Language (*.uml,*.xml)|*.uml;*.xml|All Files (*.*)|*.*"</value>
+  </data>
+  <data name="STR_FileType_FileFilter_AllFiles" xml:space="preserve">
+    <value>Semua Berkas (*.*)|*.*</value>
+  </data>
+  <data name="STR_FileType_FileFilter_TextFiles" xml:space="preserve">
+    <value>Berkas Text(*.txt)|*.txt</value>
+  </data>
+  <data name="STR_FileType_FileFilter_CSharp" xml:space="preserve">
+    <value>Berkas C# (*.cs)|*.cs</value>
+  </data>
+  <data name="STR_FileType_FileFilter_HTML" xml:space="preserve">
+    <value>Berkas HTML(*.html, *.htm)|*.html;*.htm</value>
+  </data>
+  <data name="STR_FileType_FileFilter_SQL" xml:space="preserve">
+    <value>Structured Query Language (*.sql) |*.sql</value>
+  </data>
+  <data name="STR_FileType_FileFilter_Log4NetPlusText" xml:space="preserve">
+    <value>log4net keluaran XML (*.log4j,*.log,*.txt,*.xml)|*.log4j;*.log;*.txt;*.xml</value>
+  </data>
+  <data name="STR_MSG_FIND_NO_MORE_ITEMS_FOUND" xml:space="preserve">
+    <value>Ada tidak ada lebih banyak hasil pencarian akan ditampilkan.</value>
+  </data>
+  <data name="STR_MSG_FIND_NO_MORE_ITEMS_FOUND2" xml:space="preserve">
+    <value>Terjadinya tidak lebih lanjut ditemukan.</value>
+  </data>
+  <data name="STR_MSG_FIND_Caption" xml:space="preserve">
+    <value>Cari</value>
+  </data>
+  <data name="STR_MSG_FIND_UNEXPECTED_ERROR" xml:space="preserve">
+    <value>Terjadi kesalahan tak terduga.</value>
+  </data>
+  <data name="STR_THEMING_MSG_CANNOT_FIND_PATH" xml:space="preserve">
+    <value>Tidak dapat menemukan jalan ke:
+'{0}'
+
+Pastikan modul ini dicapai.</value>
+  </data>
+  <data name="STR_THEMING_CAPTION" xml:space="preserve">
+    <value>Tema kesalahan</value>
+  </data>
+  <data name="STR_MSG_DIRCREATED_NO_PLuginLoaded" xml:space="preserve">
+    <value>Direktori plugin diciptakan; Plugin tidak dimuat.</value>
+  </data>
+  <data name="STR_MSG_DIRCREATED_NO_PLuginLoaded_Caption" xml:space="preserve">
+    <value>Direktori plugin tidak ditemukan.</value>
+  </data>
+  <data name="STR_MSG_ACCESS_PLuginDir" xml:space="preserve">
+    <value>Terjadi kesalahan saat mengakses direktori plugin.</value>
+  </data>
+  <data name="STR_MSG_ACCESS_PLuginDir_Caption" xml:space="preserve">
+    <value>Error ketika memuat UML plug-in</value>
+  </data>
+  <data name="STR_MSG_UML_PLugin_NOTALL_Loaded" xml:space="preserve">
+    <value>Tidak semua plugins MiniUml dimuat OK.</value>
+  </data>
+  <data name="STR_MSG_UML_PLugin_NOTALL_Loaded_Caption" xml:space="preserve">
+    <value>Error loading sistem UML plug-in</value>
+  </data>
+  <data name="STR_MSG_UML_PLugin_Duplicate" xml:space="preserve">
+    <value>Sebuah plugin dengan nama tertentu telah dimuat.</value>
+  </data>
+  <data name="STR_ABOUT_MSG" xml:space="preserve">
+    <value>Teks dan UML Editor.</value>
+  </data>
+  <data name="STR_ABOUT_Version" xml:space="preserve">
+    <value>Versi</value>
+  </data>
+  <data name="STR_ABOUT_DOCKING_LAYOUT" xml:space="preserve">
+    <value>Docking Layout sistem:</value>
+  </data>
+  <data name="STR_ABOUT_TextEditor" xml:space="preserve">
+    <value>Editor teks:</value>
+  </data>
+  <data name="STR_ABOUT_Log4NetViewer" xml:space="preserve">
+    <value>Log4Net Viewer:</value>
+  </data>
+  <data name="STR_ABOUT_CODE_COMPLETION" xml:space="preserve">
+    <value>Code Completion:</value>
+  </data>
+  <data name="STR_ABOUT_OK_BUTTON" xml:space="preserve">
+    <value>_OK</value>
   </data>
   <data name="STR_EDIT_MODE_INSERT" xml:space="preserve">
     <value>INS</value>
   </data>
-  <data name="STR_ERROR_LOADING_FILE_CAPTION" xml:space="preserve">
-    <value>Gagal Membuka berkas</value>
+  <data name="STR_EDIT_MODE_TYPEOVER" xml:space="preserve">
+    <value>OVR</value>
   </data>
   <data name="STR_FILESTATES_FileName" xml:space="preserve">
     <value>Nama berkas</value>
@@ -418,23 +620,194 @@ Semua berkas (*.*)|*.*</value>
   <data name="STR_FILESTATES_FileSize" xml:space="preserve">
     <value>Ukuran berkas</value>
   </data>
-  <data name="STR_FileType_FileFilter_AllFiles" xml:space="preserve">
-    <value>Semua Berkas (*.*)|*.*</value>
+  <data name="STR_FILESTATES_LASTMODIFICATION" xml:space="preserve">
+    <value>Tanggal dan waktu modifikasi terakhir.</value>
+    <comment>File Statistics Tool Window</comment>
   </data>
-  <data name="STR_FileType_FileFilter_CSharp" xml:space="preserve">
-    <value>Berkas C# (*.cs)|*.cs</value>
+  <data name="STR_FINDREPLACE_FINDLABEL" xml:space="preserve">
+    <value>Teks yang Dicari:</value>
   </data>
-  <data name="STR_FileType_FileFilter_Log4NetPlusText" xml:space="preserve">
-    <value>log4net keluaran XML (*.log4j,*.log,*.txt,*.xml)|*.log4j;*.log;*.txt;*.xml</value>
+  <data name="STR_FINDREPLACE_SearchInLABEL" xml:space="preserve">
+    <value>Cari di:</value>
   </data>
-  <data name="STR_FileType_FileFilter_SQL" xml:space="preserve">
-    <value>Structured Query Language (*.sql) |*.sql</value>
+  <data name="STR_FINDREPLACE_CURRENTDOC" xml:space="preserve">
+    <value>Dokumen terkini</value>
   </data>
-  <data name="STR_FileType_FileFilter_TextFiles" xml:space="preserve">
-    <value>Berkas Text(*.txt)|*.txt</value>
+  <data name="STR_FINDREPLACE_OPENDOCS" xml:space="preserve">
+    <value>Semua buka dokumen</value>
   </data>
-  <data name="STR_FileType_FileFilter_UML" xml:space="preserve">
-    <value>Unified Modeling Language (*.uml,*.xml)|*.uml;*.xml|All Files (*.*)|*.*"</value>
+  <data name="STR_FINDREPLACE_Options" xml:space="preserve">
+    <value>Opsi</value>
+  </data>
+  <data name="STR_FINDREPLACE_CaseSensitive" xml:space="preserve">
+    <value>Kapitalisasi Sensitif</value>
+  </data>
+  <data name="STR_FINDREPLACE_SearchBackWard" xml:space="preserve">
+    <value>Cari ke atas</value>
+  </data>
+  <data name="STR_FINDREPLACE_MatchWholeWord" xml:space="preserve">
+    <value>Pertandingan seluruh kata</value>
+  </data>
+  <data name="STR_FINDREPLACE_RegularExpression" xml:space="preserve">
+    <value>Ekspresi reguler</value>
+  </data>
+  <data name="STR_FINDREPLACE_Wildcards" xml:space="preserve">
+    <value>Wildcards</value>
+  </data>
+  <data name="STR_FINDREPLACE_ReplaceWith" xml:space="preserve">
+    <value>Gantikan dengan:</value>
+  </data>
+  <data name="STR_FINDREPLACE_FINDNEXT" xml:space="preserve">
+    <value>Cari Berikutnya</value>
+  </data>
+  <data name="STR_FINDREPLACE_Replace" xml:space="preserve">
+    <value>_Gantikan</value>
+  </data>
+  <data name="STR_FINDREPLACE_ReplaceAll" xml:space="preserve">
+    <value>Gantikan _Semua</value>
+  </data>
+  <data name="STR_FINDREPLACE_ASK_REALLY_REPLACEEVERYTHING" xml:space="preserve">
+    <value>Apakah Anda benar-benar ingin mengganti semua kemunculan '{0}' dengan '{1}'?</value>
+  </data>
+  <data name="STR_FINDREPLACE_ReplaceAll_Caption" xml:space="preserve">
+    <value>Gantikan Semua</value>
+  </data>
+  <data name="STR_GOTOLINE_OK_BUTTON" xml:space="preserve">
+    <value>_OK</value>
+  </data>
+  <data name="STR_GOTOLINE_CANCEL_BUTTON" xml:space="preserve">
+    <value>_Batal</value>
+  </data>
+  <data name="STR_GOTOLINE_LINE_RANGE_LABEL" xml:space="preserve">
+    <value>Garis</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_TOOLTIP" xml:space="preserve">
+    <value>Ketik kriteria filter dan mengaktifkan filter untuk menyesuaikan tampilan.</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_ALL" xml:space="preserve">
+    <value>SEMUA</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_DEBUG" xml:space="preserve">
+    <value>DEBUG</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_INFO" xml:space="preserve">
+    <value>INFO</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_WARN" xml:space="preserve">
+    <value>MEMPERINGATKAN</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_ERROR" xml:space="preserve">
+    <value>KESALAHAN</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_FATAL" xml:space="preserve">
+    <value>FATAL</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_DEBUG_TT" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_INFO_TT" xml:space="preserve">
+    <value>Informasi</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_WARN_TT" xml:space="preserve">
+    <value>Peringatan</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_ERROR_TT" xml:space="preserve">
+    <value>Kesalahan</value>
+  </data>
+  <data name="STR_LOG4NET_FILTER_FATAL_TT" xml:space="preserve">
+    <value>Kesalahan fatal</value>
+  </data>
+  <data name="STR_LOG4NET_DELTATIME" xml:space="preserve">
+    <value>Delta t;</value>
+  </data>
+  <data name="STR_LOG4NET_FILTERRESULT_TT" xml:space="preserve">
+    <value>Jumlah item yang benar-benar ditampilkan (setelah menerapkan filter).</value>
+  </data>
+  <data name="STR_LOG4NET_ENTERLOGID_TT" xml:space="preserve">
+    <value>Masukkan item log yang Id untuk menggulir tampilan dokumen untuk item yang.</value>
+  </data>
+  <data name="STR_LOG4NET_DOCUMENTTAB_TT" xml:space="preserve">
+    <value>Dokumen log4net dapat digunakan untuk melihat XML output dari sesi logger log4net.</value>
+  </data>
+  <data name="STR_LOG4NET_READONY_REASON" xml:space="preserve">
+    <value>Dokumen Log4net tidak dapat mengedit. Ini adalah dokumen viewer hanya-baca.</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_COPYURL" xml:space="preserve">
+    <value>Path Copy ke Clipboard</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_OpenWithWindowsApp" xml:space="preserve">
+    <value>Buka dengan Aplikasi Windows</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_OpenInContainingFolder" xml:space="preserve">
+    <value>Buka map termuat</value>
+  </data>
+  <data name="STR_MRU_MENUITEM_Remove" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="STR_STARTPAGE_TITLE" xml:space="preserve">
+    <value>Halaman awal</value>
+  </data>
+  <data name="STR_STARTPAGE_WELCOME_TT" xml:space="preserve">
+    <value>Selamat datang di Edi. lihat halaman ini untuk memulai menjalankan editor</value>
+  </data>
+  <data name="STR_STARTPAGE_VISITPROJECTHOMEPAGE_TT" xml:space="preserve">
+    <value>Kunjungi halaman home Internet dari aplikasi ini</value>
+  </data>
+  <data name="STR_STARTPAGE_FILEOPEN_TT" xml:space="preserve">
+    <value>Buka berkas...</value>
+  </data>
+  <data name="STR_DIALOG_INPUT_PROBLEM_CAPTION" xml:space="preserve">
+    <value>Masukan anda tidak benar. perbaiki kesalahan berikut atau batalkan.</value>
+  </data>
+  <data name="STR_ACCESS_DIRECTORY_ERROR" xml:space="preserve">
+    <value>Direktori '{0}' tidak ada atau tidak dapat diakses.</value>
+  </data>
+  <data name="STR_FILE_FINDING_CAPTION" xml:space="preserve">
+    <value>Kesalahan menemukan file</value>
+  </data>
+  <data name="STR_FILE_DEFAULTNAME" xml:space="preserve">
+    <value>Untitled</value>
+  </data>
+  <data name="STR_FILE_READONLY_REASON_NO_WRITE_PERMISSION" xml:space="preserve">
+    <value>File ini tidak dapat diedit karena Anda tidak mempunyai akses menulis.
+Mengubah izin akses file atau Simpan file di lokasi yang berbeda jika Anda ingin mengedit.</value>
+  </data>
+  <data name="STR_FILE_READONLY_REASON_USED_BY_OTHER_PROCESS" xml:space="preserve">
+    <value>File ini tidak dapat diedit karena proses lain sekarang sedang menulis untuk itu.
+Mengakhiri proses lainnya dan membuka kembali file atau Simpan file di lokasi yang berbeda jika Anda ingin mengedit.</value>
+  </data>
+  <data name="STR_FILE_OPEN_ERROR_MSG_CAPTION" xml:space="preserve">
+    <value>Sebuah kesalahan telah terjadi</value>
+  </data>
+  <data name="STR_SCALE_VIEW_PERCENT" xml:space="preserve">
+    <value>persen</value>
+  </data>
+  <data name="STR_SCALE_VIEW_PERCENT_SHORT" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="STR_SCALE_VIEW_POINT" xml:space="preserve">
+    <value>ukuran font</value>
+  </data>
+  <data name="STR_SCALE_VIEW_POINT_SHORT" xml:space="preserve">
+    <value>pt</value>
+  </data>
+  <data name="CMD_APP_ExportUMLToImage_Description" xml:space="preserve">
+    <value>UML gambar</value>
+  </data>
+  <data name="STR_ERROR_LOADING_FILE_MSG" xml:space="preserve">
+    <value>Berkas:
+'{0}'
+
+tidak ada atau tidak dapat dimuat.
+Apakah Anda ingin menghapus berkas ini dari daftar file baru-baru?</value>
+    <comment>The file:
+'{0}'
+
+does not exist or cannot be loaded.
+Do you want to remove this file from the list of recent files?</comment>
+  </data>
+  <data name="STR_ERROR_LOADING_FILE_CAPTION" xml:space="preserve">
+    <value>Gagal Membuka berkas</value>
   </data>
   <data name="STR_FIND_BUTTON_CAPTION" xml:space="preserve">
     <value>Cari</value>
@@ -442,22 +815,160 @@ Semua berkas (*.*)|*.*</value>
   <data name="STR_FIND_REPLACE_CAPTION" xml:space="preserve">
     <value>Cari dan Ganti</value>
   </data>
-  <data name="STR_FINDREPLACE_CaseSensitive" xml:space="preserve">
-    <value>Kapitalisasi Sensitif</value>
+  <data name="STR_GOTO_LINE_CAPTION" xml:space="preserve">
+    <value>Pergi ke baris...</value>
+    <comment>Goto Line...</comment>
   </data>
-  <data name="STR_FINDREPLACE_FINDLABEL" xml:space="preserve">
-    <value>Teks yang Dicari:</value>
+  <data name="STR_REPLACE_BUTTON_CAPTION" xml:space="preserve">
+    <value>Gantikan</value>
   </data>
-  <data name="STR_FINDREPLACE_FINDNEXT" xml:space="preserve">
-    <value>Cari Berikutnya</value>
+  <data name="STR_ProgramSettings_ApplicationBehaviour_Header" xml:space="preserve">
+    <value>Aplikasi perilaku</value>
+    <comment>Application Settings</comment>
   </data>
-  <data name="STR_SCALE_VIEW_POINT" xml:space="preserve">
-    <value>ukuran font</value>
+  <data name="STR_ProgramSettings_Caption" xml:space="preserve">
+    <value>Progam pengaturan...</value>
+    <comment>Progam Settings...</comment>
+  </data>
+  <data name="STR_Settings_RestoreUserSession" xml:space="preserve">
+    <value>Memulihkan sesi pengguna terakhir bila aplikasi dimulai</value>
+  </data>
+  <data name="STR_Settings_RunEdiOnlyOnce" xml:space="preserve">
+    <value>Menjalankan Edi hanya sekali</value>
   </data>
   <data name="STR_Settings_ApplicationLanguage" xml:space="preserve">
     <value>Bahasa:</value>
   </data>
+  <data name="STR_Settings_ApplicationLanguage_TT" xml:space="preserve">
+    <value>Restart aplikasi untuk melihat efek dari pengaturan ini.</value>
+  </data>
+  <data name="STR_Settings_MRU_Section_Label" xml:space="preserve">
+    <value>Kebanyakan mode terbaru file (MRU)</value>
+  </data>
+  <data name="STR_Settings_MRU_Pin_At_StartOption" xml:space="preserve">
+    <value>PIN masukan pada awal daftar</value>
+  </data>
+  <data name="STR_Settings_MRU_Pin_At_Current_Position" xml:space="preserve">
+    <value>Favorit (tidak diurutkan)</value>
+  </data>
+  <data name="STR_Settings_Editor_Section_Label" xml:space="preserve">
+    <value>Pilihan Editor teks</value>
+  </data>
+  <data name="STR_Settings_Editor_WordWrap" xml:space="preserve">
+    <value>Teks Wrap kata</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowSpaces" xml:space="preserve">
+    <value>Ruang Tampilkan</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowTabs" xml:space="preserve">
+    <value>Tampilkan Tab</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowEndOfLine" xml:space="preserve">
+    <value>Menunjukkan akhir baris</value>
+  </data>
+  <data name="STR_Settings_Editor_ConvertTabToSpace" xml:space="preserve">
+    <value>Mengkonversi tabulator karakter menjadi karakter Ruang</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowBoxForControlChar" xml:space="preserve">
+    <value>Menunjukkan kotak kontrol karakter</value>
+  </data>
+  <data name="STR_Settings_Editor_CutCopyWholeLine" xml:space="preserve">
+    <value>Potong dan salin baris pada teks</value>
+  </data>
+  <data name="STR_Settings_Editor_AllowScrollBelowDocument" xml:space="preserve">
+    <value>Gulir ke bawah di dokumen</value>
+  </data>
+  <data name="STR_Settings_Editor_InheritWordWrapIndentation" xml:space="preserve">
+    <value>Mewarisi Firman bungkus indentasi</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableRectangularSelection" xml:space="preserve">
+    <value>Pencetakan selection (ALT + Shift atau ALT + Mouse pilihan)</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableTextDragDrop" xml:space="preserve">
+    <value>Teks tarik &amp; drop</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableVirtualSpace" xml:space="preserve">
+    <value>Ruang virtual</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableImeSupport" xml:space="preserve">
+    <value>IME dukungan</value>
+  </data>
+  <data name="STR_Settings_Editor_CharacterSizeSectionLabel" xml:space="preserve">
+    <value>Menyesuaikan ukuran teks editor karakter</value>
+  </data>
+  <data name="STR_Settings_Editor_CharacterSizeInPercent" xml:space="preserve">
+    <value>Persen</value>
+  </data>
   <data name="STR_Settings_Editor_CharacterSizeInPoints" xml:space="preserve">
     <value>Point</value>
+  </data>
+  <data name="STR_Settings_Editor_ColumnRulerSectionLabel" xml:space="preserve">
+    <value>Penguasa kolom</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowColumnRulerOption" xml:space="preserve">
+    <value>Penguasa kolom Tampilkan</value>
+  </data>
+  <data name="STR_Settings_Editor_ShowHyperlinks" xml:space="preserve">
+    <value>Memperlihatkan hyperlink WWW</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableFileHyperlinks" xml:space="preserve">
+    <value>Tampilkan file hyperlink</value>
+  </data>
+  <data name="STR_Settings_Editor_EnableEmailHyperlinks" xml:space="preserve">
+    <value>Memperlihatkan hyperlink Email</value>
+  </data>
+  <data name="STR_Settings_Editor_RequireControlModifierForHyperlinkClick" xml:space="preserve">
+    <value>Memerlukan Control kunci untuk klik hyperlink</value>
+  </data>
+  <data name="STR_CmdName_Export" xml:space="preserve">
+    <value>Ekspor</value>
+  </data>
+  <data name="STR_CmdName_Export_TT" xml:space="preserve">
+    <value>Konversikan data ke format berkas yang mendukung aplikasi lain</value>
+  </data>
+  <data name="STR_CmdName_Settings" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="STR_ABOUT_VERSION_INFO_LABEL" xml:space="preserve">
+    <value>Versi Info</value>
+  </data>
+  <data name="STR_Contributors_Label" xml:space="preserve">
+    <value>Kontributor</value>
+  </data>
+  <data name="STR_Settings_Editor_Hyperlink_Section" xml:space="preserve">
+    <value>Hyperlink</value>
+    <comment>Hyperlinks</comment>
+  </data>
+  <data name="STR_YALVLIb_Columns_MenuLabel" xml:space="preserve">
+    <value>Kolom</value>
+    <comment>Columns</comment>
+  </data>
+  <data name="CMD_APP_ExportTextToHTML_Description" xml:space="preserve">
+    <value>Teks ke HTML</value>
+    <comment>Application command</comment>
+  </data>
+  <data name="STR_ExportHTMLFileFilter" xml:space="preserve">
+    <value>Berkas HTML(*.html, *.htm)|*.html;*.htm|
+Semua berkas (*.*)|*.*</value>
+  </data>
+  <data name="STR_Settings_Text2HTML_AlternatingBackground" xml:space="preserve">
+    <value>Warna latar belakang alternatif</value>
+  </data>
+  <data name="STR_Settings_Text2HTML_GroupHeader" xml:space="preserve">
+    <value>Teks ke HTML ekspor</value>
+  </data>
+  <data name="STR_Settings_Text2HTML_ShowLineNumbers" xml:space="preserve">
+    <value>Tampilkan nomor baris</value>
+  </data>
+  <data name="STR_VIEW_TOOLWINDOWS" xml:space="preserve">
+    <value>Windows alat</value>
+    <comment>Menu entry to toggle visibility of tool windows </comment>
+  </data>
+  <data name="CMD_APP_ToggleOptimizeWorkspace_Description" xml:space="preserve">
+    <value>Toggle tampilan unsur-unsur opsional seperti statusbar dan toolbar.</value>
+    <comment>Description of command to toggle display of optional elements like statusbar and toolbar.</comment>
+  </data>
+  <data name="STR_CmdName_View_OptimizedWorkSpace" xml:space="preserve">
+    <value>Optimalkan Ruang Kerja</value>
   </data>
 </root>

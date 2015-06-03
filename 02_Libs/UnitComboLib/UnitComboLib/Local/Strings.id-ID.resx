@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,20 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="STR_CmdName_SelectAll" xml:space="preserve">
-    <value>Select All</value>
-    <comment>This is a label in a menu or context menu</comment>
+  <data name="Enter_Font_Size_InRange_Message" xml:space="preserve">
+    <value>Masukkan ukuran font dalam kisaran {0} - {1} poin.</value>
   </data>
-  <data name="STR_CmdName_SelectAll_TT" xml:space="preserve">
-    <value>Select all items</value>
-    <comment>This is a tool tip of a menu or context menu</comment>
+  <data name="Enter_Percent_Font_Size_InRange_Message" xml:space="preserve">
+    <value>Masukkan nilai antara {0} - {1} persen atau ukuran font antara (2) - {3} poin.</value>
   </data>
-  <data name="STR_CmdName_Copy" xml:space="preserve">
-    <value>Copy</value>
-    <comment>This is a tool tip of a menu or context menu</comment>
+  <data name="Enter_Percent_Size_InRange_Message" xml:space="preserve">
+    <value>Masukkan nilai persen dalam kisaran {0} - {1} persen.</value>
   </data>
-  <data name="STR_CmdName_Copy_TT" xml:space="preserve">
-    <value>Copy selected item</value>
-    <comment>This is a label in a menu or context menu</comment>
+  <data name="Integer_Contain_ErrorMessage" xml:space="preserve">
+    <value>String tidak mengandung nilai integer.</value>
+  </data>
+  <data name="Integer_Conversion_ErrorMessage" xml:space="preserve">
+    <value>String tidak dapat dikonversi menjadi nilai integer.</value>
+  </data>
+  <data name="Percent_String" xml:space="preserve">
+    <value>persen</value>
+    <comment>describes the unit 'percent'</comment>
+  </data>
+  <data name="Percent_String_Short" xml:space="preserve">
+    <value>%</value>
+    <comment>describes a short version of the unit 'percent' string</comment>
+  </data>
+  <data name="Point_String" xml:space="preserve">
+    <value>ukuran font</value>
+    <comment>describes the unit 'point'</comment>
+  </data>
+  <data name="Point_String_Short" xml:space="preserve">
+    <value>PT</value>
+    <comment>describes a short version of the unit 'point' string</comment>
   </data>
 </root>

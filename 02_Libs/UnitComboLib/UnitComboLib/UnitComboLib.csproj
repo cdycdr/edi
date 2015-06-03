@@ -76,6 +76,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.hi-IN.resx</DependentUpon>
     </Compile>
+    <Compile Include="Local\Strings.id-ID.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.id-ID.resx</DependentUpon>
+    </Compile>
     <Compile Include="Local\Strings.it-IT.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -143,6 +148,10 @@
     <EmbeddedResource Include="Local\Strings.hi-IN.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.hi-IN.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Local\Strings.id-ID.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.id-ID.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Local\Strings.it-IT.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

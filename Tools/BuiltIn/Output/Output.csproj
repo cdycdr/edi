@@ -77,9 +77,14 @@
   <ItemGroup>
     <Compile Include="Behaviors\ViewLoaded.cs" />
     <Compile Include="Local\Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Local\Strings.id-ID.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.id-ID.resx</DependentUpon>
     </Compile>
     <Compile Include="Module\MEFLoadOutputTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,6 +126,10 @@
     <Content Include="Images\SVG\appbar.monitor.svg" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Local\Strings.id-ID.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.id-ID.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Local\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>

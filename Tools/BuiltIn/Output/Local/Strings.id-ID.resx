@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="STR_CmdName_SelectAll" xml:space="preserve">
-    <value>Select All</value>
+    <value>Pilih Semua</value>
     <comment>This is a label in a menu or context menu</comment>
   </data>
   <data name="STR_CmdName_SelectAll_TT" xml:space="preserve">
-    <value>Select all items</value>
+    <value>Pilih Semua item</value>
     <comment>This is a tool tip of a menu or context menu</comment>
   </data>
   <data name="STR_CmdName_Copy" xml:space="preserve">
-    <value>Copy</value>
+    <value>Salinan</value>
     <comment>This is a tool tip of a menu or context menu</comment>
   </data>
   <data name="STR_CmdName_Copy_TT" xml:space="preserve">
-    <value>Copy selected item</value>
+    <value>Menyalin item yang dipilih</value>
     <comment>This is a label in a menu or context menu</comment>
   </data>
 </root>
