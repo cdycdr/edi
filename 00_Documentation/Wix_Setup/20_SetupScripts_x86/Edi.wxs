@@ -521,13 +521,13 @@
         <File Id="filAB9D8ADE9994729FE9DF48AB42B49E44" KeyPath="yes" Source="00_Edi\sv\Xceed.Wpf.AvalonDock.resources.dll" />
       </Component>
       <Component Id="cmp07960B53C342A3BF1E176C1BE67AF03E" Directory="dir2B056FE6351C074C9055B2D4C7512281" Guid="{C0516378-8340-45A9-A339-57E251981F27}">
-        <File Id="fil8EDB283F84D3FD5A6C15AE7C5328F20C" KeyPath="yes" Source="00_Edi\zh-CHS\SimpleControls.resources.dll" />
+        <File Id="fil8EDB283F84D3FD5A6C15AE7C5328F20C" KeyPath="yes" Source="00_Edi\zh-Hans\SimpleControls.resources.dll" />
       </Component>
       <Component Id="cmp77EF4C95B2C9F535DCE1D7A1609CFEC1" Directory="dir2B056FE6351C074C9055B2D4C7512281" Guid="{9161BA14-0847-4FF2-B8B5-2738CD69D547}">
-        <File Id="fil2E55D1F5CB5211718658E682A869C1C2" KeyPath="yes" Source="00_Edi\zh-CHS\UnitComboLib.resources.dll" />
+        <File Id="fil2E55D1F5CB5211718658E682A869C1C2" KeyPath="yes" Source="00_Edi\zh-Hans\UnitComboLib.resources.dll" />
       </Component>
       <Component Id="cmp89C63783E0364BB8F57A7E27701474DD" Directory="dir2B056FE6351C074C9055B2D4C7512281" Guid="{6AF031D7-0AF0-42BB-BF5B-1A9C2C81A07A}">
-        <File Id="fil9803917CC6FD8609516178D67C98ADC4" KeyPath="yes" Source="00_Edi\zh-CHS\Util.resources.dll" />
+        <File Id="fil9803917CC6FD8609516178D67C98ADC4" KeyPath="yes" Source="00_Edi\zh-Hans\Util.resources.dll" />
       </Component>
       <Component Id="cmp89C63783E0364BB8F57A7E27701474DE" Directory="dir2B056FE6351C074C9055B2D4C7512281" Guid="{6AF031D7-0AF0-42BB-BF5B-1A9C2C81A07B}">
         <File Id="fil9803917CC6FD8609516178D67C98ADC5" KeyPath="yes" Source="00_Edi\zh-CHS\FileSystemModels.resources.dll" />

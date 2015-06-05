@@ -167,10 +167,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.ru-RU.resx</DependentUpon>
     </Compile>
-    <Compile Include="Local\Strings.zh-CHS.Designer.cs">
+    <Compile Include="Local\Strings.zh-Hans.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Strings.zh-CHS.resx</DependentUpon>
+      <DependentUpon>Strings.zh-Hans.resx</DependentUpon>
     </Compile>
     <Compile Include="Msg\Msg.cs" />
     <Compile Include="Msg\Msgs.cs" />
@@ -221,9 +221,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.ru-RU.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Local\Strings.zh-CHS.resx">
+    <EmbeddedResource Include="Local\Strings.zh-Hans.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.zh-CHS.Designer.cs</LastGenOutput>
+      <LastGenOutput>Strings.zh-Hans.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
