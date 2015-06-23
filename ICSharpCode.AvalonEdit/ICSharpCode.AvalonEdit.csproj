@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{6C55B776-26D4-4DB3-A6AB-87E783B2F3D1}</ProjectGuid>
@@ -456,9 +456,6 @@
     </Compile>
     <Compile Include="TextViewPosition.cs" />
     <Compile Include="Utils\Boxes.cs" />
-    <Compile Include="Utils\BusyManager.cs">
-      <DependentUpon>ObserveAddRemoveCollection.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utils\CharRope.cs" />
     <Compile Include="Utils\CompressingTreeList.cs" />
     <Compile Include="Utils\Constants.cs" />

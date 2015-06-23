@@ -29,10 +29,18 @@ namespace ICSharpCode.AvalonEdit.Utils
 	static class ExtensionMethods
 	{
 		#region Epsilon / IsClose / CoerceValue
-		public const double Epsilon = 1e-8;
+		/// <summary>
+		/// Epsilon used for <c>IsClose()</c> implementations.
+		/// We can use up quite a few digits in front of the decimal point (due to visual positions being relative to document origin),
+		/// and there's no need to be too accurate (we're dealing with pixels here),
+		/// so we will use the value 0.01.
+		/// Previosly we used 1e-8 but that was causing issues:
+		/// http://community.sharpdevelop.net/forums/t/16048.aspx
+		/// </summary>
+		public const double Epsilon = 0.01;
 		
 		/// <summary>
-		/// Returns true if the doubles are close (difference smaller than 10^-8).
+		/// Returns true if the doubles are close (difference smaller than 0.01).
 		/// </summary>
 		public static bool IsClose(this double d1, double d2)
 		{
@@ -42,7 +50,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 		
 		/// <summary>
-		/// Returns true if the doubles are close (difference smaller than 10^-8).
+		/// Returns true if the doubles are close (difference smaller than 0.01).
 		/// </summary>
 		public static bool IsClose(this Size d1, Size d2)
 		{
@@ -50,7 +58,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 		
 		/// <summary>
-		/// Returns true if the doubles are close (difference smaller than 10^-8).
+		/// Returns true if the doubles are close (difference smaller than 0.01).
 		/// </summary>
 		public static bool IsClose(this Vector d1, Vector d2)
 		{
@@ -200,6 +208,14 @@ namespace ICSharpCode.AvalonEdit.Utils
 			return new Rect(rect.Location.ToWpf(), rect.Size.ToWpf());
 		}
 		#endregion
+		
+		public static IEnumerable<DependencyObject> VisualAncestorsAndSelf(this DependencyObject obj)
+		{
+			while (obj != null) {
+				yield return obj;
+				obj = VisualTreeHelper.GetParent(obj);
+			}
+		}
 		
 		[Conditional("DEBUG")]
 		public static void CheckIsFrozen(Freezable f)

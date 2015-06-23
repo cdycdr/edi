@@ -128,6 +128,18 @@ namespace ICSharpCode.AvalonEdit.Utils
 		/// <summary>
 		/// Creates a new CompressingTreeList instance.
 		/// </summary>
+		/// <param name="equalityComparer">The equality comparer used for comparing consequtive values.
+		/// A single node may be used to store the multiple values that are considered equal.</param>
+		public CompressingTreeList(IEqualityComparer<T> equalityComparer)
+		{
+			if (equalityComparer == null)
+				throw new ArgumentNullException("equalityComparer");
+			this.comparisonFunc = equalityComparer.Equals;
+		}
+		
+		/// <summary>
+		/// Creates a new CompressingTreeList instance.
+		/// </summary>
 		/// <param name="comparisonFunc">A function that checks two values for equality. If this
 		/// function returns true, a single node may be used to store the two values.</param>
 		public CompressingTreeList(Func<T, T, bool> comparisonFunc)
@@ -359,7 +371,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 		
 		/// <summary>
-		/// Gets the the first index so that all values from the mResult index to <paramref name="index"/>
+		/// Gets the the first index so that all values from the result index to <paramref name="index"/>
 		/// are equal.
 		/// </summary>
 		public int GetStartOfRun(int index)
@@ -372,7 +384,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 
 		/// <summary>
-		/// Gets the first index after <paramref name="index"/> so that the value at the mResult index is not
+		/// Gets the first index after <paramref name="index"/> so that the value at the result index is not
 		/// equal to the value at <paramref name="index"/>.
 		/// That is, this method returns the exclusive end index of the run of equal values.
 		/// </summary>
@@ -414,8 +426,26 @@ namespace ICSharpCode.AvalonEdit.Utils
 				}
 				prevNode = n;
 			}
+			CheckProperties();
 		}
-
+		
+		/// <summary>
+		/// Applies the conversion function to the elements in the specified range.
+		/// </summary>
+		public void TransformRange(int index, int length, Func<T, T> converter)
+		{
+			if (root == null)
+				return;
+			int endIndex = index + length;
+			int pos = index;
+			while (pos < endIndex) {
+				int endPos = Math.Min(endIndex, GetEndOfRun(pos));
+				T oldValue = this[pos];
+				T newValue = converter(oldValue);
+				SetRange(pos, endPos - pos, newValue);
+				pos = endPos;
+			}
+		}
 		
 		/// <summary>
 		/// Inserts the specified <paramref name="item"/> at <paramref name="index"/>

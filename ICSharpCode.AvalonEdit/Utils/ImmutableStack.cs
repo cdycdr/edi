@@ -73,9 +73,12 @@ namespace ICSharpCode.AvalonEdit.Utils
 			return value;
 		}
 		
-		internal T UnsafePeek()
+		/// <summary>
+		/// Gets the item on the top of the stack.
+		/// Returns <c>default(T)</c> if the stack is empty.
+		/// </summary>
+		public T PeekOrDefault()
 		{
-			Debug.Assert(!IsEmpty);
 			return value;
 		}
 		
