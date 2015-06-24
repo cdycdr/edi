@@ -20,6 +20,9 @@ using System;
 using System.Windows;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Editing
 {

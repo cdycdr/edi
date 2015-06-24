@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-
+using ICSharpCode.NRefactory.Editor;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Utils;

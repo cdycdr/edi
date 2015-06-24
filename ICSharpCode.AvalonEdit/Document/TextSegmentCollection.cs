@@ -16,7 +16,6 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using ICSharpCode.AvalonEdit.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +23,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using ICSharpCode.AvalonEdit.Utils;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Document
 {

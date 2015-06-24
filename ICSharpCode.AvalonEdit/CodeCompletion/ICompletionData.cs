@@ -18,8 +18,12 @@
 
 using System;
 using System.Windows.Media;
-using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#else
+using ICSharpCode.AvalonEdit.Document;
+#endif
 
 namespace ICSharpCode.AvalonEdit.CodeCompletion
 {

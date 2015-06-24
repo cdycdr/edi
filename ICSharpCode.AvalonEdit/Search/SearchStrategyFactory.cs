@@ -27,7 +27,7 @@ namespace ICSharpCode.AvalonEdit.Search
 	/// <summary>
 	/// Provides factory methods for ISearchStrategies.
 	/// </summary>
-	public class SearchStrategyFactory
+	public static class SearchStrategyFactory
 	{
 		/// <summary>
 		/// Creates a default ISearchStrategy with the given parameters.

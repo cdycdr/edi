@@ -31,6 +31,9 @@ using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Search;
 using ICSharpCode.AvalonEdit.Utils;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Editing
 {

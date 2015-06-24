@@ -21,6 +21,7 @@ using System.Windows;
 using System.Windows.Media;
 
 using ICSharpCode.AvalonEdit.Rendering;
+using ICSharpCode.AvalonEdit.Utils;
 
 namespace ICSharpCode.AvalonEdit.Editing
 {

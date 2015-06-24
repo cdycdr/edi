@@ -40,7 +40,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		string textContent;
 		
 		/// <summary>
-		/// last GetText mResult
+		/// last GetText result
 		/// </summary>
 		string lastGetTextResult;
 		int lastGetTextRequestOffset;
@@ -99,11 +99,11 @@ namespace ICSharpCode.AvalonEdit.Document
 				return lastGetTextResult;
 			
 			int end = offset + length;
-			string mResult;
+			string result;
 			if (end < gapBeginOffset) {
-				mResult = new string(buffer, offset, length);
+				result = new string(buffer, offset, length);
 			} else if (offset > gapBeginOffset) {
-				mResult = new string(buffer, offset + gapLength, length);
+				result = new string(buffer, offset + gapLength, length);
 			} else {
 				int block1Size = gapBeginOffset - offset;
 				int block2Size = end - gapBeginOffset;
@@ -111,11 +111,11 @@ namespace ICSharpCode.AvalonEdit.Document
 				StringBuilder buf = new StringBuilder(block1Size + block2Size);
 				buf.Append(buffer, offset,       block1Size);
 				buf.Append(buffer, gapEndOffset, block2Size);
-				mResult = buf.ToString();
+				result = buf.ToString();
 			}
 			lastGetTextRequestOffset = offset;
-			lastGetTextResult = mResult;
-			return mResult;
+			lastGetTextResult = result;
+			return result;
 		}
 		
 		/// <summary>

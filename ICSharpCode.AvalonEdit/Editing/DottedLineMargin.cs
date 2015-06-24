@@ -67,7 +67,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		}
 		
 		/// <summary>
-		/// Gets whether the specified UIElement is the mResult of a DottedLineMargin.Create call.
+		/// Gets whether the specified UIElement is the result of a DottedLineMargin.Create call.
 		/// </summary>
 		public static bool IsDottedLineMargin(UIElement element)
 		{

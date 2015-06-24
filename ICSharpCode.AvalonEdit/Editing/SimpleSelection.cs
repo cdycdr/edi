@@ -22,6 +22,9 @@ using System.Linq;
 
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Utils;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Editing
 {

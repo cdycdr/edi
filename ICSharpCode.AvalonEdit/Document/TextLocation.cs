@@ -17,6 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.ComponentModel;
 using System.Globalization;
 
 namespace ICSharpCode.AvalonEdit.Document

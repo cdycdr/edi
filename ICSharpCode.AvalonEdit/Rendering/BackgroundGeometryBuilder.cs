@@ -18,12 +18,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.TextFormatting;
-
+using ICSharpCode.NRefactory.Editor;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Utils;

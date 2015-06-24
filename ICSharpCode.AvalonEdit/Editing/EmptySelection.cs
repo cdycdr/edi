@@ -19,9 +19,13 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Utils;
-using System.Windows.Input;
+#if NREFACTORY
+using ICSharpCode.NRefactory;
+using ICSharpCode.NRefactory.Editor;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Editing
 {

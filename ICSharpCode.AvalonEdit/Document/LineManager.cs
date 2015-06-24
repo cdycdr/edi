@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ICSharpCode.NRefactory.Editor;
 
 namespace ICSharpCode.AvalonEdit.Document
 {

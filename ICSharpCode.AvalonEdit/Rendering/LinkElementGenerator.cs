@@ -36,7 +36,10 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		// a link starts with a protocol (or just with www), followed by 0 or more 'link characters', followed by a link end character
 		// (this allows accepting punctuation inside links but not at the end)
     private readonly static Regex defaultLinkRegex = new Regex(@"(\b(https?://|ftp://|www\.)[\w\d\._/\-~%@()+:?&=#!]*[\w\d/])");
-    		
+		
+		// try to detect email addresses
+		internal readonly static Regex defaultMailRegex = new Regex(@"\b[\w\d\.\-]+\@[\w\d\.\-]+\.[a-z]{2,6}\b");
+		
 		readonly Regex linkRegex;
 		
 		/// <summary>
@@ -120,10 +123,8 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		protected virtual Uri GetUriFromMatch(Match match)
 		{
 			string targetUrl = match.Value;
-
 			if (targetUrl.StartsWith("www.", StringComparison.Ordinal))
 				targetUrl = "http://" + targetUrl;
-
 			if (Uri.IsWellFormedUriString(targetUrl, UriKind.Absolute))
         return new Uri(targetUrl, UriKind.Absolute);
 
@@ -131,9 +132,10 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		}
 	}
 	
+	// This class is internal because it does not need to be accessed by the user - it can be configured using TextEditorOptions.
+	
 	/// <summary>
 	/// Detects e-mail addresses and makes them clickable.
-  /// This class is internal because it does not need to be accessed by the user - it can be configured using TextEditorOptions.
 	/// </summary>
 	/// <remarks>
 	/// This element generator can be easily enabled and configured using the

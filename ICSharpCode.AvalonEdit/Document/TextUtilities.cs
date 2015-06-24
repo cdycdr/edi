@@ -19,6 +19,9 @@
 using System;
 using System.Globalization;
 using System.Windows.Documents;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Document
 {
@@ -28,7 +31,7 @@ namespace ICSharpCode.AvalonEdit.Document
 	public enum CaretPositioningMode
 	{
 		/// <summary>
-		/// Normal positioning (stop at every caret position)
+		/// Normal positioning (stop after every grapheme)
 		/// </summary>
 		Normal,
 		/// <summary>

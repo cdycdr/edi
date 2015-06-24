@@ -17,6 +17,8 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Runtime.Serialization;
+using ICSharpCode.NRefactory.Editor;
 using System.Windows.Input;
 using ICSharpCode.AvalonEdit.Document;
 

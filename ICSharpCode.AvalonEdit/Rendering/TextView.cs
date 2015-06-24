@@ -16,29 +16,28 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.TextFormatting;
+using System.Windows.Threading;
+using ICSharpCode.NRefactory.Editor;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Utils;
 
-  using System;
-  using System.Collections.Generic;
-  using System.Collections.ObjectModel;
-  using System.ComponentModel;
-  using System.ComponentModel.Design;
-  using System.Diagnostics;
-  using System.Globalization;
-  using System.Linq;
-  using System.Windows;
-  using System.Windows.Controls;
-  using System.Windows.Controls.Primitives;
-  using System.Windows.Input;
-  using System.Windows.Media;
-  using System.Windows.Media.TextFormatting;
-  using System.Windows.Threading;
-
-  using ICSharpCode.AvalonEdit.Document;
-  using ICSharpCode.AvalonEdit.Utils;
-  
 namespace ICSharpCode.AvalonEdit.Rendering
 {
-  /// <summary>
+	/// <summary>
 	/// A virtualizing panel producing+showing <see cref="VisualLine"/>s for a <see cref="TextDocument"/>.
 	/// 
 	/// This is the heart of the text editor, this class controls the text rendering process.

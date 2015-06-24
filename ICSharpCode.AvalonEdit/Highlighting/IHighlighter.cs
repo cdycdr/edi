@@ -17,7 +17,12 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#else
 using ICSharpCode.AvalonEdit.Document;
+#endif
 using ICSharpCode.AvalonEdit.Utils;
 
 namespace ICSharpCode.AvalonEdit.Highlighting

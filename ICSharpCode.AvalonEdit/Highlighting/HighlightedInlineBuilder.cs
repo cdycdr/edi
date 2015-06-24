@@ -19,9 +19,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+using ICSharpCode.AvalonEdit.Utils;
 
 namespace ICSharpCode.AvalonEdit.Highlighting
 {

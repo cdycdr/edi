@@ -21,8 +21,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-using System.Windows.Threading;
-
+using ICSharpCode.NRefactory.Editor;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 

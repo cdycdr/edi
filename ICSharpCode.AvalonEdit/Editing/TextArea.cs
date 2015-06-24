@@ -26,6 +26,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -36,6 +37,8 @@ using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Indentation;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
+using ICSharpCode.NRefactory;
+using ICSharpCode.NRefactory.Editor;
 
 namespace ICSharpCode.AvalonEdit.Editing
 {

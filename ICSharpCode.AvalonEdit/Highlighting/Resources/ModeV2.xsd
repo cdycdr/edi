@@ -14,7 +14,7 @@
 					<xsd:enumeration value="bold"/>
 					<xsd:enumeration value="normal"/>
 					<xsd:enumeration value="regular"/>
-					<!-- should we support other font weigth names? -->
+					<!-- should we support other font weight names? -->
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:union>

@@ -17,7 +17,11 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#else
 using ICSharpCode.AvalonEdit.Document;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Highlighting
 {
@@ -44,5 +48,11 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		/// Gets the highlighting color associated with the highlighted section.
 		/// </summary>
 		public HighlightingColor Color { get; set; }
+		
+		/// <inheritdoc/>
+		public override string ToString()
+		{
+			return string.Format("[HighlightedSection ({0}-{1})={2}]", Offset, Offset + Length, Color);
+		}
 	}
 }

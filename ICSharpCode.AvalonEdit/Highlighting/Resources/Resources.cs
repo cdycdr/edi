@@ -37,11 +37,9 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		{
       /*** Dirkster99 BugFix - disabled this function to load xshd's from Edi's sub-folder only.
 			hlm.RegisterHighlighting("XmlDoc", null, "XmlDoc.xshd");
-
 			hlm.RegisterHighlighting("C#", new[] { ".cs" }, "CSharp-Mode.xshd");
 			
 			hlm.RegisterHighlighting("JavaScript", new[] { ".js" }, "JavaScript-Mode.xshd");
-
 			hlm.RegisterHighlighting("HTML", new[] { ".htm", ".html" }, "HTML-Mode.xshd");
 			hlm.RegisterHighlighting("ASP/XHTML", new[] { ".asp", ".aspx", ".asax", ".asmx", ".ascx", ".master" }, "ASPX.xshd");
 

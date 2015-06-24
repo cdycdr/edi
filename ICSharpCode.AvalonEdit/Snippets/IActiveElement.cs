@@ -18,6 +18,7 @@
 
 using System;
 using System.Windows.Media;
+using ICSharpCode.NRefactory.Editor;
 using ICSharpCode.AvalonEdit.Document;
 
 namespace ICSharpCode.AvalonEdit.Snippets

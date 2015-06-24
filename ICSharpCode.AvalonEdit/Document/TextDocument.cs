@@ -20,12 +20,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Threading;
 using ICSharpCode.AvalonEdit.Utils;
+using ICSharpCode.NRefactory;
+using ICSharpCode.NRefactory.Editor;
 
 namespace ICSharpCode.AvalonEdit.Document
 {

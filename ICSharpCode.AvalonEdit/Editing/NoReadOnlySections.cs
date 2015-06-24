@@ -17,9 +17,10 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.NRefactory.Editor;
 using ICSharpCode.AvalonEdit.Utils;
 
 namespace ICSharpCode.AvalonEdit.Editing

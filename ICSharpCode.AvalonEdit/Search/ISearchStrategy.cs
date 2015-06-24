@@ -19,7 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using ICSharpCode.NRefactory.Editor;
 using ICSharpCode.AvalonEdit.Document;
 
 namespace ICSharpCode.AvalonEdit.Search
@@ -34,8 +34,8 @@ namespace ICSharpCode.AvalonEdit.Search
 		/// </summary>
 		/// <remarks>
 		/// This method must be implemented thread-safe.
-		/// All segments in the mResult must be within the given range, and they must be returned in order
-		/// (e.g. if two results are returned, EndOffset of first mResult must be less than or equal StartOffset of second mResult).
+		/// All segments in the result must be within the given range, and they must be returned in order
+		/// (e.g. if two results are returned, EndOffset of first result must be less than or equal StartOffset of second result).
 		/// </remarks>
 		IEnumerable<ISearchResult> FindAll(ITextSource document, int offset, int length);
 		
@@ -47,7 +47,7 @@ namespace ICSharpCode.AvalonEdit.Search
 	}
 	
 	/// <summary>
-	/// Represents a search mResult.
+	/// Represents a search result.
 	/// </summary>
 	public interface ISearchResult : ISegment
 	{

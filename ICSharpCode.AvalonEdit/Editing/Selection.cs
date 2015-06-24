@@ -20,9 +20,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Utils;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Editing
 {
@@ -129,7 +133,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			return (!string.IsNullOrEmpty(newText) || !(IsInVirtualSpace(start) && IsInVirtualSpace(end)))
 				&& newText != "\r\n"
-				&& newText != "\n" 
+				&& newText != "\n"
 				&& newText != "\r";
 		}
 		

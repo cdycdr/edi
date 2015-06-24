@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ICSharpCode.NRefactory.Editor;
 using System.Text.RegularExpressions;
 
 using ICSharpCode.AvalonEdit.Document;

@@ -44,8 +44,17 @@ namespace ICSharpCode.AvalonEdit.Editing
 		
 		TextArea textArea;
 		
-		Typeface typeface;
-		double emSize;
+		/// <summary>
+		/// The typeface used for rendering the line number margin.
+		/// This field is calculated in MeasureOverride() based on the FontFamily etc. properties.
+		/// </summary>
+		protected Typeface typeface;
+		
+		/// <summary>
+		/// The font size used for rendering the line number margin.
+		/// This field is calculated in MeasureOverride() based on the FontFamily etc. properties.
+		/// </summary>
+		protected double emSize;
 		
 		/// <inheritdoc/>
 		protected override Size MeasureOverride(Size availableSize)
@@ -129,7 +138,10 @@ namespace ICSharpCode.AvalonEdit.Editing
 			return ReceiveWeakEvent(managerType, sender, e);
 		}
 		
-		int maxLineNumberLength = 1;
+		/// <summary>
+		/// Maximum length of a line number, in characters
+		/// </summary>
+		protected int maxLineNumberLength = 1;
 		
 		void OnDocumentLineCountChanged()
 		{

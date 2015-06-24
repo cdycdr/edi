@@ -18,6 +18,8 @@
 
 using ICSharpCode.AvalonEdit.Utils;
 using System;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.NRefactory.Editor;
 
 namespace ICSharpCode.AvalonEdit.Document
 {

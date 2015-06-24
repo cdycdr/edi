@@ -17,12 +17,16 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#else
+using ICSharpCode.AvalonEdit.Document;
+#endif
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Threading;
 
-using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;

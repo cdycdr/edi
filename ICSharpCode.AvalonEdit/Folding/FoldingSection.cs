@@ -19,9 +19,13 @@
 using System;
 using System.Diagnostics;
 using System.Text;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#endif
 using System.Windows.Threading;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
+using ICSharpCode.AvalonEdit.Utils;
 
 namespace ICSharpCode.AvalonEdit.Folding
 {
