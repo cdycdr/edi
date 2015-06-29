@@ -62,7 +62,6 @@ namespace ICSharpCode.AvalonEdit.Editing
 			var document = textArea.Document;
 			if (document == null)
 				throw ThrowUtil.NoDocumentAssigned();
-
 			return Create(textArea, startPosition, endPosition);
 		}
 		
@@ -74,42 +73,39 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			return string.Empty;
 		}
+		
+		public override void ReplaceSelectionWithText(string newText)
+		{
+			if (newText == null)
+				throw new ArgumentNullException("newText");
+			newText = AddSpacesIfRequired(newText, textArea.Caret.Position, textArea.Caret.Position);
+			if (newText.Length > 0) {
+                if (textArea.ReadOnlySectionProvider.CanInsert(textArea.Caret.Offset))
+                {
+                    // Dirkster99 Extension added support for Insert/Overtype mode
+                    // Replaced with version from here http://community.sharpdevelop.net/forums/t/12345.aspx
+                    if (textArea.Options.IsInsertMode == false)
+                    {
+                        int diff = textArea.Document.GetLineByNumber(textArea.Caret.Line).EndOffset - textArea.Caret.Offset;
+                        if (diff <= 0)
+                            textArea.Document.Insert(textArea.Caret.Offset, newText);
+                        else
+                        {
+                            if (newText.Length > diff)
+                                textArea.Document.Replace(textArea.Caret.Offset, diff, newText);
+                            else
+                                textArea.Document.Replace(textArea.Caret.Offset, newText.Length, newText);
 
-    public override void ReplaceSelectionWithText(string newText)
-    {
-      if (newText == null)
-        throw new ArgumentNullException("newText");
-
-      newText = AddSpacesIfRequired(newText, textArea.Caret.Position, textArea.Caret.Position);
-
-      if (newText.Length > 0)
-      {
-        if (textArea.ReadOnlySectionProvider.CanInsert(textArea.Caret.Offset))
-        {
-          // Dirkster99 Extension added support for Insert/Overtype mode
-          // Replaced with version from here http://community.sharpdevelop.net/forums/t/12345.aspx
-          if (textArea.Options.IsInsertMode == false)
-          {
-            int diff = textArea.Document.GetLineByNumber(textArea.Caret.Line).EndOffset - textArea.Caret.Offset;
-            if (diff <= 0)
-              textArea.Document.Insert(textArea.Caret.Offset, newText);
-            else
-            {
-              if (newText.Length > diff)
-                textArea.Document.Replace(textArea.Caret.Offset, diff, newText);
-              else
-                textArea.Document.Replace(textArea.Caret.Offset, newText.Length, newText);
-
-              textArea.Caret.Offset += newText.Length;
+                            textArea.Caret.Offset += newText.Length;
+                        }
+                    }
+                    else
+                        textArea.Document.Insert(textArea.Caret.Offset, newText);
+                }
             }
-          }
-          else
-            textArea.Document.Insert(textArea.Caret.Offset, newText);
-        }
-      }
-      textArea.Caret.VisualColumn = -1;
-    }
-
+			textArea.Caret.VisualColumn = -1;
+		}
+		
 		public override int Length {
 			get { return 0; }
 		}

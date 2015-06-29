@@ -53,8 +53,11 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			base.OnRender(drawingContext);
 			
+			var selectionBorder = textArea.SelectionBorder;
+			
 			BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
-			geoBuilder.AlignToMiddleOfPixels = true;
+			geoBuilder.AlignToWholePixels = true;
+			geoBuilder.BorderThickness = selectionBorder != null ? selectionBorder.Thickness : 0;
 			geoBuilder.ExtendToFullWidthAtLineEnd = textArea.Selection.EnableVirtualSpace;
 			geoBuilder.CornerRadius = textArea.SelectionCornerRadius;
 			foreach (var segment in textArea.Selection.Segments) {
@@ -62,7 +65,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 			}
 			Geometry geometry = geoBuilder.CreateGeometry();
 			if (geometry != null) {
-				drawingContext.DrawGeometry(textArea.SelectionBrush, textArea.SelectionBorder, geometry);
+				drawingContext.DrawGeometry(textArea.SelectionBrush, selectionBorder, geometry);
 			}
 		}
 	}

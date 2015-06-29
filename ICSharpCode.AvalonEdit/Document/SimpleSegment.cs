@@ -1,68 +1,31 @@
-﻿// Copyright (c) AlphaSierraPapa for the SharpDevelop Team (for details please see \doc\copyright.txt)
-// This code is distributed under the GNU LGPL (for details please see \doc\license.txt)
+﻿// Copyright (c) 2014 AlphaSierraPapa for the SharpDevelop Team
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this
+// software and associated documentation files (the "Software"), to deal in the Software
+// without restriction, including without limitation the rights to use, copy, modify, merge,
+// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+// to whom the Software is furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+// PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Diagnostics;
-using ICSharpCode.AvalonEdit.Utils;
 using System.Globalization;
+using ICSharpCode.AvalonEdit.Utils;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Document
 {
-	/// <summary>
-	/// An (Offset,Length)-pair.
-	/// </summary>
-	/// <seealso cref="TextSegment"/>
-	/// <seealso cref="AnchorSegment"/>
-	public interface ISegment
-	{
-		/// <summary>
-		/// Gets the start offset of the segment.
-		/// </summary>
-		int Offset { get; }
-		
-		/// <summary>
-		/// Gets the length of the segment.
-		/// </summary>
-		/// <remarks>Must not be negative.</remarks>
-		int Length { get; }
-		
-		/// <summary>
-		/// Gets the end offset of the segment.
-		/// </summary>
-		/// <remarks>EndOffset = Offset + Length;</remarks>
-		int EndOffset { get; }
-	}
-	
-	static class SegmentExtensions
-	{
-		/// <summary>
-		/// Gets whether the segment contains the offset.
-		/// </summary>
-		/// <returns>
-		/// True, if offset is between segment.Start and segment.End (inclusive); otherwise, false.
-		/// </returns>
-		public static bool Contains(this ISegment segment, int offset)
-		{
-			int start = segment.Offset;
-			int end = start + segment.Length;
-			return offset >= start && offset <= end;
-		}
-		
-		/// <summary>
-		/// Gets the overlapping portion of the segments.
-		/// Returns SimpleSegment.Invalid if the segments don't overlap.
-		/// </summary>
-		public static SimpleSegment GetOverlap(this ISegment segment, ISegment other)
-		{
-			int start = Math.Max(segment.Offset, other.Offset);
-			int end = Math.Min(segment.EndOffset, other.EndOffset);
-			if (end < start)
-				return SimpleSegment.Invalid;
-			else
-				return new SimpleSegment(start, end - start);
-		}
-	}
-	
 	/// <summary>
 	/// Represents a simple segment (Offset,Length pair) that is not automatically updated
 	/// on document changes.
@@ -70,6 +33,20 @@ namespace ICSharpCode.AvalonEdit.Document
 	struct SimpleSegment : IEquatable<SimpleSegment>, ISegment
 	{
 		public static readonly SimpleSegment Invalid = new SimpleSegment(-1, -1);
+		
+		/// <summary>
+		/// Gets the overlapping portion of the segments.
+		/// Returns SimpleSegment.Invalid if the segments don't overlap.
+		/// </summary>
+		public static SimpleSegment GetOverlap(ISegment segment1, ISegment segment2)
+		{
+			int start = Math.Max(segment1.Offset, segment2.Offset);
+			int end = Math.Min(segment1.EndOffset, segment2.EndOffset);
+			if (end < start)
+				return SimpleSegment.Invalid;
+			else
+				return new SimpleSegment(start, end - start);
+		}
 		
 		public readonly int Offset, Length;
 		
@@ -127,6 +104,7 @@ namespace ICSharpCode.AvalonEdit.Document
 			return !left.Equals(right);
 		}
 		
+		/// <inheritdoc/>
 		public override string ToString()
 		{
 			return "[Offset=" + Offset.ToString(CultureInfo.InvariantCulture) + ", Length=" + Length.ToString(CultureInfo.InvariantCulture) + "]";

@@ -35,7 +35,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 	{
 		// a link starts with a protocol (or just with www), followed by 0 or more 'link characters', followed by a link end character
 		// (this allows accepting punctuation inside links but not at the end)
-    private readonly static Regex defaultLinkRegex = new Regex(@"(\b(https?://|ftp://|www\.)[\w\d\._/\-~%@()+:?&=#!]*[\w\d/])");
+		internal readonly static Regex defaultLinkRegex = new Regex(@"\b(https?://|ftp://|www\.)[\w\d\._/\-~%@()+:?&=#!]*[\w\d/]");
 		
 		// try to detect email addresses
 		internal readonly static Regex defaultMailRegex = new Regex(@"\b[\w\d\.\-]+\@[\w\d\.\-]+\.[a-z]{2,6}\b");
@@ -126,9 +126,9 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			if (targetUrl.StartsWith("www.", StringComparison.Ordinal))
 				targetUrl = "http://" + targetUrl;
 			if (Uri.IsWellFormedUriString(targetUrl, UriKind.Absolute))
-        return new Uri(targetUrl, UriKind.Absolute);
-
-      return null;
+				return new Uri(targetUrl);
+			
+			return null;
 		}
 	}
 	
@@ -141,12 +141,9 @@ namespace ICSharpCode.AvalonEdit.Rendering
 	/// This element generator can be easily enabled and configured using the
 	/// <see cref="TextEditorOptions"/>.
 	/// </remarks>
-	internal sealed class MailLinkElementGenerator : LinkElementGenerator
+	sealed class MailLinkElementGenerator : LinkElementGenerator
 	{
-    // try to detect email addresses
-    private readonly static Regex defaultMailRegex = new Regex(@"\b[\w\d\.\-]+\@[\w\d\.\-]+\.[a-z]{2,6}\b");
-    
-    /// <summary>
+		/// <summary>
 		/// Creates a new MailLinkElementGenerator.
 		/// </summary>
 		public MailLinkElementGenerator()
@@ -160,59 +157,60 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		}
 	}
 
-  /// <summary>
-  /// Detects Windows File System link addresses and makes them clickable.
-  /// This class is internal because it does not need to be accessed by the user
-  /// - it can be configured using TextEditorOptions.
-  /// </summary>
-  /// <remarks>
-  /// This element generator can be enabled using the <see cref="TextEditorOptions"/>.
-  /// </remarks>
-  internal sealed class FileLinkElementGenerator : LinkElementGenerator
-  {
-    // Dirkster99 Extended Regex to include "file://sdfsfd/htr.html" and "C:\Notes.txt" style links
-    // The regular expression specified here is later used to construct a URI object which will not
-    // work unless the reference is formated OK
-    //
-    private const string FileLink = @"(\b(file:\/\/)[\w\d\._\-~%@()+:?&=#!][\w\d/._\-~%@()+:?&=#!]*)";
-    private const string DriveLink = @"([""][A-Z]:[\\]?[ a-zA-Z0-9\\\.~_\-~%@()+:?&=#!]*)[""]";
-    private const string UNCLink = @"([""][\\\\][ a-zA-Z0-9\\\.~_\-~%@()+:?&=#!]*[\\]?[ a-zA-Z0-9\\\.~_\-~%@()+:?&=#!]*)[""]";
-
-    private readonly static Regex defaultLinkRegex = new Regex(
-              FileLinkElementGenerator.UNCLink
-      + "|" + FileLinkElementGenerator.FileLink
-      + "|" + FileLinkElementGenerator.DriveLink
-      );
-
     /// <summary>
-    /// Constructor creates a new FileLinkElementGenerator
-    /// which can be used to match and highlight links into the Windows file system.
+    /// Dirkster99 added link class
+    /// Detects Windows File System link addresses and makes them clickable.
+    /// This class is internal because it does not need to be accessed by the user
+    /// - it can be configured using TextEditorOptions.
     /// </summary>
-    public FileLinkElementGenerator()
-      : base(FileLinkElementGenerator.defaultLinkRegex)
+    /// <remarks>
+    /// This element generator can be enabled using the <see cref="TextEditorOptions"/>.
+    /// </remarks>
+    internal sealed class FileLinkElementGenerator : LinkElementGenerator
     {
+        // Dirkster99 Extended Regex to include "file://sdfsfd/htr.html" and "C:\Notes.txt" style links
+        // The regular expression specified here is later used to construct a URI object which will not
+        // work unless the reference is formated OK
+        //
+        private const string FileLink = @"(\b(file:\/\/)[\w\d\._\-~%@()+:?&=#!][\w\d/._\-~%@()+:?&=#!]*)";
+        private const string DriveLink = @"([""][A-Z]:[\\]?[ a-zA-Z0-9\\\.~_\-~%@()+:?&=#!]*)[""]";
+        private const string UNCLink = @"([""][\\\\][ a-zA-Z0-9\\\.~_\-~%@()+:?&=#!]*[\\]?[ a-zA-Z0-9\\\.~_\-~%@()+:?&=#!]*)[""]";
+
+        private readonly static Regex defaultLinkRegex = new Regex(
+                  FileLinkElementGenerator.UNCLink
+          + "|" + FileLinkElementGenerator.FileLink
+          + "|" + FileLinkElementGenerator.DriveLink
+          );
+
+        /// <summary>
+        /// Constructor creates a new FileLinkElementGenerator
+        /// which can be used to match and highlight links into the Windows file system.
+        /// </summary>
+        public FileLinkElementGenerator()
+          : base(FileLinkElementGenerator.defaultLinkRegex)
+        {
+        }
+
+        protected override Uri GetUriFromMatch(Match match)
+        {
+            string targetUrl = match.Value;
+
+            if (targetUrl.Length < 3)     // any kind of file based link requires 3 letters e.g. 'C:\'
+                return null;
+
+            // Dirkster99: IsWellFormedUriString is too restrictiv (MS-DOS and UNC paths will not pass)
+            // if (Uri.IsWellFormedUriString(targetUrl, UriKind.Absolute))
+            if (targetUrl.Length >= 5)
+            {
+                if (targetUrl.StartsWith("\"") && targetUrl.EndsWith("\""))
+                    targetUrl = targetUrl.Substring(1, targetUrl.Length - 2);
+            }
+
+            Uri uri = null;
+
+            Uri.TryCreate(targetUrl, UriKind.Absolute, out uri);
+
+            return uri;
+        }
     }
-
-    protected override Uri GetUriFromMatch(Match match)
-    {
-      string targetUrl = match.Value;
-
-      if (targetUrl.Length < 3)     // any kind of file based link requires 3 letters e.g. 'C:\'
-        return null;
-
-      // Dirkster99: IsWellFormedUriString is too restrictiv (MS-DOS and UNC paths will not pass)
-      // if (Uri.IsWellFormedUriString(targetUrl, UriKind.Absolute))
-      if(targetUrl.Length >= 5)
-      {
-        if (targetUrl.StartsWith("\"") && targetUrl.EndsWith("\""))
-          targetUrl = targetUrl.Substring(1, targetUrl.Length - 2);
-      }
-
-      Uri uri = null;
-
-      Uri.TryCreate(targetUrl, UriKind.Absolute, out uri);
-
-      return uri;
-    }
-  }
 }

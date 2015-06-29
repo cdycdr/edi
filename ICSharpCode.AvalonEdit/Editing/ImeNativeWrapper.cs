@@ -64,23 +64,23 @@ namespace ICSharpCode.AvalonEdit.Editing
 			public int bottom;
 		}
 		
-		[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Auto)]
-		class LOGFONT
+		[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)]
+		struct LOGFONT
 		{
-			public int lfHeight = 0;
-			public int lfWidth = 0;
-			public int lfEscapement = 0;
-			public int lfOrientation = 0;
-			public int lfWeight = 0;
-			public byte lfItalic = 0;
-			public byte lfUnderline = 0;
-			public byte lfStrikeOut = 0;
-			public byte lfCharSet = 0;
-			public byte lfOutPrecision = 0;
-			public byte lfClipPrecision = 0;
-			public byte lfQuality = 0;
-			public byte lfPitchAndFamily = 0;
-			[MarshalAs(UnmanagedType.ByValTStr, SizeConst=32)] public string lfFaceName = null;
+			public int lfHeight;
+			public int lfWidth;
+			public int lfEscapement;
+			public int lfOrientation;
+			public int lfWeight;
+			public byte lfItalic;
+			public byte lfUnderline;
+			public byte lfStrikeOut;
+			public byte lfCharSet;
+			public byte lfOutPrecision;
+			public byte lfClipPrecision;
+			public byte lfQuality;
+			public byte lfPitchAndFamily;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst=32)] public string lfFaceName;
 		}
 		
 		const int CPS_CANCEL = 0x4;
@@ -88,33 +88,44 @@ namespace ICSharpCode.AvalonEdit.Editing
 		const int GCS_COMPSTR = 0x0008;
 		
 		public const int WM_IME_COMPOSITION = 0x10F;
+		public const int WM_IME_SETCONTEXT = 0x281;
 		public const int WM_INPUTLANGCHANGE = 0x51;
 		
 		[DllImport("imm32.dll")]
-		static extern IntPtr ImmAssociateContext(IntPtr hWnd, IntPtr hIMC);
+		public static extern IntPtr ImmAssociateContext(IntPtr hWnd, IntPtr hIMC);
 		[DllImport("imm32.dll")]
-		static extern IntPtr ImmGetContext(IntPtr hWnd);
+		internal static extern IntPtr ImmGetContext(IntPtr hWnd);
+		[DllImport("imm32.dll")]
+		internal static extern IntPtr ImmGetDefaultIMEWnd(IntPtr hWnd);
+		[DllImport("imm32.dll")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		internal static extern bool ImmReleaseContext(IntPtr hWnd, IntPtr hIMC);
 		[DllImport("imm32.dll")]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		static extern bool ImmNotifyIME(IntPtr hIMC, int dwAction, int dwIndex, int dwValue = 0);
 		[DllImport("imm32.dll")]
 		[return: MarshalAs(UnmanagedType.Bool)]
-		static extern bool ImmReleaseContext(IntPtr hWnd, IntPtr hIMC);
-		[DllImport("imm32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
 		static extern bool ImmSetCompositionWindow(IntPtr hIMC, ref CompositionForm form);
-		[DllImport("imm32.dll")]
+		[DllImport("imm32.dll", CharSet = CharSet.Unicode)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		static extern bool ImmSetCompositionFont(IntPtr hIMC, ref LOGFONT font);
 		[DllImport("imm32.dll")]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		static extern bool ImmGetCompositionFont(IntPtr hIMC, out LOGFONT font);
 		
-		public static IntPtr AssociateContext(HwndSource source, IntPtr hIMC)
+		[DllImport("msctf.dll")]
+		static extern int TF_CreateThreadMgr(out ITfThreadMgr threadMgr);
+		
+		[ThreadStatic] static bool textFrameworkThreadMgrInitialized;
+		[ThreadStatic] static ITfThreadMgr textFrameworkThreadMgr;
+		
+		public static ITfThreadMgr GetTextFrameworkThreadManager()
 		{
-			if (source == null)
-				throw new ArgumentNullException("source");
-			return ImmAssociateContext(source.Handle, hIMC);
+			if (!textFrameworkThreadMgrInitialized) {
+				textFrameworkThreadMgrInitialized = true;
+				TF_CreateThreadMgr(out textFrameworkThreadMgr);
+			}
+			return textFrameworkThreadMgr;
 		}
 		
 		public static bool NotifyIme(IntPtr hIMC)
@@ -122,29 +133,12 @@ namespace ICSharpCode.AvalonEdit.Editing
 			return ImmNotifyIME(hIMC, NI_COMPOSITIONSTR, CPS_CANCEL);
 		}
 		
-		public static IntPtr GetContext(HwndSource source)
-		{
-			if (source == null)
-				return IntPtr.Zero;
-			return ImmGetContext(source.Handle);
-		}
-		
-		public static bool ReleaseContext(HwndSource source, IntPtr hIMC)
-		{
-			return source != null && hIMC != IntPtr.Zero && ImmReleaseContext(source.Handle, hIMC);
-		}
-		
 		public static bool SetCompositionWindow(HwndSource source, IntPtr hIMC, TextArea textArea)
 		{
 			if (textArea == null)
 				throw new ArgumentNullException("textArea");
-			Rect textViewBounds = textArea.TextView.GetBounds();
+			Rect textViewBounds = textArea.TextView.GetBounds(source);
 			Rect characterBounds = textArea.TextView.GetCharacterBounds(textArea.Caret.Position, source);
-			if (source != null) {
-				Matrix transformToDevice = source.CompositionTarget.TransformToDevice;
-				textViewBounds.Transform(transformToDevice);
-				characterBounds.Transform(transformToDevice);
-			}
 			CompositionForm form = new CompositionForm();
 			form.dwStyle = 0x0020;
 			form.ptCurrentPos.x = (int)Math.Max(characterBounds.Left, textViewBounds.Left);
@@ -160,15 +154,23 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			if (textArea == null)
 				throw new ArgumentNullException("textArea");
-//			LOGFONT font = new LOGFONT();
-//			ImmGetCompositionFont(hIMC, out font);
-			return false;
+			LOGFONT lf = new LOGFONT();
+			Rect characterBounds = textArea.TextView.GetCharacterBounds(textArea.Caret.Position, source);
+			lf.lfFaceName = textArea.FontFamily.Source;
+			lf.lfHeight = (int)characterBounds.Height;
+			return ImmSetCompositionFont(hIMC, ref lf);
 		}
 		
-		static Rect GetBounds(this TextView textView)
+		static Rect GetBounds(this TextView textView, HwndSource source)
 		{
-			Point location = textView.TranslatePoint(new Point(0,0), textView);
-			return new Rect(location, new Size(textView.ActualWidth, textView.ActualHeight));
+			// this may happen during layout changes in AvalonDock, so we just return an empty rectangle
+			// in those cases. It should be refreshed immediately.
+			if (source.RootVisual == null || !source.RootVisual.IsAncestorOf(textView))
+				return EMPTY_RECT;
+			Rect displayRect = new Rect(0, 0, textView.ActualWidth, textView.ActualHeight);
+			return textView
+				.TransformToAncestor(source.RootVisual).TransformBounds(displayRect) // rect on root visual
+				.TransformToDevice(source.RootVisual); // rect on HWND
 		}
 		
 		static readonly Rect EMPTY_RECT = new Rect(0, 0, 0, 0);
@@ -176,34 +178,44 @@ namespace ICSharpCode.AvalonEdit.Editing
 		static Rect GetCharacterBounds(this TextView textView, TextViewPosition pos, HwndSource source)
 		{
 			VisualLine vl = textView.GetVisualLine(pos.Line);
-
 			if (vl == null)
-        return EMPTY_RECT;
-			
-      int column = pos.VisualColumn;
-
-      //Dirkster99 Bugfix with caret selection
-      if (column == -1)
-        return EMPTY_RECT;
-
-      TextLine line = vl.GetTextLine(pos.VisualColumn);
-			double offset = vl.GetTextLineVisualYPosition(line, VisualYPosition.LineTop) - textView.ScrollOffset.Y;
-
-      //Dirkster99 Bugfix with caret selection (compare selection in first column and n-th column)
-      Rect r = line.GetTextBounds(0, column + 1).First().Rectangle;
-
-			r.Offset(-textView.ScrollOffset.X, offset);
-
+				return EMPTY_RECT;
 			// this may happen during layout changes in AvalonDock, so we just return an empty rectangle
 			// in those cases. It should be refreshed immediately.
-			if (!source.RootVisual.IsAncestorOf(textView))
-        return EMPTY_RECT;
-
-			Point pointOnRootVisual = textView.TransformToAncestor(source.RootVisual).Transform(r.Location);
-			Point pointOnHwnd = pointOnRootVisual.TransformToDevice(source.RootVisual);
-			r.Location = pointOnHwnd;
-
-			return r;
+			if (source.RootVisual == null || !source.RootVisual.IsAncestorOf(textView))
+				return EMPTY_RECT;
+			TextLine line = vl.GetTextLine(pos.VisualColumn, pos.IsAtEndOfLine);
+			Rect displayRect;
+			// calculate the display rect for the current character
+			if (pos.VisualColumn < vl.VisualLengthWithEndOfLineMarker) {
+				displayRect = line.GetTextBounds(pos.VisualColumn, 1).First().Rectangle;
+				displayRect.Offset(0, vl.GetTextLineVisualYPosition(line, VisualYPosition.LineTop));
+			} else {
+				// if we are in virtual space, we just use one wide-space as character width
+				displayRect = new Rect(vl.GetVisualPosition(pos.VisualColumn, VisualYPosition.TextTop),
+				                       new Size(textView.WideSpaceWidth, textView.DefaultLineHeight));
+			}
+			// adjust to current scrolling
+			displayRect.Offset(-textView.ScrollOffset);
+			return textView
+				.TransformToAncestor(source.RootVisual).TransformBounds(displayRect) // rect on root visual
+				.TransformToDevice(source.RootVisual); // rect on HWND
 		}
+	}
+	
+	[ComImport, Guid("aa80e801-2021-11d2-93e0-0060b067b86e"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	interface ITfThreadMgr
+	{
+		void Activate(out int clientId);
+		void Deactivate();
+		void CreateDocumentMgr(out IntPtr docMgr);
+		void EnumDocumentMgrs(out IntPtr enumDocMgrs);
+		void GetFocus(out IntPtr docMgr);
+		void SetFocus(IntPtr docMgr);
+		void AssociateFocus(IntPtr hwnd, IntPtr newDocMgr, out IntPtr prevDocMgr);
+		void IsThreadFocus([MarshalAs(UnmanagedType.Bool)] out bool isFocus);
+		void GetFunctionProvider(ref Guid classId, out IntPtr funcProvider);
+		void EnumFunctionProviders(out IntPtr enumProviders);
+		void GetGlobalCompartment(out IntPtr compartmentMgr);
 	}
 }

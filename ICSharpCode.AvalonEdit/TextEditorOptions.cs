@@ -25,44 +25,10 @@ namespace ICSharpCode.AvalonEdit
 {
 	/// <summary>
 	/// A container for the text editor options.
-  /// 
-  /// TextEditor optinos can be edit with this class as viewmodel.
-  /// TextEditor options can be persisted (if an option is a non-default)
-  /// since this class is serializable.
 	/// </summary>
 	[Serializable]
 	public class TextEditorOptions : INotifyPropertyChanged
 	{
-    #region fields
-    private bool mShowSpaces = false;
-    private bool mShowTabs = false;
-    private bool mShowEndOfLine = false;
-    private bool mShowBoxForControlCharacters = true;
-    private bool mEnableHyperlinks = true;
-    private bool mEnableFileHyperlinks = true;
-    private bool mEnableEmailHyperlinks = true;
-    private bool mRequireControlModifierForHyperlinkClick = true;
-    private int mIndentationSize = 4;
-    private bool mConvertTabsToSpaces = false;
-    
-    [NonSerialized]
-    bool mIsInsertMode = true;
-
-    private bool mCutCopyWholeLine = true;
-    private bool mAllowScrollBelowDocument = false;
-    private double mWordWrapIndentation = 0;
-    private bool mInheritWordWrapIndentation = true;
-    private bool mEnableRectangularSelection = true;
-    private bool mEnableTextDragDrop = true;
-    private bool mEnableVirtualSpace = false;
-    private bool mEnableImeSupport = true;
-    private bool mShowColumnRuler = false;
-    private int mColumnRulerPosition = 80;
-    private bool mEnableCopyHighlighting = false;
-    private bool mEnableCodeCompletion = false;
-    private bool mEnableHighlightBrackets = true;
-    #endregion fields
-
 		#region ctor
 		/// <summary>
 		/// Initializes an empty instance of TextEditorOptions.
@@ -77,60 +43,78 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public TextEditorOptions(TextEditorOptions options)
 		{
-      if (options == null)
-        return;
-
 			// get all the fields in the class
 			FieldInfo[] fields = typeof(TextEditorOptions).GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 			
 			// copy each value over to 'this'
-			foreach(FieldInfo fi in fields)
-      {
-				if (fi.IsNotSerialized == false)
-				{
-          fi.SetValue(this, fi.GetValue(options));
-        }
+			foreach(FieldInfo fi in fields) {
+				if (!fi.IsNotSerialized)
+					fi.SetValue(this, fi.GetValue(options));
 			}
 		}
 		#endregion
 		
-		#region PropertyChanged event handling
+		#region PropertyChanged handling
 		/// <inheritdoc/>
 		[field: NonSerialized]
 		public event PropertyChangedEventHandler PropertyChanged;
-    #endregion PropertyChanged event handling
-
-    #region properties
-    #region ShowSpaces / ShowTabs / ShowEndOfLine / ShowBoxForControlCharacters
+		
+		/// <summary>
+		/// Raises the PropertyChanged event.
+		/// </summary>
+		/// <param name="propertyName">The name of the changed property.</param>
+		protected void OnPropertyChanged(string propertyName)
+		{
+			OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+		}
+		
+		/// <summary>
+		/// Raises the PropertyChanged event.
+		/// </summary>
+		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			if (PropertyChanged != null) {
+				PropertyChanged(this, e);
+			}
+		}
+		#endregion
+		
+		#region ShowSpaces / ShowTabs / ShowEndOfLine / ShowBoxForControlCharacters
+		bool showSpaces;
+		
 		/// <summary>
 		/// Gets/Sets whether to show · for spaces.
 		/// </summary>
 		/// <remarks>The default value is <c>false</c>.</remarks>
 		[DefaultValue(false)]
 		public virtual bool ShowSpaces {
-			get { return mShowSpaces; }
+			get { return showSpaces; }
 			set {
-				if (mShowSpaces != value) {
-					mShowSpaces = value;
+				if (showSpaces != value) {
+					showSpaces = value;
 					OnPropertyChanged("ShowSpaces");
 				}
 			}
 		}
-	
+		
+		bool showTabs;
+		
 		/// <summary>
 		/// Gets/Sets whether to show » for tabs.
 		/// </summary>
 		/// <remarks>The default value is <c>false</c>.</remarks>
 		[DefaultValue(false)]
 		public virtual bool ShowTabs {
-			get { return mShowTabs; }
+			get { return showTabs; }
 			set {
-				if (mShowTabs != value) {
-					mShowTabs = value;
+				if (showTabs != value) {
+					showTabs = value;
 					OnPropertyChanged("ShowTabs");
 				}
 			}
 		}
+		
+		bool showEndOfLine;
 		
 		/// <summary>
 		/// Gets/Sets whether to show ¶ at the end of lines.
@@ -138,14 +122,16 @@ namespace ICSharpCode.AvalonEdit
 		/// <remarks>The default value is <c>false</c>.</remarks>
 		[DefaultValue(false)]
 		public virtual bool ShowEndOfLine {
-			get { return mShowEndOfLine; }
+			get { return showEndOfLine; }
 			set {
-				if (mShowEndOfLine != value) {
-					mShowEndOfLine = value;
+				if (showEndOfLine != value) {
+					showEndOfLine = value;
 					OnPropertyChanged("ShowEndOfLine");
 				}
 			}
 		}
+		
+		bool showBoxForControlCharacters = true;
 		
 		/// <summary>
 		/// Gets/Sets whether to show a box with the hex code for control characters.
@@ -153,68 +139,74 @@ namespace ICSharpCode.AvalonEdit
 		/// <remarks>The default value is <c>true</c>.</remarks>
 		[DefaultValue(true)]
 		public virtual bool ShowBoxForControlCharacters {
-			get { return mShowBoxForControlCharacters; }
+			get { return showBoxForControlCharacters; }
 			set {
-				if (mShowBoxForControlCharacters != value) {
-					mShowBoxForControlCharacters = value;
+				if (showBoxForControlCharacters != value) {
+					showBoxForControlCharacters = value;
 					OnPropertyChanged("ShowBoxForControlCharacters");
 				}
 			}
 		}
 		#endregion
 		
-		#region EnableHyperlinks		
+		#region EnableHyperlinks
+		bool enableHyperlinks = true;
+		
 		/// <summary>
 		/// Gets/Sets whether to enable clickable hyperlinks in the editor.
 		/// </summary>
 		/// <remarks>The default value is <c>true</c>.</remarks>
 		[DefaultValue(true)]
 		public virtual bool EnableHyperlinks {
-			get { return mEnableHyperlinks; }
+			get { return enableHyperlinks; }
 			set {
-				if (mEnableHyperlinks != value) {
-					mEnableHyperlinks = value;
+				if (enableHyperlinks != value) {
+					enableHyperlinks = value;
 					OnPropertyChanged("EnableHyperlinks");
 				}
 			}
 		}
 
-    #region file hyperlinks
-    /// <summary>
-    /// Gets/Sets whether to enable clickable hyperlinks in the editor.
-    /// </summary>
-    /// <remarks>The default value is <c>true</c>.</remarks>
-    [DefaultValue(true)]
-    public virtual bool EnableFileHyperlinks
-    {
-      get { return mEnableFileHyperlinks; }
-      set
-      {
-        if (mEnableFileHyperlinks != value)
-        {
-          mEnableFileHyperlinks = value;
-          OnPropertyChanged("EnableFileHyperlinks");
-        }
-      }
-    }
-    #endregion file hyperlinks
+        #region file hyperlinks
+        private bool mEnableFileHyperlinks = true;
 
-    #region mail hyperlinks		
+        /// <summary>
+        /// Gets/Sets whether to enable clickable hyperlinks in the editor.
+        /// </summary>
+        /// <remarks>The default value is <c>true</c>.</remarks>
+        [DefaultValue(true)]
+        public virtual bool EnableFileHyperlinks
+        {
+            get { return mEnableFileHyperlinks; }
+            set
+            {
+                if (mEnableFileHyperlinks != value)
+                {
+                    mEnableFileHyperlinks = value;
+                    OnPropertyChanged("EnableFileHyperlinks");
+                }
+            }
+        }
+        #endregion file hyperlinks
+
+        bool enableEmailHyperlinks = true;
+		
 		/// <summary>
 		/// Gets/Sets whether to enable clickable hyperlinks for e-mail addresses in the editor.
 		/// </summary>
 		/// <remarks>The default value is <c>true</c>.</remarks>
 		[DefaultValue(true)]
 		public virtual bool EnableEmailHyperlinks {
-			get { return mEnableEmailHyperlinks; }
+			get { return enableEmailHyperlinks; }
 			set {
-				if (mEnableEmailHyperlinks != value) {
-					mEnableEmailHyperlinks = value;
+				if (enableEmailHyperlinks != value) {
+					enableEmailHyperlinks = value;
 					OnPropertyChanged("EnableEMailHyperlinks");
 				}
 			}
 		}
-    #endregion mail hyperlinks
+		
+		bool requireControlModifierForHyperlinkClick = true;
 		
 		/// <summary>
 		/// Gets/Sets whether the user needs to press Control to click hyperlinks.
@@ -223,24 +215,31 @@ namespace ICSharpCode.AvalonEdit
 		/// <remarks>The default value is <c>true</c>.</remarks>
 		[DefaultValue(true)]
 		public virtual bool RequireControlModifierForHyperlinkClick {
-			get { return mRequireControlModifierForHyperlinkClick; }
+			get { return requireControlModifierForHyperlinkClick; }
 			set {
-				if (mRequireControlModifierForHyperlinkClick != value) {
-					mRequireControlModifierForHyperlinkClick = value;
+				if (requireControlModifierForHyperlinkClick != value) {
+					requireControlModifierForHyperlinkClick = value;
 					OnPropertyChanged("RequireControlModifierForHyperlinkClick");
 				}
 			}
 		}
 		#endregion
 		
-		#region TabSize / IndentationSize / ConvertTabsToSpaces / GetIndentationString	
+		#region TabSize / IndentationSize / ConvertTabsToSpaces / GetIndentationString
+		// I'm using '_' prefixes for the fields here to avoid confusion with the local variables
+		// in the methods below.
+		// The fields should be accessed only by their property - the fields might not be used
+		// if someone overrides the property.
+		
+		int indentationSize = 4;
+		
 		/// <summary>
 		/// Gets/Sets the width of one indentation unit.
 		/// </summary>
 		/// <remarks>The default value is 4.</remarks>
 		[DefaultValue(4)]
 		public virtual int IndentationSize {
-			get { return mIndentationSize; }
+			get { return indentationSize; }
 			set {
 				if (value < 1)
 					throw new ArgumentOutOfRangeException("value", value, "value must be positive");
@@ -248,13 +247,15 @@ namespace ICSharpCode.AvalonEdit
 				// (it only crashed in the hundred thousands for me; but might crash earlier with larger fonts)
 				if (value > 1000)
 					throw new ArgumentOutOfRangeException("value", value, "indentation size is too large");
-				if (mIndentationSize != value) {
-					mIndentationSize = value;
+				if (indentationSize != value) {
+					indentationSize = value;
 					OnPropertyChanged("IndentationSize");
 					OnPropertyChanged("IndentationString");
 				}
 			}
 		}
+		
+		bool convertTabsToSpaces;
 		
 		/// <summary>
 		/// Gets/Sets whether to use spaces for indentation instead of tabs.
@@ -262,10 +263,10 @@ namespace ICSharpCode.AvalonEdit
 		/// <remarks>The default value is <c>false</c>.</remarks>
 		[DefaultValue(false)]
 		public virtual bool ConvertTabsToSpaces {
-			get { return mConvertTabsToSpaces; }
+			get { return convertTabsToSpaces; }
 			set {
-				if (mConvertTabsToSpaces != value) {
-					mConvertTabsToSpaces = value;
+				if (convertTabsToSpaces != value) {
+					convertTabsToSpaces = value;
 					OnPropertyChanged("ConvertTabsToSpaces");
 					OnPropertyChanged("IndentationString");
 				}
@@ -297,72 +298,83 @@ namespace ICSharpCode.AvalonEdit
 		}
 		#endregion
 
-    #region InsertMode
-    /// <summary>
-    /// Dirkster99 Extension
-    /// Gets/Sets whether Insert/Overtype mode is active or not:
-    /// </summary>
-    [DefaultValue(true)]
-    public virtual bool IsInsertMode
-    {
-      get { return this.mIsInsertMode; }
-      set
-      {
-        if (this.mIsInsertMode != value)
-        {
-          this.mIsInsertMode = value;
-          OnPropertyChanged("IsInsertMode");
-        }
-      }
-    }
-    #endregion InsertMode
-
+		bool cutCopyWholeLine = true;
+		
 		/// <summary>
 		/// Gets/Sets whether copying without a selection copies the whole current line.
 		/// </summary>
 		[DefaultValue(true)]
 		public virtual bool CutCopyWholeLine {
-			get { return mCutCopyWholeLine; }
+			get { return cutCopyWholeLine; }
 			set {
-				if (mCutCopyWholeLine != value) {
-					mCutCopyWholeLine = value;
+				if (cutCopyWholeLine != value) {
+					cutCopyWholeLine = value;
 					OnPropertyChanged("CutCopyWholeLine");
 				}
 			}
 		}
-				
-		/// <summary>
-		/// Gets/Sets whether the user can scroll below the bottom of the document.
-		/// The default value is false; but it a good idea to set this property to true when using folding.
-		/// </summary>
-		[DefaultValue(false)]
+		
+		bool allowScrollBelowDocument;
+
+        #region InsertMode
+        [NonSerialized]
+        bool mIsInsertMode = true;
+
+        /// <summary>
+        /// Dirkster99 Extension
+        /// Gets/Sets whether Insert/Overtype mode is active or not:
+        /// </summary>
+        [DefaultValue(true)]
+        public virtual bool IsInsertMode
+        {
+            get { return this.mIsInsertMode; }
+            set
+            {
+                if (this.mIsInsertMode != value)
+                {
+                    this.mIsInsertMode = value;
+                    OnPropertyChanged("IsInsertMode");
+                }
+            }
+        }
+        #endregion InsertMode
+
+        /// <summary>
+        /// Gets/Sets whether the user can scroll below the bottom of the document.
+        /// The default value is false; but it a good idea to set this property to true when using folding.
+        /// </summary>
+        [DefaultValue(false)]
 		public virtual bool AllowScrollBelowDocument {
-			get { return mAllowScrollBelowDocument; }
+			get { return allowScrollBelowDocument; }
 			set {
-				if (mAllowScrollBelowDocument != value) {
-					mAllowScrollBelowDocument = value;
+				if (allowScrollBelowDocument != value) {
+					allowScrollBelowDocument = value;
 					OnPropertyChanged("AllowScrollBelowDocument");
 				}
 			}
 		}
-				
+		
+		double wordWrapIndentation = 0;
+		
 		/// <summary>
 		/// Gets/Sets the indentation used for all lines except the first when word-wrapping.
 		/// The default value is 0.
 		/// </summary>
 		[DefaultValue(0.0)]
 		public virtual double WordWrapIndentation {
-			get { return mWordWrapIndentation; }
+			get { return wordWrapIndentation; }
 			set {
 				if (double.IsNaN(value) || double.IsInfinity(value))
 					throw new ArgumentOutOfRangeException("value", value, "value must not be NaN/infinity");
-				if (value != mWordWrapIndentation) {
-					mWordWrapIndentation = value;
+				if (value != wordWrapIndentation) {
+					wordWrapIndentation = value;
 					OnPropertyChanged("WordWrapIndentation");
 				}
 			}
 		}
-				
+		
+		bool inheritWordWrapIndentation = true;
+		
 		/// <summary>
 		/// Gets/Sets whether the indentation is inherited from the first line when word-wrapping.
 		/// The default value is true.
@@ -370,43 +382,49 @@ namespace ICSharpCode.AvalonEdit
 		/// <remarks>When combined with <see cref="WordWrapIndentation"/>, the inherited indentation is added to the word wrap indentation.</remarks>
 		[DefaultValue(true)]
 		public virtual bool InheritWordWrapIndentation {
-			get { return mInheritWordWrapIndentation; }
+			get { return inheritWordWrapIndentation; }
 			set {
-				if (value != mInheritWordWrapIndentation) {
-					mInheritWordWrapIndentation = value;
+				if (value != inheritWordWrapIndentation) {
+					inheritWordWrapIndentation = value;
 					OnPropertyChanged("InheritWordWrapIndentation");
 				}
 			}
 		}
-				
+		
+		bool enableRectangularSelection = true;
+		
 		/// <summary>
 		/// Enables rectangular selection (press ALT and select a rectangle)
 		/// </summary>
 		[DefaultValue(true)]
 		public bool EnableRectangularSelection {
-			get { return mEnableRectangularSelection; }
+			get { return enableRectangularSelection; }
 			set {
-				if (mEnableRectangularSelection != value) {
-					mEnableRectangularSelection = value;
+				if (enableRectangularSelection != value) {
+					enableRectangularSelection = value;
 					OnPropertyChanged("EnableRectangularSelection");
 				}
 			}
 		}
-				
+		
+		bool enableTextDragDrop = true;
+		
 		/// <summary>
 		/// Enable dragging text within the text area.
 		/// </summary>
 		[DefaultValue(true)]
 		public bool EnableTextDragDrop {
-			get { return mEnableTextDragDrop; }
+			get { return enableTextDragDrop; }
 			set {
-				if (mEnableTextDragDrop != value) {
-					mEnableTextDragDrop = value;
+				if (enableTextDragDrop != value) {
+					enableTextDragDrop = value;
 					OnPropertyChanged("EnableTextDragDrop");
 				}
 			}
 		}
-				
+		
+		bool enableVirtualSpace;
+		
 		/// <summary>
 		/// Gets/Sets whether the user can set the caret behind the line ending
 		/// (into "virtual space").
@@ -415,142 +433,154 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		[DefaultValue(false)]
 		public virtual bool EnableVirtualSpace {
-			get { return mEnableVirtualSpace; }
+			get { return enableVirtualSpace; }
 			set {
-				if (mEnableVirtualSpace != value) {
-					mEnableVirtualSpace = value;
+				if (enableVirtualSpace != value) {
+					enableVirtualSpace = value;
 					OnPropertyChanged("EnableVirtualSpace");
 				}
 			}
 		}
-			
+		
+		bool enableImeSupport = true;
+		
 		/// <summary>
 		/// Gets/Sets whether the support for Input Method Editors (IME)
 		/// for non-alphanumeric scripts (Chinese, Japanese, Korean, ...) is enabled.
 		/// </summary>
 		[DefaultValue(true)]
 		public virtual bool EnableImeSupport {
-			get { return mEnableImeSupport; }
+			get { return enableImeSupport; }
 			set {
-				if (mEnableImeSupport != value) {
-					mEnableImeSupport = value;
+				if (enableImeSupport != value) {
+					enableImeSupport = value;
 					OnPropertyChanged("EnableImeSupport");
 				}
 			}
 		}
-				
+		
+		bool showColumnRuler = false;
+		
 		/// <summary>
 		/// Gets/Sets whether the column ruler should be shown.
 		/// </summary>
 		[DefaultValue(false)]
 		public virtual bool ShowColumnRuler {
-			get { return mShowColumnRuler; }
+			get { return showColumnRuler; }
 			set {
-				if (mShowColumnRuler != value) {
-					mShowColumnRuler = value;
+				if (showColumnRuler != value) {
+					showColumnRuler = value;
 					OnPropertyChanged("ShowColumnRuler");
 				}
 			}
 		}
-			
+		
+		int columnRulerPosition = 80;
+		
 		/// <summary>
 		/// Gets/Sets where the column ruler should be shown.
 		/// </summary>
 		[DefaultValue(80)]
 		public virtual int ColumnRulerPosition {
-			get { return mColumnRulerPosition; }
-			set
-      {
-				if (this.mColumnRulerPosition != value)
-        {
-          this.mColumnRulerPosition = value;
-          this.OnPropertyChanged("ColumnRulerPosition");
+			get { return columnRulerPosition; }
+			set {
+				if (columnRulerPosition != value) {
+					columnRulerPosition = value;
+					OnPropertyChanged("ColumnRulerPosition");
+				}
+			}
+		}
+		
+		bool highlightCurrentLine = false;
+		
+		/// <summary>
+		/// Gets/Sets if current line should be shown.
+		/// </summary>
+		[DefaultValue(false)]
+		public virtual bool HighlightCurrentLine {
+			get { return highlightCurrentLine; }
+			set {
+				if (highlightCurrentLine != value) {
+					highlightCurrentLine = value;
+					OnPropertyChanged("HighlightCurrentLine");
+				}
+			}
+		}
+		
+		bool hideCursorWhileTyping = true;
+		
+		/// <summary>
+		/// Gets/Sets if mouse cursor should be hidden while user is typing.
+		/// </summary>
+		[DefaultValue(true)]
+		public bool HideCursorWhileTyping {
+			get { return hideCursorWhileTyping; }
+			set {
+				if (hideCursorWhileTyping != value) {
+					hideCursorWhileTyping = value;
+					OnPropertyChanged("HideCursorWhileTyping");
+				}
+			}
+		}
+		
+		bool allowToggleOverstrikeMode = false;
+		
+		/// <summary>
+		/// Gets/Sets if the user is allowed to enable/disable overstrike mode.
+		/// </summary>
+		[DefaultValue(false)]
+		public bool AllowToggleOverstrikeMode {
+			get { return allowToggleOverstrikeMode; }
+			set {
+				if (allowToggleOverstrikeMode != value) {
+					allowToggleOverstrikeMode = value;
+					OnPropertyChanged("AllowToggleOverstrikeMode");
 				}
 			}
 		}
 
-    /// <summary>
-    /// Get/set option to determine whether Copy function should copy
-    /// highlighting information or not (copy with highlighting or without).
-    /// </summary>
-    [DefaultValue(false)]
-    public virtual bool EnableCopyHighlighting
-    {
-      get { return this.mEnableCopyHighlighting; }
-      set
-      {
-        if (this.mEnableCopyHighlighting != value)
+
+        private bool mEnableHighlightBrackets = true;
+        /// <summary>
+        /// Get/set option to determine whether bracket should
+        /// be highlighted in the code or not.
+        /// The two brackets "( .... )" are highlighted if answer is yes.
+        /// </summary>
+        [DefaultValue(true)]
+        public virtual bool EnableHighlightBrackets
         {
-          this.mEnableCopyHighlighting = value;
-          OnPropertyChanged("CopyHighlighting");
-        }
-      }
-    }
+            get
+            {
+                return this.mEnableHighlightBrackets;
+            }
 
-    /// <summary>
-    /// Get/set option to determine whether Code Completion - complete
-    /// typed entries with completion window is activ or not.
-    /// </summary>
-    [DefaultValue(false)]
-    public virtual bool EnableCodeCompletion
-    {
-      get { return this.mEnableCodeCompletion; }
-      set
-      {
-        if (this.mEnableCodeCompletion != value)
+            set
+            {
+                if (this.mEnableHighlightBrackets != value)
+                {
+                    this.mEnableHighlightBrackets = value;
+                    OnPropertyChanged("EnableHighlightBrackets");
+                }
+            }
+        }
+
+        private bool mEnableCodeCompletion = false;
+        /// <summary>
+        /// Get/set option to determine whether Code Completion - complete
+        /// typed entries with completion window is activ or not.
+        /// </summary>
+        [DefaultValue(false)]
+        public virtual bool EnableCodeCompletion
         {
-          this.mEnableCodeCompletion = value;
-          OnPropertyChanged("EnableCodeCompletion");
+            get { return this.mEnableCodeCompletion; }
+            set
+            {
+                if (this.mEnableCodeCompletion != value)
+                {
+                    this.mEnableCodeCompletion = value;
+                    OnPropertyChanged("EnableCodeCompletion");
+                }
+            }
         }
-      }
     }
-
-    /// <summary>
-    /// Get/set option to determine whether bracket should
-    /// be highlighted in the code or not.
-    /// The two brackets "( .... )" are highlighted if answer is yes.
-    /// </summary>
-    [DefaultValue(true)]
-    public virtual bool EnableHighlightBrackets
-    {
-      get
-      {
-        return this.mEnableHighlightBrackets;
-      }
-
-      set
-      {
-        if (this.mEnableHighlightBrackets != value)
-        {
-          this.mEnableHighlightBrackets = value;
-          OnPropertyChanged("EnableHighlightBrackets");
-        }
-      }
-    }
-    #endregion properties
-
-    #region methods
-    #region PropertyChanged event handling
-    /// <summary>
-    /// Raises the PropertyChanged event.
-    /// </summary>
-    /// <param name="propertyName">The name of the changed property.</param>
-    protected void OnPropertyChanged(string propertyName)
-    {
-      OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-    }
-
-    /// <summary>
-    /// Raises the PropertyChanged event.
-    /// </summary>
-    protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-    {
-      if (PropertyChanged != null)
-      {
-        PropertyChanged(this, e);
-      }
-    }
-    #endregion PropertyChanged event handling
-    #endregion methods
-	}
 }

@@ -22,14 +22,17 @@ using System.Globalization;
 
 namespace ICSharpCode.AvalonEdit.Document
 {
+	#if !NREFACTORY
 	/// <summary>
 	/// A line/column position.
 	/// Text editor lines/columns are counted started from one.
 	/// </summary>
 	/// <remarks>
-	/// The document provides the methods <see cref="TextDocument.GetLocation"/> and
-	/// <see cref="TextDocument.GetOffset(TextLocation)"/> to convert between offsets and TextLocations.
+	/// The document provides the methods <see cref="IDocument.GetLocation"/> and
+	/// <see cref="IDocument.GetOffset(TextLocation)"/> to convert between offsets and TextLocations.
 	/// </remarks>
+	[Serializable]
+	[TypeConverter(typeof(TextLocationConverter))]
 	public struct TextLocation : IComparable<TextLocation>, IEquatable<TextLocation>
 	{
 		/// <summary>
@@ -39,31 +42,27 @@ namespace ICSharpCode.AvalonEdit.Document
 		
 		/// <summary>
 		/// Creates a TextLocation instance.
-		/// <para>
-		/// Warning: the parameters are (line, column).
-		/// Not (column, line) as in ICSharpCode.TextEditor!
-		/// </para>
 		/// </summary>
 		public TextLocation(int line, int column)
 		{
-			y = line;
-			x = column;
+			this.line = line;
+			this.column = column;
 		}
 		
-		int x, y;
+		readonly int column, line;
 		
 		/// <summary>
 		/// Gets the line number.
 		/// </summary>
 		public int Line {
-			get { return y; }
+			get { return line; }
 		}
 		
 		/// <summary>
 		/// Gets the column number.
 		/// </summary>
 		public int Column {
-			get { return x; }
+			get { return column; }
 		}
 		
 		/// <summary>
@@ -71,7 +70,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		public bool IsEmpty {
 			get {
-				return x <= 0 && y <= 0;
+				return column <= 0 && line <= 0;
 			}
 		}
 		
@@ -80,7 +79,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		public override string ToString()
 		{
-			return string.Format(CultureInfo.InvariantCulture, "(Line {1}, Col {0})", this.x, this.y);
+			return string.Format(CultureInfo.InvariantCulture, "(Line {1}, Col {0})", this.column, this.line);
 		}
 		
 		/// <summary>
@@ -88,7 +87,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		public override int GetHashCode()
 		{
-			return unchecked (87 * x.GetHashCode() ^ y.GetHashCode());
+			return unchecked (191 * column.GetHashCode() ^ line.GetHashCode());
 		}
 		
 		/// <summary>
@@ -113,7 +112,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		public static bool operator ==(TextLocation left, TextLocation right)
 		{
-			return left.x == right.x && left.y == right.y;
+			return left.column == right.column && left.line == right.line;
 		}
 		
 		/// <summary>
@@ -121,7 +120,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		public static bool operator !=(TextLocation left, TextLocation right)
 		{
-			return left.x != right.x || left.y != right.y;
+			return left.column != right.column || left.line != right.line;
 		}
 		
 		/// <summary>
@@ -129,10 +128,10 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		public static bool operator <(TextLocation left, TextLocation right)
 		{
-			if (left.y < right.y)
+			if (left.line < right.line)
 				return true;
-			else if (left.y == right.y)
-				return left.x < right.x;
+			else if (left.line == right.line)
+				return left.column < right.column;
 			else
 				return false;
 		}
@@ -142,10 +141,10 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		public static bool operator >(TextLocation left, TextLocation right)
 		{
-			if (left.y > right.y)
+			if (left.line > right.line)
 				return true;
-			else if (left.y == right.y)
-				return left.x > right.x;
+			else if (left.line == right.line)
+				return left.column > right.column;
 			else
 				return false;
 		}
@@ -179,4 +178,94 @@ namespace ICSharpCode.AvalonEdit.Document
 				return 1;
 		}
 	}
+	
+	/// <summary>
+	/// Converts strings of the form '0+[;,]0+' to a <see cref="TextLocation"/>.
+	/// </summary>
+	public class TextLocationConverter : TypeConverter
+	{
+		/// <inheritdoc/>
+		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+		{
+			return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+		}
+		
+		/// <inheritdoc/>
+		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+		{
+			return destinationType == typeof(TextLocation) || base.CanConvertTo(context, destinationType);
+		}
+		
+		/// <inheritdoc/>
+		public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+		{
+			if (value is string) {
+				string[] parts = ((string)value).Split(';', ',');
+				if (parts.Length == 2) {
+					return new TextLocation(int.Parse(parts[0], culture), int.Parse(parts[1], culture));
+				}
+			}
+			return base.ConvertFrom(context, culture, value);
+		}
+		
+		/// <inheritdoc/>
+		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+		{
+			if (value is TextLocation && destinationType == typeof(string)) {
+				var loc = (TextLocation)value;
+				return loc.Line.ToString(culture) + ";" + loc.Column.ToString(culture);
+			}
+			return base.ConvertTo(context, culture, value, destinationType);
+		}
+	}
+	
+	/// <summary>
+	/// An (Offset,Length)-pair.
+	/// </summary>
+	public interface ISegment
+	{
+		/// <summary>
+		/// Gets the start offset of the segment.
+		/// </summary>
+		int Offset { get; }
+		
+		/// <summary>
+		/// Gets the length of the segment.
+		/// </summary>
+		/// <remarks>For line segments (IDocumentLine), the length does not include the line delimeter.</remarks>
+		int Length { get; }
+		
+		/// <summary>
+		/// Gets the end offset of the segment.
+		/// </summary>
+		/// <remarks>EndOffset = Offset + Length;</remarks>
+		int EndOffset { get; }
+	}
+	
+	/// <summary>
+	/// Extension methods for <see cref="ISegment"/>.
+	/// </summary>
+	public static class ISegmentExtensions
+	{
+		/// <summary>
+		/// Gets whether <paramref name="segment"/> fully contains the specified segment.
+		/// </summary>
+		/// <remarks>
+		/// Use <c>segment.Contains(offset, 0)</c> to detect whether a segment (end inclusive) contains offset;
+		/// use <c>segment.Contains(offset, 1)</c> to detect whether a segment (end exclusive) contains offset.
+		/// </remarks>
+		public static bool Contains (this ISegment segment, int offset, int length)
+		{
+			return segment.Offset <= offset && offset + length <= segment.EndOffset;
+		}
+		
+		/// <summary>
+		/// Gets whether <paramref name="thisSegment"/> fully contains the specified segment.
+		/// </summary>
+		public static bool Contains (this ISegment thisSegment, ISegment segment)
+		{
+			return segment != null && thisSegment.Offset <= segment.Offset && segment.EndOffset <= thisSegment.EndOffset;
+		}
+	}
+	#endif
 }

@@ -18,12 +18,12 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.TextFormatting;
 using System.Windows.Threading;
-
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
@@ -41,7 +41,6 @@ namespace ICSharpCode.AvalonEdit.Editing
 	{
 		readonly TextArea textArea;
 		readonly TextView textView;
-		readonly ImeSupport ime;
 		readonly CaretLayer caretAdorner;
 		bool visible;
 		
@@ -50,12 +49,18 @@ namespace ICSharpCode.AvalonEdit.Editing
 			this.textArea = textArea;
 			this.textView = textArea.TextView;
 			position = new TextViewPosition(1, 1, 0);
-			ime = new ImeSupport(textArea);
 			
-			caretAdorner = new CaretLayer(textView);
+			caretAdorner = new CaretLayer(textArea);
 			textView.InsertLayer(caretAdorner, KnownLayer.Caret, LayerInsertionPosition.Replace);
 			textView.VisualLinesChanged += TextView_VisualLinesChanged;
 			textView.ScrollOffsetChanged += TextView_ScrollOffsetChanged;
+		}
+		
+		internal void UpdateIfVisible()
+		{
+			if (visible) {
+				Show();
+			}
 		}
 		
 		void TextView_VisualLinesChanged(object sender, EventArgs e)
@@ -187,7 +192,14 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			InvalidateVisualColumn();
 			if (storedCaretOffset >= 0) {
-				int newCaretOffset = e.GetNewOffset(storedCaretOffset, AnchorMovementType.Default);
+				// If the caret is at the end of a selection, we don't expand the selection if something
+				// is inserted at the end. Thus we also need to keep the caret in front of the insertion.
+				AnchorMovementType caretMovementType;
+				if (!textArea.Selection.IsEmpty && storedCaretOffset == textArea.Selection.SurroundingSegment.EndOffset)
+					caretMovementType = AnchorMovementType.BeforeInsertion;
+				else
+					caretMovementType = AnchorMovementType.Default;
+				int newCaretOffset = e.GetNewOffset(storedCaretOffset, caretMovementType);
 				TextDocument document = textArea.Document;
 				if (document != null) {
 					// keep visual column
@@ -369,7 +381,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 				RevalidateVisualColumn(visualLine);
 			}
 			
-			TextLine textLine = visualLine.GetTextLine(position.VisualColumn);
+			TextLine textLine = visualLine.GetTextLine(position.VisualColumn, position.IsAtEndOfLine);
 			double xPos = visualLine.GetTextLineVisualXPosition(textLine, position.VisualColumn);
 			double lineTop = visualLine.GetTextLineVisualYPosition(textLine, VisualYPosition.TextTop);
 			double lineBottom = visualLine.GetTextLineVisualYPosition(textLine, VisualYPosition.TextBottom);
@@ -380,6 +392,39 @@ namespace ICSharpCode.AvalonEdit.Editing
 			                lineBottom - lineTop);
 		}
 		
+		Rect CalcCaretOverstrikeRectangle(VisualLine visualLine)
+		{
+			if (!visualColumnValid) {
+				RevalidateVisualColumn(visualLine);
+			}
+			
+			int currentPos = position.VisualColumn;
+			// The text being overwritten in overstrike mode is everything up to the next normal caret stop
+			int nextPos = visualLine.GetNextCaretPosition(currentPos, LogicalDirection.Forward, CaretPositioningMode.Normal, true);
+			TextLine textLine = visualLine.GetTextLine(currentPos);
+			
+			Rect r;
+			if (currentPos < visualLine.VisualLength) {
+				// If the caret is within the text, use GetTextBounds() for the text being overwritten.
+				// This is necessary to ensure the rectangle is calculated correctly in bidirectional text.
+				var textBounds = textLine.GetTextBounds(currentPos, nextPos - currentPos)[0];
+				r = textBounds.Rectangle;
+				r.Y += visualLine.GetTextLineVisualYPosition(textLine, VisualYPosition.LineTop);
+			} else {
+				// If the caret is at the end of the line (or in virtual space),
+				// use the visual X position of currentPos and nextPos (one or more of which will be in virtual space)
+				double xPos = visualLine.GetTextLineVisualXPosition(textLine, currentPos);
+				double xPos2 = visualLine.GetTextLineVisualXPosition(textLine, nextPos);
+				double lineTop = visualLine.GetTextLineVisualYPosition(textLine, VisualYPosition.TextTop);
+				double lineBottom = visualLine.GetTextLineVisualYPosition(textLine, VisualYPosition.TextBottom);
+				r = new Rect(xPos, lineTop, xPos2 - xPos, lineBottom - lineTop);
+			}
+			// If the caret is too small (e.g. in front of zero-width character), ensure it's still visible
+			if (r.Width < SystemParameters.CaretWidth)
+				r.Width = SystemParameters.CaretWidth;
+			return r;
+		}
+		
 		/// <summary>
 		/// Returns the caret rectangle. The coordinate system is in device-independent pixels from the top of the document.
 		/// </summary>
@@ -387,7 +432,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			if (textView != null && textView.Document != null) {
 				VisualLine visualLine = textView.GetOrConstructVisualLine(textView.Document.GetLineByNumber(position.Line));
-				return CalcCaretRectangle(visualLine);
+				return textArea.OverstrikeMode ? CalcCaretOverstrikeRectangle(visualLine) : CalcCaretRectangle(visualLine);
 			} else {
 				return Rect.Empty;
 			}
@@ -442,7 +487,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 			if (caretAdorner != null && textView != null) {
 				VisualLine visualLine = textView.GetVisualLine(position.Line);
 				if (visualLine != null) {
-					Rect caretRect = CalcCaretRectangle(visualLine);
+					Rect caretRect = this.textArea.OverstrikeMode ? CalcCaretOverstrikeRectangle(visualLine) : CalcCaretRectangle(visualLine);
 					// Create Win32 caret so that Windows knows where our managed caret is. This is necessary for
 					// features like 'Follow text editing' in the Windows Magnifier.
 					if (!hasWin32Caret) {
@@ -452,10 +497,10 @@ namespace ICSharpCode.AvalonEdit.Editing
 						Win32.SetCaretPosition(textView, caretRect.Location - textView.ScrollOffset);
 					}
 					caretAdorner.Show(caretRect);
+					textArea.ime.UpdateCompositionWindow();
 				} else {
 					caretAdorner.Hide();
 				}
-				ime.UpdateCompositionWindow();
 			}
 		}
 		

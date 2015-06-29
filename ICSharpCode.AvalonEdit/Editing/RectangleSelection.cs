@@ -167,7 +167,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 			DocumentLine documentLine = textArea.Document.GetLineByNumber(pos.Line);
 			VisualLine visualLine = textArea.TextView.GetOrConstructVisualLine(documentLine);
 			int vc = visualLine.ValidateVisualColumn(pos, true);
-			TextLine textLine = visualLine.GetTextLine(vc);
+			TextLine textLine = visualLine.GetTextLine(vc, pos.IsAtEndOfLine);
 			return visualLine.GetTextLineVisualXPosition(textLine, vc);
 		}
 		
@@ -398,9 +398,11 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			var data = base.CreateDataObject(textArea);
 			
-			MemoryStream isRectangle = new MemoryStream(1);
-			isRectangle.WriteByte(1);
-			data.SetData(RectangularSelectionDataType, isRectangle, false);
+			if (EditingCommandHandler.ConfirmDataFormat(textArea, data, RectangularSelectionDataType)) {
+				MemoryStream isRectangle = new MemoryStream(1);
+				isRectangle.WriteByte(1);
+				data.SetData(RectangularSelectionDataType, isRectangle, false);
+			}
 			return data;
 		}
 		

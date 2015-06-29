@@ -43,14 +43,14 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 			ShowActivatedProperty.OverrideMetadata(typeof(CompletionWindowBase), new FrameworkPropertyMetadata(Boxes.False));
 			ShowInTaskbarProperty.OverrideMetadata(typeof(CompletionWindowBase), new FrameworkPropertyMetadata(Boxes.False));
 
-      //Dirkster99 BugFix to get rid of window border on completion drop-down list
-      AllowsTransparencyProperty.OverrideMetadata(typeof(CompletionWindowBase), new FrameworkPropertyMetadata(true));
-    }
-		
-		/// <summary>
-		/// Gets the parent TextArea.
-		/// </summary>
-		public TextArea TextArea { get; private set; }
+            //Dirkster99 BugFix to get rid of window border on completion drop-down list
+            AllowsTransparencyProperty.OverrideMetadata(typeof(CompletionWindowBase), new FrameworkPropertyMetadata(true));
+        }
+
+        /// <summary>
+        /// Gets the parent TextArea.
+        /// </summary>
+        public TextArea TextArea { get; private set; }
 		
 		Window parentWindow;
 		TextDocument document;

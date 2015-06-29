@@ -18,7 +18,6 @@
 
 using System;
 using System.Windows.Documents;
-using ICSharpCode.AvalonEdit.Document;
 
 namespace ICSharpCode.AvalonEdit.Snippets
 {

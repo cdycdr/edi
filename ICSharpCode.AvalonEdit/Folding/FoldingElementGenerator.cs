@@ -82,19 +82,28 @@ namespace ICSharpCode.AvalonEdit.Folding
 				if (!foldingManager.textViews.Contains(context.TextView))
 					throw new ArgumentException("Invalid TextView");
 
-        // Dirkster99 BugFix for using foldingManager in AvalonDock 2.0
-        ////if (context.Document != foldingManager.document)
-        ////	throw new ArgumentException("Invalid document");
-      }
-		}
+                // Dirkster99 BugFix for using foldingManager in AvalonDock 2.0
+                ////if (context.Document != foldingManager.document)
+                ////	throw new ArgumentException("Invalid document");
+            }
+        }
 		
 		/// <inheritdoc/>
 		public override int GetFirstInterestedOffset(int startOffset)
 		{
-			if (foldingManager != null)
+			if (foldingManager != null) {
+				foreach (FoldingSection fs in foldingManager.GetFoldingsContaining(startOffset)) {
+					// Test whether we're currently within a folded folding (that didn't just end).
+					// If so, create the fold marker immediately.
+					// This is necessary if the actual beginning of the fold marker got skipped due to another VisualElementGenerator.
+					if (fs.IsFolded && fs.EndOffset > startOffset) {
+						//return startOffset;
+					}
+				}
 				return foldingManager.GetNextFoldedFoldingStart(startOffset);
-			else
+			} else {
 				return -1;
+			}
 		}
 		
 		/// <inheritdoc/>
@@ -104,7 +113,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 				return null;
 			int foldedUntil = -1;
 			FoldingSection foldingSection = null;
-			foreach (FoldingSection fs in foldingManager.GetFoldingsAt(offset)) {
+			foreach (FoldingSection fs in foldingManager.GetFoldingsContaining(offset)) {
 				if (fs.IsFolded) {
 					if (fs.EndOffset > foldedUntil) {
 						foldedUntil = fs.EndOffset;

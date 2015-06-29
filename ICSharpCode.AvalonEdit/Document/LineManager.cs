@@ -16,7 +16,6 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using ICSharpCode.AvalonEdit.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -105,6 +104,13 @@ namespace ICSharpCode.AvalonEdit.Document
 		{
 			// keep the first document line
 			DocumentLine ls = documentLineTree.GetByNumber(1);
+			// but mark all other lines as deleted, and detach them from the other nodes
+			for (DocumentLine line = ls.NextLine; line != null; line = line.NextLine) {
+				line.isDeleted = true;
+				line.parent = line.left = line.right = null;
+			}
+			// Reset the first line to detach it from the deleted lines
+			ls.ResetLine();
 			SimpleSegment ds = NewLineFinder.NextNewLine(document, 0);
 			List<DocumentLine> lines = new List<DocumentLine>();
 			int lastDelimiterEnd = 0;
@@ -117,7 +123,6 @@ namespace ICSharpCode.AvalonEdit.Document
 				ls = new DocumentLine(document);
 				ds = NewLineFinder.NextNewLine(document, lastDelimiterEnd);
 			}
-			ls.ResetLine();
 			ls.TotalLength = document.TextLength - lastDelimiterEnd;
 			lines.Add(ls);
 			documentLineTree.RebuildTree(lines);
@@ -197,7 +202,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		#endregion
 		
 		#region Insert
-		public void Insert(int offset, string text)
+		public void Insert(int offset, ITextSource text)
 		{
 			DocumentLine line = documentLineTree.GetByOffset(offset);
 			int lineOffset = line.Offset;
@@ -218,7 +223,7 @@ namespace ICSharpCode.AvalonEdit.Document
 			if (ds == SimpleSegment.Invalid) {
 				// no newline is being inserted, all text is inserted in a single line
 				//line.InsertedLinePart(offset - line.Offset, text.Length);
-				SetLineLength(line, line.TotalLength + text.Length);
+				SetLineLength(line, line.TotalLength + text.TextLength);
 				return;
 			}
 			//DocumentLine firstLine = line;
@@ -240,9 +245,9 @@ namespace ICSharpCode.AvalonEdit.Document
 			}
 			//firstLine.SplitTo(line);
 			// insert rest after last delimiter
-			if (lastDelimiterEnd != text.Length) {
+			if (lastDelimiterEnd != text.TextLength) {
 				//line.InsertedLinePart(0, text.Length - lastDelimiterEnd);
-				SetLineLength(line, line.TotalLength + text.Length - lastDelimiterEnd);
+				SetLineLength(line, line.TotalLength + text.TextLength - lastDelimiterEnd);
 			}
 		}
 		
@@ -298,6 +303,15 @@ namespace ICSharpCode.AvalonEdit.Document
 				}
 			}
 			return line;
+		}
+		#endregion
+		
+		#region ChangeComplete
+		public void ChangeComplete(DocumentChangeEventArgs e)
+		{
+			foreach (ILineTracker lt in lineTrackers) {
+				lt.ChangeComplete(e);
+			}
 		}
 		#endregion
 	}

@@ -126,7 +126,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			
 			public override int GetNextCaretPosition(int visualColumn, LogicalDirection direction, CaretPositioningMode mode)
 			{
-				if (mode == CaretPositioningMode.Normal)
+				if (mode == CaretPositioningMode.Normal || mode == CaretPositioningMode.EveryCodepoint)
 					return base.GetNextCaretPosition(visualColumn, direction, mode);
 				else
 					return -1;
@@ -161,7 +161,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			
 			public override int GetNextCaretPosition(int visualColumn, LogicalDirection direction, CaretPositioningMode mode)
 			{
-				if (mode == CaretPositioningMode.Normal)
+				if (mode == CaretPositioningMode.Normal || mode == CaretPositioningMode.EveryCodepoint)
 					return base.GetNextCaretPosition(visualColumn, direction, mode);
 				else
 					return -1;

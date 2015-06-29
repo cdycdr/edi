@@ -117,7 +117,7 @@ namespace EdiDocuments.ViewModels.EdiDoc
 			DocumentHighlighter documentHighlighter = null;
 
 			if (highlightDefinition != null)
-				documentHighlighter = new DocumentHighlighter(document, highlightDefinition.MainRuleSet);
+				documentHighlighter = new DocumentHighlighter(document, highlightDefinition);
 
 			return GenerateHtml(document, documentHighlighter);
 		}

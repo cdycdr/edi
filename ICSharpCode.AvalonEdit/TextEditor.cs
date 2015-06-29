@@ -96,13 +96,7 @@ namespace ICSharpCode.AvalonEdit
 		protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
 		{
 			base.OnGotKeyboardFocus(e);
-			
-      if(e == null){
-        e.Handled = true;
-        return;
-      }
-
-      if (e.NewFocus == this) {
+			if (e.NewFocus == this) {
 				Keyboard.Focus(this.TextArea);
 				e.Handled = true;
 			}
@@ -343,13 +337,13 @@ namespace ICSharpCode.AvalonEdit
 		{
 			((TextEditor)d).OnSyntaxHighlightingChanged(e.NewValue as IHighlightingDefinition);
 		}
-		
-    /// <summary>
-    /// Method is executed when the syntax highlighting defined through dp has changed.
-    /// Dirkster99 made this protected virtual to enable descendents to override this
-    /// </summary>
-    /// <param name="newValue"></param>
-		protected virtual void OnSyntaxHighlightingChanged(IHighlightingDefinition newValue)
+
+        /// <summary>
+        /// Method is executed when the syntax highlighting defined through dp has changed.
+        /// Dirkster99 made this protected virtual to enable descendents to override this
+        /// </summary>
+        /// <param name="newValue"></param>
+        protected virtual void OnSyntaxHighlightingChanged(IHighlightingDefinition newValue)
 		{
 			if (colorizer != null) {
 				this.TextArea.TextView.LineTransformers.Remove(colorizer);
@@ -371,7 +365,7 @@ namespace ICSharpCode.AvalonEdit
 		{
 			if (highlightingDefinition == null)
 				throw new ArgumentNullException("highlightingDefinition");
-			return new HighlightingColorizer(highlightingDefinition.MainRuleSet);
+			return new HighlightingColorizer(highlightingDefinition);
 		}
 		#endregion
 		
@@ -419,7 +413,7 @@ namespace ICSharpCode.AvalonEdit
 			TextEditor editor = d as TextEditor;
 			if (editor != null) {
 				if ((bool)e.NewValue)
-					editor.TextArea.ReadOnlySectionProvider = ReadOnlyDocument.Instance;
+					editor.TextArea.ReadOnlySectionProvider = ReadOnlySectionDocument.Instance;
 				else
 					editor.TextArea.ReadOnlySectionProvider = NoReadOnlySections.Instance;
 				
@@ -914,15 +908,15 @@ namespace ICSharpCode.AvalonEdit
 		{
 			int documentLength = Document != null ? Document.TextLength : 0;
 
-      // Dirkster99 BugFix
-      if (start < 0 || start > documentLength)
-        return;
-        ////throw new ArgumentOutOfRangeException("start", start, "Value must be between 0 and " + documentLength);
-			
-      // Dirkster99 BugFix
-      if (length < 0 || start + length > documentLength)
-        return;
-        ////throw new ArgumentOutOfRangeException("length", length, "Value must be between 0 and " + (documentLength - length));
+            // Dirkster99 BugFix
+            if (start < 0 || start > documentLength)
+                return;
+            ////throw new ArgumentOutOfRangeException("start", start, "Value must be between 0 and " + documentLength);
+
+            // Dirkster99 BugFix
+            if (length < 0 || start + length > documentLength)
+                return;
+            ////throw new ArgumentOutOfRangeException("length", length, "Value must be between 0 and " + (documentLength - length));
 
 			textArea.Selection = SimpleSelection.Create(textArea, start, start + length);
 			textArea.Caret.Offset = start + length;
@@ -962,9 +956,9 @@ namespace ICSharpCode.AvalonEdit
 		{
 			using (StreamReader reader = FileReader.OpenStream(stream, this.Encoding ?? Encoding.UTF8)) {
 				this.Text = reader.ReadToEnd();
-				this.Encoding = reader.CurrentEncoding; // assign encoding after ReadToEnd() so that the StreamReader can autodetect the encoding
+				SetCurrentValue(EncodingProperty, reader.CurrentEncoding); // assign encoding after ReadToEnd() so that the StreamReader can autodetect the encoding
 			}
-			this.IsModified = false;
+			SetCurrentValue(IsModifiedProperty, Boxes.False);
 		}
 		
 		/// <summary>
@@ -978,30 +972,27 @@ namespace ICSharpCode.AvalonEdit
 				Load(fs);
 			}
 		}
-
-    #region Encoding DependencyProperty		
-    /// <summary>
-    /// Gets/sets the encoding used when the file is saved.
-    /// 
-    /// Dirkster99 Replaced original Encoding property with dependency property
-    /// </summary>
+		
+		/// <summary>
+		/// Encoding dependency property.
+		/// </summary>
+		public static readonly DependencyProperty EncodingProperty =
+			DependencyProperty.Register("Encoding", typeof(Encoding), typeof(TextEditor));
+		
+		/// <summary>
+		/// Gets/sets the encoding used when the file is saved.
+		/// </summary>
+		/// <remarks>
+		/// The <see cref="Load(Stream)"/> method autodetects the encoding of the file and sets this property accordingly.
+		/// The <see cref="Save(Stream)"/> method uses the encoding specified in this property.
+		/// </remarks>
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    public Encoding Encoding
-    {
-      get { return (Encoding)GetValue(EncodingProperty); }
-      set { SetValue(EncodingProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets/sets the encoding used when the file is saved.
-    /// 
-    /// Dirkster99 Replaced original Encoding property with dependency property
-    /// </summary>
-    public static readonly DependencyProperty EncodingProperty =
-        DependencyProperty.Register("Encoding", typeof(Encoding), typeof(TextEditor), new UIPropertyMetadata(Encoding.UTF8));
-    #endregion Encoding DependencyProperty
-
-    /// <summary>
+		public Encoding Encoding {
+			get { return (Encoding)GetValue(EncodingProperty); }
+			set { SetValue(EncodingProperty, value); }
+		}
+		
+		/// <summary>
 		/// Saves the text to the stream.
 		/// </summary>
 		/// <remarks>
@@ -1011,11 +1002,14 @@ namespace ICSharpCode.AvalonEdit
 		{
 			if (stream == null)
 				throw new ArgumentNullException("stream");
-			StreamWriter writer = new StreamWriter(stream, this.Encoding ?? Encoding.UTF8);
-			writer.Write(this.Text);
+			var encoding = this.Encoding;
+			var document = this.Document;
+			StreamWriter writer = encoding != null ? new StreamWriter(stream, encoding) : new StreamWriter(stream);
+			if (document != null)
+				document.WriteTextTo(writer);
 			writer.Flush();
 			// do not close the stream
-			this.IsModified = false;
+			SetCurrentValue(IsModifiedProperty, Boxes.False);
 		}
 		
 		/// <summary>

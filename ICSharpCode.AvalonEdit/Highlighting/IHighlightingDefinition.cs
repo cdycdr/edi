@@ -54,5 +54,10 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		/// Gets the list of named highlighting colors.
 		/// </summary>
 		IEnumerable<HighlightingColor> NamedHighlightingColors { get; }
+		
+		/// <summary>
+		/// Gets the list of properties.
+		/// </summary>
+		IDictionary<string, string> Properties { get; }
 	}
 }

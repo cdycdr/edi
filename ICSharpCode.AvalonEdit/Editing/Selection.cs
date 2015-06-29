@@ -157,15 +157,15 @@ namespace ICSharpCode.AvalonEdit.Editing
 		/// <summary>
 		/// Gets whether virtual space is enabled for this selection.
 		/// </summary>
-		public virtual bool EnableVirtualSpace
-		{
-			get{
-				// Dirkster99 BugFix for binding options in VS2010
-				if (textArea.Options == null)
-					return false;
+		public virtual bool EnableVirtualSpace {
+			get
+            {
+                // Dirkster99 BugFix for binding options in VS2010
+                if (textArea.Options == null)
+                    return false;
 
-					return textArea.Options.EnableVirtualSpace;
-				}
+                return textArea.Options.EnableVirtualSpace;
+            }
 		}
 		
 		/// <summary>
@@ -264,9 +264,9 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			if (this.IsEmpty)
 				return false;
-			if (this.SurroundingSegment.Contains(offset)) {
+			if (this.SurroundingSegment.Contains(offset, 0)) {
 				foreach (ISegment s in this.Segments) {
-					if (s.Contains(offset)) {
+					if (s.Contains(offset, 0)) {
 						return true;
 					}
 				}
@@ -279,18 +279,30 @@ namespace ICSharpCode.AvalonEdit.Editing
 		/// </summary>
 		public virtual DataObject CreateDataObject(TextArea textArea)
 		{
-			string text = GetText();
-
-			// Ensure we use the appropriate newline sequence for the OS
-			DataObject data = new DataObject(TextUtilities.NormalizeNewLines(text, Environment.NewLine));
-
-			// we cannot use DataObject.SetText - then we cannot drag to SciTe
-			// (but dragging to Word works in both cases)
+			DataObject data = new DataObject();
 			
-			// Also copy text in HTML format to clipboard - good for pasting text into Word or to the SharpDevelop forums.
-      if (textArea.Options.EnableCopyHighlighting == true)
-			  HtmlClipboard.SetHtml(data, CreateHtmlFragment(new HtmlOptions(textArea.Options)));
-
+			// Ensure we use the appropriate newline sequence for the OS
+			string text = TextUtilities.NormalizeNewLines(GetText(), Environment.NewLine);
+			
+			// Enable drag/drop to Word, Notepad++ and others
+			if (EditingCommandHandler.ConfirmDataFormat(textArea, data, DataFormats.UnicodeText)) {
+				data.SetText(text);
+			}
+			
+			// Enable drag/drop to SciTe:
+			// We cannot use SetText, thus we need to use typeof(string).FullName as data format.
+			// new DataObject(object) calls SetData(object), which in turn calls SetData(Type, data),
+			// which then uses Type.FullName as format.
+			// We immitate that behavior here as well:
+			if (EditingCommandHandler.ConfirmDataFormat(textArea, data, typeof(string).FullName)) {
+				data.SetData(typeof(string).FullName, text);
+			}
+			
+			// Also copy text in HTML format to clipboard - good for pasting text into Word
+			// or to the SharpDevelop forums.
+			if (EditingCommandHandler.ConfirmDataFormat(textArea, data, DataFormats.Html)) {
+				HtmlClipboard.SetHtml(data, CreateHtmlFragment(new HtmlOptions(textArea.Options)));
+			}
 			return data;
 		}
 	}

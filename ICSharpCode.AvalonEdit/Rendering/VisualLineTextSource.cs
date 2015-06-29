@@ -65,9 +65,8 @@ namespace ICSharpCode.AvalonEdit.Rendering
 					}
 				}
 
-				
-				// Dirkster99 BugFix for binding options in VS2010
-				if ((TextView.Options == null ? false : TextView.Options.ShowEndOfLine) && textSourceCharacterIndex == VisualLine.VisualLength) {
+                // Dirkster99 BugFix for binding options in VS2010
+                if ((TextView.Options == null ? false : TextView.Options.ShowEndOfLine) && textSourceCharacterIndex == VisualLine.VisualLength){
 					return CreateTextRunForNewLine();
 				}
 				return new TextEndOfParagraph(1);

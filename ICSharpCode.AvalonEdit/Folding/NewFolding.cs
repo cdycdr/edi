@@ -22,14 +22,6 @@ using ICSharpCode.NRefactory.Editor;
 #else
 using ICSharpCode.AvalonEdit.Document;
 #endif
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Threading;
-
-using ICSharpCode.AvalonEdit.Editing;
-using ICSharpCode.AvalonEdit.Rendering;
-using ICSharpCode.AvalonEdit.Utils;
 
 namespace ICSharpCode.AvalonEdit.Folding
 {
@@ -57,6 +49,12 @@ namespace ICSharpCode.AvalonEdit.Folding
 		/// Gets/Sets whether the folding is closed by default.
 		/// </summary>
 		public bool DefaultClosed { get; set; }
+		
+		/// <summary>
+		/// Gets/Sets whether the folding is considered to be a definition.
+		/// This has an effect on the 'Show Definitions only' command.
+		/// </summary>
+		public bool IsDefinition { get; set; }
 		
 		/// <summary>
 		/// Creates a new NewFolding instance.

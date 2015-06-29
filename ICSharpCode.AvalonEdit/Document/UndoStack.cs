@@ -229,11 +229,13 @@ namespace ICSharpCode.AvalonEdit.Document
 			//Util.LoggingService.Debug("Close undo group (new depth=" + undoGroupDepth + ")");
 			if (undoGroupDepth == 0) {
 				Debug.Assert(state == StateListen || actionCountInUndoGroup == 0);
+				allowContinue = true;
 				if (actionCountInUndoGroup == optionalActionCount) {
 					// only optional actions: don't store them
 					for (int i = 0; i < optionalActionCount; i++) {
 						undostack.PopBack();
 					}
+					allowContinue = false;
 				} else if (actionCountInUndoGroup > 1) {
 					// combine all actions within the group into a single grouped action
 					undostack.PushBack(new UndoOperationGroup(undostack, actionCountInUndoGroup));
@@ -241,7 +243,6 @@ namespace ICSharpCode.AvalonEdit.Document
 				}
 				//if (state == StateListen) {
 				EnforceSizeLimit();
-				allowContinue = true;
 				RecalcIsOriginalFile(); // can raise event
 				//}
 			}

@@ -56,9 +56,9 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 			// prevent user from resizing window to 0x0
 			this.MinHeight = 15;
 			this.MinWidth = 30;
-      this.Background = new SolidColorBrush(Color.FromArgb(0x00, 0x00, 0x00, 0x00)); //Dirkster99
-			
-			toolTip.PlacementTarget = this;
+            this.Background = new SolidColorBrush(Color.FromArgb(0x00, 0x00, 0x00, 0x00)); //Dirkster99
+
+            toolTip.PlacementTarget = this;
 			toolTip.Placement = PlacementMode.Right;
 			toolTip.Closed += toolTip_Closed;
 			

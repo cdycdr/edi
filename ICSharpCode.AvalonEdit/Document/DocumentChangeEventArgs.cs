@@ -16,7 +16,6 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using ICSharpCode.AvalonEdit.Utils;
 using System;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.NRefactory.Editor;
@@ -28,37 +27,8 @@ namespace ICSharpCode.AvalonEdit.Document
 	/// This class is thread-safe.
 	/// </summary>
 	[Serializable]
-	public class DocumentChangeEventArgs : EventArgs
+	public class DocumentChangeEventArgs : TextChangeEventArgs
 	{
-		/// <summary>
-		/// The offset at which the change occurs.
-		/// </summary>
-		public int Offset { get; private set; }
-		
-		/// <summary>
-		/// The text that was removed.
-		/// </summary>
-		public string RemovedText { get; private set; }
-		
-		/// <summary>
-		/// The number of characters removed.
-		/// </summary>
-		public int RemovalLength {
-			get { return RemovedText.Length; }
-		}
-		
-		/// <summary>
-		/// The text that was inserted.
-		/// </summary>
-		public string InsertedText { get; private set; }
-		
-		/// <summary>
-		/// The number of characters inserted.
-		/// </summary>
-		public int InsertionLength {
-			get { return InsertedText.Length; }
-		}
-		
 		volatile OffsetChangeMap offsetChangeMap;
 		
 		/// <summary>
@@ -94,7 +64,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <summary>
 		/// Gets the new offset where the specified offset moves after this document change.
 		/// </summary>
-		public int GetNewOffset(int offset, AnchorMovementType movementType)
+		public override int GetNewOffset(int offset, AnchorMovementType movementType = AnchorMovementType.Default)
 		{
 			if (offsetChangeMap != null)
 				return offsetChangeMap.GetNewOffset(offset, movementType);
@@ -114,28 +84,33 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Creates a new DocumentChangeEventArgs object.
 		/// </summary>
 		public DocumentChangeEventArgs(int offset, string removedText, string insertedText, OffsetChangeMap offsetChangeMap)
+			: base(offset, removedText, insertedText)
 		{
-			ThrowUtil.CheckNotNegative(offset, "offset");
-			ThrowUtil.CheckNotNull(removedText, "removedText");
-			ThrowUtil.CheckNotNull(insertedText, "insertedText");
-			
-			this.Offset = offset;
-			this.RemovedText = removedText;
-			this.InsertedText = insertedText;
-			
+			SetOffsetChangeMap(offsetChangeMap);
+		}
+		
+		/// <summary>
+		/// Creates a new DocumentChangeEventArgs object.
+		/// </summary>
+		public DocumentChangeEventArgs(int offset, ITextSource removedText, ITextSource insertedText, OffsetChangeMap offsetChangeMap)
+			: base(offset, removedText, insertedText)
+		{
+			SetOffsetChangeMap(offsetChangeMap);
+		}
+		
+		void SetOffsetChangeMap(OffsetChangeMap offsetChangeMap)
+		{
 			if (offsetChangeMap != null) {
 				if (!offsetChangeMap.IsFrozen)
 					throw new ArgumentException("The OffsetChangeMap must be frozen before it can be used in DocumentChangeEventArgs");
-				if (!offsetChangeMap.IsValidForDocumentChange(offset, removedText.Length, insertedText.Length))
+				if (!offsetChangeMap.IsValidForDocumentChange(this.Offset, this.RemovalLength, this.InsertionLength))
 					throw new ArgumentException("OffsetChangeMap is not valid for this document change", "offsetChangeMap");
 				this.offsetChangeMap = offsetChangeMap;
 			}
 		}
 		
-		/// <summary>
-		/// Creates DocumentChangeEventArgs for the reverse change.
-		/// </summary>
-		public DocumentChangeEventArgs Invert()
+		/// <inheritdoc/>
+		public override TextChangeEventArgs Invert()
 		{
 			OffsetChangeMap map = this.OffsetChangeMapOrNull;
 			if (map != null) {

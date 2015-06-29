@@ -40,32 +40,32 @@ namespace ICSharpCode.AvalonEdit.Document
 	/// and the data structure also updates all offsets in O(lg N) whenever a line is inserted or removed.
 	/// </para>
 	/// </remarks>
-	public sealed partial class DocumentLine : ISegment
+	public sealed partial class DocumentLine : IDocumentLine
 	{
 		#region Constructor
-////		#if DEBUG
-////		// Required for thread safety check which is done only in debug builds.
-////		// To save space, we don't store the document reference in release builds as we don't need it there.
-////		readonly TextDocument document;
-////		#endif
+		#if DEBUG
+		// Required for thread safety check which is done only in debug builds.
+		// To save space, we don't store the document reference in release builds as we don't need it there.
+		readonly TextDocument document;
+		#endif
 		
 		internal bool isDeleted;
 		
 		internal DocumentLine(TextDocument document)
 		{
-////			#if DEBUG
-////			Debug.Assert(document != null);
-////			this.document = document;
-////			#endif
+			#if DEBUG
+			Debug.Assert(document != null);
+			this.document = document;
+			#endif
 		}
-
-////		[Conditional("DEBUG")]
-////		void DebugVerifyAccess()
-////		{
-////			#if DEBUG
-////			//document.DebugVerifyAccess();
-////			#endif
-////		}
+		
+		[Conditional("DEBUG")]
+		void DebugVerifyAccess()
+		{
+			#if DEBUG
+			document.DebugVerifyAccess();
+			#endif
+		}
 		#endregion
 		
 		#region Events
@@ -100,7 +100,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		public bool IsDeleted {
 			get {
-        //// DebugVerifyAccess();
+				DebugVerifyAccess();
 				return isDeleted;
 			}
 		}
@@ -153,7 +153,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// in that case, it contains the line's length before the deletion.</remarks>
 		public int Length {
 			get {
-        //// DebugVerifyAccess();
+				DebugVerifyAccess();
 				return totalLength - delimiterLength;
 			}
 		}
@@ -165,7 +165,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// in that case, it contains the line's length before the deletion.</remarks>
 		public int TotalLength {
 			get {
-        //// DebugVerifyAccess();
+				DebugVerifyAccess();
 				return totalLength;
 			}
 			internal set {
@@ -183,7 +183,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// in that case, it contains the line delimiter's length before the deletion.</remarks>
 		public int DelimiterLength {
 			get {
-        //// DebugVerifyAccess();
+				DebugVerifyAccess();
 				return delimiterLength;
 			}
 			internal set {
@@ -200,7 +200,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <returns>The line following this line, or null if this is the last line.</returns>
 		public DocumentLine NextLine {
 			get {
-        //// DebugVerifyAccess();
+				DebugVerifyAccess();
 				
 				if (right != null) {
 					return right.LeftMost;
@@ -223,7 +223,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <returns>The line before this line, or null if this is the first line.</returns>
 		public DocumentLine PreviousLine {
 			get {
-        //// DebugVerifyAccess();
+				DebugVerifyAccess();
 				
 				if (left != null) {
 					return left.RightMost;
@@ -238,6 +238,14 @@ namespace ICSharpCode.AvalonEdit.Document
 					return node;
 				}
 			}
+		}
+		
+		IDocumentLine IDocumentLine.NextLine {
+			get { return this.NextLine; }
+		}
+		
+		IDocumentLine IDocumentLine.PreviousLine {
+			get { return this.PreviousLine; }
 		}
 		#endregion
 		

@@ -99,6 +99,10 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		#endregion
 		
 		#region RebuildDocument
+		void ILineTracker.ChangeComplete(DocumentChangeEventArgs e)
+		{
+		}
+		
 		void ILineTracker.SetLineLength(DocumentLine ls, int newTotalLength)
 		{
 		}
@@ -121,7 +125,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			Debug.Assert(nodes.Length > 0);
 			// now build the corresponding balanced tree
 			int height = DocumentLineTree.GetTreeHeight(nodes.Length);
-			// Debug.WriteLine("HeightTree will have height: " + height);
+			Debug.WriteLine("HeightTree will have height: " + height);
 			root = BuildTree(nodes, 0, nodes.Length, height);
 			root.color = BLACK;
 			#if DEBUG

@@ -17,8 +17,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows;
-using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 #if NREFACTORY
 using ICSharpCode.NRefactory.Editor;

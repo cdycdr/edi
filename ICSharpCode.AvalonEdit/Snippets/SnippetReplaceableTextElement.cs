@@ -124,7 +124,7 @@ namespace ICSharpCode.AvalonEdit.Snippets
 		{
 			ISegment s = this.Segment;
 			if (s != null) {
-				bool newIsCaretInside = s.Contains(context.TextArea.Caret.Offset);
+				bool newIsCaretInside = s.Contains(context.TextArea.Caret.Offset, 0);
 				if (newIsCaretInside != isCaretInside) {
 					isCaretInside = newIsCaretInside;
 					context.TextArea.TextView.InvalidateLayer(foreground.Layer);
@@ -203,7 +203,8 @@ namespace ICSharpCode.AvalonEdit.Snippets
 				ISegment s = element.Segment;
 				if (s != null) {
 					BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
-					geoBuilder.AlignToMiddleOfPixels = true;
+					geoBuilder.AlignToWholePixels = true;
+					geoBuilder.BorderThickness = activeBorderPen != null ? activeBorderPen.Thickness : 0;
 					if (Layer == KnownLayer.Background) {
 						geoBuilder.AddSegment(textView, s);
 						drawingContext.DrawGeometry(backgroundBrush, null, geoBuilder.CreateGeometry());

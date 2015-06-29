@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-
 using ICSharpCode.AvalonEdit.Utils;
 #if NREFACTORY
 using ICSharpCode.NRefactory.Editor;
@@ -36,7 +35,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <summary>
 		/// Normal replace.
 		/// Anchors in front of the replaced region will stay in front, anchors after the replaced region will stay after.
-		/// Anchors in the middle of the removed region will be deleted. Ifthey survive deletion,
+		/// Anchors in the middle of the removed region will be deleted. If they survive deletion,
 		/// they move depending on their AnchorMovementType.
 		/// </summary>
 		/// <remarks>
@@ -126,7 +125,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <summary>
 		/// Gets the new offset where the specified offset moves after this document change.
 		/// </summary>
-		public int GetNewOffset(int offset, AnchorMovementType movementType)
+		public int GetNewOffset(int offset, AnchorMovementType movementType = AnchorMovementType.Default)
 		{
 			IList<OffsetChangeMapEntry> items = this.Items;
 			int count = items.Count;
@@ -273,7 +272,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <summary>
 		/// Gets the new offset where the specified offset moves after this document change.
 		/// </summary>
-		public int GetNewOffset(int oldOffset, AnchorMovementType movementType)
+		public int GetNewOffset(int oldOffset, AnchorMovementType movementType = AnchorMovementType.Default)
 		{
 			int insertionLength = this.InsertionLength;
 			int removalLength = this.RemovalLength;

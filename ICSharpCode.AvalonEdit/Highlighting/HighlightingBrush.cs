@@ -53,30 +53,36 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 				return null;
 		}
 	}
-	
-	/// <summary>
-	/// Highlighting brush implementation that takes a frozen brush.
-  /// 
-  /// Dirkster99 BugFix - Made class public to make highlighting settings themable
-	/// </summary>
-	[Serializable]
-	internal sealed class SimpleHighlightingBrush : HighlightingBrush, ISerializable
+
+    /// <summary>
+    /// Highlighting brush implementation that takes a frozen brush.
+    /// 
+    /// Dirkster99 BugFix - Made class public to make highlighting settings themable
+    /// (? Class was already public and is internal in previous version)
+    /// </summary>
+    [Serializable]
+	public sealed class SimpleHighlightingBrush : HighlightingBrush, ISerializable
 	{
 		readonly SolidColorBrush brush;
 		
-		public SimpleHighlightingBrush(SolidColorBrush brush)
+		internal SimpleHighlightingBrush(SolidColorBrush brush)
 		{
 			brush.Freeze();
 			this.brush = brush;
 		}
 		
+		/// <summary>
+		/// Creates a new HighlightingBrush with the specified color.
+		/// </summary>
 		public SimpleHighlightingBrush(Color color) : this(new SolidColorBrush(color)) {}
 		
+		/// <inheritdoc/>
 		public override Brush GetBrush(ITextRunConstructionContext context)
 		{
 			return brush;
 		}
-		
+
+		/// <inheritdoc/>
 		public override string ToString()
 		{
 			return brush.ToString();
@@ -91,6 +97,21 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			info.AddValue("color", brush.Color.ToString(CultureInfo.InvariantCulture));
+		}
+		
+		/// <inheritdoc/>
+		public override bool Equals(object obj)
+		{
+			SimpleHighlightingBrush other = obj as SimpleHighlightingBrush;
+			if (other == null)
+				return false;
+			return this.brush.Color.Equals(other.brush.Color);
+		}
+		
+		/// <inheritdoc/>
+		public override int GetHashCode()
+		{
+			return brush.Color.GetHashCode();
 		}
 	}
 	
@@ -129,6 +150,19 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			info.AddValue("propertyName", property.Name);
+		}
+		
+		public override bool Equals(object obj)
+		{
+			SystemColorHighlightingBrush other = obj as SystemColorHighlightingBrush;
+			if (other == null)
+				return false;
+			return object.Equals(this.property, other.property);
+		}
+		
+		public override int GetHashCode()
+		{
+			return property.GetHashCode();
 		}
 	}
 }

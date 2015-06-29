@@ -19,11 +19,9 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Input;
 using ICSharpCode.NRefactory.Editor;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
-using ICSharpCode.AvalonEdit.Utils;
 
 namespace ICSharpCode.AvalonEdit.Snippets
 {
@@ -72,7 +70,7 @@ namespace ICSharpCode.AvalonEdit.Snippets
 		/// <summary>
 		/// Gets the text document.
 		/// </summary>
-		public TextDocument Document { get; private set; }
+		public ICSharpCode.AvalonEdit.Document.TextDocument Document { get; private set; }
 		
 		/// <summary>
 		/// Gets the text that was selected before the insertion of the snippet.
@@ -100,7 +98,7 @@ namespace ICSharpCode.AvalonEdit.Snippets
 		public int InsertionPosition { get; set; }
 		
 		readonly int startPosition;
-		AnchorSegment wholeSnippetAnchor;
+		ICSharpCode.AvalonEdit.Document.AnchorSegment wholeSnippetAnchor;
 		bool deactivateIfSnippetEmpty;
 		
 		/// <summary>
@@ -279,6 +277,26 @@ namespace ICSharpCode.AvalonEdit.Snippets
 				return true;
 			}
 			return false;
+		}
+		
+		/// <summary>
+		/// Adds existing segments as snippet elements.
+		/// </summary>
+		public void Link(ISegment mainElement, ISegment[] boundElements)
+		{
+			var main = new SnippetReplaceableTextElement { Text = Document.GetText(mainElement) };
+			RegisterActiveElement(main, new ReplaceableActiveElement(this, mainElement.Offset, mainElement.EndOffset));
+			foreach (var boundElement in boundElements) {
+				var bound = new SnippetBoundElement { TargetElement = main };
+				var start = Document.CreateAnchor(boundElement.Offset);
+				start.MovementType = AnchorMovementType.BeforeInsertion;
+				start.SurviveDeletion = true;
+				var end = Document.CreateAnchor(boundElement.EndOffset);
+				end.MovementType = AnchorMovementType.BeforeInsertion;
+				end.SurviveDeletion = true;
+				
+				RegisterActiveElement(bound, new BoundActiveElement(this, main, bound, new AnchorSegment(start, end)));
+			}
 		}
 	}
 }

@@ -49,9 +49,9 @@ namespace ICSharpCode.AvalonEdit.Editing
 	/// <summary>
 	/// <see cref="IReadOnlySectionProvider"/> that completely disables editing.
 	/// </summary>
-	sealed class ReadOnlyDocument : IReadOnlySectionProvider
+	sealed class ReadOnlySectionDocument : IReadOnlySectionProvider
 	{
-		public static readonly ReadOnlyDocument Instance = new ReadOnlyDocument();
+		public static readonly ReadOnlySectionDocument Instance = new ReadOnlySectionDocument();
 		
 		public bool CanInsert(int offset)
 		{

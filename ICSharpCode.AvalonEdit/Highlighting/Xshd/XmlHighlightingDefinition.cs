@@ -52,6 +52,9 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 				throw new HighlightingDefinitionInvalidException("Could not find main RuleSet.");
 			// Translate elements within the rulesets (resolving references and processing imports)
 			xshd.AcceptElements(new TranslateElementVisitor(this, rnev.ruleSets, resolver));
+			
+			foreach (var p in xshd.Elements.OfType<XshdProperty>())
+				propDict.Add(p.Name, p.Value);
 		}
 		
 		#region RegisterNamedElements
@@ -201,6 +204,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 				c.Name = color.Name;
 				c.Foreground = color.Foreground;
 				c.Background = color.Background;
+				c.Underline = color.Underline;
 				c.FontStyle = color.FontStyle;
 				c.FontWeight = color.FontWeight;
 				return c;
@@ -373,6 +377,8 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 		
 		Dictionary<string, HighlightingRuleSet> ruleSetDict = new Dictionary<string, HighlightingRuleSet>();
 		Dictionary<string, HighlightingColor> colorDict = new Dictionary<string, HighlightingColor>();
+		[OptionalField]
+		Dictionary<string, string> propDict = new Dictionary<string, string>();
 		
 		public HighlightingRuleSet MainRuleSet { get; private set; }
 		
@@ -405,6 +411,12 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 		public override string ToString()
 		{
 			return this.Name;
+		}
+		
+		public IDictionary<string, string> Properties {
+			get {
+				return propDict;
+			}
 		}
 	}
 }

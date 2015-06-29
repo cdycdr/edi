@@ -96,5 +96,14 @@ namespace ICSharpCode.AvalonEdit.Document
 			else
 				Deregister();
 		}
+		
+		void ILineTracker.ChangeComplete(DocumentChangeEventArgs e)
+		{
+			ILineTracker targetTracker = targetObject.Target as ILineTracker;
+			if (targetTracker != null)
+				targetTracker.ChangeComplete(e);
+			else
+				Deregister();
+		}
 	}
 }

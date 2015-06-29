@@ -17,11 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Documents;
-
-using ICSharpCode.AvalonEdit.Editing;
-using ICSharpCode.AvalonEdit.Utils;
 
 namespace ICSharpCode.AvalonEdit.Snippets
 {

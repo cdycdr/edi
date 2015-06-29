@@ -38,11 +38,11 @@ namespace ICSharpCode.AvalonEdit.Indentation.CSharp
 		/// </summary>
 		public CSharpIndentationStrategy(TextEditorOptions options)
 		{
-      // Dirkster99 BugFix for binding options in VS2010
-      this.IndentationString = (options == null ? indentationString : options.IndentationString);
-		}
-		
-		string indentationString = "\t";
+            // Dirkster99 BugFix for binding options in VS2010
+            this.IndentationString = (options == null ? indentationString : options.IndentationString);
+        }
+
+        string indentationString = "\t";
 		
 		/// <summary>
 		/// Gets/Sets the indentation string.

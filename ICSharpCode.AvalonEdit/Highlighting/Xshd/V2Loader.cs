@@ -75,9 +75,17 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 				return;
 			while (reader.Read() && reader.NodeType != XmlNodeType.EndElement) {
 				Debug.Assert(reader.NodeType == XmlNodeType.Element);
+				if (reader.NamespaceURI != Namespace) {
+					if (!reader.IsEmptyElement)
+						reader.Skip();
+					continue;
+				}
 				switch (reader.Name) {
 					case "RuleSet":
 						c.Add(ParseRuleSet(reader));
+						break;
+					case "Property":
+						c.Add(ParseProperty(reader));
 						break;
 					case "Color":
 						c.Add(ParseNamedColor(reader));
@@ -98,6 +106,15 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 						throw new NotSupportedException("Unknown element " + reader.Name);
 				}
 			}
+		}
+		
+		static XshdElement ParseProperty(XmlReader reader)
+		{
+			XshdProperty property = new XshdProperty();
+			SetPosition(property, reader);
+			property.Name = reader.GetAttribute("name");
+			property.Value = reader.GetAttribute("value");
+			return property;
 		}
 		
 		static XshdRuleSet ParseRuleSet(XmlReader reader)
@@ -280,6 +297,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 			color.Background = ParseColor(position, reader.GetAttribute("background"));
 			color.FontWeight = ParseFontWeight(reader.GetAttribute("fontWeight"));
 			color.FontStyle = ParseFontStyle(reader.GetAttribute("fontStyle"));
+			color.Underline = reader.GetBoolAttribute("underline");
 			return color;
 		}
 		
@@ -318,7 +336,6 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 		{
 			if (string.IsNullOrEmpty(fontWeight))
 				return null;
-
 			return (FontWeight?)FontWeightConverter.ConvertFromInvariantString(fontWeight);
 		}
 		
