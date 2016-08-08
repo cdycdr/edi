@@ -1,5 +1,20 @@
-﻿// Copyright (c) AlphaSierraPapa for the SharpDevelop Team (for details please see \doc\copyright.txt)
-// This code is distributed under the GNU LGPL (for details please see \doc\license.txt)
+﻿// Copyright (c) 2014 AlphaSierraPapa for the SharpDevelop Team
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this
+// software and associated documentation files (the "Software"), to deal in the Software
+// without restriction, including without limitation the rights to use, copy, modify, merge,
+// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+// to whom the Software is furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+// PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
@@ -8,14 +23,15 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
-using ICSharpCode.AvalonEdit.Search;
 using ICSharpCode.AvalonEdit.Utils;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Editing
 {
@@ -47,12 +63,12 @@ namespace ICSharpCode.AvalonEdit.Editing
 		
 		static EditingCommandHandler()
 		{
-			CommandBindings.Add(new CommandBinding(ApplicationCommands.Delete, OnDelete(ApplicationCommands.NotACommand), CanDelete));
-			AddBinding(EditingCommands.Delete, ModifierKeys.None, Key.Delete, OnDelete(EditingCommands.SelectRightByCharacter));
-			AddBinding(EditingCommands.DeleteNextWord, ModifierKeys.Control, Key.Delete, OnDelete(EditingCommands.SelectRightByWord));
-			AddBinding(EditingCommands.Backspace, ModifierKeys.None, Key.Back, OnDelete(EditingCommands.SelectLeftByCharacter));
+			CommandBindings.Add(new CommandBinding(ApplicationCommands.Delete, OnDelete(CaretMovementType.None), CanDelete));
+			AddBinding(EditingCommands.Delete, ModifierKeys.None, Key.Delete, OnDelete(CaretMovementType.CharRight));
+			AddBinding(EditingCommands.DeleteNextWord, ModifierKeys.Control, Key.Delete, OnDelete(CaretMovementType.WordRight));
+			AddBinding(EditingCommands.Backspace, ModifierKeys.None, Key.Back, OnDelete(CaretMovementType.Backspace));
 			InputBindings.Add(TextAreaDefaultInputHandler.CreateFrozenKeyBinding(EditingCommands.Backspace, ModifierKeys.Shift, Key.Back)); // make Shift-Backspace do the same as plain backspace
-			AddBinding(EditingCommands.DeletePreviousWord, ModifierKeys.Control, Key.Back, OnDelete(EditingCommands.SelectLeftByWord));
+			AddBinding(EditingCommands.DeletePreviousWord, ModifierKeys.Control, Key.Back, OnDelete(CaretMovementType.WordLeft));
 			AddBinding(EditingCommands.EnterParagraphBreak, ModifierKeys.None, Key.Enter, OnEnter);
 			AddBinding(EditingCommands.EnterLineBreak, ModifierKeys.Shift, Key.Enter, OnEnter);
 			AddBinding(EditingCommands.TabForward, ModifierKeys.None, Key.Tab, OnTab);
@@ -226,34 +242,28 @@ namespace ICSharpCode.AvalonEdit.Editing
 		#endregion
 		
 		#region Delete
-		static ExecutedRoutedEventHandler OnDelete(RoutedUICommand selectingCommand)
+		static ExecutedRoutedEventHandler OnDelete(CaretMovementType caretMovement)
 		{
 			return (target, args) => {
 				TextArea textArea = GetTextArea(target);
 				if (textArea != null && textArea.Document != null) {
-					// call BeginUpdate before running the 'selectingCommand'
-					// so that undoing the delete does not select the deleted character
-					using (textArea.Document.RunUpdate()) {
-						if (textArea.Selection.IsEmpty) {
-							TextViewPosition oldCaretPosition = textArea.Caret.Position;
-							if (textArea.Caret.IsInVirtualSpace && selectingCommand == EditingCommands.SelectRightByCharacter)
-								EditingCommands.SelectRightByWord.Execute(args.Parameter, textArea);
-							else
-								selectingCommand.Execute(args.Parameter, textArea);
-							bool hasSomethingDeletable = false;
-							foreach (ISegment s in textArea.Selection.Segments) {
-								if (textArea.GetDeletableSegments(s).Length > 0) {
-									hasSomethingDeletable = true;
-									break;
-								}
-							}
-							if (!hasSomethingDeletable) {
-								// If nothing in the selection is deletable; then reset caret+selection
-								// to the previous value. This prevents the caret from moving through read-only sections.
-								textArea.Caret.Position = oldCaretPosition;
-								textArea.ClearSelection();
-							}
-						}
+					if (textArea.Selection.IsEmpty) {
+						TextViewPosition startPos = textArea.Caret.Position;
+						bool enableVirtualSpace = textArea.Options.EnableVirtualSpace;
+						// When pressing delete; don't move the caret further into virtual space - instead delete the newline
+						if (caretMovement == CaretMovementType.CharRight)
+							enableVirtualSpace = false;
+						double desiredXPos = textArea.Caret.DesiredXPos;
+						TextViewPosition endPos = CaretNavigationCommandHandler.GetNewCaretPosition(
+							textArea.TextView, startPos, caretMovement, enableVirtualSpace, ref desiredXPos);
+						// GetNewCaretPosition may return (0,0) as new position,
+						// thus we need to validate endPos before using it in the selection.
+						if (endPos.Line < 1 || endPos.Column < 1)
+							endPos = new TextViewPosition(Math.Max(endPos.Line, 1), Math.Max(endPos.Column, 1));
+						// Don't select the text to be deleted; just reuse the ReplaceSelectionWithText logic
+						var sel = new SimpleSelection(textArea, startPos, endPos);
+						sel.ReplaceSelectionWithText(string.Empty);
+					} else {
 						textArea.RemoveSelectedText();
 					}
 					textArea.Caret.BringCaretToView();
@@ -287,19 +297,13 @@ namespace ICSharpCode.AvalonEdit.Editing
 		static void OnCopy(object target, ExecutedRoutedEventArgs args)
 		{
 			TextArea textArea = GetTextArea(target);
-			
-      if (textArea != null && textArea.Document != null)
-      {
-				if (textArea.Selection.IsEmpty && textArea.Options.CutCopyWholeLine)
-        {
+			if (textArea != null && textArea.Document != null) {
+				if (textArea.Selection.IsEmpty && textArea.Options.CutCopyWholeLine) {
 					DocumentLine currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
 					CopyWholeLine(textArea, currentLine);
-				}
-        else
-        {
+				} else {
 					CopySelectedText(textArea);
 				}
-
 				args.Handled = true;
 			}
 		}
@@ -310,71 +314,88 @@ namespace ICSharpCode.AvalonEdit.Editing
 			if (textArea != null && textArea.Document != null) {
 				if (textArea.Selection.IsEmpty && textArea.Options.CutCopyWholeLine) {
 					DocumentLine currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
-					CopyWholeLine(textArea, currentLine);
-					ISegment[] segmentsToDelete = textArea.GetDeletableSegments(new SimpleSegment(currentLine.Offset, currentLine.TotalLength));
-					for (int i = segmentsToDelete.Length - 1; i >= 0; i--) {
-						textArea.Document.Remove(segmentsToDelete[i]);
+					if (CopyWholeLine(textArea, currentLine)) {
+						ISegment[] segmentsToDelete = textArea.GetDeletableSegments(new SimpleSegment(currentLine.Offset, currentLine.TotalLength));
+						for (int i = segmentsToDelete.Length - 1; i >= 0; i--) {
+							textArea.Document.Remove(segmentsToDelete[i]);
+						}
 					}
 				} else {
-					CopySelectedText(textArea);
-					textArea.RemoveSelectedText();
+					if (CopySelectedText(textArea))
+						textArea.RemoveSelectedText();
 				}
 				textArea.Caret.BringCaretToView();
 				args.Handled = true;
 			}
 		}
 		
-    /// <summary>
-    /// Copies the currently selected text from the editor into the Windows clipboard.
-    /// </summary>
-    /// <param name="textArea"></param>
-		static void CopySelectedText(TextArea textArea)
+		static bool CopySelectedText(TextArea textArea)
 		{
 			var data = textArea.Selection.CreateDataObject(textArea);
-			
-			try
-      {
-				Clipboard.SetDataObject(data, true);
-			}
-      catch (ExternalException)
-      {
-				// Apparently this exception sometimes happens randomly.
-				// The MS controls just ignore it, so we'll do the same.
-				return;
-			}
-			
-			string text = textArea.Selection.GetText();
-			text = TextUtilities.NormalizeNewLines(text, Environment.NewLine);
-			textArea.OnTextCopied(new TextEventArgs(text));
-		}
-		
-		const string LineSelectedType = "MSDEVLineSelect";  // This is the type VS 2003 and 2005 use for flagging a whole line copy
-		
-		static void CopyWholeLine(TextArea textArea, DocumentLine line)
-		{
-			ISegment wholeLine = new SimpleSegment(line.Offset, line.TotalLength);
-			string text = textArea.Document.GetText(wholeLine);
-			// Ensure we use the appropriate newline sequence for the OS
-			text = TextUtilities.NormalizeNewLines(text, Environment.NewLine);
-			DataObject data = new DataObject(text);
-			
-			// Also copy text in HTML format to clipboard - good for pasting text into Word
-			// or to the SharpDevelop forums.
-			IHighlighter highlighter = textArea.GetService(typeof(IHighlighter)) as IHighlighter;
-			HtmlClipboard.SetHtml(data, HtmlClipboard.CreateHtmlFragment(textArea.Document, highlighter, wholeLine, new HtmlOptions(textArea.Options)));
-			
-			MemoryStream lineSelected = new MemoryStream(1);
-			lineSelected.WriteByte(1);
-			data.SetData(LineSelectedType, lineSelected, false);
+			var copyingEventArgs = new DataObjectCopyingEventArgs(data, false);
+			textArea.RaiseEvent(copyingEventArgs);
+			if (copyingEventArgs.CommandCancelled)
+				return false;
 			
 			try {
 				Clipboard.SetDataObject(data, true);
 			} catch (ExternalException) {
 				// Apparently this exception sometimes happens randomly.
 				// The MS controls just ignore it, so we'll do the same.
-				return;
+			}
+			
+			string text = textArea.Selection.GetText();
+			text = TextUtilities.NormalizeNewLines(text, Environment.NewLine);
+			textArea.OnTextCopied(new TextEventArgs(text));
+			return true;
+		}
+		
+		const string LineSelectedType = "MSDEVLineSelect";  // This is the type VS 2003 and 2005 use for flagging a whole line copy
+		
+		public static bool ConfirmDataFormat(TextArea textArea, DataObject dataObject, string format)
+		{
+			var e = new DataObjectSettingDataEventArgs(dataObject, format);
+			textArea.RaiseEvent(e);
+			return !e.CommandCancelled;
+		}
+		
+		static bool CopyWholeLine(TextArea textArea, DocumentLine line)
+		{
+			ISegment wholeLine = new SimpleSegment(line.Offset, line.TotalLength);
+			string text = textArea.Document.GetText(wholeLine);
+			// Ensure we use the appropriate newline sequence for the OS
+			text = TextUtilities.NormalizeNewLines(text, Environment.NewLine);
+			DataObject data = new DataObject();
+			if (ConfirmDataFormat(textArea, data, DataFormats.UnicodeText))
+				data.SetText(text);
+			
+			// Also copy text in HTML format to clipboard - good for pasting text into Word
+			// or to the SharpDevelop forums.
+			if (ConfirmDataFormat(textArea, data, DataFormats.Html)) {
+				IHighlighter highlighter = textArea.GetService(typeof(IHighlighter)) as IHighlighter;
+				HtmlClipboard.SetHtml(data, HtmlClipboard.CreateHtmlFragment(textArea.Document, highlighter, wholeLine, new HtmlOptions(textArea.Options)));
+			}
+			
+			if (ConfirmDataFormat(textArea, data, LineSelectedType)) {
+				MemoryStream lineSelected = new MemoryStream(1);
+				lineSelected.WriteByte(1);
+				data.SetData(LineSelectedType, lineSelected, false);
+			}
+			
+			var copyingEventArgs = new DataObjectCopyingEventArgs(data, false);
+			textArea.RaiseEvent(copyingEventArgs);
+			if (copyingEventArgs.CommandCancelled)
+				return false;
+			
+			try {
+				Clipboard.SetDataObject(data, true);
+			} catch (ExternalException) {
+				// Apparently this exception sometimes happens randomly.
+				// The MS controls just ignore it, so we'll do the same.
+				return false;
 			}
 			textArea.OnTextCopied(new TextEventArgs(text));
+			return true;
 		}
 		
 		static void CanPaste(object target, CanExecuteRoutedEventArgs args)
@@ -401,21 +422,19 @@ namespace ICSharpCode.AvalonEdit.Editing
 				}
 				if (dataObject == null)
 					return;
-				Debug.WriteLine( dataObject.GetData(DataFormats.Html) as string );
 				
-				// convert text back to correct newlines for this document
-				string newLine = TextUtilities.GetNewLineFromDocument(textArea.Document, textArea.Caret.Line);
-				string text;
-				try {
-					text = (string)dataObject.GetData(DataFormats.UnicodeText);
-					text = TextUtilities.NormalizeNewLines(text, newLine);
-				} catch (OutOfMemoryException) {
+				var pastingEventArgs = new DataObjectPastingEventArgs(dataObject, false, DataFormats.UnicodeText);
+				textArea.RaiseEvent(pastingEventArgs);
+				if (pastingEventArgs.CommandCancelled)
 					return;
-				}
+				
+				string text = GetTextToPaste(pastingEventArgs, textArea);
 				
 				if (!string.IsNullOrEmpty(text)) {
+					dataObject = pastingEventArgs.DataObject;
 					bool fullLine = textArea.Options.CutCopyWholeLine && dataObject.GetDataPresent(LineSelectedType);
 					bool rectangular = dataObject.GetDataPresent(RectangleSelection.RectangularSelectionDataType);
+					
 					if (fullLine) {
 						DocumentLine currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
 						if (textArea.ReadOnlySectionProvider.CanInsert(currentLine.Offset)) {
@@ -432,6 +451,37 @@ namespace ICSharpCode.AvalonEdit.Editing
 				args.Handled = true;
 			}
 		}
+		
+		internal static string GetTextToPaste(DataObjectPastingEventArgs pastingEventArgs, TextArea textArea)
+		{
+			var dataObject = pastingEventArgs.DataObject;
+			if (dataObject == null)
+				return null;
+			try {
+				string text;
+				// Try retrieving the text as one of:
+				//  - the FormatToApply
+				//  - UnicodeText
+				//  - Text
+				// (but don't try the same format twice)
+				if (pastingEventArgs.FormatToApply != null && dataObject.GetDataPresent(pastingEventArgs.FormatToApply))
+					text = (string)dataObject.GetData(pastingEventArgs.FormatToApply);
+				else if (pastingEventArgs.FormatToApply != DataFormats.UnicodeText && dataObject.GetDataPresent(DataFormats.UnicodeText))
+					text = (string)dataObject.GetData(DataFormats.UnicodeText);
+				else if (pastingEventArgs.FormatToApply != DataFormats.Text && dataObject.GetDataPresent(DataFormats.Text))
+					text = (string)dataObject.GetData(DataFormats.Text);
+				else
+					return null; // no text data format
+				// convert text back to correct newlines for this document
+				string newLine = TextUtilities.GetNewLineFromDocument(textArea.Document, textArea.Caret.Line);
+				text = TextUtilities.NormalizeNewLines(text, newLine);
+				text = textArea.Options.ConvertTabsToSpaces ? text.Replace("\t", new String(' ', textArea.Options.IndentationSize)) : text;
+				return text;
+			} catch (OutOfMemoryException) {
+				// may happen when trying to paste a huge string
+				return null;
+			}
+		}
 		#endregion
 		
 		#region DeleteLine
@@ -439,8 +489,18 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			TextArea textArea = GetTextArea(target);
 			if (textArea != null && textArea.Document != null) {
-				DocumentLine currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
-				textArea.Selection = Selection.Create(textArea, currentLine.Offset, currentLine.Offset + currentLine.TotalLength);
+				int firstLineIndex, lastLineIndex;
+				if (textArea.Selection.Length == 0) {
+					// There is no selection, simply delete current line
+					firstLineIndex = lastLineIndex = textArea.Caret.Line;
+				} else {
+					// There is a selection, remove all lines affected by it (use Min/Max to be independent from selection direction)
+					firstLineIndex = Math.Min(textArea.Selection.StartPosition.Line, textArea.Selection.EndPosition.Line);
+					lastLineIndex = Math.Max(textArea.Selection.StartPosition.Line, textArea.Selection.EndPosition.Line);
+				}
+				DocumentLine startLine = textArea.Document.GetLineByNumber(firstLineIndex);
+				DocumentLine endLine = textArea.Document.GetLineByNumber(lastLineIndex);
+				textArea.Selection = Selection.Create(textArea, startLine.Offset, endLine.Offset + endLine.TotalLength);
 				textArea.RemoveSelectedText();
 				args.Handled = true;
 			}

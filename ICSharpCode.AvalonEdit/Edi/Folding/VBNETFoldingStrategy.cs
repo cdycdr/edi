@@ -94,7 +94,7 @@
                 break;
             }
 
-            //if (lastLetterPos > k) Dirkster99 Not sure why this is necessary
+            //if (lastLetterPos > k) Dirkster99 NOT_APPLIED Not sure why this is necessary
             //  k = lastLetterPos;
           }
 

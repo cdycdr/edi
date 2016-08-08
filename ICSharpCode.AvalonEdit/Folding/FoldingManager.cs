@@ -1,12 +1,26 @@
-﻿// Copyright (c) AlphaSierraPapa for the SharpDevelop Team (for details please see \doc\copyright.txt)
-// This code is distributed under the GNU LGPL (for details please see \doc\license.txt)
+﻿// Copyright (c) 2014 AlphaSierraPapa for the SharpDevelop Team
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this
+// software and associated documentation files (the "Software"), to deal in the Software
+// without restriction, including without limitation the rights to use, copy, modify, merge,
+// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+// to whom the Software is furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+// PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Threading;
 
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
@@ -24,6 +38,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 		
 		internal readonly List<TextView> textViews = new List<TextView>();
 		readonly TextSegmentCollection<FoldingSection> foldings;
+		bool isFirstUpdate = true;
 		
 		#region Constructor
 		/// <summary>
@@ -31,25 +46,16 @@ namespace ICSharpCode.AvalonEdit.Folding
 		/// </summary>
 		public FoldingManager(TextDocument document)
 		{
-      // Dirkster99 BugFix for using foldings in AvalonDock 2.0
-      this.document = document;
-			this.foldings = new TextSegmentCollection<FoldingSection>();
+            // Dirkster99 BugFix for using foldings in AvalonDock 2.0
+            this.document = document;
+            this.foldings = new TextSegmentCollection<FoldingSection>();
 
-      if (document == null)
-        return;
-      ////throw new ArgumentNullException("document");
+            if (document == null)
+                return;
+            ////throw new ArgumentNullException("document");
 
-////			document.VerifyAccess();
-			TextDocumentWeakEventManager.Changed.AddListener(document, this);
-		}
-		
-		/// <summary>
-		/// Creates a new FoldingManager instance.
-		/// </summary>
-		[Obsolete("Use the (TextDocument) constructor instead.")]
-		public FoldingManager(TextView textView, TextDocument document)
-			: this(document)
-		{
+            ////			document.VerifyAccess();
+            TextDocumentWeakEventManager.Changed.AddListener(document, this);
 		}
 		#endregion
 		
@@ -95,7 +101,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 			foreach (FoldingSection fs in foldings) {
 				if (fs.collapsedSections != null) {
 					Array.Resize(ref fs.collapsedSections, textViews.Count);
-					fs.collapsedSections[fs.collapsedSections.Length - 1] = fs.CollapseSection(textView);
+					fs.ValidateCollapsedLineSections();
 				}
 			}
 		}
@@ -105,10 +111,12 @@ namespace ICSharpCode.AvalonEdit.Folding
 			int pos = textViews.IndexOf(textView);
 			if (pos < 0)
 				throw new ArgumentException();
+			textViews.RemoveAt(pos);
 			foreach (FoldingSection fs in foldings) {
 				if (fs.collapsedSections != null) {
 					var c = new CollapsedLineSection[textViews.Count];
 					Array.Copy(fs.collapsedSections, 0, c, 0, pos);
+					fs.collapsedSections[pos].Uncollapse();
 					Array.Copy(fs.collapsedSections, pos + 1, c, pos, c.Length - pos);
 					fs.collapsedSections = c;
 				}
@@ -161,12 +169,12 @@ namespace ICSharpCode.AvalonEdit.Folding
 		/// </summary>
 		public void Clear()
 		{
-      // Dirkster99 BugFix for binding options in VS2010
-      if (document == null)
-        return;
+            // Dirkster99 BugFix for binding options in VS2010
+            if (document == null)
+                return;
 
-////      document.VerifyAccess();
-			foreach (FoldingSection s in foldings)
+            ////      document.VerifyAccess();
+            foreach (FoldingSection s in foldings)
 				s.IsFolded = false;
 			foldings.Clear();
 			Redraw();
@@ -244,11 +252,11 @@ namespace ICSharpCode.AvalonEdit.Folding
 			if (newFoldings == null)
 				throw new ArgumentNullException("newFoldings");
 
-      // Dirkster99 BugFix for binding options in VS2010
-      if (document == null)
-        return;
-			
-			if (firstErrorOffset < 0)
+            // Dirkster99 BugFix for binding options in VS2010
+            if (document == null)
+                return;
+
+            if (firstErrorOffset < 0)
 				firstErrorOffset = int.MaxValue;
 			
 			var oldFoldings = this.AllFoldings.ToArray();
@@ -281,7 +289,10 @@ namespace ICSharpCode.AvalonEdit.Folding
 					// no matching current folding; create a new one:
 					section = this.CreateFolding(newFolding.StartOffset, newFolding.EndOffset);
 					// auto-close #regions only when opening the document
-					section.IsFolded = newFolding.DefaultClosed;
+					if (isFirstUpdate) {
+						section.IsFolded = newFolding.DefaultClosed;
+						isFirstUpdate = false;
+					}
 					section.Tag = newFolding;
 				}
 				section.Title = newFolding.Name;
@@ -339,7 +350,6 @@ namespace ICSharpCode.AvalonEdit.Folding
 				generator = new FoldingElementGenerator() { FoldingManager = this };
 				textArea.LeftMargins.Add(margin);
 				textArea.TextView.Services.AddService(typeof(FoldingManager), this);
-
 				// HACK: folding only works correctly when it has highest priority
 				textArea.TextView.ElementGenerators.Insert(0, generator);
 				textArea.Caret.PositionChanged += textArea_Caret_PositionChanged;
@@ -383,9 +393,9 @@ namespace ICSharpCode.AvalonEdit.Folding
 				}
 			}
 			
-			private void textArea_Caret_PositionChanged(object sender, EventArgs e)
+			void textArea_Caret_PositionChanged(object sender, EventArgs e)
 			{
-        // Expand Foldings when Caret is moved into them.
+				// Expand Foldings when Caret is moved into them.
 				int caretOffset = textArea.Caret.Offset;
 				foreach (FoldingSection s in GetFoldingsContaining(caretOffset)) {
 					if (s.IsFolded && s.StartOffset < caretOffset && caretOffset < s.EndOffset) {

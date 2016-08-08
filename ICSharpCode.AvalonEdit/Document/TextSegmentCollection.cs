@@ -1,7 +1,21 @@
-﻿// Copyright (c) AlphaSierraPapa for the SharpDevelop Team (for details please see \doc\copyright.txt)
-// This code is distributed under the GNU LGPL (for details please see \doc\license.txt)
+﻿// Copyright (c) 2014 AlphaSierraPapa for the SharpDevelop Team
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this
+// software and associated documentation files (the "Software"), to deal in the Software
+// without restriction, including without limitation the rights to use, copy, modify, merge,
+// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+// to whom the Software is furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+// PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
 
-using ICSharpCode.AvalonEdit.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +23,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using ICSharpCode.AvalonEdit.Utils;
+#if NREFACTORY
+using ICSharpCode.NRefactory.Editor;
+#endif
 
 namespace ICSharpCode.AvalonEdit.Document
 {
@@ -50,7 +68,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		// Add is O(lg n)
 		// Remove is O(lg n)
 		// DocumentChanged is O(m * lg n), with m the number of segments that intersect with the changed document section
-		// FindFirstSegmentWithStartAfter is O(m + lg n) with m being the number of segments at the same offset as the mResult segment
+		// FindFirstSegmentWithStartAfter is O(m + lg n) with m being the number of segments at the same offset as the result segment
 		// FindIntersectingSegments is O(m + lg n) with m being the number of intersecting segments.
 		
 		int count;
@@ -76,7 +94,7 @@ namespace ICSharpCode.AvalonEdit.Document
 			if (textDocument == null)
 				throw new ArgumentNullException("textDocument");
 			
-////			textDocument.VerifyAccess();
+			textDocument.VerifyAccess();
 			isConnectedToDocument = true;
 			TextDocumentWeakEventManager.Changed.AddListener(textDocument, this);
 		}
@@ -359,7 +377,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Segments are returned in the order given by GetNextSegment/GetPreviousSegment.
 		/// </summary>
 		/// <returns>Returns a new collection containing the results of the query.
-		/// This means it is safe to modify the TextSegmentCollection while iterating through the mResult collection.</returns>
+		/// This means it is safe to modify the TextSegmentCollection while iterating through the result collection.</returns>
 		public ReadOnlyCollection<T> FindSegmentsContaining(int offset)
 		{
 			return FindOverlappingSegments(offset, 0);
@@ -369,7 +387,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Finds all segments that overlap with the given segment (including touching segments).
 		/// </summary>
 		/// <returns>Returns a new collection containing the results of the query.
-		/// This means it is safe to modify the TextSegmentCollection while iterating through the mResult collection.</returns>
+		/// This means it is safe to modify the TextSegmentCollection while iterating through the result collection.</returns>
 		public ReadOnlyCollection<T> FindOverlappingSegments(ISegment segment)
 		{
 			if (segment == null)
@@ -382,7 +400,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Segments are returned in the order given by GetNextSegment/GetPreviousSegment.
 		/// </summary>
 		/// <returns>Returns a new collection containing the results of the query.
-		/// This means it is safe to modify the TextSegmentCollection while iterating through the mResult collection.</returns>
+		/// This means it is safe to modify the TextSegmentCollection while iterating through the result collection.</returns>
 		public ReadOnlyCollection<T> FindOverlappingSegments(int offset, int length)
 		{
 			ThrowUtil.CheckNotNegative(length, "length");

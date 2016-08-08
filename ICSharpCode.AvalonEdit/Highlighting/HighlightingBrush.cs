@@ -1,5 +1,20 @@
-﻿// Copyright (c) AlphaSierraPapa for the SharpDevelop Team (for details please see \doc\copyright.txt)
-// This code is distributed under the GNU LGPL (for details please see \doc\license.txt)
+﻿// Copyright (c) 2014 AlphaSierraPapa for the SharpDevelop Team
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this
+// software and associated documentation files (the "Software"), to deal in the Software
+// without restriction, including without limitation the rights to use, copy, modify, merge,
+// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+// to whom the Software is furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+// PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Diagnostics;
@@ -38,30 +53,36 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 				return null;
 		}
 	}
-	
-	/// <summary>
-	/// Highlighting brush implementation that takes a frozen brush.
-  /// 
-  /// Dirkster99 BugFix - Made class public to make highlighting settings themable
-	/// </summary>
-	[Serializable]
-	internal sealed class SimpleHighlightingBrush : HighlightingBrush, ISerializable
+
+    /// <summary>
+    /// Highlighting brush implementation that takes a frozen brush.
+    /// 
+    /// Dirkster99 BugFix - Made class public to make highlighting settings themable
+    /// (? Class was already public and is internal in previous version)
+    /// </summary>
+    [Serializable]
+	public sealed class SimpleHighlightingBrush : HighlightingBrush, ISerializable
 	{
 		readonly SolidColorBrush brush;
 		
-		public SimpleHighlightingBrush(SolidColorBrush brush)
+		internal SimpleHighlightingBrush(SolidColorBrush brush)
 		{
 			brush.Freeze();
 			this.brush = brush;
 		}
 		
+		/// <summary>
+		/// Creates a new HighlightingBrush with the specified color.
+		/// </summary>
 		public SimpleHighlightingBrush(Color color) : this(new SolidColorBrush(color)) {}
 		
+		/// <inheritdoc/>
 		public override Brush GetBrush(ITextRunConstructionContext context)
 		{
 			return brush;
 		}
-		
+
+		/// <inheritdoc/>
 		public override string ToString()
 		{
 			return brush.ToString();
@@ -76,6 +97,21 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			info.AddValue("color", brush.Color.ToString(CultureInfo.InvariantCulture));
+		}
+		
+		/// <inheritdoc/>
+		public override bool Equals(object obj)
+		{
+			SimpleHighlightingBrush other = obj as SimpleHighlightingBrush;
+			if (other == null)
+				return false;
+			return this.brush.Color.Equals(other.brush.Color);
+		}
+		
+		/// <inheritdoc/>
+		public override int GetHashCode()
+		{
+			return brush.Color.GetHashCode();
 		}
 	}
 	
@@ -114,6 +150,19 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			info.AddValue("propertyName", property.Name);
+		}
+		
+		public override bool Equals(object obj)
+		{
+			SystemColorHighlightingBrush other = obj as SystemColorHighlightingBrush;
+			if (other == null)
+				return false;
+			return object.Equals(this.property, other.property);
+		}
+		
+		public override int GetHashCode()
+		{
+			return property.GetHashCode();
 		}
 	}
 }
